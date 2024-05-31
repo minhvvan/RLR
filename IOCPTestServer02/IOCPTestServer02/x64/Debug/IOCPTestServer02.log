@@ -1,0 +1,4 @@
+﻿  server2.cpp
+C:\Users\admin\Desktop\ServerPratice\Server\002\IOCPTestServer02\IOCPTestServer02\server2.cpp(43,32): warning C4267: '=': 'size_t'에서 'ULONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\admin\Desktop\ServerPratice\Server\002\IOCPTestServer02\IOCPTestServer02\server2.cpp(55,56): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  IOCPTestServer02.vcxproj -> C:\Users\admin\Desktop\ServerPratice\Server\002\IOCPTestServer02\x64\Debug\IOCPTestServer02.exe
