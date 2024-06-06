@@ -6,29 +6,42 @@
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	SetCharacterMovement();
+	SetCameraArm();
 
 }
 
-// Called when the game starts or when spawned
-void APlayerCharacter::BeginPlay()
+void APlayerCharacter::SetCameraArm()
 {
-	Super::BeginPlay();
+	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraArm"));
+	CameraArm->SetupAttachment(RootComponent);
+	CameraArm->SetUsingAbsoluteRotation(true);
+	CameraArm->TargetArmLength = 800.f;
+	CameraArm->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	CameraArm->bDoCollisionTest = false;
+
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
+	Camera->bUsePawnControlRotation = false;
+}
+
+void APlayerCharacter::SetCharacterMovement()
+{
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 640.f, 0.f);
+	GetCharacterMovement()->bConstrainToPlane = true;
+	GetCharacterMovement()->bSnapToPlaneAtStart = true;
+}
+
+// Check Collision Over lap
+void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
+{
+
 	
-}
-
-// Called every frame
-void APlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
