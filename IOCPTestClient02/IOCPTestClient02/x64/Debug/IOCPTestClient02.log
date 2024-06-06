@@ -1,0 +1,4 @@
+﻿  Client.cpp
+C:\Users\admin\Desktop\ServerPratice\Client\002\IOCPTestClient02\IOCPTestClient02\Client.cpp(86,63): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\admin\Desktop\ServerPratice\Client\002\IOCPTestClient02\IOCPTestClient02\Client.cpp(90,59): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  IOCPTestClient02.vcxproj -> C:\Users\admin\Desktop\ServerPratice\Client\002\IOCPTestClient02\x64\Debug\IOCPTestClient02.exe
