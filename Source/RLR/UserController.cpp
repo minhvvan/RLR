@@ -8,6 +8,7 @@ AUserController::AUserController()
 	PrimaryActorTick.bCanEverTick = true;
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
+	explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
 
 }
 
@@ -66,6 +67,7 @@ void AUserController::OnMoveCompleted()
 
 void AUserController::OnAttackStarted()
 {
+	OnAttackEffect();
 }
 
 void AUserController::OnMove()
@@ -85,7 +87,13 @@ void AUserController::OnCursorEffect(FVector position)
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, cursor, position, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 }
 
-
+void AUserController::OnAttackEffect()
+{
+	if (explosion)
+	{
+		explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
+	}
+}
 FVector AUserController::GetClickPosition()
 {
 	FHitResult Hit;
