@@ -45,13 +45,9 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	if (data != nullptr)
 	{
 		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
-		UE_LOG(LogTemp, Log, TEXT("HP : %d"), data->Status.HpCurrent);
-		UE_LOG(LogTemp, Log, TEXT("Damage : %d"), explosion->GetDamage());
-		UE_LOG(LogTemp, Log, TEXT("AttackDamage : %d"), data->Status.AttackDamage);
+		
 		if (data->Status.HpCurrent <= 0)
 		{
-			UE_LOG(LogTemp, Log, TEXT("Destroy : %d"), data->Status.HpCurrent);
-
 			Destroy();
 		}
 	}
