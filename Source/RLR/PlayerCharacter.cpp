@@ -8,21 +8,21 @@ APlayerCharacter::APlayerCharacter()
 {
 	SetCharacterMovement();
 	SetCameraArm();
-
+	data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
 }
 
 void APlayerCharacter::SetCameraArm()
 {
-	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraArm"));
-	CameraArm->SetupAttachment(RootComponent);
-	CameraArm->SetUsingAbsoluteRotation(true);
-	CameraArm->TargetArmLength = 800.f;
-	CameraArm->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
-	CameraArm->bDoCollisionTest = false;
+	cameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraArm"));
+	cameraArm->SetupAttachment(RootComponent);
+	cameraArm->SetUsingAbsoluteRotation(true);
+	cameraArm->TargetArmLength = 800.f;
+	cameraArm->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	cameraArm->bDoCollisionTest = false;
 
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	Camera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
-	Camera->bUsePawnControlRotation = false;
+	camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	camera->SetupAttachment(cameraArm, USpringArmComponent::SocketName);
+	camera->bUsePawnControlRotation = false;
 }
 
 void APlayerCharacter::SetCharacterMovement()
@@ -40,8 +40,21 @@ void APlayerCharacter::SetCharacterMovement()
 // Check Collision Over lap
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
-
-	
-
+	APlayerSkill* explosion = Cast<APlayerSkill>(other);
+	// TODO : GetDamage * Stat Logic
+	if (data != nullptr)
+	{
+		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+		
+		if (data->Status.HpCurrent <= 0)
+		{
+			Destroy();
+		}
+	}
+	else
+	{
+		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+	}
+	other->Destroy();
 }
 

@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
-
+#include "Skill_Explosion.h"
 #include "PlayerData.h"
 #include "PlayerCharacter.generated.h"
 
@@ -22,17 +22,20 @@ public:
 
 private:
 
-	FORCEINLINE class UCameraComponent* GetTopDown() const { return Camera; }
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraArm; }
+	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; }
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; }
+	
+	UPROPERTY(EditAnywhere, Category = Data);
+	APlayerData* data;
 	
 
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class UCameraComponent* Camera;
+		class UCameraComponent* camera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class USpringArmComponent* CameraArm;
+		class USpringArmComponent* cameraArm;
 
 	void SetCameraArm();
 	void SetCharacterMovement();
