@@ -40,8 +40,13 @@ void APlayerCharacter::SetCharacterMovement()
 // Check Collision Over lap
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
-
-	
-
+	other->Destroy();
+	APlayerSkill* explosion = Cast<APlayerSkill>(other);
+	// TODO : GetDamage * Stat Logic
+	/*State->Status.HpCurrent -= explosion->GetDamage() * State->Status.AttackDamage;
+	if (State->Status.HpCurrent <= 0)
+	{
+		Destroy();
+	}*/
 }
 

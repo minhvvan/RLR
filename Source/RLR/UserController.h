@@ -8,7 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
 #include <Blueprint/AIBlueprintHelperLibrary.h>
-
+#include "Skill_Explosion.h"
 #include "UserController.generated.h"
 
 /**
@@ -38,8 +38,10 @@ private:
 	void OnAttackStarted();
 	void OnMove();
 	void OnCursorEffect(FVector);
+	void OnAttackEffect();
 	FVector GetClickPosition();
 
+	ASkill_Explosion* explosion;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* cursor;
