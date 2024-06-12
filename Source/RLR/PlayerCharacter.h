@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Skill_Explosion.h"
@@ -19,6 +20,8 @@ class RLR_API APlayerCharacter : public ACharacter
 public:
 	APlayerCharacter();
 
+	void SetMovement(FVector);
+	void SetSimpleMove(APlayerController*, FVector);
 
 private:
 
@@ -39,5 +42,4 @@ private:
 
 	void SetCameraArm();
 	void SetCharacterMovement();
-
 };

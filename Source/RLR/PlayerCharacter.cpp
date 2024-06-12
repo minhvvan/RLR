@@ -45,7 +45,7 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	if (data != nullptr)
 	{
 		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
-		
+
 		if (data->Status.HpCurrent <= 0)
 		{
 			Destroy();
@@ -58,3 +58,13 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	other->Destroy();
 }
 
+void APlayerCharacter::SetMovement(FVector location)
+{
+	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
+	AddMovementInput(WorldDirection, 1.0f, false);
+}
+
+void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
+{
+	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
+}

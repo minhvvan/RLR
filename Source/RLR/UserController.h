@@ -7,12 +7,14 @@
 #include <NiagaraFunctionLibrary.h>
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
+#include "PlayerCommands.h"
+#include "PlayerCharacter.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "Skill_Explosion.h"
 #include "UserController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class RLR_API AUserController : public APlayerController
@@ -33,12 +35,11 @@ public:
 private:
 
 	void OnMoveStarted();
-	void OnMoveTriggered();
 	void OnMoveCompleted();
-	void OnAttackStarted();
 	void OnMove();
-	void OnCursorEffect(FVector);
+	void OnCursorEffect();
 	void OnAttackEffect();
+	void InitBinding(UEnhancedInputComponent*);
 	FVector GetClickPosition();
 
 	ASkill_Explosion* explosion;
@@ -46,17 +47,23 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* cursor;
 
+	APlayerCharacter* Player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* currentContext;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputAction* move;
-
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputAction* defalutAttack;
+	
+	UPROPERTY(EditAnywhere, Category = Input);
+	APlayerCommands* Commands;
 
-
+	UPROPERTY(EditAnywhere, Category = Input);
+	UClass* CommandClass;
+	
 	float deltaTime;
 	float pressTime;
+
 };
