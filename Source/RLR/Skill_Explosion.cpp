@@ -10,7 +10,6 @@ ASkill_Explosion::ASkill_Explosion()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Init();
-
 }
 
 void ASkill_Explosion::Tick(float DeltaTime)
