@@ -10,8 +10,8 @@ public class RLR : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput","Sockets", "Networking", "UMG",  "Slate",
             "SlateCore" });
-       
 
+        PublicIncludePaths.AddRange(new string[] { "RLR" });
         PrivateDependencyModuleNames.AddRange(new string[] { });
         PrivateDependencyModuleNames.Add("MariaDBConnection");
         // Uncomment if you are using Slate UI

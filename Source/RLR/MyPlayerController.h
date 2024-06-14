@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "GameClient.h"
+#include "Chat/GameClient.h"
 #include "MyPlayerController.generated.h"
 
 

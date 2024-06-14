@@ -1,5 +1,5 @@
 #include "MyHUD.h"
-#include "ChatUI.h"
+#include "Chat/ChatUI.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
 
