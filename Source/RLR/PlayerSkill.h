@@ -10,17 +10,30 @@ UCLASS(abstract)
 class RLR_API APlayerSkill : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+private:
+
+	struct FData
+	{
+		FString Name;
+		// Image
+		int Level;
+		int Cost;
+		int CoolTime;
+		int Cind; // int -> enum or DB kind.
+		int Damage;
+		FVector CollisionRange;
+	};
+public:
 	// TODO : UParticleSystem Change to Niagara System
 
 	virtual void SkillAttack(FVector position, UParticleSystem* particle) PURE_VIRTUAL(APlayerSkill::SkillAttack, );
 
 	virtual void Init() PURE_VIRTUAL(APlayerSkill::Init, );
-	int GetDamage() { return Damage; };
+	int GetDamage() { return Data.Damage; };
 
+	
 protected:
-	int Damage;
-	FVector CollisionRange;
-
+	void InitData();
+	FData Data;
 };
