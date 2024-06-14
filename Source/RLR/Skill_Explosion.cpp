@@ -62,7 +62,6 @@ void ASkill_Explosion::SkillAttack(FVector position, UParticleSystem* particle)
 		particleSystem = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particle, position);
 		FVector particlePosition = particleSystem->GetComponentLocation();
 	}
-
 	// Create Actor 
 	GetWorld()->SpawnActor<ASkill_Explosion>(ASkill_Explosion::StaticClass(), position, FRotator::ZeroRotator);
 }
@@ -81,8 +80,10 @@ void ASkill_Explosion::Init()
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
 	RootComponent = Collision;
-	Damage = 10;
-	CollisionRange = FVector(2.f);
-	Collision->SetWorldScale3D(CollisionRange);
+	Data.Damage = 10;
+	Data.CollisionRange = FVector(2.f);
+	Collision->SetWorldScale3D(Data.CollisionRange);
 	spawnTime = 0.f;
+	
+
 }
