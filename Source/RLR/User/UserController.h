@@ -7,10 +7,10 @@
 #include <NiagaraFunctionLibrary.h>
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
-#include "PlayerCommands.h"
-#include "PlayerCharacter.h"
+#include "Player/PlayerCommands.h"
+#include "Player/PlayerCharacter.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
-#include "Skill_Explosion.h"
+#include "Skill/Skill_Explosion.h"
 #include "UserController.generated.h"
 
 /**

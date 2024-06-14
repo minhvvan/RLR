@@ -1,6 +1,6 @@
 #include "MyPlayerController.h"
-#include "ChatClient.h"
-#include "ChatUI.h"
+#include "Chat/ChatClient.h"
+#include "Chat/ChatUI.h"
 #include "MyHUD.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
