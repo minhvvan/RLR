@@ -1,3 +1,5 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
 #include "GameClient.h"
 #include "Networking.h"
 #include "Runtime/Core/Public/HAL/RunnableThread.h"
