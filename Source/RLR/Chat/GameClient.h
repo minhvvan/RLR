@@ -38,9 +38,10 @@ public:
 	void CloseConnection();
 
 };
-enum class PacketType : uint8
+enum PacketType : uint8
 {
 	MOVE_REQUEST = 1,
+	MOVE_RESPONSE = 2,
 	Whisper,
 	Country,
 	World,
@@ -49,4 +50,19 @@ enum class PacketType : uint8
 	Party,
 	Continent,
 	Nearby
+};
+
+struct MoveResponsePacket
+{
+
+
+	uint8 packetType;
+	int32 playerSeq;
+	float newX;
+	float newY;
+	bool success;
+
+	MoveResponsePacket()
+		: packetType(MOVE_RESPONSE), playerSeq(0), newX(0.0f), newY(0.0f), success(false)
+	{};
 };
