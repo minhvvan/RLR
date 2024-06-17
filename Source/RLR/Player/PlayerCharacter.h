@@ -22,6 +22,8 @@ public:
 
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
+	int32 GetPlayerSeq() const { return PlayerSeq; }
+	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 private:
 
@@ -30,8 +32,8 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = Data);
 	APlayerData* data;
+	int32 PlayerSeq;
 	
-
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
