@@ -79,10 +79,14 @@ void ASkill_Explosion::Init()
 	}
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
-	Abnormal = CreateDefaultSubobject<UAbnormalBind>(TEXT("Abnormal"));
+	SetAbnormal(UAbnormalBind::StaticClass(),Abnormal);
 	RootComponent = Collision;
+
 	Data.Damage = 10;
 	Data.CollisionRange = FVector(2.f);
 	Collision->SetWorldScale3D(Data.CollisionRange);
 	spawnTime = 0.f;
+	//Abnormal = CreateDefaultSubobject<UAbnormalBind>(TEXT("Abnormal"));
+
+	
 }

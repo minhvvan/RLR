@@ -55,15 +55,16 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	{
 		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
 	}
-
 	explosion->Abnormal->ApplyAbnormal(this);
 	other->Destroy();
+
 }
 
 void APlayerCharacter::SetMovement(FVector location)
 {
 	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
 	AddMovementInput(WorldDirection, 1.0f, false);
+	
 }
 
 void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
@@ -71,7 +72,7 @@ void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goal
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
 }
 
-void APlayerCharacter::SetOrientation(FVector Location)
+void APlayerCharacter::StopMove(FVector Location)
 {
 	Location -= GetActorLocation();
 	FRotator Rotator = FRotationMatrix::MakeFromX(Location).Rotator();
@@ -79,7 +80,8 @@ void APlayerCharacter::SetOrientation(FVector Location)
 	SetActorRotation(Rotator);
 }
 
-void APlayerCharacter::SetMoveMode(EMovementMode mode)
+void APlayerCharacter::SetOrientation()
 {
-	GetCharacterMovement()->SetMovementMode(mode);
+	GetCharacterMovement()->SetMovementMode(MOVE_None);
+  
 }

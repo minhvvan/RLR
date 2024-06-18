@@ -25,8 +25,10 @@ public:
 
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
-	void SetOrientation(FVector);
-	void SetMoveMode(EMovementMode);
+	bool IsMove() { return bIsMove; };
+	void SetIsMove(bool bValue) { bIsMove = bValue; };
+	void StopMove(FVector);
+	void SetOrientation();
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
@@ -47,4 +49,5 @@ private:
 
 	void SetCameraArm();
 	void SetCharacterMovement();
+	bool bIsMove = true;
 };

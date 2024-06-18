@@ -49,8 +49,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Abnormal);
 	UAbnormal* Abnormal;
-
 protected:
 	void InitData();
 	FData Data;
+	
+	void SetAbnormal(UClass* AbnormalClass,UAbnormal*& abnormal);
 };

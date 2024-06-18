@@ -64,50 +64,42 @@ void AUserController::InitBinding(UEnhancedInputComponent* component)
 		component->BindAction(Commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
 
 		component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
-		//TODO : 테스트 이후 스킬로 적용
-		component->BindAction(Commands->Skill.W, ETriggerEvent::Started, this, &AUserController::SetPlayerMove);
+		component->BindAction(Commands->Skill.W, ETriggerEvent::Started, this, &AUserController::ASD);
 		//TODO : 모든 바인딩 적용하기.
 		component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, Commands, &APlayerCommands::TestLog);
 	}
-}
 
+}
 void AUserController::OnMoveStarted()
 {
-	if (IsMove)
-	{
-		StopMovement();
-	}
+	StopMovement();
+	//Player->StopMove(GetClickPosition());
 
 	pressTime = 0.f;
 }
 void AUserController::OnMove()
 {
-	pressTime += GetWorld()->GetDeltaSeconds();
-	
-	if (IsMove)
+	if (Player->IsMove())
 	{
 		deltaTime += GetWorld()->GetDeltaSeconds();
+		pressTime += GetWorld()->GetDeltaSeconds();
 		Player->SetMovement(GetClickPosition());
 	}
 }
 void AUserController::OnMoveCompleted()
 {
-	if (IsMove)
-	{
-		if (deltaTime <= 0.3f)
-		{
-			Player->SetSimpleMove(this, GetClickPosition());
-		}
 
-		deltaTime = 0.f;
+	if (Player->IsMove() && deltaTime <= 0.3f)
+	{
+		Player->SetSimpleMove(this, GetClickPosition());
 	}
+	deltaTime = 0.f;
 }
 
 void AUserController::OnCursorEffect()
 {
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, cursor, GetClickPosition(), FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 }
-
 FVector AUserController::GetClickPosition()
 {
 	FHitResult Hit;
@@ -124,20 +116,11 @@ void AUserController::OnAttackEffect()
 	explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
 }
 
-bool AUserController::IsMove()
+void AUserController::ASD()
 {
+	Player->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 	if (Player->GetCharacterMovement()->MovementMode == MOVE_Walking)
 	{
-		return true;
+		UE_LOG(LogTemp, Log, TEXT("Asd"));
 	}
-	else
-	{
-		return false;
-	}
-}
-
-// TODO : 테스트 이후 삭제
-void AUserController::SetPlayerMove()
-{
-	Player->SetMoveMode(MOVE_Walking);
 }

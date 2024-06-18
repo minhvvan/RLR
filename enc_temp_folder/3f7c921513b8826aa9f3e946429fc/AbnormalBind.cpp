@@ -11,11 +11,14 @@ UAbnormalBind::UAbnormalBind()
 
 void UAbnormalBind::ApplyAbnormal(APlayerCharacter* Player)
 {
-	Player->SetMoveMode(MOVE_None);
+	UE_LOG(LogTemp, Log, TEXT("Abnormal Bind Test"));
+	//Player->SetIsMove(false);
+	Player->SetOrientation();
 }
 
 void UAbnormalBind::RemoveAbnormal(APlayerCharacter* Player)
 {
-	Player->SetMoveMode(MOVE_Walking);
+	//TODO : Set Timer and SetIsMove true
+	Player->SetIsMove(true);
 }
 
