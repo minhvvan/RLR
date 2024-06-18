@@ -16,7 +16,7 @@ void AUserController::BeginPlay()
 	Super::BeginPlay();
 
 	APawn* ControlledPawn = GetPawn();
-	Player = Cast<APlayerCharacter>(ControlledPawn);
+	player = Cast<APlayerCharacter>(ControlledPawn);
 
 	if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -48,32 +48,31 @@ void AUserController::InitBinding(UEnhancedInputComponent* component)
 
 	if (component != nullptr)
 	{
-		if (Commands == nullptr)
+		if (commands == nullptr)
 		{
-			Commands = GetWorld()->SpawnActor<APlayerCommands>(CommandClass);
+			commands = GetWorld()->SpawnActor<APlayerCommands>(commandClass);
 
-			if (Commands->Skill.Q == nullptr)
+			if (commands->Skill.Q == nullptr)
 			{
-				Commands->Init();
+				commands->Init();
 			}
 		}
 
-		component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
-		component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
-		component->BindAction(Commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
-		component->BindAction(Commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
+		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
+		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
+		component->BindAction(commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
+		component->BindAction(commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
 
-		component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
+		component->BindAction(commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
 		//TODO : 테스트 이후 스킬로 적용
-		component->BindAction(Commands->Skill.W, ETriggerEvent::Started, this, &AUserController::SetPlayerMove);
+		component->BindAction(commands->Skill.W, ETriggerEvent::Started, this, &AUserController::SetPlayerMove);
 		//TODO : 모든 바인딩 적용하기.
-		component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, Commands, &APlayerCommands::TestLog);
 	}
 }
 
 void AUserController::OnMoveStarted()
 {
-	if (IsMove)
+	if (IsMove())
 	{
 		StopMovement();
 	}
@@ -84,19 +83,19 @@ void AUserController::OnMove()
 {
 	pressTime += GetWorld()->GetDeltaSeconds();
 	
-	if (IsMove)
+	if (IsMove())
 	{
 		deltaTime += GetWorld()->GetDeltaSeconds();
-		Player->SetMovement(GetClickPosition());
+		player->SetMovement(GetClickPosition());
 	}
 }
 void AUserController::OnMoveCompleted()
 {
-	if (IsMove)
+	if (IsMove())
 	{
 		if (deltaTime <= 0.3f)
 		{
-			Player->SetSimpleMove(this, GetClickPosition());
+			player->SetSimpleMove(this, GetClickPosition());
 		}
 
 		deltaTime = 0.f;
@@ -126,7 +125,7 @@ void AUserController::OnAttackEffect()
 
 bool AUserController::IsMove()
 {
-	if (Player->GetCharacterMovement()->MovementMode == MOVE_Walking)
+	if (player->GetCharacterMovement()->MovementMode == MOVE_Walking)
 	{
 		return true;
 	}
@@ -139,5 +138,5 @@ bool AUserController::IsMove()
 // TODO : 테스트 이후 삭제
 void AUserController::SetPlayerMove()
 {
-	Player->SetMoveMode(MOVE_Walking);
+	player->SetMoveMode(MOVE_Walking);
 }

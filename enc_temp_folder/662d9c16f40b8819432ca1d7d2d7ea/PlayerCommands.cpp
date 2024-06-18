@@ -23,3 +23,8 @@ void APlayerCommands::Init()
 		Skill.W = container.Object;
 	}
 }
+
+void APlayerCommands::TestLog()
+{
+	UE_LOG(LogTemp, Log, TEXT("Test Log Command Key : Q"));
+}

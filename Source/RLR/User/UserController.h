@@ -45,21 +45,16 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* cursor;
 
-	APlayerCharacter* Player;
+	APlayerCharacter* player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* currentContext;
-
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* move;
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* defalutAttack;
 	
 	UPROPERTY(EditAnywhere, Category = Input);
-	APlayerCommands* Commands;
+	APlayerCommands* commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UClass* CommandClass;
+	UClass* commandClass;
 	
 	float deltaTime;
 	float pressTime;
