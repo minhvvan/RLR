@@ -1,22 +1,23 @@
 #include "MyHUD.h"
 #include "Chat/ChatUI.h"
 #include "UObject/ConstructorHelpers.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "Blueprint/UserWidget.h"
 
 AMyHUD::AMyHUD()
 {
-    static ConstructorHelpers::FClassFinder<UUserWidget> ChatUIBPClass(TEXT("/Game/Blueprints/ChatUI"));
-    if (ChatUIBPClass.Succeeded())
-    {
-        ChatUIClass = ChatUIBPClass.Class;
-    }
+	static ConstructorHelpers::FClassFinder<UInGameMainUI> MainUIClass(TEXT("Blueprint'/Game/Blueprints/UI/InGame/WBP_InGameUI.WBP_InGameUI_C'"));
+	if (MainUIClass.Succeeded())
+	{
+        InGameMainUIClass = MainUIClass.Class;
+	}
 
-    if (!ChatUI && ChatUIClass)
+    if (IsValid(InGameMainUI) == false && IsValid(InGameMainUIClass))
     {
-        ChatUI = CreateWidget<UChatUI>(GetWorld(), ChatUIClass);
-        if (ChatUI)
+        InGameMainUI = CreateWidget<UInGameMainUI>(GetWorld(), InGameMainUIClass);
+        if (InGameMainUI)
         {
-            ChatUI->AddToViewport();
+            InGameMainUI->AddToViewport();
         }
     }
 }
@@ -25,9 +26,11 @@ void AMyHUD::BeginPlay()
 {
     Super::BeginPlay();
 
+
+
 }
 
-UChatUI* AMyHUD::GetChatUI() const
+UInGameMainUI* AMyHUD::GetInGameMainUI() const
 {
-    return ChatUI;
+    return InGameMainUI;
 }
