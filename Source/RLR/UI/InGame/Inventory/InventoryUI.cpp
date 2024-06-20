@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/InventoryUI.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 #include "Components/GridPanel.h"
-#include "UI/InGame/InventorySlot.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -91,8 +91,8 @@ void UInventoryUI::RefreshGoldAndCashUI()
 	FText NewGold = FText::FromString(FString::FromInt(InventoryManager->GetGold()));
 	GoldText->SetText(NewGold);
 
-	FText NewCash = FText::FromString(FString::FromInt(InventoryManager->GetCash()));
-	CashText->SetText(NewCash);
+	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilber()));
+	SilberText->SetText(NewSilber);
 }
 
 void UInventoryUI::ShowItemsByType(EItemType ItemType)

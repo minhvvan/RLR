@@ -42,9 +42,21 @@ void UInventoryManager::SetGold(int32 NewGold)
 	OnUpdateGoldAndCash.Broadcast();
 }
 
-void UInventoryManager::SetCash(int32 NewCash)
+void UInventoryManager::SetPlatinum(int32 NewPlatinum)
 {
-	Cash = NewCash;
+	Platinum = NewPlatinum;
+	OnUpdateGoldAndCash.Broadcast();
+}
+
+void UInventoryManager::SetCopper(int32 NewCopper)
+{
+	Copper = NewCopper;
+	OnUpdateGoldAndCash.Broadcast();
+}
+
+void UInventoryManager::SetSilber(int32 NewSilber)
+{
+	Silber = NewSilber;
 	OnUpdateGoldAndCash.Broadcast();
 }
 

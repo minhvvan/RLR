@@ -41,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void				SetItemData(FItemData NewData);
 
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void				SetItemNameText(FItemData NewData);
+
 
 private:
 

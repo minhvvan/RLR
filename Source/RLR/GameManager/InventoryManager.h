@@ -31,16 +31,28 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void GetItemList(UPARAM(ref) TArray<FItemData>& ItemArray);
 
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetCopper() {return Copper;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetCopper(int32 NewCopper);
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetSilber() {return Silber;}
+	UFUNCTION(BlueprintCallable)
+	void SetSilber(int32 NewSilber);
+
 	UFUNCTION(BlueprintCallable)
 	int32 GetGold(){return Gold;}
 	UFUNCTION(BlueprintCallable)
 	void SetGold(int32 NewGold);
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetCash() {return Cash;}
-	UFUNCTION(BlueprintCallable)
-	void SetCash(int32 NewCash);
+	int32 GetPlatinum() {return Platinum;}
 
+	UFUNCTION(BlueprintCallable)
+	void SetPlatinum(int32 NewPlatinum);
 
 //아이템 키값을 위한 임시용. 나중에 서버에서 아이템 패킷을 쏴주면 필요없어질 예정.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -55,13 +67,20 @@ public:
 
 private:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 Copper;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 Silber;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int32 Gold;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	int32 Cash;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	int32 Platinum;
+
 
 	//<DB Key , FItemData>
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TMap<int32, FItemData> ItemData;
 };

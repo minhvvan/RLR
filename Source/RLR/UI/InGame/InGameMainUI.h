@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/InGame/MainUI.h"
 #include "InGameMainUI.generated.h"
 
 /**
@@ -14,7 +15,7 @@
  class UInventoryUI;
 
 UCLASS()
-class RLR_API UInGameMainUI : public UUserWidget
+class RLR_API UInGameMainUI : public UMainUI
 {
 	GENERATED_BODY()
 

@@ -1,5 +1,4 @@
 #include "MyHUD.h"
-#include "Chat/ChatUI.h"
 #include "UObject/ConstructorHelpers.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "Blueprint/UserWidget.h"

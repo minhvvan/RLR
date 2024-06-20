@@ -11,8 +11,8 @@
  */
 
  
-UENUM()
-enum class EItemType
+UENUM(BlueprintType)
+enum class EItemType : uint8
 {
 	EQUIPMENT,
 	CONSUMPTION,
@@ -20,8 +20,8 @@ enum class EItemType
 	NONE,
 };
 
-UENUM()
-enum class EItemRarity
+UENUM(BlueprintType)
+enum class EItemRarity : uint8
 {
 	COMMON,
 	UNCOMMON,
@@ -53,7 +53,7 @@ struct FItemData : public FTableRowBase
 	TEnumAsByte<EItemType> TYPE;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EItemRarity RANK;
+	TEnumAsByte<EItemRarity> RANK;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 EQUIPMENT_LEVEL;
