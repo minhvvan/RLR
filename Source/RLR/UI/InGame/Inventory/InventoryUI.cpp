@@ -11,6 +11,7 @@
 
 void UInventoryUI::NativeConstruct()
 {
+	Super::NativeConstruct();
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 
 	if(IsValid(InventoryManager) == false)
@@ -28,6 +29,7 @@ void UInventoryUI::NativeConstruct()
 
 void UInventoryUI::Init()
 {
+	Super::Init();
 	InventoryGridPanel->ClearChildren();
 	InventorySlotList.Empty();
 
@@ -132,16 +134,6 @@ void UInventoryUI::SortItem()
 	//아이템 정렬을 하면, 클라이언트에서 처리해도 되는 건가?
 
 	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("제작 중"));
-}
-
-void UInventoryUI::SetVisibilityToggle()
-{
-	ESlateVisibility CurrentVisivility = GetVisibility();
-
-	if(CurrentVisivility == ESlateVisibility::Hidden)
-		SetVisibility(ESlateVisibility::Visible);
-	else
-		SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UInventoryUI::OnAllButtonClicked()

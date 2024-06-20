@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "UI/InGame/MainUI.h"
+
+#include "UI/MainUI.h"
 #include "InGameMainUI.generated.h"
 
 /**
@@ -13,6 +13,7 @@
 
  class UChatUI;
  class UInventoryUI;
+ class UChatOptionUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -23,6 +24,8 @@ class RLR_API UInGameMainUI : public UMainUI
 
 public:
 
+	virtual void NativeConstruct() override;
+
 	UFUNCTION(BlueprintCallable)
 	UChatUI* GetChatUI(){return ChatUI;}
 
@@ -31,6 +34,9 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UChatUI> ChatUI;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UChatOptionUI> ChatOptionUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UInventoryUI> InventoryUI;

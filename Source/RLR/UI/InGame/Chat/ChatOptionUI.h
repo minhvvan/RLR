@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/InGame/SubUI.h"
+#include "UI/SubUI.h"
 #include "GameOptionData/GameOptionData.h"
 #include "ChatOptionUI.generated.h"
 
@@ -23,7 +23,8 @@ class RLR_API UChatOptionUI : public USubUI
 public:
     virtual void NativeConstruct() override;
     void Init();
-
+    virtual void OpenUI() override;
+    virtual void CloseUI() override;
     
     UFUNCTION(BlueprintCallable)
     void OnFilterChanged(bool bIsChecked);
@@ -82,9 +83,6 @@ public:
     UButton* CancelButton;
 
 public:
-
-    UPROPERTY()
-    UChatUI* ChatUI;
 
      UPROPERTY()
     TMap<EChatType, UCheckBox*> CheckBoxMap;

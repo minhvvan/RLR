@@ -12,6 +12,7 @@
 #include <Components/Button.h>
 #include "ChatTabWidget.h"
 #include "GameOptionData/GameOptionData.h"
+#include "UI/SubUI.h"
 #include "ChatUI.generated.h"
 
 
@@ -55,10 +56,6 @@ class RLR_API UChatUI : public UUserWidget
     GENERATED_BODY()
 
 public:
-
-    UPROPERTY(meta = (BindWidget))
-    UChatOptionUI* ChatOptionUI;
-
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ChatOutputBox;
 

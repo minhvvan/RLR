@@ -6,6 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/InGame/Chat/ChatUI.h"
+#include "UI/InGame/InGameMainUI.h"
 
 
 void UChatOptionUI::NativeConstruct()
@@ -54,6 +55,18 @@ void UChatOptionUI::Init()
     {
         CancelButton->OnClicked.AddUniqueDynamic(this, &UChatOptionUI::OnCancelButtonClicked);
     };
+}
+
+void UChatOptionUI::OpenUI()
+{
+    Super::OpenUI();
+    LoadChatOption();
+}
+
+void UChatOptionUI::CloseUI()
+{
+    Super::CloseUI();
+
 }
 
 void UChatOptionUI::OnFilterChanged(bool bIsChecked)
@@ -115,9 +128,12 @@ void UChatOptionUI::OnConfirmButtonClicked()
 {
     if (IsValid(ConfirmButton))
     {
-        SetVisibility(ESlateVisibility::Hidden);
+        CloseUI();
         SaveChatOption();
-        ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
+
+        UChatUI* ChatUI = GetMainUI<UInGameMainUI>()->ChatUI;
+        if(ChatUI)
+            ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
     }
 }
 
@@ -125,7 +141,7 @@ void UChatOptionUI::OnCancelButtonClicked()
 {
     if (IsValid(CancelButton))
     {
-        SetVisibility(ESlateVisibility::Hidden);
+        CloseUI();
         LoadChatOption();
     }
 }

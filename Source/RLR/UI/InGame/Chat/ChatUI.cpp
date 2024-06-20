@@ -10,6 +10,7 @@
 #include "ChatOptionUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 #include <Kismet/GameplayStatics.h>
@@ -26,8 +27,9 @@ void UChatUI::NativeConstruct()
     }
 
     //채팅창 관련 초기화
-    ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
-    ChatOptionUI->ChatUI = this;
+ //   ChatOptionUI = GetMainUI<UInGameMainUI>()->ChatOptionUI;
+ //   ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
+	//ChatOptionUI->ChatUI = this;
     InitButton();
     InitChatBox();
 
@@ -239,15 +241,22 @@ void UChatUI::OnSendButtonClicked()
 
 void UChatUI::OnChatOptionUIButtonClicked()
 {
+    UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+    if(IsValid(GM) == false)
+        return;
+
+    UChatOptionUI* ChatOptionUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->ChatOptionUI;
+
     if (IsValid(ChatOptionUI))
     {
-        if(ChatOptionUI->GetVisibility() == ESlateVisibility::Hidden)
+		if (ChatOptionUI->GetVisibility() == ESlateVisibility::Hidden)
+		{
+			ChatOptionUI->OpenUI();	
+		}
+		else
         { 
-            ChatOptionUI->LoadChatOption();
-            ChatOptionUI->SetVisibility(ESlateVisibility::Visible);
+			ChatOptionUI->CloseUI();
          }
-        else
-            ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
     }
 }
 

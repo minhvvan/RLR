@@ -6,6 +6,8 @@
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/GameManager.h"
 #include "MariaDBActor.h"
 AMyPlayerController* AMyPlayerController::Instance = nullptr;
 
@@ -103,12 +105,15 @@ void AMyPlayerController::UpdateChatUI(const FString& Message, UChatUI* UI, int 
 }
 void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
 {
-    UE_LOG(LogTemp, Log, TEXT("Init Chat UI Start!!"));
-    AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
-    if (HUD)
-        UE_LOG(LogTemp, Log, TEXT("HUD is Vaild"));
+	UE_LOG(LogTemp, Log, TEXT("Init Chat UI Start!!"));
+	AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
+	if (HUD)
     {
-        UChatUI* ChatUI = HUD->GetInGameMainUI()->GetChatUI();
+
+        UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+        GM->GetUIManager()->ShowMainUI(HUD->MainUIClass);
+        UChatUI* ChatUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatUI();
+
         if (ChatUI)
         {
             UE_LOG(LogTemp, Log, TEXT("UChatUI is Vaild"));

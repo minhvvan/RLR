@@ -24,17 +24,20 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 public:
 
 	
-	void ShowMainUI();
-	void ShowSubUI();
+	void ShowMainUI(TSubclassOf<UMainUI> UIClass);
+	void ShowSubUI(USubUI* Target);
+	void SetZOderUI(USubUI* Target);
 
 	void CloseSubUI(USubUI* Target);
 	void CloseSubUI();
 	void CloseAllSubUI();
 
+	UMainUI* GetMainUI();
+
 
 private:
 
 	TObjectPtr<UMainUI> MainUI;	
-	TArray<USubUI> SubUIStack;
+	TArray<USubUI*> SubUIStack;
 	int32 ZOrder = 0;
 };

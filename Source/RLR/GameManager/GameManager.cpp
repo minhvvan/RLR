@@ -3,6 +3,7 @@
 
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/UIManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager.h"
@@ -24,8 +25,20 @@ UDataManager* UGameManager::GetDataManager()
 		return DataManager;
 	}
 
-	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetDataManager Error. GameManager.Cpp GetDataManager"));
+	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetDataManager Error."));
 	return nullptr;
+}
+
+UUIManager* UGameManager::GetUIManager()
+{
+    UUIManager* UIManager = GetSubsystem<UUIManager>(this);
+    if (IsValid(UIManager))
+    {
+        return UIManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetUIManager Error."));
+    return nullptr;
 }
 
 UGameOptionData* UGameManager::GetGameOptionData()

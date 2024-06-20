@@ -24,6 +24,7 @@
 
 
  class UDataManager;
+ class UUIManager;
  class UGameOptionData;
 
 
@@ -38,6 +39,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UDataManager*				GetDataManager();
+
+	UFUNCTION(BlueprintCallable)
+	UUIManager*						GetUIManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*		GetGameOptionData();

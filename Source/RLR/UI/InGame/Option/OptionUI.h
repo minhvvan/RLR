@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/InGame/BaseUI.h"
+#include "UI/BaseUI.h"
 #include "OptionUI.generated.h"
 
 /**

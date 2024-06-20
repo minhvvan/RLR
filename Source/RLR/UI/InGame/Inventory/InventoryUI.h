@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/InGame/SubUI.h"
+#include "UI/SubUI.h"
 #include "GameManager/DataManager.h"
 #include "InventoryUI.generated.h"
 
@@ -41,9 +41,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SortItem();
-
-	UFUNCTION(BlueprintCallable)
-	void SetVisibilityToggle();
 
 public:
 
