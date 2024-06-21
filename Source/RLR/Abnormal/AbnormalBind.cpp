@@ -7,21 +7,23 @@
 UAbnormalBind::UAbnormalBind()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	TimerDelegate.BindUFunction(this, FName("RemoveAbnormal"));
 }
 
-void UAbnormalBind::ApplyAbnormal(APlayerCharacter* Player, int duration)
+void UAbnormalBind::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	player = Player;
-	player->SetMoveMode(MOVE_None);
+	if (other->IsA<APlayerCharacter>())
+	{
+		Player = other;
+		Player->SetMoveMode(MOVE_None);
 
-	GetWorld()->GetTimerManager().SetTimer(Timer, TimerDelegate, duration, false);
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalBind::RemoveAbnormal, duration, false);
+	}
 }
 
-void UAbnormalBind::RemoveAbnormal(APlayerCharacter* Player)
+void UAbnormalBind::RemoveAbnormal()
 {
-	player->SetMoveMode(MOVE_Walking);
+	Player->SetMoveMode(MOVE_Walking);
+
 	AActor* actor = GetOwner();
 	actor->Destroy();
-	
 }

@@ -13,13 +13,8 @@ class RLR_API UAbnormalBind : public UAbnormal
 public:	
 	UAbnormalBind();
 
-protected:
-	APlayerCharacter* player;
-
-public:	
-	virtual void ApplyAbnormal(APlayerCharacter* Player, int duration) override;
+	virtual void ApplyAbnormal(APlayerCharacter* other, int duration) override;
 	
 	UFUNCTION()
-	virtual void RemoveAbnormal(APlayerCharacter* Player) override;
-
+	virtual void RemoveAbnormal() override;
 };

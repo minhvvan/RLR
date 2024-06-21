@@ -16,14 +16,12 @@ void ASkill_Explosion::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	spawnTime += DeltaTime;
+}
+void ASkill_Explosion::BeginPlay()
+{
+	Super::BeginPlay();
 
-	if (spawnTime >= 0.8f)
-	{
-		UE_LOG(LogTemp, Log, TEXT("end life"));
-
-		Destroy();
-	}
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &ASkill_Explosion::OnDestroty, Data.ActivityTime, false);
 }
 
 void ASkill_Explosion::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -34,7 +32,9 @@ void ASkill_Explosion::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	switch (EndPlayReason)
 	{
 	case EEndPlayReason::Destroyed:
-		UE_LOG(LogTemp, Warning, TEXT("Actor is destroyed"));
+		SetIsHit(false);
+		GetWorld()->GetTimerManager().ClearTimer(Timer);
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Blue, TEXT("Actor Destroy"));
 		break;
 	case EEndPlayReason::LevelTransition:
 		UE_LOG(LogTemp, Warning, TEXT("Actor removed due to level transition"));
@@ -55,13 +55,12 @@ void ASkill_Explosion::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void ASkill_Explosion::SkillAttack(FVector position, UParticleSystem* particle)
 {
-	if (particle)
+	if (!particle)
 	{
 		particle = GetAttackParticle();
-		UParticleSystemComponent* particleSystem;
-		particleSystem = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particle, position);
-		FVector particlePosition = particleSystem->GetComponentLocation();
 	}
+
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particle, position);
 	// Create Actor 
 	GetWorld()->SpawnActor<ASkill_Explosion>(ASkill_Explosion::StaticClass(), position, FRotator::ZeroRotator);
 }
@@ -79,14 +78,13 @@ void ASkill_Explosion::Init()
 	}
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
-	SetAbnormal(UAbnormalBind::StaticClass(),Abnormal);
+	Abnormal = CreateDefaultSubobject<UAbnormalStun>(TEXT("Abnormal"));
 	RootComponent = Collision;
-
 	Data.Damage = 10;
+	Data.Duration = 2;
+	Data.ActivityTime = 0.8f;
 	Data.CollisionRange = FVector(2.f);
 	Collision->SetWorldScale3D(Data.CollisionRange);
 	spawnTime = 0.f;
-	//Abnormal = CreateDefaultSubobject<UAbnormalBind>(TEXT("Abnormal"));
-
-	
 }
+

@@ -2,33 +2,28 @@
 
 
 #include "AbnormalSilence.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+
 UAbnormalSilence::UAbnormalSilence()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalSilence::BeginPlay()
+void UAbnormalSilence::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		Player = other;
+		Player->BanInput(true);
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalSilence::RemoveAbnormal, duration, false);
+	}
 }
 
-
-// Called every frame
-void UAbnormalSilence::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalSilence::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Player->BanInput(false);
 
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-

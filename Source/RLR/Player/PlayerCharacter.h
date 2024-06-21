@@ -13,7 +13,6 @@
 #include "PlayerData.h"
 #include "PlayerCharacter.generated.h"
 
-class AUserController;
 
 UCLASS()
 class RLR_API APlayerCharacter : public ACharacter
@@ -22,17 +21,17 @@ class RLR_API APlayerCharacter : public ACharacter
 
 public:
 	APlayerCharacter();
-
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
 	void SetMoveMode(EMovementMode);
+	void BanInput(bool);
+	void SetController();
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
 
-	UPROPERTY(EditAnywhere, Category = Data);
 	APlayerData* data;
 	
 	UPROPERTY();

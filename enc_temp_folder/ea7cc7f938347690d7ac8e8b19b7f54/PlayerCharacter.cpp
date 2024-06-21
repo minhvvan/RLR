@@ -8,7 +8,7 @@ APlayerCharacter::APlayerCharacter()
 {
 	SetCharacterMovement();
 	SetCameraArm();
-	data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
 }
 
 void APlayerCharacter::SetCameraArm()
@@ -42,29 +42,26 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
 	// TODO : GetDamage * Stat Logic
-	if (data != nullptr)
+	if (data == nullptr)
 	{
-		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
-
-		if (data->Status.HpCurrent <= 0)
-		{
-			Destroy();
-		}
+		data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
 	}
-	else
+
+	data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+
+	if (data->Status.HpCurrent <= 0)
 	{
-		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+		Destroy();
 	}
-	explosion->Abnormal->ApplyAbnormal(this);
-	other->Destroy();
 
+	explosion->SetIsHit(true);
+	explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
 }
 
 void APlayerCharacter::SetMovement(FVector location)
 {
 	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
 	AddMovementInput(WorldDirection, 1.0f, false);
-	
 }
 
 void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
@@ -72,7 +69,7 @@ void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goal
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
 }
 
-void APlayerCharacter::StopMove(FVector Location)
+void APlayerCharacter::SetOrientation(FVector Location)
 {
 	Location -= GetActorLocation();
 	FRotator Rotator = FRotationMatrix::MakeFromX(Location).Rotator();
@@ -80,8 +77,25 @@ void APlayerCharacter::StopMove(FVector Location)
 	SetActorRotation(Rotator);
 }
 
-void APlayerCharacter::SetOrientation()
+void APlayerCharacter::SetMoveMode(EMovementMode mode)
 {
-	GetCharacterMovement()->SetMovementMode(MOVE_None);
-  
+	GetCharacterMovement()->SetMovementMode(mode);
+}
+
+void APlayerCharacter::BanInput(bool value)
+{
+
+	if (value == true)
+	{
+		playerController->DisableInput(playerController);
+	}
+	else
+	{
+		playerController->EnableInput(playerController);
+	}
+}
+
+void APlayerCharacter::SetController()
+{
+	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
 }

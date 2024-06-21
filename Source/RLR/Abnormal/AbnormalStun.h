@@ -5,7 +5,6 @@
 #include "Abnormal.h"
 #include "AbnormalStun.generated.h"
 
-
 UCLASS()
 class RLR_API UAbnormalStun : public UAbnormal
 {
@@ -14,7 +13,8 @@ class RLR_API UAbnormalStun : public UAbnormal
 public:	
 	UAbnormalStun();
 
-public:	
 	virtual void ApplyAbnormal(APlayerCharacter* Player, int duration) override;
-	virtual void RemoveAbnormal(APlayerCharacter* Player) override;
+	
+	UFUNCTION()
+	virtual void RemoveAbnormal() override;
 };

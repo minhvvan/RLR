@@ -2,33 +2,28 @@
 
 
 #include "AbnormalBurn.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+
 UAbnormalBurn::UAbnormalBurn()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalBurn::BeginPlay()
+void UAbnormalBurn::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		Player = other;
+		Player->BanInput(true);
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalBurn::RemoveAbnormal, duration, false);
+	}
 }
 
-
-// Called every frame
-void UAbnormalBurn::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalBurn::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Player->BanInput(false);
 
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-

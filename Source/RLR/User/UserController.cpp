@@ -10,6 +10,7 @@ AUserController::AUserController()
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
 	explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+	
 }
 void AUserController::BeginPlay()
 {
@@ -17,7 +18,7 @@ void AUserController::BeginPlay()
 
 	APawn* ControlledPawn = GetPawn();
 	player = Cast<APlayerCharacter>(ControlledPawn);
-
+	player->SetController();
 	if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		system->AddMappingContext(currentContext, 0);
