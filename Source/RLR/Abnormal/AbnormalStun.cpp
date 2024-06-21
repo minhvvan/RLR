@@ -9,9 +9,8 @@ UAbnormalStun::UAbnormalStun()
 
 }
 
-void UAbnormalStun::ApplyAbnormal(APlayerCharacter* Player)
+void UAbnormalStun::ApplyAbnormal(APlayerCharacter* Player,int duration)
 {
-	UE_LOG(LogTemp, Log, TEXT("Abnormal Stun Test"));
 }
 
 void UAbnormalStun::RemoveAbnormal(APlayerCharacter* Player)

@@ -14,9 +14,12 @@ public:
 	UAbnormalBind();
 
 protected:
+	APlayerCharacter* player;
 
 public:	
-	virtual void ApplyAbnormal(APlayerCharacter* Player) override;
+	virtual void ApplyAbnormal(APlayerCharacter* Player, int duration) override;
+	
+	UFUNCTION()
 	virtual void RemoveAbnormal(APlayerCharacter* Player) override;
-		
+
 };

@@ -15,6 +15,6 @@ public:
 	UAbnormalStun();
 
 public:	
-	virtual void ApplyAbnormal(APlayerCharacter* Player) override;
+	virtual void ApplyAbnormal(APlayerCharacter* Player, int duration) override;
 	virtual void RemoveAbnormal(APlayerCharacter* Player) override;
 };

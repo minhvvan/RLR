@@ -55,9 +55,8 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	{
 		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
 	}
-
-	explosion->Abnormal->ApplyAbnormal(this);
-	other->Destroy();
+	explosion->SetIsHit(true);
+	explosion->Abnormal->ApplyAbnormal(this,explosion->GetDuration());
 }
 
 void APlayerCharacter::SetMovement(FVector location)

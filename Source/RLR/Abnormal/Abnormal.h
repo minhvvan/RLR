@@ -14,9 +14,14 @@ class RLR_API UAbnormal : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	virtual void ApplyAbnormal(APlayerCharacter* Player) PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
+	
+	virtual void ApplyAbnormal(APlayerCharacter* Player,int duration) PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
 	virtual void RemoveAbnormal(APlayerCharacter* Player) PURE_VIRTUAL(UAbnormal::RemoveAbnormal, );
+protected:
 
+	int CoolTime;
+	FTimerHandle Timer;
+	FTimerDelegate TimerDelegate;
 	//TODO : Delete
 	enum class ESubAbnormal
 	{

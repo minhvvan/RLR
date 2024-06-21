@@ -58,15 +58,13 @@ void AUserController::InitBinding(UEnhancedInputComponent* component)
 			}
 		}
 
+		//TODO : 모든 바인딩 적용하기.
 		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
 		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
 		component->BindAction(commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
 		component->BindAction(commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
 
 		component->BindAction(commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
-		//TODO : 테스트 이후 스킬로 적용
-		component->BindAction(commands->Skill.W, ETriggerEvent::Started, this, &AUserController::SetPlayerMove);
-		//TODO : 모든 바인딩 적용하기.
 	}
 }
 
@@ -135,8 +133,3 @@ bool AUserController::IsMove()
 	}
 }
 
-// TODO : 테스트 이후 삭제
-void AUserController::SetPlayerMove()
-{
-	player->SetMoveMode(MOVE_Walking);
-}

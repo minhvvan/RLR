@@ -59,5 +59,4 @@ private:
 	float deltaTime;
 	float pressTime;
 	bool IsMove();
-	void SetPlayerMove();
 };
