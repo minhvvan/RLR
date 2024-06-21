@@ -10,38 +10,44 @@
 #include "Windows/HideWindowsPlatformTypes.h"
 #include "../Player/PlayerCharacter.h"
 #include "GameFramework/Actor.h"
+#include <Networking.h>
 #include "GameClient.generated.h"
 
 
 UCLASS()
 class RLR_API AGameClient : public AActor
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AGameClient();
+    GENERATED_BODY()
 
+public:
+    // Sets default values for this actor's properties
+    AGameClient();
 
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+    bool SendMovePacket(int32 userSeq, float NewX, float NewY);
+    void CloseConnection();
+    bool InitializeSocket(const FString& ServerAddress, int32 Port);
+    bool ReceiveData(uint8* buffer, int32 bufferSize);
+    APlayerCharacter* FindPlayerCharacterBySeq(int32_t userSeq, float newX, float newY);
+    APlayerCharacter* SpawnNewPlayerCharacter(int32_t userSeq, float newX, float newY);
+    void ProcessMoveResponse(const char* data);
+
+ 
 
 private:
-	SOCKET ClientSocket;
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	bool ConnectToServer(const FString& ServerAddress, const FString& Port);
-	bool SendMovePacket(int32 userSeq, float NewX, float NewY);
-	void CloseConnection();
-	bool ReceiveData(char* buffer, int bufferSize);
-
-	void ProcessMoveResponse(const char* data);
-
-	APlayerCharacter* FindPlayerCharacterBySeq(int32_t userSeq);
-
+    SOCKET ClientSocket;
+    FSocket* Socket;
+    TSharedPtr<FInternetAddr> RemoteAddress;
+    APlayerCharacter* MyPlayerCharacter;
+    UPROPERTY(EditDefaultsOnly, Category = "Player")
+    TSubclassOf<APlayerCharacter> PlayerCharacterClass; // 추가된 부분
 };
 enum PacketType : uint8
 {
@@ -56,18 +62,55 @@ enum PacketType : uint8
 	Continent,
 	Nearby
 };
+template<typename T>
+void Serialize(const T& data, char*& buffer) {
+    std::memcpy(buffer, &data, sizeof(T));
+    buffer += sizeof(T);
+}
 
-struct MoveResponsePacket
-{
+template<typename T>
+void Deserialize(T& data, const char*& buffer) {
+    std::memcpy(&data, buffer, sizeof(T));
+    buffer += sizeof(T);
+}
+#pragma pack(push, 1)
 
+struct MoveRequestPacket {
+    uint8_t packetType = MOVE_REQUEST;
+    int32_t playerSeq;
+    float newX;
+    float newY;
+    void Serialize(char* buffer) const {
+        char* bufPtr = buffer;
+        ::Serialize(*this, bufPtr);
+    }
 
-	uint8 packetType;
-	int32 playerSeq;
-	float newX;
-	float newY;
-	bool success;
-
-	MoveResponsePacket()
-		: packetType(MOVE_RESPONSE), playerSeq(0), newX(0.0f), newY(0.0f), success(false)
-	{};
+    static MoveRequestPacket Deserialize(const char* buffer) {
+        MoveRequestPacket packet;
+        const char* bufPtr = buffer;
+        ::Deserialize(packet, bufPtr);
+        return packet;
+    }
 };
+
+struct MoveResponsePacket {
+    uint8_t packetType = MOVE_RESPONSE;
+    int32_t playerSeq;
+    float newX;
+    float newY;
+    bool success;
+
+ 
+    void Serialize(char* buffer) const {
+        char* bufPtr = buffer;
+        ::Serialize(*this, bufPtr);
+    }
+
+    static MoveResponsePacket Deserialize(const char* buffer) {
+        MoveResponsePacket packet;
+        const char* bufPtr = buffer;
+        ::Deserialize(packet, bufPtr);
+        return packet;
+    }
+};
+#pragma pack(pop)

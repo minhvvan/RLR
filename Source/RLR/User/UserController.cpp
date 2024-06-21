@@ -25,12 +25,26 @@ void AUserController::BeginPlay()
     {
         system->AddMappingContext(currentContext, 0);
     }
+    TArray<AActor*> FoundActors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameClient::StaticClass(), FoundActors);
 
-    GameClient = NewObject<AGameClient>();
-    if (GameClient && !GameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
+    if (FoundActors.Num() > 0)
     {
-        UE_LOG(LogTemp, Error, TEXT("Failed to connect to server"));
+        GameClient = Cast<AGameClient>(FoundActors[0]);
+        if (GameClient)
+        {
+            UE_LOG(LogTemp, Log, TEXT("GameClient 객체를 찾았습니다."));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("GameClient 객체를 찾지 못했습니다."));
+        }
     }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter 클래스를 가진 객체가 없습니다."));
+    }
+   
 }
 
 void AUserController::Tick(float DeltaTime)
@@ -40,7 +54,12 @@ void AUserController::Tick(float DeltaTime)
     {
         OnCursorEffect();
         pressTime = 0.f;
+        if (GameClient)
+        {
+            GameClient->SendMovePacket(Player->GetPlayerSeq(), Player->GetActorLocation().X, Player->GetActorLocation().Y);
+        }
     }
+
 }
 
 void AUserController::AssignPlayerSeq()
@@ -104,10 +123,7 @@ void AUserController::OnMove()
     pressTime += GetWorld()->GetDeltaSeconds();
     Player->SetMovement(GetClickPosition());
 
-    if (GameClient)
-    {
-        GameClient->SendMovePacket(Player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
-    }
+    
 }
 
 void AUserController::OnMoveCompleted()
