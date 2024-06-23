@@ -15,15 +15,14 @@ void UAbnormalSilence::ApplyAbnormal(APlayerCharacter* other, int duration)
 	if (other->IsA<APlayerCharacter>())
 	{
 		Player = other;
-		Player->BanInput(true);
+		Player->SetIsAttack(false);
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalSilence::RemoveAbnormal, duration, false);
 	}
 }
 
 void UAbnormalSilence::RemoveAbnormal()
 {
-	Player->BanInput(false);
-
+	Player->SetIsAttack(true);
 	AActor* actor = GetOwner();
 	actor->Destroy();
 }

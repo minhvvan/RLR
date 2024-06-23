@@ -4,7 +4,7 @@
 #include "AbnormalPoison.h"
 #include "Player/PlayerCharacter.h"
 
-
+//TODO : 지속 데미지
 UAbnormalPoison::UAbnormalPoison()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -14,16 +14,12 @@ void UAbnormalPoison::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
 	if (other->IsA<APlayerCharacter>())
 	{
-		Player = other;
-		Player->BanInput(true);
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalPoison::RemoveAbnormal, duration, false);
 	}
 }
 
 void UAbnormalPoison::RemoveAbnormal()
 {
-	Player->BanInput(false);
-
 	AActor* actor = GetOwner();
 	actor->Destroy();
 }

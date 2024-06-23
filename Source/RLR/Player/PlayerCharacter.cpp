@@ -38,6 +38,7 @@ void APlayerCharacter::SetCharacterMovement()
 }
 
 // Check Collision Over lap
+// 몬스터, Character, Object
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
@@ -56,6 +57,10 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 
 	explosion->SetIsHit(true);
 	explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
+	// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
+	// Character.Anim = anim.hit
+	// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
+	//					               클라 -> 피격 애니메이션                
 }
 
 void APlayerCharacter::SetMovement(FVector location)
@@ -82,6 +87,7 @@ void APlayerCharacter::SetMoveMode(EMovementMode mode)
 	GetCharacterMovement()->SetMovementMode(mode);
 }
 
+// 모든 플레이어 Input 정지 및 해제
 void APlayerCharacter::BanInput(bool value)
 {
 	playerController->StopMovement();
@@ -95,7 +101,7 @@ void APlayerCharacter::BanInput(bool value)
 	}
 	
 }
-
+// 컨트롤러 이닛
 void APlayerCharacter::SetController()
 {
 	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());

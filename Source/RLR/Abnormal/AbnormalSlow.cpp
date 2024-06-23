@@ -14,9 +14,7 @@ void UAbnormalSlow::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
 	if (other->IsA<APlayerCharacter>())
 	{
-		Player = other;
-		Player->BanInput(true);
-		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalSlow::RemoveAbnormal, duration, false);
+		UE_LOG(LogTemp, Log, TEXT("asd"));
 	}
 }
 

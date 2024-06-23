@@ -10,7 +10,7 @@ AUserController::AUserController()
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
 	explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
-	
+
 }
 void AUserController::BeginPlay()
 {
@@ -81,7 +81,7 @@ void AUserController::OnMoveStarted()
 void AUserController::OnMove()
 {
 	pressTime += GetWorld()->GetDeltaSeconds();
-	
+
 	if (IsMove())
 	{
 		deltaTime += GetWorld()->GetDeltaSeconds();
@@ -115,11 +115,15 @@ FVector AUserController::GetClickPosition()
 
 void AUserController::OnAttackEffect()
 {
-	if (explosion == nullptr)
+	if (player->IsAttack())
 	{
-		explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+		if (explosion == nullptr)
+		{
+			explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+		}
+		explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
+		//스킬에맞는 공격 애니메이션 
 	}
-	explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
 }
 
 bool AUserController::IsMove()

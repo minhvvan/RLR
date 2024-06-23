@@ -17,4 +17,8 @@ public:
 
 	UFUNCTION()
 	virtual void RemoveAbnormal() override;
+
+private:
+	UAbnormal* slow;
+
 };

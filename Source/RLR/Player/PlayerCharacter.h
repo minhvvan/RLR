@@ -27,6 +27,9 @@ public:
 	void SetMoveMode(EMovementMode);
 	void BanInput(bool);
 	void SetController();
+	void SetIsAttack(bool value) { bIsAttack = value; };
+	bool IsAttack() { return bIsAttack; };
+
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
@@ -46,4 +49,5 @@ private:
 
 	void SetCameraArm();
 	void SetCharacterMovement();
+	bool bIsAttack = true;
 };

@@ -8,6 +8,7 @@
 UAbnormalFreeze::UAbnormalFreeze()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	slow = CreateDefaultSubobject<UAbnormalSlow>(TEXT("Slow"));
 }
 
 void UAbnormalFreeze::ApplyAbnormal(APlayerCharacter* other, int duration)
@@ -23,7 +24,7 @@ void UAbnormalFreeze::ApplyAbnormal(APlayerCharacter* other, int duration)
 void UAbnormalFreeze::RemoveAbnormal()
 {
 	Player->BanInput(false);
+	slow->ApplyAbnormal(Player,1.f);
 
-	AActor* actor = GetOwner();
-	actor->Destroy();
 }
+// 프리즈에서 조작 금지 -> 리무브 -> 슬로우 Apply -> Remove 형태로 구성.

@@ -73,7 +73,7 @@ void ASkill_Explosion::Init()
 	}
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("Collision"));
-	Abnormal = CreateDefaultSubobject<UAbnormalStun>(TEXT("Abnormal"));
+	Abnormal = CreateDefaultSubobject<UAbnormalSilence>(TEXT("Abnormal"));
 	RootComponent = Collision;
 	Data.Damage = 10;
 	Data.Duration = 2;

@@ -40,6 +40,16 @@ private:
 		int Duration;
 		float ActivityTime;
 		FVector CollisionRange;
+		
+	};
+
+	struct FAbnormal
+	{
+		FString Name;
+		FVector Duration;
+		
+	
+
 	};
 public:
 	// TODO : UParticleSystem Change to Niagara System
