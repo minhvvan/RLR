@@ -32,10 +32,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
-
+	void OnMoveStarted();
 private:
 
-	void OnMoveStarted();
 	void OnMoveCompleted();
 	void OnMove();
 	void OnCursorEffect();
@@ -48,18 +47,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* cursor;
 
-	APlayerCharacter* Player;
+	APlayerCharacter* player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* currentContext;
-
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* move;
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* defalutAttack;
 	
 	UPROPERTY(EditAnywhere, Category = Input);
-	APlayerCommands* Commands;
+	APlayerCommands* commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UClass* CommandClass;
@@ -68,5 +62,5 @@ private:
 	AGameClient* GameClient;
 	float deltaTime;
 	float pressTime;
-
+	bool IsMove();
 };

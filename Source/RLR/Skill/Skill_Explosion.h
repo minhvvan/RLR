@@ -19,8 +19,7 @@ class RLR_API ASkill_Explosion : public APlayerSkill
 public:	
 	ASkill_Explosion();
 
-	virtual void Tick(float DeltaTime) override;
-
+	virtual void BeginPlay() override;
 	USphereComponent* Collision;
 	UPROPERTY(EditAnywhere, Category = Effect);
 	UParticleSystem* Attack;
@@ -28,7 +27,6 @@ public:
 	virtual void EndPlay(const EEndPlayReason::Type);
 	virtual void SkillAttack(FVector, UParticleSystem*) override;
 	virtual void Init() override;
-
 private:
 	float spawnTime;
 };

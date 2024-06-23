@@ -2,33 +2,24 @@
 
 
 #include "AbnormalPoison.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+//TODO : 지속 데미지
 UAbnormalPoison::UAbnormalPoison()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalPoison::BeginPlay()
+void UAbnormalPoison::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalPoison::RemoveAbnormal, duration, false);
+	}
 }
 
-
-// Called every frame
-void UAbnormalPoison::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalPoison::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-
