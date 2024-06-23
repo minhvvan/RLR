@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "MariaDBActor.h"
 AMyPlayerController* AMyPlayerController::Instance = nullptr;
 
@@ -107,7 +108,7 @@ void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
     if (HUD)
         UE_LOG(LogTemp, Log, TEXT("HUD is Vaild"));
     {
-        UChatUI* ChatUI = HUD->GetChatUI();
+        UChatUI* ChatUI = HUD->GetInGameMainUI()->GetChatUI();
         if (ChatUI)
         {
             UE_LOG(LogTemp, Log, TEXT("UChatUI is Vaild"));
@@ -134,7 +135,7 @@ void AMyPlayerController::Tick(float DeltaTime)
 
     if (GameClient)
     {
-        UE_LOG(LogTemp, Log, TEXT("Game Client 있음"));
+        //UE_LOG(LogTemp, Log, TEXT("Game Client 있음"));
         CurrentLocation = GetPawn()->GetActorLocation();
 
         if (FVector::Dist(CurrentLocation, LastLocation) > Threshold)

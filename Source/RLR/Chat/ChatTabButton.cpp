@@ -8,7 +8,7 @@ void UChatTabButton::SynchronizeProperties()
 {
     Super::SynchronizeProperties();
 
-    OnClicked.AddDynamic(this, &UChatTabButton::HandleOnClicked);
+    OnClicked.AddUniqueDynamic(this, &UChatTabButton::HandleOnClicked);
 }
 
 void UChatTabButton::SetIndex(int32 NewIndex)

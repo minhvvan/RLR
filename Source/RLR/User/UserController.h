@@ -8,6 +8,8 @@
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
 #include "Player/PlayerCommands.h"
+#include "Player/PlayerCharacter.h"
+#include "../Chat/GameClient.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "Skill/Skill_Explosion.h"
 #include "UserController.generated.h"
@@ -54,8 +56,10 @@ private:
 	APlayerCommands* commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UClass* commandClass;
-	
+	UClass* CommandClass;
+	void AssignPlayerSeq();
+	UPROPERTY()
+	AGameClient* GameClient;
 	float deltaTime;
 	float pressTime;
 	bool IsMove();

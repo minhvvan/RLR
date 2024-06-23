@@ -30,12 +30,16 @@ public:
 	void SetIsAttack(bool value) { bIsAttack = value; };
 	bool IsAttack() { return bIsAttack; };
 
+  int32 GetPlayerSeq() const { return PlayerSeq; }
+	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
+
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
 
 	APlayerData* data;
+	int32 PlayerSeq;
 	
 	UPROPERTY();
 	AUserController* playerController;
