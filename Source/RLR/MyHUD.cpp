@@ -1,28 +1,36 @@
 #include "MyHUD.h"
+#include "Chat/ChatUI.h"
 #include "UObject/ConstructorHelpers.h"
 #include "UI/InGame/InGameMainUI.h"
-#include "GameManager/UIManager.h"
-#include "GameManager/GameManager.h"
-#include "MyPlayerController.h"
 #include "Blueprint/UserWidget.h"
-#include "Kismet/GameplayStatics.h"
 
 AMyHUD::AMyHUD()
 {
-	static ConstructorHelpers::FClassFinder<UInGameMainUI> UIClass(TEXT("Blueprint'/Game/Blueprints/UI/InGame/WBP_InGameUI.WBP_InGameUI_C'"));
-	if (UIClass.Succeeded())
+	static ConstructorHelpers::FClassFinder<UInGameMainUI> MainUIClass(TEXT("Blueprint'/Game/Blueprints/UI/InGame/WBP_InGameUI.WBP_InGameUI_C'"));
+	if (MainUIClass.Succeeded())
 	{
-		MainUIClass = UIClass.Class;
+        InGameMainUIClass = MainUIClass.Class;
 	}
+
+    if (IsValid(InGameMainUI) == false && IsValid(InGameMainUIClass))
+    {
+        InGameMainUI = CreateWidget<UInGameMainUI>(GetWorld(), InGameMainUIClass);
+        if (InGameMainUI)
+        {
+            InGameMainUI->AddToViewport();
+        }
+    }
 }
 
 void AMyHUD::BeginPlay()
 {
     Super::BeginPlay();
-	
-	AMyPlayerController* PC = Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (PC)
-	{
-		PC->InitializeChatUI(PC->GetChatClient());
-	}
+
+
+
+}
+
+UInGameMainUI* AMyHUD::GetInGameMainUI() const
+{
+    return InGameMainUI;
 }

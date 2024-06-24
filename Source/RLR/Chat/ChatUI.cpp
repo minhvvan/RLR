@@ -5,12 +5,8 @@
 #include "Components/CheckBox.h"
 #include "Components/ScrollBox.h"
 #include "Components/WidgetSwitcher.h"
-#include "Chat/ChatClient.h"
+#include "ChatClient.h"
 #include "ChatTabWidget.h"
-#include "ChatOptionUI.h"
-#include "GameManager/GameManager.h"
-#include "GameManager/UIManager.h"
-#include "UI/InGame/InGameMainUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 #include <Kismet/GameplayStatics.h>
@@ -27,9 +23,7 @@ void UChatUI::NativeConstruct()
     }
 
     //채팅창 관련 초기화
- //   ChatOptionUI = GetMainUI<UInGameMainUI>()->ChatOptionUI;
- //   ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
-	//ChatOptionUI->ChatUI = this;
+    ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
     InitButton();
     InitChatBox();
 
@@ -44,7 +38,7 @@ void UChatUI::NativeConstruct()
 
 
     UE_LOG(LogTemp, Log, TEXT("NativeConstruct 완료  "));
-
+    LoadChatOption();
 }
 void UChatUI::InitButton()
 {
@@ -59,6 +53,17 @@ void UChatUI::InitButton()
     {
 		ChatOptionButton->OnClicked.AddUniqueDynamic(this, &UChatUI::OnChatOptionUIButtonClicked);
     }
+
+    if (IsValid(ConfirmButton))
+    {
+        ConfirmButton->OnClicked.AddUniqueDynamic(this, &UChatUI::OnConfirmButtonClicked);
+    }
+
+    if (IsValid(CancelButton))
+    {
+        CancelButton->OnClicked.AddUniqueDynamic(this, &UChatUI::OnCancelButtonClicked);
+    };
+
 }
 void UChatUI::InitChatBox()
 {
@@ -73,16 +78,41 @@ void UChatUI::InitChatBox()
     TabFilters.Add("World", { EChatType::World });
     // 체크박스 초기화 및 이벤트 바인딩
 
+    GeneralCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::General, GeneralCheckBox);
+
+    WhisperCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Whisper, WhisperCheckBox);
+
+    CountryCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Country, CountryCheckBox);
+
+    WorldCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::World, WorldCheckBox);
+
+    ContinentCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Continent, ContinentCheckBox);
+
+    RaidCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Raid, RaidCheckBox);
+
+    PartyCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Party, PartyCheckBox);
+
+    GuildCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Guild, GuildCheckBox);
+
+    NearbyCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UChatUI::OnFilterChanged);
+    CheckBoxMap.Add(EChatType::Nearby, NearbyCheckBox);
+
     //인덱스값이랑 EChatType의 순서랑 맞춰주기.
-    AddChatTabWidget(FText::FromString(TEXT("일반")), (int32)EChatType::General);
-    AddChatTabWidget(FText::FromString(TEXT("귓속말")), (int32)EChatType::Whisper);
-    AddChatTabWidget(FText::FromString(TEXT("국가")), (int32)EChatType::Country);
-    AddChatTabWidget(FText::FromString(TEXT("세계")), (int32)EChatType::World);
-    AddChatTabWidget(FText::FromString(TEXT("길드")), (int32)EChatType::Guild);
-    AddChatTabWidget(FText::FromString(TEXT("레이드")), (int32)EChatType::Raid);
-    AddChatTabWidget(FText::FromString(TEXT("파티")), (int32)EChatType::Party);
-    AddChatTabWidget(FText::FromString(TEXT("대륙")), (int32)EChatType::Continent);
-    AddChatTabWidget(FText::FromString(TEXT("근처")), (int32)EChatType::Nearby);
+    AddChatTabWidget(FText::FromString(TEXT("일반")), 0);
+    AddChatTabWidget(FText::FromString(TEXT("귓속말")), 1);
+    AddChatTabWidget(FText::FromString(TEXT("국가")), 2);
+    AddChatTabWidget(FText::FromString(TEXT("세계")), 3);
+    AddChatTabWidget(FText::FromString(TEXT("길드")), 4);
+
+
 
     UE_LOG(LogTemp, Log, TEXT("WidgetSwitcher 자식 개수: %d"), TabContentSwitcher->GetChildrenCount());
     if (TabContentSwitcher)
@@ -126,6 +156,7 @@ void UChatUI::AddChatTabWidget(const FText& TabName, int32 TabIndex)
        
         ChatTabs.Add(NewTabButton);
       
+
         // Add the new tab content to the WidgetSwitcher
         
        
@@ -172,24 +203,33 @@ void UChatUI::OnTabClicked(int32 TabIndex)
         ChatTabs[i]->ChattingTabButton->SetIsEnabled(i != TabIndex);
     }
 
-    SetCurrentChatTypeTab((EChatType)TabIndex);
+    SetCurrentChatType((EChatType)TabIndex);
     UpdateChatDisplay((EChatType)TabIndex);
 }
+void UChatUI::OnFilterChanged(bool bIsChecked)
+{
+    //필터가 바뀌어도 채팅 탭이 다를 수 있으니 현재 선택되어 있는 타입을 불러와준다.
+    UpdateChatDisplay(GetCurrentChatType());
 
+       
+    //채팅 옵션을 저장해준다.
+}
 void UChatUI::UpdateTabFilters(const FString& TabName, const TArray<EChatType>& FilteredChatTypes)
 {
     if (TabFilters.Contains(TabName))
     {
         TabFilters[TabName] = FilteredChatTypes;
-        UpdateChatDisplay(GetCurrentChatTypeTab());
+        UpdateChatDisplay(GetCurrentChatType());
     }
 }
 
 void UChatUI::AddChatTab(FString TabName, TArray<EChatType> FilteredChatTypes)
 {
     TabFilters.Add(TabName, FilteredChatTypes);
-    UpdateChatDisplay(GetCurrentChatTypeTab());
+    UpdateChatDisplay(GetCurrentChatType());
 }
+
+
 
 void UChatUI::CreateNewTab(const FString& TabName)
 {
@@ -241,24 +281,31 @@ void UChatUI::OnSendButtonClicked()
 
 void UChatUI::OnChatOptionUIButtonClicked()
 {
-    UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-    if(IsValid(GM) == false)
-        return;
-
-    UChatOptionUI* ChatOptionUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->ChatOptionUI;
-
     if (IsValid(ChatOptionUI))
     {
-		if (ChatOptionUI->GetVisibility() == ESlateVisibility::Hidden)
-		{
-			ChatOptionUI->OpenUI();	
-		}
-		else
-        { 
-			ChatOptionUI->CloseUI();
-         }
+        ChatOptionUI->SetVisibility(ESlateVisibility::Visible);
     }
 }
+
+void UChatUI::OnConfirmButtonClicked()
+{
+    if (IsValid(ConfirmButton))
+    {
+        ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
+        SaveChatOption();
+    }
+}
+
+void UChatUI::OnCancelButtonClicked()
+{
+    if (IsValid(CancelButton))
+    {
+        ChatOptionUI->SetVisibility(ESlateVisibility::Hidden);
+        LoadChatOption();
+    }
+}
+
+
 
 void UChatUI::AddChatMessage(const FString& Message,int ChatType)
 {
@@ -267,7 +314,7 @@ void UChatUI::AddChatMessage(const FString& Message,int ChatType)
     infoMessage.ChatType = EChatType(ChatType);
     
     ChatMessages.Add(infoMessage);
-    UpdateChatDisplay(GetCurrentChatTypeTab());
+    UpdateChatDisplay(GetCurrentChatType());
 }
 
 void UChatUI::AddMessageToScrollBox(UScrollBox* ScrollBox, const FString& Message, FLinearColor Color)
@@ -348,27 +395,98 @@ TArray<EChatType> UChatUI::GetSelectedChatTypes() const
 {
     TArray<EChatType> SelectedChatTypes;
 
-    UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-    if(IsValid(GM) == false)
-        return SelectedChatTypes;
-
-    for (TTuple<EChatType, bool> ChatOption : GM->GetGameOptionData()->ChatOption.bVisibleChatOption)
+    for (TTuple<EChatType, UCheckBox*> ChatBox : CheckBoxMap)
     {
-        if (ChatOption.Value == true)
-            SelectedChatTypes.Add(ChatOption.Key);
+        if(ChatBox.Value->IsChecked())
+            SelectedChatTypes.Add(ChatBox.Key);
     }
-
     return SelectedChatTypes;
 }
 
-
-
-void UChatUI::SetCurrentChatTypeTab(EChatType SelectedChatType)
+void UChatUI::SaveChatOption()
 {
-    CurrentChatTypeTab = SelectedChatType;
-}
-EChatType UChatUI::GetCurrentChatTypeTab()
-{
-    return CurrentChatTypeTab;
+
+    if (IsValid(GameOptionData) == false)
+    {
+
+        LoadChatOption();
+
+        //불러왔는데도 없으면 무언가 문제가 있는거므로 리턴.
+        if (IsValid(GameOptionData) == false)
+        {
+            UUtilBlueprintFunctionLibrary::DebugLog(TEXT("게임 옵션 데이터를 불러올 수 없습니다. ChatUI.Cpp Error"));
+            return;
+        }
+    }
+
+    //체크 되어 있다면 True, 아니라면 False,
+    for (TTuple<EChatType, UCheckBox*> ChatBox : CheckBoxMap)
+    {
+		bool Ret = GameOptionData->ChatOption.bVisibleChatOption.Contains(ChatBox.Key);
+		if (Ret)
+		{
+			GameOptionData->ChatOption.bVisibleChatOption[ChatBox.Key] = ChatBox.Value->IsChecked();
+		}
+		else {
+            //혹시라도 옵션 데이터에 해당 키에 맞는 밸류가 없으면 새로 추가해준다.
+            GameOptionData->ChatOption.bVisibleChatOption.Add(ChatBox.Key, ChatBox.Value->IsChecked());
+		}
+    }
+
+    UGameplayStatics::SaveGameToSlot(GameOptionData, UGameOptionData::SlotName, 0);
 }
 
+void UChatUI::LoadChatOption()
+{
+    FString SlotName = UGameOptionData::SlotName;
+    bool Ret = UGameplayStatics::DoesSaveGameExist(SlotName, 0);
+
+    //세이브 데이터가 있으면 불러오고, 없으면 임시적으로 새로 만든다
+    if (Ret == true)
+    {
+        UGameOptionData* LoadGameOptionData = Cast<UGameOptionData>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
+
+        if (IsValid(LoadGameOptionData) == false)
+        {
+            UUtilBlueprintFunctionLibrary::DebugLog(TEXT("LoadChatOption Fail. LoadGameOptionData Is Valid 확인."));
+            return;
+        }
+        
+        GameOptionData = LoadGameOptionData;
+    }
+    //나중에 삭제될 확률이 높은 코드. (나중에 옵션 데이터를 제대로 다뤄주게 되면 삭제될 것.)
+    else if (Ret == false)
+    {
+         UGameOptionData* NewGameOptionData = Cast<UGameOptionData>(UGameplayStatics::CreateSaveGameObject(UGameOptionData::StaticClass()));
+         if (IsValid(NewGameOptionData) == false)
+         {
+             UUtilBlueprintFunctionLibrary::DebugLog(TEXT("LoadChatOption Fail. NewGameOptionData Is Valid 확인."));
+             return;
+         }
+
+         NewGameOptionData->Init();
+         GameOptionData = NewGameOptionData;
+    }
+
+     //임시 코드.
+    if(GameOptionData->ChatOption.bVisibleChatOption.Num() == 0)
+        GameOptionData->Init();
+
+    for (TTuple<EChatType, bool> ChatOption : GameOptionData->ChatOption.bVisibleChatOption)
+    {
+        if (CheckBoxMap.Find(ChatOption.Key))
+        {
+            bool IsChecked = ChatOption.Value;
+            CheckBoxMap[ChatOption.Key]->SetIsChecked(IsChecked);
+        }
+    }
+}
+
+void UChatUI::SetCurrentChatType(EChatType SelectedChatType)
+{
+    CurrentChatType = SelectedChatType;
+}
+EChatType UChatUI::GetCurrentChatType()
+{
+    return CurrentChatType;
+}

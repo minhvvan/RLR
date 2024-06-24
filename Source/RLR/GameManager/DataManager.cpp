@@ -23,7 +23,9 @@ FItemData UDataManager::GetItemData(int32 Id)
 		if(Data == nullptr)
 			return FItemData();
 
-		return *Data;
+		FItemData Ret = *Data;
+
+		return Ret;
 	}
 
 

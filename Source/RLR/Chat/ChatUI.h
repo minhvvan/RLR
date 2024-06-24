@@ -12,15 +12,12 @@
 #include <Components/Button.h>
 #include "ChatTabWidget.h"
 #include "GameOptionData/GameOptionData.h"
-#include "UI/SubUI.h"
 #include "ChatUI.generated.h"
 
 
 
 class AChatClient;
 class UChatTabWidget;
-class UScrollBox;
-class UChatOptionUI;
 
 
 //헤더 파일 관리를 위해 GameOptionData로 보내줌.
@@ -56,6 +53,10 @@ class RLR_API UChatUI : public UUserWidget
     GENERATED_BODY()
 
 public:
+
+    UPROPERTY(meta = (BindWidget))
+    UCanvasPanel* ChatOptionUI;
+
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ChatOutputBox;
 
@@ -68,21 +69,59 @@ public:
     UPROPERTY(meta = (BindWidget))
     UButton* SendButton;
 
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* GeneralCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* WhisperCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* GuildCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* RaidCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* PartyCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* CountryCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* ContinentCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* NearbyCheckBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* WorldCheckBox;
+
     UButton* LastClickedButton = nullptr;
+
+     UPROPERTY(meta = (BindWidget))
+    UButton* ConfirmButton;
+
+     UPROPERTY(meta = (BindWidget))
+    UButton* CancelButton;
 
     UPROPERTY(meta = (BindWidget))
     UButton* ChatOptionButton;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-    UScrollBox* TabContainer;
+    UPROPERTY(meta = (BindWidget))
+    class UHorizontalBox* TabContainer;
 
     UPROPERTY(meta = (BindWidget))
     class UWidgetSwitcher* TabContentSwitcher;
 
+     UPROPERTY()
+    TMap<EChatType, UCheckBox*> CheckBoxMap;
+
     UPROPERTY()
-    EChatType       CurrentChatTypeTab = EChatType::General;
-    void                    SetCurrentChatTypeTab(EChatType SelectedChatType);
-    EChatType       GetCurrentChatTypeTab();
+    EChatType CurrentChatType = EChatType::General;
+    void                SetCurrentChatType(EChatType SelectedChatType);
+    EChatType   GetCurrentChatType();
+
+
 
     UFUNCTION(BlueprintCallable)
     void AddChatTabWidget(const FText& TabName, int32 TabIndex);
@@ -116,6 +155,7 @@ public:
 
 protected:
     virtual void NativeConstruct() override;
+
     void InitButton();
     void InitChatBox();
 
@@ -126,11 +166,11 @@ private:
     TMap<TObjectPtr<UButton>, int32> TabButtonToIndexMap;
     TObjectPtr<AChatClient> ChatClient;
 
-public:
     void UpdateChatDisplay(EChatType ChatType);
 
     UFUNCTION(BlueprintCallable)
     void OnChatInputCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
 
     //버튼 이벤트
     UFUNCTION(BlueprintCallable)
@@ -139,6 +179,32 @@ public:
     UFUNCTION(BlueprintCallable)
     void OnChatOptionUIButtonClicked();
 
+    UFUNCTION(BlueprintCallable)
+    void OnConfirmButtonClicked();
+
+     UFUNCTION(BlueprintCallable)
+    void OnCancelButtonClicked();
+
+    //
+
+    UFUNCTION(BlueprintCallable)
+    void OnFilterChanged(bool bIsChecked);
+
     //체크 되어 있는 채팅 타입들을 가져온다.
     TArray<EChatType> GetSelectedChatTypes() const;
+
+
+public:
+
+    //채팅 옵션을 저장해준다.
+    UFUNCTION(BlueprintCallable)
+    void SaveChatOption();
+
+    //채팅 옵션을 불러온다.
+    UFUNCTION(BlueprintCallable)
+    void LoadChatOption();
+
+    //임시 변수. 나중에 UI 매니저 만들면 따로 옮겨줄 것.
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UGameOptionData* GameOptionData; 
 };

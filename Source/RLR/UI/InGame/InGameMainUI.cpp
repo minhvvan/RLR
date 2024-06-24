@@ -2,11 +2,4 @@
 
 
 #include "UI/InGame/InGameMainUI.h"
-#include "UI/SubUI.h"
-#include "Blueprint/WidgetTree.h"
 
-void UInGameMainUI::NativeConstruct()
-{
-	Super::NativeConstruct();
-
-}

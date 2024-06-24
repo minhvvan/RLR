@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/SubUI.h"
 #include "GameManager/DataManager.h"
 #include "InventoryUI.generated.h"
 
@@ -18,7 +17,7 @@
  class UInventorySlot;
 
 UCLASS()
-class RLR_API UInventoryUI : public USubUI
+class RLR_API UInventoryUI : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -42,6 +41,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SortItem();
 
+	UFUNCTION(BlueprintCallable)
+	void SetVisibilityToggle();
+
 public:
 
 	//Bind Widget
@@ -49,17 +51,10 @@ public:
 	TObjectPtr<UGridPanel> InventoryGridPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> CopperText;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> SilberText;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> GoldText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> PlatinumText;
-
+	TObjectPtr<UTextBlock> CashText;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UButton> AllButton;
