@@ -168,7 +168,6 @@ void AMyPlayerController::SendMovementToServer()
     {
         int32 PlayerId = GetUniqueID();
         FVector ActorLocation = GetPawn()->GetActorLocation();
-        GameClient->SendMovePacket(PlayerId, ActorLocation.X, ActorLocation.Y);
     }
 }
 void AMyPlayerController::FindChatClient()

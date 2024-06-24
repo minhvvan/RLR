@@ -68,5 +68,7 @@ private:
 	AGameClient* GameClient;
 	float deltaTime;
 	float pressTime;
-
+	float MovePacketInterval;
+	float TimeSinceLastMovePacket;
+	FVector LastSentPosition;
 };

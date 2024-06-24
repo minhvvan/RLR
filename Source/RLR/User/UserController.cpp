@@ -8,6 +8,10 @@ AUserController::AUserController()
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
     explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+
+    MovePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
+    TimeSinceLastMovePacket = 0.0f;
+    LastSentPosition = FVector::ZeroVector;
 }
 
 void AUserController::BeginPlay()
@@ -27,7 +31,7 @@ void AUserController::BeginPlay()
     }
     TArray<AActor*> FoundActors;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameClient::StaticClass(), FoundActors);
-
+    LastSentPosition = Player->GetActorLocation();
     if (FoundActors.Num() > 0)
     {
         GameClient = Cast<AGameClient>(FoundActors[0]);
@@ -54,10 +58,24 @@ void AUserController::Tick(float DeltaTime)
     {
         OnCursorEffect();
         pressTime = 0.f;
-        if (GameClient)
+
+    }
+    if (!GameClient || !Player) return;
+
+    TimeSinceLastMovePacket += DeltaTime;
+
+    if (TimeSinceLastMovePacket >= MovePacketInterval)
+    {
+        FVector CurrentPosition = Player->GetActorLocation();
+
+        if (FVector::DistSquared(CurrentPosition, LastSentPosition) > KINDA_SMALL_NUMBER)
         {
-            GameClient->SendMovePacket(Player->GetPlayerSeq(), Player->GetActorLocation().X, Player->GetActorLocation().Y);
+            GameClient->SendMovePacket(Player->GetPlayerSeq(), CurrentPosition.X, CurrentPosition.Y);
+            GameClient->SendInventoryPacket(Player->GetPlayerSeq());
+            LastSentPosition = CurrentPosition;
         }
+
+        TimeSinceLastMovePacket = 0.0f;
     }
 
 }
@@ -118,7 +136,6 @@ void AUserController::OnMoveStarted()
 
 void AUserController::OnMove()
 {
-    UE_LOG(LogTemp, Log, TEXT("이동 중"));
     deltaTime += GetWorld()->GetDeltaSeconds();
     pressTime += GetWorld()->GetDeltaSeconds();
     Player->SetMovement(GetClickPosition());

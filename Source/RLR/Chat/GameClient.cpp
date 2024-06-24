@@ -3,70 +3,57 @@
 #include "Runtime/Core/Public/HAL/RunnableThread.h"
 #include "EngineUtils.h"
 #include "Engine/World.h"
-AGameClient::AGameClient()
-{
+#include "Kismet/GameplayStatics.h"
+
+AGameClient::AGameClient() {
     PrimaryActorTick.bCanEverTick = true;
-    ClientSocket = INVALID_SOCKET;
+    clientSocket = INVALID_SOCKET;
     static ConstructorHelpers::FClassFinder<APlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Player/BP/BP_Player"));
-    if (PlayerCharacterBPClass.Class != NULL)
-    {
-        PlayerCharacterClass = PlayerCharacterBPClass.Class;
+    if (PlayerCharacterBPClass.Class != NULL) {
+        playerCharacterClass = PlayerCharacterBPClass.Class;
     }
 }
 
-void AGameClient::BeginPlay()
-{
+void AGameClient::BeginPlay() {
     Super::BeginPlay();
-    FString ServerAddress = TEXT("127.0.0.1"); // 서버 주소
-    int32 ServerPort = 27015; // 서버 포트
+    FString serverAddress = TEXT("127.0.0.1");
+    int32 serverPort = 27015; // 로그인 서버 포트
 
-    if (!InitializeSocket(ServerAddress, ServerPort))
-    {
+    if (!InitializeSocket(serverAddress, serverPort)) {
         UE_LOG(LogTemp, Error, TEXT("소켓 초기화 실패"));
     }
-    else
-    {
-       UE_LOG(LogTemp, Log, TEXT("서버에 성공적으로 연결"));
-    }
-    TArray<AActor*> FoundActors;
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), FoundActors);
-
-    if (FoundActors.Num() > 0)
-    {
-        MyPlayerCharacter = Cast<APlayerCharacter>(FoundActors[0]);
-        if (MyPlayerCharacter)
-        {
-            UE_LOG(LogTemp, Log, TEXT("MyPlayerCharacter 객체를 찾았습니다."));
-        }
-        else
-        {
-            UE_LOG(LogTemp, Error, TEXT("MyPlayerCharacter 객체를 찾지 못했습니다."));
-        }
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter 클래스를 가진 객체가 없습니다."));
+    else {
+        UE_LOG(LogTemp, Log, TEXT("로그인 서버에 성공적으로 연결"));
+        SendLoginPacket(TEXT("admin")); // 테스트 플레이어 ID
     }
 }
 
-void AGameClient::Tick(float DeltaTime)
-{
+void AGameClient::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 
-    if (Socket)
-    {
-        if (Socket->Wait(ESocketWaitConditions::WaitForRead, FTimespan::FromMilliseconds(100)))
-        {
-            uint8 Buffer[sizeof(MoveResponsePacket)];
+    if (socket) {
+        if (socket->Wait(ESocketWaitConditions::WaitForRead, FTimespan::FromMilliseconds(100))) {
+            uint8 Buffer[2048];
             int32 BytesRead = 0;
-            if (Socket->Recv(Buffer, sizeof(Buffer), BytesRead))
-            {
-                if (BytesRead > 0)
-                {
-                    ProcessMoveResponse(reinterpret_cast<const char*>(Buffer));
+            if (socket->Recv(Buffer, sizeof(Buffer), BytesRead)) {
+                if (BytesRead > 0) {
+                    uint8_t packetType = Buffer[0];
+                    switch (packetType) {
+                    case MOVE_RESPONSE:
+                        ProcessMoveResponse(reinterpret_cast<const char*>(Buffer));
+                        break;
+                    case INVENTORY_RESPONSE:
+                        ProcessInventoryResponse(reinterpret_cast<const char*>(Buffer), BytesRead);
+                        break;
+                    case LOGIN_RESPONSE:
+                        ProcessLoginResponse(reinterpret_cast<const char*>(Buffer));
+                        break;
+                    default:
+                        UE_LOG(LogTemp, Warning, TEXT("알 수 없는 패킷 유형: %d"), packetType);
+                        break;
+                    }
                 }
-                else
-                {
+                else {
                     UE_LOG(LogTemp, Warning, TEXT("패킷 수신 실패 또는 읽은 바이트가 없습니다."));
                 }
             }
@@ -74,70 +61,76 @@ void AGameClient::Tick(float DeltaTime)
     }
 }
 
-void AGameClient::ProcessMoveResponse(const char* data)
-{
-    MoveResponsePacket packet = MoveResponsePacket::Deserialize(data);
 
-    int32 userSeq = packet.playerSeq;
-    float newX = packet.newX;
-    float newY = packet.newY;
-    bool success = packet.success;
+bool AGameClient::SendLoginPacket(const FString& playerId) {
+    if (!socket) return false;
 
-    UE_LOG(LogTemp, Log, TEXT("받은 Response Player: %d"), userSeq);
-    UE_LOG(LogTemp, Log, TEXT("받은 Response newX: %f"), newX);
-    UE_LOG(LogTemp, Log, TEXT("받은 Response newY: %f"), newY);
-    UE_LOG(LogTemp, Log, TEXT("받은 Response Success: %d"), success);
+    LoginRequestPacket packet;
+    packet.packetType = LOGIN_REQUEST;
+    strncpy_s(packet.playerId, TCHAR_TO_ANSI(*playerId), sizeof(packet.playerId) - 1);
 
-    APlayerCharacter* PlayerCharacter = FindPlayerCharacterBySeq(userSeq,newX,newY);
-    if (PlayerCharacter && success)
-    {
-        FVector NewPosition(newX, newY, PlayerCharacter->GetActorLocation().Z);
-        PlayerCharacter->SetActorLocation(NewPosition);
-    }
-}
+    int32 BytesSent = 0;
+    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
 
-bool AGameClient::InitializeSocket(const FString& ServerAddress, int32 Port)
-{
-    FIPv4Address IP;
-    if (!FIPv4Address::Parse(ServerAddress, IP))
-    {
-        UE_LOG(LogTemp, Error, TEXT("서버 주소 파싱 실패: %s"), *ServerAddress);
+    if (!bIsSent || BytesSent != sizeof(packet)) {
+        UE_LOG(LogTemp, Error, TEXT("로그인 패킷 전송 실패"));
         return false;
     }
 
-    TSharedRef<FInternetAddr> InternetAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
-    InternetAddr->SetIp(IP.Value);
-    InternetAddr->SetPort(Port);
-
-    Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
-    if (!Socket)
-    {
-        UE_LOG(LogTemp, Error, TEXT("소켓 생성 실패"));
-        return false;
-    }
-
-    if (!Socket->Connect(*InternetAddr))
-    {
-        UE_LOG(LogTemp, Error, TEXT("서버에 연결 실패"));
-        return false;
-    }
-
-    UE_LOG(LogTemp, Log, TEXT("서버에 성공적으로 연결: %s:%d"), *ServerAddress, Port);
     return true;
 }
 
-bool AGameClient::SendMovePacket(int32 PlayerId, float NewX, float NewY)
-{
-    if (!Socket) return false;
+void AGameClient::ProcessLoginResponse(const char* data) {
+    LoginResponsePacket packet = LoginResponsePacket::Deserialize(data);
+
+    if (packet.success) {
+        FString gameServerAddress = ANSI_TO_TCHAR(packet.gameServerAddress);
+        int32 gameServerPort = packet.gameServerPort;
+
+        CloseConnection();
+        if (InitializeSocket(gameServerAddress, gameServerPort)) {
+            UE_LOG(LogTemp, Log, TEXT("게임 서버에 성공적으로 연결: %s:%d"), *gameServerAddress, gameServerPort);
+           
+        }
+        else {
+            UE_LOG(LogTemp, Error, TEXT("게임 서버 연결 실패"));
+        }
+    }
+    else {
+        UE_LOG(LogTemp, Error, TEXT("로그인 실패"));
+    }
+}
+
+bool AGameClient::SendMovePacket(int32 playerSeq, float NewX, float NewY) {
+    if (!socket) return false;  // 'socket'을 'Socket'으로 수정
 
     MoveRequestPacket packet;
     packet.packetType = MOVE_REQUEST;
-    packet.playerSeq = PlayerId;
+    packet.playerSeq = playerSeq;
     packet.newX = NewX;
     packet.newY = NewY;
 
     int32 BytesSent = 0;
-    bool bIsSent = Socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
+    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
+
+    if (!bIsSent || BytesSent != sizeof(packet)) {
+        UE_LOG(LogTemp, Error, TEXT("패킷 전송 실패"));
+        return false;
+    }
+
+    return true;
+}
+bool AGameClient::SendInventoryPacket(int32 playerSeq)
+{
+    if (!socket) return false;
+
+    InventoryRequestPacket packet;
+    packet.packetType = INVENTORY_REQUEST;
+    packet.playerSeq = playerSeq;
+
+
+    int32 BytesSent = 0;
+    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
 
     if (!bIsSent || BytesSent != sizeof(packet))
     {
@@ -145,91 +138,117 @@ bool AGameClient::SendMovePacket(int32 PlayerId, float NewX, float NewY)
         return false;
     }
 
+    UE_LOG(LogTemp, Log, TEXT("InventoryRequestPacket 전송: playerSeq=%d, packetType=%d"), playerSeq, packet.packetType);
+
     return true;
 }
 
-void AGameClient::CloseConnection()
-{
-    if (ClientSocket != INVALID_SOCKET)
-    {
-        closesocket(ClientSocket);
+void AGameClient::CloseConnection() {
+    if (clientSocket != INVALID_SOCKET) {
+        closesocket(clientSocket);
         WSACleanup();
     }
 }
 
-bool AGameClient::ReceiveData(uint8* buffer, int32 bufferSize)
-{
-    if (!Socket) return false;
+bool AGameClient::InitializeSocket(const FString& serverAddress, int32 port) {
+    FIPv4Address IP;
+    if (!FIPv4Address::Parse(serverAddress, IP)) {
+        UE_LOG(LogTemp, Error, TEXT("서버 주소 파싱 실패: %s"), *serverAddress);
+        return false;
+    }
 
-    int32 BytesRead = 0;
-    UE_LOG(LogTemp, Log, TEXT("Receive to server."));
+    TSharedRef<FInternetAddr> InternetAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+    InternetAddr->SetIp(IP.Value);
+    InternetAddr->SetPort(port);
 
-    return Socket->Recv(buffer, bufferSize, BytesRead);
+    socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
+    if (!socket) {
+        UE_LOG(LogTemp, Error, TEXT("소켓 생성 실패"));
+        return false;
+    }
+
+    if (!socket->Connect(*InternetAddr)) {
+        UE_LOG(LogTemp, Error, TEXT("서버에 연결 실패"));
+        return false;
+    }
+
+    UE_LOG(LogTemp, Log, TEXT("서버에 성공적으로 연결: %s:%d"), *serverAddress, port);
+    return true;
 }
 
-APlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t userSeq, float newX, float newY)
-{
-    for (TActorIterator<APlayerCharacter> It(GetWorld()); It; ++It)
-    {
+bool AGameClient::ReceiveData(uint8* buffer, int32 bufferSize) {
+    if (!socket) return false;
+
+    int32 BytesRead = 0;
+    UE_LOG(LogTemp, Log, TEXT("서버로부터 데이터 수신"));
+
+    return socket->Recv(buffer, bufferSize, BytesRead);
+}
+
+APlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY) {
+    for (TActorIterator<APlayerCharacter> It(GetWorld()); It; ++It) {
         APlayerCharacter* PlayerCharacter = *It;
-        if (PlayerCharacter)
-        {
-            UE_LOG(LogTemp, Log, TEXT("Checking PlayerCharacter: %s"), *PlayerCharacter->GetName());
-            if (PlayerCharacter->GetPlayerSeq() == userSeq)
-            {
-                UE_LOG(LogTemp, Log, TEXT("Found PlayerCharacter: %s"), *PlayerCharacter->GetName());
-                return PlayerCharacter;
-            }
+        if (PlayerCharacter && PlayerCharacter->GetPlayerSeq() == playerSeq) {
+            return PlayerCharacter;
         }
     }
 
-        // Log a warning if no player character was found
-        UE_LOG(LogTemp, Warning, TEXT("PlayerCharacter with Seq %d not found"), userSeq);
-
-    // If no player character was found, create a new one
-    if (APlayerCharacter* NewPlayerCharacter = SpawnNewPlayerCharacter(userSeq, newX, newY))
-    {
-        UE_LOG(LogTemp, Log, TEXT("Spawned new PlayerCharacter: %s"), *NewPlayerCharacter->GetName());
-        return NewPlayerCharacter;
-    }
-
-    // Log an error if spawning the player character failed
-    UE_LOG(LogTemp, Error, TEXT("Failed to spawn PlayerCharacter with Seq %d"), userSeq);
-    return nullptr;
+    return SpawnNewPlayerCharacter(playerSeq, newX, newY);
 }
-APlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t userSeq, float newX, float newY)
-{
-    // Ensure the player character class is valid
-    if (!PlayerCharacterClass)
-    {
-        UE_LOG(LogTemp, Error, TEXT("PlayerCharacterClass is not set"));
+
+APlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, float newX, float newY) {
+    if (!playerCharacterClass) {
+        UE_LOG(LogTemp, Error, TEXT("PlayerCharacterClass가 설정되지 않았습니다."));
         return nullptr;
     }
 
-  
-        // Get the current world
-        UWorld* World = GetWorld();
-    if (!World)
-    {
-        UE_LOG(LogTemp, Error, TEXT("World is null"));
+    UWorld* World = GetWorld();
+    if (!World) {
+        UE_LOG(LogTemp, Error, TEXT("월드가 존재하지 않습니다."));
         return nullptr;
     }
 
-    // Set the spawn parameters
-    FActorSpawnParameters SpawnParams;
-    SpawnParams.Owner = nullptr;
-    SpawnParams.Instigator = GetInstigator();
-
-    // Spawn the new player character at a default location
-    FVector SpawnLocation(newX, newY, 92.1064);
+    FVector SpawnLocation(newX, newY, 92.1064f);
     FRotator SpawnRotation(0.0f, 0.0f, 0.0f);
-    APlayerCharacter* NewPlayerCharacter = World->SpawnActor<APlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
+    FActorSpawnParameters SpawnParams;
+    APlayerCharacter* NewPlayerCharacter = World->SpawnActor<APlayerCharacter>(playerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
 
-    // If spawning succeeded, set the player sequence number
-    if (NewPlayerCharacter)
-    {
-        NewPlayerCharacter->SetPlayerSeq(userSeq);
+    if (NewPlayerCharacter) {
+        NewPlayerCharacter->SetPlayerSeq(playerSeq);
     }
 
     return NewPlayerCharacter;
 }
+
+void AGameClient::ProcessMoveResponse(const char* data) {
+    MoveResponsePacket packet = MoveResponsePacket::Deserialize(data);
+
+    int32 playerSeq = packet.playerSeq;
+    float newX = packet.newX;
+    float newY = packet.newY;
+    bool success = packet.success;
+
+    UE_LOG(LogTemp, Log, TEXT("MoveResponse: PlayerSeq=%d, NewX=%f, NewY=%f, Success=%d"), playerSeq, newX, newY, success);
+
+    APlayerCharacter* PlayerCharacter = FindPlayerCharacterBySeq(playerSeq, newX, newY);
+    if (PlayerCharacter && success) {
+        FVector NewPosition(newX, newY, PlayerCharacter->GetActorLocation().Z);
+        PlayerCharacter->SetActorLocation(NewPosition);
+    }
+}
+
+void AGameClient::ProcessInventoryResponse(const char* data, int32 dataSize) {
+    
+
+    InventoryResponsePacket packet = InventoryResponsePacket::Deserialize(data);
+
+    UE_LOG(LogTemp, Log, TEXT("Received Inventory Response: PlayerSeq=%d, ItemCount=%d"), packet.playerSeq, packet.itemCount);
+    for (const auto& item : packet.items) {
+        UE_LOG(LogTemp, Log, TEXT("ItemSeq=%d, ItemValue=%d, ItemMax=%d,  ItemId=%d, ItemSlotIdx=%d"),
+            item.itemSeq, item.itemValue, item.itemMax,  item.itemId, item.itemSlotIdx);
+        break;
+    }
+}
+
+
+
