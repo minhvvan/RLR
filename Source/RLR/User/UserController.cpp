@@ -9,6 +9,10 @@ AUserController::AUserController()
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
     explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+
+    movePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
+    timeSinceLastMovePacket = 0.0f;
+    lastSentPosition = FVector::ZeroVector;
 }
 
 void AUserController::BeginPlay()
@@ -16,10 +20,10 @@ void AUserController::BeginPlay()
     Super::BeginPlay();
 
     APawn* ControlledPawn = GetPawn();
-  // TODO : player name modify
     player = Cast<APlayerCharacter>(ControlledPawn);
-	player->SetController();
+	  player->SetController();
     if (player)
+
     {
         AssignPlayerSeq(); // Assign player sequence ID
     }
@@ -29,11 +33,27 @@ void AUserController::BeginPlay()
         system->AddMappingContext(currentContext, 0);
     }
 
-    gameClient = NewObject<AGameClient>();
-    if (gameClient && !gameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
+    TArray<AActor*> FoundActors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameClient::StaticClass(), FoundActors);
+    lastSentPosition = player->GetActorLocation();
+    if (FoundActors.Num() > 0)
+
     {
-        UE_LOG(LogTemp, Error, TEXT("Failed to connect to server"));
+        GameClient = Cast<AGameClient>(FoundActors[0]);
+        if (GameClient)
+        {
+            UE_LOG(LogTemp, Log, TEXT("GameClient 객체를 찾았습니다."));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("GameClient 객체를 찾지 못했습니다."));
+        }
     }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter 클래스를 가진 객체가 없습니다."));
+    }
+   
 }
 
 void AUserController::Tick(float DeltaTime)
@@ -43,7 +63,26 @@ void AUserController::Tick(float DeltaTime)
     {
         OnCursorEffect();
         pressTime = 0.f;
+
     }
+    if (!GameClient || !Player) return;
+
+    timeSinceLastMovePacket += DeltaTime;
+
+    if (timeSinceLastMovePacket >= movePacketInterval)
+    {
+        FVector CurrentPosition = player->GetActorLocation();
+
+        if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
+        {
+            GameClient->SendMovePacket(player->GetPlayerSeq(), CurrentPosition.X, CurrentPosition.Y);
+            GameClient->SendInventoryPacket(player->GetPlayerSeq());
+            lastSentPosition = CurrentPosition;
+        }
+
+        timeSinceLastMovePacket = 0.0f;
+    }
+
 }
 
 void AUserController::AssignPlayerSeq()
@@ -105,8 +144,6 @@ void AUserController::OnMoveStarted()
 
 void AUserController::OnMove()
 {
-	pressTime += GetWorld()->GetDeltaSeconds();
-
 	if (IsMove())
 	{
     UE_LOG(LogTemp, Log, TEXT("이동 중"));
@@ -122,6 +159,7 @@ void AUserController::OnMove()
 
 void AUserController::OnMoveCompleted()
 {
+
 	if (IsMove())
 	{
 		if (deltaTime <= 0.3f)
