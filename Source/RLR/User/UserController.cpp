@@ -9,9 +9,9 @@ AUserController::AUserController()
     DefaultMouseCursor = EMouseCursor::Default;
     explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
 
-    MovePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
-    TimeSinceLastMovePacket = 0.0f;
-    LastSentPosition = FVector::ZeroVector;
+    movePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
+    timeSinceLastMovePacket = 0.0f;
+    lastSentPosition = FVector::ZeroVector;
 }
 
 void AUserController::BeginPlay()
@@ -19,7 +19,7 @@ void AUserController::BeginPlay()
     Super::BeginPlay();
 
     APawn* ControlledPawn = GetPawn();
-    Player = Cast<APlayerCharacter>(ControlledPawn);
+    player = Cast<APlayerCharacter>(ControlledPawn);
     if (Player)
     {
         AssignPlayerSeq(); // Assign player sequence ID
@@ -31,7 +31,7 @@ void AUserController::BeginPlay()
     }
     TArray<AActor*> FoundActors;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameClient::StaticClass(), FoundActors);
-    LastSentPosition = Player->GetActorLocation();
+    lastSentPosition = player->GetActorLocation();
     if (FoundActors.Num() > 0)
     {
         GameClient = Cast<AGameClient>(FoundActors[0]);
@@ -62,20 +62,20 @@ void AUserController::Tick(float DeltaTime)
     }
     if (!GameClient || !Player) return;
 
-    TimeSinceLastMovePacket += DeltaTime;
+    timeSinceLastMovePacket += DeltaTime;
 
-    if (TimeSinceLastMovePacket >= MovePacketInterval)
+    if (timeSinceLastMovePacket >= movePacketInterval)
     {
-        FVector CurrentPosition = Player->GetActorLocation();
+        FVector CurrentPosition = player->GetActorLocation();
 
-        if (FVector::DistSquared(CurrentPosition, LastSentPosition) > KINDA_SMALL_NUMBER)
+        if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
         {
-            GameClient->SendMovePacket(Player->GetPlayerSeq(), CurrentPosition.X, CurrentPosition.Y);
-            GameClient->SendInventoryPacket(Player->GetPlayerSeq());
-            LastSentPosition = CurrentPosition;
+            GameClient->SendMovePacket(player->GetPlayerSeq(), CurrentPosition.X, CurrentPosition.Y);
+            GameClient->SendInventoryPacket(player->GetPlayerSeq());
+            lastSentPosition = CurrentPosition;
         }
 
-        TimeSinceLastMovePacket = 0.0f;
+        timeSinceLastMovePacket = 0.0f;
     }
 
 }
@@ -84,9 +84,9 @@ void AUserController::AssignPlayerSeq()
 {
     static int32 NextPlayerSeq = 1; // Static variable to keep track of the next ID
 
-    if (Player)
+    if (player)
     {
-        Player->SetPlayerSeq(NextPlayerSeq);
+        player->SetPlayerSeq(NextPlayerSeq);
         NextPlayerSeq = (NextPlayerSeq == 1) ? 2 : 1; // Alternate between 1 and 2
     }
 }
@@ -138,7 +138,7 @@ void AUserController::OnMove()
 {
     deltaTime += GetWorld()->GetDeltaSeconds();
     pressTime += GetWorld()->GetDeltaSeconds();
-    Player->SetMovement(GetClickPosition());
+    player->SetMovement(GetClickPosition());
 
     
 }
@@ -147,7 +147,7 @@ void AUserController::OnMoveCompleted()
 {
     if (deltaTime <= 0.3f)
     {
-        Player->SetSimpleMove(this, GetClickPosition());
+        player->SetSimpleMove(this, GetClickPosition());
     }
     deltaTime = 0.f;
 }

@@ -48,7 +48,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* cursor;
 
-	APlayerCharacter* Player;
+	APlayerCharacter* player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* currentContext;
@@ -68,7 +68,7 @@ private:
 	AGameClient* GameClient;
 	float deltaTime;
 	float pressTime;
-	float MovePacketInterval;
-	float TimeSinceLastMovePacket;
-	FVector LastSentPosition;
+	float movePacketInterval;
+	float timeSinceLastMovePacket;
+	FVector lastSentPosition;
 };

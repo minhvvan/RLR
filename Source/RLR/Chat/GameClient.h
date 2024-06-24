@@ -11,7 +11,7 @@
 #include "../Player/PlayerCharacter.h"
 #include "GameFramework/Actor.h"
 #include <Networking.h>
-
+#include "../Utils/PacketUtils.h"
 #include "GameClient.generated.h"
 
 
@@ -118,40 +118,14 @@ enum PacketType : uint8
     SERVER_LOG = 38,
     CLIENT_LOG = 39
 };
-template<typename T>
-inline void Serialize(const T& data, char*& buffer) {
-    std::memcpy(buffer, &data, sizeof(T));
-    buffer += sizeof(T);
-}
 
-template<typename T>
-inline void Deserialize(T& data, const char*& buffer) {
-    std::memcpy(&data, buffer, sizeof(T));
-    buffer += sizeof(T);
-}
-
-template<>
-inline void Serialize<std::string>(const std::string& data, char*& buffer) {
-    int32_t length = static_cast<int32_t>(data.size());
-    Serialize(length, buffer);
-    std::memcpy(buffer, data.c_str(), length);
-    buffer += length;
-}
-
-template<>
-inline void Deserialize<std::string>(std::string& data, const char*& buffer) {
-    int32_t length;
-    Deserialize(length, buffer);
-    data.assign(buffer, length);
-    buffer += length;
-}
 #pragma pack(push, 1)
-
 struct MoveRequestPacket {
     uint8_t packetType = MOVE_REQUEST;
     int32_t playerSeq;
     float newX;
     float newY;
+
     void Serialize(char* buffer) const {
         char* bufPtr = buffer;
         ::Serialize(*this, bufPtr);
@@ -172,7 +146,6 @@ struct MoveResponsePacket {
     float newY;
     bool success;
 
- 
     void Serialize(char* buffer) const {
         char* bufPtr = buffer;
         ::Serialize(*this, bufPtr);
@@ -186,65 +159,44 @@ struct MoveResponsePacket {
     }
 };
 
-struct LoginRequestPacket {
-    uint8_t packetType = LOGIN_REQUEST;
-    char playerId[50];
-
-    void Serialize(char* buffer) const {
-        char* bufPtr = buffer;
-        std::memcpy(bufPtr, this, sizeof(LoginRequestPacket));
-    }
-
-    static LoginRequestPacket Deserialize(const char* buffer) {
-        LoginRequestPacket packet;
-        std::memcpy(&packet, buffer, sizeof(LoginRequestPacket));
-        return packet;
-    }
-};
-struct LoginResponsePacket {
-    uint8_t packetType = LOGIN_RESPONSE;
-    bool success;
-    char gameServerAddress[50];
-    int gameServerPort;
-
-    void Serialize(char* buffer) const {
-        char* bufPtr = buffer;
-        ::Serialize(*this, bufPtr);
-        ::Serialize(success, bufPtr);
-        ::Serialize(gameServerAddress, bufPtr);
-        ::Serialize(gameServerPort, bufPtr);
-    }
-
-    static LoginResponsePacket Deserialize(const char* buffer) {
-        LoginResponsePacket packet;
-        const char* bufPtr = buffer;
-        ::Deserialize(packet.packetType, bufPtr);
-        ::Deserialize(packet.success, bufPtr);
-        ::Deserialize(packet.gameServerAddress, bufPtr);
-        ::Deserialize(packet.gameServerPort, bufPtr);
-        return packet;
-    }
+// STATUS_REQUEST 패킷 구조체
+struct StatusRequestPacket {
+    uint8_t packetType = STATUS_REQUEST;
+    int32_t userId;
 };
 
+// STATUS_RESPONSE 패킷 구조체
+struct StatusResponsePacket {
+    uint8_t packetType = STATUS_RESPONSE;
+    int32_t userId;
+    int32_t health;
+    int32_t mana;
+    int32_t experience;
+};
+
+// INVENTORY_REQUEST 패킷 구조체
 struct InventoryRequestPacket {
     uint8_t packetType = INVENTORY_REQUEST;
     int32_t playerSeq;
+
     void Serialize(char* buffer) const {
         char* bufPtr = buffer;
-        ::Serialize(*this, bufPtr);
+        ::Serialize(packetType, bufPtr);
+        ::Serialize(playerSeq, bufPtr);
     }
 
     static InventoryRequestPacket Deserialize(const char* buffer) {
         InventoryRequestPacket packet;
         const char* bufPtr = buffer;
-        ::Deserialize(packet, bufPtr);
+        ::Deserialize(packet.packetType, bufPtr);
+        ::Deserialize(packet.playerSeq, bufPtr);
         return packet;
     }
-};
-struct InventoryResponsePacket {
+}; struct InventoryResponsePacket {
     uint8_t packetType = INVENTORY_RESPONSE;
     int32_t playerSeq;
     int32_t itemCount;
+
     struct ItemData {
         int itemSeq;
         int itemValue;
@@ -252,37 +204,18 @@ struct InventoryResponsePacket {
         char itemType[50];
         long itemId;
         int itemSlotIdx;
-
-        void Serialize(char*& buffer) const {
-            ::Serialize(itemSeq, buffer);
-            ::Serialize(itemValue, buffer);
-            ::Serialize(itemMax, buffer);
-            ::Serialize(itemType, buffer);
-            ::Serialize(itemId, buffer);
-            ::Serialize(itemSlotIdx, buffer);
-        }
-
-        void Deserialize(const char*& buffer) {
-            ::Deserialize(itemSeq, buffer);
-            ::Deserialize(itemValue, buffer);
-            ::Deserialize(itemMax, buffer);
-            ::Deserialize(itemType, buffer);
-            ::Deserialize(itemId, buffer);
-            ::Deserialize(itemSlotIdx, buffer);
-        }
     } items[100];
 
     void Serialize(char* buffer) const {
         char* bufPtr = buffer;
-        
         ::Serialize(packetType, bufPtr);
         ::Serialize(playerSeq, bufPtr);
         ::Serialize(itemCount, bufPtr);
-        for (int i = 0; i < itemCount && i < 100; ++i) {
-           
+        for (int i = 0; i < itemCount; ++i) {
             ::Serialize(items[i].itemSeq, bufPtr);
             ::Serialize(items[i].itemValue, bufPtr);
             ::Serialize(items[i].itemMax, bufPtr);
+            ::Serialize(items[i].itemType, bufPtr, sizeof(items[i].itemType));
             ::Serialize(items[i].itemId, bufPtr);
             ::Serialize(items[i].itemSlotIdx, bufPtr);
         }
@@ -294,16 +227,271 @@ struct InventoryResponsePacket {
         ::Deserialize(packet.packetType, bufPtr);
         ::Deserialize(packet.playerSeq, bufPtr);
         ::Deserialize(packet.itemCount, bufPtr);
-      
-        for (int i = 0; i < packet.itemCount && i < 100; ++i) {
+        for (int i = 0; i < packet.itemCount; ++i) {
             ::Deserialize(packet.items[i].itemSeq, bufPtr);
             ::Deserialize(packet.items[i].itemValue, bufPtr);
             ::Deserialize(packet.items[i].itemMax, bufPtr);
+            ::Deserialize(packet.items[i].itemType, bufPtr, sizeof(packet.items[i].itemType));
             ::Deserialize(packet.items[i].itemId, bufPtr);
             ::Deserialize(packet.items[i].itemSlotIdx, bufPtr);
-      
         }
         return packet;
     }
 };
+// ITEM_ADD_REQUEST 패킷 구조체
+struct ItemAddRequestPacket {
+    uint8_t packetType = ITEM_ADD_REQUEST;
+    int32_t userId;
+    int32_t itemId;
+    int32_t quantity;
+};
+
+struct LoginRequestPacket {
+    uint8_t packetType = LOGIN_REQUEST;
+    char playerId[50];
+
+    void Serialize(char* buffer) const {
+        char* bufPtr = buffer;
+        ::Serialize(packetType, bufPtr);
+        ::Serialize(playerId, bufPtr, sizeof(playerId));
+    }
+
+    static LoginRequestPacket Deserialize(const char* buffer) {
+        LoginRequestPacket packet;
+        const char* bufPtr = buffer;
+        ::Deserialize(packet.packetType, bufPtr);
+        ::Deserialize(packet.playerId, bufPtr, sizeof(packet.playerId));
+        return packet;
+    }
+};
+
+struct LoginResponsePacket {
+    uint8_t packetType = LOGIN_RESPONSE;
+    bool success;
+    char gameServerAddress[50];
+    int gameServerPort;
+
+    void Serialize(char* buffer) const {
+        char* bufPtr = buffer;
+        ::Serialize(packetType, bufPtr);
+        ::Serialize(success, bufPtr);
+        ::Serialize(gameServerAddress, bufPtr, sizeof(gameServerAddress));
+        ::Serialize(gameServerPort, bufPtr);
+    }
+
+    static LoginResponsePacket Deserialize(const char* buffer) {
+        LoginResponsePacket packet;
+        const char* bufPtr = buffer;
+        ::Deserialize(packet.packetType, bufPtr);
+        ::Deserialize(packet.success, bufPtr);
+        ::Deserialize(packet.gameServerAddress, bufPtr, sizeof(packet.gameServerAddress));
+        ::Deserialize(packet.gameServerPort, bufPtr);
+        return packet;
+    }
+};
+// ITEM_ADD_RESPONSE 패킷 구조체
+struct ItemAddResponsePacket {
+    uint8_t packetType = ITEM_ADD_RESPONSE;
+    int32_t userId;
+    int32_t itemId;
+    int32_t quantity;
+    bool success;
+};
+
+// ITEM_USE_REQUEST 패킷 구조체
+struct ItemUseRequestPacket {
+    uint8_t packetType = ITEM_USE_REQUEST;
+    int32_t userId;
+    int32_t itemId;
+};
+
+// ITEM_USE_RESPONSE 패킷 구조체
+struct ItemUseResponsePacket {
+    uint8_t packetType = ITEM_USE_RESPONSE;
+    int32_t userId;
+    int32_t itemId;
+    bool success;
+};
+
+// ITEM_EQUIP_REQUEST 패킷 구조체
+struct ItemEquipRequestPacket {
+    uint8_t packetType = ITEM_EQUIP_REQUEST;
+    int32_t userId;
+    int32_t itemId;
+    char equipArea[32];
+};
+
+// ITEM_EQUIP_RESPONSE 패킷 구조체
+struct ItemEquipResponsePacket {
+    uint8_t packetType = ITEM_EQUIP_RESPONSE;
+    int32_t userId;
+    int32_t itemId;
+    char equipArea[32];
+    bool success;
+};
+
+// ITEM_UNEQUIP_REQUEST 패킷 구조체
+struct ItemUnequipRequestPacket {
+    uint8_t packetType = ITEM_UNEQUIP_REQUEST;
+    int32_t userId;
+    int32_t itemId;
+};
+
+// ITEM_UNEQUIP_RESPONSE 패킷 구조체
+struct ItemUnequipResponsePacket {
+    uint8_t packetType = ITEM_UNEQUIP_RESPONSE;
+    int32_t userId;
+    int32_t itemId;
+    bool success;
+};
+
+// CHAT_MESSAGE 패킷 구조체
+struct ChatMessagePacket {
+    uint8_t packetType = CHAT_MESSAGE;
+    int32_t userId;
+    char message[256];
+};
+
+// CHAT_RESPONSE 패킷 구조체
+struct ChatResponsePacket {
+    uint8_t packetType = CHAT_RESPONSE;
+    int32_t userId;
+    char message[256];
+    bool success;
+};
+
+
+// HEALTH_UPDATE 패킷 구조체
+struct HealthUpdatePacket {
+    uint8_t packetType = HEALTH_UPDATE;
+    int32_t userId;
+    int32_t health;
+};
+
+// MANA_UPDATE 패킷 구조체
+struct ManaUpdatePacket {
+    uint8_t packetType = MANA_UPDATE;
+    int32_t userId;
+    int32_t mana;
+};
+
+// EXPERIENCE_UPDATE 패킷 구조체
+struct ExperienceUpdatePacket {
+    uint8_t packetType = EXPERIENCE_UPDATE;
+    int32_t userId;
+    int32_t experience;
+};
+
+// PARTY_INVITE 패킷 구조체
+struct PartyInvitePacket {
+    uint8_t packetType = PARTY_INVITE;
+    int32_t inviterId;
+    int32_t inviteeId;
+};
+
+// PARTY_INVITE_RESPONSE 패킷 구조체
+struct PartyInviteResponsePacket {
+    uint8_t packetType = PARTY_INVITE_RESPONSE;
+    int32_t inviterId;
+    int32_t inviteeId;
+    bool accepted;
+};
+
+// FRIEND_REQUEST 패킷 구조체
+struct FriendRequestPacket {
+    uint8_t packetType = FRIEND_REQUEST;
+    int32_t requesterId;
+    int32_t requesteeId;
+};
+
+// FRIEND_REQUEST_RESPONSE 패킷 구조체
+struct FriendRequestResponsePacket {
+    uint8_t packetType = FRIEND_REQUEST_RESPONSE;
+    int32_t requesterId;
+    int32_t requesteeId;
+    bool accepted;
+};
+
+// QUEST_START 패킷 구조체
+struct QuestStartPacket {
+    uint8_t packetType = QUEST_START;
+    int32_t userId;
+    int32_t questId;
+};
+
+// QUEST_UPDATE 패킷 구조체
+struct QuestUpdatePacket {
+    uint8_t packetType = QUEST_UPDATE;
+    int32_t userId;
+    int32_t questId;
+    int32_t progress;
+};
+
+// QUEST_COMPLETE 패킷 구조체
+struct QuestCompletePacket {
+    uint8_t packetType = QUEST_COMPLETE;
+    int32_t userId;
+    int32_t questId;
+};
+
+// TRADE_REQUEST 패킷 구조체
+struct TradeRequestPacket {
+    uint8_t packetType = TRADE_REQUEST;
+    int32_t requesterId;
+    int32_t requesteeId;
+};
+
+// TRADE_RESPONSE 패킷 구조체
+struct TradeResponsePacket {
+    uint8_t packetType = TRADE_RESPONSE;
+    int32_t requesterId;
+    int32_t requesteeId;
+    bool accepted;
+};
+
+// TRADE_COMPLETE 패킷 구조체
+struct TradeCompletePacket {
+    uint8_t packetType = TRADE_COMPLETE;
+    int32_t userId;
+    int32_t itemId;
+    int32_t quantity;
+};
+
+// SKILL_USE_REQUEST 패킷 구조체
+struct SkillUseRequestPacket {
+    uint8_t packetType = SKILL_USE_REQUEST;
+    int32_t userId;
+    int32_t skillId;
+};
+
+// SKILL_USE_RESPONSE 패킷 구조체
+struct SkillUseResponsePacket {
+    uint8_t packetType = SKILL_USE_RESPONSE;
+    int32_t userId;
+    int32_t skillId;
+    bool success;
+};
+
+// PING 패킷 구조체
+struct PingPacket {
+    uint8_t packetType = PING;
+};
+
+// PONG 패킷 구조체
+struct PongPacket {
+    uint8_t packetType = PONG;
+};
+
+// SERVER_LOG 패킷 구조체
+struct ServerLogPacket {
+    uint8_t packetType = SERVER_LOG;
+    char logMessage[256];
+};
+
+// CLIENT_LOG 패킷 구조체
+struct ClientLogPacket {
+    uint8_t packetType = CLIENT_LOG;
+    char logMessage[256];
+};
+
 #pragma pack(pop)
