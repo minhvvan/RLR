@@ -133,7 +133,6 @@ class RLR_API APlayerCommands : public AActor
 public:
 	APlayerCommands();
 
-	void TestLog();
 	void Init();
 
 	UPROPERTY(EditAnywhere, Category = Action);
@@ -147,6 +146,5 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
-
 };
 

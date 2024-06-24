@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UserController.h"
+#include "Player/PlayerCharacter.h"
 
 AUserController::AUserController()
 {
@@ -15,6 +16,9 @@ void AUserController::BeginPlay()
     Super::BeginPlay();
 
     APawn* ControlledPawn = GetPawn();
+  // TODO : player name modify
+    player = Cast<APlayerCharacter>(ControlledPawn);
+	  player->SetController();
     Player = Cast<APlayerCharacter>(ControlledPawn);
     if (Player)
     {
@@ -66,57 +70,67 @@ void AUserController::SetupInputComponent()
 
 void AUserController::InitBinding(UEnhancedInputComponent* component)
 {
-    component = Cast<UEnhancedInputComponent>(InputComponent);
+	component = Cast<UEnhancedInputComponent>(InputComponent);
 
-    if (component != nullptr)
-    {
-        if (Commands == nullptr)
-        {
-            Commands = GetWorld()->SpawnActor<APlayerCommands>(CommandClass);
+  if (component != nullptr)
+	{
+		if (commands == nullptr)
+		{
+			commands = GetWorld()->SpawnActor<APlayerCommands>(commandClass);
 
-            if (Commands->Skill.Q == nullptr)
-            {
-                Commands->Init();
-            }
-        }
+			if (commands->Skill.Q == nullptr)
+			{
+				commands->Init();
+			}
+		}
 
-        component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
+		//TODO : 모든 바인딩 적용하기.
+		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
+		component->BindAction(commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
+		component->BindAction(commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
+		component->BindAction(commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
 
-        component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
-        component->BindAction(Commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
-        component->BindAction(Commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
-
-        component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
-        component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, Commands, &APlayerCommands::TestLog);
-    }
+		component->BindAction(commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
+	}
 }
 
 void AUserController::OnMoveStarted()
 {
-    StopMovement();
-    pressTime = 0.f;
+	if (IsMove())
+	{
+		StopMovement();
+	}
+
+	pressTime = 0.f;
 }
 
 void AUserController::OnMove()
 {
-    UE_LOG(LogTemp, Log, TEXT("이동 중"));
-    deltaTime += GetWorld()->GetDeltaSeconds();
-    pressTime += GetWorld()->GetDeltaSeconds();
-    Player->SetMovement(GetClickPosition());
+	pressTime += GetWorld()->GetDeltaSeconds();
 
-    if (GameClient)
-    {
-        GameClient->SendMovePacket(Player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
-    }
+	if (IsMove())
+	{
+    UE_LOG(LogTemp, Log, TEXT("이동 중"));
+		deltaTime += GetWorld()->GetDeltaSeconds();
+    Player->SetMovement(GetClickPosition());
+	}
+  
+  if (GameClient)
+  {
+    GameClient->SendMovePacket(Player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
+  }
 }
 
 void AUserController::OnMoveCompleted()
 {
-    if (deltaTime <= 0.3f)
-    {
-        Player->SetSimpleMove(this, GetClickPosition());
-    }
-    deltaTime = 0.f;
+	if (IsMove())
+	{
+		if (deltaTime <= 0.3f)
+		{
+			Player->SetSimpleMove(this, GetClickPosition());
+		}
+		deltaTime = 0.f;
+	}
 }
 
 void AUserController::OnCursorEffect()
@@ -133,9 +147,25 @@ FVector AUserController::GetClickPosition()
 
 void AUserController::OnAttackEffect()
 {
-    if (explosion == nullptr)
-    {
-        explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
-    }
-    explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
+	if (player->IsAttack())
+	{
+		if (explosion == nullptr)
+		{
+			explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+		}
+		explosion->SkillAttack(GetClickPosition(), explosion->GetAttackParticle());
+		//스킬에맞는 공격 애니메이션 
+	}
+}
+
+bool AUserController::IsMove()
+{
+	if (player->GetCharacterMovement()->MovementMode == MOVE_Walking)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
