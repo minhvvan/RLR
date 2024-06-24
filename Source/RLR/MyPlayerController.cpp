@@ -82,7 +82,7 @@ void AMyPlayerController::BeginPlay()
             UE_LOG(LogTemp, Warning, TEXT("Failed to spawn GameClient"));
         }
     }
-    InitializeChatUI(ChatClient);
+  //  InitializeChatUI(ChatClient);
 }
 
 void AMyPlayerController::OnPossess(APawn* InPawn)
@@ -111,7 +111,7 @@ void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
     {
 
         UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-        GM->GetUIManager()->ShowMainUI(HUD->MainUIClass);
+        GM->GetUIManager()->OpenMainUI(HUD->MainUIClass);
         UChatUI* ChatUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatUI();
 
         if (ChatUI)

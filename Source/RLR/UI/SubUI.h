@@ -16,6 +16,8 @@
  class UButton;
  class UCanvasPanelSlot;
  class UMainUI;
+ class USizeBox;
+ class USlotUI;
 
 UCLASS()
 class RLR_API USubUI : public UBaseUI
@@ -29,17 +31,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void SetVisibilityToggle();
 	virtual void OpenUI();
+	virtual void OpenUIToTop();
+	virtual void OpenUINearTargetSlot(USlotUI* Target);
+
 	virtual void CloseUI();
 
-	UFUNCTION(BlueprintCallable)
-	UMainUI* GetMainUI() {return MainUI;}
-	UFUNCTION(BlueprintCallable)
-	void			SetMainUI(UMainUI* UI){MainUI = UI;}
-
-	template<typename T>
-	T*				GetMainUI(){return Cast<T>(MainUI);}
-
-
+	
 	UFUNCTION()
     void OnDragStarted();
 
@@ -52,6 +49,14 @@ public:
     UFUNCTION()
     void OnDragEnded();
 
+	UFUNCTION(BlueprintCallable)
+	UMainUI* GetMainUI() {return MainUI;}
+	UFUNCTION(BlueprintCallable)
+	void			SetMainUI(UMainUI* UI){MainUI = UI;}
+
+	template<typename T>
+	T*				GetMainUI(){return Cast<T>(MainUI);}
+
 public:
 
 	FVector2D ClickedFirstPoint;
@@ -59,6 +64,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> DragButton;
+
+	//
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<USizeBox> RootSizeBox;
 
 private:
 

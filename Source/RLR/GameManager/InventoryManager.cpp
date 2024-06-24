@@ -7,12 +7,14 @@
 void UInventoryManager::AddItem(FItemData NewItem)
 {
 
-	//임시코드
+	//임시코드. 나중에는 서버에서 보내주는 값으로 해결할 것.
 	NewItem.ITEM_SLOT_IDX = ItemKey;
-
-
-	ItemKey++;
+	NewItem.ITEM_ID = ItemKey;
 	ItemData.Add(ItemKey, NewItem);
+	ItemKey++;
+	//
+
+
 	OnUpdateInventoryManager.Broadcast();
 }
 

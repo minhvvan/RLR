@@ -4,6 +4,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/InventoryManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager.h"
@@ -38,6 +39,18 @@ UUIManager* UGameManager::GetUIManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetUIManager Error."));
+    return nullptr;
+}
+
+UInventoryManager* UGameManager::GetInventoryManager()
+{
+    UInventoryManager* Inven = GetSubsystem<UInventoryManager>(this);
+    if (IsValid(Inven))
+    {
+        return Inven;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetInventoryManager Error."));
     return nullptr;
 }
 

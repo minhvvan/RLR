@@ -29,7 +29,6 @@ void UInventoryUI::NativeConstruct()
 
 void UInventoryUI::Init()
 {
-	Super::Init();
 	InventoryGridPanel->ClearChildren();
 	InventorySlotList.Empty();
 

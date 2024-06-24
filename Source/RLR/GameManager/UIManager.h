@@ -15,6 +15,7 @@
  class UBaseUI;
  class UMainUI;
 class USubUI;
+class USlotUI;
 
 UCLASS()
 class RLR_API UUIManager : public UGameInstanceSubsystem
@@ -24,12 +25,13 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 public:
 
 	
-	void ShowMainUI(TSubclassOf<UMainUI> UIClass);
-	void ShowSubUI(USubUI* Target);
-	void SetZOderUI(USubUI* Target);
+	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
+	void OpenSubUI(USubUI* Target);
+	void OpenSubUINearTargetSlot(USubUI* SubUI, USlotUI* Target);
+	void SetZOrderToTop(USubUI* Target);
 
 	void CloseSubUI(USubUI* Target);
-	void CloseSubUI();
+	void CloseFrontSubUI ();
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();

@@ -2,6 +2,7 @@
 
 
 #include "UI/SubUI.h"
+#include "UI/SlotUI.h"
 #include "GameManager/UIManager.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
@@ -32,7 +33,26 @@ void USubUI::OpenUI()
 	UUIManager* UIManager = GetUIManager();
 	if (IsValid(UIManager))
 	{
-		UIManager->ShowSubUI(this);
+		UIManager->OpenSubUI(this);
+	}
+}
+
+void USubUI::OpenUIToTop()
+{
+	UUIManager* UIManager = GetUIManager();
+	if (IsValid(UIManager))
+	{
+		UIManager->OpenSubUI(this);
+		UIManager->SetZOrderToTop(this);
+	}
+}
+
+void USubUI::OpenUINearTargetSlot(USlotUI* Target)
+{
+	UUIManager* UIManager = GetUIManager();
+	if (IsValid(UIManager))
+	{
+		UIManager->OpenSubUINearTargetSlot(this, Target);
 	}
 }
 
@@ -47,13 +67,18 @@ void USubUI::CloseUI()
 
 void USubUI::OnDragStarted()
 {
-	GetUIManager()->SetZOderUI(this);
+	UUIManager* UIManager = GetUIManager();
 
-	FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
-	FVector2D V2 = Cast<UCanvasPanelSlot>(Slot)->GetPosition();
-	ClickedFirstPoint = V1 - V2;
+	if(IsValid(UIManager))
+	{ 
+		UIManager->SetZOrderToTop(this);
 
-	UpdateLocation();
+		FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+		FVector2D V2 = Cast<UCanvasPanelSlot>(Slot)->GetPosition();
+		ClickedFirstPoint = V1 - V2;
+
+		UpdateLocation();
+	}
 }
 
 void USubUI::UpdateLocation()

@@ -7,7 +7,7 @@
 #include "GameManager/DataManager.h"
 #include "UI/BaseUI.h"
 #include "UI/SlotUI.h"
-#include "InventorySlot.generated.h"
+#include "EquipmentSlot.generated.h"
 
 /**
  * 
@@ -17,20 +17,17 @@
  class UButton;
 
 UCLASS()
-class RLR_API UInventorySlot : public USlotUI
+class RLR_API UEquipmentSlot : public USlotUI
 {
 	GENERATED_BODY()
-	
+
 public:
 
-	virtual void	NativeConstruct() override;
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void				DisplayEquippedItems(bool IsEquiped = false);
+	virtual void NativeConstruct() override;
 
 
 	UFUNCTION()
-	void				OnClickedItemSlot();
+	void OnClickedItemSlot();
 
 	UFUNCTION()
 	void				OnHoveredItemSlot();
@@ -40,8 +37,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void				SetItemData(FItemData ItemData);
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FItemData	GetItemData(){return SlotItemData;};
+	UFUNCTION(BlueprintCallable)
+	FItemData	GetItemData(){return SlotItemData;}
 
 	UFUNCTION(BlueprintCallable)
 	void				Clear();
@@ -51,25 +48,27 @@ public:
 	bool				IsEmpty(){return SlotItemData.ITEM_ID == -1; }
 
 public:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UImage> ItemImage;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UImage> ItemImage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> ItemButton;
 
-public:
-	UPROPERTY(EditAnywhere)
-	FItemData SlotItemData;
-
-
-	/*
-		기본 이미지나, Rarity 색깔은 코드가 아니라  BP에서 설정.
-	*/
 	//기본 상태 슬롯
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UTexture2D> DefaultSlotImage;
+
+	//등급에 따른 배경색
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
+
+	EEquipmentType SlotType = EEquipmentType::NONE;
+
+private:
+
+	UPROPERTY()
+	FItemData SlotItemData;
 };

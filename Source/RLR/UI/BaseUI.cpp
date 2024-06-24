@@ -8,11 +8,6 @@
 void UBaseUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	Init();
-}
-
-void UBaseUI::Init()
-{
 }
 
 void UBaseUI::CloseUI()

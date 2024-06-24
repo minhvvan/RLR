@@ -21,7 +21,6 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void CloseUI();
-	virtual void Init();
 
 public:
 

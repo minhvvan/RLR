@@ -6,11 +6,7 @@
 #include "UI/BaseUI.h"
 #include "OptionUI.generated.h"
 
-/**
- 
-	6/19. 현재 기획상 채팅까지만 구현되었으므로 채팅 관련 옵션 탭만 구현.
 
- */
 UCLASS()
 class RLR_API UOptionUI : public UBaseUI
 {

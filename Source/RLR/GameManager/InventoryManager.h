@@ -80,6 +80,7 @@ private:
 	int32 Platinum;
 
 
+public:
 	//<DB Key , FItemData>
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TMap<int32, FItemData> ItemData;
