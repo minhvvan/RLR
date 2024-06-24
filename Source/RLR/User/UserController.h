@@ -56,10 +56,10 @@ private:
 	APlayerCommands* commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UClass* CommandClass;
+	UClass* commandClass;
 	void AssignPlayerSeq();
 	UPROPERTY()
-	AGameClient* GameClient;
+	AGameClient* gameClient;
 	float deltaTime;
 	float pressTime;
 	bool IsMove();

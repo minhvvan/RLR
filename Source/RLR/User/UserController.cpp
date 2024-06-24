@@ -18,9 +18,8 @@ void AUserController::BeginPlay()
     APawn* ControlledPawn = GetPawn();
   // TODO : player name modify
     player = Cast<APlayerCharacter>(ControlledPawn);
-	  player->SetController();
-    Player = Cast<APlayerCharacter>(ControlledPawn);
-    if (Player)
+	player->SetController();
+    if (player)
     {
         AssignPlayerSeq(); // Assign player sequence ID
     }
@@ -30,8 +29,8 @@ void AUserController::BeginPlay()
         system->AddMappingContext(currentContext, 0);
     }
 
-    GameClient = NewObject<AGameClient>();
-    if (GameClient && !GameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
+    gameClient = NewObject<AGameClient>();
+    if (gameClient && !gameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
     {
         UE_LOG(LogTemp, Error, TEXT("Failed to connect to server"));
     }
@@ -51,9 +50,9 @@ void AUserController::AssignPlayerSeq()
 {
     static int32 NextPlayerSeq = 1; // Static variable to keep track of the next ID
 
-    if (Player)
+    if (player)
     {
-        Player->SetPlayerSeq(NextPlayerSeq);
+        player->SetPlayerSeq(NextPlayerSeq);
         NextPlayerSeq = (NextPlayerSeq == 1) ? 2 : 1; // Alternate between 1 and 2
     }
 }
@@ -112,12 +111,12 @@ void AUserController::OnMove()
 	{
     UE_LOG(LogTemp, Log, TEXT("이동 중"));
 		deltaTime += GetWorld()->GetDeltaSeconds();
-    Player->SetMovement(GetClickPosition());
+    player->SetMovement(GetClickPosition());
 	}
   
-  if (GameClient)
+  if (gameClient)
   {
-    GameClient->SendMovePacket(Player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
+    gameClient->SendMovePacket(player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
   }
 }
 
@@ -127,7 +126,7 @@ void AUserController::OnMoveCompleted()
 	{
 		if (deltaTime <= 0.3f)
 		{
-			Player->SetSimpleMove(this, GetClickPosition());
+			player->SetSimpleMove(this, GetClickPosition());
 		}
 		deltaTime = 0.f;
 	}
