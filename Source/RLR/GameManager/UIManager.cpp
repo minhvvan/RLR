@@ -10,6 +10,7 @@
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -53,19 +54,32 @@ void UUIManager::OpenSubUINearTargetSlot(USubUI* SubUI, USlotUI* Target)
 	SetZOrderToTop(SubUI);
 
 	/*
-		RootSizeBox가 필요하다
+			타깃 슬롯 위에 있는 마우스 커서 위치를 기준으로 UI 창을 띄운다.
+
+			ex)인벤토리에서 아이템 슬롯 위에 커서를 올려두었을 때, 커서 옆에 아이템 정보창을 띄우게 하기 위한 함수로 사용 중.
+
 	*/
 
 
-	//위치를 옮겨준다.
-	FGeometry CachedGeometry =	Target->GetCachedGeometry();
-	FVector2D AbsolutePosition = CachedGeometry.GetAbsolutePosition();
+	//마우스 커서 위치를 가져온다.
+	FVector2D V1  = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
 
-	AbsolutePosition.X-= SubUI->RootSizeBox->GetWidthOverride();
-	AbsolutePosition.X-= Target->RootSizeBox->GetWidthOverride() * 2;
+	//슬롯의 크기 만큼 위치를 조정해준다.
+	V1.X -= Target->RootSizeBox->GetWidthOverride() * 2;
 
 
-	Cast<UCanvasPanelSlot>(SubUI->Slot)->SetPosition(AbsolutePosition);
+	float SubUIRootBoxWidth= SubUI->RootSizeBox->GetWidthOverride();
+	//띄우려는 창의 크기를 고려해서 위치를 조정해준다.
+	if (V1.X > SubUIRootBoxWidth)
+	{
+		V1.X -= SubUIRootBoxWidth /2;
+	}
+	else
+	{
+		V1.X += SubUIRootBoxWidth/2 + Target->RootSizeBox->GetWidthOverride() * 4;
+	}
+
+	Cast<UCanvasPanelSlot>(SubUI->Slot)->SetPosition(V1);
 }
 
 void UUIManager::SetZOrderToTop(USubUI* Target)
