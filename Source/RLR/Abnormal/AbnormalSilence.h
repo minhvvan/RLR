@@ -2,27 +2,19 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "Abnormal.h"
 #include "AbnormalSilence.generated.h"
 
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RLR_API UAbnormalSilence : public UActorComponent
+UCLASS()
+class RLR_API UAbnormalSilence : public UAbnormal
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
 	UAbnormalSilence();
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+	virtual void ApplyAbnormal(APlayerCharacter* other, int duration) override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+	UFUNCTION()
+	virtual void RemoveAbnormal() override;
 };
