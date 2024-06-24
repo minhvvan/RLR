@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/InventoryUI.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 #include "Components/GridPanel.h"
-#include "UI/InGame/InventorySlot.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -11,6 +11,7 @@
 
 void UInventoryUI::NativeConstruct()
 {
+	Super::NativeConstruct();
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 
 	if(IsValid(InventoryManager) == false)
@@ -91,8 +92,8 @@ void UInventoryUI::RefreshGoldAndCashUI()
 	FText NewGold = FText::FromString(FString::FromInt(InventoryManager->GetGold()));
 	GoldText->SetText(NewGold);
 
-	FText NewCash = FText::FromString(FString::FromInt(InventoryManager->GetCash()));
-	CashText->SetText(NewCash);
+	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilber()));
+	SilberText->SetText(NewSilber);
 }
 
 void UInventoryUI::ShowItemsByType(EItemType ItemType)
@@ -132,16 +133,6 @@ void UInventoryUI::SortItem()
 	//아이템 정렬을 하면, 클라이언트에서 처리해도 되는 건가?
 
 	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("제작 중"));
-}
-
-void UInventoryUI::SetVisibilityToggle()
-{
-	ESlateVisibility CurrentVisivility = GetVisibility();
-
-	if(CurrentVisivility == ESlateVisibility::Hidden)
-		SetVisibility(ESlateVisibility::Visible);
-	else
-		SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UInventoryUI::OnAllButtonClicked()

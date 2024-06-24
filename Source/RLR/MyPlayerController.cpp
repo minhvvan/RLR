@@ -1,11 +1,13 @@
 #include "MyPlayerController.h"
 #include "Chat/ChatClient.h"
-#include "Chat/ChatUI.h"
+#include "UI/InGame/Chat/ChatUI.h"
 #include "MyHUD.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/GameManager.h"
 #include "MariaDBActor.h"
 AMyPlayerController* AMyPlayerController::Instance = nullptr;
 
@@ -80,7 +82,7 @@ void AMyPlayerController::BeginPlay()
             UE_LOG(LogTemp, Warning, TEXT("Failed to spawn GameClient"));
         }
     }
-    InitializeChatUI(ChatClient);
+  //  InitializeChatUI(ChatClient);
 }
 
 void AMyPlayerController::OnPossess(APawn* InPawn)
@@ -103,12 +105,15 @@ void AMyPlayerController::UpdateChatUI(const FString& Message, UChatUI* UI, int 
 }
 void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
 {
-    UE_LOG(LogTemp, Log, TEXT("Init Chat UI Start!!"));
-    AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
-    if (HUD)
-        UE_LOG(LogTemp, Log, TEXT("HUD is Vaild"));
+	UE_LOG(LogTemp, Log, TEXT("Init Chat UI Start!!"));
+	AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
+	if (HUD)
     {
-        UChatUI* ChatUI = HUD->GetInGameMainUI()->GetChatUI();
+
+        UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+        GM->GetUIManager()->OpenMainUI(HUD->MainUIClass);
+        UChatUI* ChatUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatUI();
+
         if (ChatUI)
         {
             UE_LOG(LogTemp, Log, TEXT("UChatUI is Vaild"));

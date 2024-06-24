@@ -15,20 +15,51 @@
 			아이템 데이터. 
 			스킬 데이터
 			데이터 관련된 정보를 들고 있을 매니저.
-		ObjectManager
-			프로그램 위에 올라와 있는 몬스터, 아이템, NPC 관련들을 관리할 매니저.
+		InventoryManager
+			서버에서 소유한 아이템 정보를 보내주면 관리할 매니저.
+		UIManager
+			UI를 열고 닫기를 관리할 매니저.
 
  */
 
 
  class UDataManager;
+ class UUIManager;
+ class UInventoryManager;
+ class UGameOptionData;
+
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
 {
 	GENERATED_BODY()
 	
+public:
+	
+	virtual void Init() override;
 
 	UFUNCTION(BlueprintCallable)
-	UDataManager* GetDataManager();
+	UDataManager*				GetDataManager();
+
+	UFUNCTION(BlueprintCallable)
+	UUIManager*						GetUIManager();
+
+	UFUNCTION(BlueprintCallable)
+	UInventoryManager*		GetInventoryManager();
+
+	UFUNCTION(BlueprintCallable)
+	UGameOptionData*		GetGameOptionData();
+
+	UFUNCTION(BlueprintCallable)
+	void SaveGameOption();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadGameOption();
+
+private:
+	/*
+		게임 옵션 데이터
+	*/
+	UPROPERTY();
+	TObjectPtr<UGameOptionData> GameOptionData;
 };
