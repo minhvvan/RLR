@@ -33,6 +33,8 @@ protected:
     
     static AMyPlayerController* Instance;
 
+
+
 private:
     AChatClient* ChatClient;
     AGameClient* GameClient;
@@ -44,5 +46,8 @@ private:
     float Threshold = 10.0f;
     void SendMovementToServer();
     void FindChatClient();
+
+public:
+	AChatClient* GetChatClient() { return ChatClient; };
     void InitializeChatUI(AChatClient* ChatClient2);
 };
