@@ -16,7 +16,7 @@ struct FSkill
 {
 	GENERATED_BODY()
 
-		UPROPERTY(EditAnywhere, Category = Action);
+	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Q;
 
 	UPROPERTY(EditAnywhere, Category = Action);
@@ -39,12 +39,6 @@ struct FSkill
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* F;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* SPACE;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Attack;
 };
 
 USTRUCT()
@@ -133,7 +127,10 @@ class RLR_API APlayerCommands : public AActor
 public:
 	APlayerCommands();
 
-	void Init();
+	void BindDefaultAction(TObjectPtr<class AUserController>);
+	void BindSkillAction(TObjectPtr<class AUserController>);
+	void BindConsumeAction(TObjectPtr<class AUserController>);
+	void BindUserAction(TObjectPtr<class AUserController>);
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	FSkill Skill;
@@ -146,5 +143,11 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
+
+	UPROPERTY(EditAnywhere, Category = Action);
+	UInputAction* SPACE;
+
+	UPROPERTY(EditAnywhere, Category = Action);
+	UInputAction* Attack;
 };
 

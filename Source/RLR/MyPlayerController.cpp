@@ -122,7 +122,7 @@ void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
             ChatClient2->SetUserName(PlayerID);
             ChatUI->SetChatClient(ChatClient2);
             ChatClient2->ConnectToServer();
-         
+
         }
     }
 }

@@ -2,13 +2,18 @@
 
 #include "UserController.h"
 #include "Player/PlayerCharacter.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
+#include "GameManager/UIManager.h"
+#include "UI/MainUI.h"
+#include "MyHUD.h"
+#include "RLR.h"
 
 AUserController::AUserController()
 {
     PrimaryActorTick.bCanEverTick = true;
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
-    Explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
 
     movePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
     timeSinceLastMovePacket = 0.0f;
@@ -54,6 +59,22 @@ void AUserController::BeginPlay()
     }
 }
 
+void AUserController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM == nullptr) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
+	if (!HUD) return;
+
+	UIManager->OpenMainUI(HUD->MainUIClass);
+}
+
 void AUserController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
@@ -63,7 +84,7 @@ void AUserController::Tick(float DeltaTime)
         pressTime = 0.f;
 
     }
-    if (!GameClient || !Player) return;
+    /*if (!GameClient || !Player) return;
 
     timeSinceLastMovePacket += DeltaTime;
 
@@ -79,7 +100,7 @@ void AUserController::Tick(float DeltaTime)
         }
 
         timeSinceLastMovePacket = 0.0f;
-    }
+    }*/
 }
 
 void AUserController::AssignPlayerSeq()
@@ -97,36 +118,24 @@ void AUserController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	if (UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(InputComponent))
-	{
-		InitBinding(component);
-	}
+	InitBinding();
 }
 
-void AUserController::InitBinding(UEnhancedInputComponent* component)
+void AUserController::InitBinding()
 {
-	component = Cast<UEnhancedInputComponent>(InputComponent);
+	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(InputComponent);
+	if (component == nullptr) return;
 
-	if (component != nullptr)
+	if (Commands == nullptr)
 	{
-		if (Commands == nullptr)
-		{
-			Commands = GetWorld()->SpawnActor<APlayerCommands>(CommandClass);
-
-			if (Commands->Skill.Q == nullptr)
-			{
-				Commands->Init();
-			}
-		}
-
-		//TODO : 모든 바인딩 적용하기.
-		component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnCursorEffect);
-		component->BindAction(Commands->Move, ETriggerEvent::Started, this, &AUserController::OnMoveStarted);
-		component->BindAction(Commands->Move, ETriggerEvent::Triggered, this, &AUserController::OnMove);
-		component->BindAction(Commands->Move, ETriggerEvent::Completed, this, &AUserController::OnMoveCompleted);
-
-		component->BindAction(Commands->Skill.Q, ETriggerEvent::Started, this, &AUserController::OnAttackEffect);
+		Commands = GetWorld()->SpawnActor<APlayerCommands>(CommandClass);
 	}
+
+	//bind Default Action
+	Commands->BindDefaultAction(this);
+	Commands->BindSkillAction(this);
+	Commands->BindConsumeAction(this);
+	Commands->BindUserAction(this);
 }
 
 void AUserController::OnMoveStarted()
@@ -145,20 +154,13 @@ void AUserController::OnMove()
 
 	if (IsMove())
 	{
-		UE_LOG(LogTemp, Log, TEXT("이동 중"));
 		deltaTime += GetWorld()->GetDeltaSeconds();
 		Player->SetMovement(GetClickPosition());
-
-		if (GameClient)
-		{
-			GameClient->SendMovePacket(Player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
-		}
 	}
 }
 
 void AUserController::OnMoveCompleted()
 {
-
 	if (IsMove())
 	{
 		if (deltaTime <= 0.3f)
@@ -183,17 +185,47 @@ FVector AUserController::GetClickPosition()
 	return Hit.Location;
 }
 
-void AUserController::OnAttackEffect()
+void AUserController::OnJump()
 {
-	if (Player->IsAttack())
-	{
-		if (Explosion == nullptr)
-		{
-			Explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
-		}
-		Explosion->SkillAttack(GetClickPosition(), Explosion->GetAttackParticle());
-		//스킬에맞는 공격 애니메이션 
-	}
+	RLR_LOG(LogRLR, Log, TEXT("OnJump"));
+}
+
+void AUserController::OnAttack()
+{
+	RLR_LOG(LogRLR, Log, TEXT("OnAttack"));
+}
+
+void AUserController::OnAttackEffect(int inputID)
+{
+	if (!Player->IsAttack()) return;
+
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM == nullptr) return;
+
+	USkillManager* SkillManager = GM->GetSkillManager();
+	if (SkillManager == nullptr) return;
+
+	SkillManager->SkillAttack(inputID, GetClickPosition());
+
+	//스킬에맞는 공격 애니메이션
+}
+
+void AUserController::OnConsumeItem(int inputID)
+{
+	//Consume Item
+	RLR_LOG(LogRLR, Log, TEXT("OnConsumeItem: %d"), inputID);
+}
+
+void AUserController::OnOpenUI(int inputID)
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM == nullptr) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	//TODO: inputID에 맞는 subUI Open
+	//UIManager->OpenSubUI(inputID);
 }
 
 bool AUserController::IsMove()

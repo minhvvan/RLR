@@ -54,7 +54,7 @@ private:
 public:
 	// TODO : UParticleSystem Change to Niagara System
 
-	virtual void SkillAttack(FVector position, UParticleSystem* particle) PURE_VIRTUAL(APlayerSkill::SkillAttack, );
+	virtual void SkillAttack(FVector position) PURE_VIRTUAL(APlayerSkill::SkillAttack, );
 	virtual void Init() PURE_VIRTUAL(APlayerSkill::Init, );
 	
 	int GetDamage() { return Data.Damage; };

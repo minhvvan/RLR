@@ -27,22 +27,28 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn) override;
 
 public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
 	void OnMoveStarted();
-private:
 
+private:
 	void OnMoveCompleted();
 	void OnMove();
 	void OnCursorEffect();
-	void OnAttackEffect();
-	void InitBinding(UEnhancedInputComponent*);
+	void InitBinding();
 	FVector GetClickPosition();
 
-	ASkill_Explosion* Explosion;
+	//bindingAction
+	void OnJump();
+	void OnAttack();
+	void OnAttackEffect(int inputID);
+	void OnConsumeItem(int inputID);
+	void OnOpenUI(int inputID);
+
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* Cursor;
@@ -52,14 +58,17 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* CurrentContext;
 	
-	UPROPERTY(EditAnywhere, Category = Input);
+	UPROPERTY(VisibleAnywhere, Category = Input);
 	APlayerCommands* Commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UClass* CommandClass;
+
 	void AssignPlayerSeq();
+
 	UPROPERTY()
 	AGameClient* GameClient;
+
 	float deltaTime;
 	float pressTime;
 	float movePacketInterval;
@@ -67,4 +76,6 @@ private:
 	FVector lastSentPosition;
 
 	bool IsMove();
+
+	friend class APlayerCommands;
 };
