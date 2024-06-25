@@ -42,24 +42,24 @@ private:
 	void InitBinding(UEnhancedInputComponent*);
 	FVector GetClickPosition();
 
-	ASkill_Explosion* explosion;
+	ASkill_Explosion* Explosion;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UNiagaraSystem* cursor;
+	UNiagaraSystem* Cursor;
 
-	APlayerCharacter* player;
+	APlayerCharacter* Player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UInputMappingContext* currentContext;
+	UInputMappingContext* CurrentContext;
 	
 	UPROPERTY(EditAnywhere, Category = Input);
-	APlayerCommands* commands;
+	APlayerCommands* Commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UClass* commandClass;
+	UClass* CommandClass;
 	void AssignPlayerSeq();
 	UPROPERTY()
-	AGameClient* gameClient;
+	AGameClient* GameClient;
 	float deltaTime;
 	float pressTime;
 	float movePacketInterval;
