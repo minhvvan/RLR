@@ -5,73 +5,73 @@
 
 AUserController::AUserController()
 {
-    PrimaryActorTick.bCanEverTick = true;
-    bShowMouseCursor = true;
-    DefaultMouseCursor = EMouseCursor::Default;
-    explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
+	PrimaryActorTick.bCanEverTick = true;
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
+	explosion = CreateDefaultSubobject<ASkill_Explosion>(TEXT("EffectContainer"));
 }
 
 void AUserController::BeginPlay()
 {
-    Super::BeginPlay();
+	Super::BeginPlay();
 
-    APawn* ControlledPawn = GetPawn();
-  // TODO : player name modify
-    player = Cast<APlayerCharacter>(ControlledPawn);
+	APawn* ControlledPawn = GetPawn();
+	// TODO : player name modify
+	player = Cast<APlayerCharacter>(ControlledPawn);
 	player->SetController();
-    if (player)
-    {
-        AssignPlayerSeq(); // Assign player sequence ID
-    }
+	if (player)
+	{
+		AssignPlayerSeq(); // Assign player sequence ID
+	}
 
-    if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-    {
-        system->AddMappingContext(currentContext, 0);
-    }
+	if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		system->AddMappingContext(currentContext, 0);
+	}
 
-    gameClient = NewObject<AGameClient>();
-    if (gameClient && !gameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
-    {
-        UE_LOG(LogTemp, Error, TEXT("Failed to connect to server"));
-    }
+	gameClient = NewObject<AGameClient>();
+	if (gameClient && !gameClient->ConnectToServer(TEXT("127.0.0.1"), TEXT("27015")))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to connect to server"));
+	}
 }
 
 void AUserController::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
-    if (pressTime >= 1.f)
-    {
-        OnCursorEffect();
-        pressTime = 0.f;
-    }
+	Super::Tick(DeltaTime);
+	if (pressTime >= 1.f)
+	{
+		OnCursorEffect();
+		pressTime = 0.f;
+	}
 }
 
 void AUserController::AssignPlayerSeq()
 {
-    static int32 NextPlayerSeq = 1; // Static variable to keep track of the next ID
+	static int32 NextPlayerSeq = 1; // Static variable to keep track of the next ID
 
-    if (player)
-    {
-        player->SetPlayerSeq(NextPlayerSeq);
-        NextPlayerSeq = (NextPlayerSeq == 1) ? 2 : 1; // Alternate between 1 and 2
-    }
+	if (player)
+	{
+		player->SetPlayerSeq(NextPlayerSeq);
+		NextPlayerSeq = (NextPlayerSeq == 1) ? 2 : 1; // Alternate between 1 and 2
+	}
 }
 
 void AUserController::SetupInputComponent()
 {
-    Super::SetupInputComponent();
+	Super::SetupInputComponent();
 
-    if (UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(InputComponent))
-    {
-        InitBinding(component);
-    }
+	if (UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(InputComponent))
+	{
+		InitBinding(component);
+	}
 }
 
 void AUserController::InitBinding(UEnhancedInputComponent* component)
 {
 	component = Cast<UEnhancedInputComponent>(InputComponent);
 
-  if (component != nullptr)
+	if (component != nullptr)
 	{
 		if (commands == nullptr)
 		{
@@ -109,15 +109,16 @@ void AUserController::OnMove()
 
 	if (IsMove())
 	{
-    UE_LOG(LogTemp, Log, TEXT("이동 중"));
+		UE_LOG(LogTemp, Log, TEXT("이동 중"));
 		deltaTime += GetWorld()->GetDeltaSeconds();
-    player->SetMovement(GetClickPosition());
+		player->SetMovement(GetClickPosition());
 	}
-  
-  if (gameClient)
-  {
-    gameClient->SendMovePacket(player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
-  }
+
+	// TODO : Test Code
+	if (gameClient)
+	{
+		gameClient->SendMovePacket(player->GetPlayerSeq(), GetClickPosition().X, GetClickPosition().Y);
+	}
 }
 
 void AUserController::OnMoveCompleted()
@@ -134,14 +135,14 @@ void AUserController::OnMoveCompleted()
 
 void AUserController::OnCursorEffect()
 {
-    UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, cursor, GetClickPosition(), FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, cursor, GetClickPosition(), FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 }
 
 FVector AUserController::GetClickPosition()
 {
-    FHitResult Hit;
-    GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
-    return Hit.Location;
+	FHitResult Hit;
+	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
+	return Hit.Location;
 }
 
 void AUserController::OnAttackEffect()

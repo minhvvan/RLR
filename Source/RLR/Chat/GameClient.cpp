@@ -3,6 +3,7 @@
 #include "GameClient.h"
 #include "Networking.h"
 #include "Runtime/Core/Public/HAL/RunnableThread.h"
+#include "../Player/PlayerCharacter.h"
 #include "EngineUtils.h"
 #include "Engine/World.h"
 
