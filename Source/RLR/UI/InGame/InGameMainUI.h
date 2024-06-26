@@ -16,6 +16,7 @@
  class UChatOptionUI;
  class UEquipmentUI;
  class UItemInformation;
+ class UCharacterStatusUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -44,7 +45,7 @@ public:
 	TObjectPtr<UInventoryUI> InventoryUI;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UEquipmentUI> EquipmentUI;
+	TObjectPtr<UCharacterStatusUI> CharacterStatusUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UItemInformation> ItemInformation;

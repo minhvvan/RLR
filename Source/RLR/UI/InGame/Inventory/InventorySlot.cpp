@@ -7,7 +7,8 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameManager.h"
-#include "UI/InGame/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
@@ -59,7 +60,7 @@ void UInventorySlot::OnClickedItemSlot()
 		{
 			GM->GetInventoryManager()->ItemData[SlotItemData.ITEM_ID].IsEquiped = true;
 		}
-		MainUI->EquipmentUI->EquipItem(SlotItemData);
+		MainUI->CharacterStatusUI->EquipmentUI->EquipItem(SlotItemData);
 		MainUI->InventoryUI->RefreshUI();
 	}
 }

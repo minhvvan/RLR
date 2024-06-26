@@ -6,6 +6,7 @@
 #include "TimerManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/InGameHUD.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "MariaDBActor.h"
@@ -106,7 +107,7 @@ void AMyPlayerController::UpdateChatUI(const FString& Message, UChatUI* UI, int 
 void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
 {
 	UE_LOG(LogTemp, Log, TEXT("Init Chat UI Start!!"));
-	AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
+    AInGameHUD* HUD = Cast<AInGameHUD>(GetHUD());
 	if (HUD)
     {
 
