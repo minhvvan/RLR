@@ -19,6 +19,7 @@
 #include"Abnormal/AbnormalSlow.h"
 
 #include "GameFramework/Actor.h"
+#include "GameManager/RLRStruct.h"
 #include "PlayerSkill.generated.h"
 
 UCLASS(abstract)
@@ -26,31 +27,6 @@ class RLR_API APlayerSkill : public AActor
 {
 	GENERATED_BODY()
 
-private:
-
-	struct FData
-	{
-		FString Name;
-		// Image
-		int Level;
-		int Cost;
-		int CoolTime;
-		int Cind; // int -> enum or DB kind.
-		int Damage;
-		int Duration;
-		float ActivityTime;
-		FVector CollisionRange;
-		
-	};
-
-	struct FAbnormal
-	{
-		FString Name;
-		FVector Duration;
-		
-	
-
-	};
 public:
 	// TODO : UParticleSystem Change to Niagara System
 
@@ -75,6 +51,6 @@ protected:
 	UPROPERTY()
 	FTimerHandle Timer;
 	
-	FData Data;
+	FSkillData Data;
 	bool bIsHit = false;
 };
