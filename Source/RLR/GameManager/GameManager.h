@@ -19,13 +19,15 @@
 			서버에서 소유한 아이템 정보를 보내주면 관리할 매니저.
 		UIManager
 			UI를 열고 닫기를 관리할 매니저.
-
+		SkillManager
+			Skill 관리 매니저(등록, 실행)
  */
 
 
  class UDataManager;
  class UUIManager;
  class UInventoryManager;
+ class USkillManager;
  class UGameOptionData;
 
 
@@ -46,6 +48,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UInventoryManager*		GetInventoryManager();
+
+	UFUNCTION(BlueprintCallable)
+	USkillManager*		GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*		GetGameOptionData();

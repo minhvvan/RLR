@@ -23,4 +23,3 @@ void APlayerSkill::OnDestroty()
 	}
 	Destroy();
 }
-

@@ -3,9 +3,6 @@
 
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
-#include "Components/Button.h"
-#include "Components/TextBlock.h"
-#include "Components/SizeBox.h"
 
 void UEquipmentUI::NativeConstruct()
 {
@@ -38,9 +35,6 @@ void UEquipmentUI::NativeConstruct()
 	RingSlot_1->SlotType = EEquipmentType::RING;
 	RingSlot_2->SlotType = EEquipmentType::RING;
 	BraceletSlot->SlotType = EEquipmentType::BRACELET;
-
-
-	DetailStatButton->OnClicked.AddUniqueDynamic(this, &UEquipmentUI::ToggleShowDetailStatUI);
 
 }
 
@@ -100,40 +94,3 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 		}
 	}
 }
-
-void UEquipmentUI::ToggleShowDetailStatUI()
-{
-	ESlateVisibility State = DetailStatSizeBox->GetVisibility();
-
-	if (State == ESlateVisibility::Hidden)
-	{
-		DetailStatSizeBox->SetVisibility(ESlateVisibility::Visible);
-	}
-	else if(State == ESlateVisibility::Visible)
-	{
-		DetailStatSizeBox->SetVisibility(ESlateVisibility::Hidden);
-	}
-
-
-}
-
-void UEquipmentUI::RefreshStatUI(FStatus NewStatus)
-{
-	HPStatText->SetText(FText::FromString(FString::SanitizeFloat(NewStatus.MAX_HP)));
-	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));
-	HealthStatText->SetText(FLOAT_TO_FTEXT(NewStatus.HEALTH));
-	MagicStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAGIC));
-	StrengthStatText->SetText(FLOAT_TO_FTEXT(NewStatus.STRENGTH));
-	AgilityStatText->SetText(FLOAT_TO_FTEXT(NewStatus.AGILITY));
-	INTStatText->SetText(FLOAT_TO_FTEXT(NewStatus.INTELLIGENCE));
-	DamageStatText->SetText(FLOAT_TO_FTEXT(NewStatus.ATTACK));
-	DefenceStatText->SetText(FLOAT_TO_FTEXT(NewStatus.DEFENCE));
-	AttackSpeedStatText->SetText(FLOAT_TO_FTEXT(NewStatus.ATTACK_SPEED));
-	CoolTimeStatText->SetText(FLOAT_TO_FTEXT(NewStatus.COOLDOWN_REDUCTION));
-	MoveSpeedStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MOVE_SPEED));
-	EvasionStatText->SetText(FLOAT_TO_FTEXT(NewStatus.EVASION));
-	LifeStealStatText->SetText(FLOAT_TO_FTEXT(NewStatus.LIFE_STEAL));
-	CriticalChanceStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_CHANCE));
-	CriticalDamageStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_DAMAGE));
-}
-
