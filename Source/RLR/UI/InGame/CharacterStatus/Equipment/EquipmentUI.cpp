@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Equipment/EquipmentUI.h"
-#include "UI/InGame/Equipment/EquipmentSlot.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
 
 void UEquipmentUI::NativeConstruct()
 {

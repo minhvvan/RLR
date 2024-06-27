@@ -14,7 +14,7 @@
  class UEquipmentSlot;
 
 UCLASS()
-class RLR_API UEquipmentUI : public USubUI
+class RLR_API UEquipmentUI : public UBaseUI
 {
 	GENERATED_BODY()
 	

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Equipment/EquipmentSlot.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
 #include "EquipmentSlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Image.h"
@@ -9,7 +9,7 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
-#include "UI/InGame/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
