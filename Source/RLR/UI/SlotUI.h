@@ -17,7 +17,6 @@ class RLR_API USlotUI : public UBaseUI
 {
 	GENERATED_BODY()
 
-
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USizeBox> RootSizeBox;

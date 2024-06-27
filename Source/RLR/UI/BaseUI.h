@@ -7,7 +7,7 @@
 #include "BaseUI.generated.h"
 
 /**
-	인게임 Main UI 안에 들어가는, 드래그 가능한 UI들의 부모가 될 예정.
+
  */
 
  class UUIManager;

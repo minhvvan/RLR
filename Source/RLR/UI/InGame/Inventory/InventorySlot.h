@@ -29,13 +29,13 @@ public:
 	void				DisplayEquippedItems(bool IsEquiped = false);
 
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void				OnClickedItemSlot();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void				OnHoveredItemSlot();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void				OnUnHoveredItemSlot();
 
 	UFUNCTION(BlueprintCallable)

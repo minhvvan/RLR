@@ -1,4 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameManager/RLRStruct.h"
+#include "UI/InGame/StatusDisplay/ItemQuickSlotContainer.h"
+
