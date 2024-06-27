@@ -30,39 +30,12 @@ void USubUI::SetVisibilityToggle()
 
 void USubUI::OpenUI()
 {
-	UUIManager* UIManager = GetUIManager();
-	if (IsValid(UIManager))
-	{
-		UIManager->OpenSubUI(this);
-	}
-}
-
-void USubUI::OpenUIToTop()
-{
-	UUIManager* UIManager = GetUIManager();
-	if (IsValid(UIManager))
-	{
-		UIManager->OpenSubUI(this);
-		UIManager->SetZOrderToTop(this);
-	}
-}
-
-void USubUI::OpenUINearTargetSlot(USlotUI* Target)
-{
-	UUIManager* UIManager = GetUIManager();
-	if (IsValid(UIManager))
-	{
-		UIManager->OpenSubUINearTargetSlot(this, Target);
-	}
+	SetVisibility(ESlateVisibility::Visible);
 }
 
 void USubUI::CloseUI()
 {
-	UUIManager* UIManager = GetUIManager();
-	if (IsValid(UIManager))
-	{
-		UIManager->CloseSubUI(this);
-	}
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void USubUI::OnDragStarted()

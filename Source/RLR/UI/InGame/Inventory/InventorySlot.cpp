@@ -70,22 +70,27 @@ void UInventorySlot::OnHoveredItemSlot()
 	if (IsEmpty() == true)
 		return;
 
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	if (MainUI)
-	{
-		MainUI->ItemInformation->SetItemData(SlotItemData);
-		//MainUI->ItemInformation->OpenUIToTop();
-		MainUI->ItemInformation->OpenUINearTargetSlot(this);
-	}
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UIManager->OpenSubUINearTargetSlot(this);
 }
 
 void UInventorySlot::OnUnHoveredItemSlot()
 {
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	if (MainUI)
-	{
-		MainUI->ItemInformation->CloseUI();
-	}
+	if (IsEmpty() == true)
+		return;
+
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UIManager->CloseSubUINearTargetSlot();
 }
 
 void UInventorySlot::SetItemData(FItemData ItemData)

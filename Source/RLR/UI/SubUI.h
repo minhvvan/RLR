@@ -31,11 +31,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void SetVisibilityToggle();
 	virtual void OpenUI();
-	virtual void OpenUIToTop();
-	virtual void OpenUINearTargetSlot(USlotUI* Target);
 
 	virtual void CloseUI();
-
+	virtual void UpdateSlotState(class USlotUI* Target) {};
 	
 	UFUNCTION()
     void OnDragStarted();

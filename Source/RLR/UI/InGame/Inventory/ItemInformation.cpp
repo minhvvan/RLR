@@ -6,6 +6,8 @@
 #include "Components/Image.h"
 #include "ItemInformation.h"
 #include "UI/BaseUI.h"
+#include "UI/SlotUI.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/SizeBox.h"
@@ -51,3 +53,30 @@ void UItemInformation::OpenItemInformation(UBaseUI* From)
 	Cast<UCanvasPanelSlot>(Slot)->SetPosition(V1);
 }
 
+void UItemInformation::UpdateSlotState(USlotUI* Target)
+{
+	UInventorySlot* TargetSlot = Cast<UInventorySlot>(Target);
+	if (!TargetSlot) return;
+
+	SetItemData(TargetSlot->SlotItemData);
+
+	//마우스 커서 위치를 가져온다.
+	FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+
+	//슬롯의 크기: 슬롯의 크기는 같으니까 임의의 슬롯으로 설정했는데
+	//슬롯 크기가 변하지 않거나 특정 값으로 설정을 한다면 static함수로 크기 받아오게 하고 싶음
+	V1.X -= TargetSlot->RootSizeBox->GetWidthOverride() * 2;
+
+	float SubUIRootBoxWidth = RootSizeBox->GetWidthOverride();
+	//띄우려는 창의 크기를 고려해서 위치를 조정해준다.
+	if (V1.X > SubUIRootBoxWidth)
+	{
+		V1.X -= SubUIRootBoxWidth / 2;
+	}
+	else
+	{
+		V1.X += SubUIRootBoxWidth / 2 + TargetSlot->RootSizeBox->GetWidthOverride() * 4;
+	}
+
+	Cast<UCanvasPanelSlot>(Slot)->SetPosition(V1);
+}

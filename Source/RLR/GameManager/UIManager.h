@@ -17,29 +17,38 @@
 class USubUI;
 class USlotUI;
 
+UENUM(BlueprintType)
+enum class EUIType : uint8
+{
+	INVENTORY,
+	EQUIPMENT,
+	ITEMINFO,
+	SIZE,
+};
+
 UCLASS()
 class RLR_API UUIManager : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 	
 public:
-
-	
 	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
-	void OpenSubUI(USubUI* Target);
-	void OpenSubUINearTargetSlot(USubUI* SubUI, USlotUI* Target);
+	void OpenSubUINearTargetSlot(USlotUI* Target);
+	void CloseSubUINearTargetSlot();
 	void SetZOrderToTop(USubUI* Target);
 
-	void CloseSubUI(USubUI* Target);
 	void CloseFrontSubUI ();
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();
 
+	void ToggleSubUI(int inputID);
+	void AdjustZOrder();
 
 private:
 
 	TObjectPtr<UMainUI> MainUI;	
 	TArray<USubUI*> SubUIStack;
 	int32 ZOrder = 0;
+
 };

@@ -19,4 +19,7 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void BindSubUI();
 	virtual void CloseUI();
+
+	virtual bool ToggleSubUI(int inputID) { return false; }
+	virtual class USubUI* GetSubUI(int inputID) { return nullptr; }
 };

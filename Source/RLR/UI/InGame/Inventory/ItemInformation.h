@@ -41,6 +41,8 @@ public:
 
 	 void				OpenItemInformation(UBaseUI* From);
 
+	 virtual void UpdateSlotState(class USlotUI* Target);
+
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))

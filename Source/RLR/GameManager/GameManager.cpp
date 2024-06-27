@@ -5,6 +5,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/SkillManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager.h"
@@ -51,6 +52,18 @@ UInventoryManager* UGameManager::GetInventoryManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetInventoryManager Error."));
+    return nullptr;
+}
+
+USkillManager* UGameManager::GetSkillManager()
+{
+    USkillManager* SkillManager = GetSubsystem<USkillManager>(this);
+    if (IsValid(SkillManager))
+    {
+        return SkillManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetSkillManager Error."));
     return nullptr;
 }
 

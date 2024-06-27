@@ -48,16 +48,17 @@ void ASkill_Explosion::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	}
 }
 
-void ASkill_Explosion::SkillAttack(FVector position, UParticleSystem* particle)
+void ASkill_Explosion::SkillAttack(FVector position)
 {
-	if (!particle)
+	if (!Attack)
 	{
-		particle = GetAttackParticle();
+		//TODO: particle 설정 필요
 	}
 
-	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), particle, position);
-	// Create Actor 
-	GetWorld()->SpawnActor<ASkill_Explosion>(ASkill_Explosion::StaticClass(), position, FRotator::ZeroRotator);
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), Attack, position);
+	
+	// 판정 -> 클라
+	
 }
 
 void ASkill_Explosion::Init()

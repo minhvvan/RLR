@@ -25,8 +25,10 @@ public:
 	UParticleSystem* Attack;
 	UParticleSystem* GetAttackParticle() { return Attack; }
 	virtual void EndPlay(const EEndPlayReason::Type);
-	virtual void SkillAttack(FVector, UParticleSystem*) override;
+	virtual void SkillAttack(FVector) override;
+	//virtual void SkillAttack(FVector, UParticleSystem*) override;
 	virtual void Init() override;
+
 private:
 	float spawnTime;
 };
