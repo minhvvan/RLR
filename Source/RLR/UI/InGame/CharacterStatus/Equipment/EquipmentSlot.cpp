@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
+#include "UI/InGame/Equipment/EquipmentSlot.h"
 #include "EquipmentSlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Image.h"
@@ -9,7 +9,7 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+#include "UI/InGame/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
@@ -55,23 +55,27 @@ void UEquipmentSlot::OnHoveredItemSlot()
 	if(IsEmpty() == true)
 		return;
 
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	if (MainUI)
-	{
-		MainUI->ItemInformation->SetItemData(SlotItemData);
-		//MainUI->ItemInformation->OpenUI();
-		//MainUI->ItemInformation->OpenUIToTop();
-		MainUI->ItemInformation->OpenUINearTargetSlot(this);
-	}
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UIManager->OpenSubUINearTargetSlot(this);
 }
 
 void UEquipmentSlot::OnUnHoveredItemSlot()
 {
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	if (MainUI)
-	{
-		MainUI->ItemInformation->CloseUI();
-	}
+	if (IsEmpty() == true)
+		return;
+
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UIManager->CloseSubUINearTargetSlot();
 }
 
 void UEquipmentSlot::SetItemData(FItemData ItemData)
