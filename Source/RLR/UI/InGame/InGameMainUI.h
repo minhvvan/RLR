@@ -31,7 +31,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UChatUI* GetChatUI(){return ChatUI;}
 
-
 public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
@@ -48,4 +47,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UItemInformation> ItemInformation;
+
+protected:
+	TArray<class USubUI*> UserActionSubUI;
+
+public:
+	virtual bool ToggleSubUI(int inputID);
+	virtual class USubUI* GetSubUI(int inputID);
 };

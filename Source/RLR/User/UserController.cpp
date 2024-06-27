@@ -224,8 +224,7 @@ void AUserController::OnOpenUI(int inputID)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	//TODO: inputID에 맞는 subUI Open
-	//UIManager->OpenSubUI(inputID);
+	UIManager->ToggleSubUI(inputID);
 }
 
 bool AUserController::IsMove()

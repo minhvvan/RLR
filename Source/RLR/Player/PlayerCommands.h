@@ -150,4 +150,3 @@ public:
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Attack;
 };
-
