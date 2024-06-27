@@ -19,14 +19,13 @@ void UInventorySlot::NativeConstruct()
 {
 	Super::NativeConstruct();
 	Clear();
-	
+
 	if (ItemButton)
 	{
 		ItemButton->OnClicked.AddUniqueDynamic(this, &UInventorySlot::OnClickedItemSlot);
 		ItemButton->OnHovered.AddUniqueDynamic(this, &UInventorySlot::OnHoveredItemSlot);
 		ItemButton->OnUnhovered.AddUniqueDynamic(this, &UInventorySlot::OnUnHoveredItemSlot);
 	}
-
 }
 
 void UInventorySlot::OnClickedItemSlot()
