@@ -17,15 +17,6 @@
 class USubUI;
 class USlotUI;
 
-UENUM(BlueprintType)
-enum class EUIType : uint8
-{
-	INVENTORY,
-	EQUIPMENT,
-	ITEMINFO,
-	SIZE,
-};
-
 UCLASS()
 class RLR_API UUIManager : public UGameInstanceSubsystem
 {

@@ -4,7 +4,7 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/SubUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "Blueprint/WidgetTree.h"
 #include "RLR.h"
@@ -13,25 +13,25 @@ void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	UserActionSubUI.Add(InventoryUI.Get());
-	//UserActionSubUI.Add(EquipmentUI.Get());
-	UserActionSubUI.Add(ItemInformation.Get());
-	RLR_LOG(LogRLR, Log, TEXT("NativeConstruct"));
+	UserActionSubUI.Add({ EUIType::INVENTORY , InventoryUI.Get() });
+	UserActionSubUI.Add({ EUIType::CHARACTERSTAT , CharacterStatusUI.Get() });
+	UserActionSubUI.Add({ EUIType::ITEMINFO , ItemInformation.Get() });
 }
 
 bool UInGameMainUI::ToggleSubUI(int inputID)
 {
-	if(!UserActionSubUI.IsValidIndex(inputID)) return false;
+	EUIType inputKey = (EUIType)inputID;
+	if (!UserActionSubUI.Find(inputKey)) return false;
 
-	bool bOpen = UserActionSubUI[inputID]->GetVisibility() == ESlateVisibility::Hidden;
+	bool bOpen = UserActionSubUI[inputKey]->GetVisibility() == ESlateVisibility::Hidden;
 
 	if (bOpen)
 	{
-		UserActionSubUI[inputID]->OpenUI();
+		UserActionSubUI[inputKey]->OpenUI();
 	}
 	else
 	{
-		UserActionSubUI[inputID]->CloseUI();
+		UserActionSubUI[inputKey]->CloseUI();
 	}
 
 	return bOpen;
@@ -39,6 +39,8 @@ bool UInGameMainUI::ToggleSubUI(int inputID)
 
 USubUI* UInGameMainUI::GetSubUI(int inputID)
 {
-	if (!UserActionSubUI.IsValidIndex(inputID)) return nullptr;
-	return UserActionSubUI[inputID];
+	EUIType inputKey = static_cast<EUIType>(inputID);
+
+	if (!UserActionSubUI.Contains(inputKey)) return nullptr;
+	return UserActionSubUI[inputKey];
 }
