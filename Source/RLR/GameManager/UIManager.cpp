@@ -11,7 +11,6 @@
 #include "UI/SlotUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
-#include "GameManager/RLRStruct.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
