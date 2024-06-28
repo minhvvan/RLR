@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 
-#include "GameManager/RLRStruct.h"
 #include "UI/MainUI.h"
 #include "InGameMainUI.generated.h"
 
@@ -51,7 +50,7 @@ public:
 	TObjectPtr<UItemInformation> ItemInformation;
 
 protected:
-	TMap<EUIType, class USubUI*> UserActionSubUI;
+	TArray<class USubUI*> UserActionSubUI;
 
 public:
 	virtual bool ToggleSubUI(int inputID);
