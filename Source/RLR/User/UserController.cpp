@@ -6,7 +6,7 @@
 #include "GameManager/SkillManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/MainUI.h"
-#include "MyHUD.h"
+#include "UI/InGame/InGameHUD.h"
 #include "RLR.h"
 
 AUserController::AUserController()
@@ -69,7 +69,7 @@ void AUserController::OnPossess(APawn* InPawn)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	AMyHUD* HUD = Cast<AMyHUD>(GetHUD());
+	AInGameHUD* HUD = Cast<AInGameHUD>(GetHUD());
 	if (!HUD) return;
 
 	UIManager->OpenMainUI(HUD->MainUIClass);
@@ -223,6 +223,8 @@ void AUserController::OnOpenUI(int inputID)
 
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
+
+	RLR_LOG(LogRLR, Log, TEXT("OnOpenUI: %d"), inputID);
 
 	UIManager->ToggleSubUI(inputID);
 }
