@@ -75,6 +75,16 @@ enum class EItemRarity : uint8
 };
 
 
+UENUM(BlueprintType)
+enum class EUIType : uint8
+{
+	INVENTORY,
+	CHARACTERSTAT,
+	ITEMINFO,
+	SIZE,
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FStatus
 {
