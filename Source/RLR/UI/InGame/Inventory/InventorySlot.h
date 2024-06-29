@@ -25,9 +25,15 @@ public:
 
 	virtual void	NativeConstruct() override;
 
+	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
+
+	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+
+	//virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void				DisplayEquippedItems(bool IsEquiped = false);
-
 
 	UFUNCTION(BlueprintCallable)
 	void				OnClickedItemSlot();
@@ -43,17 +49,16 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	FItemData	GetItemData(){return SlotItemData;};
 
-	UFUNCTION(BlueprintCallable)
-	void				Clear();
+	virtual void	Clear();
 
 	//Item_ID가 -1이면 아이템 정보가 없다는 뜻. 그러니 비어있는 것으로 판단해준다.
-	UFUNCTION(BlueprintCallable)
-	bool				IsEmpty(){return SlotItemData.ITEM_ID == -1; }
+	virtual bool	IsEmpty(){return SlotItemData.ITEM_ID == -1; }
 
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UImage> ItemImage;
+	/*
+		슬롯 이미지
+	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
@@ -62,14 +67,7 @@ public:
 	TObjectPtr<UButton> ItemButton;
 
 public:
+
 	UPROPERTY(EditAnywhere)
 	FItemData SlotItemData;
-
-
-	/*
-		기본 이미지나, Rarity 색깔은 코드가 아니라  BP에서 설정.
-	*/
-	//기본 상태 슬롯
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> DefaultSlotImage;
 };

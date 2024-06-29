@@ -11,6 +11,7 @@
  */
 
  class UUIManager;
+ class UGameManager;
 
 UCLASS()
 class RLR_API UBaseUI : public UUserWidget
@@ -25,4 +26,5 @@ public:
 public:
 
 	UUIManager* GetUIManager();
+	UGameManager* GetGameManager();
 };

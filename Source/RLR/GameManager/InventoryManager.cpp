@@ -10,6 +10,9 @@ void UInventoryManager::AddItem(FItemData NewItem)
 	//임시코드. 나중에는 서버에서 보내주는 값으로 해결할 것.
 	NewItem.ITEM_SLOT_IDX = ItemKey;
 	NewItem.ITEM_ID = ItemKey;
+
+	//아이템 DB ID
+	NewItem.ITEM_SEQ = ItemKey;
 	ItemData.Add(ItemKey, NewItem);
 	ItemKey++;
 	//
@@ -35,6 +38,14 @@ void UInventoryManager::RemoveItem(int32 Id)
 		FItemData RemoveItem;
 		ItemData.RemoveAndCopyValue(Id, RemoveItem);
 		OnUpdateInventoryManager.Broadcast();
+	}
+}
+
+void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
+{
+	if (ItemData.Contains(Item_Seq))
+	{
+		ItemData[Item_Seq].ITEM_SLOT_IDX = NewSlotIndex;
 	}
 }
 

@@ -40,32 +40,29 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FItemData	GetItemData(){return SlotItemData;}
 
-	UFUNCTION(BlueprintCallable)
-	void				Clear();
+	virtual void	Clear();
 
 	//Item_ID가 -1이면 아이템 정보가 없다는 뜻. 그러니 비어있는 것으로 판단해준다.
-	UFUNCTION(BlueprintCallable)
-	bool				IsEmpty(){return SlotItemData.ITEM_ID == -1; }
+	virtual bool	IsEmpty(){return SlotItemData.ITEM_ID == -1; }
 
 public:
+
+
+	//Bind Widget
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UImage> ItemImage;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> ItemButton;
 
-	//기본 상태 슬롯
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> DefaultSlotImage;
-
-	//등급에 따른 배경색
+		//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
 
 	EEquipmentType SlotType = EEquipmentType::NONE;
+
+
 
 private:
 

@@ -88,7 +88,7 @@ void UEquipmentSlot::SetItemData(FItemData ItemData)
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
 		return;
 	}
-	ItemImage->SetBrushFromTexture(Texture, true);
+	SlotImage->SetBrushFromTexture(Texture, true);
 
 }
 
@@ -100,7 +100,7 @@ void UEquipmentSlot::Clear()
 		return;
 	}
 
-	ItemImage->SetBrushFromTexture(DefaultSlotImage, true);
+	SlotImage->SetBrushFromTexture(DefaultSlotImage, true);
 
 	SlotItemData = FItemData();
 }
