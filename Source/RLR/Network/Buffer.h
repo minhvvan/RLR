@@ -23,7 +23,7 @@ public:
 	uint8* GetBuffer() { return _buffer.GetData(); }
 	int32 WriteSize() const { return _writeSize; }
 	int32 Capacity() const { return _buffer.Num(); }
-
+	
 	void CopyData(const void* data, int32 len);
 	void Close(int32 writeSize);
 

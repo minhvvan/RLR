@@ -53,7 +53,7 @@ public:
     // Add inventory make send buffer
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
 
-private:
+public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
     {
@@ -88,14 +88,14 @@ struct PacketHeader
     uint16 id; // ��������ID (ex. 1=�α���, 2=�̵���û)
 };
 
-class PacketSession 
+class PacketSession : public TSharedFromThis<PacketSession>
 {
 public:
     PacketSession();
     virtual ~PacketSession();
-
-
+    int32 Receive(uint8* Buffer, int32 BufferSize);
+    
 protected:
-    virtual int32		OnRecv(BYTE* buffer, int32 len) sealed;
-    virtual void		OnRecvPacket(BYTE* buffer, int32 len) abstract;
+    virtual int32 OnRecv(uint8* buffer, int32 len);
+    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
 };

@@ -52,7 +52,6 @@ bool Handle_INVENTORY_REQUEST(TSharedPtr<PacketSession>& session, Protocol::Inve
     response.set_userseq(pkt.userseq());
    
    
-
     return true;
 }
 
@@ -146,4 +145,8 @@ int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
     }
 
     return processLen;
+}
+void PacketSession::OnRecvPacket(uint8* buffer, int32 len) {
+    ClientPacketHandler handler;
+    handler.HandlePacket(AsShared(), buffer, len);
 }
