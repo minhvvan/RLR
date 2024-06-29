@@ -11,6 +11,8 @@
 #include "GameManager.h"
 #include <Kismet/GameplayStatics.h>
 
+UGameManager* GameInstance = nullptr;
+
 void UGameManager::Init()
 {
     Super::Init();
