@@ -34,62 +34,62 @@ struct PacketHeaderDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PacketHeaderDefaultTypeInternal _PacketHeader_default_instance_;
-PROTOBUF_CONSTEXPR C_ITEM_ADD::C_ITEM_ADD(
+PROTOBUF_CONSTEXPR ItemAddRequestPacket::ItemAddRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.item_)*/nullptr
   , /*decltype(_impl_.userseq_)*/0u
   , /*decltype(_impl_.item_data_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
-struct C_ITEM_ADDDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR C_ITEM_ADDDefaultTypeInternal()
+struct ItemAddRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ItemAddRequestPacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~C_ITEM_ADDDefaultTypeInternal() {}
+  ~ItemAddRequestPacketDefaultTypeInternal() {}
   union {
-    C_ITEM_ADD _instance;
+    ItemAddRequestPacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_ITEM_ADDDefaultTypeInternal _C_ITEM_ADD_default_instance_;
-PROTOBUF_CONSTEXPR S_ITEM_ADD::S_ITEM_ADD(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ItemAddRequestPacketDefaultTypeInternal _ItemAddRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR ItemAddResponsePacket::ItemAddResponsePacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.success_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_ITEM_ADDDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_ITEM_ADDDefaultTypeInternal()
+struct ItemAddResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ItemAddResponsePacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_ITEM_ADDDefaultTypeInternal() {}
+  ~ItemAddResponsePacketDefaultTypeInternal() {}
   union {
-    S_ITEM_ADD _instance;
+    ItemAddResponsePacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ITEM_ADDDefaultTypeInternal _S_ITEM_ADD_default_instance_;
-PROTOBUF_CONSTEXPR C_ITEM_USE::C_ITEM_USE(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ItemAddResponsePacketDefaultTypeInternal _ItemAddResponsePacket_default_instance_;
+PROTOBUF_CONSTEXPR ItemUseRequestPacket::ItemUseRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0u
   , /*decltype(_impl_.itemseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct C_ITEM_USEDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR C_ITEM_USEDefaultTypeInternal()
+struct ItemUseRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ItemUseRequestPacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~C_ITEM_USEDefaultTypeInternal() {}
+  ~ItemUseRequestPacketDefaultTypeInternal() {}
   union {
-    C_ITEM_USE _instance;
+    ItemUseRequestPacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_ITEM_USEDefaultTypeInternal _C_ITEM_USE_default_instance_;
-PROTOBUF_CONSTEXPR S_ITEM_USE::S_ITEM_USE(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ItemUseRequestPacketDefaultTypeInternal _ItemUseRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR ItemUseResponsePacket::ItemUseResponsePacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.success_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct S_ITEM_USEDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR S_ITEM_USEDefaultTypeInternal()
+struct ItemUseResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ItemUseResponsePacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~S_ITEM_USEDefaultTypeInternal() {}
+  ~ItemUseResponsePacketDefaultTypeInternal() {}
   union {
-    S_ITEM_USE _instance;
+    ItemUseResponsePacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_ITEM_USEDefaultTypeInternal _S_ITEM_USE_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ItemUseResponsePacketDefaultTypeInternal _ItemUseResponsePacket_default_instance_;
 PROTOBUF_CONSTEXPR InventoryRequestPacket::InventoryRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0u
@@ -147,8 +147,35 @@ struct LoginResponsePacketDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginResponsePacketDefaultTypeInternal _LoginResponsePacket_default_instance_;
+PROTOBUF_CONSTEXPR StatusRequestPacket::StatusRequestPacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct StatusRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StatusRequestPacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StatusRequestPacketDefaultTypeInternal() {}
+  union {
+    StatusRequestPacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StatusRequestPacketDefaultTypeInternal _StatusRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR StatusResponsePacket::StatusResponsePacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.usercharacter_)*/nullptr
+  , /*decltype(_impl_.userseq_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct StatusResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR StatusResponsePacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~StatusResponsePacketDefaultTypeInternal() {}
+  union {
+    StatusResponsePacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StatusResponsePacketDefaultTypeInternal _StatusResponsePacket_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Packet_2eproto[9];
+static ::_pb::Metadata file_level_metadata_Packet_2eproto[11];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Packet_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Packet_2eproto = nullptr;
 
@@ -161,39 +188,39 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::PacketHeader, _impl_.type_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_ADD, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_ADD, _impl_._oneof_case_[0]),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddRequestPacket, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_ADD, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_ADD, _impl_.item_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddRequestPacket, _impl_.item_),
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_ADD, _impl_.item_data_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddRequestPacket, _impl_.item_data_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::S_ITEM_ADD, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::S_ITEM_ADD, _impl_.success_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemAddResponsePacket, _impl_.success_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_USE, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemUseRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_USE, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_ITEM_USE, _impl_.itemseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemUseRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemUseRequestPacket, _impl_.itemseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::S_ITEM_USE, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemUseResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::S_ITEM_USE, _impl_.success_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ItemUseResponsePacket, _impl_.success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::InventoryRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -227,58 +254,81 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::LoginResponsePacket, _impl_.success_),
   PROTOBUF_FIELD_OFFSET(::Protocol::LoginResponsePacket, _impl_.gameserveraddress_),
   PROTOBUF_FIELD_OFFSET(::Protocol::LoginResponsePacket, _impl_.gameserverport_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::StatusRequestPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::StatusRequestPacket, _impl_.userseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::StatusResponsePacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::StatusResponsePacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::StatusResponsePacket, _impl_.usercharacter_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::PacketHeader)},
-  { 7, -1, -1, sizeof(::Protocol::C_ITEM_ADD)},
-  { 19, -1, -1, sizeof(::Protocol::S_ITEM_ADD)},
-  { 26, -1, -1, sizeof(::Protocol::C_ITEM_USE)},
-  { 34, -1, -1, sizeof(::Protocol::S_ITEM_USE)},
+  { 7, -1, -1, sizeof(::Protocol::ItemAddRequestPacket)},
+  { 19, -1, -1, sizeof(::Protocol::ItemAddResponsePacket)},
+  { 26, -1, -1, sizeof(::Protocol::ItemUseRequestPacket)},
+  { 34, -1, -1, sizeof(::Protocol::ItemUseResponsePacket)},
   { 41, -1, -1, sizeof(::Protocol::InventoryRequestPacket)},
   { 48, -1, -1, sizeof(::Protocol::InventoryResponsePacket)},
   { 56, -1, -1, sizeof(::Protocol::LoginRequestPacket)},
   { 64, -1, -1, sizeof(::Protocol::LoginResponsePacket)},
+  { 74, -1, -1, sizeof(::Protocol::StatusRequestPacket)},
+  { 81, -1, -1, sizeof(::Protocol::StatusResponsePacket)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_PacketHeader_default_instance_._instance,
-  &::Protocol::_C_ITEM_ADD_default_instance_._instance,
-  &::Protocol::_S_ITEM_ADD_default_instance_._instance,
-  &::Protocol::_C_ITEM_USE_default_instance_._instance,
-  &::Protocol::_S_ITEM_USE_default_instance_._instance,
+  &::Protocol::_ItemAddRequestPacket_default_instance_._instance,
+  &::Protocol::_ItemAddResponsePacket_default_instance_._instance,
+  &::Protocol::_ItemUseRequestPacket_default_instance_._instance,
+  &::Protocol::_ItemUseResponsePacket_default_instance_._instance,
   &::Protocol::_InventoryRequestPacket_default_instance_._instance,
   &::Protocol::_InventoryResponsePacket_default_instance_._instance,
   &::Protocol::_LoginRequestPacket_default_instance_._instance,
   &::Protocol::_LoginResponsePacket_default_instance_._instance,
+  &::Protocol::_StatusRequestPacket_default_instance_._instance,
+  &::Protocol::_StatusResponsePacket_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Packet_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014Packet.proto\022\010Protocol\032\014Struct.proto\"\034"
-  "\n\014PacketHeader\022\014\n\004type\030\001 \001(\005\"\272\001\n\nC_ITEM_"
-  "ADD\022\017\n\007userSeq\030\001 \001(\r\022\034\n\004item\030\002 \001(\0132\016.Pro"
-  "tocol.Item\022 \n\005equip\030\003 \001(\0132\017.Protocol.Equ"
-  "ipH\000\022,\n\013consumption\030\004 \001(\0132\025.Protocol.Con"
-  "sumptionH\000\022 \n\003etc\030\005 \001(\0132\021.Protocol.EtcIt"
-  "emH\000B\013\n\titem_data\"\035\n\nS_ITEM_ADD\022\017\n\007succe"
-  "ss\030\001 \001(\010\".\n\nC_ITEM_USE\022\017\n\007userSeq\030\001 \001(\r\022"
-  "\017\n\007itemSeq\030\002 \001(\005\"\035\n\nS_ITEM_USE\022\017\n\007succes"
-  "s\030\001 \001(\010\")\n\026InventoryRequestPacket\022\017\n\007use"
-  "rSeq\030\001 \001(\r\"I\n\027InventoryResponsePacket\022\017\n"
-  "\007userSeq\030\001 \001(\r\022\035\n\005items\030\002 \003(\0132\016.Protocol"
-  ".Item\"9\n\022LoginRequestPacket\022\021\n\tplayerSeq"
-  "\030\001 \001(\r\022\020\n\010playerId\030\002 \001(\t\"l\n\023LoginRespons"
-  "ePacket\022\021\n\tplayerSeq\030\001 \001(\r\022\017\n\007success\030\002 "
-  "\001(\010\022\031\n\021gameServerAddress\030\003 \001(\t\022\026\n\016gameSe"
-  "rverPort\030\004 \001(\005b\006proto3"
+  "\n\014PacketHeader\022\014\n\004type\030\001 \001(\005\"\304\001\n\024ItemAdd"
+  "RequestPacket\022\017\n\007userSeq\030\001 \001(\r\022\034\n\004item\030\002"
+  " \001(\0132\016.Protocol.Item\022 \n\005equip\030\003 \001(\0132\017.Pr"
+  "otocol.EquipH\000\022,\n\013consumption\030\004 \001(\0132\025.Pr"
+  "otocol.ConsumptionH\000\022 \n\003etc\030\005 \001(\0132\021.Prot"
+  "ocol.EtcItemH\000B\013\n\titem_data\"(\n\025ItemAddRe"
+  "sponsePacket\022\017\n\007success\030\001 \001(\010\"8\n\024ItemUse"
+  "RequestPacket\022\017\n\007userSeq\030\001 \001(\r\022\017\n\007itemSe"
+  "q\030\002 \001(\005\"(\n\025ItemUseResponsePacket\022\017\n\007succ"
+  "ess\030\001 \001(\010\")\n\026InventoryRequestPacket\022\017\n\007u"
+  "serSeq\030\001 \001(\r\"I\n\027InventoryResponsePacket\022"
+  "\017\n\007userSeq\030\001 \001(\r\022\035\n\005items\030\002 \003(\0132\016.Protoc"
+  "ol.Item\"9\n\022LoginRequestPacket\022\021\n\tplayerS"
+  "eq\030\001 \001(\r\022\020\n\010playerId\030\002 \001(\t\"l\n\023LoginRespo"
+  "nsePacket\022\021\n\tplayerSeq\030\001 \001(\r\022\017\n\007success\030"
+  "\002 \001(\010\022\031\n\021gameServerAddress\030\003 \001(\t\022\026\n\016game"
+  "ServerPort\030\004 \001(\005\"&\n\023StatusRequestPacket\022"
+  "\017\n\007userSeq\030\001 \001(\r\"W\n\024StatusResponsePacket"
+  "\022\017\n\007userSeq\030\001 \001(\r\022.\n\ruserCharacter\030\002 \001(\013"
+  "2\027.Protocol.UserCharacterb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Packet_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Packet_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_2eproto = {
-    false, false, 662, descriptor_table_protodef_Packet_2eproto,
+    false, false, 833, descriptor_table_protodef_Packet_2eproto,
     "Packet.proto",
-    &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 9,
+    &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 11,
     schemas, file_default_instances, TableStruct_Packet_2eproto::offsets,
     file_level_metadata_Packet_2eproto, file_level_enum_descriptors_Packet_2eproto,
     file_level_service_descriptors_Packet_2eproto,
@@ -471,37 +521,37 @@ void PacketHeader::InternalSwap(PacketHeader* other) {
 
 // ===================================================================
 
-class C_ITEM_ADD::_Internal {
+class ItemAddRequestPacket::_Internal {
  public:
-  static const ::Protocol::Item& item(const C_ITEM_ADD* msg);
-  static const ::Protocol::Equip& equip(const C_ITEM_ADD* msg);
-  static const ::Protocol::Consumption& consumption(const C_ITEM_ADD* msg);
-  static const ::Protocol::EtcItem& etc(const C_ITEM_ADD* msg);
+  static const ::Protocol::Item& item(const ItemAddRequestPacket* msg);
+  static const ::Protocol::Equip& equip(const ItemAddRequestPacket* msg);
+  static const ::Protocol::Consumption& consumption(const ItemAddRequestPacket* msg);
+  static const ::Protocol::EtcItem& etc(const ItemAddRequestPacket* msg);
 };
 
 const ::Protocol::Item&
-C_ITEM_ADD::_Internal::item(const C_ITEM_ADD* msg) {
+ItemAddRequestPacket::_Internal::item(const ItemAddRequestPacket* msg) {
   return *msg->_impl_.item_;
 }
 const ::Protocol::Equip&
-C_ITEM_ADD::_Internal::equip(const C_ITEM_ADD* msg) {
+ItemAddRequestPacket::_Internal::equip(const ItemAddRequestPacket* msg) {
   return *msg->_impl_.item_data_.equip_;
 }
 const ::Protocol::Consumption&
-C_ITEM_ADD::_Internal::consumption(const C_ITEM_ADD* msg) {
+ItemAddRequestPacket::_Internal::consumption(const ItemAddRequestPacket* msg) {
   return *msg->_impl_.item_data_.consumption_;
 }
 const ::Protocol::EtcItem&
-C_ITEM_ADD::_Internal::etc(const C_ITEM_ADD* msg) {
+ItemAddRequestPacket::_Internal::etc(const ItemAddRequestPacket* msg) {
   return *msg->_impl_.item_data_.etc_;
 }
-void C_ITEM_ADD::clear_item() {
+void ItemAddRequestPacket::clear_item() {
   if (GetArenaForAllocation() == nullptr && _impl_.item_ != nullptr) {
     delete _impl_.item_;
   }
   _impl_.item_ = nullptr;
 }
-void C_ITEM_ADD::set_allocated_equip(::Protocol::Equip* equip) {
+void ItemAddRequestPacket::set_allocated_equip(::Protocol::Equip* equip) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_item_data();
   if (equip) {
@@ -515,9 +565,9 @@ void C_ITEM_ADD::set_allocated_equip(::Protocol::Equip* equip) {
     set_has_equip();
     _impl_.item_data_.equip_ = equip;
   }
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_ITEM_ADD.equip)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.ItemAddRequestPacket.equip)
 }
-void C_ITEM_ADD::clear_equip() {
+void ItemAddRequestPacket::clear_equip() {
   if (_internal_has_equip()) {
     if (GetArenaForAllocation() == nullptr) {
       delete _impl_.item_data_.equip_;
@@ -525,7 +575,7 @@ void C_ITEM_ADD::clear_equip() {
     clear_has_item_data();
   }
 }
-void C_ITEM_ADD::set_allocated_consumption(::Protocol::Consumption* consumption) {
+void ItemAddRequestPacket::set_allocated_consumption(::Protocol::Consumption* consumption) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_item_data();
   if (consumption) {
@@ -539,9 +589,9 @@ void C_ITEM_ADD::set_allocated_consumption(::Protocol::Consumption* consumption)
     set_has_consumption();
     _impl_.item_data_.consumption_ = consumption;
   }
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_ITEM_ADD.consumption)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.ItemAddRequestPacket.consumption)
 }
-void C_ITEM_ADD::clear_consumption() {
+void ItemAddRequestPacket::clear_consumption() {
   if (_internal_has_consumption()) {
     if (GetArenaForAllocation() == nullptr) {
       delete _impl_.item_data_.consumption_;
@@ -549,7 +599,7 @@ void C_ITEM_ADD::clear_consumption() {
     clear_has_item_data();
   }
 }
-void C_ITEM_ADD::set_allocated_etc(::Protocol::EtcItem* etc) {
+void ItemAddRequestPacket::set_allocated_etc(::Protocol::EtcItem* etc) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_item_data();
   if (etc) {
@@ -563,9 +613,9 @@ void C_ITEM_ADD::set_allocated_etc(::Protocol::EtcItem* etc) {
     set_has_etc();
     _impl_.item_data_.etc_ = etc;
   }
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_ITEM_ADD.etc)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.ItemAddRequestPacket.etc)
 }
-void C_ITEM_ADD::clear_etc() {
+void ItemAddRequestPacket::clear_etc() {
   if (_internal_has_etc()) {
     if (GetArenaForAllocation() == nullptr) {
       delete _impl_.item_data_.etc_;
@@ -573,15 +623,15 @@ void C_ITEM_ADD::clear_etc() {
     clear_has_item_data();
   }
 }
-C_ITEM_ADD::C_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ItemAddRequestPacket::ItemAddRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.C_ITEM_ADD)
+  // @@protoc_insertion_point(arena_constructor:Protocol.ItemAddRequestPacket)
 }
-C_ITEM_ADD::C_ITEM_ADD(const C_ITEM_ADD& from)
+ItemAddRequestPacket::ItemAddRequestPacket(const ItemAddRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  C_ITEM_ADD* const _this = this; (void)_this;
+  ItemAddRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.item_){nullptr}
     , decltype(_impl_.userseq_){}
@@ -615,10 +665,10 @@ C_ITEM_ADD::C_ITEM_ADD(const C_ITEM_ADD& from)
       break;
     }
   }
-  // @@protoc_insertion_point(copy_constructor:Protocol.C_ITEM_ADD)
+  // @@protoc_insertion_point(copy_constructor:Protocol.ItemAddRequestPacket)
 }
 
-inline void C_ITEM_ADD::SharedCtor(
+inline void ItemAddRequestPacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -632,8 +682,8 @@ inline void C_ITEM_ADD::SharedCtor(
   clear_has_item_data();
 }
 
-C_ITEM_ADD::~C_ITEM_ADD() {
-  // @@protoc_insertion_point(destructor:Protocol.C_ITEM_ADD)
+ItemAddRequestPacket::~ItemAddRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ItemAddRequestPacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -641,7 +691,7 @@ C_ITEM_ADD::~C_ITEM_ADD() {
   SharedDtor();
 }
 
-inline void C_ITEM_ADD::SharedDtor() {
+inline void ItemAddRequestPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.item_;
   if (has_item_data()) {
@@ -649,12 +699,12 @@ inline void C_ITEM_ADD::SharedDtor() {
   }
 }
 
-void C_ITEM_ADD::SetCachedSize(int size) const {
+void ItemAddRequestPacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void C_ITEM_ADD::clear_item_data() {
-// @@protoc_insertion_point(one_of_clear_start:Protocol.C_ITEM_ADD)
+void ItemAddRequestPacket::clear_item_data() {
+// @@protoc_insertion_point(one_of_clear_start:Protocol.ItemAddRequestPacket)
   switch (item_data_case()) {
     case kEquip: {
       if (GetArenaForAllocation() == nullptr) {
@@ -682,8 +732,8 @@ void C_ITEM_ADD::clear_item_data() {
 }
 
 
-void C_ITEM_ADD::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.C_ITEM_ADD)
+void ItemAddRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ItemAddRequestPacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -697,7 +747,7 @@ void C_ITEM_ADD::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* C_ITEM_ADD::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ItemAddRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -766,9 +816,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* C_ITEM_ADD::_InternalSerialize(
+uint8_t* ItemAddRequestPacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.C_ITEM_ADD)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ItemAddRequestPacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -810,12 +860,12 @@ uint8_t* C_ITEM_ADD::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.C_ITEM_ADD)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ItemAddRequestPacket)
   return target;
 }
 
-size_t C_ITEM_ADD::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.C_ITEM_ADD)
+size_t ItemAddRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ItemAddRequestPacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -863,17 +913,17 @@ size_t C_ITEM_ADD::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_ITEM_ADD::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ItemAddRequestPacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    C_ITEM_ADD::MergeImpl
+    ItemAddRequestPacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_ITEM_ADD::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ItemAddRequestPacket::GetClassData() const { return &_class_data_; }
 
 
-void C_ITEM_ADD::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<C_ITEM_ADD*>(&to_msg);
-  auto& from = static_cast<const C_ITEM_ADD&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.C_ITEM_ADD)
+void ItemAddRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ItemAddRequestPacket*>(&to_msg);
+  auto& from = static_cast<const ItemAddRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ItemAddRequestPacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -908,31 +958,31 @@ void C_ITEM_ADD::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void C_ITEM_ADD::CopyFrom(const C_ITEM_ADD& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.C_ITEM_ADD)
+void ItemAddRequestPacket::CopyFrom(const ItemAddRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ItemAddRequestPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool C_ITEM_ADD::IsInitialized() const {
+bool ItemAddRequestPacket::IsInitialized() const {
   return true;
 }
 
-void C_ITEM_ADD::InternalSwap(C_ITEM_ADD* other) {
+void ItemAddRequestPacket::InternalSwap(ItemAddRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_ITEM_ADD, _impl_.userseq_)
-      + sizeof(C_ITEM_ADD::_impl_.userseq_)
-      - PROTOBUF_FIELD_OFFSET(C_ITEM_ADD, _impl_.item_)>(
+      PROTOBUF_FIELD_OFFSET(ItemAddRequestPacket, _impl_.userseq_)
+      + sizeof(ItemAddRequestPacket::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(ItemAddRequestPacket, _impl_.item_)>(
           reinterpret_cast<char*>(&_impl_.item_),
           reinterpret_cast<char*>(&other->_impl_.item_));
   swap(_impl_.item_data_, other->_impl_.item_data_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata C_ITEM_ADD::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ItemAddRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
       file_level_metadata_Packet_2eproto[1]);
@@ -940,29 +990,29 @@ void C_ITEM_ADD::InternalSwap(C_ITEM_ADD* other) {
 
 // ===================================================================
 
-class S_ITEM_ADD::_Internal {
+class ItemAddResponsePacket::_Internal {
  public:
 };
 
-S_ITEM_ADD::S_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ItemAddResponsePacket::ItemAddResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.S_ITEM_ADD)
+  // @@protoc_insertion_point(arena_constructor:Protocol.ItemAddResponsePacket)
 }
-S_ITEM_ADD::S_ITEM_ADD(const S_ITEM_ADD& from)
+ItemAddResponsePacket::ItemAddResponsePacket(const ItemAddResponsePacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_ITEM_ADD* const _this = this; (void)_this;
+  ItemAddResponsePacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.S_ITEM_ADD)
+  // @@protoc_insertion_point(copy_constructor:Protocol.ItemAddResponsePacket)
 }
 
-inline void S_ITEM_ADD::SharedCtor(
+inline void ItemAddResponsePacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -972,8 +1022,8 @@ inline void S_ITEM_ADD::SharedCtor(
   };
 }
 
-S_ITEM_ADD::~S_ITEM_ADD() {
-  // @@protoc_insertion_point(destructor:Protocol.S_ITEM_ADD)
+ItemAddResponsePacket::~ItemAddResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ItemAddResponsePacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -981,16 +1031,16 @@ S_ITEM_ADD::~S_ITEM_ADD() {
   SharedDtor();
 }
 
-inline void S_ITEM_ADD::SharedDtor() {
+inline void ItemAddResponsePacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void S_ITEM_ADD::SetCachedSize(int size) const {
+void ItemAddResponsePacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void S_ITEM_ADD::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.S_ITEM_ADD)
+void ItemAddResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ItemAddResponsePacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -999,7 +1049,7 @@ void S_ITEM_ADD::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* S_ITEM_ADD::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ItemAddResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1036,9 +1086,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* S_ITEM_ADD::_InternalSerialize(
+uint8_t* ItemAddResponsePacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.S_ITEM_ADD)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ItemAddResponsePacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1052,12 +1102,12 @@ uint8_t* S_ITEM_ADD::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.S_ITEM_ADD)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ItemAddResponsePacket)
   return target;
 }
 
-size_t S_ITEM_ADD::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.S_ITEM_ADD)
+size_t ItemAddResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ItemAddResponsePacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1072,17 +1122,17 @@ size_t S_ITEM_ADD::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_ITEM_ADD::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ItemAddResponsePacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_ITEM_ADD::MergeImpl
+    ItemAddResponsePacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_ITEM_ADD::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ItemAddResponsePacket::GetClassData() const { return &_class_data_; }
 
 
-void S_ITEM_ADD::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_ITEM_ADD*>(&to_msg);
-  auto& from = static_cast<const S_ITEM_ADD&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.S_ITEM_ADD)
+void ItemAddResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ItemAddResponsePacket*>(&to_msg);
+  auto& from = static_cast<const ItemAddResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ItemAddResponsePacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1093,24 +1143,24 @@ void S_ITEM_ADD::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void S_ITEM_ADD::CopyFrom(const S_ITEM_ADD& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.S_ITEM_ADD)
+void ItemAddResponsePacket::CopyFrom(const ItemAddResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ItemAddResponsePacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool S_ITEM_ADD::IsInitialized() const {
+bool ItemAddResponsePacket::IsInitialized() const {
   return true;
 }
 
-void S_ITEM_ADD::InternalSwap(S_ITEM_ADD* other) {
+void ItemAddResponsePacket::InternalSwap(ItemAddResponsePacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.success_, other->_impl_.success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata S_ITEM_ADD::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ItemAddResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
       file_level_metadata_Packet_2eproto[2]);
@@ -1118,19 +1168,19 @@ void S_ITEM_ADD::InternalSwap(S_ITEM_ADD* other) {
 
 // ===================================================================
 
-class C_ITEM_USE::_Internal {
+class ItemUseRequestPacket::_Internal {
  public:
 };
 
-C_ITEM_USE::C_ITEM_USE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ItemUseRequestPacket::ItemUseRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.C_ITEM_USE)
+  // @@protoc_insertion_point(arena_constructor:Protocol.ItemUseRequestPacket)
 }
-C_ITEM_USE::C_ITEM_USE(const C_ITEM_USE& from)
+ItemUseRequestPacket::ItemUseRequestPacket(const ItemUseRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  C_ITEM_USE* const _this = this; (void)_this;
+  ItemUseRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userseq_){}
     , decltype(_impl_.itemseq_){}
@@ -1140,10 +1190,10 @@ C_ITEM_USE::C_ITEM_USE(const C_ITEM_USE& from)
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.itemseq_) -
     reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.itemseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.C_ITEM_USE)
+  // @@protoc_insertion_point(copy_constructor:Protocol.ItemUseRequestPacket)
 }
 
-inline void C_ITEM_USE::SharedCtor(
+inline void ItemUseRequestPacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -1154,8 +1204,8 @@ inline void C_ITEM_USE::SharedCtor(
   };
 }
 
-C_ITEM_USE::~C_ITEM_USE() {
-  // @@protoc_insertion_point(destructor:Protocol.C_ITEM_USE)
+ItemUseRequestPacket::~ItemUseRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ItemUseRequestPacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1163,16 +1213,16 @@ C_ITEM_USE::~C_ITEM_USE() {
   SharedDtor();
 }
 
-inline void C_ITEM_USE::SharedDtor() {
+inline void ItemUseRequestPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void C_ITEM_USE::SetCachedSize(int size) const {
+void ItemUseRequestPacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void C_ITEM_USE::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.C_ITEM_USE)
+void ItemUseRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ItemUseRequestPacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1183,7 +1233,7 @@ void C_ITEM_USE::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* C_ITEM_USE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ItemUseRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1228,9 +1278,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* C_ITEM_USE::_InternalSerialize(
+uint8_t* ItemUseRequestPacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.C_ITEM_USE)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ItemUseRequestPacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1250,12 +1300,12 @@ uint8_t* C_ITEM_USE::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.C_ITEM_USE)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ItemUseRequestPacket)
   return target;
 }
 
-size_t C_ITEM_USE::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.C_ITEM_USE)
+size_t ItemUseRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ItemUseRequestPacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1275,17 +1325,17 @@ size_t C_ITEM_USE::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_ITEM_USE::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ItemUseRequestPacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    C_ITEM_USE::MergeImpl
+    ItemUseRequestPacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_ITEM_USE::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ItemUseRequestPacket::GetClassData() const { return &_class_data_; }
 
 
-void C_ITEM_USE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<C_ITEM_USE*>(&to_msg);
-  auto& from = static_cast<const C_ITEM_USE&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.C_ITEM_USE)
+void ItemUseRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ItemUseRequestPacket*>(&to_msg);
+  auto& from = static_cast<const ItemUseRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ItemUseRequestPacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1299,29 +1349,29 @@ void C_ITEM_USE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void C_ITEM_USE::CopyFrom(const C_ITEM_USE& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.C_ITEM_USE)
+void ItemUseRequestPacket::CopyFrom(const ItemUseRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ItemUseRequestPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool C_ITEM_USE::IsInitialized() const {
+bool ItemUseRequestPacket::IsInitialized() const {
   return true;
 }
 
-void C_ITEM_USE::InternalSwap(C_ITEM_USE* other) {
+void ItemUseRequestPacket::InternalSwap(ItemUseRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_ITEM_USE, _impl_.itemseq_)
-      + sizeof(C_ITEM_USE::_impl_.itemseq_)
-      - PROTOBUF_FIELD_OFFSET(C_ITEM_USE, _impl_.userseq_)>(
+      PROTOBUF_FIELD_OFFSET(ItemUseRequestPacket, _impl_.itemseq_)
+      + sizeof(ItemUseRequestPacket::_impl_.itemseq_)
+      - PROTOBUF_FIELD_OFFSET(ItemUseRequestPacket, _impl_.userseq_)>(
           reinterpret_cast<char*>(&_impl_.userseq_),
           reinterpret_cast<char*>(&other->_impl_.userseq_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata C_ITEM_USE::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ItemUseRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
       file_level_metadata_Packet_2eproto[3]);
@@ -1329,29 +1379,29 @@ void C_ITEM_USE::InternalSwap(C_ITEM_USE* other) {
 
 // ===================================================================
 
-class S_ITEM_USE::_Internal {
+class ItemUseResponsePacket::_Internal {
  public:
 };
 
-S_ITEM_USE::S_ITEM_USE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+ItemUseResponsePacket::ItemUseResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.S_ITEM_USE)
+  // @@protoc_insertion_point(arena_constructor:Protocol.ItemUseResponsePacket)
 }
-S_ITEM_USE::S_ITEM_USE(const S_ITEM_USE& from)
+ItemUseResponsePacket::ItemUseResponsePacket(const ItemUseResponsePacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  S_ITEM_USE* const _this = this; (void)_this;
+  ItemUseResponsePacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.S_ITEM_USE)
+  // @@protoc_insertion_point(copy_constructor:Protocol.ItemUseResponsePacket)
 }
 
-inline void S_ITEM_USE::SharedCtor(
+inline void ItemUseResponsePacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -1361,8 +1411,8 @@ inline void S_ITEM_USE::SharedCtor(
   };
 }
 
-S_ITEM_USE::~S_ITEM_USE() {
-  // @@protoc_insertion_point(destructor:Protocol.S_ITEM_USE)
+ItemUseResponsePacket::~ItemUseResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ItemUseResponsePacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1370,16 +1420,16 @@ S_ITEM_USE::~S_ITEM_USE() {
   SharedDtor();
 }
 
-inline void S_ITEM_USE::SharedDtor() {
+inline void ItemUseResponsePacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void S_ITEM_USE::SetCachedSize(int size) const {
+void ItemUseResponsePacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void S_ITEM_USE::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.S_ITEM_USE)
+void ItemUseResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ItemUseResponsePacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1388,7 +1438,7 @@ void S_ITEM_USE::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* S_ITEM_USE::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* ItemUseResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1425,9 +1475,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* S_ITEM_USE::_InternalSerialize(
+uint8_t* ItemUseResponsePacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.S_ITEM_USE)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ItemUseResponsePacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1441,12 +1491,12 @@ uint8_t* S_ITEM_USE::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.S_ITEM_USE)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ItemUseResponsePacket)
   return target;
 }
 
-size_t S_ITEM_USE::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.S_ITEM_USE)
+size_t ItemUseResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ItemUseResponsePacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1461,17 +1511,17 @@ size_t S_ITEM_USE::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData S_ITEM_USE::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ItemUseResponsePacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    S_ITEM_USE::MergeImpl
+    ItemUseResponsePacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*S_ITEM_USE::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ItemUseResponsePacket::GetClassData() const { return &_class_data_; }
 
 
-void S_ITEM_USE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<S_ITEM_USE*>(&to_msg);
-  auto& from = static_cast<const S_ITEM_USE&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.S_ITEM_USE)
+void ItemUseResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ItemUseResponsePacket*>(&to_msg);
+  auto& from = static_cast<const ItemUseResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ItemUseResponsePacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1482,24 +1532,24 @@ void S_ITEM_USE::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void S_ITEM_USE::CopyFrom(const S_ITEM_USE& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.S_ITEM_USE)
+void ItemUseResponsePacket::CopyFrom(const ItemUseResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ItemUseResponsePacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool S_ITEM_USE::IsInitialized() const {
+bool ItemUseResponsePacket::IsInitialized() const {
   return true;
 }
 
-void S_ITEM_USE::InternalSwap(S_ITEM_USE* other) {
+void ItemUseResponsePacket::InternalSwap(ItemUseResponsePacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.success_, other->_impl_.success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata S_ITEM_USE::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ItemUseResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
       file_level_metadata_Packet_2eproto[4]);
@@ -2415,6 +2465,414 @@ void LoginResponsePacket::InternalSwap(LoginResponsePacket* other) {
       file_level_metadata_Packet_2eproto[8]);
 }
 
+// ===================================================================
+
+class StatusRequestPacket::_Internal {
+ public:
+};
+
+StatusRequestPacket::StatusRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.StatusRequestPacket)
+}
+StatusRequestPacket::StatusRequestPacket(const StatusRequestPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  StatusRequestPacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.userseq_ = from._impl_.userseq_;
+  // @@protoc_insertion_point(copy_constructor:Protocol.StatusRequestPacket)
+}
+
+inline void StatusRequestPacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+StatusRequestPacket::~StatusRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.StatusRequestPacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StatusRequestPacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void StatusRequestPacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void StatusRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.StatusRequestPacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.userseq_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* StatusRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StatusRequestPacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.StatusRequestPacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.StatusRequestPacket)
+  return target;
+}
+
+size_t StatusRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.StatusRequestPacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData StatusRequestPacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    StatusRequestPacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*StatusRequestPacket::GetClassData() const { return &_class_data_; }
+
+
+void StatusRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<StatusRequestPacket*>(&to_msg);
+  auto& from = static_cast<const StatusRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.StatusRequestPacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void StatusRequestPacket::CopyFrom(const StatusRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.StatusRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StatusRequestPacket::IsInitialized() const {
+  return true;
+}
+
+void StatusRequestPacket::InternalSwap(StatusRequestPacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.userseq_, other->_impl_.userseq_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata StatusRequestPacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[9]);
+}
+
+// ===================================================================
+
+class StatusResponsePacket::_Internal {
+ public:
+  static const ::Protocol::UserCharacter& usercharacter(const StatusResponsePacket* msg);
+};
+
+const ::Protocol::UserCharacter&
+StatusResponsePacket::_Internal::usercharacter(const StatusResponsePacket* msg) {
+  return *msg->_impl_.usercharacter_;
+}
+void StatusResponsePacket::clear_usercharacter() {
+  if (GetArenaForAllocation() == nullptr && _impl_.usercharacter_ != nullptr) {
+    delete _impl_.usercharacter_;
+  }
+  _impl_.usercharacter_ = nullptr;
+}
+StatusResponsePacket::StatusResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.StatusResponsePacket)
+}
+StatusResponsePacket::StatusResponsePacket(const StatusResponsePacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  StatusResponsePacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.usercharacter_){nullptr}
+    , decltype(_impl_.userseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_usercharacter()) {
+    _this->_impl_.usercharacter_ = new ::Protocol::UserCharacter(*from._impl_.usercharacter_);
+  }
+  _this->_impl_.userseq_ = from._impl_.userseq_;
+  // @@protoc_insertion_point(copy_constructor:Protocol.StatusResponsePacket)
+}
+
+inline void StatusResponsePacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.usercharacter_){nullptr}
+    , decltype(_impl_.userseq_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+StatusResponsePacket::~StatusResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.StatusResponsePacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void StatusResponsePacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.usercharacter_;
+}
+
+void StatusResponsePacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void StatusResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.StatusResponsePacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.usercharacter_ != nullptr) {
+    delete _impl_.usercharacter_;
+  }
+  _impl_.usercharacter_ = nullptr;
+  _impl_.userseq_ = 0u;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* StatusResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.UserCharacter userCharacter = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_usercharacter(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* StatusResponsePacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.StatusResponsePacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // .Protocol.UserCharacter userCharacter = 2;
+  if (this->_internal_has_usercharacter()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::usercharacter(this),
+        _Internal::usercharacter(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.StatusResponsePacket)
+  return target;
+}
+
+size_t StatusResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.StatusResponsePacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Protocol.UserCharacter userCharacter = 2;
+  if (this->_internal_has_usercharacter()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.usercharacter_);
+  }
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData StatusResponsePacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    StatusResponsePacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*StatusResponsePacket::GetClassData() const { return &_class_data_; }
+
+
+void StatusResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<StatusResponsePacket*>(&to_msg);
+  auto& from = static_cast<const StatusResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.StatusResponsePacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_usercharacter()) {
+    _this->_internal_mutable_usercharacter()->::Protocol::UserCharacter::MergeFrom(
+        from._internal_usercharacter());
+  }
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void StatusResponsePacket::CopyFrom(const StatusResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.StatusResponsePacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StatusResponsePacket::IsInitialized() const {
+  return true;
+}
+
+void StatusResponsePacket::InternalSwap(StatusResponsePacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(StatusResponsePacket, _impl_.userseq_)
+      + sizeof(StatusResponsePacket::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(StatusResponsePacket, _impl_.usercharacter_)>(
+          reinterpret_cast<char*>(&_impl_.usercharacter_),
+          reinterpret_cast<char*>(&other->_impl_.usercharacter_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata StatusResponsePacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[10]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -2422,21 +2880,21 @@ template<> PROTOBUF_NOINLINE ::Protocol::PacketHeader*
 Arena::CreateMaybeMessage< ::Protocol::PacketHeader >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::PacketHeader >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::C_ITEM_ADD*
-Arena::CreateMaybeMessage< ::Protocol::C_ITEM_ADD >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::C_ITEM_ADD >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::ItemAddRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::ItemAddRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ItemAddRequestPacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::S_ITEM_ADD*
-Arena::CreateMaybeMessage< ::Protocol::S_ITEM_ADD >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::S_ITEM_ADD >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::ItemAddResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::ItemAddResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ItemAddResponsePacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::C_ITEM_USE*
-Arena::CreateMaybeMessage< ::Protocol::C_ITEM_USE >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::C_ITEM_USE >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::ItemUseRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::ItemUseRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ItemUseRequestPacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::S_ITEM_USE*
-Arena::CreateMaybeMessage< ::Protocol::S_ITEM_USE >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::S_ITEM_USE >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::ItemUseResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::ItemUseResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ItemUseResponsePacket >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::InventoryRequestPacket*
 Arena::CreateMaybeMessage< ::Protocol::InventoryRequestPacket >(Arena* arena) {
@@ -2453,6 +2911,14 @@ Arena::CreateMaybeMessage< ::Protocol::LoginRequestPacket >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::LoginResponsePacket*
 Arena::CreateMaybeMessage< ::Protocol::LoginResponsePacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::LoginResponsePacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::StatusRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::StatusRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::StatusRequestPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::StatusResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::StatusResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::StatusResponsePacket >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

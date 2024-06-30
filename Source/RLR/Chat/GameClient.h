@@ -12,6 +12,7 @@
 #include <Networking.h>
 #include "../Network/ClientPacketHandler.h"
 #include "../Utils/PacketUtils.h"
+#include "../Network/FNetworkReceiver.h"
 #include "GameClient.generated.h"
 class APlayerCharacter;
 
@@ -28,7 +29,7 @@ protected:
 
 public:
     virtual void Tick(float DeltaTime) override;
-
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     bool SendLoginPacket(const FString& playerId);
     bool SendMovePacket(int32 playerSeq, float NewX, float NewY);
     bool SendInventoryPacket(int32 playerSeq);
@@ -40,6 +41,7 @@ public:
     
     void ProcessMoveResponse(const char* data);
     void ProcessInventoryResponse(const char* data, int32 dataSize);
+    
     void ProcessLoginResponse(const char* data);
 
 private:
@@ -52,4 +54,5 @@ private:
     APlayerCharacter* myPlayerCharacter;
     UPROPERTY(EditDefaultsOnly, Category = "Player")
     TSubclassOf<APlayerCharacter> playerCharacterClass;
+    FNetworkReceiver* networkReceiver;
 };

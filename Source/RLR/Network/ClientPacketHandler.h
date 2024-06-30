@@ -16,11 +16,14 @@ enum : uint16
     // Add Login Packet types
     PKT_LOGIN_REQUEST = 1001,
     PKT_LOGIN_RESPONSE = 1002,
+    // Add Status Packet types
+    PKT_STATUS_REQUEST = 1003,
+    PKT_STATUS_RESPONSE = 1004,
     // Add item packet types
-    PKT_C_ITEM_ADD = 1006,
-    PKT_S_ITEM_ADD = 1007,
-    PKT_C_ITEM_USE = 1008,
-    PKT_S_ITEM_USE = 1009,
+    PKT_ITEM_ADD_REQUEST = 1006,
+    PKT_ITEM_ADD_RESPONSE = 1007,
+    PKT_ITEM_USE_REQUEST = 1008,
+    PKT_ITEM_USE_RESPONSE = 1009,
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1010,
     PKT_INVENTORY_RESPONSE = 1011,
@@ -31,11 +34,14 @@ bool Handle_INVALID(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len
 // Login Handlers
 bool Handle_LOGIN_REQUEST(TSharedPtr<PacketSession>& session, Protocol::LoginRequestPacket& pkt);
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::LoginResponsePacket& pkt);
+// Status Handlers
+bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt);
+
+
 // Item Handlers
-bool Handle_C_ITEM_ADD(TSharedPtr<PacketSession>& session, Protocol::C_ITEM_ADD& pkt);
-bool Handle_C_ITEM_USE(TSharedPtr<PacketSession>& session, Protocol::C_ITEM_USE& pkt);
+bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt);
+bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt);
 // Inventory Handlers
-bool Handle_INVENTORY_REQUEST(TSharedPtr<PacketSession>& session, Protocol::InventoryRequestPacket& pkt);
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt);
 
 class ClientPacketHandler
@@ -48,8 +54,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_RESPONSE); }
     // Add item make send buffer
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::S_ITEM_ADD& pkt) { return MakeSendBuffer(pkt, PKT_S_ITEM_ADD); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::S_ITEM_USE& pkt) { return MakeSendBuffer(pkt, PKT_S_ITEM_USE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemAddResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_ADD_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemUseResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
     // Add inventory make send buffer
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
 
@@ -93,7 +99,7 @@ class PacketSession : public TSharedFromThis<PacketSession>
 public:
     PacketSession();
     virtual ~PacketSession();
-    int32 Receive(uint8* Buffer, int32 BufferSize);
+ 
     
 protected:
     virtual int32 OnRecv(uint8* buffer, int32 len);

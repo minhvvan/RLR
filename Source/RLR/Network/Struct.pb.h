@@ -60,6 +60,15 @@ extern ItemDefaultTypeInternal _Item_default_instance_;
 class Player;
 struct PlayerDefaultTypeInternal;
 extern PlayerDefaultTypeInternal _Player_default_instance_;
+class UserCharacter;
+struct UserCharacterDefaultTypeInternal;
+extern UserCharacterDefaultTypeInternal _UserCharacter_default_instance_;
+class UserSetStatus;
+struct UserSetStatusDefaultTypeInternal;
+extern UserSetStatusDefaultTypeInternal _UserSetStatus_default_instance_;
+class UserTotalStatus;
+struct UserTotalStatusDefaultTypeInternal;
+extern UserTotalStatusDefaultTypeInternal _UserTotalStatus_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::Consumption* Arena::CreateMaybeMessage<::Protocol::Consumption>(Arena*);
@@ -67,6 +76,9 @@ template<> ::Protocol::Equip* Arena::CreateMaybeMessage<::Protocol::Equip>(Arena
 template<> ::Protocol::EtcItem* Arena::CreateMaybeMessage<::Protocol::EtcItem>(Arena*);
 template<> ::Protocol::Item* Arena::CreateMaybeMessage<::Protocol::Item>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
+template<> ::Protocol::UserCharacter* Arena::CreateMaybeMessage<::Protocol::UserCharacter>(Arena*);
+template<> ::Protocol::UserSetStatus* Arena::CreateMaybeMessage<::Protocol::UserSetStatus>(Arena*);
+template<> ::Protocol::UserTotalStatus* Arena::CreateMaybeMessage<::Protocol::UserTotalStatus>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -1291,6 +1303,825 @@ class EtcItem final :
   struct Impl_ {
     ::Protocol::Item* base_;
     int32_t etctype_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UserSetStatus final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.UserSetStatus) */ {
+ public:
+  inline UserSetStatus() : UserSetStatus(nullptr) {}
+  ~UserSetStatus() override;
+  explicit PROTOBUF_CONSTEXPR UserSetStatus(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserSetStatus(const UserSetStatus& from);
+  UserSetStatus(UserSetStatus&& from) noexcept
+    : UserSetStatus() {
+    *this = ::std::move(from);
+  }
+
+  inline UserSetStatus& operator=(const UserSetStatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserSetStatus& operator=(UserSetStatus&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UserSetStatus& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserSetStatus* internal_default_instance() {
+    return reinterpret_cast<const UserSetStatus*>(
+               &_UserSetStatus_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(UserSetStatus& a, UserSetStatus& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserSetStatus* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserSetStatus* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UserSetStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UserSetStatus>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UserSetStatus& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const UserSetStatus& from) {
+    UserSetStatus::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserSetStatus* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.UserSetStatus";
+  }
+  protected:
+  explicit UserSetStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserHpFieldNumber = 1,
+    kUserMpFieldNumber = 2,
+    kUserStrFieldNumber = 3,
+    kUserAgiFieldNumber = 4,
+    kUserIntFieldNumber = 5,
+  };
+  // int32 userHp = 1;
+  void clear_userhp();
+  int32_t userhp() const;
+  void set_userhp(int32_t value);
+  private:
+  int32_t _internal_userhp() const;
+  void _internal_set_userhp(int32_t value);
+  public:
+
+  // int32 userMp = 2;
+  void clear_usermp();
+  int32_t usermp() const;
+  void set_usermp(int32_t value);
+  private:
+  int32_t _internal_usermp() const;
+  void _internal_set_usermp(int32_t value);
+  public:
+
+  // int32 userStr = 3;
+  void clear_userstr();
+  int32_t userstr() const;
+  void set_userstr(int32_t value);
+  private:
+  int32_t _internal_userstr() const;
+  void _internal_set_userstr(int32_t value);
+  public:
+
+  // int32 userAgi = 4;
+  void clear_useragi();
+  int32_t useragi() const;
+  void set_useragi(int32_t value);
+  private:
+  int32_t _internal_useragi() const;
+  void _internal_set_useragi(int32_t value);
+  public:
+
+  // int32 userInt = 5;
+  void clear_userint();
+  int32_t userint() const;
+  void set_userint(int32_t value);
+  private:
+  int32_t _internal_userint() const;
+  void _internal_set_userint(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.UserSetStatus)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t userhp_;
+    int32_t usermp_;
+    int32_t userstr_;
+    int32_t useragi_;
+    int32_t userint_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UserTotalStatus final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.UserTotalStatus) */ {
+ public:
+  inline UserTotalStatus() : UserTotalStatus(nullptr) {}
+  ~UserTotalStatus() override;
+  explicit PROTOBUF_CONSTEXPR UserTotalStatus(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserTotalStatus(const UserTotalStatus& from);
+  UserTotalStatus(UserTotalStatus&& from) noexcept
+    : UserTotalStatus() {
+    *this = ::std::move(from);
+  }
+
+  inline UserTotalStatus& operator=(const UserTotalStatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserTotalStatus& operator=(UserTotalStatus&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UserTotalStatus& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserTotalStatus* internal_default_instance() {
+    return reinterpret_cast<const UserTotalStatus*>(
+               &_UserTotalStatus_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(UserTotalStatus& a, UserTotalStatus& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserTotalStatus* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserTotalStatus* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UserTotalStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UserTotalStatus>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UserTotalStatus& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const UserTotalStatus& from) {
+    UserTotalStatus::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserTotalStatus* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.UserTotalStatus";
+  }
+  protected:
+  explicit UserTotalStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserHpFieldNumber = 1,
+    kUserHpAbsorbFieldNumber = 2,
+    kUserMpFieldNumber = 3,
+    kUserMpAbsorbFieldNumber = 4,
+    kUserStrengthFieldNumber = 5,
+    kUserAgilityFieldNumber = 6,
+    kUserIntelligenceFieldNumber = 7,
+    kUserAttackFieldNumber = 8,
+    kUserDefenceFieldNumber = 9,
+    kUserAttackSpeedFieldNumber = 10,
+    kUserMoveSpeedFieldNumber = 11,
+    kUserCriticalChanceFieldNumber = 12,
+    kUserCriticalDamageFieldNumber = 13,
+    kUserAvoidFieldNumber = 14,
+    kUserCooldownReductionFieldNumber = 15,
+  };
+  // float userHp = 1;
+  void clear_userhp();
+  float userhp() const;
+  void set_userhp(float value);
+  private:
+  float _internal_userhp() const;
+  void _internal_set_userhp(float value);
+  public:
+
+  // float userHpAbsorb = 2;
+  void clear_userhpabsorb();
+  float userhpabsorb() const;
+  void set_userhpabsorb(float value);
+  private:
+  float _internal_userhpabsorb() const;
+  void _internal_set_userhpabsorb(float value);
+  public:
+
+  // float userMp = 3;
+  void clear_usermp();
+  float usermp() const;
+  void set_usermp(float value);
+  private:
+  float _internal_usermp() const;
+  void _internal_set_usermp(float value);
+  public:
+
+  // float userMpAbsorb = 4;
+  void clear_usermpabsorb();
+  float usermpabsorb() const;
+  void set_usermpabsorb(float value);
+  private:
+  float _internal_usermpabsorb() const;
+  void _internal_set_usermpabsorb(float value);
+  public:
+
+  // int32 userStrength = 5;
+  void clear_userstrength();
+  int32_t userstrength() const;
+  void set_userstrength(int32_t value);
+  private:
+  int32_t _internal_userstrength() const;
+  void _internal_set_userstrength(int32_t value);
+  public:
+
+  // int32 userAgility = 6;
+  void clear_useragility();
+  int32_t useragility() const;
+  void set_useragility(int32_t value);
+  private:
+  int32_t _internal_useragility() const;
+  void _internal_set_useragility(int32_t value);
+  public:
+
+  // int32 userIntelligence = 7;
+  void clear_userintelligence();
+  int32_t userintelligence() const;
+  void set_userintelligence(int32_t value);
+  private:
+  int32_t _internal_userintelligence() const;
+  void _internal_set_userintelligence(int32_t value);
+  public:
+
+  // float userAttack = 8;
+  void clear_userattack();
+  float userattack() const;
+  void set_userattack(float value);
+  private:
+  float _internal_userattack() const;
+  void _internal_set_userattack(float value);
+  public:
+
+  // float userDefence = 9;
+  void clear_userdefence();
+  float userdefence() const;
+  void set_userdefence(float value);
+  private:
+  float _internal_userdefence() const;
+  void _internal_set_userdefence(float value);
+  public:
+
+  // float userAttackSpeed = 10;
+  void clear_userattackspeed();
+  float userattackspeed() const;
+  void set_userattackspeed(float value);
+  private:
+  float _internal_userattackspeed() const;
+  void _internal_set_userattackspeed(float value);
+  public:
+
+  // float userMoveSpeed = 11;
+  void clear_usermovespeed();
+  float usermovespeed() const;
+  void set_usermovespeed(float value);
+  private:
+  float _internal_usermovespeed() const;
+  void _internal_set_usermovespeed(float value);
+  public:
+
+  // float userCriticalChance = 12;
+  void clear_usercriticalchance();
+  float usercriticalchance() const;
+  void set_usercriticalchance(float value);
+  private:
+  float _internal_usercriticalchance() const;
+  void _internal_set_usercriticalchance(float value);
+  public:
+
+  // float userCriticalDamage = 13;
+  void clear_usercriticaldamage();
+  float usercriticaldamage() const;
+  void set_usercriticaldamage(float value);
+  private:
+  float _internal_usercriticaldamage() const;
+  void _internal_set_usercriticaldamage(float value);
+  public:
+
+  // float userAvoid = 14;
+  void clear_useravoid();
+  float useravoid() const;
+  void set_useravoid(float value);
+  private:
+  float _internal_useravoid() const;
+  void _internal_set_useravoid(float value);
+  public:
+
+  // float userCooldownReduction = 15;
+  void clear_usercooldownreduction();
+  float usercooldownreduction() const;
+  void set_usercooldownreduction(float value);
+  private:
+  float _internal_usercooldownreduction() const;
+  void _internal_set_usercooldownreduction(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.UserTotalStatus)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    float userhp_;
+    float userhpabsorb_;
+    float usermp_;
+    float usermpabsorb_;
+    int32_t userstrength_;
+    int32_t useragility_;
+    int32_t userintelligence_;
+    float userattack_;
+    float userdefence_;
+    float userattackspeed_;
+    float usermovespeed_;
+    float usercriticalchance_;
+    float usercriticaldamage_;
+    float useravoid_;
+    float usercooldownreduction_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UserCharacter final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.UserCharacter) */ {
+ public:
+  inline UserCharacter() : UserCharacter(nullptr) {}
+  ~UserCharacter() override;
+  explicit PROTOBUF_CONSTEXPR UserCharacter(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserCharacter(const UserCharacter& from);
+  UserCharacter(UserCharacter&& from) noexcept
+    : UserCharacter() {
+    *this = ::std::move(from);
+  }
+
+  inline UserCharacter& operator=(const UserCharacter& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserCharacter& operator=(UserCharacter&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UserCharacter& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserCharacter* internal_default_instance() {
+    return reinterpret_cast<const UserCharacter*>(
+               &_UserCharacter_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(UserCharacter& a, UserCharacter& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserCharacter* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserCharacter* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UserCharacter* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UserCharacter>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UserCharacter& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const UserCharacter& from) {
+    UserCharacter::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserCharacter* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.UserCharacter";
+  }
+  protected:
+  explicit UserCharacter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 3,
+    kSetStatusFieldNumber = 14,
+    kTotalStatusFieldNumber = 15,
+    kUserSeqFieldNumber = 1,
+    kPlayerSeqFieldNumber = 2,
+    kLevelFieldNumber = 4,
+    kNobilityRankFieldNumber = 5,
+    kMainJobFieldNumber = 6,
+    kSubJobFieldNumber = 7,
+    kExpFieldNumber = 8,
+    kAdventurerRankFieldNumber = 9,
+    kTransXFieldNumber = 10,
+    kTransYFieldNumber = 11,
+    kMapTransXFieldNumber = 12,
+    kMapTransYFieldNumber = 13,
+  };
+  // string name = 3;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .Protocol.UserSetStatus setStatus = 14;
+  bool has_setstatus() const;
+  private:
+  bool _internal_has_setstatus() const;
+  public:
+  void clear_setstatus();
+  const ::Protocol::UserSetStatus& setstatus() const;
+  PROTOBUF_NODISCARD ::Protocol::UserSetStatus* release_setstatus();
+  ::Protocol::UserSetStatus* mutable_setstatus();
+  void set_allocated_setstatus(::Protocol::UserSetStatus* setstatus);
+  private:
+  const ::Protocol::UserSetStatus& _internal_setstatus() const;
+  ::Protocol::UserSetStatus* _internal_mutable_setstatus();
+  public:
+  void unsafe_arena_set_allocated_setstatus(
+      ::Protocol::UserSetStatus* setstatus);
+  ::Protocol::UserSetStatus* unsafe_arena_release_setstatus();
+
+  // .Protocol.UserTotalStatus totalStatus = 15;
+  bool has_totalstatus() const;
+  private:
+  bool _internal_has_totalstatus() const;
+  public:
+  void clear_totalstatus();
+  const ::Protocol::UserTotalStatus& totalstatus() const;
+  PROTOBUF_NODISCARD ::Protocol::UserTotalStatus* release_totalstatus();
+  ::Protocol::UserTotalStatus* mutable_totalstatus();
+  void set_allocated_totalstatus(::Protocol::UserTotalStatus* totalstatus);
+  private:
+  const ::Protocol::UserTotalStatus& _internal_totalstatus() const;
+  ::Protocol::UserTotalStatus* _internal_mutable_totalstatus();
+  public:
+  void unsafe_arena_set_allocated_totalstatus(
+      ::Protocol::UserTotalStatus* totalstatus);
+  ::Protocol::UserTotalStatus* unsafe_arena_release_totalstatus();
+
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // int32 playerSeq = 2;
+  void clear_playerseq();
+  int32_t playerseq() const;
+  void set_playerseq(int32_t value);
+  private:
+  int32_t _internal_playerseq() const;
+  void _internal_set_playerseq(int32_t value);
+  public:
+
+  // int32 level = 4;
+  void clear_level();
+  int32_t level() const;
+  void set_level(int32_t value);
+  private:
+  int32_t _internal_level() const;
+  void _internal_set_level(int32_t value);
+  public:
+
+  // int32 nobilityRank = 5;
+  void clear_nobilityrank();
+  int32_t nobilityrank() const;
+  void set_nobilityrank(int32_t value);
+  private:
+  int32_t _internal_nobilityrank() const;
+  void _internal_set_nobilityrank(int32_t value);
+  public:
+
+  // int32 mainJob = 6;
+  void clear_mainjob();
+  int32_t mainjob() const;
+  void set_mainjob(int32_t value);
+  private:
+  int32_t _internal_mainjob() const;
+  void _internal_set_mainjob(int32_t value);
+  public:
+
+  // int32 subJob = 7;
+  void clear_subjob();
+  int32_t subjob() const;
+  void set_subjob(int32_t value);
+  private:
+  int32_t _internal_subjob() const;
+  void _internal_set_subjob(int32_t value);
+  public:
+
+  // int32 exp = 8;
+  void clear_exp();
+  int32_t exp() const;
+  void set_exp(int32_t value);
+  private:
+  int32_t _internal_exp() const;
+  void _internal_set_exp(int32_t value);
+  public:
+
+  // int32 adventurerRank = 9;
+  void clear_adventurerrank();
+  int32_t adventurerrank() const;
+  void set_adventurerrank(int32_t value);
+  private:
+  int32_t _internal_adventurerrank() const;
+  void _internal_set_adventurerrank(int32_t value);
+  public:
+
+  // float transX = 10;
+  void clear_transx();
+  float transx() const;
+  void set_transx(float value);
+  private:
+  float _internal_transx() const;
+  void _internal_set_transx(float value);
+  public:
+
+  // float transY = 11;
+  void clear_transy();
+  float transy() const;
+  void set_transy(float value);
+  private:
+  float _internal_transy() const;
+  void _internal_set_transy(float value);
+  public:
+
+  // float mapTransX = 12;
+  void clear_maptransx();
+  float maptransx() const;
+  void set_maptransx(float value);
+  private:
+  float _internal_maptransx() const;
+  void _internal_set_maptransx(float value);
+  public:
+
+  // float mapTransY = 13;
+  void clear_maptransy();
+  float maptransy() const;
+  void set_maptransy(float value);
+  private:
+  float _internal_maptransy() const;
+  void _internal_set_maptransy(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.UserCharacter)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+    ::Protocol::UserSetStatus* setstatus_;
+    ::Protocol::UserTotalStatus* totalstatus_;
+    int32_t userseq_;
+    int32_t playerseq_;
+    int32_t level_;
+    int32_t nobilityrank_;
+    int32_t mainjob_;
+    int32_t subjob_;
+    int32_t exp_;
+    int32_t adventurerrank_;
+    float transx_;
+    float transy_;
+    float maptransx_;
+    float maptransy_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2614,9 +3445,897 @@ inline void EtcItem::set_etctype(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.EtcItem.etcType)
 }
 
+// -------------------------------------------------------------------
+
+// UserSetStatus
+
+// int32 userHp = 1;
+inline void UserSetStatus::clear_userhp() {
+  _impl_.userhp_ = 0;
+}
+inline int32_t UserSetStatus::_internal_userhp() const {
+  return _impl_.userhp_;
+}
+inline int32_t UserSetStatus::userhp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserSetStatus.userHp)
+  return _internal_userhp();
+}
+inline void UserSetStatus::_internal_set_userhp(int32_t value) {
+  
+  _impl_.userhp_ = value;
+}
+inline void UserSetStatus::set_userhp(int32_t value) {
+  _internal_set_userhp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserSetStatus.userHp)
+}
+
+// int32 userMp = 2;
+inline void UserSetStatus::clear_usermp() {
+  _impl_.usermp_ = 0;
+}
+inline int32_t UserSetStatus::_internal_usermp() const {
+  return _impl_.usermp_;
+}
+inline int32_t UserSetStatus::usermp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserSetStatus.userMp)
+  return _internal_usermp();
+}
+inline void UserSetStatus::_internal_set_usermp(int32_t value) {
+  
+  _impl_.usermp_ = value;
+}
+inline void UserSetStatus::set_usermp(int32_t value) {
+  _internal_set_usermp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserSetStatus.userMp)
+}
+
+// int32 userStr = 3;
+inline void UserSetStatus::clear_userstr() {
+  _impl_.userstr_ = 0;
+}
+inline int32_t UserSetStatus::_internal_userstr() const {
+  return _impl_.userstr_;
+}
+inline int32_t UserSetStatus::userstr() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserSetStatus.userStr)
+  return _internal_userstr();
+}
+inline void UserSetStatus::_internal_set_userstr(int32_t value) {
+  
+  _impl_.userstr_ = value;
+}
+inline void UserSetStatus::set_userstr(int32_t value) {
+  _internal_set_userstr(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserSetStatus.userStr)
+}
+
+// int32 userAgi = 4;
+inline void UserSetStatus::clear_useragi() {
+  _impl_.useragi_ = 0;
+}
+inline int32_t UserSetStatus::_internal_useragi() const {
+  return _impl_.useragi_;
+}
+inline int32_t UserSetStatus::useragi() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserSetStatus.userAgi)
+  return _internal_useragi();
+}
+inline void UserSetStatus::_internal_set_useragi(int32_t value) {
+  
+  _impl_.useragi_ = value;
+}
+inline void UserSetStatus::set_useragi(int32_t value) {
+  _internal_set_useragi(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserSetStatus.userAgi)
+}
+
+// int32 userInt = 5;
+inline void UserSetStatus::clear_userint() {
+  _impl_.userint_ = 0;
+}
+inline int32_t UserSetStatus::_internal_userint() const {
+  return _impl_.userint_;
+}
+inline int32_t UserSetStatus::userint() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserSetStatus.userInt)
+  return _internal_userint();
+}
+inline void UserSetStatus::_internal_set_userint(int32_t value) {
+  
+  _impl_.userint_ = value;
+}
+inline void UserSetStatus::set_userint(int32_t value) {
+  _internal_set_userint(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserSetStatus.userInt)
+}
+
+// -------------------------------------------------------------------
+
+// UserTotalStatus
+
+// float userHp = 1;
+inline void UserTotalStatus::clear_userhp() {
+  _impl_.userhp_ = 0;
+}
+inline float UserTotalStatus::_internal_userhp() const {
+  return _impl_.userhp_;
+}
+inline float UserTotalStatus::userhp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userHp)
+  return _internal_userhp();
+}
+inline void UserTotalStatus::_internal_set_userhp(float value) {
+  
+  _impl_.userhp_ = value;
+}
+inline void UserTotalStatus::set_userhp(float value) {
+  _internal_set_userhp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userHp)
+}
+
+// float userHpAbsorb = 2;
+inline void UserTotalStatus::clear_userhpabsorb() {
+  _impl_.userhpabsorb_ = 0;
+}
+inline float UserTotalStatus::_internal_userhpabsorb() const {
+  return _impl_.userhpabsorb_;
+}
+inline float UserTotalStatus::userhpabsorb() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userHpAbsorb)
+  return _internal_userhpabsorb();
+}
+inline void UserTotalStatus::_internal_set_userhpabsorb(float value) {
+  
+  _impl_.userhpabsorb_ = value;
+}
+inline void UserTotalStatus::set_userhpabsorb(float value) {
+  _internal_set_userhpabsorb(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userHpAbsorb)
+}
+
+// float userMp = 3;
+inline void UserTotalStatus::clear_usermp() {
+  _impl_.usermp_ = 0;
+}
+inline float UserTotalStatus::_internal_usermp() const {
+  return _impl_.usermp_;
+}
+inline float UserTotalStatus::usermp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userMp)
+  return _internal_usermp();
+}
+inline void UserTotalStatus::_internal_set_usermp(float value) {
+  
+  _impl_.usermp_ = value;
+}
+inline void UserTotalStatus::set_usermp(float value) {
+  _internal_set_usermp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMp)
+}
+
+// float userMpAbsorb = 4;
+inline void UserTotalStatus::clear_usermpabsorb() {
+  _impl_.usermpabsorb_ = 0;
+}
+inline float UserTotalStatus::_internal_usermpabsorb() const {
+  return _impl_.usermpabsorb_;
+}
+inline float UserTotalStatus::usermpabsorb() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userMpAbsorb)
+  return _internal_usermpabsorb();
+}
+inline void UserTotalStatus::_internal_set_usermpabsorb(float value) {
+  
+  _impl_.usermpabsorb_ = value;
+}
+inline void UserTotalStatus::set_usermpabsorb(float value) {
+  _internal_set_usermpabsorb(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMpAbsorb)
+}
+
+// int32 userStrength = 5;
+inline void UserTotalStatus::clear_userstrength() {
+  _impl_.userstrength_ = 0;
+}
+inline int32_t UserTotalStatus::_internal_userstrength() const {
+  return _impl_.userstrength_;
+}
+inline int32_t UserTotalStatus::userstrength() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userStrength)
+  return _internal_userstrength();
+}
+inline void UserTotalStatus::_internal_set_userstrength(int32_t value) {
+  
+  _impl_.userstrength_ = value;
+}
+inline void UserTotalStatus::set_userstrength(int32_t value) {
+  _internal_set_userstrength(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userStrength)
+}
+
+// int32 userAgility = 6;
+inline void UserTotalStatus::clear_useragility() {
+  _impl_.useragility_ = 0;
+}
+inline int32_t UserTotalStatus::_internal_useragility() const {
+  return _impl_.useragility_;
+}
+inline int32_t UserTotalStatus::useragility() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userAgility)
+  return _internal_useragility();
+}
+inline void UserTotalStatus::_internal_set_useragility(int32_t value) {
+  
+  _impl_.useragility_ = value;
+}
+inline void UserTotalStatus::set_useragility(int32_t value) {
+  _internal_set_useragility(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAgility)
+}
+
+// int32 userIntelligence = 7;
+inline void UserTotalStatus::clear_userintelligence() {
+  _impl_.userintelligence_ = 0;
+}
+inline int32_t UserTotalStatus::_internal_userintelligence() const {
+  return _impl_.userintelligence_;
+}
+inline int32_t UserTotalStatus::userintelligence() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userIntelligence)
+  return _internal_userintelligence();
+}
+inline void UserTotalStatus::_internal_set_userintelligence(int32_t value) {
+  
+  _impl_.userintelligence_ = value;
+}
+inline void UserTotalStatus::set_userintelligence(int32_t value) {
+  _internal_set_userintelligence(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userIntelligence)
+}
+
+// float userAttack = 8;
+inline void UserTotalStatus::clear_userattack() {
+  _impl_.userattack_ = 0;
+}
+inline float UserTotalStatus::_internal_userattack() const {
+  return _impl_.userattack_;
+}
+inline float UserTotalStatus::userattack() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userAttack)
+  return _internal_userattack();
+}
+inline void UserTotalStatus::_internal_set_userattack(float value) {
+  
+  _impl_.userattack_ = value;
+}
+inline void UserTotalStatus::set_userattack(float value) {
+  _internal_set_userattack(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAttack)
+}
+
+// float userDefence = 9;
+inline void UserTotalStatus::clear_userdefence() {
+  _impl_.userdefence_ = 0;
+}
+inline float UserTotalStatus::_internal_userdefence() const {
+  return _impl_.userdefence_;
+}
+inline float UserTotalStatus::userdefence() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userDefence)
+  return _internal_userdefence();
+}
+inline void UserTotalStatus::_internal_set_userdefence(float value) {
+  
+  _impl_.userdefence_ = value;
+}
+inline void UserTotalStatus::set_userdefence(float value) {
+  _internal_set_userdefence(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userDefence)
+}
+
+// float userAttackSpeed = 10;
+inline void UserTotalStatus::clear_userattackspeed() {
+  _impl_.userattackspeed_ = 0;
+}
+inline float UserTotalStatus::_internal_userattackspeed() const {
+  return _impl_.userattackspeed_;
+}
+inline float UserTotalStatus::userattackspeed() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userAttackSpeed)
+  return _internal_userattackspeed();
+}
+inline void UserTotalStatus::_internal_set_userattackspeed(float value) {
+  
+  _impl_.userattackspeed_ = value;
+}
+inline void UserTotalStatus::set_userattackspeed(float value) {
+  _internal_set_userattackspeed(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAttackSpeed)
+}
+
+// float userMoveSpeed = 11;
+inline void UserTotalStatus::clear_usermovespeed() {
+  _impl_.usermovespeed_ = 0;
+}
+inline float UserTotalStatus::_internal_usermovespeed() const {
+  return _impl_.usermovespeed_;
+}
+inline float UserTotalStatus::usermovespeed() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userMoveSpeed)
+  return _internal_usermovespeed();
+}
+inline void UserTotalStatus::_internal_set_usermovespeed(float value) {
+  
+  _impl_.usermovespeed_ = value;
+}
+inline void UserTotalStatus::set_usermovespeed(float value) {
+  _internal_set_usermovespeed(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMoveSpeed)
+}
+
+// float userCriticalChance = 12;
+inline void UserTotalStatus::clear_usercriticalchance() {
+  _impl_.usercriticalchance_ = 0;
+}
+inline float UserTotalStatus::_internal_usercriticalchance() const {
+  return _impl_.usercriticalchance_;
+}
+inline float UserTotalStatus::usercriticalchance() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userCriticalChance)
+  return _internal_usercriticalchance();
+}
+inline void UserTotalStatus::_internal_set_usercriticalchance(float value) {
+  
+  _impl_.usercriticalchance_ = value;
+}
+inline void UserTotalStatus::set_usercriticalchance(float value) {
+  _internal_set_usercriticalchance(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userCriticalChance)
+}
+
+// float userCriticalDamage = 13;
+inline void UserTotalStatus::clear_usercriticaldamage() {
+  _impl_.usercriticaldamage_ = 0;
+}
+inline float UserTotalStatus::_internal_usercriticaldamage() const {
+  return _impl_.usercriticaldamage_;
+}
+inline float UserTotalStatus::usercriticaldamage() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userCriticalDamage)
+  return _internal_usercriticaldamage();
+}
+inline void UserTotalStatus::_internal_set_usercriticaldamage(float value) {
+  
+  _impl_.usercriticaldamage_ = value;
+}
+inline void UserTotalStatus::set_usercriticaldamage(float value) {
+  _internal_set_usercriticaldamage(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userCriticalDamage)
+}
+
+// float userAvoid = 14;
+inline void UserTotalStatus::clear_useravoid() {
+  _impl_.useravoid_ = 0;
+}
+inline float UserTotalStatus::_internal_useravoid() const {
+  return _impl_.useravoid_;
+}
+inline float UserTotalStatus::useravoid() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userAvoid)
+  return _internal_useravoid();
+}
+inline void UserTotalStatus::_internal_set_useravoid(float value) {
+  
+  _impl_.useravoid_ = value;
+}
+inline void UserTotalStatus::set_useravoid(float value) {
+  _internal_set_useravoid(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAvoid)
+}
+
+// float userCooldownReduction = 15;
+inline void UserTotalStatus::clear_usercooldownreduction() {
+  _impl_.usercooldownreduction_ = 0;
+}
+inline float UserTotalStatus::_internal_usercooldownreduction() const {
+  return _impl_.usercooldownreduction_;
+}
+inline float UserTotalStatus::usercooldownreduction() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userCooldownReduction)
+  return _internal_usercooldownreduction();
+}
+inline void UserTotalStatus::_internal_set_usercooldownreduction(float value) {
+  
+  _impl_.usercooldownreduction_ = value;
+}
+inline void UserTotalStatus::set_usercooldownreduction(float value) {
+  _internal_set_usercooldownreduction(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userCooldownReduction)
+}
+
+// -------------------------------------------------------------------
+
+// UserCharacter
+
+// int32 userSeq = 1;
+inline void UserCharacter::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t UserCharacter::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t UserCharacter::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.userSeq)
+  return _internal_userseq();
+}
+inline void UserCharacter::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void UserCharacter::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.userSeq)
+}
+
+// int32 playerSeq = 2;
+inline void UserCharacter::clear_playerseq() {
+  _impl_.playerseq_ = 0;
+}
+inline int32_t UserCharacter::_internal_playerseq() const {
+  return _impl_.playerseq_;
+}
+inline int32_t UserCharacter::playerseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.playerSeq)
+  return _internal_playerseq();
+}
+inline void UserCharacter::_internal_set_playerseq(int32_t value) {
+  
+  _impl_.playerseq_ = value;
+}
+inline void UserCharacter::set_playerseq(int32_t value) {
+  _internal_set_playerseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.playerSeq)
+}
+
+// string name = 3;
+inline void UserCharacter::clear_name() {
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& UserCharacter::name() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UserCharacter::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.name)
+}
+inline std::string* UserCharacter::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:Protocol.UserCharacter.name)
+  return _s;
+}
+inline const std::string& UserCharacter::_internal_name() const {
+  return _impl_.name_.Get();
+}
+inline void UserCharacter::_internal_set_name(const std::string& value) {
+  
+  _impl_.name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* UserCharacter::_internal_mutable_name() {
+  
+  return _impl_.name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* UserCharacter::release_name() {
+  // @@protoc_insertion_point(field_release:Protocol.UserCharacter.name)
+  return _impl_.name_.Release();
+}
+inline void UserCharacter::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.name_.IsDefault()) {
+    _impl_.name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.name)
+}
+
+// int32 level = 4;
+inline void UserCharacter::clear_level() {
+  _impl_.level_ = 0;
+}
+inline int32_t UserCharacter::_internal_level() const {
+  return _impl_.level_;
+}
+inline int32_t UserCharacter::level() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.level)
+  return _internal_level();
+}
+inline void UserCharacter::_internal_set_level(int32_t value) {
+  
+  _impl_.level_ = value;
+}
+inline void UserCharacter::set_level(int32_t value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.level)
+}
+
+// int32 nobilityRank = 5;
+inline void UserCharacter::clear_nobilityrank() {
+  _impl_.nobilityrank_ = 0;
+}
+inline int32_t UserCharacter::_internal_nobilityrank() const {
+  return _impl_.nobilityrank_;
+}
+inline int32_t UserCharacter::nobilityrank() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.nobilityRank)
+  return _internal_nobilityrank();
+}
+inline void UserCharacter::_internal_set_nobilityrank(int32_t value) {
+  
+  _impl_.nobilityrank_ = value;
+}
+inline void UserCharacter::set_nobilityrank(int32_t value) {
+  _internal_set_nobilityrank(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.nobilityRank)
+}
+
+// int32 mainJob = 6;
+inline void UserCharacter::clear_mainjob() {
+  _impl_.mainjob_ = 0;
+}
+inline int32_t UserCharacter::_internal_mainjob() const {
+  return _impl_.mainjob_;
+}
+inline int32_t UserCharacter::mainjob() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mainJob)
+  return _internal_mainjob();
+}
+inline void UserCharacter::_internal_set_mainjob(int32_t value) {
+  
+  _impl_.mainjob_ = value;
+}
+inline void UserCharacter::set_mainjob(int32_t value) {
+  _internal_set_mainjob(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mainJob)
+}
+
+// int32 subJob = 7;
+inline void UserCharacter::clear_subjob() {
+  _impl_.subjob_ = 0;
+}
+inline int32_t UserCharacter::_internal_subjob() const {
+  return _impl_.subjob_;
+}
+inline int32_t UserCharacter::subjob() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.subJob)
+  return _internal_subjob();
+}
+inline void UserCharacter::_internal_set_subjob(int32_t value) {
+  
+  _impl_.subjob_ = value;
+}
+inline void UserCharacter::set_subjob(int32_t value) {
+  _internal_set_subjob(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.subJob)
+}
+
+// int32 exp = 8;
+inline void UserCharacter::clear_exp() {
+  _impl_.exp_ = 0;
+}
+inline int32_t UserCharacter::_internal_exp() const {
+  return _impl_.exp_;
+}
+inline int32_t UserCharacter::exp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.exp)
+  return _internal_exp();
+}
+inline void UserCharacter::_internal_set_exp(int32_t value) {
+  
+  _impl_.exp_ = value;
+}
+inline void UserCharacter::set_exp(int32_t value) {
+  _internal_set_exp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.exp)
+}
+
+// int32 adventurerRank = 9;
+inline void UserCharacter::clear_adventurerrank() {
+  _impl_.adventurerrank_ = 0;
+}
+inline int32_t UserCharacter::_internal_adventurerrank() const {
+  return _impl_.adventurerrank_;
+}
+inline int32_t UserCharacter::adventurerrank() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.adventurerRank)
+  return _internal_adventurerrank();
+}
+inline void UserCharacter::_internal_set_adventurerrank(int32_t value) {
+  
+  _impl_.adventurerrank_ = value;
+}
+inline void UserCharacter::set_adventurerrank(int32_t value) {
+  _internal_set_adventurerrank(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.adventurerRank)
+}
+
+// float transX = 10;
+inline void UserCharacter::clear_transx() {
+  _impl_.transx_ = 0;
+}
+inline float UserCharacter::_internal_transx() const {
+  return _impl_.transx_;
+}
+inline float UserCharacter::transx() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.transX)
+  return _internal_transx();
+}
+inline void UserCharacter::_internal_set_transx(float value) {
+  
+  _impl_.transx_ = value;
+}
+inline void UserCharacter::set_transx(float value) {
+  _internal_set_transx(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.transX)
+}
+
+// float transY = 11;
+inline void UserCharacter::clear_transy() {
+  _impl_.transy_ = 0;
+}
+inline float UserCharacter::_internal_transy() const {
+  return _impl_.transy_;
+}
+inline float UserCharacter::transy() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.transY)
+  return _internal_transy();
+}
+inline void UserCharacter::_internal_set_transy(float value) {
+  
+  _impl_.transy_ = value;
+}
+inline void UserCharacter::set_transy(float value) {
+  _internal_set_transy(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.transY)
+}
+
+// float mapTransX = 12;
+inline void UserCharacter::clear_maptransx() {
+  _impl_.maptransx_ = 0;
+}
+inline float UserCharacter::_internal_maptransx() const {
+  return _impl_.maptransx_;
+}
+inline float UserCharacter::maptransx() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransX)
+  return _internal_maptransx();
+}
+inline void UserCharacter::_internal_set_maptransx(float value) {
+  
+  _impl_.maptransx_ = value;
+}
+inline void UserCharacter::set_maptransx(float value) {
+  _internal_set_maptransx(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransX)
+}
+
+// float mapTransY = 13;
+inline void UserCharacter::clear_maptransy() {
+  _impl_.maptransy_ = 0;
+}
+inline float UserCharacter::_internal_maptransy() const {
+  return _impl_.maptransy_;
+}
+inline float UserCharacter::maptransy() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransY)
+  return _internal_maptransy();
+}
+inline void UserCharacter::_internal_set_maptransy(float value) {
+  
+  _impl_.maptransy_ = value;
+}
+inline void UserCharacter::set_maptransy(float value) {
+  _internal_set_maptransy(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransY)
+}
+
+// .Protocol.UserSetStatus setStatus = 14;
+inline bool UserCharacter::_internal_has_setstatus() const {
+  return this != internal_default_instance() && _impl_.setstatus_ != nullptr;
+}
+inline bool UserCharacter::has_setstatus() const {
+  return _internal_has_setstatus();
+}
+inline void UserCharacter::clear_setstatus() {
+  if (GetArenaForAllocation() == nullptr && _impl_.setstatus_ != nullptr) {
+    delete _impl_.setstatus_;
+  }
+  _impl_.setstatus_ = nullptr;
+}
+inline const ::Protocol::UserSetStatus& UserCharacter::_internal_setstatus() const {
+  const ::Protocol::UserSetStatus* p = _impl_.setstatus_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::UserSetStatus&>(
+      ::Protocol::_UserSetStatus_default_instance_);
+}
+inline const ::Protocol::UserSetStatus& UserCharacter::setstatus() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.setStatus)
+  return _internal_setstatus();
+}
+inline void UserCharacter::unsafe_arena_set_allocated_setstatus(
+    ::Protocol::UserSetStatus* setstatus) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.setstatus_);
+  }
+  _impl_.setstatus_ = setstatus;
+  if (setstatus) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.UserCharacter.setStatus)
+}
+inline ::Protocol::UserSetStatus* UserCharacter::release_setstatus() {
+  
+  ::Protocol::UserSetStatus* temp = _impl_.setstatus_;
+  _impl_.setstatus_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::UserSetStatus* UserCharacter::unsafe_arena_release_setstatus() {
+  // @@protoc_insertion_point(field_release:Protocol.UserCharacter.setStatus)
+  
+  ::Protocol::UserSetStatus* temp = _impl_.setstatus_;
+  _impl_.setstatus_ = nullptr;
+  return temp;
+}
+inline ::Protocol::UserSetStatus* UserCharacter::_internal_mutable_setstatus() {
+  
+  if (_impl_.setstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::UserSetStatus>(GetArenaForAllocation());
+    _impl_.setstatus_ = p;
+  }
+  return _impl_.setstatus_;
+}
+inline ::Protocol::UserSetStatus* UserCharacter::mutable_setstatus() {
+  ::Protocol::UserSetStatus* _msg = _internal_mutable_setstatus();
+  // @@protoc_insertion_point(field_mutable:Protocol.UserCharacter.setStatus)
+  return _msg;
+}
+inline void UserCharacter::set_allocated_setstatus(::Protocol::UserSetStatus* setstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.setstatus_;
+  }
+  if (setstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(setstatus);
+    if (message_arena != submessage_arena) {
+      setstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, setstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.setstatus_ = setstatus;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.setStatus)
+}
+
+// .Protocol.UserTotalStatus totalStatus = 15;
+inline bool UserCharacter::_internal_has_totalstatus() const {
+  return this != internal_default_instance() && _impl_.totalstatus_ != nullptr;
+}
+inline bool UserCharacter::has_totalstatus() const {
+  return _internal_has_totalstatus();
+}
+inline void UserCharacter::clear_totalstatus() {
+  if (GetArenaForAllocation() == nullptr && _impl_.totalstatus_ != nullptr) {
+    delete _impl_.totalstatus_;
+  }
+  _impl_.totalstatus_ = nullptr;
+}
+inline const ::Protocol::UserTotalStatus& UserCharacter::_internal_totalstatus() const {
+  const ::Protocol::UserTotalStatus* p = _impl_.totalstatus_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::UserTotalStatus&>(
+      ::Protocol::_UserTotalStatus_default_instance_);
+}
+inline const ::Protocol::UserTotalStatus& UserCharacter::totalstatus() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.totalStatus)
+  return _internal_totalstatus();
+}
+inline void UserCharacter::unsafe_arena_set_allocated_totalstatus(
+    ::Protocol::UserTotalStatus* totalstatus) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.totalstatus_);
+  }
+  _impl_.totalstatus_ = totalstatus;
+  if (totalstatus) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.UserCharacter.totalStatus)
+}
+inline ::Protocol::UserTotalStatus* UserCharacter::release_totalstatus() {
+  
+  ::Protocol::UserTotalStatus* temp = _impl_.totalstatus_;
+  _impl_.totalstatus_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::UserTotalStatus* UserCharacter::unsafe_arena_release_totalstatus() {
+  // @@protoc_insertion_point(field_release:Protocol.UserCharacter.totalStatus)
+  
+  ::Protocol::UserTotalStatus* temp = _impl_.totalstatus_;
+  _impl_.totalstatus_ = nullptr;
+  return temp;
+}
+inline ::Protocol::UserTotalStatus* UserCharacter::_internal_mutable_totalstatus() {
+  
+  if (_impl_.totalstatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::UserTotalStatus>(GetArenaForAllocation());
+    _impl_.totalstatus_ = p;
+  }
+  return _impl_.totalstatus_;
+}
+inline ::Protocol::UserTotalStatus* UserCharacter::mutable_totalstatus() {
+  ::Protocol::UserTotalStatus* _msg = _internal_mutable_totalstatus();
+  // @@protoc_insertion_point(field_mutable:Protocol.UserCharacter.totalStatus)
+  return _msg;
+}
+inline void UserCharacter::set_allocated_totalstatus(::Protocol::UserTotalStatus* totalstatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.totalstatus_;
+  }
+  if (totalstatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(totalstatus);
+    if (message_arena != submessage_arena) {
+      totalstatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, totalstatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.totalstatus_ = totalstatus;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.totalStatus)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

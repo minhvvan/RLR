@@ -46,18 +46,24 @@ struct TableStruct_Packet_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Packet_2eproto;
 namespace Protocol {
-class C_ITEM_ADD;
-struct C_ITEM_ADDDefaultTypeInternal;
-extern C_ITEM_ADDDefaultTypeInternal _C_ITEM_ADD_default_instance_;
-class C_ITEM_USE;
-struct C_ITEM_USEDefaultTypeInternal;
-extern C_ITEM_USEDefaultTypeInternal _C_ITEM_USE_default_instance_;
 class InventoryRequestPacket;
 struct InventoryRequestPacketDefaultTypeInternal;
 extern InventoryRequestPacketDefaultTypeInternal _InventoryRequestPacket_default_instance_;
 class InventoryResponsePacket;
 struct InventoryResponsePacketDefaultTypeInternal;
 extern InventoryResponsePacketDefaultTypeInternal _InventoryResponsePacket_default_instance_;
+class ItemAddRequestPacket;
+struct ItemAddRequestPacketDefaultTypeInternal;
+extern ItemAddRequestPacketDefaultTypeInternal _ItemAddRequestPacket_default_instance_;
+class ItemAddResponsePacket;
+struct ItemAddResponsePacketDefaultTypeInternal;
+extern ItemAddResponsePacketDefaultTypeInternal _ItemAddResponsePacket_default_instance_;
+class ItemUseRequestPacket;
+struct ItemUseRequestPacketDefaultTypeInternal;
+extern ItemUseRequestPacketDefaultTypeInternal _ItemUseRequestPacket_default_instance_;
+class ItemUseResponsePacket;
+struct ItemUseResponsePacketDefaultTypeInternal;
+extern ItemUseResponsePacketDefaultTypeInternal _ItemUseResponsePacket_default_instance_;
 class LoginRequestPacket;
 struct LoginRequestPacketDefaultTypeInternal;
 extern LoginRequestPacketDefaultTypeInternal _LoginRequestPacket_default_instance_;
@@ -67,23 +73,25 @@ extern LoginResponsePacketDefaultTypeInternal _LoginResponsePacket_default_insta
 class PacketHeader;
 struct PacketHeaderDefaultTypeInternal;
 extern PacketHeaderDefaultTypeInternal _PacketHeader_default_instance_;
-class S_ITEM_ADD;
-struct S_ITEM_ADDDefaultTypeInternal;
-extern S_ITEM_ADDDefaultTypeInternal _S_ITEM_ADD_default_instance_;
-class S_ITEM_USE;
-struct S_ITEM_USEDefaultTypeInternal;
-extern S_ITEM_USEDefaultTypeInternal _S_ITEM_USE_default_instance_;
+class StatusRequestPacket;
+struct StatusRequestPacketDefaultTypeInternal;
+extern StatusRequestPacketDefaultTypeInternal _StatusRequestPacket_default_instance_;
+class StatusResponsePacket;
+struct StatusResponsePacketDefaultTypeInternal;
+extern StatusResponsePacketDefaultTypeInternal _StatusResponsePacket_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::C_ITEM_ADD* Arena::CreateMaybeMessage<::Protocol::C_ITEM_ADD>(Arena*);
-template<> ::Protocol::C_ITEM_USE* Arena::CreateMaybeMessage<::Protocol::C_ITEM_USE>(Arena*);
 template<> ::Protocol::InventoryRequestPacket* Arena::CreateMaybeMessage<::Protocol::InventoryRequestPacket>(Arena*);
 template<> ::Protocol::InventoryResponsePacket* Arena::CreateMaybeMessage<::Protocol::InventoryResponsePacket>(Arena*);
+template<> ::Protocol::ItemAddRequestPacket* Arena::CreateMaybeMessage<::Protocol::ItemAddRequestPacket>(Arena*);
+template<> ::Protocol::ItemAddResponsePacket* Arena::CreateMaybeMessage<::Protocol::ItemAddResponsePacket>(Arena*);
+template<> ::Protocol::ItemUseRequestPacket* Arena::CreateMaybeMessage<::Protocol::ItemUseRequestPacket>(Arena*);
+template<> ::Protocol::ItemUseResponsePacket* Arena::CreateMaybeMessage<::Protocol::ItemUseResponsePacket>(Arena*);
 template<> ::Protocol::LoginRequestPacket* Arena::CreateMaybeMessage<::Protocol::LoginRequestPacket>(Arena*);
 template<> ::Protocol::LoginResponsePacket* Arena::CreateMaybeMessage<::Protocol::LoginResponsePacket>(Arena*);
 template<> ::Protocol::PacketHeader* Arena::CreateMaybeMessage<::Protocol::PacketHeader>(Arena*);
-template<> ::Protocol::S_ITEM_ADD* Arena::CreateMaybeMessage<::Protocol::S_ITEM_ADD>(Arena*);
-template<> ::Protocol::S_ITEM_USE* Arena::CreateMaybeMessage<::Protocol::S_ITEM_USE>(Arena*);
+template<> ::Protocol::StatusRequestPacket* Arena::CreateMaybeMessage<::Protocol::StatusRequestPacket>(Arena*);
+template<> ::Protocol::StatusResponsePacket* Arena::CreateMaybeMessage<::Protocol::StatusResponsePacket>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -237,24 +245,24 @@ class PacketHeader final :
 };
 // -------------------------------------------------------------------
 
-class C_ITEM_ADD final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_ITEM_ADD) */ {
+class ItemAddRequestPacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ItemAddRequestPacket) */ {
  public:
-  inline C_ITEM_ADD() : C_ITEM_ADD(nullptr) {}
-  ~C_ITEM_ADD() override;
-  explicit PROTOBUF_CONSTEXPR C_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ItemAddRequestPacket() : ItemAddRequestPacket(nullptr) {}
+  ~ItemAddRequestPacket() override;
+  explicit PROTOBUF_CONSTEXPR ItemAddRequestPacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_ITEM_ADD(const C_ITEM_ADD& from);
-  C_ITEM_ADD(C_ITEM_ADD&& from) noexcept
-    : C_ITEM_ADD() {
+  ItemAddRequestPacket(const ItemAddRequestPacket& from);
+  ItemAddRequestPacket(ItemAddRequestPacket&& from) noexcept
+    : ItemAddRequestPacket() {
     *this = ::std::move(from);
   }
 
-  inline C_ITEM_ADD& operator=(const C_ITEM_ADD& from) {
+  inline ItemAddRequestPacket& operator=(const ItemAddRequestPacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_ITEM_ADD& operator=(C_ITEM_ADD&& from) noexcept {
+  inline ItemAddRequestPacket& operator=(ItemAddRequestPacket&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -277,7 +285,7 @@ class C_ITEM_ADD final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_ITEM_ADD& default_instance() {
+  static const ItemAddRequestPacket& default_instance() {
     return *internal_default_instance();
   }
   enum ItemDataCase {
@@ -287,17 +295,17 @@ class C_ITEM_ADD final :
     ITEM_DATA_NOT_SET = 0,
   };
 
-  static inline const C_ITEM_ADD* internal_default_instance() {
-    return reinterpret_cast<const C_ITEM_ADD*>(
-               &_C_ITEM_ADD_default_instance_);
+  static inline const ItemAddRequestPacket* internal_default_instance() {
+    return reinterpret_cast<const ItemAddRequestPacket*>(
+               &_ItemAddRequestPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(C_ITEM_ADD& a, C_ITEM_ADD& b) {
+  friend void swap(ItemAddRequestPacket& a, ItemAddRequestPacket& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_ITEM_ADD* other) {
+  inline void Swap(ItemAddRequestPacket* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -310,7 +318,7 @@ class C_ITEM_ADD final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_ITEM_ADD* other) {
+  void UnsafeArenaSwap(ItemAddRequestPacket* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -318,14 +326,14 @@ class C_ITEM_ADD final :
 
   // implements Message ----------------------------------------------
 
-  C_ITEM_ADD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_ITEM_ADD>(arena);
+  ItemAddRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ItemAddRequestPacket>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_ITEM_ADD& from);
+  void CopyFrom(const ItemAddRequestPacket& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_ITEM_ADD& from) {
-    C_ITEM_ADD::MergeImpl(*this, from);
+  void MergeFrom( const ItemAddRequestPacket& from) {
+    ItemAddRequestPacket::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -343,15 +351,15 @@ class C_ITEM_ADD final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C_ITEM_ADD* other);
+  void InternalSwap(ItemAddRequestPacket* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_ITEM_ADD";
+    return "Protocol.ItemAddRequestPacket";
   }
   protected:
-  explicit C_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ItemAddRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -454,7 +462,7 @@ class C_ITEM_ADD final :
 
   void clear_item_data();
   ItemDataCase item_data_case() const;
-  // @@protoc_insertion_point(class_scope:Protocol.C_ITEM_ADD)
+  // @@protoc_insertion_point(class_scope:Protocol.ItemAddRequestPacket)
  private:
   class _Internal;
   void set_has_equip();
@@ -486,24 +494,24 @@ class C_ITEM_ADD final :
 };
 // -------------------------------------------------------------------
 
-class S_ITEM_ADD final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ITEM_ADD) */ {
+class ItemAddResponsePacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ItemAddResponsePacket) */ {
  public:
-  inline S_ITEM_ADD() : S_ITEM_ADD(nullptr) {}
-  ~S_ITEM_ADD() override;
-  explicit PROTOBUF_CONSTEXPR S_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ItemAddResponsePacket() : ItemAddResponsePacket(nullptr) {}
+  ~ItemAddResponsePacket() override;
+  explicit PROTOBUF_CONSTEXPR ItemAddResponsePacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_ITEM_ADD(const S_ITEM_ADD& from);
-  S_ITEM_ADD(S_ITEM_ADD&& from) noexcept
-    : S_ITEM_ADD() {
+  ItemAddResponsePacket(const ItemAddResponsePacket& from);
+  ItemAddResponsePacket(ItemAddResponsePacket&& from) noexcept
+    : ItemAddResponsePacket() {
     *this = ::std::move(from);
   }
 
-  inline S_ITEM_ADD& operator=(const S_ITEM_ADD& from) {
+  inline ItemAddResponsePacket& operator=(const ItemAddResponsePacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_ITEM_ADD& operator=(S_ITEM_ADD&& from) noexcept {
+  inline ItemAddResponsePacket& operator=(ItemAddResponsePacket&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -526,20 +534,20 @@ class S_ITEM_ADD final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_ITEM_ADD& default_instance() {
+  static const ItemAddResponsePacket& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_ITEM_ADD* internal_default_instance() {
-    return reinterpret_cast<const S_ITEM_ADD*>(
-               &_S_ITEM_ADD_default_instance_);
+  static inline const ItemAddResponsePacket* internal_default_instance() {
+    return reinterpret_cast<const ItemAddResponsePacket*>(
+               &_ItemAddResponsePacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(S_ITEM_ADD& a, S_ITEM_ADD& b) {
+  friend void swap(ItemAddResponsePacket& a, ItemAddResponsePacket& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_ITEM_ADD* other) {
+  inline void Swap(ItemAddResponsePacket* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -552,7 +560,7 @@ class S_ITEM_ADD final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_ITEM_ADD* other) {
+  void UnsafeArenaSwap(ItemAddResponsePacket* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -560,14 +568,14 @@ class S_ITEM_ADD final :
 
   // implements Message ----------------------------------------------
 
-  S_ITEM_ADD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_ITEM_ADD>(arena);
+  ItemAddResponsePacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ItemAddResponsePacket>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_ITEM_ADD& from);
+  void CopyFrom(const ItemAddResponsePacket& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_ITEM_ADD& from) {
-    S_ITEM_ADD::MergeImpl(*this, from);
+  void MergeFrom( const ItemAddResponsePacket& from) {
+    ItemAddResponsePacket::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -585,15 +593,15 @@ class S_ITEM_ADD final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_ITEM_ADD* other);
+  void InternalSwap(ItemAddResponsePacket* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_ITEM_ADD";
+    return "Protocol.ItemAddResponsePacket";
   }
   protected:
-  explicit S_ITEM_ADD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ItemAddResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -618,7 +626,7 @@ class S_ITEM_ADD final :
   void _internal_set_success(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_ITEM_ADD)
+  // @@protoc_insertion_point(class_scope:Protocol.ItemAddResponsePacket)
  private:
   class _Internal;
 
@@ -634,24 +642,24 @@ class S_ITEM_ADD final :
 };
 // -------------------------------------------------------------------
 
-class C_ITEM_USE final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_ITEM_USE) */ {
+class ItemUseRequestPacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ItemUseRequestPacket) */ {
  public:
-  inline C_ITEM_USE() : C_ITEM_USE(nullptr) {}
-  ~C_ITEM_USE() override;
-  explicit PROTOBUF_CONSTEXPR C_ITEM_USE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ItemUseRequestPacket() : ItemUseRequestPacket(nullptr) {}
+  ~ItemUseRequestPacket() override;
+  explicit PROTOBUF_CONSTEXPR ItemUseRequestPacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_ITEM_USE(const C_ITEM_USE& from);
-  C_ITEM_USE(C_ITEM_USE&& from) noexcept
-    : C_ITEM_USE() {
+  ItemUseRequestPacket(const ItemUseRequestPacket& from);
+  ItemUseRequestPacket(ItemUseRequestPacket&& from) noexcept
+    : ItemUseRequestPacket() {
     *this = ::std::move(from);
   }
 
-  inline C_ITEM_USE& operator=(const C_ITEM_USE& from) {
+  inline ItemUseRequestPacket& operator=(const ItemUseRequestPacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_ITEM_USE& operator=(C_ITEM_USE&& from) noexcept {
+  inline ItemUseRequestPacket& operator=(ItemUseRequestPacket&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -674,20 +682,20 @@ class C_ITEM_USE final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_ITEM_USE& default_instance() {
+  static const ItemUseRequestPacket& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C_ITEM_USE* internal_default_instance() {
-    return reinterpret_cast<const C_ITEM_USE*>(
-               &_C_ITEM_USE_default_instance_);
+  static inline const ItemUseRequestPacket* internal_default_instance() {
+    return reinterpret_cast<const ItemUseRequestPacket*>(
+               &_ItemUseRequestPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(C_ITEM_USE& a, C_ITEM_USE& b) {
+  friend void swap(ItemUseRequestPacket& a, ItemUseRequestPacket& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_ITEM_USE* other) {
+  inline void Swap(ItemUseRequestPacket* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -700,7 +708,7 @@ class C_ITEM_USE final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_ITEM_USE* other) {
+  void UnsafeArenaSwap(ItemUseRequestPacket* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -708,14 +716,14 @@ class C_ITEM_USE final :
 
   // implements Message ----------------------------------------------
 
-  C_ITEM_USE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_ITEM_USE>(arena);
+  ItemUseRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ItemUseRequestPacket>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_ITEM_USE& from);
+  void CopyFrom(const ItemUseRequestPacket& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_ITEM_USE& from) {
-    C_ITEM_USE::MergeImpl(*this, from);
+  void MergeFrom( const ItemUseRequestPacket& from) {
+    ItemUseRequestPacket::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -733,15 +741,15 @@ class C_ITEM_USE final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C_ITEM_USE* other);
+  void InternalSwap(ItemUseRequestPacket* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_ITEM_USE";
+    return "Protocol.ItemUseRequestPacket";
   }
   protected:
-  explicit C_ITEM_USE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ItemUseRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -776,7 +784,7 @@ class C_ITEM_USE final :
   void _internal_set_itemseq(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_ITEM_USE)
+  // @@protoc_insertion_point(class_scope:Protocol.ItemUseRequestPacket)
  private:
   class _Internal;
 
@@ -793,24 +801,24 @@ class C_ITEM_USE final :
 };
 // -------------------------------------------------------------------
 
-class S_ITEM_USE final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ITEM_USE) */ {
+class ItemUseResponsePacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ItemUseResponsePacket) */ {
  public:
-  inline S_ITEM_USE() : S_ITEM_USE(nullptr) {}
-  ~S_ITEM_USE() override;
-  explicit PROTOBUF_CONSTEXPR S_ITEM_USE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline ItemUseResponsePacket() : ItemUseResponsePacket(nullptr) {}
+  ~ItemUseResponsePacket() override;
+  explicit PROTOBUF_CONSTEXPR ItemUseResponsePacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_ITEM_USE(const S_ITEM_USE& from);
-  S_ITEM_USE(S_ITEM_USE&& from) noexcept
-    : S_ITEM_USE() {
+  ItemUseResponsePacket(const ItemUseResponsePacket& from);
+  ItemUseResponsePacket(ItemUseResponsePacket&& from) noexcept
+    : ItemUseResponsePacket() {
     *this = ::std::move(from);
   }
 
-  inline S_ITEM_USE& operator=(const S_ITEM_USE& from) {
+  inline ItemUseResponsePacket& operator=(const ItemUseResponsePacket& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_ITEM_USE& operator=(S_ITEM_USE&& from) noexcept {
+  inline ItemUseResponsePacket& operator=(ItemUseResponsePacket&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -833,20 +841,20 @@ class S_ITEM_USE final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_ITEM_USE& default_instance() {
+  static const ItemUseResponsePacket& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_ITEM_USE* internal_default_instance() {
-    return reinterpret_cast<const S_ITEM_USE*>(
-               &_S_ITEM_USE_default_instance_);
+  static inline const ItemUseResponsePacket* internal_default_instance() {
+    return reinterpret_cast<const ItemUseResponsePacket*>(
+               &_ItemUseResponsePacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  friend void swap(S_ITEM_USE& a, S_ITEM_USE& b) {
+  friend void swap(ItemUseResponsePacket& a, ItemUseResponsePacket& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_ITEM_USE* other) {
+  inline void Swap(ItemUseResponsePacket* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -859,7 +867,7 @@ class S_ITEM_USE final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_ITEM_USE* other) {
+  void UnsafeArenaSwap(ItemUseResponsePacket* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -867,14 +875,14 @@ class S_ITEM_USE final :
 
   // implements Message ----------------------------------------------
 
-  S_ITEM_USE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_ITEM_USE>(arena);
+  ItemUseResponsePacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ItemUseResponsePacket>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_ITEM_USE& from);
+  void CopyFrom(const ItemUseResponsePacket& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_ITEM_USE& from) {
-    S_ITEM_USE::MergeImpl(*this, from);
+  void MergeFrom( const ItemUseResponsePacket& from) {
+    ItemUseResponsePacket::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -892,15 +900,15 @@ class S_ITEM_USE final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_ITEM_USE* other);
+  void InternalSwap(ItemUseResponsePacket* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_ITEM_USE";
+    return "Protocol.ItemUseResponsePacket";
   }
   protected:
-  explicit S_ITEM_USE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit ItemUseResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -925,7 +933,7 @@ class S_ITEM_USE final :
   void _internal_set_success(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_ITEM_USE)
+  // @@protoc_insertion_point(class_scope:Protocol.ItemUseResponsePacket)
  private:
   class _Internal;
 
@@ -1605,6 +1613,322 @@ class LoginResponsePacket final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Packet_2eproto;
 };
+// -------------------------------------------------------------------
+
+class StatusRequestPacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.StatusRequestPacket) */ {
+ public:
+  inline StatusRequestPacket() : StatusRequestPacket(nullptr) {}
+  ~StatusRequestPacket() override;
+  explicit PROTOBUF_CONSTEXPR StatusRequestPacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StatusRequestPacket(const StatusRequestPacket& from);
+  StatusRequestPacket(StatusRequestPacket&& from) noexcept
+    : StatusRequestPacket() {
+    *this = ::std::move(from);
+  }
+
+  inline StatusRequestPacket& operator=(const StatusRequestPacket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StatusRequestPacket& operator=(StatusRequestPacket&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const StatusRequestPacket& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StatusRequestPacket* internal_default_instance() {
+    return reinterpret_cast<const StatusRequestPacket*>(
+               &_StatusRequestPacket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(StatusRequestPacket& a, StatusRequestPacket& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StatusRequestPacket* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StatusRequestPacket* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StatusRequestPacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StatusRequestPacket>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const StatusRequestPacket& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const StatusRequestPacket& from) {
+    StatusRequestPacket::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StatusRequestPacket* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.StatusRequestPacket";
+  }
+  protected:
+  explicit StatusRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserSeqFieldNumber = 1,
+  };
+  // uint32 userSeq = 1;
+  void clear_userseq();
+  uint32_t userseq() const;
+  void set_userseq(uint32_t value);
+  private:
+  uint32_t _internal_userseq() const;
+  void _internal_set_userseq(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.StatusRequestPacket)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    uint32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Packet_2eproto;
+};
+// -------------------------------------------------------------------
+
+class StatusResponsePacket final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.StatusResponsePacket) */ {
+ public:
+  inline StatusResponsePacket() : StatusResponsePacket(nullptr) {}
+  ~StatusResponsePacket() override;
+  explicit PROTOBUF_CONSTEXPR StatusResponsePacket(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StatusResponsePacket(const StatusResponsePacket& from);
+  StatusResponsePacket(StatusResponsePacket&& from) noexcept
+    : StatusResponsePacket() {
+    *this = ::std::move(from);
+  }
+
+  inline StatusResponsePacket& operator=(const StatusResponsePacket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StatusResponsePacket& operator=(StatusResponsePacket&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const StatusResponsePacket& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StatusResponsePacket* internal_default_instance() {
+    return reinterpret_cast<const StatusResponsePacket*>(
+               &_StatusResponsePacket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(StatusResponsePacket& a, StatusResponsePacket& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StatusResponsePacket* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StatusResponsePacket* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StatusResponsePacket* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StatusResponsePacket>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const StatusResponsePacket& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const StatusResponsePacket& from) {
+    StatusResponsePacket::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StatusResponsePacket* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.StatusResponsePacket";
+  }
+  protected:
+  explicit StatusResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserCharacterFieldNumber = 2,
+    kUserSeqFieldNumber = 1,
+  };
+  // .Protocol.UserCharacter userCharacter = 2;
+  bool has_usercharacter() const;
+  private:
+  bool _internal_has_usercharacter() const;
+  public:
+  void clear_usercharacter();
+  const ::Protocol::UserCharacter& usercharacter() const;
+  PROTOBUF_NODISCARD ::Protocol::UserCharacter* release_usercharacter();
+  ::Protocol::UserCharacter* mutable_usercharacter();
+  void set_allocated_usercharacter(::Protocol::UserCharacter* usercharacter);
+  private:
+  const ::Protocol::UserCharacter& _internal_usercharacter() const;
+  ::Protocol::UserCharacter* _internal_mutable_usercharacter();
+  public:
+  void unsafe_arena_set_allocated_usercharacter(
+      ::Protocol::UserCharacter* usercharacter);
+  ::Protocol::UserCharacter* unsafe_arena_release_usercharacter();
+
+  // uint32 userSeq = 1;
+  void clear_userseq();
+  uint32_t userseq() const;
+  void set_userseq(uint32_t value);
+  private:
+  uint32_t _internal_userseq() const;
+  void _internal_set_userseq(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.StatusResponsePacket)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::Protocol::UserCharacter* usercharacter_;
+    uint32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Packet_2eproto;
+};
 // ===================================================================
 
 
@@ -1638,45 +1962,45 @@ inline void PacketHeader::set_type(int32_t value) {
 
 // -------------------------------------------------------------------
 
-// C_ITEM_ADD
+// ItemAddRequestPacket
 
 // uint32 userSeq = 1;
-inline void C_ITEM_ADD::clear_userseq() {
+inline void ItemAddRequestPacket::clear_userseq() {
   _impl_.userseq_ = 0u;
 }
-inline uint32_t C_ITEM_ADD::_internal_userseq() const {
+inline uint32_t ItemAddRequestPacket::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline uint32_t C_ITEM_ADD::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_ADD.userSeq)
+inline uint32_t ItemAddRequestPacket::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddRequestPacket.userSeq)
   return _internal_userseq();
 }
-inline void C_ITEM_ADD::_internal_set_userseq(uint32_t value) {
+inline void ItemAddRequestPacket::_internal_set_userseq(uint32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void C_ITEM_ADD::set_userseq(uint32_t value) {
+inline void ItemAddRequestPacket::set_userseq(uint32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_ITEM_ADD.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.ItemAddRequestPacket.userSeq)
 }
 
 // .Protocol.Item item = 2;
-inline bool C_ITEM_ADD::_internal_has_item() const {
+inline bool ItemAddRequestPacket::_internal_has_item() const {
   return this != internal_default_instance() && _impl_.item_ != nullptr;
 }
-inline bool C_ITEM_ADD::has_item() const {
+inline bool ItemAddRequestPacket::has_item() const {
   return _internal_has_item();
 }
-inline const ::Protocol::Item& C_ITEM_ADD::_internal_item() const {
+inline const ::Protocol::Item& ItemAddRequestPacket::_internal_item() const {
   const ::Protocol::Item* p = _impl_.item_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Item&>(
       ::Protocol::_Item_default_instance_);
 }
-inline const ::Protocol::Item& C_ITEM_ADD::item() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_ADD.item)
+inline const ::Protocol::Item& ItemAddRequestPacket::item() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddRequestPacket.item)
   return _internal_item();
 }
-inline void C_ITEM_ADD::unsafe_arena_set_allocated_item(
+inline void ItemAddRequestPacket::unsafe_arena_set_allocated_item(
     ::Protocol::Item* item) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
@@ -1687,9 +2011,9 @@ inline void C_ITEM_ADD::unsafe_arena_set_allocated_item(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_ITEM_ADD.item)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ItemAddRequestPacket.item)
 }
-inline ::Protocol::Item* C_ITEM_ADD::release_item() {
+inline ::Protocol::Item* ItemAddRequestPacket::release_item() {
   
   ::Protocol::Item* temp = _impl_.item_;
   _impl_.item_ = nullptr;
@@ -1704,14 +2028,14 @@ inline ::Protocol::Item* C_ITEM_ADD::release_item() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Item* C_ITEM_ADD::unsafe_arena_release_item() {
-  // @@protoc_insertion_point(field_release:Protocol.C_ITEM_ADD.item)
+inline ::Protocol::Item* ItemAddRequestPacket::unsafe_arena_release_item() {
+  // @@protoc_insertion_point(field_release:Protocol.ItemAddRequestPacket.item)
   
   ::Protocol::Item* temp = _impl_.item_;
   _impl_.item_ = nullptr;
   return temp;
 }
-inline ::Protocol::Item* C_ITEM_ADD::_internal_mutable_item() {
+inline ::Protocol::Item* ItemAddRequestPacket::_internal_mutable_item() {
   
   if (_impl_.item_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Item>(GetArenaForAllocation());
@@ -1719,12 +2043,12 @@ inline ::Protocol::Item* C_ITEM_ADD::_internal_mutable_item() {
   }
   return _impl_.item_;
 }
-inline ::Protocol::Item* C_ITEM_ADD::mutable_item() {
+inline ::Protocol::Item* ItemAddRequestPacket::mutable_item() {
   ::Protocol::Item* _msg = _internal_mutable_item();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_ITEM_ADD.item)
+  // @@protoc_insertion_point(field_mutable:Protocol.ItemAddRequestPacket.item)
   return _msg;
 }
-inline void C_ITEM_ADD::set_allocated_item(::Protocol::Item* item) {
+inline void ItemAddRequestPacket::set_allocated_item(::Protocol::Item* item) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
@@ -1742,21 +2066,21 @@ inline void C_ITEM_ADD::set_allocated_item(::Protocol::Item* item) {
     
   }
   _impl_.item_ = item;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_ITEM_ADD.item)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.ItemAddRequestPacket.item)
 }
 
 // .Protocol.Equip equip = 3;
-inline bool C_ITEM_ADD::_internal_has_equip() const {
+inline bool ItemAddRequestPacket::_internal_has_equip() const {
   return item_data_case() == kEquip;
 }
-inline bool C_ITEM_ADD::has_equip() const {
+inline bool ItemAddRequestPacket::has_equip() const {
   return _internal_has_equip();
 }
-inline void C_ITEM_ADD::set_has_equip() {
+inline void ItemAddRequestPacket::set_has_equip() {
   _impl_._oneof_case_[0] = kEquip;
 }
-inline ::Protocol::Equip* C_ITEM_ADD::release_equip() {
-  // @@protoc_insertion_point(field_release:Protocol.C_ITEM_ADD.equip)
+inline ::Protocol::Equip* ItemAddRequestPacket::release_equip() {
+  // @@protoc_insertion_point(field_release:Protocol.ItemAddRequestPacket.equip)
   if (_internal_has_equip()) {
     clear_has_item_data();
     ::Protocol::Equip* temp = _impl_.item_data_.equip_;
@@ -1769,17 +2093,17 @@ inline ::Protocol::Equip* C_ITEM_ADD::release_equip() {
     return nullptr;
   }
 }
-inline const ::Protocol::Equip& C_ITEM_ADD::_internal_equip() const {
+inline const ::Protocol::Equip& ItemAddRequestPacket::_internal_equip() const {
   return _internal_has_equip()
       ? *_impl_.item_data_.equip_
       : reinterpret_cast< ::Protocol::Equip&>(::Protocol::_Equip_default_instance_);
 }
-inline const ::Protocol::Equip& C_ITEM_ADD::equip() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_ADD.equip)
+inline const ::Protocol::Equip& ItemAddRequestPacket::equip() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddRequestPacket.equip)
   return _internal_equip();
 }
-inline ::Protocol::Equip* C_ITEM_ADD::unsafe_arena_release_equip() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.C_ITEM_ADD.equip)
+inline ::Protocol::Equip* ItemAddRequestPacket::unsafe_arena_release_equip() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.ItemAddRequestPacket.equip)
   if (_internal_has_equip()) {
     clear_has_item_data();
     ::Protocol::Equip* temp = _impl_.item_data_.equip_;
@@ -1789,15 +2113,15 @@ inline ::Protocol::Equip* C_ITEM_ADD::unsafe_arena_release_equip() {
     return nullptr;
   }
 }
-inline void C_ITEM_ADD::unsafe_arena_set_allocated_equip(::Protocol::Equip* equip) {
+inline void ItemAddRequestPacket::unsafe_arena_set_allocated_equip(::Protocol::Equip* equip) {
   clear_item_data();
   if (equip) {
     set_has_equip();
     _impl_.item_data_.equip_ = equip;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_ITEM_ADD.equip)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ItemAddRequestPacket.equip)
 }
-inline ::Protocol::Equip* C_ITEM_ADD::_internal_mutable_equip() {
+inline ::Protocol::Equip* ItemAddRequestPacket::_internal_mutable_equip() {
   if (!_internal_has_equip()) {
     clear_item_data();
     set_has_equip();
@@ -1805,24 +2129,24 @@ inline ::Protocol::Equip* C_ITEM_ADD::_internal_mutable_equip() {
   }
   return _impl_.item_data_.equip_;
 }
-inline ::Protocol::Equip* C_ITEM_ADD::mutable_equip() {
+inline ::Protocol::Equip* ItemAddRequestPacket::mutable_equip() {
   ::Protocol::Equip* _msg = _internal_mutable_equip();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_ITEM_ADD.equip)
+  // @@protoc_insertion_point(field_mutable:Protocol.ItemAddRequestPacket.equip)
   return _msg;
 }
 
 // .Protocol.Consumption consumption = 4;
-inline bool C_ITEM_ADD::_internal_has_consumption() const {
+inline bool ItemAddRequestPacket::_internal_has_consumption() const {
   return item_data_case() == kConsumption;
 }
-inline bool C_ITEM_ADD::has_consumption() const {
+inline bool ItemAddRequestPacket::has_consumption() const {
   return _internal_has_consumption();
 }
-inline void C_ITEM_ADD::set_has_consumption() {
+inline void ItemAddRequestPacket::set_has_consumption() {
   _impl_._oneof_case_[0] = kConsumption;
 }
-inline ::Protocol::Consumption* C_ITEM_ADD::release_consumption() {
-  // @@protoc_insertion_point(field_release:Protocol.C_ITEM_ADD.consumption)
+inline ::Protocol::Consumption* ItemAddRequestPacket::release_consumption() {
+  // @@protoc_insertion_point(field_release:Protocol.ItemAddRequestPacket.consumption)
   if (_internal_has_consumption()) {
     clear_has_item_data();
     ::Protocol::Consumption* temp = _impl_.item_data_.consumption_;
@@ -1835,17 +2159,17 @@ inline ::Protocol::Consumption* C_ITEM_ADD::release_consumption() {
     return nullptr;
   }
 }
-inline const ::Protocol::Consumption& C_ITEM_ADD::_internal_consumption() const {
+inline const ::Protocol::Consumption& ItemAddRequestPacket::_internal_consumption() const {
   return _internal_has_consumption()
       ? *_impl_.item_data_.consumption_
       : reinterpret_cast< ::Protocol::Consumption&>(::Protocol::_Consumption_default_instance_);
 }
-inline const ::Protocol::Consumption& C_ITEM_ADD::consumption() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_ADD.consumption)
+inline const ::Protocol::Consumption& ItemAddRequestPacket::consumption() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddRequestPacket.consumption)
   return _internal_consumption();
 }
-inline ::Protocol::Consumption* C_ITEM_ADD::unsafe_arena_release_consumption() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.C_ITEM_ADD.consumption)
+inline ::Protocol::Consumption* ItemAddRequestPacket::unsafe_arena_release_consumption() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.ItemAddRequestPacket.consumption)
   if (_internal_has_consumption()) {
     clear_has_item_data();
     ::Protocol::Consumption* temp = _impl_.item_data_.consumption_;
@@ -1855,15 +2179,15 @@ inline ::Protocol::Consumption* C_ITEM_ADD::unsafe_arena_release_consumption() {
     return nullptr;
   }
 }
-inline void C_ITEM_ADD::unsafe_arena_set_allocated_consumption(::Protocol::Consumption* consumption) {
+inline void ItemAddRequestPacket::unsafe_arena_set_allocated_consumption(::Protocol::Consumption* consumption) {
   clear_item_data();
   if (consumption) {
     set_has_consumption();
     _impl_.item_data_.consumption_ = consumption;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_ITEM_ADD.consumption)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ItemAddRequestPacket.consumption)
 }
-inline ::Protocol::Consumption* C_ITEM_ADD::_internal_mutable_consumption() {
+inline ::Protocol::Consumption* ItemAddRequestPacket::_internal_mutable_consumption() {
   if (!_internal_has_consumption()) {
     clear_item_data();
     set_has_consumption();
@@ -1871,24 +2195,24 @@ inline ::Protocol::Consumption* C_ITEM_ADD::_internal_mutable_consumption() {
   }
   return _impl_.item_data_.consumption_;
 }
-inline ::Protocol::Consumption* C_ITEM_ADD::mutable_consumption() {
+inline ::Protocol::Consumption* ItemAddRequestPacket::mutable_consumption() {
   ::Protocol::Consumption* _msg = _internal_mutable_consumption();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_ITEM_ADD.consumption)
+  // @@protoc_insertion_point(field_mutable:Protocol.ItemAddRequestPacket.consumption)
   return _msg;
 }
 
 // .Protocol.EtcItem etc = 5;
-inline bool C_ITEM_ADD::_internal_has_etc() const {
+inline bool ItemAddRequestPacket::_internal_has_etc() const {
   return item_data_case() == kEtc;
 }
-inline bool C_ITEM_ADD::has_etc() const {
+inline bool ItemAddRequestPacket::has_etc() const {
   return _internal_has_etc();
 }
-inline void C_ITEM_ADD::set_has_etc() {
+inline void ItemAddRequestPacket::set_has_etc() {
   _impl_._oneof_case_[0] = kEtc;
 }
-inline ::Protocol::EtcItem* C_ITEM_ADD::release_etc() {
-  // @@protoc_insertion_point(field_release:Protocol.C_ITEM_ADD.etc)
+inline ::Protocol::EtcItem* ItemAddRequestPacket::release_etc() {
+  // @@protoc_insertion_point(field_release:Protocol.ItemAddRequestPacket.etc)
   if (_internal_has_etc()) {
     clear_has_item_data();
     ::Protocol::EtcItem* temp = _impl_.item_data_.etc_;
@@ -1901,17 +2225,17 @@ inline ::Protocol::EtcItem* C_ITEM_ADD::release_etc() {
     return nullptr;
   }
 }
-inline const ::Protocol::EtcItem& C_ITEM_ADD::_internal_etc() const {
+inline const ::Protocol::EtcItem& ItemAddRequestPacket::_internal_etc() const {
   return _internal_has_etc()
       ? *_impl_.item_data_.etc_
       : reinterpret_cast< ::Protocol::EtcItem&>(::Protocol::_EtcItem_default_instance_);
 }
-inline const ::Protocol::EtcItem& C_ITEM_ADD::etc() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_ADD.etc)
+inline const ::Protocol::EtcItem& ItemAddRequestPacket::etc() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddRequestPacket.etc)
   return _internal_etc();
 }
-inline ::Protocol::EtcItem* C_ITEM_ADD::unsafe_arena_release_etc() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.C_ITEM_ADD.etc)
+inline ::Protocol::EtcItem* ItemAddRequestPacket::unsafe_arena_release_etc() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:Protocol.ItemAddRequestPacket.etc)
   if (_internal_has_etc()) {
     clear_has_item_data();
     ::Protocol::EtcItem* temp = _impl_.item_data_.etc_;
@@ -1921,15 +2245,15 @@ inline ::Protocol::EtcItem* C_ITEM_ADD::unsafe_arena_release_etc() {
     return nullptr;
   }
 }
-inline void C_ITEM_ADD::unsafe_arena_set_allocated_etc(::Protocol::EtcItem* etc) {
+inline void ItemAddRequestPacket::unsafe_arena_set_allocated_etc(::Protocol::EtcItem* etc) {
   clear_item_data();
   if (etc) {
     set_has_etc();
     _impl_.item_data_.etc_ = etc;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_ITEM_ADD.etc)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ItemAddRequestPacket.etc)
 }
-inline ::Protocol::EtcItem* C_ITEM_ADD::_internal_mutable_etc() {
+inline ::Protocol::EtcItem* ItemAddRequestPacket::_internal_mutable_etc() {
   if (!_internal_has_etc()) {
     clear_item_data();
     set_has_etc();
@@ -1937,111 +2261,111 @@ inline ::Protocol::EtcItem* C_ITEM_ADD::_internal_mutable_etc() {
   }
   return _impl_.item_data_.etc_;
 }
-inline ::Protocol::EtcItem* C_ITEM_ADD::mutable_etc() {
+inline ::Protocol::EtcItem* ItemAddRequestPacket::mutable_etc() {
   ::Protocol::EtcItem* _msg = _internal_mutable_etc();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_ITEM_ADD.etc)
+  // @@protoc_insertion_point(field_mutable:Protocol.ItemAddRequestPacket.etc)
   return _msg;
 }
 
-inline bool C_ITEM_ADD::has_item_data() const {
+inline bool ItemAddRequestPacket::has_item_data() const {
   return item_data_case() != ITEM_DATA_NOT_SET;
 }
-inline void C_ITEM_ADD::clear_has_item_data() {
+inline void ItemAddRequestPacket::clear_has_item_data() {
   _impl_._oneof_case_[0] = ITEM_DATA_NOT_SET;
 }
-inline C_ITEM_ADD::ItemDataCase C_ITEM_ADD::item_data_case() const {
-  return C_ITEM_ADD::ItemDataCase(_impl_._oneof_case_[0]);
+inline ItemAddRequestPacket::ItemDataCase ItemAddRequestPacket::item_data_case() const {
+  return ItemAddRequestPacket::ItemDataCase(_impl_._oneof_case_[0]);
 }
 // -------------------------------------------------------------------
 
-// S_ITEM_ADD
+// ItemAddResponsePacket
 
 // bool success = 1;
-inline void S_ITEM_ADD::clear_success() {
+inline void ItemAddResponsePacket::clear_success() {
   _impl_.success_ = false;
 }
-inline bool S_ITEM_ADD::_internal_success() const {
+inline bool ItemAddResponsePacket::_internal_success() const {
   return _impl_.success_;
 }
-inline bool S_ITEM_ADD::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ITEM_ADD.success)
+inline bool ItemAddResponsePacket::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemAddResponsePacket.success)
   return _internal_success();
 }
-inline void S_ITEM_ADD::_internal_set_success(bool value) {
+inline void ItemAddResponsePacket::_internal_set_success(bool value) {
   
   _impl_.success_ = value;
 }
-inline void S_ITEM_ADD::set_success(bool value) {
+inline void ItemAddResponsePacket::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ITEM_ADD.success)
+  // @@protoc_insertion_point(field_set:Protocol.ItemAddResponsePacket.success)
 }
 
 // -------------------------------------------------------------------
 
-// C_ITEM_USE
+// ItemUseRequestPacket
 
 // uint32 userSeq = 1;
-inline void C_ITEM_USE::clear_userseq() {
+inline void ItemUseRequestPacket::clear_userseq() {
   _impl_.userseq_ = 0u;
 }
-inline uint32_t C_ITEM_USE::_internal_userseq() const {
+inline uint32_t ItemUseRequestPacket::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline uint32_t C_ITEM_USE::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_USE.userSeq)
+inline uint32_t ItemUseRequestPacket::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemUseRequestPacket.userSeq)
   return _internal_userseq();
 }
-inline void C_ITEM_USE::_internal_set_userseq(uint32_t value) {
+inline void ItemUseRequestPacket::_internal_set_userseq(uint32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void C_ITEM_USE::set_userseq(uint32_t value) {
+inline void ItemUseRequestPacket::set_userseq(uint32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_ITEM_USE.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.ItemUseRequestPacket.userSeq)
 }
 
 // int32 itemSeq = 2;
-inline void C_ITEM_USE::clear_itemseq() {
+inline void ItemUseRequestPacket::clear_itemseq() {
   _impl_.itemseq_ = 0;
 }
-inline int32_t C_ITEM_USE::_internal_itemseq() const {
+inline int32_t ItemUseRequestPacket::_internal_itemseq() const {
   return _impl_.itemseq_;
 }
-inline int32_t C_ITEM_USE::itemseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_ITEM_USE.itemSeq)
+inline int32_t ItemUseRequestPacket::itemseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemUseRequestPacket.itemSeq)
   return _internal_itemseq();
 }
-inline void C_ITEM_USE::_internal_set_itemseq(int32_t value) {
+inline void ItemUseRequestPacket::_internal_set_itemseq(int32_t value) {
   
   _impl_.itemseq_ = value;
 }
-inline void C_ITEM_USE::set_itemseq(int32_t value) {
+inline void ItemUseRequestPacket::set_itemseq(int32_t value) {
   _internal_set_itemseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_ITEM_USE.itemSeq)
+  // @@protoc_insertion_point(field_set:Protocol.ItemUseRequestPacket.itemSeq)
 }
 
 // -------------------------------------------------------------------
 
-// S_ITEM_USE
+// ItemUseResponsePacket
 
 // bool success = 1;
-inline void S_ITEM_USE::clear_success() {
+inline void ItemUseResponsePacket::clear_success() {
   _impl_.success_ = false;
 }
-inline bool S_ITEM_USE::_internal_success() const {
+inline bool ItemUseResponsePacket::_internal_success() const {
   return _impl_.success_;
 }
-inline bool S_ITEM_USE::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ITEM_USE.success)
+inline bool ItemUseResponsePacket::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.ItemUseResponsePacket.success)
   return _internal_success();
 }
-inline void S_ITEM_USE::_internal_set_success(bool value) {
+inline void ItemUseResponsePacket::_internal_set_success(bool value) {
   
   _impl_.success_ = value;
 }
-inline void S_ITEM_USE::set_success(bool value) {
+inline void ItemUseResponsePacket::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ITEM_USE.success)
+  // @@protoc_insertion_point(field_set:Protocol.ItemUseResponsePacket.success)
 }
 
 // -------------------------------------------------------------------
@@ -2317,9 +2641,146 @@ inline void LoginResponsePacket::set_gameserverport(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.LoginResponsePacket.gameServerPort)
 }
 
+// -------------------------------------------------------------------
+
+// StatusRequestPacket
+
+// uint32 userSeq = 1;
+inline void StatusRequestPacket::clear_userseq() {
+  _impl_.userseq_ = 0u;
+}
+inline uint32_t StatusRequestPacket::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline uint32_t StatusRequestPacket::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.StatusRequestPacket.userSeq)
+  return _internal_userseq();
+}
+inline void StatusRequestPacket::_internal_set_userseq(uint32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void StatusRequestPacket::set_userseq(uint32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.StatusRequestPacket.userSeq)
+}
+
+// -------------------------------------------------------------------
+
+// StatusResponsePacket
+
+// uint32 userSeq = 1;
+inline void StatusResponsePacket::clear_userseq() {
+  _impl_.userseq_ = 0u;
+}
+inline uint32_t StatusResponsePacket::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline uint32_t StatusResponsePacket::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.StatusResponsePacket.userSeq)
+  return _internal_userseq();
+}
+inline void StatusResponsePacket::_internal_set_userseq(uint32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void StatusResponsePacket::set_userseq(uint32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.StatusResponsePacket.userSeq)
+}
+
+// .Protocol.UserCharacter userCharacter = 2;
+inline bool StatusResponsePacket::_internal_has_usercharacter() const {
+  return this != internal_default_instance() && _impl_.usercharacter_ != nullptr;
+}
+inline bool StatusResponsePacket::has_usercharacter() const {
+  return _internal_has_usercharacter();
+}
+inline const ::Protocol::UserCharacter& StatusResponsePacket::_internal_usercharacter() const {
+  const ::Protocol::UserCharacter* p = _impl_.usercharacter_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::UserCharacter&>(
+      ::Protocol::_UserCharacter_default_instance_);
+}
+inline const ::Protocol::UserCharacter& StatusResponsePacket::usercharacter() const {
+  // @@protoc_insertion_point(field_get:Protocol.StatusResponsePacket.userCharacter)
+  return _internal_usercharacter();
+}
+inline void StatusResponsePacket::unsafe_arena_set_allocated_usercharacter(
+    ::Protocol::UserCharacter* usercharacter) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.usercharacter_);
+  }
+  _impl_.usercharacter_ = usercharacter;
+  if (usercharacter) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.StatusResponsePacket.userCharacter)
+}
+inline ::Protocol::UserCharacter* StatusResponsePacket::release_usercharacter() {
+  
+  ::Protocol::UserCharacter* temp = _impl_.usercharacter_;
+  _impl_.usercharacter_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::UserCharacter* StatusResponsePacket::unsafe_arena_release_usercharacter() {
+  // @@protoc_insertion_point(field_release:Protocol.StatusResponsePacket.userCharacter)
+  
+  ::Protocol::UserCharacter* temp = _impl_.usercharacter_;
+  _impl_.usercharacter_ = nullptr;
+  return temp;
+}
+inline ::Protocol::UserCharacter* StatusResponsePacket::_internal_mutable_usercharacter() {
+  
+  if (_impl_.usercharacter_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::UserCharacter>(GetArenaForAllocation());
+    _impl_.usercharacter_ = p;
+  }
+  return _impl_.usercharacter_;
+}
+inline ::Protocol::UserCharacter* StatusResponsePacket::mutable_usercharacter() {
+  ::Protocol::UserCharacter* _msg = _internal_mutable_usercharacter();
+  // @@protoc_insertion_point(field_mutable:Protocol.StatusResponsePacket.userCharacter)
+  return _msg;
+}
+inline void StatusResponsePacket::set_allocated_usercharacter(::Protocol::UserCharacter* usercharacter) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.usercharacter_);
+  }
+  if (usercharacter) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(usercharacter));
+    if (message_arena != submessage_arena) {
+      usercharacter = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, usercharacter, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.usercharacter_ = usercharacter;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.StatusResponsePacket.userCharacter)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "../Network/ClientPacketHandler.h"
 
+
 AGameClient::AGameClient() {
     PrimaryActorTick.bCanEverTick = true;
     clientSocket = INVALID_SOCKET;
@@ -14,32 +15,31 @@ AGameClient::AGameClient() {
     if (PlayerCharacterBPClass.Class != NULL) {
         playerCharacterClass = PlayerCharacterBPClass.Class;
     }
+    networkReceiver = nullptr;
 }
 
 void AGameClient::BeginPlay() {
     Super::BeginPlay();
     FString serverAddress = TEXT("127.0.0.1");
     int32 serverPort = 27015; // 로그인 서버 포트
-
-    if (!InitializeSocket(serverAddress, serverPort)) {
-        UE_LOG(LogTemp, Error, TEXT("소켓 초기화 실패"));
-    }
-    else {
+    ClientPacketHandler::Init();
+    if (InitializeSocket(serverAddress, serverPort))
+    {
+        networkReceiver = new FNetworkReceiver(socket);
+        Thread = FRunnableThread::Create(networkReceiver, TEXT("NetworkReceiverThread"));
         UE_LOG(LogTemp, Log, TEXT("로그인 서버에 성공적으로 연결"));
         SendInventoryPacket(1); // 테스트 플레이어 ID
+        SendInventoryPacket(1); // 테스트 플레이어 ID
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("로그인 서버에 연결 실패!"));
     }
 }
 
 void AGameClient::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 
-    uint8 Buffer[1024];
-
-    int32 ReceivedBytes = Session->OnRecv(Buffer, sizeof(Buffer));
-    if (ReceivedBytes > 0)
-    {
-        Session->OnRecv(Buffer, ReceivedBytes);
-    }
+    
 }
 
 
@@ -204,3 +204,21 @@ void AGameClient::ProcessInventoryResponse(const char* data, int32 dataSize) {
 
 
 
+void AGameClient::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    Super::EndPlay(EndPlayReason);
+
+    if (networkReceiver)
+    {
+        networkReceiver->Stop();
+        Thread->WaitForCompletion();
+        delete networkReceiver;
+        networkReceiver = nullptr;
+    }
+
+    if (socket)
+    {
+        socket->Close();
+        ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(socket);
+    }
+}

@@ -9,7 +9,9 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     ITEM_SEQ = itemData.itemseq();
    ITEM_ID = itemData.itemid();
     ITEM_SLOT_IDX = itemData.itemslotidx();
-    
+    UE_LOG(LogTemp, Log, TEXT("ITEM_SEQ : %d"), ITEM_SEQ);
+    UE_LOG(LogTemp, Log, TEXT("ITEM_ID : %lld"), itemData.itemid());
+    UE_LOG(LogTemp, Log, TEXT("ITEM_SLOT_IDX : %d"), ITEM_SLOT_IDX);
   /*  NAME = itemData.name();
     TYPE = itemData.type();
     RANK = itemData.rank();

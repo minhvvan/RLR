@@ -16,7 +16,11 @@ UGameManager* GameInstance = nullptr;
 void UGameManager::Init()
 {
     Super::Init();
+    // Ensure GameInstance is set
+    GameInstance = this;
+
     LoadGameOption();
+    
 }
 
 UDataManager* UGameManager::GetDataManager()

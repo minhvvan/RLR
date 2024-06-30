@@ -25,47 +25,39 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::LoginRe
 }
 
 // Item Handlers
-bool Handle_C_ITEM_ADD(TSharedPtr<PacketSession>& session, Protocol::C_ITEM_ADD& pkt)
+bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt)
 {
-    // Handle item add
-    
-    UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
     FItemData itemData;
 
     itemData.MakeItemData(pkt.item());
-    InventoryManager->AddItem(itemData);
+    GameInstance->GetInventoryManager()->AddItem(itemData);
     return true;
 }
 
-bool Handle_C_ITEM_USE(TSharedPtr<PacketSession>& session, Protocol::C_ITEM_USE& pkt)
+bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
+    
+    pkt.usercharacter().setstatus().userhp();
+    return true;
+}
+bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
 {
     // Handle item use
     return true;
 }
 
-// Inventory Handlers
-bool Handle_INVENTORY_REQUEST(TSharedPtr<PacketSession>& session, Protocol::InventoryRequestPacket& pkt)
-{
-    // Handle inventory request
-
-    Protocol::InventoryRequestPacket response;
-    response.set_userseq(pkt.userseq());
-   
-   
-    return true;
-}
 
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt)
 {
-    UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
+    
     TArray<FItemData> itemDatas;
     for (int32 i = 0; i < pkt.items_size(); i++) {
         FItemData itemData;
         itemData.MakeItemData(pkt.items().at(i));
+
         itemDatas.Add(itemData);
     }
    
-    InventoryManager->GetItemList(itemDatas);
+    GameInstance->GetInventoryManager()->GetItemList(itemDatas);
   
     
     return true;
@@ -86,22 +78,22 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::LoginResponsePacket>(&Handle_LOGIN_RESPONSE, session, buffer, len);
         };
-
-    // Add item packet handlers
-    GPacketHandler[PKT_C_ITEM_ADD] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+    GPacketHandler[PKT_STATUS_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-            return instance.HandlePacket<Protocol::C_ITEM_ADD>(&Handle_C_ITEM_ADD, session, buffer, len);
+            return instance.HandlePacket<Protocol::StatusResponsePacket>(&Handle_STATUS_RESPONSE, session, buffer, len);
         };
-    GPacketHandler[PKT_C_ITEM_USE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+    // Add item packet handlers
+    GPacketHandler[PKT_ITEM_ADD_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-            return instance.HandlePacket<Protocol::C_ITEM_USE>(&Handle_C_ITEM_USE, session, buffer, len);
+            return instance.HandlePacket<Protocol::ItemAddRequestPacket>(&Handle_ITEM_ADD_REQUEST, session, buffer, len);
+        };
+    GPacketHandler[PKT_ITEM_USE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::ItemUseRequestPacket>(&Handle_ITEM_USE_REQUEST, session, buffer, len);
         };
 
     // Add inventory packet handlers
-    GPacketHandler[PKT_INVENTORY_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
-        {
-            return instance.HandlePacket<Protocol::InventoryRequestPacket>(&Handle_INVENTORY_REQUEST, session, buffer, len);
-        };
+
     GPacketHandler[PKT_INVENTORY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::InventoryResponsePacket>(&Handle_INVENTORY_RESPONSE, session, buffer, len);
@@ -145,8 +137,4 @@ int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
     }
 
     return processLen;
-}
-void PacketSession::OnRecvPacket(uint8* buffer, int32 len) {
-    ClientPacketHandler handler;
-    handler.HandlePacket(AsShared(), buffer, len);
 }
