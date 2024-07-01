@@ -4,7 +4,7 @@
 #include "AbnormalPoison.h"
 #include "Player/PlayerCharacter.h"
 
-//TODO : Áö¼Ó µ¥¹ÌÁö
+//TODO : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 UAbnormalPoison::UAbnormalPoison()
 {
 	PrimaryComponentTick.bCanEverTick = true;

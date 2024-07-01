@@ -2,6 +2,7 @@
 
 
 #include "GameManager/RLRStruct.h"
+
 #include "../Network/Packet.pb.h"
 void FItemData::MakeItemData(const Protocol::Item itemData)
 {
@@ -55,8 +56,5 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
         auto etcItemData = itemData.etcitem();
         /*ITEM_ETC.ETC_TYPE = etcItemData.etctype();*/
     }
-
-  
-
-   
 }
+

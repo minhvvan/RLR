@@ -73,11 +73,139 @@ enum class EItemRarity : uint8
 	UNIQUE,
 	EPIC,
 	LEGEND,
+	NONE,
+};
+
+
+UENUM(BlueprintType)
+enum class EUIType : uint8
+{
+	INVENTORY,
+	CHARACTERSTAT,
+	ITEMINFO,
+	SIZE,
 };
 
 
 USTRUCT(Atomic, BlueprintType)
 struct FStatus
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float HP = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float HP_ABSORB = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MP = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MP_ABSORB = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float HEALTH = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MAGIC = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float STRENGTH = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float AGILITY = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float INTELLIGENCE = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MAX_HP = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MAX_MP = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float ATTACK = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float DEFENCE = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float ATTACK_SPEED = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MOVE_SPEED = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float EVASION = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float LIFE_STEAL = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float CRITICAL_CHANCE = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float CRITICAL_DAMAGE = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float AVOID = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float COOLDOWN_REDUCTION = 0;
+
+
+	void SetHP(float HP);
+
+
+	FString ToString() const
+	{
+		FString ItemString;
+
+		auto AppendStat = [&ItemString](const FString& StatName, float StatValue)
+			{
+				if (StatValue != 0)
+				{
+					if (!ItemString.IsEmpty())
+					{
+						ItemString.Append(TEXT("\n"));
+					}
+					ItemString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+				}
+			};
+
+		AppendStat(TEXT("HP"), HP);
+		AppendStat(TEXT("HP_ABSORB"), HP_ABSORB);
+		AppendStat(TEXT("MP"), MP);
+		AppendStat(TEXT("MP_ABSORB"), MP_ABSORB);
+		AppendStat(TEXT("HEALTH"), HEALTH);
+		AppendStat(TEXT("MAGIC"), MAGIC);
+		AppendStat(TEXT("STRENGTH"), STRENGTH);
+		AppendStat(TEXT("AGILITY"), AGILITY);
+		AppendStat(TEXT("INTELLIGENCE"), INTELLIGENCE);
+		AppendStat(TEXT("MAX_HP"), MAX_HP);
+		AppendStat(TEXT("MAX_MP"), MAX_MP);
+		AppendStat(TEXT("ATTACK"), ATTACK);
+		AppendStat(TEXT("DEFENCE"), DEFENCE);
+		AppendStat(TEXT("ATTACK_SPEED"), ATTACK_SPEED);
+		AppendStat(TEXT("MOVE_SPEED"), MOVE_SPEED);
+		AppendStat(TEXT("EVASION"), EVASION);
+		AppendStat(TEXT("LIFE_STEAL"), LIFE_STEAL);
+		AppendStat(TEXT("CRITICAL_CHANCE"), CRITICAL_CHANCE);
+		AppendStat(TEXT("CRITICAL_DAMAGE"), CRITICAL_DAMAGE);
+		AppendStat(TEXT("AVOID"), AVOID);
+		AppendStat(TEXT("COOLDOWN_REDUCTION"), COOLDOWN_REDUCTION);
+
+		return ItemString;
+	}
+};
+
+
+/*
+	아이템 정보를 위한 Status.
+*/
+USTRUCT(Atomic, BlueprintType)
+struct FItemStatus
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -185,6 +313,7 @@ struct FStatus
 	}
 };
 
+
 USTRUCT(Atomic, BlueprintType)
 struct FItemData : public FTableRowBase
 {
@@ -224,6 +353,10 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 EQUIPMENT_LEVEL;
 
+
+	/*
+		나중에 FItemStatus로 바꿔줄 예정.
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FStatus ITEM_STATUS;
 
