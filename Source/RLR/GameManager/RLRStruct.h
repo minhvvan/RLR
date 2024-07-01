@@ -438,4 +438,3 @@ struct FAbnormal2
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
 };
-
