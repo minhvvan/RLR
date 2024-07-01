@@ -1,0 +1,7 @@
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\CoreGlobal.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\CoreGlobal.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\CorePch.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\CorePch.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\CoreTLS.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\CoreTLS.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\DeadLockProfiler.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\DeadLockProfiler.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\Lock.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\Lock.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\pch.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\pch.obj
+C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\ThreadManager.cpp;C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\ServerCore\x64\Release\ThreadManager.obj

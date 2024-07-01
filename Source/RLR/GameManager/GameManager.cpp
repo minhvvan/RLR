@@ -1,0 +1,133 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/InventoryManager.h"
+#include "GameManager/SkillManager.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "GameOptionData/GameOptionData.h"
+#include "GameManager.h"
+#include <Kismet/GameplayStatics.h>
+
+UGameManager* GameInstance = nullptr;
+
+void UGameManager::Init()
+{
+    Super::Init();
+    // Ensure GameInstance is set
+    GameInstance = this;
+
+    LoadGameOption();
+    
+}
+
+UDataManager* UGameManager::GetDataManager()
+{
+	UDataManager* DataManager = GetSubsystem<UDataManager>(this);
+	if (IsValid(DataManager))
+	{
+
+
+		return DataManager;
+	}
+
+	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetDataManager Error."));
+	return nullptr;
+}
+
+UUIManager* UGameManager::GetUIManager()
+{
+    UUIManager* UIManager = GetSubsystem<UUIManager>(this);
+    if (IsValid(UIManager))
+    {
+        return UIManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetUIManager Error."));
+    return nullptr;
+}
+
+UInventoryManager* UGameManager::GetInventoryManager()
+{
+    UInventoryManager* Inven = GetSubsystem<UInventoryManager>(this);
+    if (IsValid(Inven))
+    {
+        return Inven;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetInventoryManager Error."));
+    return nullptr;
+}
+
+USkillManager* UGameManager::GetSkillManager()
+{
+    USkillManager* SkillManager = GetSubsystem<USkillManager>(this);
+    if (IsValid(SkillManager))
+    {
+        return SkillManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetSkillManager Error."));
+    return nullptr;
+}
+
+UGameOptionData* UGameManager::GetGameOptionData()
+{
+	if (GameOptionData == nullptr)
+	{
+		LoadGameOption();
+
+		if (GameOptionData == nullptr)
+		{
+			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("LoadChatOption Fail. GameManager GetGameOptionData 확인."));
+			return GameOptionData;
+		}
+	}
+
+	return GameOptionData;
+}
+
+void UGameManager::SaveGameOption()
+{
+    UGameplayStatics::SaveGameToSlot(GameOptionData, UGameOptionData::SlotName, 0);
+}
+
+void UGameManager::LoadGameOption()
+{
+    FString SlotName = UGameOptionData::SlotName;
+    bool Ret = UGameplayStatics::DoesSaveGameExist(SlotName, 0);
+
+    //세이브 데이터가 있으면 불러오고, 없으면 임시적으로 새로 만든다
+    if (Ret == true)
+    {
+        UGameOptionData* LoadGameOptionData = Cast<UGameOptionData>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
+
+        if (IsValid(LoadGameOptionData) == false)
+        {
+            UUtilBlueprintFunctionLibrary::DebugLog(TEXT("LoadChatOption Fail. LoadGameOptionData Is Valid 확인."));
+            return;
+        }
+
+        GameOptionData = LoadGameOptionData;
+    }
+    else if (Ret == false)
+    {
+        UGameOptionData* NewGameOptionData = Cast<UGameOptionData>(UGameplayStatics::CreateSaveGameObject(UGameOptionData::StaticClass()));
+        if (IsValid(NewGameOptionData) == false)
+        {
+            UUtilBlueprintFunctionLibrary::DebugLog(TEXT("LoadChatOption Fail. NewGameOptionData Is Valid 확인."));
+            return;
+        }
+
+        NewGameOptionData->Init();
+        GameOptionData = NewGameOptionData;
+    }
+
+    //임시 코드.
+    if (GameOptionData->ChatOption.bVisibleChatOption.Num() == 0)
+        GameOptionData->Init();
+
+
+}
