@@ -2,6 +2,7 @@
 
 
 #include "AbnormalFreeze.h"
+<<<<<<< Updated upstream
 #include "Player/PlayerCharacter.h"
 
 
@@ -28,3 +29,35 @@ void UAbnormalFreeze::RemoveAbnormal()
 
 }
 // 프리즈에서 조작 금지 -> 리무브 -> 슬로우 Apply -> Remove 형태로 구성.
+=======
+
+// Sets default values for this component's properties
+UAbnormalFreeze::UAbnormalFreeze()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
+
+	// ...
+}
+
+
+// Called when the game starts
+void UAbnormalFreeze::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// ...
+	
+}
+
+
+// Called every frame
+void UAbnormalFreeze::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
+>>>>>>> Stashed changes

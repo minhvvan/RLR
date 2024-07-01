@@ -8,8 +8,13 @@ public class RLR : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
+<<<<<<< Updated upstream
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput","Sockets", "Networking", "UMG",  "Slate"
             ,"Protobuf","SlateCore", "GameplayTags"});
+=======
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput","Sockets", "Networking", "UMG",  "Slate",
+            "SlateCore","Networking" });
+>>>>>>> Stashed changes
 
         PublicIncludePaths.AddRange(new string[] { "RLR" });
         PrivateDependencyModuleNames.AddRange(new string[] { });

@@ -8,7 +8,11 @@ APlayerCharacter::APlayerCharacter()
 {
 	SetCharacterMovement();
 	SetCameraArm();
+<<<<<<< Updated upstream
 	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
+=======
+	data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+>>>>>>> Stashed changes
 }
 
 void APlayerCharacter::SetCameraArm()
@@ -38,11 +42,15 @@ void APlayerCharacter::SetCharacterMovement()
 }
 
 // Check Collision Over lap
+<<<<<<< Updated upstream
 // 몬스터, Character, Object
+=======
+>>>>>>> Stashed changes
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
 	// TODO : GetDamage * Stat Logic
+<<<<<<< Updated upstream
 	if (data == nullptr)
 	{
 		data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
@@ -61,6 +69,22 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	// Character.Anim = anim.hit
 	// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
 	//					               클라 -> 피격 애니메이션                
+=======
+	if (data != nullptr)
+	{
+		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+
+		if (data->Status.HpCurrent <= 0)
+		{
+			Destroy();
+		}
+	}
+	else
+	{
+		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+	}
+	other->Destroy();
+>>>>>>> Stashed changes
 }
 
 void APlayerCharacter::SetMovement(FVector location)
@@ -72,6 +96,7 @@ void APlayerCharacter::SetMovement(FVector location)
 void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
 {
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
+<<<<<<< Updated upstream
 }
 
 void APlayerCharacter::SetOrientation(FVector Location)
@@ -105,4 +130,6 @@ void APlayerCharacter::BanInput(bool value)
 void APlayerCharacter::SetController()
 {
 	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
+=======
+>>>>>>> Stashed changes
 }

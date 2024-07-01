@@ -2,13 +2,17 @@
 
 
 #include "PlayerCommands.h"
+<<<<<<< Updated upstream
 #include "User/UserController.h"
+=======
+>>>>>>> Stashed changes
 
 APlayerCommands::APlayerCommands()
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+<<<<<<< Updated upstream
 void APlayerCommands::BindDefaultAction(TObjectPtr<AUserController> Controller)
 {
 	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(Controller->InputComponent);
@@ -76,4 +80,20 @@ void APlayerCommands::BindUserAction(TObjectPtr<class AUserController> Controlle
 	component->BindAction(User.U, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
 	component->BindAction(User.F4, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
 	component->BindAction(User.ESC, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
+=======
+
+void APlayerCommands::Init()
+{
+	// TODO : 모든 스킬 커맨드 적용할 방식 찾아 적용하기.
+	ConstructorHelpers::FObjectFinder<UInputAction>container(TEXT("/Game/Player/Input/Action_SkillQ"));
+	if (container.Succeeded())
+	{
+		Skill.Q = container.Object;
+	}
+}
+
+void APlayerCommands::TestLog()
+{
+	UE_LOG(LogTemp, Log, TEXT("Test Log Command Key : Q"));
+>>>>>>> Stashed changes
 }

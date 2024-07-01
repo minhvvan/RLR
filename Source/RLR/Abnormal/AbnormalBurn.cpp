@@ -2,6 +2,7 @@
 
 
 #include "AbnormalBurn.h"
+<<<<<<< Updated upstream
 #include "Player/PlayerCharacter.h"
 
 //TODO : 지속 데미지
@@ -24,3 +25,35 @@ void UAbnormalBurn::RemoveAbnormal()
 	AActor* actor = GetOwner();
 	actor->Destroy();
 }
+=======
+
+// Sets default values for this component's properties
+UAbnormalBurn::UAbnormalBurn()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
+
+	// ...
+}
+
+
+// Called when the game starts
+void UAbnormalBurn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// ...
+	
+}
+
+
+// Called every frame
+void UAbnormalBurn::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
+>>>>>>> Stashed changes

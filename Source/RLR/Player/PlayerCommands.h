@@ -16,7 +16,11 @@ struct FSkill
 {
 	GENERATED_BODY()
 
+<<<<<<< Updated upstream
 	UPROPERTY(EditAnywhere, Category = Action);
+=======
+		UPROPERTY(EditAnywhere, Category = Action);
+>>>>>>> Stashed changes
 	UInputAction* Q;
 
 	UPROPERTY(EditAnywhere, Category = Action);
@@ -39,6 +43,15 @@ struct FSkill
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* F;
+<<<<<<< Updated upstream
+=======
+
+	UPROPERTY(EditAnywhere, Category = Action);
+	UInputAction* SPACE;
+
+	UPROPERTY(EditAnywhere, Category = Action);
+	UInputAction* Attack;
+>>>>>>> Stashed changes
 };
 
 USTRUCT()
@@ -127,10 +140,15 @@ class RLR_API APlayerCommands : public AActor
 public:
 	APlayerCommands();
 
+<<<<<<< Updated upstream
 	void BindDefaultAction(TObjectPtr<class AUserController>);
 	void BindSkillAction(TObjectPtr<class AUserController>);
 	void BindConsumeAction(TObjectPtr<class AUserController>);
 	void BindUserAction(TObjectPtr<class AUserController>);
+=======
+	void TestLog();
+	void Init();
+>>>>>>> Stashed changes
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	FSkill Skill;
@@ -144,9 +162,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
 
+<<<<<<< Updated upstream
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* SPACE;
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Attack;
 };
+=======
+};
+
+>>>>>>> Stashed changes

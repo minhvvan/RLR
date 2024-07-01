@@ -8,12 +8,19 @@
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
 #include "Player/PlayerCommands.h"
+<<<<<<< Updated upstream
+=======
+#include "Player/PlayerCharacter.h"
+>>>>>>> Stashed changes
 #include "../Chat/GameClient.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "Skill/Skill_Explosion.h"
 #include "UserController.generated.h"
 
+<<<<<<< Updated upstream
 class APlayerCharacter;
+=======
+>>>>>>> Stashed changes
 /**
  *
  */
@@ -27,12 +34,16 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+<<<<<<< Updated upstream
 	virtual void OnPossess(APawn* InPawn) override;
+=======
+>>>>>>> Stashed changes
 
 public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
+<<<<<<< Updated upstream
 	void OnMoveStarted();
 
 private:
@@ -52,17 +63,46 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* Cursor;
+=======
+
+private:
+
+	void OnMoveStarted();
+	void OnMoveCompleted();
+	void OnMove();
+	void OnCursorEffect();
+	void OnAttackEffect();
+	void InitBinding(UEnhancedInputComponent*);
+	FVector GetClickPosition();
+
+	ASkill_Explosion* explosion;
+
+	UPROPERTY(EditAnywhere, Category = Input);
+	UNiagaraSystem* cursor;
+>>>>>>> Stashed changes
 
 	APlayerCharacter* Player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
+<<<<<<< Updated upstream
 	UInputMappingContext* CurrentContext;
 	
 	UPROPERTY(VisibleAnywhere, Category = Input);
+=======
+	UInputMappingContext* currentContext;
+
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction* move;
+	UPROPERTY(EditAnywhere, Category = Input);
+	UInputAction* defalutAttack;
+	
+	UPROPERTY(EditAnywhere, Category = Input);
+>>>>>>> Stashed changes
 	APlayerCommands* Commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UClass* CommandClass;
+<<<<<<< Updated upstream
 
 	void AssignPlayerSeq();
 
@@ -78,4 +118,12 @@ private:
 	bool IsMove();
 
 	friend class APlayerCommands;
+=======
+	void AssignPlayerSeq();
+	UPROPERTY()
+	AGameClient* GameClient;
+	float deltaTime;
+	float pressTime;
+
+>>>>>>> Stashed changes
 };

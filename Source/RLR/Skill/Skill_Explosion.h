@@ -19,14 +19,23 @@ class RLR_API ASkill_Explosion : public APlayerSkill
 public:	
 	ASkill_Explosion();
 
+<<<<<<< Updated upstream
 	virtual void BeginPlay() override;
+=======
+	virtual void Tick(float DeltaTime) override;
+
+>>>>>>> Stashed changes
 	USphereComponent* Collision;
 	UPROPERTY(EditAnywhere, Category = Effect);
 	UParticleSystem* Attack;
 	UParticleSystem* GetAttackParticle() { return Attack; }
 	virtual void EndPlay(const EEndPlayReason::Type);
+<<<<<<< Updated upstream
 	virtual void SkillAttack(FVector) override;
 	//virtual void SkillAttack(FVector, UParticleSystem*) override;
+=======
+	virtual void SkillAttack(FVector, UParticleSystem*) override;
+>>>>>>> Stashed changes
 	virtual void Init() override;
 
 private:

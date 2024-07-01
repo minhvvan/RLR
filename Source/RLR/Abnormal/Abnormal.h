@@ -6,13 +6,17 @@
 #include "Components/ActorComponent.h"
 #include "Abnormal.generated.h"
 
+<<<<<<< Updated upstream
 class APlayerCharacter;
+=======
+>>>>>>> Stashed changes
 
 UCLASS(abstract)
 class RLR_API UAbnormal : public UActorComponent
 {
 	GENERATED_BODY()
 
+<<<<<<< Updated upstream
 public:
 	
 	virtual void ApplyAbnormal(APlayerCharacter*,int) PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
@@ -27,6 +31,12 @@ protected:
 	APlayerCharacter* Player;
 
 	//TODO : Delete
+=======
+protected:
+	virtual void ApplyAbnormal() PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
+	virtual void RemoveAbnormal() PURE_VIRTUAL(UAbnormal::RemoveAbnormal, );
+
+>>>>>>> Stashed changes
 	enum class ESubAbnormal
 	{
 		Burn,

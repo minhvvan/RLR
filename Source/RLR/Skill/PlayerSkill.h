@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+<<<<<<< Updated upstream
 #include "Abnormal/Abnormal.h"
 // Main
 #include"Abnormal/AbnormalStun.h"
@@ -20,6 +21,9 @@
 
 #include "GameFramework/Actor.h"
 #include "GameManager/RLRStruct.h"
+=======
+#include "GameFramework/Actor.h"
+>>>>>>> Stashed changes
 #include "PlayerSkill.generated.h"
 
 UCLASS(abstract)
@@ -27,6 +31,7 @@ class RLR_API APlayerSkill : public AActor
 {
 	GENERATED_BODY()
 
+<<<<<<< Updated upstream
 public:
 	// TODO : UParticleSystem Change to Niagara System
 
@@ -53,4 +58,31 @@ protected:
 	
 	FSkillData Data;
 	bool bIsHit = false;
+=======
+private:
+
+	struct FData
+	{
+		FString Name;
+		// Image
+		int Level;
+		int Cost;
+		int CoolTime;
+		int Cind; // int -> enum or DB kind.
+		int Damage;
+		FVector CollisionRange;
+	};
+public:
+	// TODO : UParticleSystem Change to Niagara System
+
+	virtual void SkillAttack(FVector position, UParticleSystem* particle) PURE_VIRTUAL(APlayerSkill::SkillAttack, );
+
+	virtual void Init() PURE_VIRTUAL(APlayerSkill::Init, );
+	int GetDamage() { return Data.Damage; };
+
+	
+protected:
+	void InitData();
+	FData Data;
+>>>>>>> Stashed changes
 };

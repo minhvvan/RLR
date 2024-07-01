@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿  pch.cpp
   CoreGlobal.cpp
   CorePch.cpp
@@ -6,3 +7,13 @@
   Lock.cpp
   ThreadManager.cpp
   ServerCore.vcxproj -> C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\Libraries\Release\ServerCore.lib
+=======
+﻿  pch.cpp
+  CoreGlobal.cpp
+  CorePch.cpp
+  CoreTLS.cpp
+  DeadLockProfiler.cpp
+  Lock.cpp
+  ThreadManager.cpp
+  ServerCore.vcxproj -> C:\Users\admin\Desktop\ServerPratice\CPP_Server\GameServer\Libraries\Release\ServerCore.lib
+>>>>>>> Stashed changes

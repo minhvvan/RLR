@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
 	"FileVersion": 3,
 	"Version": 1,
@@ -21,4 +22,29 @@
 			"LoadingPhase": "Default"
 		}
 	]
+=======
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "MariaDBConnection",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "MariaDBConnection",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+>>>>>>> Stashed changes
 }

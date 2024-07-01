@@ -14,6 +14,7 @@ void APlayerSkill::InitData()
 	Data.Level;
 }
 
+<<<<<<< Updated upstream
 void APlayerSkill::OnDestroty()
 {
 	if (bIsHit)
@@ -23,3 +24,5 @@ void APlayerSkill::OnDestroty()
 	}
 	Destroy();
 }
+=======
+>>>>>>> Stashed changes

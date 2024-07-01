@@ -7,13 +7,19 @@
 #include "GameFramework/SpringArmComponent.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
+<<<<<<< Updated upstream
 #include "User/UserController.h"
+=======
+>>>>>>> Stashed changes
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
 #include "PlayerData.h"
 #include "PlayerCharacter.generated.h"
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 UCLASS()
 class RLR_API APlayerCharacter : public ACharacter
 {
@@ -21,6 +27,7 @@ class RLR_API APlayerCharacter : public ACharacter
 
 public:
 	APlayerCharacter();
+<<<<<<< Updated upstream
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
@@ -31,10 +38,17 @@ public:
 	bool IsAttack() { return bIsAttack; };
 
   int32 GetPlayerSeq() const { return PlayerSeq; }
+=======
+
+	void SetMovement(FVector);
+	void SetSimpleMove(APlayerController*, FVector);
+	int32 GetPlayerSeq() const { return PlayerSeq; }
+>>>>>>> Stashed changes
 	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 private:
 
+<<<<<<< Updated upstream
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
 
@@ -54,4 +68,23 @@ private:
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
+=======
+	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; }
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; }
+	
+	UPROPERTY(EditAnywhere, Category = Data);
+	APlayerData* data;
+	int32 PlayerSeq;
+	
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class UCameraComponent* camera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent* cameraArm;
+
+	void SetCameraArm();
+	void SetCharacterMovement();
+>>>>>>> Stashed changes
 };

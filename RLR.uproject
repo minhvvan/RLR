@@ -9,9 +9,13 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
+<<<<<<< Updated upstream
 				"Engine",
 				"MariaDBConnection",
 				"UMG"
+=======
+				"Engine"
+>>>>>>> Stashed changes
 			]
 		}
 	],
