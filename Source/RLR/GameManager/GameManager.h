@@ -1,0 +1,71 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "GameManager.generated.h"
+
+/**
+ 
+ GameManager에 다른 매니저를 붙일 때는 UGameInstanceSubsystem 상속 받는 매니저로 생성할 것을 추천
+
+	GameManager.
+		DataManager
+			아이템 데이터. 
+			스킬 데이터
+			데이터 관련된 정보를 들고 있을 매니저.
+		InventoryManager
+			서버에서 소유한 아이템 정보를 보내주면 관리할 매니저.
+		UIManager
+			UI를 열고 닫기를 관리할 매니저.
+		SkillManager
+			Skill 관리 매니저(등록, 실행)
+ */
+
+
+ class UDataManager;
+ class UUIManager;
+ class UInventoryManager;
+ class USkillManager;
+ class UGameOptionData;
+
+
+UCLASS()
+class RLR_API UGameManager : public UGameInstance
+{
+	GENERATED_BODY()
+	
+public:
+	
+	virtual void Init() override;
+
+	UFUNCTION(BlueprintCallable)
+	UDataManager*				GetDataManager();
+
+	UFUNCTION(BlueprintCallable)
+	UUIManager*						GetUIManager();
+
+	UFUNCTION(BlueprintCallable)
+	UInventoryManager*		GetInventoryManager();
+
+	UFUNCTION(BlueprintCallable)
+	USkillManager*		GetSkillManager();
+
+	UFUNCTION(BlueprintCallable)
+	UGameOptionData*		GetGameOptionData();
+
+	UFUNCTION(BlueprintCallable)
+	void SaveGameOption();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadGameOption();
+
+private:
+	/*
+		게임 옵션 데이터
+	*/
+	UPROPERTY();
+	TObjectPtr<UGameOptionData> GameOptionData;
+};
+extern  UGameManager* GameInstance;
