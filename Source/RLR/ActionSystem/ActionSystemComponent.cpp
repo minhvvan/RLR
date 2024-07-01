@@ -38,6 +38,21 @@ void UActionSystemComponent::InitActorInfo(AActor* Owner, AActor* Avatar)
 	AvatarActor = Avatar;
 }
 
+bool UActionSystemComponent::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
+{
+	return OwnedTags.HasMatchingGameplayTag(TagToCheck);
+}
+
+void UActionSystemComponent::AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count)
+{
+	OwnedTags.AddTag(GameplayTag, Count);
+}
+
+void UActionSystemComponent::RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count)
+{
+	OwnedTags.RemoveTag(GameplayTag);
+}
+
 //void UActionSystemComponent::GiveAction(FGameplayTag Tag, TSubclassOf<AAction> Action)
 //{
 //}

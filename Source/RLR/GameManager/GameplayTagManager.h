@@ -19,6 +19,8 @@ public:
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
 
+	FGameplayTag Action_Default_Attack;
+
 private:
 	static FGameplayTagManager GameplayTags;
 

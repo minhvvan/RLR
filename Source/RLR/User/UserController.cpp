@@ -8,6 +8,8 @@
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
 #include "RLR.h"
+#include "GameManager/GameplayTagManager.h"
+#include "ActionSystem/ActionSystemComponent.h"
 
 AUserController::AUserController()
 {
@@ -193,6 +195,12 @@ void AUserController::OnJump()
 void AUserController::OnAttack()
 {
 	RLR_LOG(LogRLR, Log, TEXT("OnAttack"));
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	UActionSystemComponent* ASC = Player->GetActionSystem();
+	if (!ASC) return;
+
+	ASC->AddGameplayTag(TagManager.Action_Default_Attack);
 }
 
 void AUserController::OnAttackEffect(int inputID)

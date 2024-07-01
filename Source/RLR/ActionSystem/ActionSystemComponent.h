@@ -7,9 +7,11 @@
 #include "GameplayTagContainer.h"
 #include "ActionSystemComponent.generated.h"
 
-class AAction;
+USTRUCT(Atomic, BlueprintType)
 struct FGameplayTagCountContainer
 {
+	GENERATED_BODY()
+
 	FGameplayTagCountContainer()
 	{}
 
@@ -34,6 +36,7 @@ struct FGameplayTagCountContainer
 				break;
 			}
 		}
+
 		return AllMatch;
 	}
 
@@ -67,17 +70,15 @@ struct FGameplayTagCountContainer
 		}
 	}
 
-	FORCEINLINE bool UpdateTagCount(const FGameplayTag& Tag, int CountDelta)
+	FORCEINLINE void UpdateTagCount(const FGameplayTag& Tag, int CountDelta)
 	{
 		if (CountDelta != 0)
 		{
-			return UpdateTagMap(Tag, CountDelta);
+			UpdateTagMap(Tag, CountDelta);
 		}
-
-		return false;
 	}
 
-	FORCEINLINE bool SetTagCount(const FGameplayTag& Tag, int NewCount)
+	FORCEINLINE void SetTagCount(const FGameplayTag& Tag, int NewCount)
 	{
 		int32 ExistingCount = 0;
 		if (int32* Ptr = GameplayTagCountMap.Find(Tag))
@@ -88,24 +89,22 @@ struct FGameplayTagCountContainer
 		int32 CountDelta = NewCount - ExistingCount;
 		if (CountDelta != 0)
 		{
-			return UpdateTagMap(Tag, CountDelta);
+			UpdateTagMap(Tag, CountDelta);
 		}
-
-		return false;
 	}
 
-	FORCEINLINE bool UpdateTagMap(const FGameplayTag& Tag, int NewCount)
+	FORCEINLINE void UpdateTagMap(const FGameplayTag& Tag, int NewCount)
 	{
-		if (NewCount > 0)
+		if (!GameplayTagCountMap.Contains(Tag))
 		{
-			GameplayTagCountMap[Tag] += NewCount;
-		}
-		else
-		{
-			return false;
+			GameplayTagCountMap.Add(Tag, 0);
 		}
 
-		return true;
+		GameplayTagCountMap[Tag] += NewCount;
+		if (GameplayTagCountMap[Tag] == 0)
+		{
+			GameplayTagCountMap.Remove(Tag);
+		}
 	}
 
 	FORCEINLINE int GetTagCount(const FGameplayTag& Tag) const
@@ -118,23 +117,28 @@ struct FGameplayTagCountContainer
 		return 0;
 	}
 
-	//FORCEINLINE void AddTag(const FGameplayTag& Tag, int Count) const
-	//{
-	//	UpdateTagMap(Tag, Count);
-	//}
+	FORCEINLINE void AddTag(const FGameplayTag& Tag, int Count)
+	{
+		UpdateTagMap(Tag, Count);
+	}
+
+	FORCEINLINE void RemoveTag(const FGameplayTag& Tag)
+	{
+		UpdateTagMap(Tag, -GameplayTagCountMap[Tag]);
+	}
 
 private:
-	/** Map of tag to active count of that tag */
+	UPROPERTY(VisibleAnywhere)
 	TMap<FGameplayTag, int> GameplayTagCountMap;
 };
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RLR_API UActionSystemComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UActionSystemComponent();
 
@@ -142,18 +146,19 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void InitActorInfo(AActor* Owner, AActor* Avatar);
 
+	//	//Action
+	//	void GiveAction(FGameplayTag Tag, TSubclassOf<class AAction> Action);
+	//	void RemoveAction(FGameplayTag Tag);
+	//	void TryActivateAction(FGameplayTag Tag);
 
-//	//Action
-//	void GiveAction(FGameplayTag Tag, TSubclassOf<class AAction> Action);
-//	void RemoveAction(FGameplayTag Tag);
-//	void TryActivateAction(FGameplayTag Tag);
 private:
+	//TODO: ActorInfo struct로 관리 필요
 	TObjectPtr<AActor> OwnerActor;
 	TObjectPtr<AActor> AvatarActor;
 
@@ -161,32 +166,14 @@ private:
 //	TMap<FGameplayTag, class AAction> GrantedActions;
 
 	//Tag
+	UPROPERTY(VisibleAnywhere, Category=Tag, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagCountContainer OwnedTags;
 
 public:
 	//Tag
+	bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const;
 
-	//Tag를 count로 쓸건지 아닌지...
-	//사실 count로 쓰는게 좋긴함 -> 스택 가능
-	//근데 countContainer쓰려면 GAS플러그인 깔아야함
-	//아니면 직접 만들어야 함 
+	void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 
-	//or 그냥 container쓰기
-
-	FORCEINLINE bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const
-	{
-		return OwnedTags.HasMatchingGameplayTag(TagToCheck);
-	}
-
-	FORCEINLINE void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	{
-		//OwnedTags.AddTag(GameplayTag);
-		//UpdateTagMap(GameplayTag, Count);
-	}
-
-	FORCEINLINE void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	{
-		//OwnedTags.RemoveTag(GameplayTag);
-		//UpdateTagMap(GameplayTag, -Count);
-	}
+	void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 };

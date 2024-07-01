@@ -51,7 +51,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"));
+	class UActionSystemComponent* ASC;
+
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
+
+public:
+	UActionSystemComponent* GetActionSystem();
 };
