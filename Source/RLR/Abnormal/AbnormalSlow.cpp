@@ -2,33 +2,26 @@
 
 
 #include "AbnormalSlow.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+
 UAbnormalSlow::UAbnormalSlow()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalSlow::BeginPlay()
+void UAbnormalSlow::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		UE_LOG(LogTemp, Log, TEXT("asd"));
+	}
 }
 
-
-// Called every frame
-void UAbnormalSlow::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalSlow::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Player->BanInput(false);
 
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-

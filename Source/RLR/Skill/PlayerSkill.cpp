@@ -14,3 +14,12 @@ void APlayerSkill::InitData()
 	Data.Level;
 }
 
+void APlayerSkill::OnDestroty()
+{
+	if (bIsHit)
+	{
+		SetActorHiddenInGame(true);
+		return;
+	}
+	Destroy();
+}

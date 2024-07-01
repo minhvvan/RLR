@@ -8,7 +8,7 @@ APlayerCharacter::APlayerCharacter()
 {
 	SetCharacterMovement();
 	SetCameraArm();
-	data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
 }
 
 void APlayerCharacter::SetCameraArm()
@@ -38,24 +38,29 @@ void APlayerCharacter::SetCharacterMovement()
 }
 
 // Check Collision Over lap
+// 몬스터, Character, Object
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
 	// TODO : GetDamage * Stat Logic
-	if (data != nullptr)
+	if (data == nullptr)
 	{
-		data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+		data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
+	}
 
-		if (data->Status.HpCurrent <= 0)
-		{
-			Destroy();
-		}
-	}
-	else
+	data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+
+	if (data->Status.HpCurrent <= 0)
 	{
-		data = CreateDefaultSubobject<APlayerData>(TEXT("PlayerData"));
+		Destroy();
 	}
-	other->Destroy();
+
+	explosion->SetIsHit(true);
+	explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
+	// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
+	// Character.Anim = anim.hit
+	// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
+	//					               클라 -> 피격 애니메이션                
 }
 
 void APlayerCharacter::SetMovement(FVector location)
@@ -67,4 +72,37 @@ void APlayerCharacter::SetMovement(FVector location)
 void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
 {
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
+}
+
+void APlayerCharacter::SetOrientation(FVector Location)
+{
+	Location -= GetActorLocation();
+	FRotator Rotator = FRotationMatrix::MakeFromX(Location).Rotator();
+	Rotator.Pitch = 0.f;
+	SetActorRotation(Rotator);
+}
+
+void APlayerCharacter::SetMoveMode(EMovementMode mode)
+{
+	GetCharacterMovement()->SetMovementMode(mode);
+}
+
+// 모든 플레이어 Input 정지 및 해제
+void APlayerCharacter::BanInput(bool value)
+{
+	playerController->StopMovement();
+	if (value == true)
+	{
+		playerController->DisableInput(playerController);
+	}
+	else
+	{
+		playerController->EnableInput(playerController);
+	}
+	
+}
+// 컨트롤러 이닛
+void APlayerCharacter::SetController()
+{
+	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
 }
