@@ -25,3 +25,15 @@ UUIManager* UBaseUI::GetUIManager()
 
 	return nullptr;
 }
+
+UGameManager* UBaseUI::GetGameManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM;
+	}
+
+	return nullptr;
+}

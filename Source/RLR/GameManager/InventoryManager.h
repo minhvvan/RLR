@@ -29,6 +29,9 @@ public:
 	void RemoveItem(int32 Id);
 
 	UFUNCTION(BlueprintCallable)
+	void ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex);
+
+	UFUNCTION(BlueprintCallable)
 	void GetItemList(UPARAM(ref) TArray<FItemData>& ItemArray);
 
 
