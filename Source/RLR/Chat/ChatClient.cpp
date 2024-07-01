@@ -1,5 +1,5 @@
 #include "ChatClient.h"
-#include "ChatUI.h"
+#include "UI/InGame/Chat/ChatUI.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
 #include <WinSock2.h>

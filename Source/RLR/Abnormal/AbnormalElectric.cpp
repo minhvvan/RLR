@@ -2,33 +2,24 @@
 
 
 #include "AbnormalElectric.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+// TODO : ���� ������
 UAbnormalElectric::UAbnormalElectric()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalElectric::BeginPlay()
+void UAbnormalElectric::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalElectric::RemoveAbnormal, duration, false);
+	}
 }
 
-
-// Called every frame
-void UAbnormalElectric::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalElectric::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-

@@ -8,12 +8,12 @@
 #include "EnhancedInputComponent.h"
 #include <EnhancedInputSubsystems.h>
 #include "Player/PlayerCommands.h"
-#include "Player/PlayerCharacter.h"
 #include "../Chat/GameClient.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "Skill/Skill_Explosion.h"
 #include "UserController.generated.h"
 
+class APlayerCharacter;
 /**
  *
  */
@@ -27,46 +27,55 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn) override;
 
 public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
+	void OnMoveStarted();
 
 private:
-
-	void OnMoveStarted();
 	void OnMoveCompleted();
 	void OnMove();
 	void OnCursorEffect();
-	void OnAttackEffect();
-	void InitBinding(UEnhancedInputComponent*);
+	void InitBinding();
 	FVector GetClickPosition();
 
-	ASkill_Explosion* explosion;
+	//bindingAction
+	void OnJump();
+	void OnAttack();
+	void OnAttackEffect(int inputID);
+	void OnConsumeItem(int inputID);
+	void OnOpenUI(int inputID);
+
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UNiagaraSystem* cursor;
+	UNiagaraSystem* Cursor;
 
 	APlayerCharacter* Player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UInputMappingContext* currentContext;
-
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* move;
-	UPROPERTY(EditAnywhere, Category = Input);
-	UInputAction* defalutAttack;
+	UInputMappingContext* CurrentContext;
 	
-	UPROPERTY(EditAnywhere, Category = Input);
+	UPROPERTY(VisibleAnywhere, Category = Input);
 	APlayerCommands* Commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UClass* CommandClass;
+
 	void AssignPlayerSeq();
+
 	UPROPERTY()
 	AGameClient* GameClient;
+
 	float deltaTime;
 	float pressTime;
+	float movePacketInterval;
+	float timeSinceLastMovePacket;
+	FVector lastSentPosition;
 
+	bool IsMove();
+
+	friend class APlayerCommands;
 };

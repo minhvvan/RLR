@@ -2,33 +2,25 @@
 
 
 #include "AbnormalBleeding.h"
+#include "Player/PlayerCharacter.h"
 
-// Sets default values for this component's properties
+//TODO : ���� ������ 
 UAbnormalBleeding::UAbnormalBleeding()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
-
-// Called when the game starts
-void UAbnormalBleeding::BeginPlay()
+void UAbnormalBleeding::ApplyAbnormal(APlayerCharacter* other, int duration)
 {
-	Super::BeginPlay();
-
-	// ...
-	
+	if (other->IsA<APlayerCharacter>())
+	{
+		Player = other;
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalBleeding::RemoveAbnormal, duration, false);
+	}
 }
 
-
-// Called every frame
-void UAbnormalBleeding::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UAbnormalBleeding::RemoveAbnormal()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	AActor* actor = GetOwner();
+	actor->Destroy();
 }
-

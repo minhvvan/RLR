@@ -6,6 +6,8 @@
 
 // ���� ����
 class UChatUI;
+class UInGameMainUI;
+class UMainUI;
 
 UCLASS()
 class RLR_API AMyHUD : public AHUD
@@ -17,11 +19,6 @@ public:
 
     virtual void BeginPlay() override;
 
-    UChatUI* GetChatUI() const;
-
-private:
-    UPROPERTY()
-    UChatUI* ChatUI;
-
-    TSubclassOf<UUserWidget> ChatUIClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UMainUI> MainUIClass;
 };
