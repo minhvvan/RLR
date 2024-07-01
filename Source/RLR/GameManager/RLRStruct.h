@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <Network/Struct.pb.h>
 #include "RLRStruct.generated.h"
+
 /**
  * 
  */
@@ -375,13 +377,15 @@ struct FItemData : public FTableRowBase
 
 	//DB에 저장되어야할 정보
 	int32 ITEM_SLOT_IDX;
-	int32 ITEM_ID;
+	int64 ITEM_ID;
 	bool IsEquiped;
 
 	//나중에 패킷 날라오면, 그 정보로 FItemData를 만들어준다.
-	void MakeItemData();
+	void MakeItemData(const Protocol::Item itemData);
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
+
+	
 };
 
 

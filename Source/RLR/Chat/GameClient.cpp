@@ -5,6 +5,8 @@
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "../Network/ClientPacketHandler.h"
+
 
 AGameClient::AGameClient() {
     PrimaryActorTick.bCanEverTick = true;
@@ -13,111 +15,62 @@ AGameClient::AGameClient() {
     if (PlayerCharacterBPClass.Class != NULL) {
         playerCharacterClass = PlayerCharacterBPClass.Class;
     }
+    networkReceiver = nullptr;
 }
 
 void AGameClient::BeginPlay() {
     Super::BeginPlay();
     FString serverAddress = TEXT("127.0.0.1");
     int32 serverPort = 27015; // 로그인 서버 포트
-
-    if (!InitializeSocket(serverAddress, serverPort)) {
-        UE_LOG(LogTemp, Error, TEXT("소켓 초기화 실패"));
+    ClientPacketHandler::Init();
+    if (InitializeSocket(serverAddress, serverPort))
+    {
+        networkReceiver = new FNetworkReceiver(socket);
+        Thread = FRunnableThread::Create(networkReceiver, TEXT("NetworkReceiverThread"));
+        UE_LOG(LogTemp, Log, TEXT("로그인 서버에 성공적으로 연결"));
+        SendInventoryPacket(1); // 테스트 플레이어 ID
+        SendInventoryPacket(1); // 테스트 플레이어 ID
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("로그인 서버에 성공적으로 연결"));
-        SendLoginPacket(TEXT("admin")); // 테스트 플레이어 ID
+        UE_LOG(LogTemp, Log, TEXT("로그인 서버에 연결 실패!"));
     }
 }
 
 void AGameClient::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
 
-    if (socket) {
-        if (socket->Wait(ESocketWaitConditions::WaitForRead, FTimespan::FromMilliseconds(100))) {
-            uint8 Buffer[2048];
-            int32 BytesRead = 0;
-            if (socket->Recv(Buffer, sizeof(Buffer), BytesRead)) {
-                if (BytesRead > 0) {
-                    uint8_t packetType = Buffer[0];
-                    switch (packetType) {
-                    case MOVE_RESPONSE:
-                        ProcessMoveResponse(reinterpret_cast<const char*>(Buffer));
-                        break;
-                    case INVENTORY_RESPONSE:
-                        ProcessInventoryResponse(reinterpret_cast<const char*>(Buffer), BytesRead);
-                        break;
-                    case LOGIN_RESPONSE:
-                        ProcessLoginResponse(reinterpret_cast<const char*>(Buffer));
-                        break;
-                    default:
-                        UE_LOG(LogTemp, Warning, TEXT("알 수 없는 패킷 유형: %d"), packetType);
-                        break;
-                    }
-                }
-                else {
-                    UE_LOG(LogTemp, Warning, TEXT("패킷 수신 실패 또는 읽은 바이트가 없습니다."));
-                }
-            }
-        }
-    }
+    
 }
 
 
 bool AGameClient::SendLoginPacket(const FString& playerId) {
     if (!socket) return false;
 
-    LoginRequestPacket packet;
-    packet.packetType = LOGIN_REQUEST;
-    strncpy_s(packet.playerId, TCHAR_TO_ANSI(*playerId), sizeof(packet.playerId) - 1);
-
-    int32 BytesSent = 0;
-    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
-
-    if (!bIsSent || BytesSent != sizeof(packet)) {
-        UE_LOG(LogTemp, Error, TEXT("로그인 패킷 전송 실패"));
-        return false;
-    }
+   
 
     return true;
 }
 
 void AGameClient::ProcessLoginResponse(const char* data) {
-    LoginResponsePacket packet = LoginResponsePacket::Deserialize(data);
-
-    if (packet.success) {
-        FString gameServerAddress = ANSI_TO_TCHAR(packet.gameServerAddress);
-        int32 gameServerPort = packet.gameServerPort;
-
-        CloseConnection();
-        if (InitializeSocket(gameServerAddress, gameServerPort)) {
-            UE_LOG(LogTemp, Log, TEXT("게임 서버에 성공적으로 연결: %s:%d"), *gameServerAddress, gameServerPort);
-           
-        }
-        else {
-            UE_LOG(LogTemp, Error, TEXT("게임 서버 연결 실패"));
-        }
-    }
-    else {
-        UE_LOG(LogTemp, Error, TEXT("로그인 실패"));
-    }
+  
 }
 
 bool AGameClient::SendMovePacket(int32 playerSeq, float NewX, float NewY) {
-    if (!socket) return false;  // 'socket'을 'Socket'으로 수정
+    //if (!socket) return false;  // 'socket'을 'Socket'으로 수정
 
-    MoveRequestPacket packet;
-    packet.packetType = MOVE_REQUEST;
-    packet.playerSeq = playerSeq;
-    packet.newX = NewX;
-    packet.newY = NewY;
+    //MoveRequestPacket packet;
+    //packet.packetType = MOVE_REQUEST;
+    //packet.playerSeq = playerSeq;
+    //packet.newX = NewX;
+    //packet.newY = NewY;
 
-    int32 BytesSent = 0;
-    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
+    //int32 BytesSent = 0;
+    //bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
 
-    if (!bIsSent || BytesSent != sizeof(packet)) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 전송 실패"));
-        return false;
-    }
+    //if (!bIsSent || BytesSent != sizeof(packet)) {
+    //    UE_LOG(LogTemp, Error, TEXT("패킷 전송 실패"));
+    //    return false;
+    //}
 
     return true;
 }
@@ -125,23 +78,21 @@ bool AGameClient::SendInventoryPacket(int32 playerSeq)
 {
     if (!socket) return false;
 
-    InventoryRequestPacket packet;
-    packet.packetType = INVENTORY_REQUEST;
-    packet.playerSeq = playerSeq;
-
-
+    Protocol::InventoryRequestPacket packet;
+    packet.set_userseq(playerSeq);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet, PKT_INVENTORY_REQUEST);
     int32 BytesSent = 0;
-    bool bIsSent = socket->Send(reinterpret_cast<uint8*>(&packet), sizeof(packet), BytesSent);
+   bool bSuccess = socket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 
-    if (!bIsSent || BytesSent != sizeof(packet))
-    {
-        UE_LOG(LogTemp, Error, TEXT("패킷 전송 실패"));
-        return false;
-    }
+   if (!bSuccess) {
+       UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+   }
+   else {
+       UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+   }
 
-    UE_LOG(LogTemp, Log, TEXT("InventoryRequestPacket 전송: playerSeq=%d, packetType=%d"), playerSeq, packet.packetType);
 
-    return true;
+   return bSuccess && BytesSent == sendBuffer->Capacity();
 }
 
 void AGameClient::CloseConnection() {
@@ -222,7 +173,7 @@ APlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, float 
 }
 
 void AGameClient::ProcessMoveResponse(const char* data) {
-    MoveResponsePacket packet = MoveResponsePacket::Deserialize(data);
+    /*MoveResponsePacket packet = MoveResponsePacket::Deserialize(data);
 
     int32 playerSeq = packet.playerSeq;
     float newX = packet.newX;
@@ -235,21 +186,39 @@ void AGameClient::ProcessMoveResponse(const char* data) {
     if (PlayerCharacter && success) {
         FVector NewPosition(newX, newY, PlayerCharacter->GetActorLocation().Z);
         PlayerCharacter->SetActorLocation(NewPosition);
-    }
+    }*/
 }
 
 void AGameClient::ProcessInventoryResponse(const char* data, int32 dataSize) {
     
 
-    InventoryResponsePacket packet = InventoryResponsePacket::Deserialize(data);
+    /*InventoryResponsePacket packet = InventoryResponsePacket::Deserialize(data);
 
     UE_LOG(LogTemp, Log, TEXT("Received Inventory Response: PlayerSeq=%d, ItemCount=%d"), packet.playerSeq, packet.itemCount);
     for (const auto& item : packet.items) {
         UE_LOG(LogTemp, Log, TEXT("ItemSeq=%d, ItemValue=%d, ItemMax=%d,  ItemId=%d, ItemSlotIdx=%d"),
             item.itemSeq, item.itemValue, item.itemMax,  item.itemId, item.itemSlotIdx);
         break;
-    }
+    }*/
 }
 
 
 
+void AGameClient::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    Super::EndPlay(EndPlayReason);
+
+    if (networkReceiver)
+    {
+        networkReceiver->Stop();
+        Thread->WaitForCompletion();
+        delete networkReceiver;
+        networkReceiver = nullptr;
+    }
+
+    if (socket)
+    {
+        socket->Close();
+        ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(socket);
+    }
+}

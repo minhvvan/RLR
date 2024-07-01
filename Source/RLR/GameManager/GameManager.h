@@ -68,3 +68,4 @@ private:
 	UPROPERTY();
 	TObjectPtr<UGameOptionData> GameOptionData;
 };
+extern  UGameManager* GameInstance;
