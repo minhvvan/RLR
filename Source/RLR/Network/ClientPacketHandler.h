@@ -6,7 +6,6 @@
 #include <memory>
 #include "Buffer.h"
 class PacketSession;
-struct PacketHeader;
 
 using PacketHandlerFunc = bool(*)(TSharedPtr<PacketSession>&, uint8*, int32);
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -27,6 +26,10 @@ enum : uint16
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1010,
     PKT_INVENTORY_RESPONSE = 1011,
+    // Add move packet types
+    PKT_MOVE_REQUEST = 1012,
+    PKT_MOVE_RESPONSE = 1013,
+    PKT_MOVE_BROADCAST = 1014
 };
 
 // Custom Handlers
@@ -44,6 +47,26 @@ bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemU
 // Inventory Handlers
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt);
 
+// Move Handlers
+bool Handle_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MoveRequestPacket& pkt);
+bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt);
+bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt);
+struct PacketHeader
+{
+    uint16 size;
+    uint16 id; // ��������ID (ex. 1=�α���, 2=�̵���û)
+};
+class PacketSession : public TSharedFromThis<PacketSession>
+{
+public:
+    PacketSession();
+    virtual ~PacketSession();
+
+
+protected:
+    virtual int32 OnRecv(uint8* buffer, int32 len);
+    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
+};
 class ClientPacketHandler
 {
 public:
@@ -59,6 +82,8 @@ public:
     // Add inventory make send buffer
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
 
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveBroadcastPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_BROADCAST); }
 public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
@@ -88,20 +113,4 @@ public:
     }
 };
 
-struct PacketHeader
-{
-    uint16 size;
-    uint16 id; // ��������ID (ex. 1=�α���, 2=�̵���û)
-};
 
-class PacketSession : public TSharedFromThis<PacketSession>
-{
-public:
-    PacketSession();
-    virtual ~PacketSession();
- 
-    
-protected:
-    virtual int32 OnRecv(uint8* buffer, int32 len);
-    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
-};

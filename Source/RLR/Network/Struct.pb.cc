@@ -147,6 +147,8 @@ PROTOBUF_CONSTEXPR UserTotalStatus::UserTotalStatus(
   , /*decltype(_impl_.userstrength_)*/0
   , /*decltype(_impl_.useragility_)*/0
   , /*decltype(_impl_.userintelligence_)*/0
+  , /*decltype(_impl_.usermaxhp_)*/0
+  , /*decltype(_impl_.usermaxmp_)*/0
   , /*decltype(_impl_.userattack_)*/0
   , /*decltype(_impl_.userdefence_)*/0
   , /*decltype(_impl_.userattackspeed_)*/0
@@ -329,6 +331,8 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.userstrength_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.useragility_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.userintelligence_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.usermaxhp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.usermaxmp_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.userattack_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.userdefence_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserTotalStatus, _impl_.userattackspeed_),
@@ -390,9 +394,9 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 64, -1, -1, sizeof(::Protocol::EtcItem)},
   { 72, -1, -1, sizeof(::Protocol::UserSetStatus)},
   { 83, -1, -1, sizeof(::Protocol::UserTotalStatus)},
-  { 104, -1, -1, sizeof(::Protocol::UserCharacter)},
-  { 126, -1, -1, sizeof(::Protocol::UserPosition)},
-  { 136, -1, -1, sizeof(::Protocol::Skill)},
+  { 106, -1, -1, sizeof(::Protocol::UserCharacter)},
+  { 128, -1, -1, sizeof(::Protocol::UserPosition)},
+  { 138, -1, -1, sizeof(::Protocol::Skill)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -434,34 +438,35 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\004base\030\001 \001(\0132\016.Protocol.Item\022\017\n\007etcType\030\002"
   " \001(\005\"b\n\rUserSetStatus\022\016\n\006userHp\030\001 \001(\005\022\016\n"
   "\006userMp\030\002 \001(\005\022\017\n\007userStr\030\003 \001(\005\022\017\n\007userAg"
-  "i\030\004 \001(\005\022\017\n\007userInt\030\005 \001(\005\"\345\002\n\017UserTotalSt"
+  "i\030\004 \001(\005\022\017\n\007userInt\030\005 \001(\005\"\213\003\n\017UserTotalSt"
   "atus\022\016\n\006userHp\030\001 \001(\002\022\024\n\014userHpAbsorb\030\002 \001"
   "(\002\022\016\n\006userMp\030\003 \001(\002\022\024\n\014userMpAbsorb\030\004 \001(\002"
   "\022\024\n\014userStrength\030\005 \001(\005\022\023\n\013userAgility\030\006 "
-  "\001(\005\022\030\n\020userIntelligence\030\007 \001(\005\022\022\n\nuserAtt"
-  "ack\030\010 \001(\002\022\023\n\013userDefence\030\t \001(\002\022\027\n\017userAt"
-  "tackSpeed\030\n \001(\002\022\025\n\ruserMoveSpeed\030\013 \001(\002\022\032"
-  "\n\022userCriticalChance\030\014 \001(\002\022\032\n\022userCritic"
-  "alDamage\030\r \001(\002\022\021\n\tuserAvoid\030\016 \001(\002\022\035\n\025use"
-  "rCooldownReduction\030\017 \001(\002\"\336\002\n\rUserCharact"
-  "er\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014"
-  "\n\004name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityR"
-  "ank\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001"
-  "(\005\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022"
-  "\016\n\006transX\030\n \001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006trans"
-  "Z\030\014 \001(\002\022\021\n\tmapTransX\030\r \001(\002\022\021\n\tmapTransY\030"
-  "\016 \001(\002\022*\n\tsetStatus\030\017 \001(\0132\027.Protocol.User"
-  "SetStatus\022.\n\013totalStatus\030\020 \001(\0132\031.Protoco"
-  "l.UserTotalStatus\"I\n\014UserPosition\022\017\n\007use"
-  "rSeq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014"
-  "\n\004posZ\030\004 \001(\002\"s\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022"
-  "\r\n\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007use"
-  "rSeq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \001(\r\022\022\n\ntargetT"
-  "ype\030\006 \001(\tb\006proto3"
+  "\001(\005\022\030\n\020userIntelligence\030\007 \001(\005\022\021\n\tuserMax"
+  "Hp\030\010 \001(\002\022\021\n\tuserMaxMp\030\t \001(\002\022\022\n\nuserAttac"
+  "k\030\n \001(\002\022\023\n\013userDefence\030\013 \001(\002\022\027\n\017userAtta"
+  "ckSpeed\030\014 \001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022"
+  "userCriticalChance\030\016 \001(\002\022\032\n\022userCritical"
+  "Damage\030\017 \001(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userC"
+  "ooldownReduction\030\021 \001(\002\"\336\002\n\rUserCharacter"
+  "\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004"
+  "name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRan"
+  "k\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005"
+  "\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\016\n"
+  "\006transX\030\n \001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006transZ\030"
+  "\014 \001(\002\022\021\n\tmapTransX\030\r \001(\005\022\021\n\tmapTransY\030\016 "
+  "\001(\005\022*\n\tsetStatus\030\017 \001(\0132\027.Protocol.UserSe"
+  "tStatus\022.\n\013totalStatus\030\020 \001(\0132\031.Protocol."
+  "UserTotalStatus\"I\n\014UserPosition\022\017\n\007userS"
+  "eq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n\004"
+  "posZ\030\004 \001(\002\"s\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022\r\n"
+  "\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007userS"
+  "eq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \001(\r\022\022\n\ntargetTyp"
+  "e\030\006 \001(\tb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 1937, descriptor_table_protodef_Struct_2eproto,
+    false, false, 1975, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, nullptr, 0, 10,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2985,6 +2990,8 @@ UserTotalStatus::UserTotalStatus(const UserTotalStatus& from)
     , decltype(_impl_.userstrength_){}
     , decltype(_impl_.useragility_){}
     , decltype(_impl_.userintelligence_){}
+    , decltype(_impl_.usermaxhp_){}
+    , decltype(_impl_.usermaxmp_){}
     , decltype(_impl_.userattack_){}
     , decltype(_impl_.userdefence_){}
     , decltype(_impl_.userattackspeed_){}
@@ -3014,6 +3021,8 @@ inline void UserTotalStatus::SharedCtor(
     , decltype(_impl_.userstrength_){0}
     , decltype(_impl_.useragility_){0}
     , decltype(_impl_.userintelligence_){0}
+    , decltype(_impl_.usermaxhp_){0}
+    , decltype(_impl_.usermaxmp_){0}
     , decltype(_impl_.userattack_){0}
     , decltype(_impl_.userdefence_){0}
     , decltype(_impl_.userattackspeed_){0}
@@ -3117,65 +3126,81 @@ const char* UserTotalStatus::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // float userAttack = 8;
+      // float userMaxHp = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
+          _impl_.usermaxhp_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float userMaxMp = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 77)) {
+          _impl_.usermaxmp_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float userAttack = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 85)) {
           _impl_.userattack_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userDefence = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 77)) {
+      // float userDefence = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 93)) {
           _impl_.userdefence_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userAttackSpeed = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 85)) {
+      // float userAttackSpeed = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
           _impl_.userattackspeed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userMoveSpeed = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 93)) {
+      // float userMoveSpeed = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
           _impl_.usermovespeed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userCriticalChance = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
+      // float userCriticalChance = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
           _impl_.usercriticalchance_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userCriticalDamage = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
+      // float userCriticalDamage = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
           _impl_.usercriticaldamage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userAvoid = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
+      // float userAvoid = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 133)) {
           _impl_.useravoid_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float userCooldownReduction = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
+      // float userCooldownReduction = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 141)) {
           _impl_.usercooldownreduction_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
@@ -3268,84 +3293,104 @@ uint8_t* UserTotalStatus::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_userintelligence(), target);
   }
 
-  // float userAttack = 8;
+  // float userMaxHp = 8;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxhp = this->_internal_usermaxhp();
+  uint32_t raw_usermaxhp;
+  memcpy(&raw_usermaxhp, &tmp_usermaxhp, sizeof(tmp_usermaxhp));
+  if (raw_usermaxhp != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(8, this->_internal_usermaxhp(), target);
+  }
+
+  // float userMaxMp = 9;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxmp = this->_internal_usermaxmp();
+  uint32_t raw_usermaxmp;
+  memcpy(&raw_usermaxmp, &tmp_usermaxmp, sizeof(tmp_usermaxmp));
+  if (raw_usermaxmp != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(9, this->_internal_usermaxmp(), target);
+  }
+
+  // float userAttack = 10;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userattack = this->_internal_userattack();
   uint32_t raw_userattack;
   memcpy(&raw_userattack, &tmp_userattack, sizeof(tmp_userattack));
   if (raw_userattack != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(8, this->_internal_userattack(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(10, this->_internal_userattack(), target);
   }
 
-  // float userDefence = 9;
+  // float userDefence = 11;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userdefence = this->_internal_userdefence();
   uint32_t raw_userdefence;
   memcpy(&raw_userdefence, &tmp_userdefence, sizeof(tmp_userdefence));
   if (raw_userdefence != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(9, this->_internal_userdefence(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(11, this->_internal_userdefence(), target);
   }
 
-  // float userAttackSpeed = 10;
+  // float userAttackSpeed = 12;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userattackspeed = this->_internal_userattackspeed();
   uint32_t raw_userattackspeed;
   memcpy(&raw_userattackspeed, &tmp_userattackspeed, sizeof(tmp_userattackspeed));
   if (raw_userattackspeed != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(10, this->_internal_userattackspeed(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(12, this->_internal_userattackspeed(), target);
   }
 
-  // float userMoveSpeed = 11;
+  // float userMoveSpeed = 13;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usermovespeed = this->_internal_usermovespeed();
   uint32_t raw_usermovespeed;
   memcpy(&raw_usermovespeed, &tmp_usermovespeed, sizeof(tmp_usermovespeed));
   if (raw_usermovespeed != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(11, this->_internal_usermovespeed(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(13, this->_internal_usermovespeed(), target);
   }
 
-  // float userCriticalChance = 12;
+  // float userCriticalChance = 14;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercriticalchance = this->_internal_usercriticalchance();
   uint32_t raw_usercriticalchance;
   memcpy(&raw_usercriticalchance, &tmp_usercriticalchance, sizeof(tmp_usercriticalchance));
   if (raw_usercriticalchance != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(12, this->_internal_usercriticalchance(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(14, this->_internal_usercriticalchance(), target);
   }
 
-  // float userCriticalDamage = 13;
+  // float userCriticalDamage = 15;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercriticaldamage = this->_internal_usercriticaldamage();
   uint32_t raw_usercriticaldamage;
   memcpy(&raw_usercriticaldamage, &tmp_usercriticaldamage, sizeof(tmp_usercriticaldamage));
   if (raw_usercriticaldamage != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(13, this->_internal_usercriticaldamage(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(15, this->_internal_usercriticaldamage(), target);
   }
 
-  // float userAvoid = 14;
+  // float userAvoid = 16;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_useravoid = this->_internal_useravoid();
   uint32_t raw_useravoid;
   memcpy(&raw_useravoid, &tmp_useravoid, sizeof(tmp_useravoid));
   if (raw_useravoid != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(14, this->_internal_useravoid(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(16, this->_internal_useravoid(), target);
   }
 
-  // float userCooldownReduction = 15;
+  // float userCooldownReduction = 17;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercooldownreduction = this->_internal_usercooldownreduction();
   uint32_t raw_usercooldownreduction;
   memcpy(&raw_usercooldownreduction, &tmp_usercooldownreduction, sizeof(tmp_usercooldownreduction));
   if (raw_usercooldownreduction != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(15, this->_internal_usercooldownreduction(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(17, this->_internal_usercooldownreduction(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3415,7 +3460,25 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userintelligence());
   }
 
-  // float userAttack = 8;
+  // float userMaxHp = 8;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxhp = this->_internal_usermaxhp();
+  uint32_t raw_usermaxhp;
+  memcpy(&raw_usermaxhp, &tmp_usermaxhp, sizeof(tmp_usermaxhp));
+  if (raw_usermaxhp != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float userMaxMp = 9;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxmp = this->_internal_usermaxmp();
+  uint32_t raw_usermaxmp;
+  memcpy(&raw_usermaxmp, &tmp_usermaxmp, sizeof(tmp_usermaxmp));
+  if (raw_usermaxmp != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float userAttack = 10;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userattack = this->_internal_userattack();
   uint32_t raw_userattack;
@@ -3424,7 +3487,7 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userDefence = 9;
+  // float userDefence = 11;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userdefence = this->_internal_userdefence();
   uint32_t raw_userdefence;
@@ -3433,7 +3496,7 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userAttackSpeed = 10;
+  // float userAttackSpeed = 12;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userattackspeed = this->_internal_userattackspeed();
   uint32_t raw_userattackspeed;
@@ -3442,7 +3505,7 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userMoveSpeed = 11;
+  // float userMoveSpeed = 13;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usermovespeed = this->_internal_usermovespeed();
   uint32_t raw_usermovespeed;
@@ -3451,7 +3514,7 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userCriticalChance = 12;
+  // float userCriticalChance = 14;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercriticalchance = this->_internal_usercriticalchance();
   uint32_t raw_usercriticalchance;
@@ -3460,7 +3523,7 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userCriticalDamage = 13;
+  // float userCriticalDamage = 15;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercriticaldamage = this->_internal_usercriticaldamage();
   uint32_t raw_usercriticaldamage;
@@ -3469,22 +3532,22 @@ size_t UserTotalStatus::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float userAvoid = 14;
+  // float userAvoid = 16;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_useravoid = this->_internal_useravoid();
   uint32_t raw_useravoid;
   memcpy(&raw_useravoid, &tmp_useravoid, sizeof(tmp_useravoid));
   if (raw_useravoid != 0) {
-    total_size += 1 + 4;
+    total_size += 2 + 4;
   }
 
-  // float userCooldownReduction = 15;
+  // float userCooldownReduction = 17;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_usercooldownreduction = this->_internal_usercooldownreduction();
   uint32_t raw_usercooldownreduction;
   memcpy(&raw_usercooldownreduction, &tmp_usercooldownreduction, sizeof(tmp_usercooldownreduction));
   if (raw_usercooldownreduction != 0) {
-    total_size += 1 + 4;
+    total_size += 2 + 4;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -3541,6 +3604,20 @@ void UserTotalStatus::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   }
   if (from._internal_userintelligence() != 0) {
     _this->_internal_set_userintelligence(from._internal_userintelligence());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxhp = from._internal_usermaxhp();
+  uint32_t raw_usermaxhp;
+  memcpy(&raw_usermaxhp, &tmp_usermaxhp, sizeof(tmp_usermaxhp));
+  if (raw_usermaxhp != 0) {
+    _this->_internal_set_usermaxhp(from._internal_usermaxhp());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_usermaxmp = from._internal_usermaxmp();
+  uint32_t raw_usermaxmp;
+  memcpy(&raw_usermaxmp, &tmp_usermaxmp, sizeof(tmp_usermaxmp));
+  if (raw_usermaxmp != 0) {
+    _this->_internal_set_usermaxmp(from._internal_usermaxmp());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_userattack = from._internal_userattack();
@@ -3868,19 +3945,19 @@ const char* UserCharacter::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // float mapTransX = 13;
+      // int32 mapTransX = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
-          _impl_.maptransx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _impl_.maptransx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // float mapTransY = 14;
+      // int32 mapTransY = 14;
       case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
-          _impl_.maptransy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          _impl_.maptransy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -4017,24 +4094,16 @@ uint8_t* UserCharacter::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(12, this->_internal_transz(), target);
   }
 
-  // float mapTransX = 13;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransx = this->_internal_maptransx();
-  uint32_t raw_maptransx;
-  memcpy(&raw_maptransx, &tmp_maptransx, sizeof(tmp_maptransx));
-  if (raw_maptransx != 0) {
+  // int32 mapTransX = 13;
+  if (this->_internal_maptransx() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(13, this->_internal_maptransx(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(13, this->_internal_maptransx(), target);
   }
 
-  // float mapTransY = 14;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransy = this->_internal_maptransy();
-  uint32_t raw_maptransy;
-  memcpy(&raw_maptransy, &tmp_maptransy, sizeof(tmp_maptransy));
-  if (raw_maptransy != 0) {
+  // int32 mapTransY = 14;
+  if (this->_internal_maptransy() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(14, this->_internal_maptransy(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(14, this->_internal_maptransy(), target);
   }
 
   // .Protocol.UserSetStatus setStatus = 15;
@@ -4155,22 +4224,14 @@ size_t UserCharacter::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float mapTransX = 13;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransx = this->_internal_maptransx();
-  uint32_t raw_maptransx;
-  memcpy(&raw_maptransx, &tmp_maptransx, sizeof(tmp_maptransx));
-  if (raw_maptransx != 0) {
-    total_size += 1 + 4;
+  // int32 mapTransX = 13;
+  if (this->_internal_maptransx() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_maptransx());
   }
 
-  // float mapTransY = 14;
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransy = this->_internal_maptransy();
-  uint32_t raw_maptransy;
-  memcpy(&raw_maptransy, &tmp_maptransy, sizeof(tmp_maptransy));
-  if (raw_maptransy != 0) {
-    total_size += 1 + 4;
+  // int32 mapTransY = 14;
+  if (this->_internal_maptransy() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_maptransy());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4247,18 +4308,10 @@ void UserCharacter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (raw_transz != 0) {
     _this->_internal_set_transz(from._internal_transz());
   }
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransx = from._internal_maptransx();
-  uint32_t raw_maptransx;
-  memcpy(&raw_maptransx, &tmp_maptransx, sizeof(tmp_maptransx));
-  if (raw_maptransx != 0) {
+  if (from._internal_maptransx() != 0) {
     _this->_internal_set_maptransx(from._internal_maptransx());
   }
-  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_maptransy = from._internal_maptransy();
-  uint32_t raw_maptransy;
-  memcpy(&raw_maptransy, &tmp_maptransy, sizeof(tmp_maptransy));
-  if (raw_maptransy != 0) {
+  if (from._internal_maptransy() != 0) {
     _this->_internal_set_maptransy(from._internal_maptransy());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);

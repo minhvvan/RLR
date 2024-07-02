@@ -1638,14 +1638,16 @@ class UserTotalStatus final :
     kUserStrengthFieldNumber = 5,
     kUserAgilityFieldNumber = 6,
     kUserIntelligenceFieldNumber = 7,
-    kUserAttackFieldNumber = 8,
-    kUserDefenceFieldNumber = 9,
-    kUserAttackSpeedFieldNumber = 10,
-    kUserMoveSpeedFieldNumber = 11,
-    kUserCriticalChanceFieldNumber = 12,
-    kUserCriticalDamageFieldNumber = 13,
-    kUserAvoidFieldNumber = 14,
-    kUserCooldownReductionFieldNumber = 15,
+    kUserMaxHpFieldNumber = 8,
+    kUserMaxMpFieldNumber = 9,
+    kUserAttackFieldNumber = 10,
+    kUserDefenceFieldNumber = 11,
+    kUserAttackSpeedFieldNumber = 12,
+    kUserMoveSpeedFieldNumber = 13,
+    kUserCriticalChanceFieldNumber = 14,
+    kUserCriticalDamageFieldNumber = 15,
+    kUserAvoidFieldNumber = 16,
+    kUserCooldownReductionFieldNumber = 17,
   };
   // float userHp = 1;
   void clear_userhp();
@@ -1710,7 +1712,25 @@ class UserTotalStatus final :
   void _internal_set_userintelligence(int32_t value);
   public:
 
-  // float userAttack = 8;
+  // float userMaxHp = 8;
+  void clear_usermaxhp();
+  float usermaxhp() const;
+  void set_usermaxhp(float value);
+  private:
+  float _internal_usermaxhp() const;
+  void _internal_set_usermaxhp(float value);
+  public:
+
+  // float userMaxMp = 9;
+  void clear_usermaxmp();
+  float usermaxmp() const;
+  void set_usermaxmp(float value);
+  private:
+  float _internal_usermaxmp() const;
+  void _internal_set_usermaxmp(float value);
+  public:
+
+  // float userAttack = 10;
   void clear_userattack();
   float userattack() const;
   void set_userattack(float value);
@@ -1719,7 +1739,7 @@ class UserTotalStatus final :
   void _internal_set_userattack(float value);
   public:
 
-  // float userDefence = 9;
+  // float userDefence = 11;
   void clear_userdefence();
   float userdefence() const;
   void set_userdefence(float value);
@@ -1728,7 +1748,7 @@ class UserTotalStatus final :
   void _internal_set_userdefence(float value);
   public:
 
-  // float userAttackSpeed = 10;
+  // float userAttackSpeed = 12;
   void clear_userattackspeed();
   float userattackspeed() const;
   void set_userattackspeed(float value);
@@ -1737,7 +1757,7 @@ class UserTotalStatus final :
   void _internal_set_userattackspeed(float value);
   public:
 
-  // float userMoveSpeed = 11;
+  // float userMoveSpeed = 13;
   void clear_usermovespeed();
   float usermovespeed() const;
   void set_usermovespeed(float value);
@@ -1746,7 +1766,7 @@ class UserTotalStatus final :
   void _internal_set_usermovespeed(float value);
   public:
 
-  // float userCriticalChance = 12;
+  // float userCriticalChance = 14;
   void clear_usercriticalchance();
   float usercriticalchance() const;
   void set_usercriticalchance(float value);
@@ -1755,7 +1775,7 @@ class UserTotalStatus final :
   void _internal_set_usercriticalchance(float value);
   public:
 
-  // float userCriticalDamage = 13;
+  // float userCriticalDamage = 15;
   void clear_usercriticaldamage();
   float usercriticaldamage() const;
   void set_usercriticaldamage(float value);
@@ -1764,7 +1784,7 @@ class UserTotalStatus final :
   void _internal_set_usercriticaldamage(float value);
   public:
 
-  // float userAvoid = 14;
+  // float userAvoid = 16;
   void clear_useravoid();
   float useravoid() const;
   void set_useravoid(float value);
@@ -1773,7 +1793,7 @@ class UserTotalStatus final :
   void _internal_set_useravoid(float value);
   public:
 
-  // float userCooldownReduction = 15;
+  // float userCooldownReduction = 17;
   void clear_usercooldownreduction();
   float usercooldownreduction() const;
   void set_usercooldownreduction(float value);
@@ -1797,6 +1817,8 @@ class UserTotalStatus final :
     int32_t userstrength_;
     int32_t useragility_;
     int32_t userintelligence_;
+    float usermaxhp_;
+    float usermaxmp_;
     float userattack_;
     float userdefence_;
     float userattackspeed_;
@@ -2099,22 +2121,22 @@ class UserCharacter final :
   void _internal_set_transz(float value);
   public:
 
-  // float mapTransX = 13;
+  // int32 mapTransX = 13;
   void clear_maptransx();
-  float maptransx() const;
-  void set_maptransx(float value);
+  int32_t maptransx() const;
+  void set_maptransx(int32_t value);
   private:
-  float _internal_maptransx() const;
-  void _internal_set_maptransx(float value);
+  int32_t _internal_maptransx() const;
+  void _internal_set_maptransx(int32_t value);
   public:
 
-  // float mapTransY = 14;
+  // int32 mapTransY = 14;
   void clear_maptransy();
-  float maptransy() const;
-  void set_maptransy(float value);
+  int32_t maptransy() const;
+  void set_maptransy(int32_t value);
   private:
-  float _internal_maptransy() const;
-  void _internal_set_maptransy(float value);
+  int32_t _internal_maptransy() const;
+  void _internal_set_maptransy(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.UserCharacter)
@@ -2139,8 +2161,8 @@ class UserCharacter final :
     float transx_;
     float transy_;
     float transz_;
-    float maptransx_;
-    float maptransy_;
+    int32_t maptransx_;
+    int32_t maptransy_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4101,7 +4123,47 @@ inline void UserTotalStatus::set_userintelligence(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userIntelligence)
 }
 
-// float userAttack = 8;
+// float userMaxHp = 8;
+inline void UserTotalStatus::clear_usermaxhp() {
+  _impl_.usermaxhp_ = 0;
+}
+inline float UserTotalStatus::_internal_usermaxhp() const {
+  return _impl_.usermaxhp_;
+}
+inline float UserTotalStatus::usermaxhp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userMaxHp)
+  return _internal_usermaxhp();
+}
+inline void UserTotalStatus::_internal_set_usermaxhp(float value) {
+  
+  _impl_.usermaxhp_ = value;
+}
+inline void UserTotalStatus::set_usermaxhp(float value) {
+  _internal_set_usermaxhp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMaxHp)
+}
+
+// float userMaxMp = 9;
+inline void UserTotalStatus::clear_usermaxmp() {
+  _impl_.usermaxmp_ = 0;
+}
+inline float UserTotalStatus::_internal_usermaxmp() const {
+  return _impl_.usermaxmp_;
+}
+inline float UserTotalStatus::usermaxmp() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserTotalStatus.userMaxMp)
+  return _internal_usermaxmp();
+}
+inline void UserTotalStatus::_internal_set_usermaxmp(float value) {
+  
+  _impl_.usermaxmp_ = value;
+}
+inline void UserTotalStatus::set_usermaxmp(float value) {
+  _internal_set_usermaxmp(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMaxMp)
+}
+
+// float userAttack = 10;
 inline void UserTotalStatus::clear_userattack() {
   _impl_.userattack_ = 0;
 }
@@ -4121,7 +4183,7 @@ inline void UserTotalStatus::set_userattack(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAttack)
 }
 
-// float userDefence = 9;
+// float userDefence = 11;
 inline void UserTotalStatus::clear_userdefence() {
   _impl_.userdefence_ = 0;
 }
@@ -4141,7 +4203,7 @@ inline void UserTotalStatus::set_userdefence(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userDefence)
 }
 
-// float userAttackSpeed = 10;
+// float userAttackSpeed = 12;
 inline void UserTotalStatus::clear_userattackspeed() {
   _impl_.userattackspeed_ = 0;
 }
@@ -4161,7 +4223,7 @@ inline void UserTotalStatus::set_userattackspeed(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAttackSpeed)
 }
 
-// float userMoveSpeed = 11;
+// float userMoveSpeed = 13;
 inline void UserTotalStatus::clear_usermovespeed() {
   _impl_.usermovespeed_ = 0;
 }
@@ -4181,7 +4243,7 @@ inline void UserTotalStatus::set_usermovespeed(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userMoveSpeed)
 }
 
-// float userCriticalChance = 12;
+// float userCriticalChance = 14;
 inline void UserTotalStatus::clear_usercriticalchance() {
   _impl_.usercriticalchance_ = 0;
 }
@@ -4201,7 +4263,7 @@ inline void UserTotalStatus::set_usercriticalchance(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userCriticalChance)
 }
 
-// float userCriticalDamage = 13;
+// float userCriticalDamage = 15;
 inline void UserTotalStatus::clear_usercriticaldamage() {
   _impl_.usercriticaldamage_ = 0;
 }
@@ -4221,7 +4283,7 @@ inline void UserTotalStatus::set_usercriticaldamage(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userCriticalDamage)
 }
 
-// float userAvoid = 14;
+// float userAvoid = 16;
 inline void UserTotalStatus::clear_useravoid() {
   _impl_.useravoid_ = 0;
 }
@@ -4241,7 +4303,7 @@ inline void UserTotalStatus::set_useravoid(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserTotalStatus.userAvoid)
 }
 
-// float userCooldownReduction = 15;
+// float userCooldownReduction = 17;
 inline void UserTotalStatus::clear_usercooldownreduction() {
   _impl_.usercooldownreduction_ = 0;
 }
@@ -4535,42 +4597,42 @@ inline void UserCharacter::set_transz(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserCharacter.transZ)
 }
 
-// float mapTransX = 13;
+// int32 mapTransX = 13;
 inline void UserCharacter::clear_maptransx() {
   _impl_.maptransx_ = 0;
 }
-inline float UserCharacter::_internal_maptransx() const {
+inline int32_t UserCharacter::_internal_maptransx() const {
   return _impl_.maptransx_;
 }
-inline float UserCharacter::maptransx() const {
+inline int32_t UserCharacter::maptransx() const {
   // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransX)
   return _internal_maptransx();
 }
-inline void UserCharacter::_internal_set_maptransx(float value) {
+inline void UserCharacter::_internal_set_maptransx(int32_t value) {
   
   _impl_.maptransx_ = value;
 }
-inline void UserCharacter::set_maptransx(float value) {
+inline void UserCharacter::set_maptransx(int32_t value) {
   _internal_set_maptransx(value);
   // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransX)
 }
 
-// float mapTransY = 14;
+// int32 mapTransY = 14;
 inline void UserCharacter::clear_maptransy() {
   _impl_.maptransy_ = 0;
 }
-inline float UserCharacter::_internal_maptransy() const {
+inline int32_t UserCharacter::_internal_maptransy() const {
   return _impl_.maptransy_;
 }
-inline float UserCharacter::maptransy() const {
+inline int32_t UserCharacter::maptransy() const {
   // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransY)
   return _internal_maptransy();
 }
-inline void UserCharacter::_internal_set_maptransy(float value) {
+inline void UserCharacter::_internal_set_maptransy(int32_t value) {
   
   _impl_.maptransy_ = value;
 }
-inline void UserCharacter::set_maptransy(float value) {
+inline void UserCharacter::set_maptransy(int32_t value) {
   _internal_set_maptransy(value);
   // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransY)
 }

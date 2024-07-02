@@ -36,7 +36,8 @@ bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemA
 
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
     
-    pkt.usercharacter().setstatus().userhp();
+    UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
+    UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
     return true;
 }
 bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
@@ -62,7 +63,17 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
     
     return true;
 }
-
+bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt) {
+    return true;
+}
+bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt) {
+    // TODO : OTHERUSERMAGER 연결하여 다른 유저의 위치 연동
+    UE_LOG(LogTemp, Log, TEXT("User seq : %d"), pkt.userseq());
+    UE_LOG(LogTemp, Log, TEXT("User Trans X : %d"), pkt.transx());
+    UE_LOG(LogTemp, Log, TEXT("User Trans Y : %d"), pkt.transy());
+    UE_LOG(LogTemp, Log, TEXT("User Trans Z : %d"), pkt.transz());
+    return true;
+}
 void ClientPacketHandler::Init()
 {
     for (int32 i = 0; i < UINT16_MAX; i++)
@@ -97,6 +108,14 @@ void ClientPacketHandler::Init()
     GPacketHandler[PKT_INVENTORY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::InventoryResponsePacket>(&Handle_INVENTORY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_MOVE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MoveResponsePacket>(&Handle_MOVE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_MOVE_BROADCAST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MoveBroadcastPacket>(&Handle_MOVE_BROADCAST, session, buffer, len);
         };
 }
 

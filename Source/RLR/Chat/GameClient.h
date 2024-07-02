@@ -31,8 +31,9 @@ public:
     virtual void Tick(float DeltaTime) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     bool SendLoginPacket(const FString& playerId);
-    bool SendMovePacket(int32 playerSeq, float NewX, float NewY);
-    bool SendInventoryPacket(int32 playerSeq);
+    bool SendMovePacket(int32 userSeq, float NewX, float NewY, float NewZ);
+    bool SendStatusPacket(int32 userSeq);
+    bool SendInventoryPacket(int32 userSeq);
     void CloseConnection();
     bool InitializeSocket(const FString& serverAddress, int32 port);
     bool ReceiveData(uint8* buffer, int32 bufferSize);
