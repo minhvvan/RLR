@@ -7,6 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "ActionSystemComponent.generated.h"
 
+class UAction;
+
 USTRUCT(Atomic, BlueprintType)
 struct FGameplayTagCountContainer
 {
@@ -132,6 +134,23 @@ private:
 	TMap<FGameplayTag, int> GameplayTagCountMap;
 };
 
+USTRUCT(Atomic, BlueprintType)
+struct FActionSpec
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	TSubclassOf<UAction> Ability;
+
+	/** What level to grant this ability at */
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	float Level;
+
+	/** Input ID to bind this ability to */
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	int32 InputID;
+};
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RLR_API UActionSystemComponent : public UActorComponent
@@ -153,9 +172,9 @@ public:
 	void InitActorInfo(AActor* Owner, AActor* Avatar);
 
 	//	//Action
-	//	void GiveAction(FGameplayTag Tag, TSubclassOf<class AAction> Action);
-	//	void RemoveAction(FGameplayTag Tag);
-	//	void TryActivateAction(FGameplayTag Tag);
+	//void GiveAction(FGameplayTag Tag, FActionSpec Spec);
+	//void RemoveAction(FGameplayTag Tag);
+	//void TryActivateAction(FGameplayTag Tag);
 
 private:
 	//TODO: ActorInfo struct로 관리 필요

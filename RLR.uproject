@@ -11,7 +11,8 @@
 			"AdditionalDependencies": [
 				"Engine",
 				"MariaDBConnection",
-				"UMG"
+				"UMG",
+				"CoreUObject"
 			]
 		}
 	],
