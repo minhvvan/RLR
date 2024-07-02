@@ -3,6 +3,7 @@
 
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/Action/Action.h"
 
 void FActionActorInfo::InitFromActor(AActor* Owner, AActor* Avatar, UActionSystemComponent* InASC)
 {
@@ -21,4 +22,11 @@ void FActionActorInfo::ClearActorInfo()
 	OwnerActor = nullptr;
 	AvatarActor = nullptr;
 	ActionSystemComponent = nullptr;
+}
+
+FActionSpec::FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 InInputID)
+	: Action(ActionClass ? ActionClass.GetDefaultObject() : nullptr)
+	, Level(InLevel)
+	, InputID(InInputID)
+{
 }

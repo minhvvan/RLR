@@ -140,19 +140,24 @@ struct RLR_API FActionSpec
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, Category = "Action")
-	TSubclassOf<UAction> Action;
+	FActionSpec()
+		: Action(nullptr), Level(1), InputID(INDEX_NONE)
+	{ }
+
+	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 InInputID);
+
+	UPROPERTY()
+	TObjectPtr<UAction> Action;
 
 	/** What level to grant this ability at */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
-	float Level;
+	int32 Level;
 
 	/** Input ID to bind this ability to */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
 
-protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Action")
 	TArray<TObjectPtr<UAction>> ActionInstances;
 };
 
@@ -179,3 +184,14 @@ public:
 
 	virtual void ClearActorInfo();
 };
+
+UENUM(BlueprintType)
+namespace EActionInstancingPolicy
+{
+	enum Type : int
+	{
+		NonInstanced,
+		InstancedPerActor,
+		InstancedPerExecution,
+	};
+}

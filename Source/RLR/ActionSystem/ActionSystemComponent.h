@@ -26,23 +26,31 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	virtual void InitializeComponent();
+
 	void InitActorInfo(AActor* Owner, AActor* Avatar);
 
 	//	//Action
-	void GiveAction(FGameplayTag Tag, FActionSpec Spec);
+	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
 	void RemoveAction(FGameplayTag Tag);
 	void TryActivateAction(FGameplayTag Tag);
 
-private:
-	//TODO: ActorInfo struct로 관리 필요
-	TObjectPtr<AActor> OwnerActor;
-	TObjectPtr<AActor> AvatarActor;
+	void NotifyActionEnded(UAction* EndedAction);
 
-	//	//Action
+	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);
+
+	FActionActorInfo* GetActionActorInfo();
+
+private:
+	//Actor Info
+	TSharedPtr<FActionActorInfo> ActorInfo;
+
+	//Action
+	UPROPERTY(VisibleAnywhere, Category = Action, meta = (AllowPrivateAccess = "true"))
 	TMap<FGameplayTag, FActionSpec> GrantedActions;
 
 	//Tag
-	UPROPERTY(VisibleAnywhere, Category=Tag, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, Category=Action, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagCountContainer OwnedTags;
 
 public:

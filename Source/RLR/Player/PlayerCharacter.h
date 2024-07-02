@@ -11,8 +11,10 @@
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
 #include "PlayerData.h"
+#include "GameplayTagContainer.h"
 #include "PlayerCharacter.generated.h"
 
+class UAction;
 
 UCLASS()
 class RLR_API APlayerCharacter : public ACharacter
@@ -30,7 +32,7 @@ public:
 	void SetIsAttack(bool value) { bIsAttack = value; };
 	bool IsAttack() { return bIsAttack; };
 
-  int32 GetPlayerSeq() const { return PlayerSeq; }
+	int32 GetPlayerSeq() const { return PlayerSeq; }
 	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 private:
@@ -60,4 +62,11 @@ private:
 
 public:
 	UActionSystemComponent* GetActionSystem();
+
+	//TODO: Ä¸½¶È­ ÇÊ¿ä
+	UPROPERTY(EditAnywhere, Category = Action)
+	TMap<FGameplayTag, TSubclassOf<UAction>> DefaultActions;
+
+protected:
+	virtual void PostInitializeComponents() override;
 };

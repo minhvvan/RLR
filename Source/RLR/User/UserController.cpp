@@ -187,20 +187,13 @@ FVector AUserController::GetClickPosition()
 	return Hit.Location;
 }
 
-void AUserController::OnJump()
+void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 {
-	RLR_LOG(LogRLR, Log, TEXT("OnJump"));
-}
-
-void AUserController::OnAttack()
-{
-	RLR_LOG(LogRLR, Log, TEXT("OnAttack"));
-
-	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	UActionSystemComponent* ASC = Player->GetActionSystem();
 	if (!ASC) return;
 
-	ASC->AddGameplayTag(TagManager.Action_Default_Attack);
+	//DefaultActions의 inputID번째
+	ASC->TryActivateAction(TriggerTag);
 }
 
 void AUserController::OnAttackEffect(int inputID)

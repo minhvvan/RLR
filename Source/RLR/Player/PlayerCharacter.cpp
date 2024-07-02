@@ -44,6 +44,18 @@ UActionSystemComponent* APlayerCharacter::GetActionSystem()
 	return ASC;
 }
 
+void APlayerCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	int inputID = 0;
+	for (auto [Tag, Action] : DefaultActions)
+	{
+		FActionSpec Spec(Action, 1, inputID++);
+		ASC->GiveAction(Tag, Spec);
+	}
+}
+
 // Check Collision Over lap
 // 몬스터, Character, Object
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)

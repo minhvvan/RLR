@@ -9,7 +9,7 @@
 
 class UActionSystemComponent;
 
-UCLASS()
+UCLASS(Blueprintable)
 class RLR_API UAction : public UObject
 {
 	GENERATED_BODY()
@@ -17,15 +17,16 @@ class RLR_API UAction : public UObject
 public:
 	UAction();
 
-protected:
-	//TODO: InstancingPolicy 설정 유무 결정 필요
-	//UPROPERTY(EditDefaultsOnly, Category = Instance)
-	//TEnumAsByte<EGameplayAbilityInstancingPolicy::Type>	InstancingPolicy;
-
 public:
 	void TryActivateAction();
 	virtual void CancelAction();
 	virtual void EndAction();
+
+	void InitCurrentActorInfo();
+	void SetTriggerTag(FGameplayTag Tag);
+	FGameplayTag GetTriggerTag() { return TriggerTag; }
+
+	EActionInstancingPolicy::Type GetInstancingPolicy() const;
 
 protected:
 	virtual void PreActivateAction();
@@ -36,6 +37,9 @@ protected:
 	bool CanEndAction();
 
 protected:
+	UPROPERTY(EditDefaultsOnly, Category = Instance)
+	TEnumAsByte<EActionInstancingPolicy::Type> InstancingPolicy;
+
 	UPROPERTY()
 	bool bIsActive;
 
@@ -45,7 +49,10 @@ protected:
 	UPROPERTY()
 	bool bIsCancelable;
 
-	//mutable const FActionActorInfo* CurrentActorInfo;
+	UPROPERTY(VisibleAnywhere)
+	FGameplayTag TriggerTag;
+
+	mutable const FActionActorInfo* CurrentActorInfo;
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTagContainer ActivationOwnedTags;
