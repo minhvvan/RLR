@@ -2,6 +2,7 @@
 
 
 #include "ActionSystem/ActionSystemComponent.h"
+#include "RLR.h"
 
 // Sets default values for this component's properties
 UActionSystemComponent::UActionSystemComponent()
@@ -36,6 +37,40 @@ void UActionSystemComponent::InitActorInfo(AActor* Owner, AActor* Avatar)
 {
 	OwnerActor = Owner;
 	AvatarActor = Avatar;
+}
+
+void UActionSystemComponent::GiveAction(FGameplayTag Tag, FActionSpec Spec)
+{
+	//Action 추가
+	if (GrantedActions.Contains(Tag))
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Already Exist Action same Tag"));
+		return;
+	}
+
+	GrantedActions.Add(Tag, Spec);
+}
+
+void UActionSystemComponent::RemoveAction(FGameplayTag Tag)
+{
+	//Tag로 Action 제거
+	if (auto Spec = GrantedActions.Find(Tag))
+	{
+		GrantedActions.Remove(Tag);
+	}
+	else
+	{
+		RLR_LOG(LogRLR, Log, TEXT("No Action"));
+	}
+}
+
+void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
+{
+	//Find
+	if (auto Spec = GrantedActions.Find(Tag))
+	{
+		//instancePolicy에 따라 달라짐
+	}
 }
 
 bool UActionSystemComponent::HasMatchingGameplayTag(FGameplayTag TagToCheck) const

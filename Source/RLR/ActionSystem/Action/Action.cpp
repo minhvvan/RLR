@@ -50,19 +50,19 @@ void UAction::EndAction()
 
 	//Task 包府
 
-	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
-	{
-		// Remove tags
-		for (auto RemoveTag : ActivationOwnedTags)
-		{
-			ASC->RemoveGameplayTag(RemoveTag);
-		}
+	//if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	//{
+	//	// Remove tags
+	//	for (auto RemoveTag : ActivationOwnedTags)
+	//	{
+	//		ASC->RemoveGameplayTag(RemoveTag);
+	//	}
 
-		//FX 包府
-		
-		//ASC俊辑 力芭
-		//ASC->NotifyAbilityEnded(Handle, this, bWasCancelled);
-	}
+	//	//FX 包府
+	//	
+	//	//ASC俊辑 力芭
+	//	//ASC->NotifyAbilityEnded(Handle, this, bWasCancelled);
+	//}
 }
 
 bool UAction::CanActivateAction()
