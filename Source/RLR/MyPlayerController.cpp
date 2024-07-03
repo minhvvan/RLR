@@ -112,7 +112,7 @@ void AMyPlayerController::InitializeChatUI(AChatClient* ChatClient2)
     {
 
         UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-        GM->GetUIManager()->OpenMainUI(HUD->MainUIClass);
+       // GM->GetUIManager()->OpenMainUI(HUD->MainUIClass);
         UChatUI* ChatUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatUI();
 
         if (ChatUI)

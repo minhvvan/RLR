@@ -18,6 +18,12 @@ void AInGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM)
+	{
+		GM->GetUIManager()->OpenMainUI(MainUIClass);
+	}
+
 	AMyPlayerController* PC = Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (PC)
 	{
