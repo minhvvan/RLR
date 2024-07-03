@@ -2,6 +2,7 @@
 
 
 #include "ActionSystem/Action/ActionJump.h"
+#include "ActionSystem/ActionSystemComponent.h"
 #include "RLR.h"
 
 UActionJump::UActionJump()
@@ -12,6 +13,9 @@ UActionJump::UActionJump()
 void UActionJump::ActivateAction()
 {
 	RLR_LOG(LogRLR, Log, TEXT("Jump"));
+	auto Avatar = GetAvatarActorFromActorInfo();
+	//TODO: PlayMontageandWait AT ÇÊ¿ä
+
 
 	EndAction();
 }

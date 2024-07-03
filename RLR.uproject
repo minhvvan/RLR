@@ -12,7 +12,8 @@
 				"Engine",
 				"MariaDBConnection",
 				"UMG",
-				"CoreUObject"
+				"CoreUObject",
+				"GameplayTasks"
 			]
 		}
 	],

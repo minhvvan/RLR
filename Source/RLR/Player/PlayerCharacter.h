@@ -63,10 +63,17 @@ private:
 public:
 	UActionSystemComponent* GetActionSystem();
 
-	//TODO: Ä¸½¶È­ ÇÊ¿ä
+
+	//-------------------------------------
+	//Test Code
+	//-------------------------------------
 	UPROPERTY(EditAnywhere, Category = Action)
 	TMap<FGameplayTag, TSubclassOf<UAction>> DefaultActions;
 
+	UPROPERTY(EditAnywhere, Category = Action)
+	UAnimMontage* AttackMontage;
+
 protected:
 	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 };

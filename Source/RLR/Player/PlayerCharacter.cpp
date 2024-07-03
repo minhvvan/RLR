@@ -56,6 +56,11 @@ void APlayerCharacter::PostInitializeComponents()
 	}
 }
 
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 // Check Collision Over lap
 // 몬스터, Character, Object
 void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)

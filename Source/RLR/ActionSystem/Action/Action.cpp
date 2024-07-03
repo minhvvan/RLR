@@ -3,6 +3,7 @@
 
 #include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/ActionTask/ActionTask.h"
 #include "RLR.h"
 
 UAction::UAction() :
@@ -11,6 +12,45 @@ UAction::UAction() :
 	bIsCancelable(false)
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerExecution;
+}
+
+UGameplayTasksComponent* UAction::GetGameplayTasksComponent(const UGameplayTask& Task) const
+{
+	return GetCurrentActorInfo() ? GetCurrentActorInfo()->ActionSystemComponent.Get() : nullptr;
+}
+
+AActor* UAction::GetGameplayTaskOwner(const UGameplayTask* Task) const
+{
+	const FActionActorInfo* Info = GetCurrentActorInfo();
+	return Info ? Info->OwnerActor.Get() : nullptr;
+}
+
+AActor* UAction::GetGameplayTaskAvatar(const UGameplayTask* Task) const
+{
+	const FActionActorInfo* Info = GetCurrentActorInfo();
+	return Info ? Info->AvatarActor.Get() : nullptr;
+}
+
+void UAction::OnGameplayTaskInitialized(UGameplayTask& Task)
+{
+	UActionTask* ActionTask = Cast<UActionTask>(&Task);
+	const FActionActorInfo* ActorInfo = GetCurrentActorInfo();
+
+	if (ActionTask && ActorInfo)
+	{
+		ActionTask->SetActionSystemComponent(ActorInfo->ActionSystemComponent.Get());
+		ActionTask->Action = this;
+	}
+}
+
+void UAction::OnGameplayTaskActivated(UGameplayTask& Task)
+{
+	ActiveTasks.Add(&Task);
+}
+
+void UAction::OnGameplayTaskDeactivated(UGameplayTask& Task)
+{
+	ActiveTasks.Remove(&Task);
 }
 
 void UAction::TryActivateAction()
@@ -37,6 +77,11 @@ void UAction::ActivateAction()
 void UAction::CancelAction()
 {
 	if (!bIsCancelable) return;
+
+	if (OnGameplayAbilityCancelled.IsBound())
+	{
+		OnGameplayAbilityCancelled.Broadcast();
+	}
 
 	EndAction();
 }
@@ -81,6 +126,11 @@ void UAction::InitCurrentActorInfo()
 	}
 }
 
+const FActionActorInfo* UAction::GetCurrentActorInfo() const
+{
+	return CurrentActorInfo;
+}
+
 void UAction::SetTriggerTag(FGameplayTag Tag)
 {
 	TriggerTag = Tag;
@@ -108,4 +158,32 @@ bool UAction::CanEndAction()
 	}
 
 	return true;
+}
+
+UActionSystemComponent* UAction::GetASCFromActorInfo()
+{
+	if (!ensure(CurrentActorInfo))
+	{
+		return nullptr;
+	}
+	return CurrentActorInfo->ActionSystemComponent.Get();
+}
+
+AActor* UAction::GetAvatarActorFromActorInfo() const
+{
+	if (!ensure(CurrentActorInfo))
+	{
+		return nullptr;
+	}
+	return CurrentActorInfo->AvatarActor.Get();
+}
+
+void UAction::SetCurrentMontage(UAnimMontage* InCurrentMontage)
+{
+	CurrentMontage = InCurrentMontage;
+}
+
+UAnimMontage* UAction::GetCurrentMontage()
+{
+	return CurrentMontage;
 }

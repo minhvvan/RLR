@@ -4,18 +4,31 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "GameplayTaskOwnerInterface.h"
 #include "ActionSystem/ActionSystemTypes.h"
 #include "Action.generated.h"
 
 class UActionSystemComponent;
 
+DECLARE_MULTICAST_DELEGATE(FOnGameplayAbilityCancelled);
+
 UCLASS(Blueprintable)
-class RLR_API UAction : public UObject
+class RLR_API UAction : public UObject, public IGameplayTaskOwnerInterface
 {
 	GENERATED_BODY()
 	
 public:
 	UAction();
+
+	// --------------------------------------
+	//	IGameplayTaskOwnerInterface
+	// --------------------------------------	
+	virtual UGameplayTasksComponent* GetGameplayTasksComponent(const UGameplayTask& Task) const override;
+	virtual AActor* GetGameplayTaskOwner(const UGameplayTask* Task) const override;
+	virtual AActor* GetGameplayTaskAvatar(const UGameplayTask* Task) const override;
+	virtual void OnGameplayTaskInitialized(UGameplayTask& Task) override;
+	virtual void OnGameplayTaskActivated(UGameplayTask& Task) override;
+	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
 
 public:
 	void TryActivateAction();
@@ -23,10 +36,18 @@ public:
 	virtual void EndAction();
 
 	void InitCurrentActorInfo();
+	const FActionActorInfo* GetCurrentActorInfo() const;
+
 	void SetTriggerTag(FGameplayTag Tag);
 	FGameplayTag GetTriggerTag() { return TriggerTag; }
 
 	EActionInstancingPolicy::Type GetInstancingPolicy() const;
+
+	UActionSystemComponent* GetASCFromActorInfo();
+	AActor* GetAvatarActorFromActorInfo() const;
+
+	virtual void SetCurrentMontage(class UAnimMontage* InCurrentMontage);
+	virtual UAnimMontage* GetCurrentMontage();
 
 protected:
 	virtual void PreActivateAction();
@@ -35,6 +56,9 @@ protected:
 	virtual bool CanActivateAction();
 
 	bool CanEndAction();
+
+public:
+	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = Instance)
@@ -56,4 +80,10 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTagContainer ActivationOwnedTags;
+
+	UPROPERTY()
+	TArray<TObjectPtr<UGameplayTask>> ActiveTasks;
+
+	UPROPERTY()
+	TObjectPtr<class UAnimMontage> CurrentMontage;
 };

@@ -8,6 +8,12 @@
 
 class UAction;
 class UActionSystemComponent;
+class APlayerController;
+class UAnimInstance;
+class UAnimMontage;
+class UMovementComponent;
+class USkeletalMeshComponent;
+
 
 USTRUCT(Atomic, BlueprintType)
 struct RLR_API FGameplayTagCountContainer
@@ -178,6 +184,17 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
 	TWeakObjectPtr<UActionSystemComponent>	ActionSystemComponent;
 
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
+	TWeakObjectPtr<UAnimInstance>	AnimInstance;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
+	TWeakObjectPtr<USkeletalMeshComponent>	SkeletalMeshComponent;
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
+	TWeakObjectPtr<UMovementComponent>	MovementComponent;
+
+	UAnimInstance* GetAnimInstance() const;
+	
 	virtual void InitFromActor(AActor* Owner, AActor* Avatar, UActionSystemComponent* InASC);
 
 	virtual void SetAvatarActor(AActor* Avatar);
@@ -195,3 +212,22 @@ namespace EActionInstancingPolicy
 		InstancedPerExecution,
 	};
 }
+
+USTRUCT()
+struct RLR_API FActionAnimMontage
+{
+	GENERATED_BODY()
+
+	FActionAnimMontage()
+		: AnimMontage(nullptr), AnimatingAction(nullptr)
+	{
+	}
+
+	/** What montage is being played */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UAnimMontage> AnimMontage;
+
+	/** The ability, if any, that instigated this montage */
+	UPROPERTY(VisibleAnywhere)
+	TWeakObjectPtr<UAction> AnimatingAction;
+};

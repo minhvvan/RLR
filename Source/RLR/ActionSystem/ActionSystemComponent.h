@@ -3,20 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "GameplayTasksComponent.h"
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystemComponent.generated.h"
 
 class UAction;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class RLR_API UActionSystemComponent : public UActorComponent
+class RLR_API UActionSystemComponent : public UGameplayTasksComponent
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
-	UActionSystemComponent();
+	UActionSystemComponent(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	// Called when the game starts
@@ -40,6 +39,13 @@ public:
 	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);
 
 	FActionActorInfo* GetActionActorInfo();
+	virtual float PlayMontage(UAction* AnimatingAction, UAnimMontage* Montage, float InPlayRate, FName StartSectionName = NAME_None, float StartTimeSeconds = 0.0f);
+
+	UAction* GetAnimatingAction();
+	UAnimMontage* GetCurrentMontage();
+
+	void CurrentMontageStop(float OverrideBlendOutTime = -1.0f);
+	virtual void ClearAnimatingAction(UAction* Action);
 
 private:
 	//Actor Info
@@ -52,6 +58,9 @@ private:
 	//Tag
 	UPROPERTY(VisibleAnywhere, Category=Action, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagCountContainer OwnedTags;
+
+	UPROPERTY(VisibleAnywhere, Category = Anim, meta = (AllowPrivateAccess = "true"))
+	FActionAnimMontage LocalAnimMontageInfo;
 
 public:
 	//Tag

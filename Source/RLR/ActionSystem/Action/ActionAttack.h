@@ -4,23 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "ActionSystem/Action/Action.h"
-#include "ActionJump.generated.h"
+#include "ActionAttack.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UActionJump : public UAction
+class RLR_API UActionAttack : public UAction
 {
 	GENERATED_BODY()
 
 public:
-	UActionJump();
-	
+	UActionAttack();
+
 protected:
 	virtual void ActivateAction() override;
 
 public:
 	virtual void CancelAction() override;
 	virtual void EndAction() override;
+
+	UFUNCTION()
+	void OnCompletePlayMontage();
 };

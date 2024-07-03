@@ -4,17 +4,15 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/Action/Action.h"
 #include "RLR.h"
+#include "Animation/AnimMontage.h"
+#include "Animation/AnimInstance.h"
 
-// Sets default values for this component's properties
-UActionSystemComponent::UActionSystemComponent()
+UActionSystemComponent::UActionSystemComponent(const FObjectInitializer& ObjectInitializer)
+	:Super(ObjectInitializer)
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	//PrimaryComponentTick.bCanEverTick = true;
 	bWantsInitializeComponent = true;
-	// ...
 }
-
 
 // Called when the game starts
 void UActionSystemComponent::BeginPlay()
@@ -126,7 +124,7 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 	if (DefaultAction->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 	{
 		//해당 instance 삭제
-		RLR_LOG(LogRLR, Log, TEXT("Remove: %s"), *EndedAction->GetName());
+		//RLR_LOG(LogRLR, Log, TEXT("Remove: %s"), *EndedAction->GetName());
 		Spec->ActionInstances.Remove(EndedAction);
 	}
 }
@@ -149,6 +147,68 @@ UAction* UActionSystemComponent::CreateNewInstanceOfAction(FActionSpec& Spec)
 FActionActorInfo* UActionSystemComponent::GetActionActorInfo()
 {
 	return ActorInfo.Get();
+}
+
+float UActionSystemComponent::PlayMontage(UAction* AnimatingAction, UAnimMontage* Montage, float InPlayRate, FName StartSectionName, float StartTimeSeconds)
+{
+	float Duration = -1.f;
+
+	UAnimInstance* AnimInstance = ActorInfo.IsValid() ? ActorInfo->GetAnimInstance() : nullptr;
+	if (AnimInstance && Montage)
+	{
+		Duration = AnimInstance->Montage_Play(Montage, InPlayRate, EMontagePlayReturnType::MontageLength, StartTimeSeconds);
+		if (Duration > 0.f)
+		{
+			LocalAnimMontageInfo.AnimMontage = Montage;
+			LocalAnimMontageInfo.AnimatingAction = AnimatingAction;
+
+			if (AnimatingAction)
+			{
+				AnimatingAction->SetCurrentMontage(Montage);
+			}
+
+			// Start at a given Section.
+			if (StartSectionName != NAME_None)
+			{
+				AnimInstance->Montage_JumpToSection(StartSectionName, Montage);
+			}
+		}
+	}
+
+	return Duration;
+}
+
+UAction* UActionSystemComponent::GetAnimatingAction()
+{
+	return LocalAnimMontageInfo.AnimatingAction.Get();
+}
+
+UAnimMontage* UActionSystemComponent::GetCurrentMontage()
+{
+	return LocalAnimMontageInfo.AnimMontage.Get();
+}
+
+void UActionSystemComponent::CurrentMontageStop(float OverrideBlendOutTime)
+{
+	UAnimInstance* AnimInstance = ActorInfo.IsValid() ? ActorInfo->GetAnimInstance() : nullptr;
+	UAnimMontage* MontageToStop = LocalAnimMontageInfo.AnimMontage;
+	bool bShouldStopMontage = AnimInstance && MontageToStop && !AnimInstance->Montage_GetIsStopped(MontageToStop);
+
+	if (bShouldStopMontage)
+	{
+		const float BlendOutTime = (OverrideBlendOutTime >= 0.0f ? OverrideBlendOutTime : MontageToStop->BlendOut.GetBlendTime());
+
+		AnimInstance->Montage_Stop(BlendOutTime, MontageToStop);
+	}
+}
+
+void UActionSystemComponent::ClearAnimatingAction(UAction* Action)
+{
+	if (LocalAnimMontageInfo.AnimatingAction.Get() == Action)
+	{
+		Action->SetCurrentMontage(nullptr);
+		LocalAnimMontageInfo.AnimatingAction = nullptr;
+	}
 }
 
 bool UActionSystemComponent::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
