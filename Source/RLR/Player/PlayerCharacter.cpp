@@ -39,11 +39,6 @@ void APlayerCharacter::SetCharacterMovement()
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 }
 
-UActionSystemComponent* APlayerCharacter::GetActionSystemComponent() const
-{
-	return ASC;
-}
-
 void APlayerCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();

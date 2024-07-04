@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "RLRObjects/Characters/RLRCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
@@ -18,7 +18,7 @@
 class UAction;
 
 UCLASS()
-class RLR_API APlayerCharacter : public ACharacter, public IActionSystemInterface
+class RLR_API APlayerCharacter : public ARLRCharacter
 {
 	GENERATED_BODY()
 
@@ -54,16 +54,11 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"));
-	class UActionSystemComponent* ASC;
-
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
 
 public:
-	virtual UActionSystemComponent* GetActionSystemComponent() const;
-
 	//-------------------------------------
 	//Test Code
 	//-------------------------------------
