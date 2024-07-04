@@ -2,6 +2,7 @@
 
 
 #include "PlayerCharacter.h"
+#include "ActionSystem/ActionSystemComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -9,6 +10,7 @@ APlayerCharacter::APlayerCharacter()
 	SetCharacterMovement();
 	SetCameraArm();
 	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
+	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
 }
 
 void APlayerCharacter::SetCameraArm()
@@ -35,6 +37,28 @@ void APlayerCharacter::SetCharacterMovement()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 640.f, 0.f);
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
+}
+
+UActionSystemComponent* APlayerCharacter::GetActionSystem()
+{
+	return ASC;
+}
+
+void APlayerCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	int inputID = 0;
+	for (auto [Tag, Action] : DefaultActions)
+	{
+		FActionSpec Spec(Action, 1, inputID++);
+		ASC->GiveAction(Tag, Spec);
+	}
+}
+
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 // Check Collision Over lap

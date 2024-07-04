@@ -3,6 +3,7 @@
 
 #include "PlayerCommands.h"
 #include "User/UserController.h"
+#include "GameManager/GameplayTagManager.h"
 
 APlayerCommands::APlayerCommands()
 {
@@ -19,8 +20,10 @@ void APlayerCommands::BindDefaultAction(TObjectPtr<AUserController> Controller)
 	component->BindAction(Move, ETriggerEvent::Triggered, Controller.Get(), &AUserController::OnMove);
 	component->BindAction(Move, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnMoveCompleted);
 
-	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &AUserController::OnJump);
-	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttack);
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+
+	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &AUserController::OnDefaultAction, TagManager.Action_Default_Jump);
+	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &AUserController::OnDefaultAction, TagManager.Action_Default_Attack);
 }
 
 void APlayerCommands::BindSkillAction(TObjectPtr<class AUserController> Controller)

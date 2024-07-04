@@ -8,6 +8,8 @@
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
 #include "RLR.h"
+#include "GameManager/GameplayTagManager.h"
+#include "ActionSystem/ActionSystemComponent.h"
 
 AUserController::AUserController()
 {
@@ -185,14 +187,13 @@ FVector AUserController::GetClickPosition()
 	return Hit.Location;
 }
 
-void AUserController::OnJump()
+void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 {
-	RLR_LOG(LogRLR, Log, TEXT("OnJump"));
-}
+	UActionSystemComponent* ASC = Player->GetActionSystem();
+	if (!ASC) return;
 
-void AUserController::OnAttack()
-{
-	RLR_LOG(LogRLR, Log, TEXT("OnAttack"));
+	//DefaultActions의 inputID번째
+	ASC->TryActivateAction(TriggerTag);
 }
 
 void AUserController::OnAttackEffect(int inputID)

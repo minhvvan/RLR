@@ -11,8 +11,10 @@
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
 #include "PlayerData.h"
+#include "GameplayTagContainer.h"
 #include "PlayerCharacter.generated.h"
 
+class UAction;
 
 UCLASS()
 class RLR_API APlayerCharacter : public ACharacter
@@ -30,7 +32,7 @@ public:
 	void SetIsAttack(bool value) { bIsAttack = value; };
 	bool IsAttack() { return bIsAttack; };
 
-  int32 GetPlayerSeq() const { return PlayerSeq; }
+	int32 GetPlayerSeq() const { return PlayerSeq; }
 	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 private:
@@ -51,7 +53,27 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"));
+	class UActionSystemComponent* ASC;
+
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
+
+public:
+	UActionSystemComponent* GetActionSystem();
+
+
+	//-------------------------------------
+	//Test Code
+	//-------------------------------------
+	UPROPERTY(EditAnywhere, Category = Action)
+	TMap<FGameplayTag, TSubclassOf<UAction>> DefaultActions;
+
+	UPROPERTY(EditAnywhere, Category = Action)
+	UAnimMontage* AttackMontage;
+
+protected:
+	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 };

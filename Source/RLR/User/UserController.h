@@ -11,6 +11,7 @@
 #include "../Chat/GameClient.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "Skill/Skill_Explosion.h"
+#include "GameplayTagContainer.h"
 #include "UserController.generated.h"
 
 class APlayerCharacter;
@@ -43,8 +44,7 @@ private:
 	FVector GetClickPosition();
 
 	//bindingAction
-	void OnJump();
-	void OnAttack();
+	void OnDefaultAction(FGameplayTag TriggerTag);
 	void OnAttackEffect(int inputID);
 	void OnConsumeItem(int inputID);
 	void OnOpenUI(int inputID);
