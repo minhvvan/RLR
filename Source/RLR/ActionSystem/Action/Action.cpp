@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ActionSystem/Action/Action.h"
@@ -61,11 +61,11 @@ void UAction::TryActivateAction()
 
 void UAction::PreActivateAction()
 {
-	//Action ½ÇÇà Àü ÁØºñ
+	//Action ì‹¤í–‰ ì „ ì¤€ë¹„
 	bIsActive = true;
 	bIsAbilityEnding = false;
 
-	//cancel¿©ºÎ °áÁ¤
+	//cancelì—¬ë¶€ ê²°ì •
 	//bIsCancelable = true;
 }
 
@@ -88,13 +88,13 @@ void UAction::CancelAction()
 
 void UAction::EndAction()
 {
-	//ActionÀ» Á¾·áÇÒ ¼ö ÀÖ´ÂÁö 
+	//Actionì„ ì¢…ë£Œí•  ìˆ˜ ìˆëŠ”ì§€ 
 	if (!CanEndAction()) return;
 
 	bIsAbilityEnding = true;
 	bIsActive = false;
 
-	//Task °ü¸®
+	//Task ê´€ë¦¬
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
@@ -103,9 +103,9 @@ void UAction::EndAction()
 		{
 			ASC->RemoveGameplayTag(RemoveTag);
 		}
-		//FX °ü¸®
+		//FX ê´€ë¦¬
 		
-		//ASC¿¡¼­ Á¦°Å
+		//ASCì—ì„œ ì œê±°
 		ASC->NotifyActionEnded(this);
 	}
 }
@@ -143,7 +143,7 @@ EActionInstancingPolicy::Type UAction::GetInstancingPolicy() const
 
 bool UAction::CanActivateAction()
 {
-	//½ÇÇàÁßÀÌ¸é ½ÇÇà ºÒ°¡
+	//ì‹¤í–‰ì¤‘ì´ë©´ ì‹¤í–‰ ë¶ˆê°€
 	if (bIsActive == true) return false;
 
 	return true;
