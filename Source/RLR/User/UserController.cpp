@@ -189,7 +189,7 @@ FVector AUserController::GetClickPosition()
 
 void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 {
-	UActionSystemComponent* ASC = Player->GetActionSystem();
+	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 
 	//DefaultActions의 inputID번째

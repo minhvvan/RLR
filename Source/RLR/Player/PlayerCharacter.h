@@ -12,12 +12,13 @@
 #include "Skill/Skill_Explosion.h"
 #include "PlayerData.h"
 #include "GameplayTagContainer.h"
+#include "RLRObjects/ActionSystemInterface.h"
 #include "PlayerCharacter.generated.h"
 
 class UAction;
 
 UCLASS()
-class RLR_API APlayerCharacter : public ACharacter
+class RLR_API APlayerCharacter : public ACharacter, public IActionSystemInterface
 {
 	GENERATED_BODY()
 
@@ -61,7 +62,7 @@ private:
 	bool bIsAttack = true;
 
 public:
-	UActionSystemComponent* GetActionSystem();
+	virtual UActionSystemComponent* GetActionSystemComponent() const;
 
 	//-------------------------------------
 	//Test Code

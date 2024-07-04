@@ -39,7 +39,7 @@ void APlayerCharacter::SetCharacterMovement()
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 }
 
-UActionSystemComponent* APlayerCharacter::GetActionSystem()
+UActionSystemComponent* APlayerCharacter::GetActionSystemComponent() const
 {
 	return ASC;
 }
