@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "RLRObjects/ActionSystemInterface.h"
+#include "ActionSystem/ActionSystemInterface.h"
 #include "GameplayTagContainer.h"
 #include "RLRActor.generated.h"
 
