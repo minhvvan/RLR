@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "RLRObjects/ActionSystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "RLRActor.generated.h"
+
+class UAction;
 
 UCLASS()
 class RLR_API ARLRActor : public AActor, public IActionSystemInterface
@@ -29,4 +32,7 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere , BlueprintReadOnly , Category=ASC , meta=( AllowPrivateAccess="true" ));
 	TWeakObjectPtr<UActionSystemComponent> ASC;
+
+	UPROPERTY(EditAnywhere , Category=Action)
+	TMap<FGameplayTag , TSubclassOf<UAction>> DefaultActions;
 };

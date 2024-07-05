@@ -2,7 +2,7 @@
 
 
 #include "AbnormalFreeze.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalFreeze::UAbnormalFreeze()
@@ -11,9 +11,9 @@ UAbnormalFreeze::UAbnormalFreeze()
 	slow = CreateDefaultSubobject<UAbnormalSlow>(TEXT("Slow"));
 }
 
-void UAbnormalFreeze::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalFreeze::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		Player->BanInput(true);

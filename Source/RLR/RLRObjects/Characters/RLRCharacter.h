@@ -5,9 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "RLRObjects/ActionSystemInterface.h"
+#include "GameplayTagContainer.h"
 #include "RLRCharacter.generated.h"
 
-class UActionSystemComponent;
+class UAction;
 
 UCLASS(Blueprintable)
 class ARLRCharacter : public ACharacter, public IActionSystemInterface
@@ -18,8 +19,6 @@ public:
 	ARLRCharacter();
 
 	virtual UActionSystemComponent* GetActionSystemComponent() const;
-
-	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
 
 protected:
@@ -28,4 +27,7 @@ protected:
 protected:
 	UPROPERTY(VisibleAnywhere , BlueprintReadOnly , Category=ASC , meta=( AllowPrivateAccess="true" ));
 	TWeakObjectPtr<UActionSystemComponent> ASC;
+
+	UPROPERTY(EditAnywhere , Category=Action)
+	TMap<FGameplayTag , TSubclassOf<UAction>> DefaultActions;
 };

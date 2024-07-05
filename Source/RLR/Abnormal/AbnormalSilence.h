@@ -13,7 +13,7 @@ class RLR_API UAbnormalSilence : public UAbnormal
 public:
 	UAbnormalSilence();
 
-	virtual void ApplyAbnormal(APlayerCharacter* other, int duration) override;
+	virtual void ApplyAbnormal(ARLRPlayerCharacter* other, int duration) override;
 
 	UFUNCTION()
 	virtual void RemoveAbnormal() override;

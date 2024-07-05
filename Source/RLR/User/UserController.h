@@ -14,7 +14,7 @@
 #include "GameplayTagContainer.h"
 #include "UserController.generated.h"
 
-class APlayerCharacter;
+class ARLRPlayerCharacter;
 /**
  *
  */
@@ -53,7 +53,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	UNiagaraSystem* Cursor;
 
-	APlayerCharacter* Player;
+	ARLRPlayerCharacter* Player;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* CurrentContext;

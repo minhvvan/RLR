@@ -10,20 +10,19 @@
 #include "User/UserController.h"
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
-#include "PlayerData.h"
-#include "GameplayTagContainer.h"
+#include "Player/PlayerData.h"
 #include "RLRObjects/ActionSystemInterface.h"
-#include "PlayerCharacter.generated.h"
+#include "RLRPlayerCharacter.generated.h"
 
 class UAction;
 
 UCLASS()
-class RLR_API APlayerCharacter : public ARLRCharacter
+class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 {
 	GENERATED_BODY()
 
 public:
-	APlayerCharacter();
+	ARLRPlayerCharacter();
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
@@ -62,8 +61,6 @@ public:
 	//-------------------------------------
 	//Test Code
 	//-------------------------------------
-	UPROPERTY(EditAnywhere, Category = Action)
-	TMap<FGameplayTag, TSubclassOf<UAction>> DefaultActions;
 
 	UPROPERTY(EditAnywhere, Category = Action)
 	UAnimMontage* AttackMontage;
