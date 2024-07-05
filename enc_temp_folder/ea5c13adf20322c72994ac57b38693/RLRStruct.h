@@ -9,9 +9,7 @@
 /**
  * 
  */
-
  #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
-#define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
 UENUM(BlueprintType)
 enum class EItemType : uint8

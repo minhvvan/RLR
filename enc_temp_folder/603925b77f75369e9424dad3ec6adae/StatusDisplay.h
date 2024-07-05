@@ -14,7 +14,6 @@
  class UProgressGlobe;
  class USkillQuickSlotContainer;
  class UItemQuickSlotContainer;
- class UExpProgressBar;
 
 UCLASS()
 class RLR_API UStatusDisplay : public UBaseUI
@@ -37,8 +36,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UItemQuickSlotContainer> ItemQuickSlotContainer;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UExpProgressBar> ExpProgressBar;
 
 };
