@@ -2,13 +2,14 @@
 
 
 #include "RLRObjects/Actors/RLRActor.h"
+#include "ActionSystem/ActionSystemComponent.h"
 
 // Sets default values
 ARLRActor::ARLRActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	ASC=CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
 }
 
 UActionSystemComponent* ARLRActor::GetActionSystemComponent() const

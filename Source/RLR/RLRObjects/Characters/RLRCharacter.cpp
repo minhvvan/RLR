@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "ActionSystem/ActionSystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -35,6 +36,8 @@ ARLRCharacter::ARLRCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
+	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
 }
 
 UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const

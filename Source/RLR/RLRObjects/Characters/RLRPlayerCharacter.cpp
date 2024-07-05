@@ -10,7 +10,6 @@ ARLRPlayerCharacter::ARLRPlayerCharacter()
 	SetCharacterMovement();
 	SetCameraArm();
 	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
-	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
 }
 
 void ARLRPlayerCharacter::SetCameraArm()

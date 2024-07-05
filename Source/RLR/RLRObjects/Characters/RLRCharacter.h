@@ -9,6 +9,7 @@
 #include "RLRCharacter.generated.h"
 
 class UAction;
+class UActionSystemComponent;
 
 UCLASS(Blueprintable)
 class ARLRCharacter : public ACharacter, public IActionSystemInterface
@@ -25,8 +26,8 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
-	UPROPERTY(VisibleAnywhere , BlueprintReadOnly , Category=ASC , meta=( AllowPrivateAccess="true" ));
-	TWeakObjectPtr<UActionSystemComponent> ASC;
+	UPROPERTY(VisibleAnywhere, Category=Action , meta=( AllowPrivateAccess="true" ));
+	TObjectPtr<UActionSystemComponent> ASC;
 
 	UPROPERTY(EditAnywhere , Category=Action)
 	TMap<FGameplayTag , TSubclassOf<UAction>> DefaultActions;
