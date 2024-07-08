@@ -34,6 +34,10 @@ class RLR_API UBaseDragDropOperation : public UDragDropOperation
 	GENERATED_BODY()
 
 public:
+
+	FItemData GetItemData();
+
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FItemData ItemData;
 	
@@ -43,7 +47,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector2D DragOffset;
 
-	//슬
+	//옮기고 있는 슬롯의 타입.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EDragType StartingDragType = EDragType::NONE;
+	EDragType DragedSlotType = EDragType::NONE;
 };

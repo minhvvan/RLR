@@ -55,9 +55,10 @@ void UItemQuickSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	DragDropOperation->Master = this;
 	DragDropOperation->DragOffset = DragOffset;
 	DragDropOperation->ItemData = GetItemData();
-	DragDropOperation->StartingDragType = EDragType::ITEM_QUICK_SLOT;
+	DragDropOperation->DragedSlotType = EDragType::ITEM_QUICK_SLOT;
 
 	OutOperation = DragDropOperation;
+	Clear();
 }
 
 bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -75,12 +76,12 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		return false;
 
 	//인벤토리에서 드래그 된 거면 아이템 정보만 설정해주고,
-	if(Operation->StartingDragType == EDragType::INVENTORY_SLOT)
+	if(Operation->DragedSlotType == EDragType::INVENTORY_SLOT)
 	{ 
 		SetItemData(Operation->ItemData);
 	}
 	//다른 퀙 슬롯에서 가져온 거면, 가져왔던 퀵 슬롯을 비워준다.
-	else if(Operation->StartingDragType == EDragType::ITEM_QUICK_SLOT)
+	else if(Operation->DragedSlotType == EDragType::ITEM_QUICK_SLOT)
 	{
 		Operation->Master->Clear();
 		SetItemData(Operation->ItemData);

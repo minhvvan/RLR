@@ -39,6 +39,7 @@ void UInventoryUI::Init()
 		UInventorySlot* NewSlot = CreateWidget<UInventorySlot>(this, InventorySlotClass);
 		InventorySlotList[Count] = NewSlot;
 		NewSlot->SlotIndex = Count;
+		NewSlot->Inventory = this;
 		InventoryGridPanel->AddChildToGrid(NewSlot, Count/MaxColumm, Count % MaxColumm);
 	}
 

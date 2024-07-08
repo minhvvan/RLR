@@ -15,6 +15,7 @@
 
  class UImage;
  class UButton;
+ class UInventoryUI;
 
 UCLASS()
 class RLR_API UInventorySlot : public USlotUI
@@ -70,4 +71,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	FItemData SlotItemData;
+
+	UPROPERTY(EditAnywhere)
+	UInventoryUI* Inventory;
 };

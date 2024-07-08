@@ -27,6 +27,12 @@ bool USlotUI::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& In
 	return true;
 }
 
+void USlotUI::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
+{
+	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
+
+}
+
 FReply USlotUI::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	Super::NativeOnPreviewMouseButtonDown(InGeometry, InMouseEvent);
@@ -56,7 +62,7 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 		return nullptr;
 	if (IsValid(Operation->Master) == false)
 		return nullptr;
-	if (Operation->StartingDragType != DragType)
+	if (Operation->DragedSlotType != DragType)
 		return nullptr;
 
 	return Operation;
@@ -69,7 +75,7 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 		return nullptr;
 	if (IsValid(Operation->Master) == false)
 		return nullptr;
-	if (Operation->StartingDragType != DragType && Operation->StartingDragType != DragType2)
+	if (Operation->DragedSlotType != DragType && Operation->DragedSlotType != DragType2)
 		return nullptr;
 
 	return Operation;

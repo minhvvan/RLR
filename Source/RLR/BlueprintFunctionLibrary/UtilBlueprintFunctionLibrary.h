@@ -7,7 +7,9 @@
 #include "UtilBlueprintFunctionLibrary.generated.h"
 
 /**
- * 
+ 
+	모두가 돌려 쓸만한 기타 잡다한 함수들 모음.
+
  */
 UCLASS()
 class RLR_API UUtilBlueprintFunctionLibrary : public UBlueprintFunctionLibrary

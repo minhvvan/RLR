@@ -3,3 +3,7 @@
 
 #include "UI/BaseDragDropOperation.h"
 
+FItemData UBaseDragDropOperation::GetItemData()
+{
+    return ItemData;
+}
