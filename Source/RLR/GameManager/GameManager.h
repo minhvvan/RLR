@@ -29,7 +29,7 @@
  class UInventoryManager;
  class USkillManager;
  class UGameOptionData;
-
+ class UNetworkManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -51,6 +51,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	USkillManager*		GetSkillManager();
+
+	UFUNCTION(BlueprintCallable)
+	UNetworkManager* GetNetworkManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*		GetGameOptionData();
