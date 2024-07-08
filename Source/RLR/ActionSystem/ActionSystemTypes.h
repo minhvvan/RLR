@@ -136,7 +136,7 @@ struct RLR_API FGameplayTagCountContainer
 	}
 
 private:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere, Category = Action, meta = (AllowPrivateAccess = "true"))
 	TMap<FGameplayTag, int> GameplayTagCountMap;
 };
 

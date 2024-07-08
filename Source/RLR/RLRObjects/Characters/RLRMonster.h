@@ -16,5 +16,9 @@ class RLR_API ARLRMonster : public ARLRNonPlayerCharacter
 	
 public:
 	ARLRMonster();
+
+protected:
+	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 };
  

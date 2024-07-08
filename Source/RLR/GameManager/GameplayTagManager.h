@@ -22,6 +22,12 @@ public:
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
 
+	//Action.Attack
+	FGameplayTag Action_Attack_HitCheck;
+
+	//Object.State
+	FGameplayTag Object_State_Hittable;
+
 private:
 	static FGameplayTagManager GameplayTags;
 
