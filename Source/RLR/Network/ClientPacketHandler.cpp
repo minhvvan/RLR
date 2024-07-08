@@ -1,6 +1,7 @@
 #include "ClientPacketHandler.h"
 #include "../GameManager/GameManager.h"
 #include "../GameManager/InventoryManager.h"
+#include "../GameManager/NetworkManager.h"
 #include "Buffer.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -117,13 +118,43 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::MoveBroadcastPacket>(&Handle_MOVE_BROADCAST, session, buffer, len);
         };
-}
+    GPacketHandler[PKT_ENTER_GAME_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EnterGamePacket>(&Handle_ENTER_GAME_REQUEST, session, buffer, len);
+        };
 
+    GPacketHandler[PKT_ENTER_GAME_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EnterGameResponsePacket>(&Handle_ENTER_GAME_RESPONSE, session, buffer, len);
+        };
+}
+bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt)
+{
+    return false;
+}
+bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt)
+{
+    if (pkt.success())
+    {
+        FString MainServerAddress = FString(pkt.mainserveraddress().c_str());
+        FString MonsterServerAddress = FString(pkt.monsterserveraddress().c_str());
+
+        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
+        GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to enter game"));
+    }
+
+    return true;
+}
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
 {
     PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
     return GPacketHandler[header->id](session, buffer, len);
 }
+
 PacketSession::PacketSession()
 {
 }

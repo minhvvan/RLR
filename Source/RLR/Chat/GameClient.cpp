@@ -59,14 +59,14 @@ void AGameClient::ProcessLoginResponse(const char* data) {
 
 bool AGameClient::SendMovePacket(int32 userSeq, float NewX, float NewY, float NewZ) {
 
-    if (!socket) return false;
+  /*  if (!socket) return false;
 
     Protocol::MoveRequestPacket packet;
     packet.set_userseq(userSeq);
     packet.set_transx(NewX);
     packet.set_transy(NewY);
     packet.set_transz(NewZ);
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet, PKT_MOVE_REQUEST);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool bSuccess = socket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 
@@ -78,8 +78,32 @@ bool AGameClient::SendMovePacket(int32 userSeq, float NewX, float NewY, float Ne
     }
 
 
-    return bSuccess && BytesSent == sendBuffer->Capacity();
+    return bSuccess && BytesSent == sendBuffer->Capacity();*/
+    return true;
 }
+//bool AGameClient::SendEnterGamePacket(int32 userSeq, float NewX, float NewY, float NewZ) {
+//
+//    if (!socket) return false;
+//
+//    Protocol::MoveRequestPacket packet;
+//    packet.set_userseq(userSeq);
+//    packet.set_transx(NewX);
+//    packet.set_transy(NewY);
+//    packet.set_transz(NewZ);
+//    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet, PKT_MOVE_REQUEST);
+//    int32 BytesSent = 0;
+//    bool bSuccess = socket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+//
+//    if (!bSuccess) {
+//        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+//    }
+//    else {
+//        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+//    }
+//
+//
+//    return bSuccess && BytesSent == sendBuffer->Capacity();
+//}
 bool AGameClient::SendStatusPacket(int32 userSeq)
 {
     if (!socket) return false;
