@@ -13,7 +13,7 @@ class RLR_API UAbnormalPoison : public UAbnormal
 public:
 	UAbnormalPoison();
 
-	virtual void ApplyAbnormal(APlayerCharacter* other, int duration) override;
+	virtual void ApplyAbnormal(ARLRPlayerCharacter* other, int duration) override;
 
 	UFUNCTION()
 	virtual void RemoveAbnormal() override;

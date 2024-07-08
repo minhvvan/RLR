@@ -2,7 +2,7 @@
 
 
 #include "AbnormalStiffen.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalStiffen::UAbnormalStiffen()
@@ -10,9 +10,9 @@ UAbnormalStiffen::UAbnormalStiffen()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalStiffen::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalStiffen::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		Player->BanInput(true);

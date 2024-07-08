@@ -13,7 +13,7 @@ class RLR_API UAbnormalElectric : public UAbnormal
 public:
 	UAbnormalElectric();
 
-	virtual void ApplyAbnormal(APlayerCharacter* other, int duration) override;
+	virtual void ApplyAbnormal(ARLRPlayerCharacter* other, int duration) override;
 
 	UFUNCTION()
 	virtual void RemoveAbnormal() override;

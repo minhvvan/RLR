@@ -1,7 +1,7 @@
 #include "GameClient.h"
 #include "Networking.h"
 #include "Runtime/Core/Public/HAL/RunnableThread.h"
-#include "../Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
@@ -11,7 +11,7 @@
 AGameClient::AGameClient() {
     PrimaryActorTick.bCanEverTick = true;
     clientSocket = INVALID_SOCKET;
-    static ConstructorHelpers::FClassFinder<APlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Player/BP/BP_Player"));
+    static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Player/BP/BP_Player"));
     if (PlayerCharacterBPClass.Class != NULL) {
         playerCharacterClass = PlayerCharacterBPClass.Class;
     }
@@ -187,9 +187,9 @@ bool AGameClient::ReceiveData(uint8* buffer, int32 bufferSize) {
     return socket->Recv(buffer, bufferSize, BytesRead);
 }
 
-APlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY) {
-    for (TActorIterator<APlayerCharacter> It(GetWorld()); It; ++It) {
-        APlayerCharacter* PlayerCharacter = *It;
+ARLRPlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY) {
+    for (TActorIterator<ARLRPlayerCharacter> It(GetWorld()); It; ++It) {
+        ARLRPlayerCharacter* PlayerCharacter = *It;
         if (PlayerCharacter && PlayerCharacter->GetPlayerSeq() == playerSeq) {
             return PlayerCharacter;
         }
@@ -198,7 +198,7 @@ APlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t playerSeq, float
     return SpawnNewPlayerCharacter(playerSeq, newX, newY);
 }
 
-APlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, float newX, float newY) {
+ARLRPlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, float newX, float newY) {
     if (!playerCharacterClass) {
         UE_LOG(LogTemp, Error, TEXT("PlayerCharacterClass가 설정되지 않았습니다."));
         return nullptr;
@@ -213,7 +213,7 @@ APlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, float 
     FVector SpawnLocation(newX, newY, 92.1064f);
     FRotator SpawnRotation(0.0f, 0.0f, 0.0f);
     FActorSpawnParameters SpawnParams;
-    APlayerCharacter* NewPlayerCharacter = World->SpawnActor<APlayerCharacter>(playerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
+    ARLRPlayerCharacter* NewPlayerCharacter = World->SpawnActor<ARLRPlayerCharacter>(playerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
 
     if (NewPlayerCharacter) {
         NewPlayerCharacter->SetPlayerSeq(playerSeq);
@@ -232,7 +232,7 @@ void AGameClient::ProcessMoveResponse(const char* data) {
 
     UE_LOG(LogTemp, Log, TEXT("MoveResponse: PlayerSeq=%d, NewX=%f, NewY=%f, Success=%d"), playerSeq, newX, newY, success);
 
-    APlayerCharacter* PlayerCharacter = FindPlayerCharacterBySeq(playerSeq, newX, newY);
+    ARLRPlayerCharacter* PlayerCharacter = FindPlayerCharacterBySeq(playerSeq, newX, newY);
     if (PlayerCharacter && success) {
         FVector NewPosition(newX, newY, PlayerCharacter->GetActorLocation().Z);
         PlayerCharacter->SetActorLocation(NewPosition);

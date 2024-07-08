@@ -3,26 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "RLRObjects/Characters/RLRCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
 #include "User/UserController.h"
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
-#include "PlayerData.h"
-#include "GameplayTagContainer.h"
-#include "PlayerCharacter.generated.h"
+#include "Player/PlayerData.h"
+#include "RLRPlayerCharacter.generated.h"
 
 class UAction;
 
 UCLASS()
-class RLR_API APlayerCharacter : public ACharacter
+class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 {
 	GENERATED_BODY()
 
 public:
-	APlayerCharacter();
+	ARLRPlayerCharacter();
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
@@ -53,22 +52,14 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"));
-	class UActionSystemComponent* ASC;
-
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
 
 public:
-	UActionSystemComponent* GetActionSystem();
-
-
 	//-------------------------------------
 	//Test Code
 	//-------------------------------------
-	UPROPERTY(EditAnywhere, Category = Action)
-	TMap<FGameplayTag, TSubclassOf<UAction>> DefaultActions;
 
 	UPROPERTY(EditAnywhere, Category = Action)
 	UAnimMontage* AttackMontage;

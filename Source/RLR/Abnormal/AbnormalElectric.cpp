@@ -2,7 +2,7 @@
 
 
 #include "AbnormalElectric.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 // TODO : ���� ������
 UAbnormalElectric::UAbnormalElectric()
@@ -10,9 +10,9 @@ UAbnormalElectric::UAbnormalElectric()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalElectric::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalElectric::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalElectric::RemoveAbnormal, duration, false);
 	}

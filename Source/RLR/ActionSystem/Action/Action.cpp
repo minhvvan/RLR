@@ -61,11 +61,11 @@ void UAction::TryActivateAction()
 
 void UAction::PreActivateAction()
 {
-	//Action Ω««‡ ¿¸ ¡ÿ∫Ò
+	//Action Ïã§Ìñâ Ï†Ñ Ï§ÄÎπÑ
 	bIsActive = true;
 	bIsAbilityEnding = false;
 
-	//cancelø©∫Œ ∞·¡§
+	//cancelÏó¨Î∂Ä Í≤∞Ï†ï
 	//bIsCancelable = true;
 }
 
@@ -88,13 +88,13 @@ void UAction::CancelAction()
 
 void UAction::EndAction()
 {
-	//Action¿ª ¡æ∑·«“ ºˆ ¿÷¥¬¡ˆ 
+	//ActionÏùÑ Ï¢ÖÎ£åÌï† Ïàò ÏûàÎäîÏßÄ 
 	if (!CanEndAction()) return;
 
 	bIsAbilityEnding = true;
 	bIsActive = false;
 
-	//Task ∞¸∏Æ
+	//Task Í¥ÄÎ¶¨
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
@@ -103,9 +103,9 @@ void UAction::EndAction()
 		{
 			ASC->RemoveGameplayTag(RemoveTag);
 		}
-		//FX ∞¸∏Æ
+		//FX Í¥ÄÎ¶¨
 		
-		//ASCø°º≠ ¡¶∞≈
+		//ASCÏóêÏÑú Ï†úÍ±∞
 		ASC->NotifyActionEnded(this);
 	}
 }
@@ -136,14 +136,14 @@ void UAction::SetTriggerTag(FGameplayTag Tag)
 	TriggerTag = Tag;
 }
 
-EActionInstancingPolicy::Type UAction::GetInstancingPolicy() const
+EActionInstancingPolicy UAction::GetInstancingPolicy() const
 {
 	return InstancingPolicy;
 }
 
 bool UAction::CanActivateAction()
 {
-	//Ω««‡¡ﬂ¿Ã∏È Ω««‡ ∫“∞°
+	//Ïã§ÌñâÏ§ëÏù¥Î©¥ Ïã§Ìñâ Î∂àÍ∞Ä
 	if (bIsActive == true) return false;
 
 	return true;

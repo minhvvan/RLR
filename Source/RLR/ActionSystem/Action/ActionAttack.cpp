@@ -3,7 +3,7 @@
 
 #include "ActionSystem/Action/ActionAttack.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
 UActionAttack::UActionAttack()
@@ -15,7 +15,7 @@ void UActionAttack::ActivateAction()
 {
 	RLR_LOG(LogRLR, Log, TEXT("Attack"));
 
-	APlayerCharacter* Player = Cast<APlayerCharacter>(GetAvatarActorFromActorInfo());
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAttackAnim"), Player->AttackMontage);

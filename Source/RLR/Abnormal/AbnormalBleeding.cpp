@@ -2,7 +2,7 @@
 
 
 #include "AbnormalBleeding.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 //TODO : ���� ������ 
 UAbnormalBleeding::UAbnormalBleeding()
@@ -10,9 +10,9 @@ UAbnormalBleeding::UAbnormalBleeding()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalBleeding::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalBleeding::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalBleeding::RemoveAbnormal, duration, false);

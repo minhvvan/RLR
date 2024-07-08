@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ActionSystem/Action/ActionJump.h"
@@ -14,7 +14,7 @@ void UActionJump::ActivateAction()
 {
 	RLR_LOG(LogRLR, Log, TEXT("Jump"));
 	auto Avatar = GetAvatarActorFromActorInfo();
-	//TODO: PlayMontageandWait AT �ʿ�
+	//TODO: PlayMontageandWait AT 필요
 
 
 	EndAction();

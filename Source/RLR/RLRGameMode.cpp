@@ -2,7 +2,6 @@
 
 #include "RLRGameMode.h"
 #include "RLRPlayerController.h"
-#include "RLRCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARLRGameMode::ARLRGameMode()

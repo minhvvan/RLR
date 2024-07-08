@@ -2,16 +2,16 @@
 
 
 #include "AbnormalBind.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 UAbnormalBind::UAbnormalBind()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalBind::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalBind::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		Player->SetMoveMode(MOVE_None);

@@ -41,7 +41,7 @@ public:
 	void SetTriggerTag(FGameplayTag Tag);
 	FGameplayTag GetTriggerTag() { return TriggerTag; }
 
-	EActionInstancingPolicy::Type GetInstancingPolicy() const;
+	EActionInstancingPolicy GetInstancingPolicy() const;
 
 	UActionSystemComponent* GetASCFromActorInfo();
 	AActor* GetAvatarActorFromActorInfo() const;
@@ -62,7 +62,7 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = Instance)
-	TEnumAsByte<EActionInstancingPolicy::Type> InstancingPolicy;
+	EActionInstancingPolicy InstancingPolicy;
 
 	UPROPERTY()
 	bool bIsActive;

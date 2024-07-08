@@ -203,15 +203,12 @@ public:
 };
 
 UENUM(BlueprintType)
-namespace EActionInstancingPolicy
+enum class EActionInstancingPolicy : uint8
 {
-	enum Type : int
-	{
-		NonInstanced,
-		InstancedPerActor,
-		InstancedPerExecution,
-	};
-}
+	NonInstanced ,
+	InstancedPerActor ,
+	InstancedPerExecution ,
+};
 
 USTRUCT()
 struct RLR_API FActionAnimMontage

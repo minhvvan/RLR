@@ -2,7 +2,7 @@
 
 
 #include "AbnormalSlow.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalSlow::UAbnormalSlow()
@@ -10,9 +10,9 @@ UAbnormalSlow::UAbnormalSlow()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalSlow::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalSlow::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		UE_LOG(LogTemp, Log, TEXT("asd"));
 	}

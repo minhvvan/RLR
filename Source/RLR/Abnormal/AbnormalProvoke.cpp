@@ -2,7 +2,7 @@
 
 
 #include "AbnormalProvoke.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalProvoke::UAbnormalProvoke()
@@ -10,9 +10,9 @@ UAbnormalProvoke::UAbnormalProvoke()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalProvoke::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalProvoke::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		//TODO : 스킬과 몬스터 구현 후 로직 구성.
 		Player = other;

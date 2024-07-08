@@ -2,7 +2,7 @@
 
 
 #include "AbnormalStun.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalStun::UAbnormalStun()
@@ -10,9 +10,9 @@ UAbnormalStun::UAbnormalStun()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalStun::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalStun::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		Player->BanInput(true);

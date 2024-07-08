@@ -1,19 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerCharacter.h"
+#include "RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 
 // Sets default values
-APlayerCharacter::APlayerCharacter()
+ARLRPlayerCharacter::ARLRPlayerCharacter()
 {
 	SetCharacterMovement();
 	SetCameraArm();
 	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
-	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
 }
 
-void APlayerCharacter::SetCameraArm()
+void ARLRPlayerCharacter::SetCameraArm()
 {
 	cameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraArm"));
 	cameraArm->SetupAttachment(RootComponent);
@@ -27,7 +26,7 @@ void APlayerCharacter::SetCameraArm()
 	camera->bUsePawnControlRotation = false;
 }
 
-void APlayerCharacter::SetCharacterMovement()
+void ARLRPlayerCharacter::SetCharacterMovement()
 {
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
@@ -39,12 +38,7 @@ void APlayerCharacter::SetCharacterMovement()
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
 }
 
-UActionSystemComponent* APlayerCharacter::GetActionSystem()
-{
-	return ASC;
-}
-
-void APlayerCharacter::PostInitializeComponents()
+void ARLRPlayerCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
@@ -56,14 +50,14 @@ void APlayerCharacter::PostInitializeComponents()
 	}
 }
 
-void APlayerCharacter::BeginPlay()
+void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 // Check Collision Over lap
 // 몬스터, Character, Object
-void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
+void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
 	// TODO : GetDamage * Stat Logic
@@ -87,18 +81,18 @@ void APlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	//					               클라 -> 피격 애니메이션                
 }
 
-void APlayerCharacter::SetMovement(FVector location)
+void ARLRPlayerCharacter::SetMovement(FVector location)
 {
 	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
 	AddMovementInput(WorldDirection, 1.0f, false);
 }
 
-void APlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
+void ARLRPlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
 {
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
 }
 
-void APlayerCharacter::SetOrientation(FVector Location)
+void ARLRPlayerCharacter::SetOrientation(FVector Location)
 {
 	Location -= GetActorLocation();
 	FRotator Rotator = FRotationMatrix::MakeFromX(Location).Rotator();
@@ -106,13 +100,13 @@ void APlayerCharacter::SetOrientation(FVector Location)
 	SetActorRotation(Rotator);
 }
 
-void APlayerCharacter::SetMoveMode(EMovementMode mode)
+void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
 {
 	GetCharacterMovement()->SetMovementMode(mode);
 }
 
 // 모든 플레이어 Input 정지 및 해제
-void APlayerCharacter::BanInput(bool value)
+void ARLRPlayerCharacter::BanInput(bool value)
 {
 	playerController->StopMovement();
 	if (value == true)
@@ -126,7 +120,7 @@ void APlayerCharacter::BanInput(bool value)
 	
 }
 // 컨트롤러 이닛
-void APlayerCharacter::SetController()
+void ARLRPlayerCharacter::SetController()
 {
 	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
 }

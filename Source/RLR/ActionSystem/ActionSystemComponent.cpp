@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ActionSystem/ActionSystemComponent.h"
@@ -49,12 +49,12 @@ void UActionSystemComponent::InitActorInfo(AActor* Owner, AActor* Avatar)
 
 	ActorInfo->InitFromActor(Owner, Avatar, this);
 
-	//TODO: Avatar ∫Ø∞Ê √≥∏Æ
+	//TODO: Avatar Î≥ÄÍ≤Ω Ï≤òÎ¶¨
 }
 
 void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spec)
 {
-	//Action √ﬂ∞°
+	//Action Ï∂îÍ∞Ä
 	if (GrantedActions.Contains(Tag))
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Already Exist Action same Tag"));
@@ -73,7 +73,7 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 
 void UActionSystemComponent::RemoveAction(FGameplayTag Tag)
 {
-	//Tag∑Œ Action ¡¶∞≈
+	//TagÎ°ú Action Ï†úÍ±∞
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
 		GrantedActions.Remove(Tag);
@@ -89,21 +89,21 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 	//Find
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
-		//instancePolicyø° µ˚∂Û ¥ﬁ∂Û¡¸
+		//instancePolicyÏóê Îî∞Îùº Îã¨ÎùºÏßê
 		UAction* Action = Spec->Action;
 		if (Action->GetInstancingPolicy() == EActionInstancingPolicy::NonInstanced)
 		{
-			//CDO∏¶ ≈Î«ÿ Activate
+			//CDOÎ•º ÌÜµÌï¥ Activate
 			Action->TryActivateAction();
 		}
 		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerActor)
 		{
-			//Specø° ¿÷¥¬ Instance∏¶ ≈Î«ÿ Activate
+			//SpecÏóê ÏûàÎäî InstanceÎ•º ÌÜµÌï¥ Activate
 			Spec->ActionInstances[0]->TryActivateAction();
 		}
 		else if(Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 		{
-			//ªı∑ŒøÓ Instance ª˝º∫ -> Activate
+			//ÏÉàÎ°úÏö¥ Instance ÏÉùÏÑ± -> Activate
 			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
@@ -123,7 +123,7 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 
 	if (DefaultAction->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 	{
-		//«ÿ¥Á instance ªË¡¶
+		//Ìï¥Îãπ instance ÏÇ≠Ï†ú
 		//RLR_LOG(LogRLR, Log, TEXT("Remove: %s"), *EndedAction->GetName());
 		Spec->ActionInstances.Remove(EndedAction);
 	}
@@ -133,7 +133,7 @@ UAction* UActionSystemComponent::CreateNewInstanceOfAction(FActionSpec& Spec)
 {
 	if (!ActorInfo) return nullptr;
 
-	//NewActionInstance ª˝º∫
+	//NewActionInstance ÏÉùÏÑ±
 	UAction* ActionInstance = NewObject<UAction>(ActorInfo->OwnerActor.Get(), Spec.Action->GetClass());
 	if (!ActionInstance) return nullptr;
 

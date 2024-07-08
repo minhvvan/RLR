@@ -2,7 +2,7 @@
 
 
 #include "AbnormalSilence.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 
 UAbnormalSilence::UAbnormalSilence()
@@ -10,9 +10,9 @@ UAbnormalSilence::UAbnormalSilence()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalSilence::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalSilence::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		Player->SetIsAttack(false);
