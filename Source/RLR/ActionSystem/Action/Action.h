@@ -50,7 +50,7 @@ public:
 	virtual UAnimMontage* GetCurrentMontage();
 
 protected:
-	virtual void PreActivateAction();
+	virtual bool PreActivateAction();
 	virtual void ActivateAction();
 
 	virtual bool CanActivateAction();
@@ -80,6 +80,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTagContainer ActivationOwnedTags;
+
+	UPROPERTY(EditDefaultsOnly, Category = Tags)
+	FGameplayTagContainer ActivationBlockedTags;
 
 	UPROPERTY()
 	TArray<TObjectPtr<UGameplayTask>> ActiveTasks;

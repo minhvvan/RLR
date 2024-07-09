@@ -34,6 +34,9 @@ public:
 	int32 GetPlayerSeq() const { return PlayerSeq; }
 	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
+	virtual void Tick(float DeltaSeconds) override;
+	void SetTargetRotation(FVector TargetLoc, float Speed = 1);
+
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
@@ -55,6 +58,10 @@ private:
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
+
+	FRotator TargetRotation;
+	bool bShouldRotate;
+	float RotationSpeed;
 
 public:
 	//-------------------------------------

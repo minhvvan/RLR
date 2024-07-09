@@ -2,7 +2,23 @@
 
 
 #include "RLRObjects/Characters/RLRMonster.h"
+#include "ActionSystem/ActionSystemComponent.h"
+#include "GameManager/GameplayTagManager.h"
 
 ARLRMonster::ARLRMonster()
 {
+}
+
+void ARLRMonster::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	//공격 가능 태그(현재 에디터에서 편집) 
+	//FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	//ASC->AddGameplayTag(TagManager.Object_State_Hittable);
+}
+
+void ARLRMonster::BeginPlay()
+{
+	Super::BeginPlay();
 }

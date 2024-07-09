@@ -56,7 +56,7 @@ private:
 	TMap<FGameplayTag, FActionSpec> GrantedActions;
 
 	//Tag
-	UPROPERTY(VisibleAnywhere, Category=Action, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category=Action, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagCountContainer OwnedTags;
 
 	UPROPERTY(VisibleAnywhere, Category = Anim, meta = (AllowPrivateAccess = "true"))

@@ -26,4 +26,8 @@ public:
 
 	UFUNCTION()
 	void OnCompletePlayMontage();
+
+protected:
+	UPROPERTY(EditAnywhere)
+	float RotationSpeed;
 };
