@@ -16,8 +16,6 @@ UActionAttackHitCheck::UActionAttackHitCheck()
 
 void UActionAttackHitCheck::ActivateAction()
 {
-	RLR_LOG(LogRLR , Log , TEXT("Attack"));
-
 	//사거리 Get
 	//CurrentActorInfo->ActionSystemComponent->GetAttribute()
 	
@@ -33,7 +31,7 @@ void UActionAttackHitCheck::ActivateAction()
 		Owner->GetActorLocation(),							/*Center*/
 		FQuat::Identity,									/*Rotate*/
 		CCHANNEL_RLRATTACK,									/*Channel*/
-		FCollisionShape::MakeSphere(100.f),					/*Scale*/
+		FCollisionShape::MakeSphere(100.f),					/*AttackRange*/
 		params))
 	{
 		DrawDebugSphere(GetWorld(), Owner->GetActorLocation(), 100.f, 32.f, FColor::Green, false, 1.f, 0.f, 1.f);
@@ -53,11 +51,15 @@ void UActionAttackHitCheck::ActivateAction()
 				continue;
 			}
 
+			//Make TargetData
 			RLR_LOG(LogRLR, Log, TEXT("Hit Actor: %s"), *result.GetActor()->GetName());
+
+			//TODO: 판정된 Actor를 Server에 보낼 클래스 필요
 		}
 	}
 	else
 	{
+		//No Hit
 		DrawDebugSphere(GetWorld(), Owner->GetActorLocation(), 100.f, 32.f, FColor::Red, false, 1.f, 0.f, 1.f);
 	}
 

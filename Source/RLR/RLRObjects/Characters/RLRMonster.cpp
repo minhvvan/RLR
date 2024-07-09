@@ -13,6 +13,7 @@ void ARLRMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
+	//공격 가능 태그(현재 에디터에서 편집) 
 	//FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	//ASC->AddGameplayTag(TagManager.Object_State_Hittable);
 }

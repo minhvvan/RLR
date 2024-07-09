@@ -36,12 +36,13 @@ public:
 	virtual void SetupInputComponent() override;
 	void OnMoveStarted();
 
+	FVector GetClickPosition();
+
 private:
 	void OnMoveCompleted();
 	void OnMove();
 	void OnCursorEffect();
 	void InitBinding();
-	FVector GetClickPosition();
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);

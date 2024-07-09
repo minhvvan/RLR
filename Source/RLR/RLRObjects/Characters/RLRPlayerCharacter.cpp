@@ -3,6 +3,7 @@
 
 #include "RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "GameManager/GameplayTagManager.h"
 
 // Sets default values
 ARLRPlayerCharacter::ARLRPlayerCharacter()
@@ -83,12 +84,24 @@ void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 
 void ARLRPlayerCharacter::SetMovement(FVector location)
 {
+	if (ASC)
+	{
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		if (ASC->HasMatchingGameplayTag(TagManager.Player_State_Attacking)) return;
+	}
+
 	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
 	AddMovementInput(WorldDirection, 1.0f, false);
 }
 
 void ARLRPlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
 {
+	if (ASC)
+	{
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		if (ASC->HasMatchingGameplayTag(TagManager.Player_State_Attacking)) return;
+	}
+
 	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
 }
 

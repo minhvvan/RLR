@@ -55,27 +55,41 @@ void UAction::OnGameplayTaskDeactivated(UGameplayTask& Task)
 
 void UAction::TryActivateAction()
 {
-	PreActivateAction();
-	ActivateAction();
+	if (PreActivateAction())
+	{
+		ActivateAction();
+	}
 }
 
-void UAction::PreActivateAction()
+bool UAction::PreActivateAction()
 {
-	//Action 실행 전 준비
-	bIsActive = true;
-	bIsAbilityEnding = false;
-
-	//cancel여부 결정
-	//bIsCancelable = true;
-
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
+		//Block
+		for (auto BlockTag : ActivationBlockedTags)
+		{
+			if (ASC->HasMatchingGameplayTag(BlockTag))
+			{
+				//Blocked this Action
+				return false;
+			}
+		}
+
+		//Action 실행 전 준비
+		bIsActive = true;
+		bIsAbilityEnding = false;
+
+		//cancel여부 결정
+		//bIsCancelable = true;
+
 		// Add tags
 		for (auto AddTag : ActivationOwnedTags)
 		{
 			ASC->AddGameplayTag(AddTag);
 		}
 	}
+
+	return true;
 }
 
 void UAction::ActivateAction()
