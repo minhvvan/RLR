@@ -18,6 +18,9 @@
  class UEquipmentUI;
  class UItemInformation;
  class UCharacterStatusUI;
+ class UMinimapUI;
+ class UStatusDisplay;
+ class UInGameMenuUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -49,6 +52,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UItemInformation> ItemInformation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UMinimapUI> Minimap;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UStatusDisplay> StatusDisplayUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UInGameMenuUI> InGameMenuUI;
 
 protected:
 	TMap<EUIType, class USubUI*> UserActionSubUI;

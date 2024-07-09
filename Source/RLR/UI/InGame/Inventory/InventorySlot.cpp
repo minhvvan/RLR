@@ -40,6 +40,10 @@ void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	if(IsEmpty())
 		return;
 
+	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
+	if(Inventory->CurrentFilter != EItemType::NONE)
+		return;
+
 	if (IsValid(DraggableWidgetClass) == false)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::NativeOnDragDetected Error. DraggableWidgetClass 정보가 없습니다. "));
@@ -65,7 +69,7 @@ void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	DragDropOperation->Master = this;
 	DragDropOperation->DragOffset = DragOffset;
 	DragDropOperation->ItemData = GetItemData();
-	DragDropOperation->StartingDragType = EDragType::INVENTORY_SLOT;
+	DragDropOperation->DragedSlotType = EDragType::INVENTORY_SLOT;
 
 	OutOperation = DragDropOperation;
 }
@@ -76,6 +80,9 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if(Ret == false)
 		return false;
 
+	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
+	if (Inventory->CurrentFilter != EItemType::NONE)
+		return false;
 
 	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, EDragType::INVENTORY_SLOT);
 	if(IsValid(Operation) == false)
@@ -90,12 +97,25 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		서버에 아이템 옮겼다는 패킷 보내주기.
 	*/
 
+	//만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
+	if (IsEmpty() == false)
+	{
+		/*
+			A->B 
+			B->A
+		*/
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(GetItemData().ITEM_SEQ, Operation->Master->SlotIndex);
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+	}
+	else
+	{
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+		//SetItemData(Operation->GetItemData());
+		DraggedSlot->Clear();
+	}
 
-	GetGameManager()->GetInventoryManager()->ChangeItemSlot(DraggedSlot->GetItemData().ITEM_SEQ, SlotIndex);
-
-	SetItemData(DraggedSlot->GetItemData());
 	//슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
-	DraggedSlot->Clear();
+	Inventory->RefreshUI();
 
 	return true;
 }
