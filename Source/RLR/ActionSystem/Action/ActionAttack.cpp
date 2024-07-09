@@ -7,7 +7,8 @@
 #include "User/UserController.h"
 #include "RLR.h"
 
-UActionAttack::UActionAttack()
+UActionAttack::UActionAttack():
+	RotationSpeed(1.f)
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerActor;
 }
@@ -23,7 +24,7 @@ void UActionAttack::ActivateAction()
 	//Set Actor Orientation
 	Controller->StopMovement();
 	FVector MousePos = Controller->GetClickPosition();
-	Player->SetOrientation(MousePos);
+	Player->SetTargetRotation(MousePos, RotationSpeed);
 
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAttackAnim"), Player->AttackMontage);
 	AT->OnCompleted.AddDynamic(this, &UActionAttack::OnCompletePlayMontage);

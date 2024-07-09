@@ -6,7 +6,9 @@
 #include "GameManager/GameplayTagManager.h"
 
 // Sets default values
-ARLRPlayerCharacter::ARLRPlayerCharacter()
+ARLRPlayerCharacter::ARLRPlayerCharacter():
+	bShouldRotate(false),
+	RotationSpeed(0.f)
 {
 	SetCharacterMovement();
 	SetCameraArm();
@@ -136,4 +138,33 @@ void ARLRPlayerCharacter::BanInput(bool value)
 void ARLRPlayerCharacter::SetController()
 {
 	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
+}
+
+void ARLRPlayerCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (bShouldRotate)
+	{
+		//TargetForward로 iterpolate
+		FRotator NewRot = FMath::Lerp(GetActorRotation(), TargetRotation, DeltaSeconds * RotationSpeed);
+		SetActorRotation(NewRot);
+
+		if (TargetRotation.Equals(GetActorRotation(), 10.f))
+		{
+			TargetRotation = FRotator::ZeroRotator;
+			bShouldRotate = false;
+		}
+	}
+}
+
+void ARLRPlayerCharacter::SetTargetRotation(FVector TargetLoc, float Speed)
+{
+	TargetLoc -= GetActorLocation();
+	FRotator Rotator = FRotationMatrix::MakeFromX(TargetLoc).Rotator();
+	Rotator.Pitch = 0.f;
+
+	TargetRotation = Rotator;
+	RotationSpeed = Speed;
+	bShouldRotate = true;
 }
