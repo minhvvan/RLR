@@ -1,6 +1,7 @@
 #include "ClientPacketHandler.h"
 #include "../GameManager/GameManager.h"
 #include "../GameManager/InventoryManager.h"
+#include "../GameManager/NetworkManager.h"
 #include "Buffer.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -36,7 +37,8 @@ bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemA
 
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
     
-    pkt.usercharacter().setstatus().userhp();
+    UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
+    UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
     return true;
 }
 bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
@@ -62,7 +64,17 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
     
     return true;
 }
-
+bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt) {
+    return true;
+}
+bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt) {
+    // TODO : OTHERUSERMAGER 연결하여 다른 유저의 위치 연동
+    UE_LOG(LogTemp, Log, TEXT("User seq : %d"), pkt.userseq());
+    UE_LOG(LogTemp, Log, TEXT("User Trans X : %d"), pkt.transx());
+    UE_LOG(LogTemp, Log, TEXT("User Trans Y : %d"), pkt.transy());
+    UE_LOG(LogTemp, Log, TEXT("User Trans Z : %d"), pkt.transz());
+    return true;
+}
 void ClientPacketHandler::Init()
 {
     for (int32 i = 0; i < UINT16_MAX; i++)
@@ -98,13 +110,51 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::InventoryResponsePacket>(&Handle_INVENTORY_RESPONSE, session, buffer, len);
         };
-}
+    GPacketHandler[PKT_MOVE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MoveResponsePacket>(&Handle_MOVE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_MOVE_BROADCAST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MoveBroadcastPacket>(&Handle_MOVE_BROADCAST, session, buffer, len);
+        };
+    GPacketHandler[PKT_ENTER_GAME_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EnterGamePacket>(&Handle_ENTER_GAME_REQUEST, session, buffer, len);
+        };
 
+    GPacketHandler[PKT_ENTER_GAME_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EnterGameResponsePacket>(&Handle_ENTER_GAME_RESPONSE, session, buffer, len);
+        };
+}
+bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt)
+{
+    return false;
+}
+bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt)
+{
+    if (pkt.success())
+    {
+        FString MainServerAddress = FString(pkt.mainserveraddress().c_str());
+        FString MonsterServerAddress = FString(pkt.monsterserveraddress().c_str());
+
+        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
+        GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to enter game"));
+    }
+
+    return true;
+}
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
 {
     PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
     return GPacketHandler[header->id](session, buffer, len);
 }
+
 PacketSession::PacketSession()
 {
 }

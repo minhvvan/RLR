@@ -2,17 +2,17 @@
 
 
 #include "AbnormalBurn.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
-//TODO : Áö¼Ó µ¥¹ÌÁö
+//TODO : ì§€ì† ë°ë¯¸ì§€
 UAbnormalBurn::UAbnormalBurn()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalBurn::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalBurn::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		Player = other;
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalBurn::RemoveAbnormal, duration, false);

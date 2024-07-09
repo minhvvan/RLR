@@ -13,7 +13,7 @@ class RLR_API UAbnormalStun : public UAbnormal
 public:	
 	UAbnormalStun();
 
-	virtual void ApplyAbnormal(APlayerCharacter* Player, int duration) override;
+	virtual void ApplyAbnormal(ARLRPlayerCharacter* Player, int duration) override;
 	
 	UFUNCTION()
 	virtual void RemoveAbnormal() override;

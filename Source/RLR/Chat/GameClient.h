@@ -14,7 +14,7 @@
 #include "../Utils/PacketUtils.h"
 #include "../Network/FNetworkReceiver.h"
 #include "GameClient.generated.h"
-class APlayerCharacter;
+class ARLRPlayerCharacter;
 
 UCLASS()
 class RLR_API AGameClient : public AActor
@@ -31,13 +31,14 @@ public:
     virtual void Tick(float DeltaTime) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     bool SendLoginPacket(const FString& playerId);
-    bool SendMovePacket(int32 playerSeq, float NewX, float NewY);
-    bool SendInventoryPacket(int32 playerSeq);
+    bool SendMovePacket(int32 userSeq, float NewX, float NewY, float NewZ);
+    bool SendStatusPacket(int32 userSeq);
+    bool SendInventoryPacket(int32 userSeq);
     void CloseConnection();
     bool InitializeSocket(const FString& serverAddress, int32 port);
     bool ReceiveData(uint8* buffer, int32 bufferSize);
-    APlayerCharacter* FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY);
-    APlayerCharacter* SpawnNewPlayerCharacter(int32_t playerSeq, float newX, float newY);
+    ARLRPlayerCharacter* FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY);
+    ARLRPlayerCharacter* SpawnNewPlayerCharacter(int32_t playerSeq, float newX, float newY);
     
     void ProcessMoveResponse(const char* data);
     void ProcessInventoryResponse(const char* data, int32 dataSize);
@@ -51,8 +52,8 @@ private:
     SOCKET clientSocket;
     FSocket* socket;
     TSharedPtr<FInternetAddr> remoteAddress;
-    APlayerCharacter* myPlayerCharacter;
+    ARLRPlayerCharacter* myPlayerCharacter;
     UPROPERTY(EditDefaultsOnly, Category = "Player")
-    TSubclassOf<APlayerCharacter> playerCharacterClass;
+    TSubclassOf<ARLRPlayerCharacter> playerCharacterClass;
     FNetworkReceiver* networkReceiver;
 };

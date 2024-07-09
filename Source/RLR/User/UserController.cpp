@@ -1,13 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UserController.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
 #include "RLR.h"
+#include "GameManager/GameplayTagManager.h"
+#include "ActionSystem/ActionSystemComponent.h"
 
 AUserController::AUserController()
 {
@@ -25,7 +27,7 @@ void AUserController::BeginPlay()
 	Super::BeginPlay();
 
 	APawn* ControlledPawn = GetPawn();
-	Player = Cast<APlayerCharacter>(ControlledPawn);
+	Player = Cast<ARLRPlayerCharacter>(ControlledPawn);
 	Player->SetController();
 	if (Player)
 	{
@@ -55,7 +57,7 @@ void AUserController::BeginPlay()
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter 클래스를 가진 객체가 없습니다."));
+        UE_LOG(LogTemp, Warning, TEXT("ARLRPlayerCharacter 클래스를 가진 객체가 없습니다."));
     }
 }
 
@@ -185,14 +187,13 @@ FVector AUserController::GetClickPosition()
 	return Hit.Location;
 }
 
-void AUserController::OnJump()
+void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 {
-	RLR_LOG(LogRLR, Log, TEXT("OnJump"));
-}
+	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+	if (!ASC) return;
 
-void AUserController::OnAttack()
-{
-	RLR_LOG(LogRLR, Log, TEXT("OnAttack"));
+	//DefaultActions의 inputID번째
+	ASC->TryActivateAction(TriggerTag);
 }
 
 void AUserController::OnAttackEffect(int inputID)

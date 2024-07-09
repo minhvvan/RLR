@@ -2,7 +2,7 @@
 
 
 #include "AbnormalPoison.h"
-#include "Player/PlayerCharacter.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 //TODO : ���� ������
 UAbnormalPoison::UAbnormalPoison()
@@ -10,9 +10,9 @@ UAbnormalPoison::UAbnormalPoison()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-void UAbnormalPoison::ApplyAbnormal(APlayerCharacter* other, int duration)
+void UAbnormalPoison::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)
 {
-	if (other->IsA<APlayerCharacter>())
+	if (other->IsA<ARLRPlayerCharacter>())
 	{
 		GetWorld()->GetTimerManager().SetTimer(Timer, this, &UAbnormalPoison::RemoveAbnormal, duration, false);
 	}

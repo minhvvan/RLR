@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "Abnormal.generated.h"
 
-class APlayerCharacter;
+class ARLRPlayerCharacter;
 
 UCLASS(abstract)
 class RLR_API UAbnormal : public UActorComponent
@@ -15,7 +15,7 @@ class RLR_API UAbnormal : public UActorComponent
 
 public:
 	
-	virtual void ApplyAbnormal(APlayerCharacter*,int) PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
+	virtual void ApplyAbnormal(ARLRPlayerCharacter*,int) PURE_VIRTUAL(UAbnormal::ApplyAbnormal, );
 	//TODO : Character, Monster 구분
 	virtual void RemoveAbnormal() PURE_VIRTUAL(UAbnormal::RemoveAbnormal, );
 
@@ -24,7 +24,7 @@ protected:
 	int CoolTime;
 	FTimerHandle Timer;
 	FTimerDelegate TimerDelegate;
-	APlayerCharacter* Player;
+	ARLRPlayerCharacter* Player;
 
 	//TODO : Delete
 	enum class ESubAbnormal

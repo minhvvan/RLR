@@ -3,168 +3,70 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
-#include "GameplayTagContainer.h"
+#include "GameplayTasksComponent.h"
+#include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystemComponent.generated.h"
 
-class AAction;
-struct FGameplayTagCountContainer
-{
-	FGameplayTagCountContainer()
-	{}
+class UAction;
 
-	FORCEINLINE bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const
-	{
-		return GameplayTagCountMap.FindRef(TagToCheck) > 0;
-	}
-
-	FORCEINLINE bool HasAllMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
-	{
-		if (TagContainer.Num() == 0)
-		{
-			return true;
-		}
-
-		bool AllMatch = true;
-		for (const FGameplayTag& Tag : TagContainer)
-		{
-			if (GameplayTagCountMap.FindRef(Tag) <= 0)
-			{
-				AllMatch = false;
-				break;
-			}
-		}
-		return AllMatch;
-	}
-
-	FORCEINLINE bool HasAnyMatchingGameplayTags(const FGameplayTagContainer& TagContainer) const
-	{
-		if (TagContainer.Num() == 0)
-		{
-			return false;
-		}
-
-		bool AnyMatch = false;
-		for (const FGameplayTag& Tag : TagContainer)
-		{
-			if (GameplayTagCountMap.FindRef(Tag) > 0)
-			{
-				AnyMatch = true;
-				break;
-			}
-		}
-		return AnyMatch;
-	}
-
-	FORCEINLINE void UpdateTagCount(const FGameplayTagContainer& Container, int CountDelta)
-	{
-		if (CountDelta != 0)
-		{
-			for (auto TagIt = Container.CreateConstIterator(); TagIt; ++TagIt)
-			{
-				UpdateTagMap(*TagIt, CountDelta);
-			}
-		}
-	}
-
-	FORCEINLINE bool UpdateTagCount(const FGameplayTag& Tag, int CountDelta)
-	{
-		if (CountDelta != 0)
-		{
-			return UpdateTagMap(Tag, CountDelta);
-		}
-
-		return false;
-	}
-
-	FORCEINLINE bool SetTagCount(const FGameplayTag& Tag, int NewCount)
-	{
-		int32 ExistingCount = 0;
-		if (int32* Ptr = GameplayTagCountMap.Find(Tag))
-		{
-			ExistingCount = *Ptr;
-		}
-
-		int32 CountDelta = NewCount - ExistingCount;
-		if (CountDelta != 0)
-		{
-			return UpdateTagMap(Tag, CountDelta);
-		}
-
-		return false;
-	}
-
-	FORCEINLINE bool UpdateTagMap(const FGameplayTag& Tag, int NewCount)
-	{
-		if (NewCount > 0)
-		{
-			GameplayTagCountMap[Tag] += NewCount;
-		}
-		else
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-	FORCEINLINE int GetTagCount(const FGameplayTag& Tag) const
-	{
-		if (const int* Ptr = GameplayTagCountMap.Find(Tag))
-		{
-			return *Ptr;
-		}
-
-		return 0;
-	}
-
-	//FORCEINLINE void AddTag(const FGameplayTag& Tag, int Count) const
-	//{
-	//	UpdateTagMap(Tag, Count);
-	//}
-
-private:
-	/** Map of tag to active count of that tag */
-	TMap<FGameplayTag, int> GameplayTagCountMap;
-};
-
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class RLR_API UActionSystemComponent : public UActorComponent
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class RLR_API UActionSystemComponent : public UGameplayTasksComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UActionSystemComponent();
+public:
+	UActionSystemComponent(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	virtual void InitializeComponent();
+
 	void InitActorInfo(AActor* Owner, AActor* Avatar);
 
-
-//	//Action
-//	void GiveAction(FGameplayTag Tag, TSubclassOf<class AAction> Action);
-//	void RemoveAction(FGameplayTag Tag);
-//	void TryActivateAction(FGameplayTag Tag);
-private:
-	TObjectPtr<AActor> OwnerActor;
-	TObjectPtr<AActor> AvatarActor;
-
 	//	//Action
-//	TMap<FGameplayTag, class AAction> GrantedActions;
+	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
+	void RemoveAction(FGameplayTag Tag);
+	void TryActivateAction(FGameplayTag Tag);
+
+	void NotifyActionEnded(UAction* EndedAction);
+
+	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);
+
+	FActionActorInfo* GetActionActorInfo();
+	virtual float PlayMontage(UAction* AnimatingAction, UAnimMontage* Montage, float InPlayRate, FName StartSectionName = NAME_None, float StartTimeSeconds = 0.0f);
+
+	UAction* GetAnimatingAction();
+	UAnimMontage* GetCurrentMontage();
+
+	void CurrentMontageStop(float OverrideBlendOutTime = -1.0f);
+	virtual void ClearAnimatingAction(UAction* Action);
+
+private:
+	//Actor Info
+	TSharedPtr<FActionActorInfo> ActorInfo;
+
+	//Action
+	UPROPERTY(VisibleAnywhere, Category = Action, meta = (AllowPrivateAccess = "true"))
+	TMap<FGameplayTag, FActionSpec> GrantedActions;
 
 	//Tag
+	UPROPERTY(VisibleAnywhere, Category=Action, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagCountContainer OwnedTags;
+
+	UPROPERTY(VisibleAnywhere, Category = Anim, meta = (AllowPrivateAccess = "true"))
+	FActionAnimMontage LocalAnimMontageInfo;
 
 public:
 	//Tag
+	bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const;
+
+	void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 
 	//Tag�� count�� ������ �ƴ���...
 	//��� count�� ���°� ������ -> ���� ����

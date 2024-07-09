@@ -3,24 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "RLRObjects/Characters/RLRCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
 #include "User/UserController.h"
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
-#include "PlayerData.h"
-#include "PlayerCharacter.generated.h"
+#include "Player/PlayerData.h"
+#include "RLRPlayerCharacter.generated.h"
 
+class UAction;
 
 UCLASS()
-class RLR_API APlayerCharacter : public ACharacter
+class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 {
 	GENERATED_BODY()
 
 public:
-	APlayerCharacter();
+	ARLRPlayerCharacter();
 	void SetMovement(FVector);
 	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
@@ -30,7 +31,7 @@ public:
 	void SetIsAttack(bool value) { bIsAttack = value; };
 	bool IsAttack() { return bIsAttack; };
 
-  int32 GetPlayerSeq() const { return PlayerSeq; }
+	int32 GetPlayerSeq() const { return PlayerSeq; }
 	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 private:
@@ -54,4 +55,16 @@ private:
 	void SetCameraArm();
 	void SetCharacterMovement();
 	bool bIsAttack = true;
+
+public:
+	//-------------------------------------
+	//Test Code
+	//-------------------------------------
+
+	UPROPERTY(EditAnywhere, Category = Action)
+	UAnimMontage* AttackMontage;
+
+protected:
+	virtual void PostInitializeComponents() override;
+	virtual void BeginPlay() override;
 };

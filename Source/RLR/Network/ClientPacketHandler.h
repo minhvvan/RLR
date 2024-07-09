@@ -5,8 +5,8 @@
 #include <functional>
 #include <memory>
 #include "Buffer.h"
+
 class PacketSession;
-struct PacketHeader;
 
 using PacketHandlerFunc = bool(*)(TSharedPtr<PacketSession>&, uint8*, int32);
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -27,6 +27,13 @@ enum : uint16
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1010,
     PKT_INVENTORY_RESPONSE = 1011,
+    // Add move packet types
+    PKT_MOVE_REQUEST = 1012,
+    PKT_MOVE_RESPONSE = 1013,
+    PKT_MOVE_BROADCAST = 1014,
+    // Enter Game Packet types
+    PKT_ENTER_GAME_REQUEST = 1015,
+    PKT_ENTER_GAME_RESPONSE = 1016
 };
 
 // Custom Handlers
@@ -36,13 +43,35 @@ bool Handle_LOGIN_REQUEST(TSharedPtr<PacketSession>& session, Protocol::LoginReq
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::LoginResponsePacket& pkt);
 // Status Handlers
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt);
-
-
 // Item Handlers
 bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt);
 bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt);
 // Inventory Handlers
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt);
+// Move Handlers
+bool Handle_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MoveRequestPacket& pkt);
+bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt);
+bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt);
+// Enter Game Handlers
+bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt);
+bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt);
+
+struct PacketHeader
+{
+    uint16 size;
+    uint16 id; // 패킷 ID
+};
+
+class PacketSession : public TSharedFromThis<PacketSession>
+{
+public:
+    PacketSession();
+    virtual ~PacketSession();
+
+protected:
+    virtual int32 OnRecv(uint8* buffer, int32 len);
+    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
+};
 
 class ClientPacketHandler
 {
@@ -53,11 +82,16 @@ public:
 
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_RESPONSE); }
-    // Add item make send buffer
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemAddResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_ADD_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemUseResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
-    // Add inventory make send buffer
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
+
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveBroadcastPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_BROADCAST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGamePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGameResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_RESPONSE); }
 
 public:
     template<typename PacketType>
@@ -70,7 +104,6 @@ public:
         return func(session, pkt);
     }
 
-    
     template<typename T>
     static TSharedPtr<SendBuffer> MakeSendBuffer(T& pkt, uint16 pktId)
     {
@@ -86,22 +119,4 @@ public:
 
         return sendBuffer;
     }
-};
-
-struct PacketHeader
-{
-    uint16 size;
-    uint16 id; // ��������ID (ex. 1=�α���, 2=�̵���û)
-};
-
-class PacketSession : public TSharedFromThis<PacketSession>
-{
-public:
-    PacketSession();
-    virtual ~PacketSession();
- 
-    
-protected:
-    virtual int32 OnRecv(uint8* buffer, int32 len);
-    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
 };

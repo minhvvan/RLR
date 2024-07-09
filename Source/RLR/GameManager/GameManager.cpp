@@ -10,7 +10,7 @@
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager.h"
 #include <Kismet/GameplayStatics.h>
-
+#include "GameManager/NetworkManager.h"
 UGameManager* GameInstance = nullptr;
 
 void UGameManager::Init()
@@ -70,6 +70,18 @@ USkillManager* UGameManager::GetSkillManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetSkillManager Error."));
+    return nullptr;
+}
+
+UNetworkManager* UGameManager::GetNetworkManager()
+{
+    UNetworkManager* NetworkManager = GetSubsystem<UNetworkManager>(this);
+    if (IsValid(NetworkManager))
+    {
+        return NetworkManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetNetworkManager Error."));
     return nullptr;
 }
 
