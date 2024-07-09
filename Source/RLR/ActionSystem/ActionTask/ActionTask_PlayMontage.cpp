@@ -29,6 +29,9 @@ void UActionTask_PlayMontage::OnActionCancelled()
 
 void UActionTask_PlayMontage::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
+	if (bInterrupted) OnInterrupted.Broadcast();
+	else OnCompleted.Broadcast();
+
 	EndTask();
 }
 
@@ -75,7 +78,7 @@ void UActionTask_PlayMontage::Activate()
 		}
 	}
 
-	//TODO: Avatar °ü·Ã Ã³¸®
+	//TODO: Avatar ê´€ë ¨ ì²˜ë¦¬
 	//SetWaitingOnAvatar();
 }
 

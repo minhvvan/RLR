@@ -67,6 +67,15 @@ void UAction::PreActivateAction()
 
 	//cancel여부 결정
 	//bIsCancelable = true;
+
+	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	{
+		// Add tags
+		for (auto AddTag : ActivationOwnedTags)
+		{
+			ASC->AddGameplayTag(AddTag);
+		}
+	}
 }
 
 void UAction::ActivateAction()

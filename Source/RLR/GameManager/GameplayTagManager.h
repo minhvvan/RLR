@@ -28,6 +28,9 @@ public:
 	//Object.State
 	FGameplayTag Object_State_Hittable;
 
+	//Player.State
+	FGameplayTag Player_State_Attacking;
+
 private:
 	static FGameplayTagManager GameplayTags;
 
