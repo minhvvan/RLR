@@ -6,9 +6,9 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/SkillManager.h"
+#include "GameManager/MonsterManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
-#include "GameManager.h"
 #include <Kismet/GameplayStatics.h>
 #include "GameManager/NetworkManager.h"
 UGameManager* GameInstance = nullptr;
@@ -82,6 +82,18 @@ UNetworkManager* UGameManager::GetNetworkManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetNetworkManager Error."));
+    return nullptr;
+}
+
+UMonsterManager* UGameManager::GetMonsterManager()
+{
+    UMonsterManager* MonsterManager = GetSubsystem<UMonsterManager>(this);
+    if (IsValid(MonsterManager))
+    {
+        return MonsterManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetMonsterManager Error."));
     return nullptr;
 }
 
