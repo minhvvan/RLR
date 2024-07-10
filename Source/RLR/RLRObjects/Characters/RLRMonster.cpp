@@ -9,6 +9,12 @@ ARLRMonster::ARLRMonster()
 {
 }
 
+void ARLRMonster::SetStat(FMonsterStatus Stat)
+{
+	//TODO: ASC에서 처리
+
+}
+
 void ARLRMonster::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();

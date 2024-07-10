@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "GameManager/RLRStruct.h"
 #include "RLRMonster.generated.h"
 
 /**
@@ -16,6 +17,8 @@ class RLR_API ARLRMonster : public ARLRNonPlayerCharacter
 	
 public:
 	ARLRMonster();
+
+	void SetStat(FMonsterStatus Stat);
 
 protected:
 	virtual void PostInitializeComponents() override;
