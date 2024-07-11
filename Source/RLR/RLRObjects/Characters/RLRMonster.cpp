@@ -4,15 +4,40 @@
 #include "RLRObjects/Characters/RLRMonster.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "ActionSystem/StatSet/StatSetMonster.h"
+#include "RLR.h"
 
 ARLRMonster::ARLRMonster()
 {
+
 }
 
-void ARLRMonster::SetStat(FMonsterStatus Stat)
+void ARLRMonster::SetStat(FMonsterStatus& Stat)
 {
-	//TODO: ASC에서 처리
+	UStatSetMonster* StatSet = ASC->GetStatSet<UStatSetMonster>();
+	if (StatSet == nullptr)
+	{
+		ASC->CreateStatSet<UStatSetMonster>();
+		StatSet = ASC->GetStatSet<UStatSetMonster>();
+	}
 
+	StatSet->SetStatData(Stat);
+
+	//--------------------------------
+	// Test Log
+	//--------------------------------
+	if (StatSet)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
+		RLR_LOG(LogRLR, Log, TEXT("Seq: %d"), StatSet->GetMonsterSeq());
+		RLR_LOG(LogRLR, Log, TEXT("Name: %s"), *StatSet->GetMonsterName());
+		RLR_LOG(LogRLR, Log, TEXT("Level: %d"), StatSet->GetMonsterLevel());
+		RLR_LOG(LogRLR, Log, TEXT("HP: %d"), StatSet->GetMonsterHp());
+		RLR_LOG(LogRLR, Log, TEXT("TransX: %f"), StatSet->GetMonsterTransX());
+		RLR_LOG(LogRLR, Log, TEXT("TransY: %f"), StatSet->GetMonsterTransY());
+		RLR_LOG(LogRLR, Log, TEXT("TransZ: %f"), StatSet->GetMonsterTransZ());
+		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
+	}
 }
 
 void ARLRMonster::PostInitializeComponents()

@@ -18,7 +18,7 @@ class RLR_API ARLRMonster : public ARLRNonPlayerCharacter
 public:
 	ARLRMonster();
 
-	void SetStat(FMonsterStatus Stat);
+	void SetStat(FMonsterStatus& Stat);
 
 protected:
 	virtual void PostInitializeComponents() override;
