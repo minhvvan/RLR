@@ -5,9 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameplayTasksComponent.h"
 #include "ActionSystem/ActionSystemTypes.h"
+#include "GameManager/RLRStruct.h"
 #include "ActionSystemComponent.generated.h"
 
 class UAction;
+class UStatSet;
+
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class RLR_API UActionSystemComponent : public UGameplayTasksComponent
@@ -47,6 +50,31 @@ public:
 	void CurrentMontageStop(float OverrideBlendOutTime = -1.0f);
 	virtual void ClearAnimatingAction(UAction* Action);
 
+	//Stat
+	template<typename T>
+	void CreateStatSet()
+	{
+		AActor* OwningActor = GetOwner();
+		const T* MyStat = nullptr;
+		if (OwningActor && T::StaticClass())
+		{
+			T* NewStatSet = NewObject<T>(OwningActor, T::StaticClass());
+			StatSet = NewStatSet;
+		}
+	}
+
+	template <class T>
+	T* GetStatSet() const
+	{
+		T* ResultStatSet = nullptr;
+		if (StatSet.IsA(T::StaticClass()))
+		{
+			ResultStatSet = Cast<T>(StatSet.Get());
+		}
+
+		return ResultStatSet;
+	}
+
 private:
 	//Actor Info
 	TSharedPtr<FActionActorInfo> ActorInfo;
@@ -61,6 +89,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = Anim, meta = (AllowPrivateAccess = "true"))
 	FActionAnimMontage LocalAnimMontageInfo;
+
+	UPROPERTY(VisibleAnywhere, Category=Stat)
+	TObjectPtr<UStatSet> StatSet;
 
 public:
 	//Tag
