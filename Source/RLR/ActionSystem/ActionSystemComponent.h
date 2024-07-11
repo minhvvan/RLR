@@ -93,10 +93,6 @@ private:
 	UPROPERTY(VisibleAnywhere, Category=Stat)
 	TObjectPtr<UStatSet> StatSet;
 
-protected:
-	template<typename T>
-	T* GetStatSetByClass(const TSubclassOf<T> StatClass) const;
-
 public:
 	//Tag
 	bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const;
