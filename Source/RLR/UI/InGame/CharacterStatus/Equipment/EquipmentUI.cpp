@@ -3,6 +3,9 @@
 
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
+#include "Components/Button.h"
+#include "Components/SizeBox.h"
+#include "Components/TextBlock.h"
 
 void UEquipmentUI::NativeConstruct()
 {
@@ -36,6 +39,8 @@ void UEquipmentUI::NativeConstruct()
 	RingSlot_2->SlotType = EEquipmentType::RING;
 	BraceletSlot->SlotType = EEquipmentType::BRACELET;
 
+
+	DetailStatButton->OnClicked.AddUniqueDynamic(this, &UEquipmentUI::ToggleShowDetailStatUI);
 }
 
 void UEquipmentUI::EquipItem(FItemData ItemData)
@@ -93,4 +98,43 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 			EquipSlot->SetItemData(ItemData);
 		}
 	}
+}
+
+void UEquipmentUI::ToggleShowDetailStatUI()
+{
+	ESlateVisibility State = DetailStatSizeBox->GetVisibility();
+
+	if (State == ESlateVisibility::Hidden)
+	{
+		/*
+			TODO 
+			패킷 연결 및 Player Data 관리하는 클래스 완성되면 그쪽이랑 연결하는 방향으로 수정해줄 것. 
+		*/
+
+		FStatus TestStats;
+		TestStats.ATTACK = 999;
+		RefreshStatUI(TestStats);
+		DetailStatSizeBox->SetVisibility(ESlateVisibility::Visible);
+	}
+	else if (State == ESlateVisibility::Visible)
+	{
+		DetailStatSizeBox->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void UEquipmentUI::RefreshStatUI(FStatus NewStatus)
+{
+	HPStatText->SetText(FText::FromString(FString::SanitizeFloat(NewStatus.MAX_HP)));
+	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));
+	StrengthStatText->SetText(FLOAT_TO_FTEXT(NewStatus.STRENGTH));
+	AgilityStatText->SetText(FLOAT_TO_FTEXT(NewStatus.AGILITY));
+	INTStatText->SetText(FLOAT_TO_FTEXT(NewStatus.INTELLIGENCE));
+	DamageStatText->SetText(FLOAT_TO_FTEXT(NewStatus.ATTACK));
+	DefenceStatText->SetText(FLOAT_TO_FTEXT(NewStatus.DEFENCE));
+	AttackSpeedStatText->SetText(FLOAT_TO_FTEXT(NewStatus.ATTACK_SPEED));
+	CoolTimeStatText->SetText(FLOAT_TO_FTEXT(NewStatus.COOLDOWN_REDUCTION));
+	MoveSpeedStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MOVE_SPEED));
+	LifeStealStatText->SetText(FLOAT_TO_FTEXT(NewStatus.LIFE_STEAL));
+	CriticalChanceStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_CHANCE));
+	CriticalDamageStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_DAMAGE));
 }

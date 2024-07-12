@@ -19,5 +19,15 @@ class RLR_API UUtilBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void DebugLog(FString string);
+
+
+	/*
+	
+			TEST CODE. 
+			블루프린트에서 이것저것 실험하려면 추가.
+	*/
+
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void MakeItemData();
 	
 };
