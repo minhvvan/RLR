@@ -13,6 +13,11 @@
  #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
+
+
+
+
+
 UENUM(BlueprintType)
 enum class EItemType : uint8
 {
@@ -34,6 +39,7 @@ enum class ECharacterMainJobType : uint8
 	NONE,
 };
 
+
 UENUM(BlueprintType)
 enum class ECharacterSubJobType : uint8
 {
@@ -44,6 +50,7 @@ enum class ECharacterSubJobType : uint8
 
 	NONE,
 };
+
 
 UENUM(BlueprintType)
 enum class EEquipmentType : uint8
@@ -65,7 +72,6 @@ enum class EEquipmentType : uint8
 	NONE,
 };
 
-
 UENUM(BlueprintType)
 enum class EItemRarity : uint8
 {
@@ -75,6 +81,39 @@ enum class EItemRarity : uint8
 	UNIQUE,
 	EPIC,
 	LEGEND,
+	NONE,
+};
+
+UENUM(BlueprintType)
+enum class EStatusType : uint8
+{
+	HP,
+	MP,
+	STR,
+	AGI,
+	INT,
+	NONE,
+};
+
+
+
+UENUM(BlueprintType)
+enum class EConsumptionType : uint8
+{
+	/*
+		프로토에도 딱히 정보 없어서 일단 만들어만 둠.
+		
+	*/
+
+	COMMON,
+	POTION,
+};
+
+UENUM(BlueprintType)
+enum class EETCType : uint8
+{
+	NORMAL,
+	QUEST,
 	NONE,
 };
 
@@ -106,12 +145,6 @@ struct FStatus
 	float MP_ABSORB = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float HEALTH = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float MAGIC = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float STRENGTH = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -139,9 +172,6 @@ struct FStatus
 	float MOVE_SPEED = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float EVASION = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float LIFE_STEAL = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -159,6 +189,11 @@ struct FStatus
 
 	void SetHP(float HP);
 
+
+	/*
+		날라온 패킷을 바꿔준다. 
+	*/
+	void MakeStatus(Protocol::UserTotalStatus Status);
 
 	FString ToString() const
 	{
@@ -180,8 +215,6 @@ struct FStatus
 		AppendStat(TEXT("HP_ABSORB"), HP_ABSORB);
 		AppendStat(TEXT("MP"), MP);
 		AppendStat(TEXT("MP_ABSORB"), MP_ABSORB);
-		AppendStat(TEXT("HEALTH"), HEALTH);
-		AppendStat(TEXT("MAGIC"), MAGIC);
 		AppendStat(TEXT("STRENGTH"), STRENGTH);
 		AppendStat(TEXT("AGILITY"), AGILITY);
 		AppendStat(TEXT("INTELLIGENCE"), INTELLIGENCE);
@@ -191,7 +224,6 @@ struct FStatus
 		AppendStat(TEXT("DEFENCE"), DEFENCE);
 		AppendStat(TEXT("ATTACK_SPEED"), ATTACK_SPEED);
 		AppendStat(TEXT("MOVE_SPEED"), MOVE_SPEED);
-		AppendStat(TEXT("EVASION"), EVASION);
 		AppendStat(TEXT("LIFE_STEAL"), LIFE_STEAL);
 		AppendStat(TEXT("CRITICAL_CHANCE"), CRITICAL_CHANCE);
 		AppendStat(TEXT("CRITICAL_DAMAGE"), CRITICAL_DAMAGE);
@@ -355,7 +387,6 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 EQUIPMENT_LEVEL;
 
-
 	/*
 		나중에 FItemStatus로 바꿔줄 예정.
 	*/
@@ -370,6 +401,37 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString TEXT;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ITEM_VALUE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ITEM_MAX;
+
+
+	/*
+		
+		Consumption
+	
+	*/
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float COOLDOWN;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CONSUMPTION_VALUE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CONSUMPTION_DURATION ;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EStatusType> CONSUMPTION_STATUS_TYPE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EConsumptionType> CONSUMPTION_TYPE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EETCType> ETC_TYPE;
 
 	//아이템 리소스 정보
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -386,8 +448,6 @@ struct FItemData : public FTableRowBase
 	void MakeItemData(const Protocol::Item itemData);
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
-
-	
 };
 
 
@@ -444,3 +504,82 @@ struct FAbnormal2
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
 };
+
+
+
+
+// 문자열 배열 정의
+const FString EItemTypeStrings[] = {
+	TEXT("UNKNOWN"), // 0, 사용되지 않음
+	TEXT("EQUIPMENT"), // 1
+	TEXT("CONSUMPTION"), // 2
+	TEXT("ETC"), // 3
+	TEXT("UNKNOWN"), // 4
+	TEXT("UNKNOWN"), // 5
+	TEXT("UNKNOWN"), // 6
+	TEXT("UNKNOWN"), // 7
+	TEXT("UNKNOWN"), // 8
+	TEXT("NONE") // 9
+};
+
+const FString ECharacterMainJobTypeStrings[] = {
+	TEXT("SWORDSMAN"),
+	TEXT("THEIF"),
+	TEXT("MAGE"),
+	TEXT("ARCHER"),
+	TEXT("PRIEST"),
+	TEXT("NONE")
+};
+
+const FString ECharacterSubJobTypeStrings[] = {
+	TEXT("NONE")
+};
+
+const FString EEquipmentTypeStrings[] = {
+	TEXT("WEAPON"),
+	TEXT("SUBWEAPON"),
+	TEXT("HELMET"),
+	TEXT("UPPERBODYARMOR"),
+	TEXT("LOWERBODYARMOR"),
+	TEXT("SHOES"),
+	TEXT("GLOVES"),
+	TEXT("NECKLACE"),
+	TEXT("EARRING"),
+	TEXT("RING"),
+	TEXT("BRACELET"),
+	TEXT("NONE")
+};
+
+const FString EItemRarityStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE")
+};
+
+// 문자열 배열 정의
+const FString EStatusTypeStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE"),
+};
+
+
+EItemType StringToEItemType(const FString& ItemTypeString);
+ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString);
+ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString);
+EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString);
+EItemRarity StringToEItemRarity(const FString& RarityString);
+
+FString EItemTypeToString(EItemType ItemType);
+FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
+FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
+FString EEquipmentTypeToString(EEquipmentType EquipmentType);
+FString EStatusTypeToString(EStatusType StatusType);

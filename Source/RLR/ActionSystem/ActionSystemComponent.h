@@ -68,6 +68,8 @@ public:
 
 	void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 
+	void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
+
 	//Tag�� count�� ������ �ƴ���...
 	//��� count�� ���°� ������ -> ���� ����
 	//�ٵ� countContainer������ GAS�÷����� ��ƾ���
@@ -75,20 +77,20 @@ public:
 
 	//or �׳� container����
 
-	FORCEINLINE bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const
-	{
-		return OwnedTags.HasMatchingGameplayTag(TagToCheck);
-	}
+	//FORCEINLINE bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const
+	//{
+	//	return OwnedTags.HasMatchingGameplayTag(TagToCheck);
+	//}
 
-	FORCEINLINE void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	{
-		//OwnedTags.AddTag(GameplayTag);
-		//UpdateTagMap(GameplayTag, Count);
-	}
+	//FORCEINLINE void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
+	//{
+	//	//OwnedTags.AddTag(GameplayTag);
+	//	//UpdateTagMap(GameplayTag, Count);
+	//}
 
-	FORCEINLINE void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	{
-		//OwnedTags.RemoveTag(GameplayTag);
-		//UpdateTagMap(GameplayTag, -Count);
-	}
+	//FORCEINLINE void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
+	//{
+	//	//OwnedTags.RemoveTag(GameplayTag);
+	//	//UpdateTagMap(GameplayTag, -Count);
+	//}
 };

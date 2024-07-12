@@ -12,6 +12,9 @@
  */
 
  class UEquipmentSlot;
+ class UButton;
+ class USizeBox;
+ class UTextBlock;
 
 UCLASS()
 class RLR_API UEquipmentUI : public UBaseUI
@@ -23,7 +26,19 @@ public:
 	virtual void NativeConstruct() override;
 	void				EquipItem(FItemData ItemData);
 
+	UFUNCTION()
+	void ToggleShowDetailStatUI();
+
+	UFUNCTION(BlueprintCallable)
+	void RefreshStatUI(FStatus NewStatus);
+
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> DetailStatButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<USizeBox> DetailStatSizeBox;
 
 	//무기,  방어구
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
@@ -66,6 +81,61 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UEquipmentSlot> BraceletSlot;
+
+
+	/*
+		Stat UI
+	*/
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> HPStatText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> MPStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> HealthStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> MagicStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> StrengthStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> AgilityStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> INTStatText;
+
+
+	//Detail Stat
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> DamageStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> DefenceStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> AttackSpeedStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> CoolTimeStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> MoveSpeedStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> EvasionStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> LifeStealStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> CriticalChanceStatText;
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> CriticalDamageStatText;
 
 private:
 	TArray<UEquipmentSlot*> EquipmentSlotList;
