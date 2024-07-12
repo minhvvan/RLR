@@ -21,6 +21,8 @@
 			UI를 열고 닫기를 관리할 매니저.
 		SkillManager
 			Skill 관리 매니저(등록, 실행)
+		MonsterManager
+			Monster 관리 매니저
  */
 
 
@@ -30,6 +32,7 @@
  class USkillManager;
  class UGameOptionData;
  class UNetworkManager;
+ class UMonsterManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -53,7 +56,10 @@ public:
 	USkillManager*		GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager* GetNetworkManager();
+	UNetworkManager* GetNetworkManager();	
+	
+	UFUNCTION(BlueprintCallable)
+	UMonsterManager* GetMonsterManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*		GetGameOptionData();

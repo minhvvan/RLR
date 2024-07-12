@@ -326,3 +326,20 @@ FString EStatusTypeToString(EStatusType StatusType)
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
 
+int32 FMonsterStatus::tempID = 0;
+void FMonsterStatus::MakeMonsterData()
+{
+    //(X=1250.000000,Y=1930.000000,Z=96.000000)
+    MonsterSeq = tempID++;
+    MonsterName = TEXT("Monster");
+    MonsterLevel = 1;
+    MontserExp = 10;
+    MonsterDamage = 10;
+    MonsterDefence = 10;
+    MonsterHp = 10;
+    MonsterDistance = 10;
+    MonsterTransX = 1250.f;
+    MonsterTransY = 1930.f + 150.f*tempID;
+    MonsterTransZ = 96.f;
+    MonsterMapId = 1;
+}

@@ -505,9 +505,6 @@ struct FAbnormal2
 	float Duration;
 };
 
-
-
-
 // 문자열 배열 정의
 const FString EItemTypeStrings[] = {
 	TEXT("UNKNOWN"), // 0, 사용되지 않음
@@ -583,3 +580,103 @@ FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
 FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
 FString EEquipmentTypeToString(EEquipmentType EquipmentType);
 FString EStatusTypeToString(EStatusType StatusType);
+=======
+USTRUCT(Atomic, BlueprintType)
+struct FMonsterStatus
+{
+	GENERATED_BODY()
+
+	FMonsterStatus() :
+		MonsterSeq(-1),
+		MonsterName(TEXT("")),
+		MonsterLevel(0),
+		MontserExp(0),
+		MonsterDamage(0),
+		MonsterDefence(0),
+		MonsterHp(0),
+		MonsterDistance(0.f),
+		MonsterTransX(0.f),
+		MonsterTransY(0.f),
+		MonsterTransZ(0.f),
+		MonsterMapId(-1)
+	{}
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString MonsterName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterLevel;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MontserExp;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterDamage;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterDefence;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterHp;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MonsterDistance;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MonsterTransX;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MonsterTransY;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float MonsterTransZ;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MonsterMapId;
+
+	FString ToString() const
+	{
+		FString MonsterString;
+
+		auto AppendStatFloat = [&MonsterString](const FString& StatName, float StatValue)
+			{
+				if (!MonsterString.IsEmpty()) MonsterString.Append(TEXT("\n"));
+				MonsterString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+			};
+
+		auto AppendStatInt = [&MonsterString](const FString& StatName, int32 StatValue)
+			{
+				if (!MonsterString.IsEmpty()) MonsterString.Append(TEXT("\n"));
+				MonsterString.Append(FString::Printf(TEXT("%s = %d"), *StatName, StatValue));
+			};
+
+		auto AppendStatString = [&MonsterString](const FString& StatName, FString StatValue)
+			{
+				if (!MonsterString.IsEmpty()) MonsterString.Append(TEXT("\n"));
+				MonsterString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue));
+			};
+
+		AppendStatInt(TEXT("SEQ"), MonsterSeq);
+		AppendStatString(TEXT("Name"), MonsterName);
+		AppendStatInt(TEXT("Level"), MonsterLevel);
+		AppendStatInt(TEXT("Exp"), MontserExp);
+		AppendStatInt(TEXT("Damage"), MonsterDamage);
+		AppendStatInt(TEXT("Defence"), MonsterDefence);
+		AppendStatFloat(TEXT("Distance"), MonsterDistance);
+		AppendStatFloat(TEXT("X"), MonsterTransX);
+		AppendStatFloat(TEXT("Y"), MonsterTransY);
+		AppendStatFloat(TEXT("Z"), MonsterTransZ);
+		AppendStatInt(TEXT("MapId"), MonsterMapId);
+
+		return MonsterString;
+	}
+
+	//Test
+	static int32 tempID;
+
+	//TODO: 몬스터 정보 생성
+	void MakeMonsterData(/*const Protocol::Item itemData*/);
+};
