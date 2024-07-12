@@ -228,3 +228,14 @@ struct RLR_API FActionAnimMontage
 	UPROPERTY(VisibleAnywhere)
 	TWeakObjectPtr<UAction> AnimatingAction;
 };
+
+UENUM(BlueprintType)
+enum class EActionState : uint8
+{
+	STATE_INIT						UMETA(DisplayName = "Init"),
+	STATE_ACTIVATE					UMETA(DisplayName = "Activate"),
+	STATE_END						UMETA(DisplayName = "End"),
+	STATE_WAIT_ACTIVATE				UMETA(DisplayName = "Wait_Activate"),
+	STATE_WAIT_ADDTIONAL_INPUT		UMETA(DisplayName = "Wait_Input"),
+	SIZE
+};
