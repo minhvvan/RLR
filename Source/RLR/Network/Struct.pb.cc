@@ -172,6 +172,7 @@ PROTOBUF_CONSTEXPR UserCharacter::UserCharacter(
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.setstatus_)*/nullptr
   , /*decltype(_impl_.totalstatus_)*/nullptr
+  , /*decltype(_impl_.talent_)*/nullptr
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_.playerseq_)*/0
   , /*decltype(_impl_.level_)*/0
@@ -254,8 +255,26 @@ struct MonsterDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MonsterDefaultTypeInternal _Monster_default_instance_;
+PROTOBUF_CONSTEXPR Talent::Talent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.firsttalent_)*/0
+  , /*decltype(_impl_.firstlevel_)*/0
+  , /*decltype(_impl_.secondtalent_)*/0
+  , /*decltype(_impl_.secondlevel_)*/0
+  , /*decltype(_impl_.thirdtalent_)*/0
+  , /*decltype(_impl_.thirdlevel_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct TalentDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TalentDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TalentDefaultTypeInternal() {}
+  union {
+    Talent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TalentDefaultTypeInternal _Talent_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Struct_2eproto[11];
+static ::_pb::Metadata file_level_metadata_Struct_2eproto[12];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Struct_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Struct_2eproto = nullptr;
 
@@ -388,6 +407,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.maptransy_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.setstatus_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.totalstatus_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.talent_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::UserPosition, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -429,6 +449,18 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::Monster, _impl_.monstertransz_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Monster, _impl_.monstermapid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Monster, _impl_.monsterid_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.firsttalent_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.firstlevel_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.secondtalent_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.secondlevel_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.thirdtalent_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Talent, _impl_.thirdlevel_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::Player)},
@@ -439,9 +471,10 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 72, -1, -1, sizeof(::Protocol::UserSetStatus)},
   { 83, -1, -1, sizeof(::Protocol::UserTotalStatus)},
   { 106, -1, -1, sizeof(::Protocol::UserCharacter)},
-  { 128, -1, -1, sizeof(::Protocol::UserPosition)},
-  { 138, -1, -1, sizeof(::Protocol::Skill)},
-  { 150, -1, -1, sizeof(::Protocol::Monster)},
+  { 129, -1, -1, sizeof(::Protocol::UserPosition)},
+  { 139, -1, -1, sizeof(::Protocol::Skill)},
+  { 151, -1, -1, sizeof(::Protocol::Monster)},
+  { 170, -1, -1, sizeof(::Protocol::Talent)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -456,6 +489,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_UserPosition_default_instance_._instance,
   &::Protocol::_Skill_default_instance_._instance,
   &::Protocol::_Monster_default_instance_._instance,
+  &::Protocol::_Talent_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -494,7 +528,7 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "ckSpeed\030\014 \001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022"
   "userCriticalChance\030\016 \001(\002\022\032\n\022userCritical"
   "Damage\030\017 \001(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userC"
-  "ooldownReduction\030\021 \001(\002\"\336\002\n\rUserCharacter"
+  "ooldownReduction\030\021 \001(\002\"\200\003\n\rUserCharacter"
   "\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004"
   "name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRan"
   "k\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005"
@@ -503,25 +537,29 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\014 \001(\002\022\021\n\tmapTransX\030\r \001(\005\022\021\n\tmapTransY\030\016 "
   "\001(\005\022*\n\tsetStatus\030\017 \001(\0132\027.Protocol.UserSe"
   "tStatus\022.\n\013totalStatus\030\020 \001(\0132\031.Protocol."
-  "UserTotalStatus\"I\n\014UserPosition\022\017\n\007userS"
-  "eq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n\004"
-  "posZ\030\004 \001(\002\"s\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022\r\n"
-  "\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007userS"
-  "eq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \001(\r\022\022\n\ntargetTyp"
-  "e\030\006 \001(\t\"\242\002\n\007Monster\022\022\n\nmonsterSeq\030\001 \001(\005\022"
-  "\023\n\013monsterName\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001"
-  "(\005\022\022\n\nmonsterExp\030\004 \001(\005\022\025\n\rmonsterDamage\030"
-  "\005 \001(\005\022\026\n\016monsterDefence\030\006 \001(\005\022\021\n\tmonster"
-  "Hp\030\007 \001(\002\022\024\n\014monsterMaxHp\030\010 \001(\002\022\025\n\rmonste"
-  "rTransX\030\t \001(\002\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\r"
-  "monsterTransZ\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001("
-  "\003\022\021\n\tmonsterId\030\r \001(\003b\006proto3"
+  "UserTotalStatus\022 \n\006talent\030\021 \001(\0132\020.Protoc"
+  "ol.Talent\"I\n\014UserPosition\022\017\n\007userSeq\030\001 \001"
+  "(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n\004posZ\030\004"
+  " \001(\002\"s\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022\r\n\005level"
+  "\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007userSeq\030\004 \001"
+  "(\r\022\021\n\ttargetSeq\030\005 \001(\r\022\022\n\ntargetType\030\006 \001("
+  "\t\"\242\002\n\007Monster\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013mon"
+  "sterName\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001(\005\022\022\n\n"
+  "monsterExp\030\004 \001(\005\022\025\n\rmonsterDamage\030\005 \001(\005\022"
+  "\026\n\016monsterDefence\030\006 \001(\005\022\021\n\tmonsterHp\030\007 \001"
+  "(\002\022\024\n\014monsterMaxHp\030\010 \001(\002\022\025\n\rmonsterTrans"
+  "X\030\t \001(\002\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\rmonste"
+  "rTransZ\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001(\003\022\021\n\tm"
+  "onsterId\030\r \001(\003\"\205\001\n\006Talent\022\023\n\013firstTalent"
+  "\030\001 \001(\005\022\022\n\nfirstLevel\030\002 \001(\005\022\024\n\014secondTale"
+  "nt\030\003 \001(\005\022\023\n\013secondLevel\030\004 \001(\005\022\023\n\013thirdTa"
+  "lent\030\005 \001(\005\022\022\n\nthirdLevel\030\006 \001(\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 2268, descriptor_table_protodef_Struct_2eproto,
+    false, false, 2438, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
-    &descriptor_table_Struct_2eproto_once, nullptr, 0, 11,
+    &descriptor_table_Struct_2eproto_once, nullptr, 0, 12,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
     file_level_metadata_Struct_2eproto, file_level_enum_descriptors_Struct_2eproto,
     file_level_service_descriptors_Struct_2eproto,
@@ -3765,6 +3803,7 @@ class UserCharacter::_Internal {
  public:
   static const ::Protocol::UserSetStatus& setstatus(const UserCharacter* msg);
   static const ::Protocol::UserTotalStatus& totalstatus(const UserCharacter* msg);
+  static const ::Protocol::Talent& talent(const UserCharacter* msg);
 };
 
 const ::Protocol::UserSetStatus&
@@ -3774,6 +3813,10 @@ UserCharacter::_Internal::setstatus(const UserCharacter* msg) {
 const ::Protocol::UserTotalStatus&
 UserCharacter::_Internal::totalstatus(const UserCharacter* msg) {
   return *msg->_impl_.totalstatus_;
+}
+const ::Protocol::Talent&
+UserCharacter::_Internal::talent(const UserCharacter* msg) {
+  return *msg->_impl_.talent_;
 }
 UserCharacter::UserCharacter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -3788,6 +3831,7 @@ UserCharacter::UserCharacter(const UserCharacter& from)
       decltype(_impl_.name_){}
     , decltype(_impl_.setstatus_){nullptr}
     , decltype(_impl_.totalstatus_){nullptr}
+    , decltype(_impl_.talent_){nullptr}
     , decltype(_impl_.userseq_){}
     , decltype(_impl_.playerseq_){}
     , decltype(_impl_.level_){}
@@ -3818,6 +3862,9 @@ UserCharacter::UserCharacter(const UserCharacter& from)
   if (from._internal_has_totalstatus()) {
     _this->_impl_.totalstatus_ = new ::Protocol::UserTotalStatus(*from._impl_.totalstatus_);
   }
+  if (from._internal_has_talent()) {
+    _this->_impl_.talent_ = new ::Protocol::Talent(*from._impl_.talent_);
+  }
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.maptransy_) -
     reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.maptransy_));
@@ -3832,6 +3879,7 @@ inline void UserCharacter::SharedCtor(
       decltype(_impl_.name_){}
     , decltype(_impl_.setstatus_){nullptr}
     , decltype(_impl_.totalstatus_){nullptr}
+    , decltype(_impl_.talent_){nullptr}
     , decltype(_impl_.userseq_){0}
     , decltype(_impl_.playerseq_){0}
     , decltype(_impl_.level_){0}
@@ -3867,6 +3915,7 @@ inline void UserCharacter::SharedDtor() {
   _impl_.name_.Destroy();
   if (this != internal_default_instance()) delete _impl_.setstatus_;
   if (this != internal_default_instance()) delete _impl_.totalstatus_;
+  if (this != internal_default_instance()) delete _impl_.talent_;
 }
 
 void UserCharacter::SetCachedSize(int size) const {
@@ -3888,6 +3937,10 @@ void UserCharacter::Clear() {
     delete _impl_.totalstatus_;
   }
   _impl_.totalstatus_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.talent_ != nullptr) {
+    delete _impl_.talent_;
+  }
+  _impl_.talent_ = nullptr;
   ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.maptransy_) -
       reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.maptransy_));
@@ -4026,6 +4079,14 @@ const char* UserCharacter::_InternalParse(const char* ptr, ::_pbi::ParseContext*
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
           ptr = ctx->ParseMessage(_internal_mutable_totalstatus(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Talent talent = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          ptr = ctx->ParseMessage(_internal_mutable_talent(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4173,6 +4234,13 @@ uint8_t* UserCharacter::_InternalSerialize(
         _Internal::totalstatus(this).GetCachedSize(), target, stream);
   }
 
+  // .Protocol.Talent talent = 17;
+  if (this->_internal_has_talent()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(17, _Internal::talent(this),
+        _Internal::talent(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4208,6 +4276,13 @@ size_t UserCharacter::ByteSizeLong() const {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.totalstatus_);
+  }
+
+  // .Protocol.Talent talent = 17;
+  if (this->_internal_has_talent()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.talent_);
   }
 
   // int32 userSeq = 1;
@@ -4315,6 +4390,10 @@ void UserCharacter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (from._internal_has_totalstatus()) {
     _this->_internal_mutable_totalstatus()->::Protocol::UserTotalStatus::MergeFrom(
         from._internal_totalstatus());
+  }
+  if (from._internal_has_talent()) {
+    _this->_internal_mutable_talent()->::Protocol::Talent::MergeFrom(
+        from._internal_talent());
   }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
@@ -5597,6 +5676,313 @@ void Monster::InternalSwap(Monster* other) {
       file_level_metadata_Struct_2eproto[10]);
 }
 
+// ===================================================================
+
+class Talent::_Internal {
+ public:
+};
+
+Talent::Talent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.Talent)
+}
+Talent::Talent(const Talent& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Talent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.firsttalent_){}
+    , decltype(_impl_.firstlevel_){}
+    , decltype(_impl_.secondtalent_){}
+    , decltype(_impl_.secondlevel_){}
+    , decltype(_impl_.thirdtalent_){}
+    , decltype(_impl_.thirdlevel_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.firsttalent_, &from._impl_.firsttalent_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.thirdlevel_) -
+    reinterpret_cast<char*>(&_impl_.firsttalent_)) + sizeof(_impl_.thirdlevel_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.Talent)
+}
+
+inline void Talent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.firsttalent_){0}
+    , decltype(_impl_.firstlevel_){0}
+    , decltype(_impl_.secondtalent_){0}
+    , decltype(_impl_.secondlevel_){0}
+    , decltype(_impl_.thirdtalent_){0}
+    , decltype(_impl_.thirdlevel_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+Talent::~Talent() {
+  // @@protoc_insertion_point(destructor:Protocol.Talent)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Talent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Talent::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Talent::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.Talent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.firsttalent_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.thirdlevel_) -
+      reinterpret_cast<char*>(&_impl_.firsttalent_)) + sizeof(_impl_.thirdlevel_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Talent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 firstTalent = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.firsttalent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 firstLevel = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.firstlevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 secondTalent = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.secondtalent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 secondLevel = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.secondlevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 thirdTalent = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.thirdtalent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 thirdLevel = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.thirdlevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Talent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.Talent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 firstTalent = 1;
+  if (this->_internal_firsttalent() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_firsttalent(), target);
+  }
+
+  // int32 firstLevel = 2;
+  if (this->_internal_firstlevel() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_firstlevel(), target);
+  }
+
+  // int32 secondTalent = 3;
+  if (this->_internal_secondtalent() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_secondtalent(), target);
+  }
+
+  // int32 secondLevel = 4;
+  if (this->_internal_secondlevel() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_secondlevel(), target);
+  }
+
+  // int32 thirdTalent = 5;
+  if (this->_internal_thirdtalent() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_thirdtalent(), target);
+  }
+
+  // int32 thirdLevel = 6;
+  if (this->_internal_thirdlevel() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_thirdlevel(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.Talent)
+  return target;
+}
+
+size_t Talent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.Talent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 firstTalent = 1;
+  if (this->_internal_firsttalent() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_firsttalent());
+  }
+
+  // int32 firstLevel = 2;
+  if (this->_internal_firstlevel() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_firstlevel());
+  }
+
+  // int32 secondTalent = 3;
+  if (this->_internal_secondtalent() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_secondtalent());
+  }
+
+  // int32 secondLevel = 4;
+  if (this->_internal_secondlevel() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_secondlevel());
+  }
+
+  // int32 thirdTalent = 5;
+  if (this->_internal_thirdtalent() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_thirdtalent());
+  }
+
+  // int32 thirdLevel = 6;
+  if (this->_internal_thirdlevel() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_thirdlevel());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Talent::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Talent::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Talent::GetClassData() const { return &_class_data_; }
+
+
+void Talent::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Talent*>(&to_msg);
+  auto& from = static_cast<const Talent&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.Talent)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_firsttalent() != 0) {
+    _this->_internal_set_firsttalent(from._internal_firsttalent());
+  }
+  if (from._internal_firstlevel() != 0) {
+    _this->_internal_set_firstlevel(from._internal_firstlevel());
+  }
+  if (from._internal_secondtalent() != 0) {
+    _this->_internal_set_secondtalent(from._internal_secondtalent());
+  }
+  if (from._internal_secondlevel() != 0) {
+    _this->_internal_set_secondlevel(from._internal_secondlevel());
+  }
+  if (from._internal_thirdtalent() != 0) {
+    _this->_internal_set_thirdtalent(from._internal_thirdtalent());
+  }
+  if (from._internal_thirdlevel() != 0) {
+    _this->_internal_set_thirdlevel(from._internal_thirdlevel());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Talent::CopyFrom(const Talent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.Talent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Talent::IsInitialized() const {
+  return true;
+}
+
+void Talent::InternalSwap(Talent* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Talent, _impl_.thirdlevel_)
+      + sizeof(Talent::_impl_.thirdlevel_)
+      - PROTOBUF_FIELD_OFFSET(Talent, _impl_.firsttalent_)>(
+          reinterpret_cast<char*>(&_impl_.firsttalent_),
+          reinterpret_cast<char*>(&other->_impl_.firsttalent_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Talent::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Struct_2eproto_getter, &descriptor_table_Struct_2eproto_once,
+      file_level_metadata_Struct_2eproto[11]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -5643,6 +6029,10 @@ Arena::CreateMaybeMessage< ::Protocol::Skill >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::Monster*
 Arena::CreateMaybeMessage< ::Protocol::Monster >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::Monster >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::Talent*
+Arena::CreateMaybeMessage< ::Protocol::Talent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Talent >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

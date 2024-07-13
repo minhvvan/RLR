@@ -44,7 +44,9 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, MonsterTransY, float);
 	STAT_ACCESSORS(UStatSetMonster, MonsterTransZ, float);
 	STAT_ACCESSORS(UStatSetMonster, MonsterMapId, int32);
+	STAT_ACCESSORS(UStatSetMonster, MonsterId, int64);
 
+	void UpdateTransForm(float x, float y, float z);
 private:
 	FMonsterStatus Stat;
 };

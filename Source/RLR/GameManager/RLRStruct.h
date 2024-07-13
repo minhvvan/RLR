@@ -580,7 +580,7 @@ FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
 FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
 FString EEquipmentTypeToString(EEquipmentType EquipmentType);
 FString EStatusTypeToString(EStatusType StatusType);
-=======
+
 USTRUCT(Atomic, BlueprintType)
 struct FMonsterStatus
 {
@@ -598,6 +598,7 @@ struct FMonsterStatus
 		MonsterTransX(0.f),
 		MonsterTransY(0.f),
 		MonsterTransZ(0.f),
+		MonsterId(0),
 		MonsterMapId(-1)
 	{}
 
@@ -635,6 +636,9 @@ struct FMonsterStatus
 	float MonsterTransZ;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MonsterId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MonsterMapId;
 
 	FString ToString() const
@@ -669,6 +673,7 @@ struct FMonsterStatus
 		AppendStatFloat(TEXT("X"), MonsterTransX);
 		AppendStatFloat(TEXT("Y"), MonsterTransY);
 		AppendStatFloat(TEXT("Z"), MonsterTransZ);
+		AppendStatInt(TEXT("Id"), MonsterId);
 		AppendStatInt(TEXT("MapId"), MonsterMapId);
 
 		return MonsterString;
@@ -678,5 +683,6 @@ struct FMonsterStatus
 	static int32 tempID;
 
 	//TODO: 몬스터 정보 생성
-	void MakeMonsterData(/*const Protocol::Item itemData*/);
+	void MakeMonsterData(const Protocol::Monster monsterData);
+	void UpdateTransform(float x, float y, float z);
 };

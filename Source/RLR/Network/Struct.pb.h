@@ -66,6 +66,9 @@ extern PlayerDefaultTypeInternal _Player_default_instance_;
 class Skill;
 struct SkillDefaultTypeInternal;
 extern SkillDefaultTypeInternal _Skill_default_instance_;
+class Talent;
+struct TalentDefaultTypeInternal;
+extern TalentDefaultTypeInternal _Talent_default_instance_;
 class UserCharacter;
 struct UserCharacterDefaultTypeInternal;
 extern UserCharacterDefaultTypeInternal _UserCharacter_default_instance_;
@@ -87,6 +90,7 @@ template<> ::Protocol::Item* Arena::CreateMaybeMessage<::Protocol::Item>(Arena*)
 template<> ::Protocol::Monster* Arena::CreateMaybeMessage<::Protocol::Monster>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
 template<> ::Protocol::Skill* Arena::CreateMaybeMessage<::Protocol::Skill>(Arena*);
+template<> ::Protocol::Talent* Arena::CreateMaybeMessage<::Protocol::Talent>(Arena*);
 template<> ::Protocol::UserCharacter* Arena::CreateMaybeMessage<::Protocol::UserCharacter>(Arena*);
 template<> ::Protocol::UserPosition* Arena::CreateMaybeMessage<::Protocol::UserPosition>(Arena*);
 template<> ::Protocol::UserSetStatus* Arena::CreateMaybeMessage<::Protocol::UserSetStatus>(Arena*);
@@ -1962,6 +1966,7 @@ class UserCharacter final :
     kNameFieldNumber = 3,
     kSetStatusFieldNumber = 15,
     kTotalStatusFieldNumber = 16,
+    kTalentFieldNumber = 17,
     kUserSeqFieldNumber = 1,
     kPlayerSeqFieldNumber = 2,
     kLevelFieldNumber = 4,
@@ -2025,6 +2030,24 @@ class UserCharacter final :
   void unsafe_arena_set_allocated_totalstatus(
       ::Protocol::UserTotalStatus* totalstatus);
   ::Protocol::UserTotalStatus* unsafe_arena_release_totalstatus();
+
+  // .Protocol.Talent talent = 17;
+  bool has_talent() const;
+  private:
+  bool _internal_has_talent() const;
+  public:
+  void clear_talent();
+  const ::Protocol::Talent& talent() const;
+  PROTOBUF_NODISCARD ::Protocol::Talent* release_talent();
+  ::Protocol::Talent* mutable_talent();
+  void set_allocated_talent(::Protocol::Talent* talent);
+  private:
+  const ::Protocol::Talent& _internal_talent() const;
+  ::Protocol::Talent* _internal_mutable_talent();
+  public:
+  void unsafe_arena_set_allocated_talent(
+      ::Protocol::Talent* talent);
+  ::Protocol::Talent* unsafe_arena_release_talent();
 
   // int32 userSeq = 1;
   void clear_userseq();
@@ -2154,6 +2177,7 @@ class UserCharacter final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::Protocol::UserSetStatus* setstatus_;
     ::Protocol::UserTotalStatus* totalstatus_;
+    ::Protocol::Talent* talent_;
     int32_t userseq_;
     int32_t playerseq_;
     int32_t level_;
@@ -2841,6 +2865,209 @@ class Monster final :
     float monstertransz_;
     int64_t monstermapid_;
     int64_t monsterid_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Talent final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Talent) */ {
+ public:
+  inline Talent() : Talent(nullptr) {}
+  ~Talent() override;
+  explicit PROTOBUF_CONSTEXPR Talent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Talent(const Talent& from);
+  Talent(Talent&& from) noexcept
+    : Talent() {
+    *this = ::std::move(from);
+  }
+
+  inline Talent& operator=(const Talent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Talent& operator=(Talent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Talent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Talent* internal_default_instance() {
+    return reinterpret_cast<const Talent*>(
+               &_Talent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(Talent& a, Talent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Talent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Talent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Talent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Talent>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Talent& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Talent& from) {
+    Talent::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Talent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.Talent";
+  }
+  protected:
+  explicit Talent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFirstTalentFieldNumber = 1,
+    kFirstLevelFieldNumber = 2,
+    kSecondTalentFieldNumber = 3,
+    kSecondLevelFieldNumber = 4,
+    kThirdTalentFieldNumber = 5,
+    kThirdLevelFieldNumber = 6,
+  };
+  // int32 firstTalent = 1;
+  void clear_firsttalent();
+  int32_t firsttalent() const;
+  void set_firsttalent(int32_t value);
+  private:
+  int32_t _internal_firsttalent() const;
+  void _internal_set_firsttalent(int32_t value);
+  public:
+
+  // int32 firstLevel = 2;
+  void clear_firstlevel();
+  int32_t firstlevel() const;
+  void set_firstlevel(int32_t value);
+  private:
+  int32_t _internal_firstlevel() const;
+  void _internal_set_firstlevel(int32_t value);
+  public:
+
+  // int32 secondTalent = 3;
+  void clear_secondtalent();
+  int32_t secondtalent() const;
+  void set_secondtalent(int32_t value);
+  private:
+  int32_t _internal_secondtalent() const;
+  void _internal_set_secondtalent(int32_t value);
+  public:
+
+  // int32 secondLevel = 4;
+  void clear_secondlevel();
+  int32_t secondlevel() const;
+  void set_secondlevel(int32_t value);
+  private:
+  int32_t _internal_secondlevel() const;
+  void _internal_set_secondlevel(int32_t value);
+  public:
+
+  // int32 thirdTalent = 5;
+  void clear_thirdtalent();
+  int32_t thirdtalent() const;
+  void set_thirdtalent(int32_t value);
+  private:
+  int32_t _internal_thirdtalent() const;
+  void _internal_set_thirdtalent(int32_t value);
+  public:
+
+  // int32 thirdLevel = 6;
+  void clear_thirdlevel();
+  int32_t thirdlevel() const;
+  void set_thirdlevel(int32_t value);
+  private:
+  int32_t _internal_thirdlevel() const;
+  void _internal_set_thirdlevel(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.Talent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t firsttalent_;
+    int32_t firstlevel_;
+    int32_t secondtalent_;
+    int32_t secondlevel_;
+    int32_t thirdtalent_;
+    int32_t thirdlevel_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5106,6 +5333,96 @@ inline void UserCharacter::set_allocated_totalstatus(::Protocol::UserTotalStatus
   // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.totalStatus)
 }
 
+// .Protocol.Talent talent = 17;
+inline bool UserCharacter::_internal_has_talent() const {
+  return this != internal_default_instance() && _impl_.talent_ != nullptr;
+}
+inline bool UserCharacter::has_talent() const {
+  return _internal_has_talent();
+}
+inline void UserCharacter::clear_talent() {
+  if (GetArenaForAllocation() == nullptr && _impl_.talent_ != nullptr) {
+    delete _impl_.talent_;
+  }
+  _impl_.talent_ = nullptr;
+}
+inline const ::Protocol::Talent& UserCharacter::_internal_talent() const {
+  const ::Protocol::Talent* p = _impl_.talent_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Talent&>(
+      ::Protocol::_Talent_default_instance_);
+}
+inline const ::Protocol::Talent& UserCharacter::talent() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.talent)
+  return _internal_talent();
+}
+inline void UserCharacter::unsafe_arena_set_allocated_talent(
+    ::Protocol::Talent* talent) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.talent_);
+  }
+  _impl_.talent_ = talent;
+  if (talent) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.UserCharacter.talent)
+}
+inline ::Protocol::Talent* UserCharacter::release_talent() {
+  
+  ::Protocol::Talent* temp = _impl_.talent_;
+  _impl_.talent_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Talent* UserCharacter::unsafe_arena_release_talent() {
+  // @@protoc_insertion_point(field_release:Protocol.UserCharacter.talent)
+  
+  ::Protocol::Talent* temp = _impl_.talent_;
+  _impl_.talent_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Talent* UserCharacter::_internal_mutable_talent() {
+  
+  if (_impl_.talent_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Talent>(GetArenaForAllocation());
+    _impl_.talent_ = p;
+  }
+  return _impl_.talent_;
+}
+inline ::Protocol::Talent* UserCharacter::mutable_talent() {
+  ::Protocol::Talent* _msg = _internal_mutable_talent();
+  // @@protoc_insertion_point(field_mutable:Protocol.UserCharacter.talent)
+  return _msg;
+}
+inline void UserCharacter::set_allocated_talent(::Protocol::Talent* talent) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.talent_;
+  }
+  if (talent) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(talent);
+    if (message_arena != submessage_arena) {
+      talent = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, talent, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.talent_ = talent;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.talent)
+}
+
 // -------------------------------------------------------------------
 
 // UserPosition
@@ -5638,9 +5955,135 @@ inline void Monster::set_monsterid(int64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Monster.monsterId)
 }
 
+// -------------------------------------------------------------------
+
+// Talent
+
+// int32 firstTalent = 1;
+inline void Talent::clear_firsttalent() {
+  _impl_.firsttalent_ = 0;
+}
+inline int32_t Talent::_internal_firsttalent() const {
+  return _impl_.firsttalent_;
+}
+inline int32_t Talent::firsttalent() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.firstTalent)
+  return _internal_firsttalent();
+}
+inline void Talent::_internal_set_firsttalent(int32_t value) {
+  
+  _impl_.firsttalent_ = value;
+}
+inline void Talent::set_firsttalent(int32_t value) {
+  _internal_set_firsttalent(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.firstTalent)
+}
+
+// int32 firstLevel = 2;
+inline void Talent::clear_firstlevel() {
+  _impl_.firstlevel_ = 0;
+}
+inline int32_t Talent::_internal_firstlevel() const {
+  return _impl_.firstlevel_;
+}
+inline int32_t Talent::firstlevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.firstLevel)
+  return _internal_firstlevel();
+}
+inline void Talent::_internal_set_firstlevel(int32_t value) {
+  
+  _impl_.firstlevel_ = value;
+}
+inline void Talent::set_firstlevel(int32_t value) {
+  _internal_set_firstlevel(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.firstLevel)
+}
+
+// int32 secondTalent = 3;
+inline void Talent::clear_secondtalent() {
+  _impl_.secondtalent_ = 0;
+}
+inline int32_t Talent::_internal_secondtalent() const {
+  return _impl_.secondtalent_;
+}
+inline int32_t Talent::secondtalent() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.secondTalent)
+  return _internal_secondtalent();
+}
+inline void Talent::_internal_set_secondtalent(int32_t value) {
+  
+  _impl_.secondtalent_ = value;
+}
+inline void Talent::set_secondtalent(int32_t value) {
+  _internal_set_secondtalent(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.secondTalent)
+}
+
+// int32 secondLevel = 4;
+inline void Talent::clear_secondlevel() {
+  _impl_.secondlevel_ = 0;
+}
+inline int32_t Talent::_internal_secondlevel() const {
+  return _impl_.secondlevel_;
+}
+inline int32_t Talent::secondlevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.secondLevel)
+  return _internal_secondlevel();
+}
+inline void Talent::_internal_set_secondlevel(int32_t value) {
+  
+  _impl_.secondlevel_ = value;
+}
+inline void Talent::set_secondlevel(int32_t value) {
+  _internal_set_secondlevel(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.secondLevel)
+}
+
+// int32 thirdTalent = 5;
+inline void Talent::clear_thirdtalent() {
+  _impl_.thirdtalent_ = 0;
+}
+inline int32_t Talent::_internal_thirdtalent() const {
+  return _impl_.thirdtalent_;
+}
+inline int32_t Talent::thirdtalent() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.thirdTalent)
+  return _internal_thirdtalent();
+}
+inline void Talent::_internal_set_thirdtalent(int32_t value) {
+  
+  _impl_.thirdtalent_ = value;
+}
+inline void Talent::set_thirdtalent(int32_t value) {
+  _internal_set_thirdtalent(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.thirdTalent)
+}
+
+// int32 thirdLevel = 6;
+inline void Talent::clear_thirdlevel() {
+  _impl_.thirdlevel_ = 0;
+}
+inline int32_t Talent::_internal_thirdlevel() const {
+  return _impl_.thirdlevel_;
+}
+inline int32_t Talent::thirdlevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.Talent.thirdLevel)
+  return _internal_thirdlevel();
+}
+inline void Talent::_internal_set_thirdlevel(int32_t value) {
+  
+  _impl_.thirdlevel_ = value;
+}
+inline void Talent::set_thirdlevel(int32_t value) {
+  _internal_set_thirdlevel(value);
+  // @@protoc_insertion_point(field_set:Protocol.Talent.thirdLevel)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

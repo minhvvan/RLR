@@ -330,6 +330,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR MonsterAttackRequestPacket::MonsterAttackRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.skill_)*/nullptr
+  , /*decltype(_impl_.damage_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MonsterAttackRequestPacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MonsterAttackRequestPacketDefaultTypeInternal()
@@ -480,6 +481,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR MapMonsterInfoRequestPacket::MapMonsterInfoRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.mapid_)*/uint64_t{0u}
+  , /*decltype(_impl_.channelid_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MapMonsterInfoRequestPacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MapMonsterInfoRequestPacketDefaultTypeInternal()
@@ -494,6 +496,7 @@ PROTOBUF_CONSTEXPR MapMonsterInfoResponsePacket::MapMonsterInfoResponsePacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.monsters_)*/{}
   , /*decltype(_impl_.mapid_)*/uint64_t{0u}
+  , /*decltype(_impl_.channelid_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MapMonsterInfoResponsePacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MapMonsterInfoResponsePacketDefaultTypeInternal()
@@ -792,6 +795,7 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::MonsterAttackRequestPacket, _impl_.skill_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::MonsterAttackRequestPacket, _impl_.damage_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MonsterAttackResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -882,6 +886,7 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoRequestPacket, _impl_.mapid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoRequestPacket, _impl_.channelid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -889,6 +894,7 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoResponsePacket, _impl_.mapid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoResponsePacket, _impl_.channelid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MapMonsterInfoResponsePacket, _impl_.monsters_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CreatePartyRequest, _internal_metadata_),
@@ -966,24 +972,24 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 156, -1, -1, sizeof(::Protocol::AttackResponsePacket)},
   { 172, -1, -1, sizeof(::Protocol::AttackBroadcastPacket)},
   { 181, -1, -1, sizeof(::Protocol::MonsterAttackRequestPacket)},
-  { 188, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
-  { 200, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
-  { 212, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
-  { 219, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
-  { 230, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
-  { 240, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
-  { 247, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
-  { 256, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
-  { 264, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
-  { 271, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
-  { 278, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
-  { 286, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
-  { 293, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
-  { 301, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
-  { 309, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
-  { 316, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
-  { 323, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
-  { 330, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
+  { 189, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
+  { 201, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
+  { 213, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
+  { 220, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
+  { 231, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
+  { 241, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
+  { 248, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
+  { 257, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
+  { 265, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
+  { 272, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
+  { 280, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
+  { 289, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
+  { 296, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
+  { 304, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
+  { 312, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
+  { 319, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
+  { 326, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
+  { 333, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -1073,48 +1079,49 @@ const char descriptor_table_protodef_Packet_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\n\010targetMp\030\010 \001(\005\022\024\n\014statusEffect\030\t \001(\t\022\020"
   "\n\010duration\030\n \001(\004\"b\n\025AttackBroadcastPacke"
   "t\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill\022\023\n\013dam"
-  "ageDealt\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\"<\n\032"
+  "ageDealt\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\"L\n\032"
   "MonsterAttackRequestPacket\022\036\n\005skill\030\001 \001("
-  "\0132\017.Protocol.Skill\"\223\001\n\033MonsterAttackResp"
-  "onsePacket\022\017\n\007success\030\001 \001(\010\022\023\n\013damageDea"
-  "lt\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\022\020\n\010target"
-  "Hp\030\004 \001(\005\022\024\n\014statusEffect\030\005 \001(\t\022\020\n\010durati"
-  "on\030\006 \001(\004\"\200\001\n\030MonsterMoveRequestPacket\022\022\n"
-  "\nmonsterSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006"
-  "transX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005"
-  " \001(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031MonsterMoveRespon"
-  "sePacket\022\017\n\007success\030\001 \001(\010\"s\n\032MonsterMove"
-  "BroadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tm"
-  "onsterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY"
-  "\030\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\"]\n\031MonsterStatusU"
-  "pdatePacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 "
-  "\001(\002\022\021\n\tmonsterId\030\003 \001(\003\022\r\n\005mapId\030\004 \001(\003\"4\n"
-  "!MonsterStatusUpdateResponsePacket\022\017\n\007su"
-  "ccess\030\001 \001(\010\"Q\n\034MonsterStatusBroadcastPac"
-  "ket\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tm"
-  "onsterId\030\003 \001(\003\"O\n\031MonsterSpawnRequestPac"
-  "ket\022\r\n\005mapId\030\001 \001(\004\022#\n\010monsters\030\002 \003(\0132\021.P"
-  "rotocol.Monster\"-\n\032MonsterSpawnResponseP"
-  "acket\022\017\n\007success\030\001 \001(\010\",\n\033MapMonsterInfo"
-  "RequestPacket\022\r\n\005mapId\030\001 \001(\004\"R\n\034MapMonst"
-  "erInfoResponsePacket\022\r\n\005mapId\030\001 \001(\004\022#\n\010m"
-  "onsters\030\002 \003(\0132\021.Protocol.Monster\"%\n\022Crea"
-  "tePartyRequest\022\017\n\007userseq\030\001 \001(\r\"7\n\023Creat"
-  "ePartyResponse\022\017\n\007partyid\030\001 \001(\r\022\017\n\007succe"
-  "ss\030\002 \001(\010\"4\n\020JoinPartyRequest\022\017\n\007partyid\030"
-  "\001 \001(\r\022\017\n\007userseq\030\002 \001(\r\"$\n\021JoinPartyRespo"
-  "nse\022\017\n\007success\030\001 \001(\010\"$\n\021LeavePartyReques"
-  "t\022\017\n\007userseq\030\001 \001(\r\"%\n\022LeavePartyResponse"
-  "\022\017\n\007success\030\001 \001(\010\"N\n\021PartyStatusUpdate\022\017"
-  "\n\007partyid\030\001 \001(\r\022(\n\007members\030\002 \003(\0132\027.Proto"
-  "col.UserCharacterb\006proto3"
+  "\0132\017.Protocol.Skill\022\016\n\006damage\030\002 \001(\002\"\223\001\n\033M"
+  "onsterAttackResponsePacket\022\017\n\007success\030\001 "
+  "\001(\010\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKilled"
+  "\030\003 \001(\010\022\020\n\010targetHp\030\004 \001(\005\022\024\n\014statusEffect"
+  "\030\005 \001(\t\022\020\n\010duration\030\006 \001(\004\"\200\001\n\030MonsterMove"
+  "RequestPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmon"
+  "sterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004"
+  " \001(\002\022\016\n\006transZ\030\005 \001(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031M"
+  "onsterMoveResponsePacket\022\017\n\007success\030\001 \001("
+  "\010\"s\n\032MonsterMoveBroadcastPacket\022\022\n\nmonst"
+  "erSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006transX"
+  "\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\"]"
+  "\n\031MonsterStatusUpdatePacket\022\022\n\nmonsterSe"
+  "q\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\022\r"
+  "\n\005mapId\030\004 \001(\003\"4\n!MonsterStatusUpdateResp"
+  "onsePacket\022\017\n\007success\030\001 \001(\010\"Q\n\034MonsterSt"
+  "atusBroadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022"
+  "\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\"O\n\031Monste"
+  "rSpawnRequestPacket\022\r\n\005mapId\030\001 \001(\004\022#\n\010mo"
+  "nsters\030\002 \003(\0132\021.Protocol.Monster\"-\n\032Monst"
+  "erSpawnResponsePacket\022\017\n\007success\030\001 \001(\010\"\?"
+  "\n\033MapMonsterInfoRequestPacket\022\r\n\005mapId\030\001"
+  " \001(\004\022\021\n\tchannelId\030\002 \001(\003\"e\n\034MapMonsterInf"
+  "oResponsePacket\022\r\n\005mapId\030\001 \001(\004\022\021\n\tchanne"
+  "lId\030\002 \001(\003\022#\n\010monsters\030\003 \003(\0132\021.Protocol.M"
+  "onster\"%\n\022CreatePartyRequest\022\017\n\007userseq\030"
+  "\001 \001(\r\"7\n\023CreatePartyResponse\022\017\n\007partyid\030"
+  "\001 \001(\r\022\017\n\007success\030\002 \001(\010\"4\n\020JoinPartyReque"
+  "st\022\017\n\007partyid\030\001 \001(\r\022\017\n\007userseq\030\002 \001(\r\"$\n\021"
+  "JoinPartyResponse\022\017\n\007success\030\001 \001(\010\"$\n\021Le"
+  "avePartyRequest\022\017\n\007userseq\030\001 \001(\r\"%\n\022Leav"
+  "ePartyResponse\022\017\n\007success\030\001 \001(\010\"N\n\021Party"
+  "StatusUpdate\022\017\n\007partyid\030\001 \001(\r\022(\n\007members"
+  "\030\002 \003(\0132\027.Protocol.UserCharacterb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Packet_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Packet_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_2eproto = {
-    false, false, 3105, descriptor_table_protodef_Packet_2eproto,
+    false, false, 3159, descriptor_table_protodef_Packet_2eproto,
     "Packet.proto",
     &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 40,
     schemas, file_default_instances, TableStruct_Packet_2eproto::offsets,
@@ -6291,12 +6298,14 @@ MonsterAttackRequestPacket::MonsterAttackRequestPacket(const MonsterAttackReques
   MonsterAttackRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.skill_){nullptr}
+    , decltype(_impl_.damage_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_skill()) {
     _this->_impl_.skill_ = new ::Protocol::Skill(*from._impl_.skill_);
   }
+  _this->_impl_.damage_ = from._impl_.damage_;
   // @@protoc_insertion_point(copy_constructor:Protocol.MonsterAttackRequestPacket)
 }
 
@@ -6306,6 +6315,7 @@ inline void MonsterAttackRequestPacket::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.skill_){nullptr}
+    , decltype(_impl_.damage_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -6338,6 +6348,7 @@ void MonsterAttackRequestPacket::Clear() {
     delete _impl_.skill_;
   }
   _impl_.skill_ = nullptr;
+  _impl_.damage_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -6352,6 +6363,14 @@ const char* MonsterAttackRequestPacket::_InternalParse(const char* ptr, ::_pbi::
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_skill(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float damage = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+          _impl_.damage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
@@ -6391,6 +6410,16 @@ uint8_t* MonsterAttackRequestPacket::_InternalSerialize(
         _Internal::skill(this).GetCachedSize(), target, stream);
   }
 
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_damage(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -6412,6 +6441,15 @@ size_t MonsterAttackRequestPacket::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.skill_);
+  }
+
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    total_size += 1 + 4;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -6436,6 +6474,13 @@ void MonsterAttackRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
     _this->_internal_mutable_skill()->::Protocol::Skill::MergeFrom(
         from._internal_skill());
   }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = from._internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    _this->_internal_set_damage(from._internal_damage());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -6453,7 +6498,12 @@ bool MonsterAttackRequestPacket::IsInitialized() const {
 void MonsterAttackRequestPacket::InternalSwap(MonsterAttackRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.skill_, other->_impl_.skill_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MonsterAttackRequestPacket, _impl_.damage_)
+      + sizeof(MonsterAttackRequestPacket::_impl_.damage_)
+      - PROTOBUF_FIELD_OFFSET(MonsterAttackRequestPacket, _impl_.skill_)>(
+          reinterpret_cast<char*>(&_impl_.skill_),
+          reinterpret_cast<char*>(&other->_impl_.skill_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterAttackRequestPacket::GetMetadata() const {
@@ -8743,10 +8793,13 @@ MapMonsterInfoRequestPacket::MapMonsterInfoRequestPacket(const MapMonsterInfoReq
   MapMonsterInfoRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.mapid_){}
+    , decltype(_impl_.channelid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.mapid_ = from._impl_.mapid_;
+  ::memcpy(&_impl_.mapid_, &from._impl_.mapid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.channelid_) -
+    reinterpret_cast<char*>(&_impl_.mapid_)) + sizeof(_impl_.channelid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.MapMonsterInfoRequestPacket)
 }
 
@@ -8756,6 +8809,7 @@ inline void MapMonsterInfoRequestPacket::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.mapid_){uint64_t{0u}}
+    , decltype(_impl_.channelid_){int64_t{0}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -8783,7 +8837,9 @@ void MapMonsterInfoRequestPacket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.mapid_ = uint64_t{0u};
+  ::memset(&_impl_.mapid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.channelid_) -
+      reinterpret_cast<char*>(&_impl_.mapid_)) + sizeof(_impl_.channelid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8797,6 +8853,14 @@ const char* MapMonsterInfoRequestPacket::_InternalParse(const char* ptr, ::_pbi:
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 channelId = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.channelid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8836,6 +8900,12 @@ uint8_t* MapMonsterInfoRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_mapid(), target);
   }
 
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_channelid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -8855,6 +8925,11 @@ size_t MapMonsterInfoRequestPacket::ByteSizeLong() const {
   // uint64 mapId = 1;
   if (this->_internal_mapid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mapid());
+  }
+
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_channelid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -8878,6 +8953,9 @@ void MapMonsterInfoRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to
   if (from._internal_mapid() != 0) {
     _this->_internal_set_mapid(from._internal_mapid());
   }
+  if (from._internal_channelid() != 0) {
+    _this->_internal_set_channelid(from._internal_channelid());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -8895,7 +8973,12 @@ bool MapMonsterInfoRequestPacket::IsInitialized() const {
 void MapMonsterInfoRequestPacket::InternalSwap(MapMonsterInfoRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.mapid_, other->_impl_.mapid_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MapMonsterInfoRequestPacket, _impl_.channelid_)
+      + sizeof(MapMonsterInfoRequestPacket::_impl_.channelid_)
+      - PROTOBUF_FIELD_OFFSET(MapMonsterInfoRequestPacket, _impl_.mapid_)>(
+          reinterpret_cast<char*>(&_impl_.mapid_),
+          reinterpret_cast<char*>(&other->_impl_.mapid_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MapMonsterInfoRequestPacket::GetMetadata() const {
@@ -8925,10 +9008,13 @@ MapMonsterInfoResponsePacket::MapMonsterInfoResponsePacket(const MapMonsterInfoR
   new (&_impl_) Impl_{
       decltype(_impl_.monsters_){from._impl_.monsters_}
     , decltype(_impl_.mapid_){}
+    , decltype(_impl_.channelid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.mapid_ = from._impl_.mapid_;
+  ::memcpy(&_impl_.mapid_, &from._impl_.mapid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.channelid_) -
+    reinterpret_cast<char*>(&_impl_.mapid_)) + sizeof(_impl_.channelid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.MapMonsterInfoResponsePacket)
 }
 
@@ -8939,6 +9025,7 @@ inline void MapMonsterInfoResponsePacket::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.monsters_){arena}
     , decltype(_impl_.mapid_){uint64_t{0u}}
+    , decltype(_impl_.channelid_){int64_t{0}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -8968,7 +9055,9 @@ void MapMonsterInfoResponsePacket::Clear() {
   (void) cached_has_bits;
 
   _impl_.monsters_.Clear();
-  _impl_.mapid_ = uint64_t{0u};
+  ::memset(&_impl_.mapid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.channelid_) -
+      reinterpret_cast<char*>(&_impl_.mapid_)) + sizeof(_impl_.channelid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -8986,16 +9075,24 @@ const char* MapMonsterInfoResponsePacket::_InternalParse(const char* ptr, ::_pbi
         } else
           goto handle_unusual;
         continue;
-      // repeated .Protocol.Monster monsters = 2;
+      // int64 channelId = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.channelid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .Protocol.Monster monsters = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(_internal_add_monsters(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -9034,12 +9131,18 @@ uint8_t* MapMonsterInfoResponsePacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_mapid(), target);
   }
 
-  // repeated .Protocol.Monster monsters = 2;
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_channelid(), target);
+  }
+
+  // repeated .Protocol.Monster monsters = 3;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_monsters_size()); i < n; i++) {
     const auto& repfield = this->_internal_monsters(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9058,7 +9161,7 @@ size_t MapMonsterInfoResponsePacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.Monster monsters = 2;
+  // repeated .Protocol.Monster monsters = 3;
   total_size += 1UL * this->_internal_monsters_size();
   for (const auto& msg : this->_impl_.monsters_) {
     total_size +=
@@ -9068,6 +9171,11 @@ size_t MapMonsterInfoResponsePacket::ByteSizeLong() const {
   // uint64 mapId = 1;
   if (this->_internal_mapid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mapid());
+  }
+
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_channelid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -9092,6 +9200,9 @@ void MapMonsterInfoResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& t
   if (from._internal_mapid() != 0) {
     _this->_internal_set_mapid(from._internal_mapid());
   }
+  if (from._internal_channelid() != 0) {
+    _this->_internal_set_channelid(from._internal_channelid());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -9110,7 +9221,12 @@ void MapMonsterInfoResponsePacket::InternalSwap(MapMonsterInfoResponsePacket* ot
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.monsters_.InternalSwap(&other->_impl_.monsters_);
-  swap(_impl_.mapid_, other->_impl_.mapid_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MapMonsterInfoResponsePacket, _impl_.channelid_)
+      + sizeof(MapMonsterInfoResponsePacket::_impl_.channelid_)
+      - PROTOBUF_FIELD_OFFSET(MapMonsterInfoResponsePacket, _impl_.mapid_)>(
+          reinterpret_cast<char*>(&_impl_.mapid_),
+          reinterpret_cast<char*>(&other->_impl_.mapid_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MapMonsterInfoResponsePacket::GetMetadata() const {
