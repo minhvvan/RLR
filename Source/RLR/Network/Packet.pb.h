@@ -3956,6 +3956,7 @@ class MonsterAttackRequestPacket final :
 
   enum : int {
     kSkillFieldNumber = 1,
+    kDamageFieldNumber = 2,
   };
   // .Protocol.Skill skill = 1;
   bool has_skill() const;
@@ -3975,6 +3976,15 @@ class MonsterAttackRequestPacket final :
       ::Protocol::Skill* skill);
   ::Protocol::Skill* unsafe_arena_release_skill();
 
+  // float damage = 2;
+  void clear_damage();
+  float damage() const;
+  void set_damage(float value);
+  private:
+  float _internal_damage() const;
+  void _internal_set_damage(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.MonsterAttackRequestPacket)
  private:
   class _Internal;
@@ -3984,6 +3994,7 @@ class MonsterAttackRequestPacket final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::Protocol::Skill* skill_;
+    float damage_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5679,6 +5690,7 @@ class MapMonsterInfoRequestPacket final :
 
   enum : int {
     kMapIdFieldNumber = 1,
+    kChannelIdFieldNumber = 2,
   };
   // uint64 mapId = 1;
   void clear_mapid();
@@ -5687,6 +5699,15 @@ class MapMonsterInfoRequestPacket final :
   private:
   uint64_t _internal_mapid() const;
   void _internal_set_mapid(uint64_t value);
+  public:
+
+  // int64 channelId = 2;
+  void clear_channelid();
+  int64_t channelid() const;
+  void set_channelid(int64_t value);
+  private:
+  int64_t _internal_channelid() const;
+  void _internal_set_channelid(int64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.MapMonsterInfoRequestPacket)
@@ -5698,6 +5719,7 @@ class MapMonsterInfoRequestPacket final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     uint64_t mapid_;
+    int64_t channelid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5826,10 +5848,11 @@ class MapMonsterInfoResponsePacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMonstersFieldNumber = 2,
+    kMonstersFieldNumber = 3,
     kMapIdFieldNumber = 1,
+    kChannelIdFieldNumber = 2,
   };
-  // repeated .Protocol.Monster monsters = 2;
+  // repeated .Protocol.Monster monsters = 3;
   int monsters_size() const;
   private:
   int _internal_monsters_size() const;
@@ -5856,6 +5879,15 @@ class MapMonsterInfoResponsePacket final :
   void _internal_set_mapid(uint64_t value);
   public:
 
+  // int64 channelId = 2;
+  void clear_channelid();
+  int64_t channelid() const;
+  void set_channelid(int64_t value);
+  private:
+  int64_t _internal_channelid() const;
+  void _internal_set_channelid(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.MapMonsterInfoResponsePacket)
  private:
   class _Internal;
@@ -5866,6 +5898,7 @@ class MapMonsterInfoResponsePacket final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Monster > monsters_;
     uint64_t mapid_;
+    int64_t channelid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -8892,6 +8925,26 @@ inline void MonsterAttackRequestPacket::set_allocated_skill(::Protocol::Skill* s
   // @@protoc_insertion_point(field_set_allocated:Protocol.MonsterAttackRequestPacket.skill)
 }
 
+// float damage = 2;
+inline void MonsterAttackRequestPacket::clear_damage() {
+  _impl_.damage_ = 0;
+}
+inline float MonsterAttackRequestPacket::_internal_damage() const {
+  return _impl_.damage_;
+}
+inline float MonsterAttackRequestPacket::damage() const {
+  // @@protoc_insertion_point(field_get:Protocol.MonsterAttackRequestPacket.damage)
+  return _internal_damage();
+}
+inline void MonsterAttackRequestPacket::_internal_set_damage(float value) {
+  
+  _impl_.damage_ = value;
+}
+inline void MonsterAttackRequestPacket::set_damage(float value) {
+  _internal_set_damage(value);
+  // @@protoc_insertion_point(field_set:Protocol.MonsterAttackRequestPacket.damage)
+}
+
 // -------------------------------------------------------------------
 
 // MonsterAttackResponsePacket
@@ -9579,6 +9632,26 @@ inline void MapMonsterInfoRequestPacket::set_mapid(uint64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.MapMonsterInfoRequestPacket.mapId)
 }
 
+// int64 channelId = 2;
+inline void MapMonsterInfoRequestPacket::clear_channelid() {
+  _impl_.channelid_ = int64_t{0};
+}
+inline int64_t MapMonsterInfoRequestPacket::_internal_channelid() const {
+  return _impl_.channelid_;
+}
+inline int64_t MapMonsterInfoRequestPacket::channelid() const {
+  // @@protoc_insertion_point(field_get:Protocol.MapMonsterInfoRequestPacket.channelId)
+  return _internal_channelid();
+}
+inline void MapMonsterInfoRequestPacket::_internal_set_channelid(int64_t value) {
+  
+  _impl_.channelid_ = value;
+}
+inline void MapMonsterInfoRequestPacket::set_channelid(int64_t value) {
+  _internal_set_channelid(value);
+  // @@protoc_insertion_point(field_set:Protocol.MapMonsterInfoRequestPacket.channelId)
+}
+
 // -------------------------------------------------------------------
 
 // MapMonsterInfoResponsePacket
@@ -9603,7 +9676,27 @@ inline void MapMonsterInfoResponsePacket::set_mapid(uint64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.MapMonsterInfoResponsePacket.mapId)
 }
 
-// repeated .Protocol.Monster monsters = 2;
+// int64 channelId = 2;
+inline void MapMonsterInfoResponsePacket::clear_channelid() {
+  _impl_.channelid_ = int64_t{0};
+}
+inline int64_t MapMonsterInfoResponsePacket::_internal_channelid() const {
+  return _impl_.channelid_;
+}
+inline int64_t MapMonsterInfoResponsePacket::channelid() const {
+  // @@protoc_insertion_point(field_get:Protocol.MapMonsterInfoResponsePacket.channelId)
+  return _internal_channelid();
+}
+inline void MapMonsterInfoResponsePacket::_internal_set_channelid(int64_t value) {
+  
+  _impl_.channelid_ = value;
+}
+inline void MapMonsterInfoResponsePacket::set_channelid(int64_t value) {
+  _internal_set_channelid(value);
+  // @@protoc_insertion_point(field_set:Protocol.MapMonsterInfoResponsePacket.channelId)
+}
+
+// repeated .Protocol.Monster monsters = 3;
 inline int MapMonsterInfoResponsePacket::_internal_monsters_size() const {
   return _impl_.monsters_.size();
 }

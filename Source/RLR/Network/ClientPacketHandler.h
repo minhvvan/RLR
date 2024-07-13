@@ -31,9 +31,35 @@ enum : uint16
     PKT_MOVE_REQUEST = 1012,
     PKT_MOVE_RESPONSE = 1013,
     PKT_MOVE_BROADCAST = 1014,
-    // Enter Game Packet types
-    PKT_ENTER_GAME_REQUEST = 1015,
-    PKT_ENTER_GAME_RESPONSE = 1016
+    PKT_ATTACK_REQUEST = 1203,
+    PKT_ATTACK_RESPONSE = 1204,
+    // Add monster move packet types
+    PKT_MONSTER_MOVE_REQUEST = 1015,
+    PKT_MONSTER_MOVE_RESPONSE = 1016,
+    PKT_MONSTER_MOVE_BROADCAST = 1017,
+    // Add monster status packet types
+    PKT_MONSTER_STATUS_UPDATE = 1018,
+    PKT_MONSTER_STATUS_UPDATE_RESPONSE = 1019,
+    PKT_MONSTER_STATUS_BROADCAST = 1020,
+    // Add monster spawn packet types
+    PKT_MONSTER_SPAWN_REQUEST = 1021,
+    PKT_MONSTER_SPAWN_RESPONSE = 1022,
+    PKT_MONTSER_MAPINFO_REQUEST = 1023,
+    PKT_MONTSER_MAPINFO_RESPONSE = 1024,
+    PKT_MONSTER_ATTACK_REQUEST = 1201,
+    PKT_MONSTER_ATTACK_RESPONSE = 1202,
+    // Add party packet types
+    PKT_CREATE_PARTY_REQUEST = 1025,
+    PKT_CREATE_PARTY_RESPONSE = 1026,
+    PKT_JOIN_PARTY_REQUEST = 1027,
+    PKT_JOIN_PARTY_RESPONSE = 1028,
+    PKT_LEAVE_PARTY_REQUEST = 1029,
+    PKT_LEAVE_PARTY_RESPONSE = 1030,
+    PKT_PARTY_STATUS_UPDATE = 1031,
+    PKT_CHARACTER_REQUSET = 1101,
+    PKT_CHARACTER_RESPONSE = 1102,
+    PKT_ENTER_GAME_REQUEST = 2001,
+    PKT_ENTER_GAME_RESPONSE = 2002
 };
 
 // Custom Handlers
@@ -52,10 +78,16 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
 bool Handle_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MoveRequestPacket& pkt);
 bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt);
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt);
+
+bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterMoveRequestPacket& pkt);
+bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterAttackRequestPacket& pkt);
 // Enter Game Handlers
 bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt);
 bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt);
-
+bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt);
+bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoResponsePacket& pkt);
+bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::AttackResponsePacket& pkt);
+bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::CharacterResponsePacket& pkt);
 struct PacketHeader
 {
     uint16 size;
@@ -85,13 +117,17 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemAddResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_ADD_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemUseResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
-
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveBroadcastPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_BROADCAST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MonsterMoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_MOVE_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MonsterAttackResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_ATTACK_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MapMonsterInfoRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MONTSER_MAPINFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGamePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGameResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::AttackRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ATTACK_REQUEST); }
 
 public:
     template<typename PacketType>

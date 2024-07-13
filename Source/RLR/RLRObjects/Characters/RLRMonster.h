@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "ActionSystem/StatSet/StatSetMonster.h"
 #include "GameManager/RLRStruct.h"
 #include "RLRMonster.generated.h"
 
@@ -23,5 +24,7 @@ public:
 protected:
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
+private:
+	UStatSetMonster* StatSet;
 };
  

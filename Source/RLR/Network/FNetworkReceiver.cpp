@@ -21,7 +21,7 @@ uint32 FNetworkReceiver::Run()
     {
         if (Socket->Recv(Buffer, sizeof(Buffer), BytesRead, ESocketReceiveFlags::None) && BytesRead > 0)
         {
-            UE_LOG(LogTemp, Log, TEXT("받아지는 거 확인"));
+            
             ProcessReceivedData(Buffer, BytesRead);
         }
     }
@@ -32,8 +32,7 @@ uint32 FNetworkReceiver::Run()
 void FNetworkReceiver::Stop() { bStopRequested = true; }
 void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
 {
-    UE_LOG(LogTemp, Log, TEXT("ProcessReceivedData Start"));
-    UE_LOG(LogTemp, Log, TEXT("Size 크기 : %d"), Size);
+    
     int32 processedBytes = 0;
 
     while (processedBytes < Size)
@@ -42,7 +41,7 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
         const PacketHeader* header = reinterpret_cast<const PacketHeader*>(packetData);
 
         // 패킷 헤더 로그 출력
-        UE_LOG(LogTemp, Log, TEXT("Packet Header: size=%d, id=%d"), header->size, header->id);
+       
 
         // 패킷 크기가 유효한지 확인
         if (header->size > Size - processedBytes)
@@ -54,7 +53,7 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
         // 핸들러가 유효한지 확인
         if (GPacketHandler[header->id])
         {
-            UE_LOG(LogTemp, Log, TEXT("Valid packet handler found for id: %d"), header->id);
+           
             TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
             GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
         }

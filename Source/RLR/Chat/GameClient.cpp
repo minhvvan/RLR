@@ -21,17 +21,14 @@ AGameClient::AGameClient() {
 void AGameClient::BeginPlay() {
     Super::BeginPlay();
     FString serverAddress = TEXT("127.0.0.1");
-    int32 serverPort = 27015; // 로그인 서버 포트
+    int32 serverPort = 27010; // 로그인 서버 포트
     ClientPacketHandler::Init();
     if (InitializeSocket(serverAddress, serverPort))
     {
         networkReceiver = new FNetworkReceiver(socket);
         Thread = FRunnableThread::Create(networkReceiver, TEXT("NetworkReceiverThread"));
         UE_LOG(LogTemp, Log, TEXT("로그인 서버에 성공적으로 연결"));
-        SendInventoryPacket(1); // 테스트 플레이어 ID
-        SendInventoryPacket(1); // 테스트 플레이어 ID
-        SendStatusPacket(1); // 테스트 스테이터스
-        SendMovePacket(1,2123.08f,1997.092f,91.2371f);
+        SendLoginPacket("admin");
     }
     else {
         UE_LOG(LogTemp, Log, TEXT("로그인 서버에 연결 실패!"));
@@ -45,10 +42,13 @@ void AGameClient::Tick(float DeltaTime) {
 }
 
 
-bool AGameClient::SendLoginPacket(const FString& playerId) {
+bool AGameClient::SendLoginPacket(std::string playerId) {
     if (!socket) return false;
-
-   
+    Protocol::LoginRequestPacket packet;
+    packet.set_playerid(playerId);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool bSuccess = socket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 
     return true;
 }

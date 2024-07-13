@@ -327,19 +327,25 @@ FString EStatusTypeToString(EStatusType StatusType)
 }
 
 int32 FMonsterStatus::tempID = 0;
-void FMonsterStatus::MakeMonsterData()
+void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
 {
     //(X=1250.000000,Y=1930.000000,Z=96.000000)
-    MonsterSeq = tempID++;
-    MonsterName = TEXT("Monster");
-    MonsterLevel = 1;
-    MontserExp = 10;
-    MonsterDamage = 10;
-    MonsterDefence = 10;
-    MonsterHp = 10;
-    MonsterDistance = 10;
-    MonsterTransX = 1250.f;
-    MonsterTransY = 1930.f + 150.f*tempID;
-    MonsterTransZ = 96.f;
-    MonsterMapId = 1;
+    MonsterSeq = monsterData.monsterseq();
+    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
+    MonsterLevel = monsterData.monsterlevel();
+    MontserExp = monsterData.monsterexp();
+    MonsterDamage = monsterData.monsterdamage();
+    MonsterDefence = monsterData.monsterdefence();
+    MonsterHp = monsterData.monsterhp();
+    MonsterDistance = 10;  // Packet 추가 예정
+    MonsterTransX = monsterData.monstertransx();
+    MonsterTransY = monsterData.monstertransy();
+    MonsterTransZ = monsterData.monstertransz();
+    MonsterId = monsterData.monsterid();
+    MonsterMapId = monsterData.monstermapid();
+}
+void FMonsterStatus::UpdateTransform(float x, float y, float z) {
+    MonsterTransX = x;
+    MonsterTransY = y;
+    MonsterTransZ = z;
 }

@@ -59,18 +59,7 @@ void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//-------------------------------------
-	// Test
-	//-------------------------------------
-	TArray<FMonsterStatus> MonsterDatas;
-	for (int32 i = 0; i < 5; i++) {
-		FMonsterStatus MonsterStat;
-		MonsterStat.MakeMonsterData();
-
-		MonsterDatas.Add(MonsterStat);
-	}
-
-	GameInstance->GetMonsterManager()->SetMonsterData(MonsterDatas);
+	
 }
 
 // Check Collision Over lap

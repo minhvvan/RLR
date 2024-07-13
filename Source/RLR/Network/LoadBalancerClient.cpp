@@ -56,6 +56,7 @@ void LoadBalancerClient::Connect()
 
 void LoadBalancerClient::SendRequest(int32 userSeq)
 {
+
     Protocol::EnterGamePacket request;
     request.set_userseq(userSeq);
 
