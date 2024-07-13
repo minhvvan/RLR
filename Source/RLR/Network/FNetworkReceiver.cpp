@@ -2,7 +2,7 @@
 
 
 #include "Network/FNetworkReceiver.h"
-#include "ClientPacketHandler.h"
+#include "Network/Handler/ClientPacketHandler.h"
 
 FNetworkReceiver::FNetworkReceiver(FSocket* InSocket) : Socket(InSocket), bStopRequested(false) {}
 FNetworkReceiver::~FNetworkReceiver() { Stop(); }

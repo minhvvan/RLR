@@ -1,9 +1,9 @@
 #include "ClientPacketHandler.h"
-#include "../GameManager/GameManager.h"
-#include "../GameManager/InventoryManager.h"
-#include "../GameManager/NetworkManager.h"
-#include "../GameManager/MonsterManager.h"
-#include "Buffer.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/InventoryManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/MonsterManager.h"
+#include "Network/Buffer.h"
 
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
