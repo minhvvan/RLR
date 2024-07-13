@@ -1,10 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Packet.pb.h"
+#include "Network/Proto/Packet.pb.h"
 #include <functional>
 #include <memory>
-#include "Buffer.h"
+#include "Network/Buffer.h"
 
 class PacketSession;
 
