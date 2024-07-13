@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include <Network/Struct.pb.h>
+#include <Network/Proto/Struct.pb.h>
 #include "RLRStruct.generated.h"
 
 /**

@@ -10,9 +10,9 @@
 #include "Windows/HideWindowsPlatformTypes.h"
 #include "GameFramework/Actor.h"
 #include <Networking.h>
-#include "../Network/ClientPacketHandler.h"
+#include "Network/Handler/ClientPacketHandler.h"
 #include "../Utils/PacketUtils.h"
-#include "../Network/FNetworkReceiver.h"
+#include "Network/FNetworkReceiver.h"
 #include "GameClient.generated.h"
 class ARLRPlayerCharacter;
 

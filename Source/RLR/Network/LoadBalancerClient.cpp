@@ -1,8 +1,8 @@
 #include "LoadBalancerClient.h"
-#include "Packet.pb.h"
+#include "Proto/Packet.pb.h"
 #include "SocketSubsystem.h"
 #include <Networking.h>
-#include "ClientPacketHandler.h"
+#include "Handler/ClientPacketHandler.h"
 
 LoadBalancerClient::LoadBalancerClient(const std::string& host, int port)
     : host(host), port(port), responseReceived(false), mainServerPort(0), monsterServerPort(0)

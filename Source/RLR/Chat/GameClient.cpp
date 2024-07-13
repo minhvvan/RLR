@@ -5,7 +5,7 @@
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
-#include "../Network/ClientPacketHandler.h"
+#include "Network/Handler/ClientPacketHandler.h"
 
 
 AGameClient::AGameClient() {
