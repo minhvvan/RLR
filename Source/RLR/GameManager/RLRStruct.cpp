@@ -3,7 +3,7 @@
 
 #include "GameManager/RLRStruct.h"
 
-#include "../Network/Packet.pb.h"
+#include "Network/Proto/Packet.pb.h"
 
 
 void FStatus::MakeStatus(Protocol::UserTotalStatus Status)

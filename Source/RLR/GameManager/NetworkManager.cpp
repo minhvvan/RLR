@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "NetworkManager.h"
-#include "../Network/LoadBalancerClient.h"
+#include "Network/LoadBalancerClient.h"
 #include <Networking.h>
-#include "../Network/FNetworkReceiver.h"
+#include "Network/FNetworkReceiver.h"
 #include <Network/Buffer.h>
-#include "../Network/ClientPacketHandler.h"
-#include "../Network/Packet.pb.h"
+#include "Network/Handler/ClientPacketHandler.h"
+#include "Network/Proto/Packet.pb.h"
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
     LoadBalancer = new LoadBalancerClient(host, port);
