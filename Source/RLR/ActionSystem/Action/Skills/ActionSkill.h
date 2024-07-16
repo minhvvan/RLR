@@ -20,7 +20,6 @@ public:
 
 protected:
 
-
 public:
 	FOnSkillExpired OnSkillExpired;
 
@@ -33,6 +32,10 @@ protected:
 	//Action Instance의 상태
 	UPROPERTY(VisibleAnywhere, Category=State)
 	EActionState ActionState;
+
+	//Skill Anim
+	UPROPERTY(EditAnywhere, Category = Anim)
+	TObjectPtr<UAnimMontage> SkillAnim;
 
 	//표시 클래스(지점이나 방향)
 	//UPROPERTY(EditAnywhere)

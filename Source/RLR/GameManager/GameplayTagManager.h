@@ -25,11 +25,32 @@ public:
 	//Action.Attack
 	FGameplayTag Action_Attack_HitCheck;
 
+	//Action.Skill
+	FGameplayTag Action_Skill_Q;
+	FGameplayTag Action_Skill_W;
+	FGameplayTag Action_Skill_E;
+	FGameplayTag Action_Skill_R;
+	FGameplayTag Action_Skill_A;
+	FGameplayTag Action_Skill_S;
+	FGameplayTag Action_Skill_D;
+	FGameplayTag Action_Skill_F;
+
+	//Action.Skill.Anim
+	FGameplayTag Action_Skill_Anim_Q;
+	FGameplayTag Action_Skill_Anim_W;
+	FGameplayTag Action_Skill_Anim_E;
+	FGameplayTag Action_Skill_Anim_R;
+	FGameplayTag Action_Skill_Anim_A;
+	FGameplayTag Action_Skill_Anim_S;
+	FGameplayTag Action_Skill_Anim_D;
+	FGameplayTag Action_Skill_Anim_F;
+
 	//Object.State
 	FGameplayTag Object_State_Hittable;
 
 	//Player.State
 	FGameplayTag Player_State_Attacking;
+
 
 private:
 	static FGameplayTagManager GameplayTags;
