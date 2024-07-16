@@ -6,6 +6,7 @@
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "DrawDebugHelpers.h"
+#include "RLRObjects/Actors/RLRProjectile.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 {
@@ -37,11 +38,14 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 	FRotator Rotator = FRotationMatrix::MakeFromX(SkillDir).Rotator();
 	Rotator.Pitch = 0.f;
 
-	FVector DirPos = SkillDir;
-	DirPos.Normalize();
-	DirPos *= SkillRange/2;
+	FVector Dir = Rotator.Vector().GetSafeNormal();
 
-	FVector FinalPos = StartPos + DirPos;
-	DrawDebugSphere(GetWorld(), FinalPos, 10.f, 32, FColor::Green, false, 3.f, 0U, 3.f);
-	DrawDebugBox(GetWorld(), FinalPos, FVector(SkillRange, 100, 100), Rotator.Quaternion(), FColor::Blue, false, 3.f, 0U, 3.f);
+	ARLRProjectile* Aura = GetWorld()->SpawnActorDeferred<ARLRProjectile>(SwordAuraProjectile, FTransform::Identity, Player);
+	Aura->SetFireDir(Dir);
+	Aura->SetSkillRange(SkillRange);
+
+	DrawDebugSphere(GetWorld(), StartPos + Dir * SkillRange, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
+
+	FTransform SpanwLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
+	Aura->FinishSpawning(SpanwLoc);
 }

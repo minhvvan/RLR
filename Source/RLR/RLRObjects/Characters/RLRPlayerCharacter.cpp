@@ -78,6 +78,8 @@ void ARLRPlayerCharacter::BeginPlay()
 void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
 	APlayerSkill* explosion = Cast<APlayerSkill>(other);
+	if (!explosion) return;
+
 	// TODO : GetDamage * Stat Logic
 	if (data == nullptr)
 	{

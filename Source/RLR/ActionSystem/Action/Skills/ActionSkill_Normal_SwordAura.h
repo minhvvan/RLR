@@ -18,5 +18,10 @@ public:
 	UActionSkill_Normal_SwordAura();
 
 protected:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ARLRProjectile> SwordAuraProjectile;
+
+protected:
 	virtual void ActivateAction();
+
 };
