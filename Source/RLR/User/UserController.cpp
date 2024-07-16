@@ -196,7 +196,7 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void AUserController::OnAttackEffect(int inputID)
+void AUserController::OnAttackEffect(FGameplayTag TriggerTag)
 {
 	if (!Player->IsAttack()) return;
 
@@ -206,9 +206,7 @@ void AUserController::OnAttackEffect(int inputID)
 	USkillManager* SkillManager = GM->GetSkillManager();
 	if (SkillManager == nullptr) return;
 
-	SkillManager->SkillAttack(inputID, GetClickPosition());
-
-	//스킬에맞는 공격 애니메이션
+	SkillManager->SkillAttack(TriggerTag);
 }
 
 void AUserController::OnConsumeItem(int inputID)

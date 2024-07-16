@@ -2,31 +2,75 @@
 
 
 #include "GameManager/SkillManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Skill/Skill_Explosion.h"
+#include "Kismet/GameplayStatics.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/Action/Skills/ActionSkill.h"
+#include "RLR.h"
 
-USkillManager::USkillManager()
+void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
-	OwnSkills.SetNum(8);
+	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
+	if (IsValid(SkillClassTable) == false)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
+	}
 }
 
 void USkillManager::Init()
 {
-	//TODO: ½ºÅ³ µî·Ï
-	for (int i = 0; i < 8; i++)
+	//TODO: ìŠ¤í‚¬ ë“±ë¡
+	if (SkillClassTable)
 	{
-		//DT½áµµ µÉµí
-		//OwnSkills.Add()
-	}	
+		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(0), TEXT(""));
+		if (Data == nullptr)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
+			return;
+		}
+
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		OwnSkills.Add({ TagManager.Action_Skill_Anim_Q, Data->SkillClass });
+
+		APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		if (!Controller) return;
+
+		ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+		if (!Character) return;
+
+		UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+		if (!ASC) return;
+
+		{
+			//Chain HitCheck Class(for Transfer Data)
+			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+			Spec.FollowActionTag = TagManager.Action_Skill_Q;
+			ASC->GiveAction(TagManager.Action_Skill_Anim_Q, Spec);
+		}
+		{
+			FActionSpec Spec(Data->SkillClass, 1, 0);
+			ASC->GiveAction(TagManager.Action_Skill_Q, Spec);
+		}
+	}
 }
 
-void USkillManager::SkillAttack(int inputID, FVector ClickedPos)
+void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 {
-	FActorSpawnParameters SpawnParams;
-	FRotator rotator;
-	FVector  SpawnLocation = ClickedPos;
+	if (!OwnSkills.Contains(TriggerTag)) Init();
+	//APlayerSkill* Skill = GetWorld()->SpawnActor<APlayerSkill>(OwnSkTriggerTagills[inputID]->StaticClass(), SpawnLocation, rotator, SpawnParams);
+	//if (Skill != nullptr) return;
+	//Skill->SkillAttack(ClickedPos);
 
-	if (!OwnSkills[inputID]) Init();
-	APlayerSkill* Skill = GetWorld()->SpawnActor<APlayerSkill>(OwnSkills[inputID]->StaticClass(), SpawnLocation, rotator, SpawnParams);
-	if (Skill != nullptr) return;
-	Skill->SkillAttack(ClickedPos);
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return;
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->TryActivateAction(TriggerTag);
 }

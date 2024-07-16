@@ -46,7 +46,7 @@ private:
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
-	void OnAttackEffect(int inputID);
+	void OnAttackEffect(FGameplayTag TriggerTag);
 	void OnConsumeItem(int inputID);
 	void OnOpenUI(int inputID);
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "GameplayTagContainer.h"
 #include "SkillManager.generated.h"
 
 /**
@@ -15,13 +16,15 @@ class RLR_API USkillManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 public:
-	USkillManager();
+	virtual void Initialize(FSubsystemCollectionBase& Collection);
 
 public:
-	void InitStatic();
 	void Init();
-	void SkillAttack(int inputID, FVector ClickedPos);
+	void SkillAttack(FGameplayTag TriggerTag);
 
 private:
-	TArray<TSubclassOf<class APlayerSkill>> OwnSkills;
+	TMap<FGameplayTag, TSubclassOf<class UAction>> OwnSkills;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> SkillClassTable;
 };

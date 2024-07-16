@@ -544,3 +544,19 @@ struct FMonsterStatus
 	//TODO: 몬스터 정보 생성
 	void MakeMonsterData(/*const Protocol::Item itemData*/);
 };
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FSkillClass : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString Name;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillAnimClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillClass;
+};
