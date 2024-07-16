@@ -15,6 +15,9 @@
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
+	UpdatedPartyPlayerInfo.Clear();
+	UpdatedPlayerInfo.Clear();
+
 	for (USubUI* SubUI : SubUIStack)
 	{
 		SubUI->RemoveFromParent();

@@ -7,10 +7,13 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/SkillManager.h"
 #include "GameManager/MonsterManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/OtherUserManager.h"
+
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include <Kismet/GameplayStatics.h>
-#include "GameManager/NetworkManager.h"
+
 UGameManager* GameInstance = nullptr;
 
 void UGameManager::Init()
@@ -94,6 +97,18 @@ UMonsterManager* UGameManager::GetMonsterManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetMonsterManager Error."));
+    return nullptr;
+}
+
+UOtherUserManager* UGameManager::GetOtherUserManager()
+{
+    UOtherUserManager* OtherUserManager = GetSubsystem<UOtherUserManager>(this);
+    if (IsValid(OtherUserManager))
+    {
+        return OtherUserManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetOtherUserManager Error."));
     return nullptr;
 }
 

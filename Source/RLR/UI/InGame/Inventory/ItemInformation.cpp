@@ -15,7 +15,7 @@
 void UItemInformation::NativeConstruct()
 {
 	Super::NativeConstruct();	
-
+	SetUIType(EUIType::ITEMINFOMATION);
 }
 
 void UItemInformation::SetItemData(FItemData NewData)

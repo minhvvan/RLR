@@ -125,6 +125,25 @@ enum class EUIType : uint8
 	CHARACTERSTAT,
 	ITEMINFO,
 	SIZE,
+	CHATOPTION,
+	ITEMINFOMATION,
+	MINIMAP,
+	STATUSDISPLAY,
+	INGAMEMENU,
+	PARTY,
+	NONE,
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FUserCharacter
+{
+	GENERATED_BODY()
+
+	//FUserCharacter(Protocol::UserCharacter Value){ UserCharacterData = Value;}
+	Protocol::UserCharacter UserCharacterData;
+
+	Protocol::UserCharacter		GetUserCharacterData(){return UserCharacterData;}
+	void												SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
 };
 
 

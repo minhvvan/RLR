@@ -1,9 +1,18 @@
 #include "ClientPacketHandler.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/MonsterManager.h"
 #include "Network/Buffer.h"
+
+//UI
+#include "UI/MainUI.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -51,6 +60,19 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Status
     
     UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
     UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
+
+    UUIManager* UIManager= GameInstance->GetUIManager();
+
+   if (IsValid(UIManager) == false)
+   {
+       DEBUG_LOG("Handle_STATUS_RESPONSE Error. UIManager is Null.");
+        return false;
+   }
+
+   FUserCharacter UserChracter;
+   UserChracter.SetUserChracterData(pkt.usercharacter());
+   UIManager->UpdatedPlayerInfo.Broadcast(UserChracter);
+    
     return true;
 }
 bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "GameManager/RLRStruct.h"
 #include "MainUI.generated.h"
 
 /**
@@ -22,4 +23,8 @@ public:
 
 	virtual bool ToggleSubUI(int inputID) { return false; }
 	virtual class USubUI* GetSubUI(int inputID) { return nullptr; }
+
+public:
+
+	TMap<EUIType, class USubUI*> UserActionSubUI;
 };

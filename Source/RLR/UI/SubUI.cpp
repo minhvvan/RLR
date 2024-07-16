@@ -30,6 +30,7 @@ void USubUI::SetVisibilityToggle()
 
 void USubUI::OpenUI()
 {
+	RefreshUI();
 	SetVisibility(ESlateVisibility::Visible);
 }
 

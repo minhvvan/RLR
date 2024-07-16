@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "GameManager/RLRStruct.h"
 #include "BaseUI.generated.h"
 
 /**
@@ -21,10 +22,16 @@ class RLR_API UBaseUI : public UUserWidget
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void RefreshUI(){};
 	virtual void CloseUI();
+
+	void SetUIType(EUIType Type) {UIType = Type;}
+	EUIType GetUIType() {return UIType;}
 
 public:
 
+
+	EUIType			UIType = EUIType::NONE;
 	UUIManager* GetUIManager();
 	UGameManager* GetGameManager();
 };

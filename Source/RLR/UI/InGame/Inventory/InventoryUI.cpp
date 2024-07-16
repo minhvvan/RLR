@@ -12,6 +12,9 @@
 void UInventoryUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	SetUIType(EUIType::INVENTORY);
+
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 
 	if(IsValid(InventoryManager) == false)
