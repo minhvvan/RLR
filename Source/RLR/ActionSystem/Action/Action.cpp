@@ -159,6 +159,11 @@ void UAction::SetTriggerTag(FGameplayTag Tag)
 	TriggerTag = Tag;
 }
 
+void UAction::SetFollowTriggerTag(FGameplayTag Tag)
+{
+	FollowTriggerTag = Tag;
+}
+
 EActionInstancingPolicy UAction::GetInstancingPolicy() const
 {
 	return InstancingPolicy;

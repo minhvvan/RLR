@@ -163,6 +163,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
 
+	/** Chain ActionTag (e.g. AttackCheck) */
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	FGameplayTag FollowActionTag;
+
 	UPROPERTY(VisibleAnywhere, Category = "Action")
 	TArray<TObjectPtr<UAction>> ActionInstances;
 };
@@ -200,6 +204,18 @@ public:
 	virtual void SetAvatarActor(AActor* Avatar);
 
 	virtual void ClearActorInfo();
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct RLR_API FActionData
+{
+	GENERATED_BODY()
+
+public:
+	virtual ~FActionData() {}
+
+	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
+	FVector	MousePos;
 };
 
 UENUM(BlueprintType)

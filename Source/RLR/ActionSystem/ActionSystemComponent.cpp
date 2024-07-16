@@ -68,6 +68,10 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 	{
 		UAction* NewActionInstance = CreateNewInstanceOfAction(OwnedSpec);
 		NewActionInstance->SetTriggerTag(Tag);
+		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
+		{
+			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
+		}
 	}
 }
 
@@ -107,6 +111,7 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
+			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
 
 			NewActionInstance->TryActivateAction();
 		}
@@ -208,6 +213,22 @@ void UActionSystemComponent::ClearAnimatingAction(UAction* Action)
 	{
 		Action->SetCurrentMontage(nullptr);
 		LocalAnimMontageInfo.AnimatingAction = nullptr;
+	}
+}
+
+void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
+{
+	if (!StoredActionData.Contains(Tag))
+	{
+		StoredActionData.Add({ Tag , Data });
+	}
+}
+
+void UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
+{
+	if (StoredActionData.Contains(Tag))
+	{
+		StoredActionData.RemoveAndCopyValue(Tag, Data);
 	}
 }
 

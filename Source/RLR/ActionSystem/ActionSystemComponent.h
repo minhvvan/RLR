@@ -75,6 +75,9 @@ public:
 		return ResultStatSet;
 	}
 
+	void AddActionData(FGameplayTag Tag, FActionData& Data);
+	void GetActionData(FGameplayTag Tag, FActionData& Data);
+
 private:
 	//Actor Info
 	TSharedPtr<FActionActorInfo> ActorInfo;
@@ -92,6 +95,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category=Stat)
 	TObjectPtr<UStatSet> StatSet;
+
+	//Action Data
+	UPROPERTY(VisibleAnywhere, Category = Action, meta = (AllowPrivateAccess = "true"))
+	TMap<FGameplayTag, FActionData> StoredActionData;
 
 public:
 	//Tag
