@@ -6,8 +6,7 @@
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
-UActionSkill_Normal::UActionSkill_Normal():
-	RotationSpeed(10.f)
+UActionSkill_Normal::UActionSkill_Normal()
 {
 }
 
@@ -42,30 +41,7 @@ bool UActionSkill_Normal::PreActivateAction()
 void UActionSkill_Normal::ActivateAction()
 {
 	Super::ActivateAction();
-
-	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
-	if (!Player) return;
-
-	AUserController* Controller = Cast<AUserController>(Player->GetController());
-	if (!Controller) return;
-
-	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
-	if (!ASC) return;
-
-	//Set Actor Orientation
-	Controller->StopMovement();
-	FVector MousePos = Controller->GetClickPosition();
-	Player->SetTargetRotation(MousePos, RotationSpeed);
-
-	FActionData Data;
-	Data.MousePos = MousePos;
-	ASC->AddActionData(FollowTriggerTag, Data);
-
-	//Play Montage
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), SkillAnim);
-	AT->OnCompleted.AddDynamic(this, &UActionSkill_Normal::OnCompletePlayMontage);
-
-	AT->ReadyForActivation();
+	PlaySkillMontage();
 }
 
 void UActionSkill_Normal::OnCompletePlayMontage()

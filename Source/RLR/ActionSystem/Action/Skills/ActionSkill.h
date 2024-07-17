@@ -19,6 +19,10 @@ public:
 	UActionSkill();
 
 protected:
+	void PlaySkillMontage();
+
+	UFUNCTION()
+	virtual void OnCompletePlayMontage();
 
 public:
 	FOnSkillExpired OnSkillExpired;
@@ -38,6 +42,9 @@ protected:
 	TObjectPtr<UAnimMontage> SkillAnim;
 
 	//표시 클래스(지점이나 방향)
-	//UPROPERTY(EditAnywhere)
-	//TSubclassOf<> ReticleClass;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ARLRReticle> ReticleClass;
+
+	UPROPERTY(EditAnywhere)
+	float RotationSpeed;
 };
