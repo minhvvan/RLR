@@ -16,14 +16,13 @@ void UPartyListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 void UPartyListElement::RefreshUI()
 {
-	float MaxHp =  UserCharacterData.GetUserCharacterData().totalstatus().usermaxhp();
-	float CurrentHp = UserCharacterData.GetUserCharacterData().totalstatus().userhp();
+	float MaxHp =  UserCharacterData.TotalStatus.MAX_HP;
+	float CurrentHp = UserCharacterData.TotalStatus.HP;
 
 	float Value = FMath::Clamp(CurrentHp/ MaxHp, 0, 1);
 	SetPercentHpBar(Value);
 
-	FString ConvertString = UTF8_TO_TCHAR(UserCharacterData.GetUserCharacterData().name().c_str());
-	SetPlayerName(ConvertString);
+	SetPlayerName(UserCharacterData.Name);
 }
 
 void UPartyListElement::SetPercentHpBar(float Value)

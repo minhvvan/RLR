@@ -135,20 +135,30 @@ enum class EUIType : uint8
 };
 
 USTRUCT(Atomic, BlueprintType)
-struct FUserCharacter
+struct FSetStatus
 {
 	GENERATED_BODY()
 
-	//FUserCharacter(Protocol::UserCharacter Value){ UserCharacterData = Value;}
-	Protocol::UserCharacter UserCharacterData;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserHP;
 
-	Protocol::UserCharacter		GetUserCharacterData(){return UserCharacterData;}
-	void												SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserMP;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSTR;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserAGI;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserINT;
+
+	void MakeSetStatus(Protocol::UserSetStatus Data);
 };
 
-
 USTRUCT(Atomic, BlueprintType)
-struct FStatus
+struct FTotalStatus
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -366,7 +376,6 @@ struct FItemStatus
 	}
 };
 
-
 USTRUCT(Atomic, BlueprintType)
 struct FItemData : public FTableRowBase
 {
@@ -410,7 +419,7 @@ struct FItemData : public FTableRowBase
 		나중에 FItemStatus로 바꿔줄 예정.
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FStatus ITEM_STATUS;
+	FTotalStatus ITEM_STATUS;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 SALE_PRICE;
@@ -704,4 +713,51 @@ struct FMonsterStatus
 	//TODO: 몬스터 정보 생성
 	void MakeMonsterData(const Protocol::Monster monsterData);
 	void UpdateTransform(float x, float y, float z);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FUserCharacter
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSeq; 
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 PlayerSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString Name;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 Level;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 NobilityRank;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ECharacterMainJobType> MainJob; 
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ECharacterSubJobType> SubJob; 
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 Exp;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 AdventureRank;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FTotalStatus TotalStatus;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FSetStatus SetStatus;
+
+	void MakeUserCharacter(Protocol::UserCharacter Data);
+
+	/*임시 및 테스트 용*/
+	Protocol::UserCharacter UserCharacterData;
+
+	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
+	void												SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
 };

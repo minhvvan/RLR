@@ -17,6 +17,7 @@ UOtherUserManager::UOtherUserManager()
 	/*
 	* TODO
 		PlayerCharaceterClass Load
+		나중에 DataManager에 에셋 파일 로드 모아두기 제안하기.
 	*/
 	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Player/BP/BP_Player"));
 	if (PlayerCharacterBPClass.Class != NULL) {
@@ -52,6 +53,13 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 	}
 
 	ARLRPlayerCharacter* OtherPlayer = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotator, SpawnParams);
+	
+	/*
+		TODO
+		OhterPlayer->SetUserCharacter()
+	*/
+	
+	
 	int32 PlayerID = NewPlayer.playerseq();
 	OtherPlayerList.Add(PlayerID, OtherPlayer);
 }
@@ -61,7 +69,15 @@ void UOtherUserManager::RemovePlayer(int32 PlayerID)
 	if(OtherPlayerList.Contains(PlayerID) == false)
 		return;
 
+	ARLRPlayerCharacter* Player = OtherPlayerList[PlayerID];
 	OtherPlayerList.Remove(PlayerID);
+
+	/*
+		Player를 파괴해준다.
+		RLRCharacter에 Destroy 함수를 래핑하는 함수 하나 만들어주기
+	*/
+	if(Player->IsActorBeingDestroyed() == false)
+		Player->Destroy();
 }
 
 void UOtherUserManager::ReceivePartyInviteRequest(int32 PlayerID)
@@ -95,7 +111,8 @@ void UOtherUserManager::AddPlayerToParty(Protocol::UserCharacter& NewPlayer)
 	*/
 
 	FUserCharacter NewPartyPlayer;
-	NewPartyPlayer.SetUserChracterData(NewPlayer);
+	NewPartyPlayer.MakeUserCharacter(NewPlayer);
 	PartyPlayerList.Add(NewPlayer.playerseq(), NewPartyPlayer);
+
 	GameInstance->GetUIManager()->UpdatedPartyPlayerInfo.Broadcast(NewPartyPlayer);
 }

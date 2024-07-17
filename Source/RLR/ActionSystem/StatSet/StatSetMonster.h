@@ -6,10 +6,6 @@
 #include "ActionSystem/StatSet.h"
 #include "StatSetMonster.generated.h"
 
-#define STAT_ACCESSORS(ClassName, PropertyName, PropertyType) \
-		STAT_GETTER(PropertyName, PropertyType) \
-		STAT_SETTER(PropertyName, PropertyType)
-
 UCLASS()
 class RLR_API UStatSetMonster : public UStatSet
 {

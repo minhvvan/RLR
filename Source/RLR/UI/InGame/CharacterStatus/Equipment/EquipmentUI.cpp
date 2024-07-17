@@ -118,7 +118,7 @@ void UEquipmentUI::ToggleShowDetailStatUI()
 	}
 }
 
-void UEquipmentUI::RefreshStatUI(FStatus NewStatus)
+void UEquipmentUI::RefreshStatUI(FTotalStatus NewStatus)
 {
 	HPStatText->SetText(FText::FromString(FString::SanitizeFloat(NewStatus.MAX_HP)));
 	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));

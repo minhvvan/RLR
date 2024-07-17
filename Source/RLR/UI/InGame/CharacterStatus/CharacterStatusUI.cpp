@@ -19,7 +19,7 @@ void UCharacterStatusUI::NativeConstruct()
 void UCharacterStatusUI::RefreshUI()
 {
 
-	FStatus PlayerStatus;
+	FTotalStatus PlayerStatus;
 	PlayerStatus.MakeStatus(PlayerInfo.UserCharacterData.totalstatus());
 	EquipmentUI->RefreshStatUI(PlayerStatus);
 
