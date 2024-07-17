@@ -4,23 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "ActionSystem/Action/Skills/ActionSkill.h"
-#include "ActionSkill_Normal_SwordAura.generated.h"
+#include "ActionSkill_Area_Meteor.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UActionSkill_Normal_SwordAura : public UActionSkill
+class RLR_API UActionSkill_Area_Meteor : public UActionSkill
 {
 	GENERATED_BODY()
 	
-public:
-	UActionSkill_Normal_SwordAura();
-
-protected:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class ARLRProjectile> SwordAuraProjectile;
-
 protected:
 	virtual void ActivateAction();
 

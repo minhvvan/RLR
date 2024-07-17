@@ -65,15 +65,7 @@ bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
-		//Block
-		for (auto BlockTag : ActivationBlockedTags)
-		{
-			if (ASC->HasMatchingGameplayTag(BlockTag))
-			{
-				//Blocked this Action
-				return false;
-			}
-		}
+		if (CheckBlockTag()) return false;
 
 		//Action 실행 전 준비
 		bIsActive = true;
@@ -83,10 +75,7 @@ bool UAction::PreActivateAction()
 		//bIsCancelable = true;
 
 		// Add tags
-		for (auto AddTag : ActivationOwnedTags)
-		{
-			ASC->AddGameplayTag(AddTag);
-		}
+		AddOwnedTag();
 	}
 
 	return true;
@@ -186,6 +175,35 @@ bool UAction::CanEndAction()
 	}
 
 	return true;
+}
+
+bool UAction::CheckBlockTag()
+{
+	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	{
+		//Block
+		for (auto BlockTag : ActivationBlockedTags)
+		{
+			if (ASC->HasMatchingGameplayTag(BlockTag))
+			{
+				//Blocked this Action
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+void UAction::AddOwnedTag()
+{
+	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	{
+		for (auto AddTag : ActivationOwnedTags)
+		{
+			ASC->AddGameplayTag(AddTag);
+		}
+	}
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()

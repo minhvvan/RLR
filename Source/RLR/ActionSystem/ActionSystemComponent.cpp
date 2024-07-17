@@ -113,6 +113,7 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			NewActionInstance->SetTriggerTag(Tag);
 			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
 
+			Spec->ActionInstances.Add(NewActionInstance);
 			NewActionInstance->TryActivateAction();
 		}
 	}
@@ -230,6 +231,28 @@ void UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
 	{
 		StoredActionData.RemoveAndCopyValue(Tag, Data);
 	}
+}
+
+bool UActionSystemComponent::ActivateWaitAction()
+{
+	bool bResult = false;
+
+	for (auto [Tag, Spec] : GrantedActions)
+	{
+		for (auto ActionInstance : Spec.ActionInstances)
+		{
+			if (ActionInstance->GetActionState() == EActionState::STATE_WAIT_ACTIVATE)
+			{
+				TryActivateAction(Tag);
+
+				//대기중인 Action이 하나라면 두개 이상이 되면 break 제거 필요
+				bResult = true;
+				break;
+			}
+		}
+	}
+
+	return bResult;
 }
 
 bool UActionSystemComponent::HasMatchingGameplayTag(FGameplayTag TagToCheck) const

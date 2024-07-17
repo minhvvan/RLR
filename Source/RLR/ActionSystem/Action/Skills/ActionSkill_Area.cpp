@@ -31,15 +31,17 @@ void UActionSkill_Area::EndAction()
 
 bool UActionSkill_Area::PreActivateAction()
 {
-	bool bPossible = Super::PreActivateAction();
-	if (!bPossible) return bPossible;
+	bool bPossible = false;
 
 	if (ActionState == EActionState::STATE_INIT)
 	{
+		if (CheckBlockTag()) return false;
+		bPossible = true;
 		ActionState = EActionState::STATE_WAIT_ACTIVATE;
 	}
 	else if (ActionState == EActionState::STATE_WAIT_ACTIVATE)
 	{
+		bPossible = Super::PreActivateAction();
 		ActionState = EActionState::STATE_ACTIVATE;
 	}
 
@@ -56,9 +58,10 @@ void UActionSkill_Area::ActivateAction()
 		AUserController* Controller = Cast<AUserController>(Player->GetController());
 		if (!Controller) return;
 
+		float SkillRange = 200.f;
 		//Spawn Reticle
 		SpawnedReticle = GetWorld()->SpawnActor<ARLRReticle>(ReticleClass, Controller->GetClickPosition(), FRotator::ZeroRotator);
-		SpawnedReticle->InitializeReticle(Controller);
+		SpawnedReticle->InitializeReticle(Controller, SkillRange);
 	}
 	else if (ActionState == EActionState::STATE_ACTIVATE)
 	{

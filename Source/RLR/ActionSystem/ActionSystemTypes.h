@@ -214,7 +214,7 @@ struct RLR_API FActionData
 public:
 	virtual ~FActionData() {}
 
-	UPROPERTY(BlueprintReadOnly, Category = "ActorInfo")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
 	FVector	MousePos;
 };
 

@@ -52,6 +52,8 @@ public:
 	virtual void SetCurrentMontage(class UAnimMontage* InCurrentMontage);
 	virtual UAnimMontage* GetCurrentMontage();
 
+	EActionState GetActionState() { return ActionState; }
+
 protected:
 	virtual bool PreActivateAction();
 	virtual void ActivateAction();
@@ -59,6 +61,9 @@ protected:
 	virtual bool CanActivateAction();
 
 	bool CanEndAction();
+
+	bool CheckBlockTag();
+	void AddOwnedTag();
 
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
@@ -95,4 +100,8 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<class UAnimMontage> CurrentMontage;
+
+	//Action Instance의 상태
+	UPROPERTY(VisibleAnywhere, Category = State)
+	EActionState ActionState;
 };

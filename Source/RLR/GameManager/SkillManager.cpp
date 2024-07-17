@@ -24,16 +24,6 @@ void USkillManager::Init()
 	//TODO: 스킬 등록
 	if (SkillClassTable)
 	{
-		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(0), TEXT(""));
-		if (Data == nullptr)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
-			return;
-		}
-
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		OwnSkills.Add({ TagManager.Action_Skill_Anim_Q, Data->SkillClass });
-
 		APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		if (!Controller) return;
 
@@ -43,15 +33,49 @@ void USkillManager::Init()
 		UActionSystemComponent* ASC = Character->GetActionSystemComponent();
 		if (!ASC) return;
 
+		for (int i = 0; i < 2; i++)
 		{
-			//Chain HitCheck Class(for Transfer Data)
-			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
-			Spec.FollowActionTag = TagManager.Action_Skill_Q;
-			ASC->GiveAction(TagManager.Action_Skill_Anim_Q, Spec);
-		}
-		{
-			FActionSpec Spec(Data->SkillClass, 1, 0);
-			ASC->GiveAction(TagManager.Action_Skill_Q, Spec);
+			FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(i), TEXT(""));
+			if (Data == nullptr)
+			{
+				RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
+				return;
+			}
+
+
+			//Temp
+
+			FGameplayTagManager TagManager = FGameplayTagManager::Get();
+			if (i == 0)
+			{
+				OwnSkills.Add({ TagManager.Action_Skill_Anim_Q, Data->SkillClass });
+
+				{
+					//Chain HitCheck Class(for Transfer Data)
+					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+					Spec.FollowActionTag = TagManager.Action_Skill_Q;
+					ASC->GiveAction(TagManager.Action_Skill_Anim_Q, Spec);
+				}
+				{
+					FActionSpec Spec(Data->SkillClass, 1, 0);
+					ASC->GiveAction(TagManager.Action_Skill_Q, Spec);
+				}
+			}
+			else
+			{
+				OwnSkills.Add({ TagManager.Action_Skill_Anim_W, Data->SkillClass });
+
+				{
+					//Chain HitCheck Class(for Transfer Data)
+					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+					Spec.FollowActionTag = TagManager.Action_Skill_W;
+					ASC->GiveAction(TagManager.Action_Skill_Anim_W, Spec);
+				}
+				{
+					FActionSpec Spec(Data->SkillClass, 1, 0);
+					ASC->GiveAction(TagManager.Action_Skill_W, Spec);
+				}
+			}
 		}
 	}
 }

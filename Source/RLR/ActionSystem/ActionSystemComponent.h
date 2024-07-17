@@ -78,6 +78,8 @@ public:
 	void AddActionData(FGameplayTag Tag, FActionData& Data);
 	void GetActionData(FGameplayTag Tag, FActionData& Data);
 
+	bool ActivateWaitAction();
+
 private:
 	//Actor Info
 	TSharedPtr<FActionActorInfo> ActorInfo;

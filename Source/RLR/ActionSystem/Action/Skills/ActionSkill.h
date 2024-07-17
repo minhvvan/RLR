@@ -33,10 +33,6 @@ protected:
 	//Action 유효 시간 타이머 핸들
 	FTimerHandle SkillValidTimerHandle;
 
-	//Action Instance의 상태
-	UPROPERTY(VisibleAnywhere, Category=State)
-	EActionState ActionState;
-
 	//Skill Anim
 	UPROPERTY(EditAnywhere, Category = Anim)
 	TObjectPtr<UAnimMontage> SkillAnim;

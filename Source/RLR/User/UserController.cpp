@@ -192,7 +192,12 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 
-	//DefaultActions의 inputID번째
+	//Active Skill Check
+	if (ASC->ActivateWaitAction())
+	{
+		return;
+	}
+
 	ASC->TryActivateAction(TriggerTag);
 }
 

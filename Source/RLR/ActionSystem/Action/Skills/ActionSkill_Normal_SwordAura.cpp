@@ -14,7 +14,6 @@ UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 
 void UActionSkill_Normal_SwordAura::ActivateAction()
 {
-	//PlayAnim
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
