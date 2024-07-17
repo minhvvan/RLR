@@ -36,14 +36,14 @@ void APlayerCommands::BindSkillAction(TObjectPtr<class AUserController> Controll
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 
-	component->BindAction(Skill.Q, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_Q);
-	component->BindAction(Skill.W, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_W);
-	component->BindAction(Skill.E, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_E);
-	component->BindAction(Skill.R, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_R);
-	component->BindAction(Skill.A, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_A);
-	component->BindAction(Skill.S, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_S);
-	component->BindAction(Skill.D, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_D);
-	component->BindAction(Skill.F, ETriggerEvent::Started, Controller.Get(), &AUserController::OnAttackEffect, TagManager.Action_Skill_Anim_F);
+	component->BindAction(Skill.Q, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_Q_Anim);
+	component->BindAction(Skill.W, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_W_Anim);
+	component->BindAction(Skill.E, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_E_Anim);
+	component->BindAction(Skill.R, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_R_Anim);
+	component->BindAction(Skill.A, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_A_Anim);
+	component->BindAction(Skill.S, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_S_Anim);
+	component->BindAction(Skill.D, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_D_Anim);
+	component->BindAction(Skill.F, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStart, TagManager.Action_Skill_F_Anim);
 }
 
 void APlayerCommands::BindConsumeAction(TObjectPtr<class AUserController> Controller)

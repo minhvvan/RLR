@@ -201,7 +201,7 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void AUserController::OnAttackEffect(FGameplayTag TriggerTag)
+void AUserController::OnSkillStart(FGameplayTag TriggerTag)
 {
 	if (!Player->IsAttack()) return;
 

@@ -54,6 +54,9 @@ public:
 
 	EActionState GetActionState() { return ActionState; }
 
+	void SetCancelable(bool bCancel) { bIsCancelable = bCancel; }
+	bool GetCancelable() { return bIsCancelable; }
+
 protected:
 	virtual bool PreActivateAction();
 	virtual void ActivateAction();

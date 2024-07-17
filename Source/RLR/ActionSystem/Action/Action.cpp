@@ -129,10 +129,10 @@ void UAction::InitCurrentActorInfo()
 		AActor* OwnerActor = Cast<AActor>(GetOuter());
 		if (OwnerActor)
 		{
-			UActionSystemComponent* AbilitySystemComponent = OwnerActor->FindComponentByClass<UActionSystemComponent>();
-			if (AbilitySystemComponent)
+			UActionSystemComponent* ActionSystemComponent = OwnerActor->FindComponentByClass<UActionSystemComponent>();
+			if (ActionSystemComponent)
 			{
-				CurrentActorInfo = AbilitySystemComponent->GetActionActorInfo();
+				CurrentActorInfo = ActionSystemComponent->GetActionActorInfo();
 			}
 		}
 	}

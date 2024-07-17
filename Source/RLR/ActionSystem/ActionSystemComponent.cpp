@@ -71,6 +71,7 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
 		{
 			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
+			NewActionInstance->SetCancelable(Spec.bCancelable);
 		}
 	}
 }
@@ -90,6 +91,20 @@ void UActionSystemComponent::RemoveAction(FGameplayTag Tag)
 
 void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 {
+	//Cancel Other Action
+	for (auto [ActionTag, Spec] : GrantedActions)
+	{
+		if (ActionTag.MatchesAny(Tag.GetSingleTagContainer())) continue;
+
+		for (auto ActionInstance : Spec.ActionInstances)
+		{
+			if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
+			{
+				ActionInstance->CancelAction();
+			}
+		}
+	}
+
 	//Find
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
@@ -112,8 +127,8 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
 			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
+			NewActionInstance->SetCancelable(Spec->bCancelable);
 
-			Spec->ActionInstances.Add(NewActionInstance);
 			NewActionInstance->TryActivateAction();
 		}
 	}

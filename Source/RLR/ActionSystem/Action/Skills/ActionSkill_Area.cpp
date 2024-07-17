@@ -14,6 +14,12 @@ UActionSkill_Area::UActionSkill_Area()
 
 void UActionSkill_Area::CancelAction()
 {
+	//Remove Reticle
+	if (SpawnedReticle)
+	{
+		SpawnedReticle->Destroy();
+	}
+
 	Super::CancelAction();
 }
 
@@ -43,6 +49,7 @@ bool UActionSkill_Area::PreActivateAction()
 	{
 		bPossible = Super::PreActivateAction();
 		ActionState = EActionState::STATE_ACTIVATE;
+		bIsCancelable = false;
 	}
 
 	return bPossible;
@@ -60,8 +67,11 @@ void UActionSkill_Area::ActivateAction()
 
 		float SkillRange = 200.f;
 		//Spawn Reticle
-		SpawnedReticle = GetWorld()->SpawnActor<ARLRReticle>(ReticleClass, Controller->GetClickPosition(), FRotator::ZeroRotator);
+		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
 		SpawnedReticle->InitializeReticle(Controller, SkillRange);
+
+		FTransform SpawnLoc(Controller->GetClickPosition());
+		SpawnedReticle->FinishSpawning(SpawnLoc);
 	}
 	else if (ActionState == EActionState::STATE_ACTIVATE)
 	{

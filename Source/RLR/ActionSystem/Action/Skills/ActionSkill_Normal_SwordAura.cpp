@@ -47,4 +47,6 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 
 	FTransform SpanwLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
 	Aura->FinishSpawning(SpanwLoc);
+
+	EndAction();
 }

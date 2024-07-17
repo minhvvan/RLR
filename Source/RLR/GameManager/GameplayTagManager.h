@@ -36,14 +36,14 @@ public:
 	FGameplayTag Action_Skill_F;
 
 	//Action.Skill.Anim
-	FGameplayTag Action_Skill_Anim_Q;
-	FGameplayTag Action_Skill_Anim_W;
-	FGameplayTag Action_Skill_Anim_E;
-	FGameplayTag Action_Skill_Anim_R;
-	FGameplayTag Action_Skill_Anim_A;
-	FGameplayTag Action_Skill_Anim_S;
-	FGameplayTag Action_Skill_Anim_D;
-	FGameplayTag Action_Skill_Anim_F;
+	FGameplayTag Action_Skill_Q_Anim;
+	FGameplayTag Action_Skill_W_Anim;
+	FGameplayTag Action_Skill_E_Anim;
+	FGameplayTag Action_Skill_R_Anim;
+	FGameplayTag Action_Skill_A_Anim;
+	FGameplayTag Action_Skill_S_Anim;
+	FGameplayTag Action_Skill_D_Anim;
+	FGameplayTag Action_Skill_F_Anim;
 
 	//Object.State
 	FGameplayTag Object_State_Hittable;

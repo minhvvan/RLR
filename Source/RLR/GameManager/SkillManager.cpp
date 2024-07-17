@@ -48,13 +48,13 @@ void USkillManager::Init()
 			FGameplayTagManager TagManager = FGameplayTagManager::Get();
 			if (i == 0)
 			{
-				OwnSkills.Add({ TagManager.Action_Skill_Anim_Q, Data->SkillClass });
+				OwnSkills.Add({ TagManager.Action_Skill_Q_Anim, Data->SkillClass });
 
 				{
 					//Chain HitCheck Class(for Transfer Data)
 					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
 					Spec.FollowActionTag = TagManager.Action_Skill_Q;
-					ASC->GiveAction(TagManager.Action_Skill_Anim_Q, Spec);
+					ASC->GiveAction(TagManager.Action_Skill_Q_Anim, Spec);
 				}
 				{
 					FActionSpec Spec(Data->SkillClass, 1, 0);
@@ -63,13 +63,14 @@ void USkillManager::Init()
 			}
 			else
 			{
-				OwnSkills.Add({ TagManager.Action_Skill_Anim_W, Data->SkillClass });
+				OwnSkills.Add({ TagManager.Action_Skill_W_Anim, Data->SkillClass });
 
 				{
 					//Chain HitCheck Class(for Transfer Data)
 					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
 					Spec.FollowActionTag = TagManager.Action_Skill_W;
-					ASC->GiveAction(TagManager.Action_Skill_Anim_W, Spec);
+					Spec.bCancelable = true;
+					ASC->GiveAction(TagManager.Action_Skill_W_Anim, Spec);
 				}
 				{
 					FActionSpec Spec(Data->SkillClass, 1, 0);
@@ -83,9 +84,6 @@ void USkillManager::Init()
 void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 {
 	if (!OwnSkills.Contains(TriggerTag)) Init();
-	//APlayerSkill* Skill = GetWorld()->SpawnActor<APlayerSkill>(OwnSkTriggerTagills[inputID]->StaticClass(), SpawnLocation, rotator, SpawnParams);
-	//if (Skill != nullptr) return;
-	//Skill->SkillAttack(ClickedPos);
 
 	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (!Controller) return;

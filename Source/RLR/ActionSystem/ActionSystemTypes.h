@@ -147,7 +147,7 @@ struct RLR_API FActionSpec
 
 public:
 	FActionSpec()
-		: Action(nullptr), Level(1), InputID(INDEX_NONE)
+		: Action(nullptr), Level(1), InputID(INDEX_NONE), bCancelable(false)
 	{ }
 
 	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 InInputID);
@@ -162,6 +162,9 @@ public:
 	/** Input ID to bind this ability to */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	bool bCancelable;
 
 	/** Chain ActionTag (e.g. AttackCheck) */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
