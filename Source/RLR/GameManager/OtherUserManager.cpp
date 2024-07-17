@@ -51,9 +51,6 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 		return;
 	}
 
-	FString Notification = FString::Printf("%s 플레이어 입장", NewPlayer.name().c_str());
-	UUtilBlueprintFunctionLibrary::DebugLog(Notification);
-
 	ARLRPlayerCharacter* OtherPlayer = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotator, SpawnParams);
 	int32 PlayerID = NewPlayer.playerseq();
 	OtherPlayerList.Add(PlayerID, OtherPlayer);
