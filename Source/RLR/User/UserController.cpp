@@ -201,17 +201,20 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void AUserController::OnSkillStart(FGameplayTag TriggerTag)
+void AUserController::OnSkillStarted(FGameplayTag TriggerTag)
 {
-	if (!Player->IsAttack()) return;
-
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (GM == nullptr) return;
-
-	USkillManager* SkillManager = GM->GetSkillManager();
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
 
 	SkillManager->SkillAttack(TriggerTag);
+}
+
+void AUserController::OnSkillCompleted(FGameplayTag TriggerTag)
+{
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (SkillManager == nullptr) return;
+
+	SkillManager->SKillComplete(TriggerTag);
 }
 
 void AUserController::OnConsumeItem(int inputID)

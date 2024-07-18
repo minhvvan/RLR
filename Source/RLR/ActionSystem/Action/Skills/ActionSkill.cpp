@@ -35,6 +35,7 @@ void UActionSkill::PlaySkillMontage()
 	//Play Montage
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), SkillAnim);
 	AT->OnCompleted.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
+	AT->OnCancelled.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
 
 	AT->ReadyForActivation();
 }

@@ -36,6 +36,7 @@ public:
 	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
 	void RemoveAction(FGameplayTag Tag);
 	void TryActivateAction(FGameplayTag Tag);
+	void TryCancelAction(FGameplayTag Tag);
 
 	void NotifyActionEnded(UAction* EndedAction);
 

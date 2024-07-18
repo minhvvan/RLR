@@ -256,5 +256,6 @@ enum class EActionState : uint8
 	STATE_END						UMETA(DisplayName = "End"),
 	STATE_WAIT_ACTIVATE				UMETA(DisplayName = "Wait_Activate"),
 	STATE_WAIT_ADDTIONAL_INPUT		UMETA(DisplayName = "Wait_Input"),
+	STATE_WAIT_CANCEL				UMETA(DisplayName = "Wait_Cancel"),
 	SIZE
 };
