@@ -107,6 +107,12 @@ void UAction::EndAction()
 	bIsActive = false;
 
 	//Task 관리
+	
+	//State
+	if (InstancingPolicy == EActionInstancingPolicy::InstancedPerActor)
+	{
+		ActionState = EActionState::STATE_INIT;
+	}
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{

@@ -12,7 +12,7 @@
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
-	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
+	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillData.DT_SkillData'")));
 	if (IsValid(SkillClassTable) == false)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
@@ -33,22 +33,20 @@ void USkillManager::Init()
 		UActionSystemComponent* ASC = Character->GetActionSystemComponent();
 		if (!ASC) return;
 
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(i), TEXT(""));
+			FSkillData* Data = SkillClassTable->FindRow<FSkillData>(*FString::FromInt(i), TEXT(""));
 			if (Data == nullptr)
 			{
 				RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
 				return;
 			}
 
-
 			//Temp
-
 			FGameplayTagManager TagManager = FGameplayTagManager::Get();
 			if (i == 0)
 			{
-				OwnSkills.Add({ TagManager.Action_Skill_Q_Anim, Data->SkillClass });
+				OwnSkills.Add({ TagManager.Action_Skill_Q, *Data });
 
 				{
 					//Chain HitCheck Class(for Transfer Data)
@@ -61,9 +59,9 @@ void USkillManager::Init()
 					ASC->GiveAction(TagManager.Action_Skill_Q, Spec);
 				}
 			}
-			else
+			else if(i == 1)
 			{
-				OwnSkills.Add({ TagManager.Action_Skill_W_Anim, Data->SkillClass });
+				OwnSkills.Add({ TagManager.Action_Skill_W, *Data });
 
 				{
 					//Chain HitCheck Class(for Transfer Data)
@@ -77,13 +75,29 @@ void USkillManager::Init()
 					ASC->GiveAction(TagManager.Action_Skill_W, Spec);
 				}
 			}
+			else
+			{
+				OwnSkills.Add({ TagManager.Action_Skill_E, *Data });
+
+				{
+					//Chain HitCheck Class(for Transfer Data)
+					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+					Spec.FollowActionTag = TagManager.Action_Skill_E;
+					Spec.bCancelable = true;
+					ASC->GiveAction(TagManager.Action_Skill_E_Anim, Spec);
+				}
+				{
+					FActionSpec Spec(Data->SkillClass, 1, 0);
+					ASC->GiveAction(TagManager.Action_Skill_E, Spec);
+				}
+			}
 		}
 	}
 }
 
 void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 {
-	if (!OwnSkills.Contains(TriggerTag)) Init();
+	if (!HasSkillTag(TriggerTag)) Init();
 
 	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (!Controller) return;
@@ -95,4 +109,56 @@ void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 	if (!ASC) return;
 
 	ASC->TryActivateAction(TriggerTag);
+}
+
+void USkillManager::SKillComplete(FGameplayTag TriggerTag)
+{
+	if (!HasSkillTag(TriggerTag)) return;
+
+	if (auto* Data = GetSkillData(TriggerTag))
+	{
+		if (Data->SkillType == ESkillType::HOLDING)
+		{
+			APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+			if (!Controller) return;
+
+			ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+			if (!Character) return;
+
+			UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+			if (!ASC) return;
+
+			ASC->TryCancelAction(TriggerTag);
+		}
+	}
+}
+
+const FSkillData* USkillManager::GetSkillData(FGameplayTag TriggerTag)
+{
+	FSkillData* Result = nullptr;
+
+	for (auto& [Tag, Data] : OwnSkills)
+	{
+		if (TriggerTag.MatchesTag(Tag))
+		{
+			Result = &Data;
+		}
+	}
+
+	return Result;
+}
+
+bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
+{
+	bool bResult = false;
+	for (auto& [Tag, Data] : OwnSkills)
+	{
+		if (TriggerTag.MatchesTag(Tag))
+		{
+			bResult = true;
+			break;
+		}
+	}
+
+	return bResult;
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameplayTagContainer.h"
+#include "GameManager/RLRStruct.h"
 #include "SkillManager.generated.h"
 
 /**
@@ -21,9 +22,13 @@ public:
 public:
 	void Init();
 	void SkillAttack(FGameplayTag TriggerTag);
+	void SKillComplete(FGameplayTag TriggerTag);
+
+	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
+	bool HasSkillTag(FGameplayTag TriggerTag);
 
 private:
-	TMap<FGameplayTag, TSubclassOf<class UAction>> OwnSkills;
+	TMap<FGameplayTag, FSkillData> OwnSkills;
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillClassTable;

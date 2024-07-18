@@ -5,6 +5,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "RLR.h"
 
 UActionSkill_Normal::UActionSkill_Normal()
 {

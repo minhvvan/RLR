@@ -7,6 +7,8 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "DrawDebugHelpers.h"
 #include "RLRObjects/Actors/RLRProjectile.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
 
 void UActionSkill_Area_Meteor::ActivateAction()
 {
@@ -31,7 +33,12 @@ void UActionSkill_Area_Meteor::ActivateAction()
 	DrawDebugSphere(GetWorld(), EndPos, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
 
 	//Test
-	float SkillRange = 200.f;
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager) return;
+
+	const FSkillData* SKillData = SkillManager->GetSkillData(TriggerTag);
+	float SkillRange = SKillData->CollisionRange.X;
+
 	DrawDebugCylinder(GetWorld(), StartPos, EndPos, SkillRange, 32, FColor::Red, false, 2.f, 0U, 3.f);
 
 	EndAction();

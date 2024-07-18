@@ -6,6 +6,9 @@
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/RLRReticle.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
+#include "RLR.h"
 
 UActionSkill_Area::UActionSkill_Area()
 {
@@ -27,12 +30,6 @@ void UActionSkill_Area::EndAction()
 {
 	ActionState = EActionState::STATE_END;
 	Super::EndAction();
-
-	//Actor당 Instancing되는 Action은 Init상태로 초기화
-	if (InstancingPolicy == EActionInstancingPolicy::InstancedPerActor)
-	{
-		ActionState = EActionState::STATE_INIT;
-	}
 }
 
 bool UActionSkill_Area::PreActivateAction()
@@ -65,10 +62,15 @@ void UActionSkill_Area::ActivateAction()
 		AUserController* Controller = Cast<AUserController>(Player->GetController());
 		if (!Controller) return;
 
-		float SkillRange = 200.f;
+		USkillManager* SkillManager = GameInstance->GetSkillManager();
+		if (!SkillManager) return;
+
+		const FSkillData* SKillData = SkillManager->GetSkillData(TriggerTag);
+		if (!SKillData) return;
+
 		//Spawn Reticle
 		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
-		SpawnedReticle->InitializeReticle(Controller, SkillRange);
+		SpawnedReticle->InitializeReticle(Controller, SKillData->CollisionRange.X);
 
 		FTransform SpawnLoc(Controller->GetClickPosition());
 		SpawnedReticle->FinishSpawning(SpawnLoc);
@@ -83,5 +85,6 @@ void UActionSkill_Area::ActivateAction()
 
 void UActionSkill_Area::OnCompletePlayMontage()
 {
+	bIsCancelable = true;
 	EndAction();
 }

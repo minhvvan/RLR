@@ -394,14 +394,15 @@ struct FItemData : public FTableRowBase
 UENUM(BlueprintType)
 enum class ESkillType : uint8
 {
-	Normal = 0,
-	Point = 1,
-	Holding = 2,
+	NORMAL = 0,
+	AREA,
+	HOLDING,
+	SIZE
 };
 
 
 USTRUCT(Atomic, BlueprintType)
-struct FSkillData
+struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -430,7 +431,16 @@ struct FSkillData
 	float ActivityTime;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector CollisionRange;
+	FVector CollisionRange;	
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	ESkillType SkillType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillAnimClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillClass;
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -543,20 +553,4 @@ struct FMonsterStatus
 
 	//TODO: 몬스터 정보 생성
 	void MakeMonsterData(/*const Protocol::Item itemData*/);
-};
-
-
-USTRUCT(Atomic, BlueprintType)
-struct FSkillClass : public FTableRowBase
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<class UAction> SkillAnimClass;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<class UAction> SkillClass;
 };

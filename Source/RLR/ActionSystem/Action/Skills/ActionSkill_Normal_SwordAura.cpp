@@ -7,6 +7,8 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "DrawDebugHelpers.h"
 #include "RLRObjects/Actors/RLRProjectile.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 {
@@ -29,7 +31,13 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 	FVector MousePos = ActionData.MousePos;
 
 	//Test
-	float SkillRange = 400.f;
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager) return;
+
+	const FSkillData* SKillData = SkillManager->GetSkillData(TriggerTag);
+	if (!SKillData) return;
+
+	float SkillRange = SKillData->CollisionRange.X;
 
 	FVector StartPos = Player->GetActorLocation();
 	FVector SkillDir = (MousePos - StartPos);
