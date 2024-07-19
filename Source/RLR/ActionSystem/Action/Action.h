@@ -31,7 +31,7 @@ public:
 	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
 
 public:
-	void TryActivateAction();
+	bool TryActivateAction();
 	virtual void CancelAction();
 	virtual void EndAction();
 

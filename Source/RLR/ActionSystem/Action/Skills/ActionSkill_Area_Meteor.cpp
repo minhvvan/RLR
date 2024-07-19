@@ -33,11 +33,8 @@ void UActionSkill_Area_Meteor::ActivateAction()
 	DrawDebugSphere(GetWorld(), EndPos, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
 
 	//Test
-	USkillManager* SkillManager = GameInstance->GetSkillManager();
-	if (!SkillManager) return;
-
-	const FSkillData* SKillData = SkillManager->GetSkillData(TriggerTag);
-	float SkillRange = SKillData->CollisionRange.X;
+	if (!SkillData) return;
+	float SkillRange = SkillData->CollisionRange.X;
 
 	DrawDebugCylinder(GetWorld(), StartPos, EndPos, SkillRange, 32, FColor::Red, false, 2.f, 0U, 3.f);
 

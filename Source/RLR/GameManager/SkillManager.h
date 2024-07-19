@@ -22,13 +22,13 @@ public:
 public:
 	void Init();
 	void SkillAttack(FGameplayTag TriggerTag);
-	void SKillComplete(FGameplayTag TriggerTag);
+	void SkillComplete(FGameplayTag TriggerTag);
 
 	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
 private:
-	TMap<FGameplayTag, FSkillData> OwnSkills;
+	TMap<FGameplayTag, FSkillData*> OwnSkills;
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillClassTable;

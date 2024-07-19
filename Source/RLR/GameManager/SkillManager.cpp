@@ -21,7 +21,6 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 
 void USkillManager::Init()
 {
-	//TODO: 스킬 등록
 	if (SkillClassTable)
 	{
 		APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
@@ -33,7 +32,11 @@ void USkillManager::Init()
 		UActionSystemComponent* ASC = Character->GetActionSystemComponent();
 		if (!ASC) return;
 
-		for (int i = 0; i < 3; i++)
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
+		const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
+
+		for (int i = 0; i < 8; i++)
 		{
 			FSkillData* Data = SkillClassTable->FindRow<FSkillData>(*FString::FromInt(i), TEXT(""));
 			if (Data == nullptr)
@@ -42,54 +45,29 @@ void USkillManager::Init()
 				return;
 			}
 
-			//Temp
-			FGameplayTagManager TagManager = FGameplayTagManager::Get();
-			if (i == 0)
-			{
-				OwnSkills.Add({ TagManager.Action_Skill_Q, *Data });
+			FGameplayTag SkillTag = SkillTags->GetByIndex(i);
+			FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
-				{
-					//Chain HitCheck Class(for Transfer Data)
-					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
-					Spec.FollowActionTag = TagManager.Action_Skill_Q;
-					ASC->GiveAction(TagManager.Action_Skill_Q_Anim, Spec);
-				}
-				{
-					FActionSpec Spec(Data->SkillClass, 1, 0);
-					ASC->GiveAction(TagManager.Action_Skill_Q, Spec);
-				}
-			}
-			else if(i == 1)
-			{
-				OwnSkills.Add({ TagManager.Action_Skill_W, *Data });
+			OwnSkills.Add({ SkillTag, Data });
 
+			//TriggerAction
+			{
+				FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+				//Chain HitCheck Class(for Transfer Data)
+				Spec.FollowActionTag = SkillTag;
+
+				if (Data->SkillType == ESkillType::AREA || Data->SkillType == ESkillType::HOLDING)
 				{
-					//Chain HitCheck Class(for Transfer Data)
-					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
-					Spec.FollowActionTag = TagManager.Action_Skill_W;
 					Spec.bCancelable = true;
-					ASC->GiveAction(TagManager.Action_Skill_W_Anim, Spec);
 				}
-				{
-					FActionSpec Spec(Data->SkillClass, 1, 0);
-					ASC->GiveAction(TagManager.Action_Skill_W, Spec);
-				}
-			}
-			else
-			{
-				OwnSkills.Add({ TagManager.Action_Skill_E, *Data });
 
-				{
-					//Chain HitCheck Class(for Transfer Data)
-					FActionSpec Spec(Data->SkillAnimClass, 1, 0);
-					Spec.FollowActionTag = TagManager.Action_Skill_E;
-					Spec.bCancelable = true;
-					ASC->GiveAction(TagManager.Action_Skill_E_Anim, Spec);
-				}
-				{
-					FActionSpec Spec(Data->SkillClass, 1, 0);
-					ASC->GiveAction(TagManager.Action_Skill_E, Spec);
-				}
+				ASC->GiveAction(SkillAnimTag, Spec);
+			}
+
+			//CheckAction 
+			{
+				FActionSpec Spec(Data->SkillClass, 1, 0);
+				ASC->GiveAction(SkillTag, Spec);
 			}
 		}
 	}
@@ -111,7 +89,7 @@ void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void USkillManager::SKillComplete(FGameplayTag TriggerTag)
+void USkillManager::SkillComplete(FGameplayTag TriggerTag)
 {
 	if (!HasSkillTag(TriggerTag)) return;
 
@@ -141,7 +119,7 @@ const FSkillData* USkillManager::GetSkillData(FGameplayTag TriggerTag)
 	{
 		if (TriggerTag.MatchesTag(Tag))
 		{
-			Result = &Data;
+			Result = Data;
 		}
 	}
 

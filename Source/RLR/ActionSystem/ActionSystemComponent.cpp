@@ -129,7 +129,10 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
 			NewActionInstance->SetCancelable(Spec->bCancelable);
 
-			NewActionInstance->TryActivateAction();
+			if (!NewActionInstance->TryActivateAction())
+			{
+				Spec->ActionInstances.Remove(NewActionInstance);
+			}
 		}
 	}
 }
@@ -161,7 +164,6 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 	if (DefaultAction->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 	{
 		//해당 instance 삭제
-		//RLR_LOG(LogRLR, Log, TEXT("Remove: %s"), *EndedAction->GetName());
 		Spec->ActionInstances.Remove(EndedAction);
 	}
 }
@@ -276,7 +278,7 @@ bool UActionSystemComponent::ActivateWaitAction()
 			{
 				TryActivateAction(Tag);
 
-				//대기중인 Action이 하나라면 두개 이상이 되면 break 제거 필요
+				//대기중인 Action이 하나라면 (두개 이상이 되면 break 제거 필요)
 				bResult = true;
 				break;
 			}
@@ -298,5 +300,8 @@ void UActionSystemComponent::AddGameplayTag(const FGameplayTag& GameplayTag, int
 
 void UActionSystemComponent::RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count)
 {
-	OwnedTags.RemoveTag(GameplayTag);
+	if (OwnedTags.GetTagCount(GameplayTag) > 0)
+	{
+		OwnedTags.RemoveTag(GameplayTag);
+	}
 }

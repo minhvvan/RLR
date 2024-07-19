@@ -42,3 +42,41 @@ void FGameplayTagManager::Init()
 	//Player
 	GameplayTags.Player_State_Attacking = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Player.State.Attacking"), FString(TEXT("공격중")));
 }
+
+const FGameplayTagContainer* FGameplayTagManager::GetSkillTags()
+{
+	if (SkillTags.Num() != 8)
+	{
+		SkillTags.Reset(8);
+
+		SkillTags.AddTag(GameplayTags.Action_Skill_Q);
+		SkillTags.AddTag(GameplayTags.Action_Skill_W);
+		SkillTags.AddTag(GameplayTags.Action_Skill_E);
+		SkillTags.AddTag(GameplayTags.Action_Skill_R);
+		SkillTags.AddTag(GameplayTags.Action_Skill_A);
+		SkillTags.AddTag(GameplayTags.Action_Skill_S);
+		SkillTags.AddTag(GameplayTags.Action_Skill_D);
+		SkillTags.AddTag(GameplayTags.Action_Skill_F);
+	}
+
+	return &SkillTags;
+}
+
+const FGameplayTagContainer* FGameplayTagManager::GetSkillAnimTags()
+{
+	if (SkillAnimTags.Num() != 8)
+	{
+		SkillAnimTags.Reset(8);
+
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_Q_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_W_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_E_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_R_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_A_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_S_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_D_Anim);
+		SkillAnimTags.AddTag(GameplayTags.Action_Skill_F_Anim);
+	}
+
+	return &SkillAnimTags;
+}

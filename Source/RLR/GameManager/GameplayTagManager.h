@@ -15,6 +15,8 @@ public:
 	static const FGameplayTagManager& Get() { return GameplayTags; }
 	static void	Init();
 
+	const FGameplayTagContainer* GetSkillTags();
+	const FGameplayTagContainer* GetSkillAnimTags();
 
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
@@ -34,6 +36,9 @@ public:
 	FGameplayTag Action_Skill_S;
 	FGameplayTag Action_Skill_D;
 	FGameplayTag Action_Skill_F;
+
+	FGameplayTagContainer SkillTags;
+	FGameplayTagContainer SkillAnimTags;
 
 	//Action.Skill.Anim
 	FGameplayTag Action_Skill_Q_Anim;

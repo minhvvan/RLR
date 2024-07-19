@@ -53,12 +53,15 @@ void UAction::OnGameplayTaskDeactivated(UGameplayTask& Task)
 	ActiveTasks.Remove(&Task);
 }
 
-void UAction::TryActivateAction()
+bool UAction::TryActivateAction()
 {
-	if (PreActivateAction())
+	bool bPossible = PreActivateAction();
+	if (bPossible)
 	{
 		ActivateAction();
 	}
+
+	return bPossible;
 }
 
 bool UAction::PreActivateAction()
