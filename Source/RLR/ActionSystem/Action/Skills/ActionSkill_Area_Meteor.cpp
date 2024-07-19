@@ -8,6 +8,7 @@
 #include "DrawDebugHelpers.h"
 #include "RLRObjects/Actors/RLRProjectile.h"
 #include "GameManager/GameManager.h"
+#include "Physics/RLRCollision.h"
 #include "GameManager/SkillManager.h"
 
 void UActionSkill_Area_Meteor::ActivateAction()
@@ -29,14 +30,53 @@ void UActionSkill_Area_Meteor::ActivateAction()
 	FVector EndPos = ActionData.MousePos;
 	EndPos.Z += 500.f;
 
-	DrawDebugSphere(GetWorld(), StartPos, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
-	DrawDebugSphere(GetWorld(), EndPos, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
-
 	//Test
 	if (!SkillData) return;
 	float SkillRange = SkillData->CollisionRange.X;
 
-	DrawDebugCylinder(GetWorld(), StartPos, EndPos, SkillRange, 32, FColor::Red, false, 2.f, 0U, 3.f);
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager)
+	{
+		EndAction();
+		return;
+	}
 
-	EndAction();
+	//사거리에 맞게 Collision 생성(Test = 100)
+	TArray<AActor*> OverlappedActor;
+	AActor* Owner = GetAvatarActorFromActorInfo();
+	TArray<FOverlapResult> OverlapResults;
+	FCollisionQueryParams params(NAME_None, false, Owner);
+
+	if (GetWorld()->OverlapMultiByChannel(OverlapResults,				/*Result*/
+		Owner->GetActorLocation(),										/*Center*/
+		FQuat::Identity,												/*Rotate*/
+		CCHANNEL_RLRATTACK,												/*Channel*/
+		FCollisionShape::MakeCapsule(SkillData->CollisionRange),		/*AttackRange*/
+		params))
+	{
+		for (auto result : OverlapResults)
+		{
+			IActionSystemInterface* HitActor = Cast<IActionSystemInterface>(result.GetActor());
+			if (!HitActor) continue;
+
+			////Hittable Tag가 없으면 제외
+			//if (!ASC->HasMatchingGameplayTag(HittableTag))
+			//{
+			//	RLR_LOG(LogRLR, Log, TEXT("This Actor Non-Hittable"));
+			//	continue;
+			//}
+
+			OverlappedActor.Add(result.GetActor());
+		}
+	}
+	
+	if (SkillManager->RequestSkillResult(SkillData, OverlappedActor))
+	{
+		//Success
+		DrawDebugCylinder(GetWorld(), StartPos, EndPos, SkillRange, 32, FColor::Green, false, 2.f, 0U, 3.f);
+	}
+	else
+	{
+		//fail
+	}
 }

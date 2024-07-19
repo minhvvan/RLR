@@ -27,6 +27,13 @@ public:
 	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
+	//Response
+	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
+
+	//Request to Server
+	bool RequestGetSelectedSkills();
+	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
+
 private:
 	TMap<FGameplayTag, FSkillData*> OwnSkills;
 

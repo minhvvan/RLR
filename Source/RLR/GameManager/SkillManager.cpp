@@ -12,7 +12,7 @@
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
-	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillData.DT_SkillData'")));
+	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
 	if (IsValid(SkillClassTable) == false)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
@@ -21,55 +21,10 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 
 void USkillManager::Init()
 {
-	if (SkillClassTable)
+	if (!RequestGetSelectedSkills())
 	{
-		APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		if (!Controller) return;
-
-		ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
-		if (!Character) return;
-
-		UActionSystemComponent* ASC = Character->GetActionSystemComponent();
-		if (!ASC) return;
-
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
-		const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
-
-		for (int i = 0; i < 8; i++)
-		{
-			FSkillData* Data = SkillClassTable->FindRow<FSkillData>(*FString::FromInt(i), TEXT(""));
-			if (Data == nullptr)
-			{
-				RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
-				return;
-			}
-
-			FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-			FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
-
-			OwnSkills.Add({ SkillTag, Data });
-
-			//TriggerAction
-			{
-				FActionSpec Spec(Data->SkillAnimClass, 1, 0);
-				//Chain HitCheck Class(for Transfer Data)
-				Spec.FollowActionTag = SkillTag;
-
-				if (Data->SkillType == ESkillType::AREA || Data->SkillType == ESkillType::HOLDING)
-				{
-					Spec.bCancelable = true;
-				}
-
-				ASC->GiveAction(SkillAnimTag, Spec);
-			}
-
-			//CheckAction 
-			{
-				FActionSpec Spec(Data->SkillClass, 1, 0);
-				ASC->GiveAction(SkillTag, Spec);
-			}
-		}
+		RLR_LOG(LogRLR, Log, TEXT("Fail GetSelected Skill Load"));
+		return;
 	}
 }
 
@@ -139,4 +94,82 @@ bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
 	}
 
 	return bResult;
+}
+
+void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
+{
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return;
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return;
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
+	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
+
+	for (int i = 0; i < SelectedSkills.Num(); i++)
+	{
+		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(i), TEXT(""));
+		if (Data == nullptr)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
+			return;
+		}
+
+		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
+
+		OwnSkills.Add({ SkillTag, &SelectedSkills[i]});
+
+		//TriggerAction
+		{
+			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+			//Chain HitCheck Class(for Transfer Data)
+			Spec.FollowActionTag = SkillTag;
+
+			if (SelectedSkills[i].SkillType == ESkillType::AREA || SelectedSkills[i].SkillType == ESkillType::HOLDING)
+			{
+				Spec.bCancelable = true;
+			}
+
+			ASC->GiveAction(SkillAnimTag, Spec);
+		}
+
+		//CheckAction 
+		{
+			FActionSpec Spec(Data->SkillClass, 1, 0);
+			ASC->GiveAction(SkillTag, Spec);
+		}
+	}
+}
+
+bool USkillManager::RequestGetSelectedSkills()
+{
+	//TODO: Request Get Selected Skill
+	//내가 설정한 8개를 가져와줘
+
+
+	return false;
+}
+
+bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor)
+{
+	FAttackResult AttackResults;
+	AttackResults.SkillSeq = SkillData->SkillSeq;
+	AttackResults.Level = SkillData->Level;
+	AttackResults.Timestamp = FDateTime::UtcNow().ToUnixTimestamp();
+	//AttackResults.UserSeq = ???
+
+	for (auto Target : OverlappedActor)
+	{
+		//AttackResults.TargetSeq.Add(Target->GetUserSeq)
+	}
+
+	//TODO: Send To Server(Skill Result) Using NetworkManager
+	//return result
+	return false;
 }

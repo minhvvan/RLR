@@ -75,3 +75,7 @@ void FMonsterStatus::MakeMonsterData()
     MonsterTransZ = 96.f;
     MonsterMapId = 1;
 }
+
+void FAttackResult::MakeAttackData()
+{
+}

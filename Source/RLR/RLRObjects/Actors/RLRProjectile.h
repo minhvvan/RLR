@@ -6,9 +6,8 @@
 #include "RLRObjects/Actors/RLRActor.h"
 #include "RLRProjectile.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFinishSkill, TArray<AActor*>, OverlappedActors);
+
 UCLASS()
 class RLR_API ARLRProjectile : public ARLRActor
 {
@@ -41,6 +40,8 @@ public:
 
 	void SetFireDir(const FVector& ShootDirection);
 	void SetSkillRange(const float& Range);
+
+	FOnFinishSkill OnFinishSkill;
 
 protected:
 	UFUNCTION()

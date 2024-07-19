@@ -69,7 +69,8 @@ void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 void ARLRProjectile::FinishSkill()
 {
-	//TODO: Transfer To Server
 	RLR_LOG(LogRLR, Log, TEXT("Overlapped: %d"), OverlappedActors.Num());
+
+	OnFinishSkill.Broadcast(OverlappedActors);
 	Destroy();
 }

@@ -24,4 +24,6 @@ protected:
 protected:
 	virtual void ActivateAction();
 
+	UFUNCTION()
+	void OnFinishSkill(TArray<AActor*> OverlappedActor);
 };

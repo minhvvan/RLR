@@ -407,6 +407,9 @@ struct FSkillData : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillSeq;	
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -431,10 +434,23 @@ struct FSkillData : public FTableRowBase
 	float ActivityTime;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 SkillId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FVector CollisionRange;	
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	ESkillType SkillType;
+};
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FSkillClass : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TSubclassOf<class UAction> SkillAnimClass;
@@ -442,6 +458,7 @@ struct FSkillData : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TSubclassOf<class UAction> SkillClass;
 };
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FAbnormal2
@@ -553,4 +570,56 @@ struct FMonsterStatus
 
 	//TODO: 몬스터 정보 생성
 	void MakeMonsterData(/*const Protocol::Item itemData*/);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FAttackResult
+{
+	GENERATED_BODY()
+
+	FAttackResult() :
+		SkillSeq(-1),
+		Level(0),
+		Timestamp(0),
+		UserSeq(0)
+	{}
+
+	UPROPERTY(EditAnyWhere)
+	int32 SkillSeq;
+
+	UPROPERTY(EditAnyWhere)
+	int32 Level;
+
+	UPROPERTY(EditAnyWhere)
+	uint64 Timestamp;
+
+	UPROPERTY(EditAnyWhere)
+	uint32 UserSeq;
+
+	UPROPERTY(EditAnyWhere)
+	TArray<uint32> TargetSeq;
+
+	FString ToString() const
+	{
+		FString AttackString;
+
+		auto AppendStatInt = [&AttackString](const FString& StatName, float StatValue)
+			{
+				if (!AttackString.IsEmpty()) AttackString.Append(TEXT("\n"));
+				AttackString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+			};
+
+		AppendStatInt(TEXT("SkillSEQ"), SkillSeq);
+		AppendStatInt(TEXT("Level"), Level);
+		AppendStatInt(TEXT("Timestamp"), Timestamp);
+		AppendStatInt(TEXT("UserSeq"), UserSeq);
+		for (auto target : TargetSeq)
+		{
+			AppendStatInt(TEXT("Target"), target);
+		}
+
+		return AttackString;
+	}
+
+	void MakeAttackData(/*const Protocol::Item itemData*/);
 };

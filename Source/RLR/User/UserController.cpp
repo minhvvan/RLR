@@ -214,7 +214,7 @@ void AUserController::OnSkillCompleted(FGameplayTag TriggerTag)
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
 
-	SkillManager->SKillComplete(TriggerTag);
+	SkillManager->SkillComplete(TriggerTag);
 }
 
 void AUserController::OnConsumeItem(int inputID)

@@ -9,6 +9,7 @@
 #include "RLRObjects/Actors/RLRProjectile.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
+#include "GameManager/RLRStruct.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 {
@@ -46,10 +47,25 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 	Aura->SetFireDir(Dir);
 	Aura->SetSkillRange(SkillRange);
 
-	DrawDebugSphere(GetWorld(), StartPos + Dir * SkillRange, 10.f, 32, FColor::Red, false, 3.f, 0U, 3.f);
+	Aura->OnFinishSkill.AddDynamic(this, &UActionSkill_Normal_SwordAura::OnFinishSkill);
 
 	FTransform SpanwLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
 	Aura->FinishSpawning(SpanwLoc);
+}
+
+void UActionSkill_Normal_SwordAura::OnFinishSkill(TArray<AActor*> OverlappedActor)
+{
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager) return;
+
+	if (SkillManager->RequestSkillResult(SkillData, OverlappedActor))
+	{
+		//Success
+	}
+	else
+	{
+		//fail
+	}
 
 	EndAction();
 }
