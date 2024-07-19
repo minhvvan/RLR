@@ -6,10 +6,6 @@
 #include "ActionSystem/StatSet.h"
 #include "StatSetMonster.generated.h"
 
-#define STAT_ACCESSORS(ClassName, PropertyName, PropertyType) \
-		STAT_GETTER(PropertyName, PropertyType) \
-		STAT_SETTER(PropertyName, PropertyType)
-
 UCLASS()
 class RLR_API UStatSetMonster : public UStatSet
 {
@@ -44,7 +40,9 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, MonsterTransY, float);
 	STAT_ACCESSORS(UStatSetMonster, MonsterTransZ, float);
 	STAT_ACCESSORS(UStatSetMonster, MonsterMapId, int32);
+	STAT_ACCESSORS(UStatSetMonster, MonsterId, int64);
 
+	void UpdateTransForm(float x, float y, float z);
 private:
 	FMonsterStatus Stat;
 };

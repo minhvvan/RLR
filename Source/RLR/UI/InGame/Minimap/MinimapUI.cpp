@@ -7,6 +7,12 @@
 
 
 
+void UMinimapUI::NativeConstruct()
+{
+	Super::NativeConstruct();
+	SetUIType(EUIType::MINIMAP);
+}
+
 void UMinimapUI::SetMapName(FString MapName)
 {
 

@@ -29,6 +29,10 @@
 		Stat = NewStruct; \
 	}
 
+#define STAT_ACCESSORS(ClassName, PropertyName, PropertyType) \
+		STAT_GETTER(PropertyName, PropertyType) \
+		STAT_SETTER(PropertyName, PropertyType)
+
 
 UCLASS()
 class RLR_API UStatSet : public UObject

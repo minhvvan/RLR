@@ -10,9 +10,9 @@
 #include "Windows/HideWindowsPlatformTypes.h"
 #include "GameFramework/Actor.h"
 #include <Networking.h>
-#include "../Network/ClientPacketHandler.h"
+#include "Network/Handler/ClientPacketHandler.h"
 #include "../Utils/PacketUtils.h"
-#include "../Network/FNetworkReceiver.h"
+#include "Network/FNetworkReceiver.h"
 #include "GameClient.generated.h"
 class ARLRPlayerCharacter;
 
@@ -30,7 +30,7 @@ protected:
 public:
     virtual void Tick(float DeltaTime) override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-    bool SendLoginPacket(const FString& playerId);
+    
     bool SendMovePacket(int32 userSeq, float NewX, float NewY, float NewZ);
     bool SendStatusPacket(int32 userSeq);
     bool SendInventoryPacket(int32 userSeq);
@@ -43,6 +43,8 @@ public:
     void ProcessMoveResponse(const char* data);
     void ProcessInventoryResponse(const char* data, int32 dataSize);
     
+    bool SendLoginPacket(std::string playerId);
+
     void ProcessLoginResponse(const char* data);
 
 private:

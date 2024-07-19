@@ -4,7 +4,7 @@
 #include "RLRObjects/Characters/RLRMonster.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
-#include "ActionSystem/StatSet/StatSetMonster.h"
+
 #include "RLR.h"
 
 ARLRMonster::ARLRMonster()
@@ -14,7 +14,7 @@ ARLRMonster::ARLRMonster()
 
 void ARLRMonster::SetStat(FMonsterStatus& Stat)
 {
-	UStatSetMonster* StatSet = ASC->GetStatSet<UStatSetMonster>();
+	StatSet = ASC->GetStatSet<UStatSetMonster>();
 	if (StatSet == nullptr)
 	{
 		ASC->CreateStatSet<UStatSetMonster>();
@@ -36,6 +36,7 @@ void ARLRMonster::SetStat(FMonsterStatus& Stat)
 		RLR_LOG(LogRLR, Log, TEXT("TransX: %f"), StatSet->GetMonsterTransX());
 		RLR_LOG(LogRLR, Log, TEXT("TransY: %f"), StatSet->GetMonsterTransY());
 		RLR_LOG(LogRLR, Log, TEXT("TransZ: %f"), StatSet->GetMonsterTransZ());
+		RLR_LOG(LogRLR, Log, TEXT("Id: %lld"), StatSet->GetMonsterId());
 		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
 	}
 }
