@@ -5,6 +5,9 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
 #include "RLR.h"
 
 UActionSkill_Holding::UActionSkill_Holding()
@@ -25,14 +28,16 @@ void UActionSkill_Holding::CancelAction()
 
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
-
+	
 	ASC->CurrentMontageStop();
 
 	Super::CancelAction();
 }
-
+ 
 void UActionSkill_Holding::EndAction()
 {
+	if (TimerWidget) TimerWidget->RemoveFromParent();
+
 	Super::EndAction();
 }
 
@@ -44,6 +49,11 @@ bool UActionSkill_Holding::PreActivateAction()
 	{
 		//스킬 상태 변경(INIT->ACTIVATE)
 		ActionState = EActionState::STATE_ACTIVATE;
+	}
+
+	if (TimerWidget)
+	{
+		TimerWidget->SetSkillDuration(SkillData->Duration);
 	}
 
 	return bPossible;

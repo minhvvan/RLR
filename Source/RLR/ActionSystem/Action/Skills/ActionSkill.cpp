@@ -5,6 +5,9 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/SkillManager.h"
 
 UActionSkill::UActionSkill():
 	RotationSpeed(10.f)
@@ -40,7 +43,36 @@ void UActionSkill::PlaySkillMontage()
 	AT->ReadyForActivation();
 }
 
+bool UActionSkill::PreActivateAction()
+{
+	if (!SkillData) SetSkillData();
+
+	//Timer Widget 생성
+	if (TimerWidgetClass)
+	{
+		TimerWidget = CreateWidget<USkillProgressBar>(GetWorld(), TimerWidgetClass);
+	}
+
+	return Super::PreActivateAction();
+}
+
+void UActionSkill::ActivateAction()
+{
+	Super::ActivateAction();
+	
+	//Timer Widget 부착
+	if (TimerWidget) TimerWidget->AddToViewport();
+}
+
 void UActionSkill::OnCompletePlayMontage()
 {
 	EndAction();
+}
+
+void UActionSkill::SetSkillData()
+{
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager) return;
+
+	SkillData = SkillManager->GetSkillData(TriggerTag);
 }

@@ -21,14 +21,19 @@ public:
 protected:
 	void PlaySkillMontage();
 
+	virtual bool PreActivateAction();
+	virtual void ActivateAction();
+
 	UFUNCTION()
 	virtual void OnCompletePlayMontage();
 
 public:
 	FOnSkillExpired OnSkillExpired;
 
+	void SetSkillData();
+
 protected:
-	FSkillData SkillData;
+	const FSkillData* SkillData;
 
 	//Action 유효 시간 타이머 핸들
 	FTimerHandle SkillValidTimerHandle;
@@ -40,6 +45,13 @@ protected:
 	//표시 클래스(지점이나 방향)
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ARLRReticle> ReticleClass;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class USkillProgressBar> TimerWidgetClass;
+
+	//Timer Widget
+	UPROPERTY(VisibleAnywhere, Category = Timer)
+	TObjectPtr<USkillProgressBar> TimerWidget;
 
 	UPROPERTY(EditAnywhere)
 	float RotationSpeed;

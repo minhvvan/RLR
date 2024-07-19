@@ -8,6 +8,8 @@
 #include "ActionSystem/RLRReticle.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
+#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "ActionSystem/AnimNotify_ActivateAction.h"
 #include "RLR.h"
 
 UActionSkill_Area::UActionSkill_Area()
@@ -35,11 +37,16 @@ void UActionSkill_Area::EndAction()
 bool UActionSkill_Area::PreActivateAction()
 {
 	bool bPossible = false;
+	if (!SkillData) SetSkillData();
 
 	if (ActionState == EActionState::STATE_INIT)
 	{
 		if (CheckBlockTag()) return false;
 		bPossible = true;
+
+		bIsActive = true;
+		bIsAbilityEnding = false;
+
 		ActionState = EActionState::STATE_WAIT_ACTIVATE;
 	}
 	else if (ActionState == EActionState::STATE_WAIT_ACTIVATE)
@@ -62,15 +69,11 @@ void UActionSkill_Area::ActivateAction()
 		AUserController* Controller = Cast<AUserController>(Player->GetController());
 		if (!Controller) return;
 
-		USkillManager* SkillManager = GameInstance->GetSkillManager();
-		if (!SkillManager) return;
-
-		const FSkillData* SKillData = SkillManager->GetSkillData(TriggerTag);
-		if (!SKillData) return;
+		if (!SkillData) SetSkillData();
 
 		//Spawn Reticle
 		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
-		SpawnedReticle->InitializeReticle(Controller, SKillData->CollisionRange.X);
+		SpawnedReticle->InitializeReticle(Controller, SkillData->CollisionRange.X);
 
 		FTransform SpawnLoc(Controller->GetClickPosition());
 		SpawnedReticle->FinishSpawning(SpawnLoc);
@@ -80,6 +83,20 @@ void UActionSkill_Area::ActivateAction()
 		//Play Anim & Activate Check ActionARLRReticle
 		SpawnedReticle->Destroy();
 		PlaySkillMontage();
+
+		if (TimerWidget)
+		{
+			//Notify가 하나일 때 가능 늘어나면 변경 필요
+			TimerWidget->SetSkillDuration(SkillAnim->Notifies[0].GetTriggerTime());
+			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
+			if (AnimNotify)
+			{
+				AnimNotify->OnTriggered.Clear();
+				AnimNotify->OnTriggered.AddDynamic(this, &UActionSkill_Area::OnAnimNotified);
+			}
+		}
+
+		Super::ActivateAction();
 	}
 }
 
@@ -87,4 +104,9 @@ void UActionSkill_Area::OnCompletePlayMontage()
 {
 	bIsCancelable = true;
 	EndAction();
+}
+
+void UActionSkill_Area::OnAnimNotified()
+{
+	if (TimerWidget) TimerWidget->RemoveFromParent();
 }

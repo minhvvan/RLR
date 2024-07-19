@@ -27,4 +27,7 @@ protected:
 	virtual void OnCompletePlayMontage();
 
 	TObjectPtr<ARLRReticle> SpawnedReticle;
+
+	UFUNCTION()
+	void OnAnimNotified();
 };
