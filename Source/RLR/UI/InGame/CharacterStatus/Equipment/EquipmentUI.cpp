@@ -110,10 +110,6 @@ void UEquipmentUI::ToggleShowDetailStatUI()
 			TODO 
 			패킷 연결 및 Player Data 관리하는 클래스 완성되면 그쪽이랑 연결하는 방향으로 수정해줄 것. 
 		*/
-
-		FStatus TestStats;
-		TestStats.ATTACK = 999;
-		RefreshStatUI(TestStats);
 		DetailStatSizeBox->SetVisibility(ESlateVisibility::Visible);
 	}
 	else if (State == ESlateVisibility::Visible)
@@ -122,7 +118,7 @@ void UEquipmentUI::ToggleShowDetailStatUI()
 	}
 }
 
-void UEquipmentUI::RefreshStatUI(FStatus NewStatus)
+void UEquipmentUI::RefreshStatUI(FTotalStatus NewStatus)
 {
 	HPStatText->SetText(FText::FromString(FString::SanitizeFloat(NewStatus.MAX_HP)));
 	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));

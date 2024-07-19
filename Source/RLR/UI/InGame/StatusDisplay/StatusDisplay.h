@@ -21,6 +21,9 @@ class RLR_API UStatusDisplay : public UBaseUI
 {
 	GENERATED_BODY()
 	
+public:
+
+	virtual void NativeConstruct() override;
 
 public:
 

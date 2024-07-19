@@ -21,6 +21,8 @@ class RLR_API UMinimapUI : public UBaseUI
 	
 public:
 
+	virtual void NativeConstruct() override;
+
 	UFUNCTION(BlueprintCallable)
 	void SetMapName(FString MapName);
 

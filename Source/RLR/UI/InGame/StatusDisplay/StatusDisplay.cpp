@@ -3,3 +3,8 @@
 
 #include "UI/InGame/StatusDisplay/StatusDisplay.h"
 
+void UStatusDisplay::NativeConstruct()
+{
+	Super::NativeConstruct();
+	SetUIType(EUIType::STATUSDISPLAY);
+}

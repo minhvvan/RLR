@@ -21,6 +21,7 @@
  class UMinimapUI;
  class UStatusDisplay;
  class UInGameMenuUI;
+ class UPartyUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -34,7 +35,10 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION(BlueprintCallable)
-	UChatUI* GetChatUI(){return ChatUI;}
+	UChatUI*								GetChatUI(){return ChatUI;}
+
+	UFUNCTION(BlueprintCallable)
+	UCharacterStatusUI*		GetCharacterStatusUI() {return CharacterStatusUI;}
 
 public:
 
@@ -62,8 +66,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UInGameMenuUI> InGameMenuUI;
 
-protected:
-	TMap<EUIType, class USubUI*> UserActionSubUI;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UPartyUI> PartyUI;
 
 public:
 	virtual bool ToggleSubUI(int inputID);

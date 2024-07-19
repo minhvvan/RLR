@@ -15,7 +15,7 @@
 void UItemInformation::NativeConstruct()
 {
 	Super::NativeConstruct();	
-
+	SetUIType(EUIType::ITEMINFOMATION);
 }
 
 void UItemInformation::SetItemData(FItemData NewData)
@@ -32,7 +32,7 @@ void UItemInformation::SetItemData(FItemData NewData)
 void UItemInformation::SetItemStatusText(FItemData NewData)
 {
 
-	FStatus ItemStatus = NewData.ITEM_STATUS;
+	FTotalStatus ItemStatus = NewData.ITEM_STATUS;
 
 	/*
 		0이면 넣지 않고, 수치가 있으면 설명에 넣는다.

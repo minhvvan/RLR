@@ -6,7 +6,7 @@
 #include "Network/Proto/Packet.pb.h"
 
 
-void FStatus::MakeStatus(Protocol::UserTotalStatus Status)
+void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {
     HP = Status.userhp();
     HP_ABSORB = Status.userhpabsorb();
@@ -348,4 +348,32 @@ void FMonsterStatus::UpdateTransform(float x, float y, float z) {
     MonsterTransX = x;
     MonsterTransY = y;
     MonsterTransZ = z;
+}
+
+void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
+{
+    UserSeq = Data.userseq();
+    PlayerSeq = Data.playerseq();
+    Name = UTF8_TO_TCHAR(Data.name().c_str());
+    Level = Data.level();
+    NobilityRank = Data.nobilityrank();
+
+    MainJob = (ECharacterMainJobType)Data.mainjob();
+    SubJob = (ECharacterSubJobType)Data.subjob();
+
+    Exp = Data.exp();
+    AdventureRank = Data.adventurerrank();
+
+    TotalStatus.MakeStatus(Data.totalstatus());
+    SetStatus.MakeSetStatus(Data.setstatus());
+
+}
+
+void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
+{
+    UserHP = Data.userhp();
+    UserMP = Data.usermp();
+    UserSTR = Data.userstr();
+    UserAGI =Data.useragi();
+    UserINT =Data.userint();
 }

@@ -12,10 +12,6 @@
 void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	UserActionSubUI.Add({ EUIType::INVENTORY , InventoryUI.Get() });
-	UserActionSubUI.Add({ EUIType::CHARACTERSTAT , CharacterStatusUI.Get() });
-	UserActionSubUI.Add({ EUIType::ITEMINFO , ItemInformation.Get() });
 }
 
 bool UInGameMainUI::ToggleSubUI(int inputID)

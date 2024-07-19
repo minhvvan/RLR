@@ -23,6 +23,8 @@
 			Skill 관리 매니저(등록, 실행)
 		MonsterManager
 			Monster 관리 매니저
+		OtherUserManager
+			다른 플레이어 관리.
  */
 
 
@@ -33,6 +35,7 @@
  class UGameOptionData;
  class UNetworkManager;
  class UMonsterManager;
+ class UOtherUserManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -53,13 +56,17 @@ public:
 	UInventoryManager*		GetInventoryManager();
 
 	UFUNCTION(BlueprintCallable)
-	USkillManager*		GetSkillManager();
+	USkillManager*					GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager* GetNetworkManager();	
+	UNetworkManager*		GetNetworkManager();	
 	
 	UFUNCTION(BlueprintCallable)
-	UMonsterManager* GetMonsterManager();
+	UMonsterManager*		 GetMonsterManager();
+
+	UFUNCTION(BlueprintCallable)
+	UOtherUserManager*	GetOtherUserManager();
+
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*		GetGameOptionData();

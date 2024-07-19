@@ -4,6 +4,7 @@
 #include "UI/MainUI.h"
 #include "UI/SubUI.h"
 #include "Blueprint/WidgetTree.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 void UMainUI::NativeConstruct()
 {
@@ -22,6 +23,14 @@ void UMainUI::BindSubUI()
 		if (USubUI* SubUI = Cast<USubUI>(Widget))
 		{
 			SubUI->SetMainUI(this);
+			EUIType Type = SubUI->GetUIType();
+
+			if (Type == EUIType::NONE)
+			{
+				DEBUG_LOG("BIndSubUI Error. UIType이 설정이 안된 SubUI가 있습니다. 확인 바랍니다.");
+			}
+
+			UserActionSubUI.Add(Type, SubUI);
 		}
 	}
 
