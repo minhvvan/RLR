@@ -377,3 +377,7 @@ void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
     UserAGI =Data.useragi();
     UserINT =Data.userint();
 }
+
+void FAttackResult::MakeAttackData()
+{
+}

@@ -31,7 +31,7 @@ public:
 	virtual void OnGameplayTaskDeactivated(UGameplayTask& Task) override;
 
 public:
-	void TryActivateAction();
+	bool TryActivateAction();
 	virtual void CancelAction();
 	virtual void EndAction();
 
@@ -41,6 +41,9 @@ public:
 	void SetTriggerTag(FGameplayTag Tag);
 	FGameplayTag GetTriggerTag() { return TriggerTag; }
 
+	void SetFollowTriggerTag(FGameplayTag Tag);
+	FGameplayTag GetFollowTriggerTag() { return FollowTriggerTag; }
+
 	EActionInstancingPolicy GetInstancingPolicy() const;
 
 	UActionSystemComponent* GetASCFromActorInfo();
@@ -49,6 +52,11 @@ public:
 	virtual void SetCurrentMontage(class UAnimMontage* InCurrentMontage);
 	virtual UAnimMontage* GetCurrentMontage();
 
+	EActionState GetActionState() { return ActionState; }
+
+	void SetCancelable(bool bCancel) { bIsCancelable = bCancel; }
+	bool GetCancelable() { return bIsCancelable; }
+
 protected:
 	virtual bool PreActivateAction();
 	virtual void ActivateAction();
@@ -56,6 +64,9 @@ protected:
 	virtual bool CanActivateAction();
 
 	bool CanEndAction();
+
+	bool CheckBlockTag();
+	void AddOwnedTag();
 
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
@@ -76,6 +87,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	FGameplayTag TriggerTag;
 
+	UPROPERTY(VisibleAnywhere)
+	FGameplayTag FollowTriggerTag;
+
 	mutable const FActionActorInfo* CurrentActorInfo;
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
@@ -89,4 +103,8 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<class UAnimMontage> CurrentMontage;
+
+	//Action Instance의 상태
+	UPROPERTY(VisibleAnywhere, Category = State)
+	EActionState ActionState;
 };

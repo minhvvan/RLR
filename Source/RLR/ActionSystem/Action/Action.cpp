@@ -53,27 +53,22 @@ void UAction::OnGameplayTaskDeactivated(UGameplayTask& Task)
 	ActiveTasks.Remove(&Task);
 }
 
-void UAction::TryActivateAction()
+bool UAction::TryActivateAction()
 {
-	if (PreActivateAction())
+	bool bPossible = PreActivateAction();
+	if (bPossible)
 	{
 		ActivateAction();
 	}
+
+	return bPossible;
 }
 
 bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
-		//Block
-		for (auto BlockTag : ActivationBlockedTags)
-		{
-			if (ASC->HasMatchingGameplayTag(BlockTag))
-			{
-				//Blocked this Action
-				return false;
-			}
-		}
+		if (CheckBlockTag()) return false;
 
 		//Action 실행 전 준비
 		bIsActive = true;
@@ -83,10 +78,7 @@ bool UAction::PreActivateAction()
 		//bIsCancelable = true;
 
 		// Add tags
-		for (auto AddTag : ActivationOwnedTags)
-		{
-			ASC->AddGameplayTag(AddTag);
-		}
+		AddOwnedTag();
 	}
 
 	return true;
@@ -118,6 +110,12 @@ void UAction::EndAction()
 	bIsActive = false;
 
 	//Task 관리
+	
+	//State
+	if (InstancingPolicy == EActionInstancingPolicy::InstancedPerActor)
+	{
+		ActionState = EActionState::STATE_INIT;
+	}
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
@@ -140,10 +138,10 @@ void UAction::InitCurrentActorInfo()
 		AActor* OwnerActor = Cast<AActor>(GetOuter());
 		if (OwnerActor)
 		{
-			UActionSystemComponent* AbilitySystemComponent = OwnerActor->FindComponentByClass<UActionSystemComponent>();
-			if (AbilitySystemComponent)
+			UActionSystemComponent* ActionSystemComponent = OwnerActor->FindComponentByClass<UActionSystemComponent>();
+			if (ActionSystemComponent)
 			{
-				CurrentActorInfo = AbilitySystemComponent->GetActionActorInfo();
+				CurrentActorInfo = ActionSystemComponent->GetActionActorInfo();
 			}
 		}
 	}
@@ -157,6 +155,11 @@ const FActionActorInfo* UAction::GetCurrentActorInfo() const
 void UAction::SetTriggerTag(FGameplayTag Tag)
 {
 	TriggerTag = Tag;
+}
+
+void UAction::SetFollowTriggerTag(FGameplayTag Tag)
+{
+	FollowTriggerTag = Tag;
 }
 
 EActionInstancingPolicy UAction::GetInstancingPolicy() const
@@ -181,6 +184,35 @@ bool UAction::CanEndAction()
 	}
 
 	return true;
+}
+
+bool UAction::CheckBlockTag()
+{
+	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	{
+		//Block
+		for (auto BlockTag : ActivationBlockedTags)
+		{
+			if (ASC->HasMatchingGameplayTag(BlockTag))
+			{
+				//Blocked this Action
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+void UAction::AddOwnedTag()
+{
+	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
+	{
+		for (auto AddTag : ActivationOwnedTags)
+		{
+			ASC->AddGameplayTag(AddTag);
+		}
+	}
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()

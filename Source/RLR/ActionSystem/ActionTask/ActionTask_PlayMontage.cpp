@@ -89,7 +89,6 @@ void UActionTask_PlayMontage::ExternalCancel()
 
 void UActionTask_PlayMontage::OnDestroy(bool ActionEnded)
 {
-	RLR_LOG(LogRLR, Log, TEXT("OnDestroy"));
 	if (Action)
 	{
 		Action->OnGameplayAbilityCancelled.Remove(InterruptedHandle);

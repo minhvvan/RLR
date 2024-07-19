@@ -192,23 +192,29 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 
-	//DefaultActions의 inputID번째
+	//Active Skill Check
+	if (ASC->ActivateWaitAction())
+	{
+		return;
+	}
+
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void AUserController::OnAttackEffect(int inputID)
+void AUserController::OnSkillStarted(FGameplayTag TriggerTag)
 {
-	if (!Player->IsAttack()) return;
-
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (GM == nullptr) return;
-
-	USkillManager* SkillManager = GM->GetSkillManager();
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
 
-	SkillManager->SkillAttack(inputID, GetClickPosition());
+	SkillManager->SkillAttack(TriggerTag);
+}
 
-	//스킬에맞는 공격 애니메이션
+void AUserController::OnSkillCompleted(FGameplayTag TriggerTag)
+{
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (SkillManager == nullptr) return;
+
+	SkillManager->SkillComplete(TriggerTag);
 }
 
 void AUserController::OnConsumeItem(int inputID)

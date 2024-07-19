@@ -15,6 +15,8 @@ public:
 	static const FGameplayTagManager& Get() { return GameplayTags; }
 	static void	Init();
 
+	const FGameplayTagContainer* GetSkillTags();
+	const FGameplayTagContainer* GetSkillAnimTags();
 
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
@@ -25,11 +27,35 @@ public:
 	//Action.Attack
 	FGameplayTag Action_Attack_HitCheck;
 
+	//Action.Skill
+	FGameplayTag Action_Skill_Q;
+	FGameplayTag Action_Skill_W;
+	FGameplayTag Action_Skill_E;
+	FGameplayTag Action_Skill_R;
+	FGameplayTag Action_Skill_A;
+	FGameplayTag Action_Skill_S;
+	FGameplayTag Action_Skill_D;
+	FGameplayTag Action_Skill_F;
+
+	FGameplayTagContainer SkillTags;
+	FGameplayTagContainer SkillAnimTags;
+
+	//Action.Skill.Anim
+	FGameplayTag Action_Skill_Q_Anim;
+	FGameplayTag Action_Skill_W_Anim;
+	FGameplayTag Action_Skill_E_Anim;
+	FGameplayTag Action_Skill_R_Anim;
+	FGameplayTag Action_Skill_A_Anim;
+	FGameplayTag Action_Skill_S_Anim;
+	FGameplayTag Action_Skill_D_Anim;
+	FGameplayTag Action_Skill_F_Anim;
+
 	//Object.State
 	FGameplayTag Object_State_Hittable;
 
 	//Player.State
 	FGameplayTag Player_State_Attacking;
+
 
 private:
 	static FGameplayTagManager GameplayTags;

@@ -147,7 +147,7 @@ struct RLR_API FActionSpec
 
 public:
 	FActionSpec()
-		: Action(nullptr), Level(1), InputID(INDEX_NONE)
+		: Action(nullptr), Level(1), InputID(INDEX_NONE), bCancelable(false)
 	{ }
 
 	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 InInputID);
@@ -162,6 +162,13 @@ public:
 	/** Input ID to bind this ability to */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	bool bCancelable;
+
+	/** Chain ActionTag (e.g. AttackCheck) */
+	UPROPERTY(EditDefaultsOnly, Category = "Action")
+	FGameplayTag FollowActionTag;
 
 	UPROPERTY(VisibleAnywhere, Category = "Action")
 	TArray<TObjectPtr<UAction>> ActionInstances;
@@ -202,6 +209,18 @@ public:
 	virtual void ClearActorInfo();
 };
 
+USTRUCT(Atomic, BlueprintType)
+struct RLR_API FActionData
+{
+	GENERATED_BODY()
+
+public:
+	virtual ~FActionData() {}
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
+	FVector	MousePos;
+};
+
 UENUM(BlueprintType)
 enum class EActionInstancingPolicy : uint8
 {
@@ -227,4 +246,16 @@ struct RLR_API FActionAnimMontage
 	/** The ability, if any, that instigated this montage */
 	UPROPERTY(VisibleAnywhere)
 	TWeakObjectPtr<UAction> AnimatingAction;
+};
+
+UENUM(BlueprintType)
+enum class EActionState : uint8
+{
+	STATE_INIT						UMETA(DisplayName = "Init"),
+	STATE_ACTIVATE					UMETA(DisplayName = "Activate"),
+	STATE_END						UMETA(DisplayName = "End"),
+	STATE_WAIT_ACTIVATE				UMETA(DisplayName = "Wait_Activate"),
+	STATE_WAIT_ADDTIONAL_INPUT		UMETA(DisplayName = "Wait_Input"),
+	STATE_WAIT_CANCEL				UMETA(DisplayName = "Wait_Cancel"),
+	SIZE
 };

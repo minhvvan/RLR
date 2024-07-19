@@ -68,6 +68,11 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 	{
 		UAction* NewActionInstance = CreateNewInstanceOfAction(OwnedSpec);
 		NewActionInstance->SetTriggerTag(Tag);
+		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
+		{
+			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
+			NewActionInstance->SetCancelable(Spec.bCancelable);
+		}
 	}
 }
 
@@ -86,6 +91,20 @@ void UActionSystemComponent::RemoveAction(FGameplayTag Tag)
 
 void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 {
+	//Cancel Other Action
+	for (auto [ActionTag, Spec] : GrantedActions)
+	{
+		if (ActionTag.MatchesAny(Tag.GetSingleTagContainer())) continue;
+
+		for (auto ActionInstance : Spec.ActionInstances)
+		{
+			if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
+			{
+				ActionInstance->CancelAction();
+			}
+		}
+	}
+
 	//Find
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
@@ -107,8 +126,29 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
+			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
+			NewActionInstance->SetCancelable(Spec->bCancelable);
 
-			NewActionInstance->TryActivateAction();
+			if (!NewActionInstance->TryActivateAction())
+			{
+				Spec->ActionInstances.Remove(NewActionInstance);
+			}
+		}
+	}
+}
+
+void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
+{
+	if (!GrantedActions.Contains(Tag)) return;
+
+	if (auto Spec = GrantedActions.Find(Tag))
+	{
+		for (auto ActionInstance : Spec->ActionInstances)
+		{
+			if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
+			{
+				ActionInstance->CancelAction();
+			}
 		}
 	}
 }
@@ -124,7 +164,6 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 	if (DefaultAction->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 	{
 		//해당 instance 삭제
-		//RLR_LOG(LogRLR, Log, TEXT("Remove: %s"), *EndedAction->GetName());
 		Spec->ActionInstances.Remove(EndedAction);
 	}
 }
@@ -211,6 +250,44 @@ void UActionSystemComponent::ClearAnimatingAction(UAction* Action)
 	}
 }
 
+void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
+{
+	if (!StoredActionData.Contains(Tag))
+	{
+		StoredActionData.Add({ Tag , Data });
+	}
+}
+
+void UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
+{
+	if (StoredActionData.Contains(Tag))
+	{
+		StoredActionData.RemoveAndCopyValue(Tag, Data);
+	}
+}
+
+bool UActionSystemComponent::ActivateWaitAction()
+{
+	bool bResult = false;
+
+	for (auto [Tag, Spec] : GrantedActions)
+	{
+		for (auto ActionInstance : Spec.ActionInstances)
+		{
+			if (ActionInstance->GetActionState() == EActionState::STATE_WAIT_ACTIVATE)
+			{
+				TryActivateAction(Tag);
+
+				//대기중인 Action이 하나라면 (두개 이상이 되면 break 제거 필요)
+				bResult = true;
+				break;
+			}
+		}
+	}
+
+	return bResult;
+}
+
 bool UActionSystemComponent::HasMatchingGameplayTag(FGameplayTag TagToCheck) const
 {
 	return OwnedTags.HasMatchingGameplayTag(TagToCheck);
@@ -223,5 +300,8 @@ void UActionSystemComponent::AddGameplayTag(const FGameplayTag& GameplayTag, int
 
 void UActionSystemComponent::RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count)
 {
-	OwnedTags.RemoveTag(GameplayTag);
+	if (OwnedTags.GetTagCount(GameplayTag) > 0)
+	{
+		OwnedTags.RemoveTag(GameplayTag);
+	}
 }

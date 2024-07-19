@@ -7,9 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "AnimNotify_ActivateAction.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnTriggered);
+
 UCLASS()
 class RLR_API UAnimNotify_ActivateAction : public UAnimNotify
 {
@@ -19,6 +18,8 @@ public:
 	UAnimNotify_ActivateAction();
 
 	virtual void Notify(USkeletalMeshComponent* MeshComp , UAnimSequenceBase* Animation , const FAnimNotifyEventReference& EventReference);
+
+	FOnTriggered OnTriggered;
 
 protected:
 	UPROPERTY(EditAnywhere, Category=Action)

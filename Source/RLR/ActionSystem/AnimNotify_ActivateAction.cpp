@@ -19,5 +19,6 @@ void UAnimNotify_ActivateAction::Notify(USkeletalMeshComponent* MeshComp , UAnim
 	UActionSystemComponent* ASC=Owner->GetActionSystemComponent();;
 	if ( !ASC ) return;
 
+	OnTriggered.Broadcast();
 	ASC->TryActivateAction(TriggerActionTag);
 }

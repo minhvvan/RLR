@@ -36,6 +36,7 @@ public:
 	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
 	void RemoveAction(FGameplayTag Tag);
 	void TryActivateAction(FGameplayTag Tag);
+	void TryCancelAction(FGameplayTag Tag);
 
 	void NotifyActionEnded(UAction* EndedAction);
 
@@ -75,6 +76,11 @@ public:
 		return ResultStatSet;
 	}
 
+	void AddActionData(FGameplayTag Tag, FActionData& Data);
+	void GetActionData(FGameplayTag Tag, FActionData& Data);
+
+	bool ActivateWaitAction();
+
 private:
 	//Actor Info
 	TSharedPtr<FActionActorInfo> ActorInfo;
@@ -92,6 +98,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category=Stat)
 	TObjectPtr<UStatSet> StatSet;
+
+	//Action Data
+	UPROPERTY(VisibleAnywhere, Category = Action, meta = (AllowPrivateAccess = "true"))
+	TMap<FGameplayTag, FActionData> StoredActionData;
 
 public:
 	//Tag

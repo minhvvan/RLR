@@ -482,17 +482,21 @@ struct FItemData : public FTableRowBase
 UENUM(BlueprintType)
 enum class ESkillType : uint8
 {
-	Normal = 0,
-	Point = 1,
-	Holding = 2,
+	NORMAL = 0,
+	AREA,
+	HOLDING,
+	SIZE
 };
 
 
 USTRUCT(Atomic, BlueprintType)
-struct FSkillData
+struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillSeq;	
+	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
 
@@ -518,8 +522,31 @@ struct FSkillData
 	float ActivityTime;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector CollisionRange;
+	int64 SkillId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector CollisionRange;	
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	ESkillType SkillType;
 };
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FSkillClass : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillAnimClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<class UAction> SkillClass;
+};
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FAbnormal2
@@ -710,10 +737,63 @@ struct FMonsterStatus
 	//Test
 	static int32 tempID;
 
-	//TODO: 몬스터 정보 생성
+
 	void MakeMonsterData(const Protocol::Monster monsterData);
 	void UpdateTransform(float x, float y, float z);
 };
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FAttackResult
+{
+	GENERATED_BODY()
+
+	FAttackResult() :
+		SkillSeq(-1),
+		Level(0),
+		Timestamp(0),
+		UserSeq(0)
+	{}
+
+	UPROPERTY(EditAnyWhere)
+	int32 SkillSeq;
+
+	UPROPERTY(EditAnyWhere)
+	int32 Level;
+
+	UPROPERTY(EditAnyWhere)
+	uint64 Timestamp;
+
+	UPROPERTY(EditAnyWhere)
+	uint32 UserSeq;
+
+	UPROPERTY(EditAnyWhere)
+	TArray<uint32> TargetSeq;
+
+	FString ToString() const
+	{
+		FString AttackString;
+
+		auto AppendStatInt = [&AttackString](const FString& StatName, float StatValue)
+			{
+				if (!AttackString.IsEmpty()) AttackString.Append(TEXT("\n"));
+				AttackString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+			};
+
+		AppendStatInt(TEXT("SkillSEQ"), SkillSeq);
+		AppendStatInt(TEXT("Level"), Level);
+		AppendStatInt(TEXT("Timestamp"), Timestamp);
+		AppendStatInt(TEXT("UserSeq"), UserSeq);
+		for (auto target : TargetSeq)
+		{
+			AppendStatInt(TEXT("Target"), target);
+		}
+
+		return AttackString;
+	}
+
+	void MakeAttackData(/*const Protocol::Item itemData*/);
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FUserCharacter
@@ -760,4 +840,5 @@ struct FUserCharacter
 
 	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
 	void												SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
+
 };
