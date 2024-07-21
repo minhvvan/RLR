@@ -190,7 +190,7 @@ void UMonsterManager::UpdateMonsterToMonsterId(int64 monsterId, float x, float y
                 {
                     Monster->SetActorLocation(FVector(x, y, z));
                 });
-       
+            // TODO : Monster 에 StatSet을 변경해도 실제 몬스터 Stat이 변하지 않음
             
         }
     }
