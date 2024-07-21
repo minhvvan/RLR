@@ -5,6 +5,11 @@
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
+//#include "CommunityPacketHandler.h"    TODO : 중완님 패킷 핸들러 작업 끝나면 적용 후 기존 PacketHandler에 있떤
+//#include "InfoPacketHandler.h"
+//#include "ItemPacketHandler.h"
+//#include "CertificationPacketHandler.h"
+//#include "ActionPacketHandler.h"
 
 class PacketSession;
 
@@ -13,53 +18,58 @@ extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16
 {
-    // Add Login Packet types
+    // Add login Packet types
     PKT_LOGIN_REQUEST = 1001,
     PKT_LOGIN_RESPONSE = 1002,
-    // Add Status Packet types
-    PKT_STATUS_REQUEST = 1003,
-    PKT_STATUS_RESPONSE = 1004,
-    // Add item packet types
-    PKT_ITEM_ADD_REQUEST = 1006,
-    PKT_ITEM_ADD_RESPONSE = 1007,
-    PKT_ITEM_USE_REQUEST = 1008,
-    PKT_ITEM_USE_RESPONSE = 1009,
-    // Add inventory packet types
-    PKT_INVENTORY_REQUEST = 1010,
-    PKT_INVENTORY_RESPONSE = 1011,
-    // Add move packet types
-    PKT_MOVE_REQUEST = 1012,
-    PKT_MOVE_RESPONSE = 1013,
-    PKT_MOVE_BROADCAST = 1014,
-    PKT_ATTACK_REQUEST = 1203,
-    PKT_ATTACK_RESPONSE = 1204,
-    // Add monster move packet types
-    PKT_MONSTER_MOVE_REQUEST = 1015,
-    PKT_MONSTER_MOVE_RESPONSE = 1016,
-    PKT_MONSTER_MOVE_BROADCAST = 1017,
-    // Add monster status packet types
-    PKT_MONSTER_STATUS_UPDATE = 1018,
-    PKT_MONSTER_STATUS_UPDATE_RESPONSE = 1019,
-    PKT_MONSTER_STATUS_BROADCAST = 1020,
-    // Add monster spawn packet types
-    PKT_MONSTER_SPAWN_REQUEST = 1021,
-    PKT_MONSTER_SPAWN_RESPONSE = 1022,
-    PKT_MONTSER_MAPINFO_REQUEST = 1023,
-    PKT_MONTSER_MAPINFO_RESPONSE = 1024,
-    PKT_MONSTER_ATTACK_REQUEST = 1201,
-    PKT_MONSTER_ATTACK_RESPONSE = 1202,
-    // Add party packet types
-    PKT_CREATE_PARTY_REQUEST = 1025,
-    PKT_CREATE_PARTY_RESPONSE = 1026,
-    PKT_JOIN_PARTY_REQUEST = 1027,
-    PKT_JOIN_PARTY_RESPONSE = 1028,
-    PKT_LEAVE_PARTY_REQUEST = 1029,
-    PKT_LEAVE_PARTY_RESPONSE = 1030,
-    PKT_PARTY_STATUS_UPDATE = 1031,
+    // Add lobby Paket types
     PKT_CHARACTER_REQUSET = 1101,
     PKT_CHARACTER_RESPONSE = 1102,
-    PKT_ENTER_GAME_REQUEST = 2001,
-    PKT_ENTER_GAME_RESPONSE = 2002
+    //Add loadBalancer Packet types
+    PKT_ENTER_GAME_REQUEST = 1201,
+    PKT_ENTER_GAME_RESPONSE = 1202,
+    // Add status Packet types
+    PKT_STATUS_REQUEST = 1301,
+    PKT_STATUS_RESPONSE = 1302,
+    // Add inventory packet types
+    PKT_INVENTORY_REQUEST = 1311,
+    PKT_INVENTORY_RESPONSE = 1312,
+    // Add item packet types
+    PKT_ITEM_ADD_REQUEST = 1401,
+    PKT_ITEM_ADD_RESPONSE = 1402,
+    PKT_ITEM_USE_REQUEST = 1403,
+    PKT_ITEM_USE_RESPONSE = 1404,
+
+
+    // Add move packet types
+    PKT_MOVE_REQUEST = 1501,
+    PKT_MOVE_RESPONSE = 1502,
+    PKT_MOVE_BROADCAST = 1503,
+    PKT_ATTACK_REQUEST = 1511,
+    PKT_ATTACK_RESPONSE = 1512,
+    // Add monster move packet types
+    PKT_MONSTER_MOVE_REQUEST = 1601,
+    PKT_MONSTER_MOVE_RESPONSE = 1602,
+    PKT_MONSTER_MOVE_BROADCAST = 1603,
+    // Add monster status packet types
+    PKT_MONSTER_STATUS_UPDATE = 1611,
+    PKT_MONSTER_STATUS_UPDATE_RESPONSE = 1612,
+    PKT_MONSTER_STATUS_BROADCAST = 1613,
+    // Add monster spawn packet types
+    PKT_MONSTER_SPAWN_REQUEST = 1621,
+    PKT_MONSTER_SPAWN_RESPONSE = 1622,
+    PKT_MONTSER_MAPINFO_REQUEST = 1631,
+    PKT_MONTSER_MAPINFO_RESPONSE = 1632,
+    // Add monster attack packet types
+    PKT_MONSTER_ATTACK_REQUEST = 1641,
+    PKT_MONSTER_ATTACK_RESPONSE = 1642,
+    // Add party packet types
+    PKT_CREATE_PARTY_REQUEST = 1701,
+    PKT_CREATE_PARTY_RESPONSE = 1702,
+    PKT_JOIN_PARTY_REQUEST = 1711,
+    PKT_JOIN_PARTY_RESPONSE = 1712,
+    PKT_LEAVE_PARTY_REQUEST = 1721,
+    PKT_LEAVE_PARTY_RESPONSE = 1722,
+    PKT_PARTY_STATUS_UPDATE = 1731
 };
 
 // Custom Handlers

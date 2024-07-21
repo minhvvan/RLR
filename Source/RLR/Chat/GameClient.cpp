@@ -18,6 +18,7 @@ AGameClient::AGameClient() {
     networkReceiver = nullptr;
 }
 
+
 void AGameClient::BeginPlay() {
     Super::BeginPlay();
     FString serverAddress = TEXT("127.0.0.1");

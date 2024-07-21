@@ -5,16 +5,17 @@
 #include <GameManager/RLRStruct.h>
 #include "GameManager/GameManager.h"
 #include "GameManager/InventoryManager.h"
-bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt)
-{
-    FItemData itemData;
-
-    itemData.MakeItemData(pkt.item());
-    GameInstance->GetInventoryManager()->AddItem(itemData);
-    return true;
-}
-bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
-{
-    // Handle item use
-    return true;
-}
+#include "ClientPacketHandler.h"
+//bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt)
+//{
+//    FItemData itemData;
+//
+//    itemData.MakeItemData(pkt.item());
+//    GameInstance->GetInventoryManager()->AddItem(itemData);
+//    return true;
+//}
+//bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
+//{
+//    // Handle item use
+//    return true;
+//}

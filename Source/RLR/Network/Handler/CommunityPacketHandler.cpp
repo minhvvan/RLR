@@ -2,11 +2,4 @@
 
 
 #include "Network/Handler/CommunityPacketHandler.h"
-
-CommunityPacketHandler::CommunityPacketHandler()
-{
-}
-
-CommunityPacketHandler::~CommunityPacketHandler()
-{
-}
+#include "ClientPacketHandler.h"
