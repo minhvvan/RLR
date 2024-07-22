@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ActionSystem/StatSet.h"
+#include "ActionSystem/StatSet/StatSet.h"
 #include "StatSetMonster.generated.h"
 
 UCLASS()

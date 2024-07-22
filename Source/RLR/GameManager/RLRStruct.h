@@ -793,7 +793,7 @@ struct FAttackResult
 	}
 
 	void MakeAttackData(/*const Protocol::Item itemData*/);
-
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FUserCharacter
