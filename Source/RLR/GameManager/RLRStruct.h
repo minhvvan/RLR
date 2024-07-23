@@ -748,7 +748,7 @@ struct FAttackResult
 {
 	GENERATED_BODY()
 
-	FAttackResult() :
+		FAttackResult() :
 		SkillSeq(-1),
 		Level(0),
 		Timestamp(0),
@@ -756,29 +756,29 @@ struct FAttackResult
 	{}
 
 	UPROPERTY(EditAnyWhere)
-	int32 SkillSeq;
+		int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere)
-	int32 Level;
+		int32 Level;
 
 	UPROPERTY(EditAnyWhere)
-	uint64 Timestamp;
+		uint64 Timestamp;
 
 	UPROPERTY(EditAnyWhere)
-	uint32 UserSeq;
+		uint32 UserSeq;
 
 	UPROPERTY(EditAnyWhere)
-	TArray<uint32> TargetSeq;
+		TArray<uint32> TargetSeq;
 
 	FString ToString() const
 	{
 		FString AttackString;
 
 		auto AppendStatInt = [&AttackString](const FString& StatName, float StatValue)
-			{
-				if (!AttackString.IsEmpty()) AttackString.Append(TEXT("\n"));
-				AttackString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
-			};
+		{
+			if (!AttackString.IsEmpty()) AttackString.Append(TEXT("\n"));
+			AttackString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+		};
 
 		AppendStatInt(TEXT("SkillSEQ"), SkillSeq);
 		AppendStatInt(TEXT("Level"), Level);
@@ -793,7 +793,7 @@ struct FAttackResult
 	}
 
 	void MakeAttackData(/*const Protocol::Item itemData*/);
-
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FUserCharacter
@@ -839,6 +839,6 @@ struct FUserCharacter
 	Protocol::UserCharacter UserCharacterData;
 
 	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
-	void												SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
+	void SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
 
 };
