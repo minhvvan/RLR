@@ -35,10 +35,10 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION(BlueprintCallable)
-	UChatUI*								GetChatUI(){return ChatUI;}
+	UChatUI* GetChatUI(){return ChatUI;}
 
 	UFUNCTION(BlueprintCallable)
-	UCharacterStatusUI*		GetCharacterStatusUI() {return CharacterStatusUI;}
+	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
 
 public:
 
