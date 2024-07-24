@@ -33,9 +33,9 @@ void ARLRMonster::SetStat(FMonsterStatus& Stat)
 		RLR_LOG(LogRLR, Log, TEXT("Name: %s"), *StatSet->GetMonsterName());
 		RLR_LOG(LogRLR, Log, TEXT("Level: %d"), StatSet->GetMonsterLevel());
 		RLR_LOG(LogRLR, Log, TEXT("HP: %d"), StatSet->GetMonsterHp());
-		RLR_LOG(LogRLR, Log, TEXT("TransX: %f"), StatSet->GetMonsterTransX());
-		RLR_LOG(LogRLR, Log, TEXT("TransY: %f"), StatSet->GetMonsterTransY());
-		RLR_LOG(LogRLR, Log, TEXT("TransZ: %f"), StatSet->GetMonsterTransZ());
+		RLR_LOG(LogRLR, Log, TEXT("TransX: %f"), StatSet->GetMonsterTransform().X);
+		RLR_LOG(LogRLR, Log, TEXT("TransY: %f"), StatSet->GetMonsterTransform().Y);
+		RLR_LOG(LogRLR, Log, TEXT("TransZ: %f"), StatSet->GetMonsterTransform().Z);
 		RLR_LOG(LogRLR, Log, TEXT("Id: %lld"), StatSet->GetMonsterId());
 		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
 	}

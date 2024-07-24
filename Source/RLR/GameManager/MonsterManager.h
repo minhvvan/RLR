@@ -23,9 +23,12 @@ public:
 
     UFUNCTION()
     void SetMonsterData(TArray<FMonsterStatus>& MonsterArray);
-    ARLRMonster* GetMonsterToMonsterId(int64 monsterId);
-    void UpdateMonsterToMonsterId(int64 monsterId, float x, float y, float z);
+    ARLRMonster* GetMonsterByMonsterId(int64 monsterId);
     void AddMonstersToSpawnQueue(TArray<FMonsterStatus> MonstersToSpawn);
+
+    //UpdateStat
+    void UpdateMonsterTransform(int64 monsterId, float x, float y, float z);
+    void UpdateMonsterHp(int64 monsterId, float newHp);
 
     UFUNCTION()
     void SpawnMonsters();

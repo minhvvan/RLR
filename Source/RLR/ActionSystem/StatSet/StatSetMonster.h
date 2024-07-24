@@ -28,21 +28,41 @@ class RLR_API UStatSetMonster : public UStatSet
 
 public:
 	ALL_STAT_SETTER(FMonsterStatus);
-	STAT_ACCESSORS(UStatSetMonster, MonsterSeq, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterName, FString);
-	STAT_ACCESSORS(UStatSetMonster, MonsterLevel, int32);
-	STAT_ACCESSORS(UStatSetMonster, MontserExp, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterDamage, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterDefence, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterHp, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterDistance, float);
-	STAT_ACCESSORS(UStatSetMonster, MonsterTransX, float);
-	STAT_ACCESSORS(UStatSetMonster, MonsterTransY, float);
-	STAT_ACCESSORS(UStatSetMonster, MonsterTransZ, float);
-	STAT_ACCESSORS(UStatSetMonster, MonsterMapId, int32);
-	STAT_ACCESSORS(UStatSetMonster, MonsterId, int64);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterSeq, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterName, FString);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterLevel, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MontserExp, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRate, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterDefence, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterHp, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRange, float);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterTransform, FVector);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterMapId, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterId, int64);
 
-	void UpdateTransForm(float x, float y, float z);
+	void UpdateTransForm(FVector NewTransform);
+	void UpdateHp(int32 NewHp);
+
+	//일반 자료형 템플릿
+	template<typename T>
+	void ApplyChangeStat(FStatChangeSpec<T>& ChangeSpec)
+	{
+		if (ChangeSpec.ChangedStat == GetMonsterHpStat())
+		{
+			UpdateHp(ChangeSpec.NewValue);
+		}
+	};
+
+	//Vector에 대한 템플릿 특수화
+	template<>
+	void ApplyChangeStat(FStatChangeSpec<FVector>& ChangeSpec)
+	{
+		if (ChangeSpec.ChangedStat == GetMonsterTransformStat())
+		{
+			UpdateTransForm(ChangeSpec.NewValue);
+		}
+	};
+
 private:
 	FMonsterStatus Stat;
 };

@@ -20,17 +20,17 @@ public:
 
 
 	ALL_STAT_SETTER(FUserCharacter);
-    STAT_ACCESSORS(UStatSetPlayer, UserSeq , int32);
-    STAT_ACCESSORS(UStatSetPlayer, PlayerSeq, int32);
-    STAT_ACCESSORS(UStatSetPlayer, Name, FString);
-    STAT_ACCESSORS(UStatSetPlayer, Level, int32);
-    STAT_ACCESSORS(UStatSetPlayer, NobilityRank, int32);
-    STAT_ACCESSORS(UStatSetPlayer, MainJob, ECharacterMainJobType);
-    STAT_ACCESSORS(UStatSetPlayer, SubJob, ECharacterSubJobType);
-    STAT_ACCESSORS(UStatSetPlayer, Exp, int32);
-    STAT_ACCESSORS(UStatSetPlayer, AdventureRank, int32);
-    STAT_ACCESSORS(UStatSetPlayer, SetStatus, FSetStatus);
-    STAT_ACCESSORS(UStatSetPlayer, TotalStatus, FTotalStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Name, FString);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Level, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NobilityRank, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MainJob, ECharacterMainJobType);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SubJob, ECharacterSubJobType);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Exp, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, AdventureRank, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SetStatus, FSetStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, TotalStatus, FTotalStatus);
 
 
 private:
