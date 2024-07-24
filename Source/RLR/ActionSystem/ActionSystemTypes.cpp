@@ -55,3 +55,38 @@ FActionSpec::FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 
 	, bCancelable(false)
 {
 }
+
+FStat::FStat(FProperty* NewProperty)
+{
+	StatProperty = CastField<FNumericProperty>(NewProperty);
+
+	if (!StatProperty.Get())
+	{
+		if (IsStatDataProperty(NewProperty))
+		{
+			StatProperty = NewProperty;
+		}
+	}
+}
+
+bool FStat::operator==(const FStat& Other) const
+{
+	return ((Other.StatProperty == StatProperty));
+}
+
+bool FStat::operator!=(const FStat& Other) const
+{
+	return ((Other.StatProperty != StatProperty));
+}
+
+bool FStat::IsStatDataProperty(const FProperty* NewProperty)
+{
+	const FStructProperty* StructProp = CastField<FStructProperty>(NewProperty);
+	if (StructProp)
+	{
+		const UStruct* Struct = StructProp->Struct;
+		if (Struct) return true;
+	}
+
+	return false;
+}
