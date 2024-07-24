@@ -720,8 +720,6 @@ struct FMonsterStatus
 		AppendStatFloat(TEXT("X"), MonsterTransform.X);
 		AppendStatFloat(TEXT("Y"), MonsterTransform.Y);
 		AppendStatFloat(TEXT("Z"), MonsterTransform.Z);
-		//AppendStatFloat(TEXT("Y"), MonsterTransY);
-		//AppendStatFloat(TEXT("Z"), MonsterTransZ);
 		AppendStatInt(TEXT("Id"), MonsterId);
 		AppendStatInt(TEXT("MapId"), MonsterMapId);
 

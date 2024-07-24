@@ -122,6 +122,7 @@ void UMonsterManager::SpawnMonsters()
 
         MonsterInstances.Add(Monster);
     }
+    //TODO: Server Test
     //AddMonstersToInstances();
 }
 
@@ -191,6 +192,8 @@ void UMonsterManager::UpdateMonsterTransform(int64 monsterId, float x, float y, 
     spec.NewValue = FVector(x, y, z);
 
     stat->ApplyChangeStat(spec);
+
+    //TODO: Server Test
     //status->UpdateTransForm(x, y, z);
     //AsyncTask(ENamedThreads::GameThread, [monster, x, y, z]()
         //{

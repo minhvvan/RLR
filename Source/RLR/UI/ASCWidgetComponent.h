@@ -6,9 +6,7 @@
 #include "Components/WidgetComponent.h"
 #include "ASCWidgetComponent.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class RLR_API UASCWidgetComponent : public UWidgetComponent
 {
