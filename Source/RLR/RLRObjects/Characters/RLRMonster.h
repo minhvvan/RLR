@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
-#include "ActionSystem/StatSet/StatSetMonster.h"
 #include "GameManager/RLRStruct.h"
 #include "RLRMonster.generated.h"
 
@@ -18,13 +17,14 @@ class RLR_API ARLRMonster : public ARLRNonPlayerCharacter
 	
 public:
 	ARLRMonster();
-
 	void SetStat(FMonsterStatus& Stat);
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UASCWidgetComponent> HpBar;
 
 protected:
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
-private:
-	UStatSetMonster* StatSet;
 };
  

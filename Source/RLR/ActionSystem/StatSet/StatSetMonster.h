@@ -6,6 +6,8 @@
 #include "ActionSystem/StatSet/StatSet.h"
 #include "StatSetMonster.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHpChanged);
+
 UCLASS()
 class RLR_API UStatSetMonster : public UStatSet
 {
@@ -40,9 +42,6 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterMapId, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterId, int64);
 
-	void UpdateTransForm(FVector NewTransform);
-	void UpdateHp(int32 NewHp);
-
 	//일반 자료형 템플릿
 	template<typename T>
 	void ApplyChangeStat(FStatChangeSpec<T>& ChangeSpec)
@@ -63,6 +62,14 @@ public:
 		}
 	};
 
+	//Delegates
+	FOnHpChanged OnHpChanged;
+
 private:
 	FMonsterStatus Stat;
+
+protected:
+	void UpdateTransForm(FVector NewTransform);
+	void UpdateHp(int32 NewHp);
+
 };
