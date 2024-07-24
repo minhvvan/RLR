@@ -5,6 +5,8 @@
 #include "RLRObjects/Characters/RLRMonster.h"
 #include "Async/Async.h"
 #include "ActionSystem/ActionSystemTypes.h"
+#include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/StatSet/StatSetMonster.h"
 #include "RLR.h"
 #include "Kismet/GameplayStatics.h"
 

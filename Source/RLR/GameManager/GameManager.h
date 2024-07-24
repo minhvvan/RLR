@@ -25,6 +25,8 @@
 			Monster 관리 매니저
 		OtherUserManager
 			다른 플레이어 관리.
+		PlayerUserManager
+			플레이어 관리.
  */
 
 
@@ -36,6 +38,7 @@
  class UNetworkManager;
  class UMonsterManager;
  class UOtherUserManager;
+ class UPlayerManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -47,25 +50,28 @@ public:
 	virtual void Init() override;
 
 	UFUNCTION(BlueprintCallable)
-	UDataManager*				GetDataManager();
+	UDataManager*		GetDataManager();
 
 	UFUNCTION(BlueprintCallable)
-	UUIManager*						GetUIManager();
+	UUIManager*			GetUIManager();
 
 	UFUNCTION(BlueprintCallable)
-	UInventoryManager*		GetInventoryManager();
+	UInventoryManager*	GetInventoryManager();
 
 	UFUNCTION(BlueprintCallable)
-	USkillManager*					GetSkillManager();
+	USkillManager*		GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager*		GetNetworkManager();	
+	UNetworkManager*	GetNetworkManager();	
 	
 	UFUNCTION(BlueprintCallable)
-	UMonsterManager*		 GetMonsterManager();
+	UMonsterManager*	GetMonsterManager();
 
 	UFUNCTION(BlueprintCallable)
 	UOtherUserManager*	GetOtherUserManager();
+
+	UFUNCTION(BlueprintCallable)
+	UPlayerManager*		GetPlayerManager();
 
 
 	UFUNCTION(BlueprintCallable)
