@@ -259,3 +259,35 @@ enum class EActionState : uint8
 	STATE_WAIT_CANCEL				UMETA(DisplayName = "Wait_Cancel"),
 	SIZE
 };
+
+
+USTRUCT()
+struct RLR_API FStat
+{
+	GENERATED_BODY()
+
+	FStat()
+		: StatProperty(nullptr)
+	{
+	}
+
+	FStat(FProperty* NewProperty);
+
+	UPROPERTY(Category = Stat, EditAnywhere)
+	TFieldPath<FProperty> StatProperty;
+
+	bool operator==(const FStat& Other) const;
+	bool operator!=(const FStat& Other) const;
+
+	bool IsStatDataProperty(const FProperty* NewProperty);
+};
+
+template<typename T = float>
+struct FStatChangeSpec
+{
+	UPROPERTY(Category = Stat, EditAnywhere)
+	FStat ChangedStat;
+
+	UPROPERTY(Category = Stat, EditAnywhere)
+	T NewValue;
+};

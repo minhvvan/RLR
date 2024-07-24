@@ -4,8 +4,9 @@
 #include "GameManager/MonsterManager.h"
 #include "RLRObjects/Characters/RLRMonster.h"
 #include "Async/Async.h"
+#include "ActionSystem/ActionSystemTypes.h"
 #include "RLR.h"
-#include <Kismet/GameplayStatics.h>
+#include "Kismet/GameplayStatics.h"
 
 UMonsterManager::UMonsterManager()
 {
@@ -30,7 +31,8 @@ void UMonsterManager::SetMonsterData(TArray<FMonsterStatus>& MonsterArray)
             // 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
             AsyncTask(ENamedThreads::GameThread, [this, World]()
                 {
-                    World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
+                    World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 3.0f, false);
+                    //World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
                 });
         }
     }
@@ -89,10 +91,10 @@ void UMonsterManager::SpawnMonsters()
             continue;
         }
 
-        UE_LOG(LogTemp, Warning, TEXT("Spawning Monster: %s at (%f, %f, %f)"), *UniqueName, MonsterStat.MonsterTransX, MonsterStat.MonsterTransY, MonsterStat.MonsterTransZ);
+        UE_LOG(LogTemp, Warning, TEXT("Spawning Monster: %s at (%f, %f, %f)"), *UniqueName, MonsterStat.MonsterTransform.X, MonsterStat.MonsterTransform.Y, MonsterStat.MonsterTransform.Z);
 
         FTransform SpawnTransform;
-        SpawnTransform.SetLocation(FVector(MonsterStat.MonsterTransX, MonsterStat.MonsterTransY, MonsterStat.MonsterTransZ));
+        SpawnTransform.SetLocation(FVector(MonsterStat.MonsterTransform.X, MonsterStat.MonsterTransform.Y, MonsterStat.MonsterTransform.Z));
         SpawnTransform.SetRotation(FQuat::Identity);
         SpawnTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));
 
@@ -117,9 +119,13 @@ void UMonsterManager::SpawnMonsters()
 
         Monster->SetStat(MonsterStat);
         Monster->FinishSpawning(SpawnTransform);
+
+        MonsterInstances.Add(Monster);
     }
-    AddMonstersToInstances();
+    //TODO: Server Test
+    //AddMonstersToInstances();
 }
+
 void UMonsterManager::AddMonstersToInstances()
 {
     auto World = GetWorld();
@@ -142,10 +148,9 @@ void UMonsterManager::AddMonstersToInstances()
         }
     }
 }
-ARLRMonster* UMonsterManager::GetMonsterToMonsterId(int64 monsterId) {
-    
-    
-    
+
+ARLRMonster* UMonsterManager::GetMonsterByMonsterId(int64 monsterId)
+{
     for (ARLRMonster* Monster : MonsterInstances)
     {  
         UStatSetMonster* status = Monster->GetActionSystemComponent()->GetStatSet<UStatSetMonster>();
@@ -157,41 +162,72 @@ ARLRMonster* UMonsterManager::GetMonsterToMonsterId(int64 monsterId) {
 
     return nullptr;
 }
-void UMonsterManager::UpdateMonsterToMonsterId(int64 monsterId, float x, float y, float z) {
 
-    for (ARLRMonster* Monster : MonsterInstances)
+void UMonsterManager::UpdateMonsterTransform(int64 monsterId, float x, float y, float z)
+{
+    ARLRMonster* monster = GetMonsterByMonsterId(monsterId);
+
+    if (!monster)
     {
-        if (!Monster)
-        {
-            UE_LOG(LogTemp, Error, TEXT("Monster is null"));
-            continue;
-        }
-
-        UActionSystemComponent* ActionSystem = Monster->GetActionSystemComponent();
-        if (!ActionSystem)
-        {
-            UE_LOG(LogTemp, Error, TEXT("ActionSystemComponent is null for Monster with ID: %lld"), monsterId);
-            continue;
-        }
-
-        UStatSetMonster* status = ActionSystem->GetStatSet<UStatSetMonster>();
-        if (!status)
-        {
-            UE_LOG(LogTemp, Error, TEXT("StatSetMonster is null for Monster with ID: %lld"), monsterId);
-            continue;
-        }
-     
-         
-        if (status->GetMonsterId() == monsterId)
-        {
-
-            status->UpdateTransForm(x, y, z);
-            AsyncTask(ENamedThreads::GameThread, [Monster, x, y, z]()
-                {
-                    Monster->SetActorLocation(FVector(x, y, z));
-                });
-            // TODO : Monster 에 StatSet을 변경해도 실제 몬스터 Stat이 변하지 않음
-            
-        }
+        UE_LOG(LogTemp, Error, TEXT("Monster is null"));
+        return;
     }
+
+    UActionSystemComponent* ActionSystem = monster->GetActionSystemComponent();
+    if (!ActionSystem)
+    {
+        UE_LOG(LogTemp, Error, TEXT("ActionSystemComponent is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    UStatSetMonster* stat = ActionSystem->GetStatSet<UStatSetMonster>();
+    if (!stat)
+    {
+        UE_LOG(LogTemp, Error, TEXT("StatSetMonster is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    FStatChangeSpec<FVector> spec;
+    spec.ChangedStat = stat->GetMonsterTransformStat();
+    spec.NewValue = FVector(x, y, z);
+
+    stat->ApplyChangeStat(spec);
+
+    //TODO: Server Test
+    //status->UpdateTransForm(x, y, z);
+    //AsyncTask(ENamedThreads::GameThread, [monster, x, y, z]()
+        //{
+            //Monster->SetActorLocation(FVector(x, y, z));
+        //});
+}
+
+void UMonsterManager::UpdateMonsterHp(int64 monsterId, float newHp)
+{
+    ARLRMonster* monster = GetMonsterByMonsterId(monsterId);
+
+    if (!monster)
+    {
+        UE_LOG(LogTemp, Error, TEXT("Monster is null"));
+        return;
+    }
+
+    UActionSystemComponent* ActionSystem = monster->GetActionSystemComponent();
+    if (!ActionSystem)
+    {
+        UE_LOG(LogTemp, Error, TEXT("ActionSystemComponent is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    UStatSetMonster* stat = ActionSystem->GetStatSet<UStatSetMonster>();
+    if (!stat)
+    {
+        UE_LOG(LogTemp, Error, TEXT("StatSetMonster is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    FStatChangeSpec<int32> spec;
+    spec.ChangedStat = stat->GetMonsterHpStat();
+    spec.NewValue = newHp;
+
+    stat->ApplyChangeStat(spec);
 }

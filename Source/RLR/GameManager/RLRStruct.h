@@ -646,13 +646,11 @@ struct FMonsterStatus
 		MonsterName(TEXT("")),
 		MonsterLevel(0),
 		MontserExp(0),
-		MonsterDamage(0),
+		MonsterAttackRate(0),
 		MonsterDefence(0),
 		MonsterHp(0),
-		MonsterDistance(0.f),
-		MonsterTransX(0.f),
-		MonsterTransY(0.f),
-		MonsterTransZ(0.f),
+		MonsterAttackRange(0.f),
+		MonsterTransform({0.f, 0.f, 0.f}),
 		MonsterId(0),
 		MonsterMapId(-1)
 	{}
@@ -670,7 +668,7 @@ struct FMonsterStatus
 	int32 MontserExp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 MonsterDamage;
+	int32 MonsterAttackRate;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 MonsterDefence;
@@ -679,16 +677,10 @@ struct FMonsterStatus
 	int32 MonsterHp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float MonsterDistance;
+	float MonsterAttackRange;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float MonsterTransX;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float MonsterTransY;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float MonsterTransZ;
+	FVector MonsterTransform;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MonsterId;
@@ -722,12 +714,12 @@ struct FMonsterStatus
 		AppendStatString(TEXT("Name"), MonsterName);
 		AppendStatInt(TEXT("Level"), MonsterLevel);
 		AppendStatInt(TEXT("Exp"), MontserExp);
-		AppendStatInt(TEXT("Damage"), MonsterDamage);
+		AppendStatInt(TEXT("Damage"), MonsterAttackRate);
 		AppendStatInt(TEXT("Defence"), MonsterDefence);
-		AppendStatFloat(TEXT("Distance"), MonsterDistance);
-		AppendStatFloat(TEXT("X"), MonsterTransX);
-		AppendStatFloat(TEXT("Y"), MonsterTransY);
-		AppendStatFloat(TEXT("Z"), MonsterTransZ);
+		AppendStatFloat(TEXT("Distance"), MonsterAttackRange);
+		AppendStatFloat(TEXT("X"), MonsterTransform.X);
+		AppendStatFloat(TEXT("Y"), MonsterTransform.Y);
+		AppendStatFloat(TEXT("Z"), MonsterTransform.Z);
 		AppendStatInt(TEXT("Id"), MonsterId);
 		AppendStatInt(TEXT("MapId"), MonsterMapId);
 
@@ -737,9 +729,7 @@ struct FMonsterStatus
 	//Test
 	static int32 tempID;
 
-
 	void MakeMonsterData(const Protocol::Monster monsterData);
-	void UpdateTransform(float x, float y, float z);
 };
 
 
@@ -840,5 +830,4 @@ struct FUserCharacter
 
 	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
 	void SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
-
 };

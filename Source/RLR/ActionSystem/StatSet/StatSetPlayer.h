@@ -3,13 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ActionSystem/StatSet.h"
+#include "ActionSystem/StatSet/StatSet.h"
 #include "GameManager/RLRStruct.h"
 #include "StatSetPlayer.generated.h"
 
-/**
- * 
- */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedLevel);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedExp);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedTotalStatus);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedSetStatus);
+
 UCLASS()
 class RLR_API UStatSetPlayer : public UStatSet
 {
@@ -17,24 +20,55 @@ class RLR_API UStatSetPlayer : public UStatSet
 	
 
 public:
-
-
 	ALL_STAT_SETTER(FUserCharacter);
-    STAT_ACCESSORS(UStatSetPlayer, UserSeq , int32);
-    STAT_ACCESSORS(UStatSetPlayer, PlayerSeq, int32);
-    STAT_ACCESSORS(UStatSetPlayer, Name, FString);
-    STAT_ACCESSORS(UStatSetPlayer, Level, int32);
-    STAT_ACCESSORS(UStatSetPlayer, NobilityRank, int32);
-    STAT_ACCESSORS(UStatSetPlayer, MainJob, ECharacterMainJobType);
-    STAT_ACCESSORS(UStatSetPlayer, SubJob, ECharacterSubJobType);
-    STAT_ACCESSORS(UStatSetPlayer, Exp, int32);
-    STAT_ACCESSORS(UStatSetPlayer, AdventureRank, int32);
-    STAT_ACCESSORS(UStatSetPlayer, SetStatus, FSetStatus);
-    STAT_ACCESSORS(UStatSetPlayer, TotalStatus, FTotalStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Name, FString);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Level, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NobilityRank, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MainJob, ECharacterMainJobType);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SubJob, ECharacterSubJobType);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Exp, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, AdventureRank, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, TotalStatus, FTotalStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SetStatus, FSetStatus);
 
+
+    template<typename T>
+    void ApplyChangeStat(FStatChangeSpec<T>& ChangeSpec)
+    {
+        if (ChangeSpec.ChangedStat == GetLevelStat())
+        {
+            UpdateLevel(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetExpStat())
+        {
+            UpdateExp(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetTotalStatusStat())
+        {
+            UpdateTotalStatus(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetSetStatusStat())
+        {
+            UpdateSetStatus(ChangeSpec.NewValue);
+        }
+    };
+
+    //Delegates
+    FOnChangedLevel         OnChangedLevel;
+    FOnChangedExp           OnChangedExp;
+    FOnChangedTotalStatus   OnChangedTotalStatus;
+    FOnChangedSetStatus     OnChangedSetStatus;
 
 private:
 	FUserCharacter Stat;
+
+protected:
+    void UpdateLevel(int32 NewLevel);
+    void UpdateExp(int32 NewExp);
+    void UpdateTotalStatus(FTotalStatus NewTotalStatus);
+    void UpdateSetStatus(FSetStatus NewSetStatus);
 };
 
 /*

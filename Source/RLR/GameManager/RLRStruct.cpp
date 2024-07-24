@@ -334,20 +334,13 @@ void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
     MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
     MonsterLevel = monsterData.monsterlevel();
     MontserExp = monsterData.monsterexp();
-    MonsterDamage = monsterData.monsterdamage();
+    MonsterAttackRate = monsterData.monsterdamage();
     MonsterDefence = monsterData.monsterdefence();
     MonsterHp = monsterData.monsterhp();
-    MonsterDistance = 10;  // Packet 추가 예정
-    MonsterTransX = monsterData.monstertransx();
-    MonsterTransY = monsterData.monstertransy();
-    MonsterTransZ = monsterData.monstertransz();
+    MonsterAttackRange = 10;  // Packet 추가 예정
+    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
     MonsterId = monsterData.monsterid();
     MonsterMapId = monsterData.monstermapid();
-}
-void FMonsterStatus::UpdateTransform(float x, float y, float z) {
-    MonsterTransX = x;
-    MonsterTransY = y;
-    MonsterTransZ = z;
 }
 
 void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
