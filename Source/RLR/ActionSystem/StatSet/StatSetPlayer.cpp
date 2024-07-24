@@ -3,3 +3,26 @@
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 
+void UStatSetPlayer::UpdateLevel(int32 NewLevel)
+{
+	SetLevel(NewLevel);
+	OnChangedLevel.Broadcast();
+}
+
+void UStatSetPlayer::UpdateExp(int32 NewExp)
+{
+	SetExp(NewExp);
+	OnChangedExp.Broadcast();
+}
+
+void UStatSetPlayer::UpdateTotalStatus(FTotalStatus NewTotalStatus)
+{
+	SetTotalStatus(NewTotalStatus);
+	OnChangedTotalStatus.Broadcast();
+}
+
+void UStatSetPlayer::UpdateSetStatus(FSetStatus NewSetStatus)
+{
+	SetSetStatus(NewSetStatus);
+	OnChangedSetStatus.Broadcast();
+}

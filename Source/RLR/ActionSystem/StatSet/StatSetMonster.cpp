@@ -11,15 +11,15 @@ void UStatSetMonster::UpdateTransForm(FVector NewTransform)
 
 	if (ARLRMonster* monster = Cast<ARLRMonster>(GetOuter()))
 	{
-		RLR_LOG(LogRLR, Log, TEXT("%s"), *monster->GetName());
+		//RLR_LOG(LogRLR, Log, TEXT("%s"), *monster->GetName());
 		monster->SetActorLocation(NewTransform);
 	}
 }
 
 void UStatSetMonster::UpdateHp(int32 NewHp)
 {
-	RLR_LOG(LogRLR, Log, TEXT("Before: %d"), GetMonsterHp());
+	//RLR_LOG(LogRLR, Log, TEXT("Before: %d"), GetMonsterHp());
 	SetMonsterHp(NewHp);
 	OnHpChanged.Broadcast();
-	RLR_LOG(LogRLR, Log, TEXT("After: %d"), GetMonsterHp());
+	//RLR_LOG(LogRLR, Log, TEXT("After: %d"), GetMonsterHp());
 }

@@ -52,11 +52,14 @@ class RLR_API UStatSet : public UObject
 public:
 	UStatSet();
 	
-	//자식 클래스에서 구현 필요
+	//--------------------------
+	//사용법
+	//--------------------------
+	//자식 클래스에서 구현 필요(특수화 사용 가능)
 	//template<typename T>
 	//void ApplyChangeStat(FStatChangeSpec<T>& ChangeSpec)
 	//{
-
 	//};
-
+	//변경할 곳(e.g. Manager)에서 StatSet을 받아와 FStatChangeSpec 전달
+	//FStatChangeSpec{ChangedStat, NewValue}
 };

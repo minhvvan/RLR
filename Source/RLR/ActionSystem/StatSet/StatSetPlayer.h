@@ -7,9 +7,12 @@
 #include "GameManager/RLRStruct.h"
 #include "StatSetPlayer.generated.h"
 
-/**
- * 
- */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedLevel);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedExp);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedTotalStatus);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedSetStatus);
+
 UCLASS()
 class RLR_API UStatSetPlayer : public UStatSet
 {
@@ -17,8 +20,6 @@ class RLR_API UStatSetPlayer : public UStatSet
 	
 
 public:
-
-
 	ALL_STAT_SETTER(FUserCharacter);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
@@ -29,12 +30,45 @@ public:
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SubJob, ECharacterSubJobType);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Exp, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, AdventureRank, int32);
-    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SetStatus, FSetStatus);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, TotalStatus, FTotalStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SetStatus, FSetStatus);
 
+
+    template<typename T>
+    void ApplyChangeStat(FStatChangeSpec<T>& ChangeSpec)
+    {
+        if (ChangeSpec.ChangedStat == GetLevelStat())
+        {
+            UpdateLevel(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetExpStat())
+        {
+            UpdateExp(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetTotalStatusStat())
+        {
+            UpdateTotalStatus(ChangeSpec.NewValue);
+        }
+        else if (ChangeSpec.ChangedStat == GetSetStatusStat())
+        {
+            UpdateSetStatus(ChangeSpec.NewValue);
+        }
+    };
+
+    //Delegates
+    FOnChangedLevel         OnChangedLevel;
+    FOnChangedExp           OnChangedExp;
+    FOnChangedTotalStatus   OnChangedTotalStatus;
+    FOnChangedSetStatus     OnChangedSetStatus;
 
 private:
 	FUserCharacter Stat;
+
+protected:
+    void UpdateLevel(int32 NewLevel);
+    void UpdateExp(int32 NewExp);
+    void UpdateTotalStatus(FTotalStatus NewTotalStatus);
+    void UpdateSetStatus(FSetStatus NewSetStatus);
 };
 
 /*
