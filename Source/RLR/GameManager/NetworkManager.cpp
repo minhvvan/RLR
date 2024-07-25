@@ -7,6 +7,7 @@
 #include <Network/Buffer.h>
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Network/Proto/Packet.pb.h"
+#include "Network/Proto/Skill.pb.h"
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
     LoadBalancer = new LoadBalancerClient(host, port);
@@ -67,8 +68,8 @@ void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Po
     {
         MainServerReceiver = MakeShared<FNetworkReceiver>(MainServerSocket);
         MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), TEXT("MainServerReceiverThread"));
-        SendStatusPacket(1);
-        SendInventoryPacket(1);
+        SendServerRequest(1);
+        SendGetSkillPacket(1);
     }
 }
 
@@ -86,7 +87,7 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     {
         MonsterServerReceiver = MakeShared<FNetworkReceiver>(MonsterServerSocket);
         MonsterServerThread = FRunnableThread::Create(MonsterServerReceiver.Get(), TEXT("MonsterServerReceiverThread"));
-        SendMapInfoRequest(1);
+
     }
 }
 void UNetworkManager::Update()
@@ -110,23 +111,24 @@ bool UNetworkManager::SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer)
     int32 BytesSent = 0;
     return  LobbyServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 }
-bool UNetworkManager::SendMapInfoRequest(int64 mapId) {
+bool UNetworkManager::SendMapInfoRequest(int64 mapId, int64 channelId) {
 
-     if (!MonsterServerSocket) return false;
+    if (!MonsterServerSocket) return false;
 
     Protocol::MapMonsterInfoRequestPacket packet;
     packet.set_mapid(mapId);
+    packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
 
     if (!bSuccess) {
-         UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-         return false;
-     }
-     else {
-         UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-         return true;
-      }
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        return false;
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        return true;
+    }
 }
 bool UNetworkManager::SendPlayerPacket(int32 playerSeq)
 {
@@ -158,7 +160,7 @@ bool UNetworkManager::SendStatusPacket(int32 userSeq)
 
     if (!bSuccess) {
         UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-        
+
     }
     else {
         UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
@@ -183,4 +185,114 @@ bool UNetworkManager::SendInventoryPacket(int32 userSeq)
         UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
     }
     return bSuccess;
+}
+bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
+{
+    if (!MainServerSocket) return false;
+
+    Protocol::AttackRequestPacket packet;
+    packet.mutable_skill()->set_skillseq(attackResult.SkillSeq);
+    packet.mutable_skill()->set_level(attackResult.Level);
+    packet.mutable_skill()->set_userseq(attackResult.UserSeq);
+    packet.mutable_skill()->set_timestamp(attackResult.Timestamp);
+    //packet.mutable_skill()->targetseq(attackResult.TargetSeq);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}
+
+bool UNetworkManager::SendGetSkillPacket(int userSeq) {
+    if (!MainServerSocket) return false;
+
+    Protocol::GetSkillRequestPacket packet;
+    packet.set_userseq(userSeq);
+
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}
+bool UNetworkManager::SendChangeSkillPacket(const FSkillData* SkillData, int userSeq, int skillIdx) {
+    if (!MainServerSocket) return false;
+
+    Protocol::SkillChangeRequestPacket packet;
+
+    packet.set_skillidx(skillIdx);
+    packet.set_userseq(userSeq);
+    Protocol::SkillInfo skillInfo = *packet.mutable_skill();
+    skillInfo.set_skillid(SkillData->SkillId);
+
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}
+bool UNetworkManager::SendServerRequest(int userSeq) {
+    if (!MainServerSocket) return false;
+
+    Protocol::ServerReqeustPacket packet;
+
+    packet.set_userseq(userSeq);
+
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}
+bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid, int64 channelid) {
+
+    if (!MainServerSocket && !MonsterServerSocket) return false;
+
+
+    Protocol::MoveRequestPacket packet;
+    packet.set_userseq(userSeq);
+    //packet.set_mapid();
+    //packet.set_channelid();  
+    packet.set_transx(vector.X);
+    packet.set_transy(vector.Y);
+    packet.set_transz(vector.Z);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool aSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+    bool bSuccess = MonsterServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+
+
+    return bSuccess && BytesSent == sendBuffer->Capacity();
+    return true;
 }

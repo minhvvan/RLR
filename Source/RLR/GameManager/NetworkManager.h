@@ -3,7 +3,9 @@
 #include "CoreMinimal.h"
 #include <Network/Buffer.h>
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "RLRStruct.h"
 #include "NetworkManager.generated.h"
+
 
 class FNetworkReceiver;
 class LoadBalancerClient;
@@ -14,7 +16,7 @@ class RLR_API UNetworkManager : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
-//    void Initialize(int64 mapid);
+    void Initialize(int64 mapid);
     void SetLoadBalancer(std::string host, int32 port);
 
     UFUNCTION(BlueprintCallable)
@@ -33,11 +35,21 @@ public:
 
     bool SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer);
 
-    bool SendMapInfoRequest(int64 mapId );
+    bool SendMapInfoRequest(int64 mapId, int64 channelId);
     bool SendPlayerPacket(int32 playerSeq);
     bool SendStatusPacket(int32 userSeq);
 
     bool SendInventoryPacket(int32 userSeq);
+
+    bool SendAttackPacket(FAttackResult attackResult);
+
+    bool SendGetSkillPacket(int userSeq);
+
+    bool SendChangeSkillPacket(const FSkillData* SkillData, int userSeq, int skillIdx);
+
+    bool SendServerRequest(int userSeq);
+
+    bool SendMovePacket(int32 userSeq, FVector vector, int64 mapid, int64 channelid);
 
 private:
     FSocket* MainServerSocket;

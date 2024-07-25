@@ -374,3 +374,28 @@ void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
 void FAttackResult::MakeAttackData()
 {
 }
+void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
+    
+    SkillSeq = skill.skillseq();
+
+    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+
+    Level = skill.skilllevel();
+
+    Cost = skill.cost();
+
+    CoolTime = skill.cooltime();
+
+    Cind = skill.skillkind();
+
+    Damage = skill.skillactivestatus().skilldamage();
+
+    Duration = skill.skillactivestatus().skillduration();
+
+    //ActivityTime = skill.mutable_skillactivestatus()->
+
+    SkillId = skill.skillid();
+
+
+    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+}

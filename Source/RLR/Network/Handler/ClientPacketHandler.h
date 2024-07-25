@@ -2,14 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "Network/Proto/Packet.pb.h"
+#include "Network/Proto/Skill.pb.h"
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
-//#include "CommunityPacketHandler.h"    TODO : 중완님 패킷 핸들러 작업 끝나면 적용 후 기존 PacketHandler에 있떤
-//#include "InfoPacketHandler.h"
-//#include "ItemPacketHandler.h"
-//#include "CertificationPacketHandler.h"
-//#include "ActionPacketHandler.h"
 
 class PacketSession;
 
@@ -27,12 +23,19 @@ enum : uint16
     //Add loadBalancer Packet types
     PKT_ENTER_GAME_REQUEST = 1201,
     PKT_ENTER_GAME_RESPONSE = 1202,
+    PKT_SERVER_REQUEST = 1203,
+    PKT_CHANNEL_REQUEST = 1211,
+    PKT_CHANNEL_RESPONSE = 1212,
     // Add status Packet types
     PKT_STATUS_REQUEST = 1301,
     PKT_STATUS_RESPONSE = 1302,
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1311,
     PKT_INVENTORY_RESPONSE = 1312,
+    PKT_GET_SKILL_REQUEST = 1321,
+    PKT_GET_SKILL_RESPONSE = 1322,
+    PKT_SKILL_CHANGE_REQUEST = 1331,
+    PKT_SKILL_CHANGE_RESPONSE = 1332,
     // Add item packet types
     PKT_ITEM_ADD_REQUEST = 1401,
     PKT_ITEM_ADD_RESPONSE = 1402,
@@ -46,6 +49,8 @@ enum : uint16
     PKT_MOVE_BROADCAST = 1503,
     PKT_ATTACK_REQUEST = 1511,
     PKT_ATTACK_RESPONSE = 1512,
+    PKT_DAMAGE_REQUSET = 1521,
+    PKT_DAMAGE_RESPONSE = 1522,
     // Add monster move packet types
     PKT_MONSTER_MOVE_REQUEST = 1601,
     PKT_MONSTER_MOVE_RESPONSE = 1602,
@@ -74,30 +79,8 @@ enum : uint16
 
 // Custom Handlers
 bool Handle_INVALID(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len);
-// Login Handlers
-bool Handle_LOGIN_REQUEST(TSharedPtr<PacketSession>& session, Protocol::LoginRequestPacket& pkt);
-bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::LoginResponsePacket& pkt);
-// Status Handlers
-bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt);
-// Item Handlers
-bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt);
-bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt);
-// Inventory Handlers
-bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt);
-// Move Handlers
-bool Handle_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MoveRequestPacket& pkt);
-bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt);
-bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt);
 
-bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterMoveRequestPacket& pkt);
-bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterAttackRequestPacket& pkt);
-// Enter Game Handlers
-bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt);
-bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt);
-bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt);
-bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoResponsePacket& pkt);
-bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::AttackResponsePacket& pkt);
-bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::CharacterResponsePacket& pkt);
+
 struct PacketHeader
 {
     uint16 size;
@@ -130,6 +113,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveBroadcastPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_BROADCAST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MonsterMoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_MOVE_RESPONSE); }
@@ -138,7 +122,10 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGamePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGameResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::AttackRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ATTACK_REQUEST); }
-
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::GetSkillRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_GET_SKILL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::SkillChangeRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_CHANGE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
+    
 public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

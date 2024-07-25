@@ -1,11 +1,9 @@
 #include "ClientPacketHandler.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/InventoryManager.h"
-#include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/MonsterManager.h"
 #include "Network/Buffer.h"
-
 //UI
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameMainUI.h"
@@ -13,139 +11,22 @@
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-
+#include "CertificationPacketHandler.h"
+#include "InfoPacketHandler.h"
+#include "ItemPacketHandler.h"
+#include "CommunityPacketHandler.h"
+#include "ActionPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
-bool Handle_INVALID(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+bool Handle_INVALID(TSharedPtr<PacketSession>& session, BYTE* buffer, int32 len)
 {
+
     // Handle invalid packet
     return false;
 }
 
-// Login Handlers
-bool Handle_LOGIN_REQUEST(TSharedPtr<PacketSession>& session, Protocol::LoginRequestPacket& pkt)
-{
-    // Handle login request
-    return true;
-}
 
-bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::LoginResponsePacket& pkt)
-{
-    FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
-    GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport());
-    return true;
-}
-bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::CharacterResponsePacket& pkt) {
-
-    Protocol::EnterGamePacket packet;
-    packet.set_userseq(1);
-   
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    GameInstance->GetNetworkManager()->SendToLobbySocket(sendBuffer);
-
-    return true;
-}
-// Item Handlers
-bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt)
-{
-    FItemData itemData;
-
-    itemData.MakeItemData(pkt.item());
-    GameInstance->GetInventoryManager()->AddItem(itemData);
-    return true;
-}
-
-bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
-    
-    UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
-    UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
-
-    UUIManager* UIManager= GameInstance->GetUIManager();
-
-   if (IsValid(UIManager) == false)
-   {
-       DEBUG_LOG("Handle_STATUS_RESPONSE Error. UIManager is Null.");
-        return false;
-   }
-
-   FUserCharacter UserChracter;
-   UserChracter.SetUserChracterData(pkt.usercharacter());
-   UIManager->UpdatedPlayerInfo.Broadcast(UserChracter);
-    
-    return true;
-}
-bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
-{
-    // Handle item use
-    return true;
-}
-
-
-bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt)
-{
-    
-    TArray<FItemData> itemDatas;
-    for (int32 i = 0; i < pkt.items_size(); i++) {
-        FItemData itemData;
-        itemData.MakeItemData(pkt.items().at(i));
-
-        itemDatas.Add(itemData);
-    }
-   
-    GameInstance->GetInventoryManager()->GetItemList(itemDatas);
-  
-    
-    return true;
-}
-bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt) {
-    return true;
-}
-bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt) {
-    // TODO : OTHERUSERMAGER 연결하여 다른 유저의 위치 연동
-    UE_LOG(LogTemp, Log, TEXT("User seq : %d"), pkt.userseq());
-    UE_LOG(LogTemp, Log, TEXT("User Trans X : %d"), pkt.transx());
-    UE_LOG(LogTemp, Log, TEXT("User Trans Y : %d"), pkt.transy());
-    UE_LOG(LogTemp, Log, TEXT("User Trans Z : %d"), pkt.transz());
-    return true;
-}
-bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterAttackRequestPacket& pkt) {
-
-    return false;
-}
-bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterMoveRequestPacket& pkt)
-{
-    // TODO :  몬스터 아이디를 통해 몬스터 매니저에있는 monster Data 중 Search하여 해당 몬스터의 좌표 변경 + 애니메이션 
-
-      GameInstance->GetMonsterManager()->UpdateMonsterTransform(pkt.monsterid(),pkt.transx(), pkt.transy(), pkt.transz());
-
-    return false;
-}
-bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::AttackResponsePacket& pkt) {
-
-    return false;
-}
-bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt) {
-
-
-    return false;
-}
-bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoResponsePacket& pkt) {
-   
-    TArray< FMonsterStatus> monsterDatas;
-    for (int i = 0; i < pkt.monsters_size(); i++) {
-        FMonsterStatus monsterData;
-        monsterData.MakeMonsterData(pkt.monsters().at(i));
-        monsterDatas.Add(monsterData);
-    
-    }
-
-    GameInstance->GetMonsterManager()->SetMonsterData(monsterDatas);
-
-    
-
-    return false;
-}
 void ClientPacketHandler::Init()
 {
     for (int32 i = 0; i < UINT16_MAX; i++)
@@ -222,27 +103,13 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::AttackResponsePacket>(&Handle_ATTACK_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_CHANNEL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::ChannelResponsePacket>(&Handle_CHANNEL_RESPONSE, session, buffer, len);
+        };
+    
 }
-bool Handle_ENTER_GAME_REQUEST(TSharedPtr<PacketSession>& session, Protocol::EnterGamePacket& pkt)
-{
-    return false;
-}
-bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EnterGameResponsePacket& pkt)
-{
-    if (pkt.success())
-    {
-        FString MainServerAddress = UTF8_TO_TCHAR(pkt.mainserveraddress().c_str());
-        FString MonsterServerAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
-        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
-        GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
-    }
-    else
-    {
-        UE_LOG(LogTemp, Error, TEXT("Failed to enter game"));
-    }
 
-    return true;
-}
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
 {
     PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
