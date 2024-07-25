@@ -22,8 +22,12 @@ public:
 
     //UpdateStat
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);
+    void UpdatePlayerSetStatus(const FSetStatus& NewSetStatus);
+    void UpdatePlayerExp(float NewExp);
 
 private:
     UPROPERTY()
     TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
+
+    class UStatSetPlayer* GetStatSet();
 };

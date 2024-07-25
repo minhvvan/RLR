@@ -30,6 +30,42 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
 {
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	FStatChangeSpec<FTotalStatus> spec;
+	spec.ChangedStat = statSet->GetTotalStatusStat();
+	spec.NewValue = NewTotalStatus;
+
+	statSet->ApplyChangeStat<FTotalStatus>(spec);
+}
+
+void UPlayerManager::UpdatePlayerSetStatus(const FSetStatus& NewSetStatus)
+{
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	FStatChangeSpec<FSetStatus> spec;
+	spec.ChangedStat = statSet->GetSetStatusStat();
+	spec.NewValue = NewSetStatus;
+
+	statSet->ApplyChangeStat<FSetStatus>(spec);
+}
+
+void UPlayerManager::UpdatePlayerExp(float NewExp)
+{
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	FStatChangeSpec spec;
+	spec.ChangedStat = statSet->GetExpStat();
+	spec.NewValue = NewExp;
+
+	statSet->ApplyChangeStat(spec);
+}
+
+UStatSetPlayer* UPlayerManager::GetStatSet()
+{
 	if (UWorld* world = GetWorld())
 	{
 		if (!PlayerCharacter)
@@ -42,15 +78,13 @@ void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
 		}
 
 		UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
-		if (!ASC) return;
+		if (!ASC) return nullptr;
 
 		UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
-		if (!statSet) return;
+		if (!statSet) return nullptr;
 
-		FStatChangeSpec<FTotalStatus> spec;
-		spec.ChangedStat = statSet->GetTotalStatusStat();
-		spec.NewValue = NewTotalStatus;
-
-		statSet->ApplyChangeStat(spec);
+		return statSet;
 	}
+
+	return nullptr;
 }

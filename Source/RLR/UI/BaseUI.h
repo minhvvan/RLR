@@ -13,6 +13,7 @@
 
  class UUIManager;
  class UGameManager;
+ class UActionSystemComponent;
 
 UCLASS()
 class RLR_API UBaseUI : public UUserWidget
@@ -28,10 +29,14 @@ public:
 	void SetUIType(EUIType Type) {UIType = Type;}
 	EUIType GetUIType() {return UIType;}
 
+	virtual void SetActionSystemComponent(AActor* Owner);
+
 public:
-
-
 	EUIType			UIType = EUIType::NONE;
 	UUIManager* GetUIManager();
 	UGameManager* GetGameManager();
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
 };

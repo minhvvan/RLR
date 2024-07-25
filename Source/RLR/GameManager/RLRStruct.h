@@ -226,17 +226,17 @@ struct FTotalStatus
 
 	FString ToString() const
 	{
-		FString ItemString;
+		FString StatString;
 
-		auto AppendStat = [&ItemString](const FString& StatName, float StatValue)
+		auto AppendStat = [&StatString](const FString& StatName, float StatValue)
 			{
-				if (StatValue != 0)
+				if (StatValue != 0.f)
 				{
-					if (!ItemString.IsEmpty())
+					if (!StatString.IsEmpty())
 					{
-						ItemString.Append(TEXT("\n"));
+						StatString.Append(TEXT(" "));
 					}
-					ItemString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+					StatString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
 				}
 			};
 
@@ -259,7 +259,7 @@ struct FTotalStatus
 		AppendStat(TEXT("AVOID"), AVOID);
 		AppendStat(TEXT("COOLDOWN_REDUCTION"), COOLDOWN_REDUCTION);
 
-		return ItemString;
+		return StatString;
 	}
 };
 

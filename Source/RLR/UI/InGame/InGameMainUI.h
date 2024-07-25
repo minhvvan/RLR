@@ -40,6 +40,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
 
+	void SetActionSystemComponent(AActor* Owner) override;
+
 public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
@@ -72,4 +74,14 @@ public:
 public:
 	virtual bool ToggleSubUI(int inputID);
 	virtual class USubUI* GetSubUI(int inputID);
+
+protected:
+	UFUNCTION()
+	void OnChangedTotalStatus();
+
+	UFUNCTION()
+	void OnChangedSetStatus();	
+	
+	UFUNCTION()
+	void OnChangedExp();
 };

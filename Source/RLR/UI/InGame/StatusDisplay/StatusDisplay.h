@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameManager/RLRStruct.h"
 #include "UI/BaseUI.h"
 #include "StatusDisplay.generated.h"
 
@@ -44,4 +45,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UExpProgressBar> ExpProgressBar;
 
+
+public:
+	void UpdateTotalStat(const FTotalStatus& NewTotalStatus);
+
+	void UpdateHpGlobe(float NewPercent);
+	void UpdateMpGlobe(float NewPercent);
+	void UpdateExp(float NewPercent);
 };

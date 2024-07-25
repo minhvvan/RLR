@@ -12,6 +12,8 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "GameManager/RLRStruct.h"
+#include "Kismet/GameplayStatics.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -29,6 +31,11 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 	{
 		NewMainUI->AddToViewport();
 		MainUI = NewMainUI;
+
+		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+		if (!playerCharacter) return;
+
+		MainUI->SetActionSystemComponent(playerCharacter);
 	};
 }
 
