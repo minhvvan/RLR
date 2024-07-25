@@ -37,6 +37,7 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 	void SetTargetRotation(FVector TargetLoc, float Speed = 1);
 
+	void SetStat(const FUserCharacter& Stat);
 private:
 
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };

@@ -6,6 +6,8 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
+#include "GameManager/PlayerManager.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
 
 // Sets default values
 ARLRPlayerCharacter::ARLRPlayerCharacter():
@@ -59,7 +61,7 @@ void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+
 }
 
 // Check Collision Over lap
@@ -173,4 +175,17 @@ void ARLRPlayerCharacter::SetTargetRotation(FVector TargetLoc, float Speed)
 	TargetRotation = Rotator;
 	RotationSpeed = Speed;
 	bShouldRotate = true;
+}
+
+void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
+{
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (statSet == nullptr)
+	{
+		ASC->CreateStatSet<UStatSetPlayer>();
+		statSet = ASC->GetStatSet<UStatSetPlayer>();
+	}
+
+	statSet->SetStatData(Stat);
+	statSet->UpdateStat();
 }

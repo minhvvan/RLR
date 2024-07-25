@@ -22,7 +22,7 @@ protected:
 
 public:
 	virtual void NativeConstruct() override;
-	void SetActionSystemComponent(AActor* Owner);
+	void SetActionSystemComponent(AActor* Owner) override;
 
 protected:
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
@@ -33,9 +33,6 @@ protected:
 	void OnHpChanged();
 
 protected:
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
-
 	bool bCompletedChange;
 	int MaxHp;
 	int CurrentHp;

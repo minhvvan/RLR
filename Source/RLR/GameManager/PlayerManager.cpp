@@ -24,13 +24,7 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 			}
 		}
 
-		UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
-		if (!ASC) return;
-
-		UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
-		if (!statSet) return;
-
-		statSet->SetStatData(PlayerData);
+		PlayerCharacter->SetStat(PlayerData);
 	}
 }
 

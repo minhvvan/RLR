@@ -22,13 +22,8 @@ void UMonsterHpBar::NativeConstruct()
 
 void UMonsterHpBar::SetActionSystemComponent(AActor* Owner)
 {
-	ARLRMonster* monster = Cast<ARLRMonster>(Owner);
-	if (!monster) return;
+	Super::SetActionSystemComponent(Owner);
 
-	UActionSystemComponent* ASC = monster->GetActionSystemComponent();
-	if (!ASC) return;
-
-	ActionSystemComponent = ASC;
 	UStatSetMonster* statSet = ActionSystemComponent->GetStatSet<UStatSetMonster>();
 	if (!statSet) return;
 
