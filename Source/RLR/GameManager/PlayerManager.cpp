@@ -6,6 +6,7 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "RLR.h"
 
 UPlayerManager::UPlayerManager()
 {
@@ -52,16 +53,38 @@ void UPlayerManager::UpdatePlayerSetStatus(const FSetStatus& NewSetStatus)
 	statSet->ApplyChangeStat<FSetStatus>(spec);
 }
 
-void UPlayerManager::UpdatePlayerExp(float NewExp)
+void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 {
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;
 
-	FStatChangeSpec spec;
+	FStatChangeSpec<int32> spec;
 	spec.ChangedStat = statSet->GetExpStat();
 	spec.NewValue = NewExp;
 
 	statSet->ApplyChangeStat(spec);
+}
+
+bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
+{
+	//TODO: Send to Server
+	//RLR_LOG(LogRLR, Log, TEXT("MoveTo: %s"), *MoveResult.TargetTransform.ToString());
+
+	return true;
+}
+
+void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
+{
+	if (!PlayerCharacter)
+	{
+		ARLRPlayerCharacter* player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+		if (player)
+		{
+			PlayerCharacter = player;
+		}
+	}
+
+	PlayerCharacter->UpdateTransform(NewTransform);
 }
 
 UStatSetPlayer* UPlayerManager::GetStatSet()

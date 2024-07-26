@@ -4,20 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include <NiagaraFunctionLibrary.h>
-#include "EnhancedInputComponent.h"
-#include <EnhancedInputSubsystems.h>
-#include "Player/PlayerCommands.h"
-#include "../Chat/GameClient.h"
-#include <Blueprint/AIBlueprintHelperLibrary.h>
-#include "Skill/Skill_Explosion.h"
+//#include "../Chat/GameClient.h"
 #include "GameplayTagContainer.h"
 #include "UserController.generated.h"
 
 class ARLRPlayerCharacter;
-/**
- *
- */
+class UPlayerManager;
+class UNiagaraSystem;
+class APlayerCommands;
+class UInputMappingContext;
+
 UCLASS()
 class RLR_API AUserController : public APlayerController
 {
@@ -51,25 +47,28 @@ private:
 	void OnConsumeItem(int inputID);
 	void OnOpenUI(int inputID);
 
-
 	UPROPERTY(EditAnywhere, Category = Input);
-	UNiagaraSystem* Cursor;
+	TObjectPtr<UNiagaraSystem> Cursor;
 
-	ARLRPlayerCharacter* Player;
+	UPROPERTY(VisibleAnywhere, Category = Character);
+	TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* CurrentContext;
 	
 	UPROPERTY(VisibleAnywhere, Category = Input);
-	APlayerCommands* Commands;
+	TObjectPtr<APlayerCommands> Commands;
 
 	UPROPERTY(EditAnywhere, Category = Input);
-	UClass* CommandClass;
+	TSubclassOf<APlayerCommands> CommandClass;
 
-	void AssignPlayerSeq();
+	//void AssignPlayerSeq();
+
+	//UPROPERTY()
+	//AGameClient* GameClient;
 
 	UPROPERTY()
-	AGameClient* GameClient;
+	TObjectPtr<UPlayerManager> PlayerManager;
 
 	float deltaTime;
 	float pressTime;

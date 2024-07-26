@@ -10,7 +10,7 @@
  * 
  */
 
- #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
+#define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
 
@@ -797,6 +797,12 @@ struct FUserCharacter
 	int32 PlayerSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MapId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -830,4 +836,31 @@ struct FUserCharacter
 
 	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
 	void SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FMoveResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MapId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector TargetTransform;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FExpTable : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MaxExp;
 };

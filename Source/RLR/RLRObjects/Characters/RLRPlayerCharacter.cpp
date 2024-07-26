@@ -8,6 +8,7 @@
 #include "GameManager/MonsterManager.h"
 #include "GameManager/PlayerManager.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "RLR.h"
 
 // Sets default values
 ARLRPlayerCharacter::ARLRPlayerCharacter():
@@ -60,8 +61,6 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-
 }
 
 // Check Collision Over lap
@@ -188,4 +187,10 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 
 	statSet->SetStatData(Stat);
 	statSet->UpdateStat();
+}
+
+void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
+{
+	//플레이어 위치 설정
+	SetActorLocation(NewTransform);
 }

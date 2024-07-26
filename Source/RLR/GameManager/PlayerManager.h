@@ -17,13 +17,16 @@ class RLR_API UPlayerManager : public UGameInstanceSubsystem
 public:
 	UPlayerManager();
 
-    UFUNCTION()
     void SetPlayerData(FUserCharacter PlayerData);
 
     //UpdateStat
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);
     void UpdatePlayerSetStatus(const FSetStatus& NewSetStatus);
-    void UpdatePlayerExp(float NewExp);
+    void UpdatePlayerExp(int32 NewExp);
+
+    //이동
+    bool RequestMove(const FMoveResult& MoveResult);
+    void UpdatePlayerTransform(const FVector& NewTransform);
 
 private:
     UPROPERTY()
