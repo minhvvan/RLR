@@ -31,6 +31,7 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 
 	statSet->OnChangedTotalStatus.AddDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
 	statSet->OnChangedSetStatus.AddDynamic(this, &UInGameMainUI::OnChangedSetStatus);
+	statSet->OnChangedLevel.AddDynamic(this, &UInGameMainUI::OnChangedLevel);
 	statSet->OnChangedExp.AddDynamic(this, &UInGameMainUI::OnChangedExp);
 }
 
@@ -92,10 +93,16 @@ void UInGameMainUI::OnChangedExp()
 	if (!StatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
-	float newExp = statSet->GetExp();
-	float maxExp = 100.f;
+	int32 newExp = statSet->GetExp();
+	StatusDisplayUI->UpdateExp(newExp);
+}
 
-	//TODO: Exp Max값 필요
-	float percent = FMath::Clamp(newExp / maxExp, 0.f, 1.f);
-	StatusDisplayUI->UpdateExp(percent);
+void UInGameMainUI::OnChangedLevel()
+{
+	if (!ActionSystemComponent) return;
+	if (!StatusDisplayUI) return;
+
+	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
+	int32 newLevel = statSet->GetLevel();
+	StatusDisplayUI->UpdateLevel(newLevel);
 }

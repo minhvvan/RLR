@@ -30,7 +30,12 @@ void UStatusDisplay::UpdateMpGlobe(float NewPercent)
 	MPGlobe->SetGlobePercent(NewPercent);
 }
 
-void UStatusDisplay::UpdateExp(float NewPercent)
+void UStatusDisplay::UpdateLevel(int32 NewLevel)
 {
-	ExpProgressBar->SetExpPercent(NewPercent);
+	ExpProgressBar->UpdateMaxExp(NewLevel);
+}
+
+void UStatusDisplay::UpdateExp(int32 NewExp)
+{
+	ExpProgressBar->UpdateExp(NewExp);
 }

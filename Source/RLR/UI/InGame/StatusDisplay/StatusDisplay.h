@@ -51,5 +51,6 @@ public:
 
 	void UpdateHpGlobe(float NewPercent);
 	void UpdateMpGlobe(float NewPercent);
-	void UpdateExp(float NewPercent);
+	void UpdateLevel(int32 NewLevel);
+	void UpdateExp(int32 NewExp);
 };
