@@ -7,12 +7,12 @@
 #include "GameManager.generated.h"
 
 /**
- 
+
  GameManager에 다른 매니저를 붙일 때는 UGameInstanceSubsystem 상속 받는 매니저로 생성할 것을 추천
 
 	GameManager.
 		DataManager
-			아이템 데이터. 
+			아이템 데이터.
 			스킬 데이터
 			데이터 관련된 정보를 들고 있을 매니저.
 		InventoryManager
@@ -30,52 +30,51 @@
  */
 
 
- class UDataManager;
- class UUIManager;
- class UInventoryManager;
- class USkillManager;
- class UGameOptionData;
- class UNetworkManager;
- class UMonsterManager;
- class UOtherUserManager;
- class UPlayerManager;
+class UDataManager;
+class UUIManager;
+class UInventoryManager;
+class USkillManager;
+class UGameOptionData;
+class UNetworkManager;
+class UMonsterManager;
+class UOtherUserManager;
+class UPlayerManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
 {
 	GENERATED_BODY()
-	
+
 public:
-	
+
 	virtual void Init() override;
 
 	UFUNCTION(BlueprintCallable)
-	UDataManager*		GetDataManager();
+	UDataManager* GetDataManager();
 
 	UFUNCTION(BlueprintCallable)
-	UUIManager*			GetUIManager();
+	UUIManager* GetUIManager();
 
 	UFUNCTION(BlueprintCallable)
-	UInventoryManager*	GetInventoryManager();
+	UInventoryManager* GetInventoryManager();
 
 	UFUNCTION(BlueprintCallable)
-	USkillManager*		GetSkillManager();
+	USkillManager* GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager*	GetNetworkManager();	
-	
-	UFUNCTION(BlueprintCallable)
-	UMonsterManager*	GetMonsterManager();
+	UNetworkManager* GetNetworkManager();
 
 	UFUNCTION(BlueprintCallable)
-	UOtherUserManager*	GetOtherUserManager();
+	UMonsterManager* GetMonsterManager();
 
 	UFUNCTION(BlueprintCallable)
-	UPlayerManager*		GetPlayerManager();
-
+	UOtherUserManager* GetOtherUserManager();
 
 	UFUNCTION(BlueprintCallable)
-	UGameOptionData*		GetGameOptionData();
+	UPlayerManager* GetPlayerManager();
+
+	UFUNCTION(BlueprintCallable)
+	UGameOptionData* GetGameOptionData();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
