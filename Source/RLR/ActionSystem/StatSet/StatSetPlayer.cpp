@@ -3,6 +3,14 @@
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 
+void UStatSetPlayer::UpdateStat()
+{
+	UpdateLevel(GetLevel());
+	UpdateExp(GetExp());
+	UpdateTotalStatus(GetTotalStatus());
+	UpdateSetStatus(GetSetStatus());
+}
+
 void UStatSetPlayer::UpdateLevel(int32 NewLevel)
 {
 	SetLevel(NewLevel);

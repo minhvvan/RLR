@@ -5,60 +5,32 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/PlayerManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "GameManager/RLRStruct.h"
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
-#include "RLR.h"
-#include "GameManager/GameplayTagManager.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "NiagaraFunctionLibrary.h"
+#include "Player/PlayerCommands.h"
+#include "EnhancedInputComponent.h"
+#include "RLR.h"
 
-AUserController::AUserController()
+AUserController::AUserController():
+	movePacketInterval(1.f),
+	timeSinceLastMovePacket(1.f),
+	lastSentPosition(FVector::ZeroVector)
 {
     PrimaryActorTick.bCanEverTick = true;
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
-
-    movePacketInterval = 10.0f; // 10000ms마다 이동 패킷 전송
-    timeSinceLastMovePacket = 0.0f;
-    lastSentPosition = FVector::ZeroVector;
 }
 
 void AUserController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	APawn* ControlledPawn = GetPawn();
-	Player = Cast<ARLRPlayerCharacter>(ControlledPawn);
-	Player->SetController();
-	if (Player)
-	{
-		AssignPlayerSeq(); // Assign player sequence ID
-	}
-
-	if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-	{
-		system->AddMappingContext(CurrentContext, 0);
-	}
-
-    TArray<AActor*> FoundActors;
-    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGameClient::StaticClass(), FoundActors);
-    lastSentPosition = Player->GetActorLocation();
-    if (FoundActors.Num() > 0)
-
-    {
-        GameClient = Cast<AGameClient>(FoundActors[0]);
-        if (GameClient)
-        {
-            UE_LOG(LogTemp, Log, TEXT("GameClient 객체를 찾았습니다."));
-        }
-        else
-        {
-            UE_LOG(LogTemp, Error, TEXT("GameClient 객체를 찾지 못했습니다."));
-        }
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("ARLRPlayerCharacter 클래스를 가진 객체가 없습니다."));
-    }
+	PlayerManager = GameInstance->GetPlayerManager();
 }
 
 void AUserController::OnPossess(APawn* InPawn)
@@ -75,50 +47,60 @@ void AUserController::OnPossess(APawn* InPawn)
 	if (!HUD) return;
 
 	UIManager->OpenMainUI(HUD->MainUIClass);
+
+	//Set PlayerCharacter
+	PlayerCharacter = Cast<ARLRPlayerCharacter>(InPawn);
 }
 
 void AUserController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-    if (pressTime >= 1.f)
+
+	if (!PlayerManager || !Player) return;
+
+	if (pressTime >= 1.f)
     {
         OnCursorEffect();
         pressTime = 0.f;
-
     }
-    /*if (!GameClient || !Player) return;
 
     timeSinceLastMovePacket += DeltaTime;
-
     if (timeSinceLastMovePacket >= movePacketInterval)
     {
-        FVector CurrentPosition = Player->GetActorLocation();
+        FVector CurrentPosition = PlayerCharacter->GetActorLocation();
 
         if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
         {
-            GameClient->SendMovePacket(Player->GetPlayerSeq(), CurrentPosition.X, CurrentPosition.Y);
-            GameClient->SendInventoryPacket(Player->GetPlayerSeq());
-            lastSentPosition = CurrentPosition;
+			UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+			if (!ASC) return;
+
+			UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+			if (!statSet) return;
+
+			FMoveResult moveResult;
+			moveResult.UserSeq = statSet->GetUserSeq();
+			moveResult.MapId = statSet->GetMapId();
+			moveResult.ChannelId = statSet->GetChannelId();
+			moveResult.TargetTransform = CurrentPosition;
+
+			if (PlayerManager->RequestMove(moveResult))
+			{
+				lastSentPosition = CurrentPosition;
+			}
         }
 
         timeSinceLastMovePacket = 0.0f;
-    }*/
-}
-
-void AUserController::AssignPlayerSeq()
-{
-	static int32 NextPlayerSeq = 1; // Static variable to keep track of the next ID
-
-	if (Player)
-	{
-		Player->SetPlayerSeq(NextPlayerSeq);
-		NextPlayerSeq = (NextPlayerSeq == 1) ? 2 : 1; // Alternate between 1 and 2
-	}
+    }
 }
 
 void AUserController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+
+	if (UEnhancedInputLocalPlayerSubsystem* system = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		system->AddMappingContext(CurrentContext, 0);
+	}
 
 	InitBinding();
 }
@@ -157,7 +139,7 @@ void AUserController::OnMove()
 	if (IsMove())
 	{
 		deltaTime += GetWorld()->GetDeltaSeconds();
-		Player->SetMovement(GetClickPosition());
+		PlayerCharacter->SetMovement(GetClickPosition());
 	}
 }
 
@@ -167,9 +149,7 @@ void AUserController::OnMoveCompleted()
 	{
 		if (deltaTime <= 0.3f)
 		{
-
-			Player->SetSimpleMove(this, GetClickPosition());
-
+			PlayerCharacter->SetSimpleMove(this, GetClickPosition());
 		}
 		deltaTime = 0.f;
 	}
@@ -189,7 +169,7 @@ FVector AUserController::GetClickPosition()
 
 void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 {
-	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
 	//Active Skill Check
@@ -238,7 +218,7 @@ void AUserController::OnOpenUI(int inputID)
 
 bool AUserController::IsMove()
 {
-	if (Player->GetCharacterMovement()->MovementMode == MOVE_Walking)
+	if (PlayerCharacter->GetCharacterMovement()->MovementMode == MOVE_Walking)
 	{
 		return true;
 	}

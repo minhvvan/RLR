@@ -30,7 +30,7 @@ public:
 	void ToggleShowDetailStatUI();
 
 	UFUNCTION(BlueprintCallable)
-	void RefreshStatUI(FTotalStatus NewStatus);
+	void RefreshStatUI(const FTotalStatus& NewStatus);
 
 public:
 

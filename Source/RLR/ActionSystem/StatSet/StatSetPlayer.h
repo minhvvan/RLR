@@ -23,6 +23,8 @@ public:
 	ALL_STAT_SETTER(FUserCharacter);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MapId, int64);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, ChannelId, int64);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Name, FString);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Level, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NobilityRank, int32);
@@ -45,15 +47,21 @@ public:
         {
             UpdateExp(ChangeSpec.NewValue);
         }
-        else if (ChangeSpec.ChangedStat == GetTotalStatusStat())
-        {
-            UpdateTotalStatus(ChangeSpec.NewValue);
-        }
-        else if (ChangeSpec.ChangedStat == GetSetStatusStat())
-        {
-            UpdateSetStatus(ChangeSpec.NewValue);
-        }
     };
+
+    template<>
+    void ApplyChangeStat(FStatChangeSpec<FTotalStatus>& ChangeSpec)
+    {
+        UpdateTotalStatus(ChangeSpec.NewValue);
+    }
+
+    template<>
+    void ApplyChangeStat(FStatChangeSpec<FSetStatus>& ChangeSpec)
+    {
+        UpdateSetStatus(ChangeSpec.NewValue);
+    }
+
+    void UpdateStat();
 
     //Delegates
     FOnChangedLevel         OnChangedLevel;

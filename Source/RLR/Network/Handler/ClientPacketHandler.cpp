@@ -61,6 +61,7 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Status
     UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
     UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
 
+    //TODO: PlayerManager->SetPlayerData 사용
     UUIManager* UIManager= GameInstance->GetUIManager();
 
    if (IsValid(UIManager) == false)

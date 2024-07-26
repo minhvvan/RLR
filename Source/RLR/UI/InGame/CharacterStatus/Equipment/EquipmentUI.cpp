@@ -6,6 +6,7 @@
 #include "Components/Button.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
+#include "RLR.h"
 
 void UEquipmentUI::NativeConstruct()
 {
@@ -118,7 +119,7 @@ void UEquipmentUI::ToggleShowDetailStatUI()
 	}
 }
 
-void UEquipmentUI::RefreshStatUI(FTotalStatus NewStatus)
+void UEquipmentUI::RefreshStatUI(const FTotalStatus& NewStatus)
 {
 	HPStatText->SetText(FText::FromString(FString::SanitizeFloat(NewStatus.MAX_HP)));
 	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));
