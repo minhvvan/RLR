@@ -29,15 +29,15 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 	
-	UFUNCTION()
-	void SetPlayerInfo(FUserCharacter NewPlayerInfo);
+	//UFUNCTION()
+	//void SetPlayerInfo(FUserCharacter NewPlayerInfo);
+
+	void UpdateTotalStat(const FTotalStatus& NewTotalStat);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UEquipmentUI> EquipmentUI;
 
 public:
-
-	FUserCharacter PlayerInfo;
-
+	FTotalStatus TotalStat;
 };

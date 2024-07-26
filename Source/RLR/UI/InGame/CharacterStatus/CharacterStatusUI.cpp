@@ -13,15 +13,13 @@ void UCharacterStatusUI::NativeConstruct()
 	SetUIType(EUIType::CHARACTERSTAT);
 
 
-	GameInstance->GetUIManager()->UpdatedPlayerInfo.AddDynamic(this, &UCharacterStatusUI::SetPlayerInfo);
+	//GameInstance->GetUIManager()->UpdatedPlayerInfo.AddDynamic(this, &UCharacterStatusUI::SetPlayerInfo);
 }
 
 void UCharacterStatusUI::RefreshUI()
 {
 
-	FTotalStatus PlayerStatus;
-	PlayerStatus.MakeStatus(PlayerInfo.UserCharacterData.totalstatus());
-	EquipmentUI->RefreshStatUI(PlayerStatus);
+	EquipmentUI->RefreshStatUI(TotalStat);
 
 	/*
 		나중에 다른 탭들이 추가되면 추가로 RefreshUI를 해준다`.
@@ -29,8 +27,15 @@ void UCharacterStatusUI::RefreshUI()
 
 }
 
-void UCharacterStatusUI::SetPlayerInfo(FUserCharacter NewPlayerInfo)
+//TODO: 필요하면 살리기
+//void UCharacterStatusUI::SetPlayerInfo(FUserCharacter NewPlayerInfo)
+//{
+	//PlayerInfo = NewPlayerInfo;
+	//RefreshUI();
+//}
+
+void UCharacterStatusUI::UpdateTotalStat(const FTotalStatus& NewTotalStat)
 {
-	PlayerInfo = NewPlayerInfo;
+	TotalStat = NewTotalStat;
 	RefreshUI();
 }

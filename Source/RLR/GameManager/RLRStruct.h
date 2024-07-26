@@ -11,7 +11,7 @@
  * 
  */
 
- #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
+#define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
 
@@ -227,17 +227,17 @@ struct FTotalStatus
 
 	FString ToString() const
 	{
-		FString ItemString;
+		FString StatString;
 
-		auto AppendStat = [&ItemString](const FString& StatName, float StatValue)
+		auto AppendStat = [&StatString](const FString& StatName, float StatValue)
 			{
-				if (StatValue != 0)
+				if (StatValue != 0.f)
 				{
-					if (!ItemString.IsEmpty())
+					if (!StatString.IsEmpty())
 					{
-						ItemString.Append(TEXT("\n"));
+						StatString.Append(TEXT(" "));
 					}
-					ItemString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+					StatString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
 				}
 			};
 
@@ -260,7 +260,7 @@ struct FTotalStatus
 		AppendStat(TEXT("AVOID"), AVOID);
 		AppendStat(TEXT("COOLDOWN_REDUCTION"), COOLDOWN_REDUCTION);
 
-		return ItemString;
+		return StatString;
 	}
 };
 
@@ -800,6 +800,12 @@ struct FUserCharacter
 	int32 PlayerSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MapId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -833,4 +839,31 @@ struct FUserCharacter
 
 	Protocol::UserCharacter&	GetUserCharacterData(){return UserCharacterData;}
 	void SetUserChracterData(Protocol::UserCharacter Value) {UserCharacterData = Value;}
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FMoveResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MapId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector TargetTransform;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FExpTable : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MaxExp;
 };

@@ -31,7 +31,6 @@ class RLR_API UInGameMainUI : public UMainUI
 
 
 public:
-
 	virtual void NativeConstruct() override;
 
 	UFUNCTION(BlueprintCallable)
@@ -40,8 +39,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
 
-public:
+	void SetActionSystemComponent(AActor* Owner) override;
 
+public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UChatUI> ChatUI;
 
@@ -72,4 +72,17 @@ public:
 public:
 	virtual bool ToggleSubUI(int inputID);
 	virtual class USubUI* GetSubUI(int inputID);
+
+protected:
+	UFUNCTION()
+	void OnChangedTotalStatus();
+
+	UFUNCTION()
+	void OnChangedSetStatus();	
+	
+	UFUNCTION()
+	void OnChangedExp();
+
+	UFUNCTION()
+	void OnChangedLevel();
 };

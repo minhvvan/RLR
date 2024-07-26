@@ -4,6 +4,7 @@
 #include "UI/BaseUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "ActionSystem/ActionSystemInterface.h"
 
 void UBaseUI::NativeConstruct()
 {
@@ -12,6 +13,17 @@ void UBaseUI::NativeConstruct()
 
 void UBaseUI::CloseUI()
 {
+}
+
+void UBaseUI::SetActionSystemComponent(AActor* Owner)
+{
+	IActionSystemInterface* ASCInterface = Cast<IActionSystemInterface>(Owner);
+	if (!ASCInterface) return;
+
+	UActionSystemComponent* ASC = ASCInterface->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ActionSystemComponent = ASC;
 }
 
 UUIManager* UBaseUI::GetUIManager()

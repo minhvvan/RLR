@@ -26,7 +26,6 @@ bool Handle_INVALID(TSharedPtr<PacketSession>& session, BYTE* buffer, int32 len)
     return false;
 }
 
-
 void ClientPacketHandler::Init()
 {
     for (int32 i = 0; i < UINT16_MAX; i++)
@@ -107,7 +106,6 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::ChannelResponsePacket>(&Handle_CHANNEL_RESPONSE, session, buffer, len);
         };
-    
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

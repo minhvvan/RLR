@@ -5,8 +5,6 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
-#include "ActionSystem/StatSet/StatSetMonster.h"
-#include "ActionSystem/ActionSystemComponent.h"
 #include "MonsterManager.generated.h"
 
 /**
