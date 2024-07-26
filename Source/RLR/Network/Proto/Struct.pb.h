@@ -30,6 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "Enum.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_Struct_2eproto
@@ -66,6 +67,12 @@ extern PlayerDefaultTypeInternal _Player_default_instance_;
 class Skill;
 struct SkillDefaultTypeInternal;
 extern SkillDefaultTypeInternal _Skill_default_instance_;
+class SkillActive;
+struct SkillActiveDefaultTypeInternal;
+extern SkillActiveDefaultTypeInternal _SkillActive_default_instance_;
+class SkillInfo;
+struct SkillInfoDefaultTypeInternal;
+extern SkillInfoDefaultTypeInternal _SkillInfo_default_instance_;
 class Talent;
 struct TalentDefaultTypeInternal;
 extern TalentDefaultTypeInternal _Talent_default_instance_;
@@ -90,6 +97,8 @@ template<> ::Protocol::Item* Arena::CreateMaybeMessage<::Protocol::Item>(Arena*)
 template<> ::Protocol::Monster* Arena::CreateMaybeMessage<::Protocol::Monster>(Arena*);
 template<> ::Protocol::Player* Arena::CreateMaybeMessage<::Protocol::Player>(Arena*);
 template<> ::Protocol::Skill* Arena::CreateMaybeMessage<::Protocol::Skill>(Arena*);
+template<> ::Protocol::SkillActive* Arena::CreateMaybeMessage<::Protocol::SkillActive>(Arena*);
+template<> ::Protocol::SkillInfo* Arena::CreateMaybeMessage<::Protocol::SkillInfo>(Arena*);
 template<> ::Protocol::Talent* Arena::CreateMaybeMessage<::Protocol::Talent>(Arena*);
 template<> ::Protocol::UserCharacter* Arena::CreateMaybeMessage<::Protocol::UserCharacter>(Arena*);
 template<> ::Protocol::UserPosition* Arena::CreateMaybeMessage<::Protocol::UserPosition>(Arena*);
@@ -2500,13 +2509,36 @@ class Skill final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kTargetSeqFieldNumber = 5,
     kTargetTypeFieldNumber = 6,
     kSkillSeqFieldNumber = 1,
     kLevelFieldNumber = 2,
     kTimestampFieldNumber = 3,
     kUserSeqFieldNumber = 4,
-    kTargetSeqFieldNumber = 5,
+    kSkillIdxFieldNumber = 7,
   };
+  // repeated uint32 targetSeq = 5;
+  int targetseq_size() const;
+  private:
+  int _internal_targetseq_size() const;
+  public:
+  void clear_targetseq();
+  private:
+  uint32_t _internal_targetseq(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      _internal_targetseq() const;
+  void _internal_add_targetseq(uint32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      _internal_mutable_targetseq();
+  public:
+  uint32_t targetseq(int index) const;
+  void set_targetseq(int index, uint32_t value);
+  void add_targetseq(uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+      targetseq() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+      mutable_targetseq();
+
   // string targetType = 6;
   void clear_targettype();
   const std::string& targettype() const;
@@ -2557,13 +2589,13 @@ class Skill final :
   void _internal_set_userseq(uint32_t value);
   public:
 
-  // uint32 targetSeq = 5;
-  void clear_targetseq();
-  uint32_t targetseq() const;
-  void set_targetseq(uint32_t value);
+  // int32 skillIdx = 7;
+  void clear_skillidx();
+  int32_t skillidx() const;
+  void set_skillidx(int32_t value);
   private:
-  uint32_t _internal_targetseq() const;
-  void _internal_set_targetseq(uint32_t value);
+  int32_t _internal_skillidx() const;
+  void _internal_set_skillidx(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.Skill)
@@ -2574,12 +2606,525 @@ class Skill final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t > targetseq_;
+    mutable std::atomic<int> _targetseq_cached_byte_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr targettype_;
     int32_t skillseq_;
     int32_t level_;
     uint64_t timestamp_;
     uint32_t userseq_;
-    uint32_t targetseq_;
+    int32_t skillidx_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SkillInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SkillInfo) */ {
+ public:
+  inline SkillInfo() : SkillInfo(nullptr) {}
+  ~SkillInfo() override;
+  explicit PROTOBUF_CONSTEXPR SkillInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SkillInfo(const SkillInfo& from);
+  SkillInfo(SkillInfo&& from) noexcept
+    : SkillInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline SkillInfo& operator=(const SkillInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SkillInfo& operator=(SkillInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SkillInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SkillInfo* internal_default_instance() {
+    return reinterpret_cast<const SkillInfo*>(
+               &_SkillInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(SkillInfo& a, SkillInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SkillInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SkillInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SkillInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SkillInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SkillInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SkillInfo& from) {
+    SkillInfo::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SkillInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SkillInfo";
+  }
+  protected:
+  explicit SkillInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSkillNameFieldNumber = 3,
+    kSkillTextFieldNumber = 8,
+    kSkilPasiveStatusFieldNumber = 12,
+    kSkillActiveStatusFieldNumber = 13,
+    kSkillSeqFieldNumber = 1,
+    kSkillIdFieldNumber = 2,
+    kSkillLevelFieldNumber = 4,
+    kSkillIdxFieldNumber = 5,
+    kCostFieldNumber = 6,
+    kCoolTimeFieldNumber = 7,
+    kSkillDistanceFieldNumber = 9,
+    kSkillKindFieldNumber = 10,
+    kSkillAbnormalFieldNumber = 11,
+  };
+  // string skillName = 3;
+  void clear_skillname();
+  const std::string& skillname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_skillname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_skillname();
+  PROTOBUF_NODISCARD std::string* release_skillname();
+  void set_allocated_skillname(std::string* skillname);
+  private:
+  const std::string& _internal_skillname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_skillname(const std::string& value);
+  std::string* _internal_mutable_skillname();
+  public:
+
+  // string skillText = 8;
+  void clear_skilltext();
+  const std::string& skilltext() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_skilltext(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_skilltext();
+  PROTOBUF_NODISCARD std::string* release_skilltext();
+  void set_allocated_skilltext(std::string* skilltext);
+  private:
+  const std::string& _internal_skilltext() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_skilltext(const std::string& value);
+  std::string* _internal_mutable_skilltext();
+  public:
+
+  // .Protocol.UserTotalStatus skilPasiveStatus = 12;
+  bool has_skilpasivestatus() const;
+  private:
+  bool _internal_has_skilpasivestatus() const;
+  public:
+  void clear_skilpasivestatus();
+  const ::Protocol::UserTotalStatus& skilpasivestatus() const;
+  PROTOBUF_NODISCARD ::Protocol::UserTotalStatus* release_skilpasivestatus();
+  ::Protocol::UserTotalStatus* mutable_skilpasivestatus();
+  void set_allocated_skilpasivestatus(::Protocol::UserTotalStatus* skilpasivestatus);
+  private:
+  const ::Protocol::UserTotalStatus& _internal_skilpasivestatus() const;
+  ::Protocol::UserTotalStatus* _internal_mutable_skilpasivestatus();
+  public:
+  void unsafe_arena_set_allocated_skilpasivestatus(
+      ::Protocol::UserTotalStatus* skilpasivestatus);
+  ::Protocol::UserTotalStatus* unsafe_arena_release_skilpasivestatus();
+
+  // .Protocol.SkillActive skillActiveStatus = 13;
+  bool has_skillactivestatus() const;
+  private:
+  bool _internal_has_skillactivestatus() const;
+  public:
+  void clear_skillactivestatus();
+  const ::Protocol::SkillActive& skillactivestatus() const;
+  PROTOBUF_NODISCARD ::Protocol::SkillActive* release_skillactivestatus();
+  ::Protocol::SkillActive* mutable_skillactivestatus();
+  void set_allocated_skillactivestatus(::Protocol::SkillActive* skillactivestatus);
+  private:
+  const ::Protocol::SkillActive& _internal_skillactivestatus() const;
+  ::Protocol::SkillActive* _internal_mutable_skillactivestatus();
+  public:
+  void unsafe_arena_set_allocated_skillactivestatus(
+      ::Protocol::SkillActive* skillactivestatus);
+  ::Protocol::SkillActive* unsafe_arena_release_skillactivestatus();
+
+  // int32 skillSeq = 1;
+  void clear_skillseq();
+  int32_t skillseq() const;
+  void set_skillseq(int32_t value);
+  private:
+  int32_t _internal_skillseq() const;
+  void _internal_set_skillseq(int32_t value);
+  public:
+
+  // int32 skillId = 2;
+  void clear_skillid();
+  int32_t skillid() const;
+  void set_skillid(int32_t value);
+  private:
+  int32_t _internal_skillid() const;
+  void _internal_set_skillid(int32_t value);
+  public:
+
+  // int32 skillLevel = 4;
+  void clear_skilllevel();
+  int32_t skilllevel() const;
+  void set_skilllevel(int32_t value);
+  private:
+  int32_t _internal_skilllevel() const;
+  void _internal_set_skilllevel(int32_t value);
+  public:
+
+  // int32 skillIdx = 5;
+  void clear_skillidx();
+  int32_t skillidx() const;
+  void set_skillidx(int32_t value);
+  private:
+  int32_t _internal_skillidx() const;
+  void _internal_set_skillidx(int32_t value);
+  public:
+
+  // int32 Cost = 6;
+  void clear_cost();
+  int32_t cost() const;
+  void set_cost(int32_t value);
+  private:
+  int32_t _internal_cost() const;
+  void _internal_set_cost(int32_t value);
+  public:
+
+  // float CoolTime = 7;
+  void clear_cooltime();
+  float cooltime() const;
+  void set_cooltime(float value);
+  private:
+  float _internal_cooltime() const;
+  void _internal_set_cooltime(float value);
+  public:
+
+  // int32 skillDistance = 9;
+  void clear_skilldistance();
+  int32_t skilldistance() const;
+  void set_skilldistance(int32_t value);
+  private:
+  int32_t _internal_skilldistance() const;
+  void _internal_set_skilldistance(int32_t value);
+  public:
+
+  // int32 skillKind = 10;
+  void clear_skillkind();
+  int32_t skillkind() const;
+  void set_skillkind(int32_t value);
+  private:
+  int32_t _internal_skillkind() const;
+  void _internal_set_skillkind(int32_t value);
+  public:
+
+  // int32 skillAbnormal = 11;
+  void clear_skillabnormal();
+  int32_t skillabnormal() const;
+  void set_skillabnormal(int32_t value);
+  private:
+  int32_t _internal_skillabnormal() const;
+  void _internal_set_skillabnormal(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SkillInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr skillname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr skilltext_;
+    ::Protocol::UserTotalStatus* skilpasivestatus_;
+    ::Protocol::SkillActive* skillactivestatus_;
+    int32_t skillseq_;
+    int32_t skillid_;
+    int32_t skilllevel_;
+    int32_t skillidx_;
+    int32_t cost_;
+    float cooltime_;
+    int32_t skilldistance_;
+    int32_t skillkind_;
+    int32_t skillabnormal_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SkillActive final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SkillActive) */ {
+ public:
+  inline SkillActive() : SkillActive(nullptr) {}
+  ~SkillActive() override;
+  explicit PROTOBUF_CONSTEXPR SkillActive(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SkillActive(const SkillActive& from);
+  SkillActive(SkillActive&& from) noexcept
+    : SkillActive() {
+    *this = ::std::move(from);
+  }
+
+  inline SkillActive& operator=(const SkillActive& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SkillActive& operator=(SkillActive&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SkillActive& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SkillActive* internal_default_instance() {
+    return reinterpret_cast<const SkillActive*>(
+               &_SkillActive_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(SkillActive& a, SkillActive& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SkillActive* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SkillActive* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SkillActive* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SkillActive>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SkillActive& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SkillActive& from) {
+    SkillActive::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SkillActive* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SkillActive";
+  }
+  protected:
+  explicit SkillActive(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSkillDamageFieldNumber = 1,
+    kSkillMpFieldNumber = 2,
+    kSkillCastingFieldNumber = 3,
+    kSkillDurationFieldNumber = 4,
+    kSkillCoolDownFieldNumber = 5,
+    kSkillTypeFieldNumber = 6,
+  };
+  // int32 skillDamage = 1;
+  void clear_skilldamage();
+  int32_t skilldamage() const;
+  void set_skilldamage(int32_t value);
+  private:
+  int32_t _internal_skilldamage() const;
+  void _internal_set_skilldamage(int32_t value);
+  public:
+
+  // int32 skillMp = 2;
+  void clear_skillmp();
+  int32_t skillmp() const;
+  void set_skillmp(int32_t value);
+  private:
+  int32_t _internal_skillmp() const;
+  void _internal_set_skillmp(int32_t value);
+  public:
+
+  // float skillCasting = 3;
+  void clear_skillcasting();
+  float skillcasting() const;
+  void set_skillcasting(float value);
+  private:
+  float _internal_skillcasting() const;
+  void _internal_set_skillcasting(float value);
+  public:
+
+  // float skillDuration = 4;
+  void clear_skillduration();
+  float skillduration() const;
+  void set_skillduration(float value);
+  private:
+  float _internal_skillduration() const;
+  void _internal_set_skillduration(float value);
+  public:
+
+  // float skillCoolDown = 5;
+  void clear_skillcooldown();
+  float skillcooldown() const;
+  void set_skillcooldown(float value);
+  private:
+  float _internal_skillcooldown() const;
+  void _internal_set_skillcooldown(float value);
+  public:
+
+  // .Protocol.SkillType skillType = 6;
+  void clear_skilltype();
+  ::Protocol::SkillType skilltype() const;
+  void set_skilltype(::Protocol::SkillType value);
+  private:
+  ::Protocol::SkillType _internal_skilltype() const;
+  void _internal_set_skilltype(::Protocol::SkillType value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SkillActive)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t skilldamage_;
+    int32_t skillmp_;
+    float skillcasting_;
+    float skillduration_;
+    float skillcooldown_;
+    int skilltype_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2635,7 +3180,7 @@ class Monster final :
                &_Monster_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(Monster& a, Monster& b) {
     a.Swap(&b);
@@ -2920,7 +3465,7 @@ class Talent final :
                &_Talent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(Talent& a, Talent& b) {
     a.Swap(&b);
@@ -5591,24 +6136,51 @@ inline void Skill::set_userseq(uint32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Skill.userSeq)
 }
 
-// uint32 targetSeq = 5;
-inline void Skill::clear_targetseq() {
-  _impl_.targetseq_ = 0u;
+// repeated uint32 targetSeq = 5;
+inline int Skill::_internal_targetseq_size() const {
+  return _impl_.targetseq_.size();
 }
-inline uint32_t Skill::_internal_targetseq() const {
+inline int Skill::targetseq_size() const {
+  return _internal_targetseq_size();
+}
+inline void Skill::clear_targetseq() {
+  _impl_.targetseq_.Clear();
+}
+inline uint32_t Skill::_internal_targetseq(int index) const {
+  return _impl_.targetseq_.Get(index);
+}
+inline uint32_t Skill::targetseq(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.Skill.targetSeq)
+  return _internal_targetseq(index);
+}
+inline void Skill::set_targetseq(int index, uint32_t value) {
+  _impl_.targetseq_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Protocol.Skill.targetSeq)
+}
+inline void Skill::_internal_add_targetseq(uint32_t value) {
+  _impl_.targetseq_.Add(value);
+}
+inline void Skill::add_targetseq(uint32_t value) {
+  _internal_add_targetseq(value);
+  // @@protoc_insertion_point(field_add:Protocol.Skill.targetSeq)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+Skill::_internal_targetseq() const {
   return _impl_.targetseq_;
 }
-inline uint32_t Skill::targetseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.Skill.targetSeq)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >&
+Skill::targetseq() const {
+  // @@protoc_insertion_point(field_list:Protocol.Skill.targetSeq)
   return _internal_targetseq();
 }
-inline void Skill::_internal_set_targetseq(uint32_t value) {
-  
-  _impl_.targetseq_ = value;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+Skill::_internal_mutable_targetseq() {
+  return &_impl_.targetseq_;
 }
-inline void Skill::set_targetseq(uint32_t value) {
-  _internal_set_targetseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.Skill.targetSeq)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< uint32_t >*
+Skill::mutable_targetseq() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.Skill.targetSeq)
+  return _internal_mutable_targetseq();
 }
 
 // string targetType = 6;
@@ -5659,6 +6231,614 @@ inline void Skill::set_allocated_targettype(std::string* targettype) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:Protocol.Skill.targetType)
+}
+
+// int32 skillIdx = 7;
+inline void Skill::clear_skillidx() {
+  _impl_.skillidx_ = 0;
+}
+inline int32_t Skill::_internal_skillidx() const {
+  return _impl_.skillidx_;
+}
+inline int32_t Skill::skillidx() const {
+  // @@protoc_insertion_point(field_get:Protocol.Skill.skillIdx)
+  return _internal_skillidx();
+}
+inline void Skill::_internal_set_skillidx(int32_t value) {
+  
+  _impl_.skillidx_ = value;
+}
+inline void Skill::set_skillidx(int32_t value) {
+  _internal_set_skillidx(value);
+  // @@protoc_insertion_point(field_set:Protocol.Skill.skillIdx)
+}
+
+// -------------------------------------------------------------------
+
+// SkillInfo
+
+// int32 skillSeq = 1;
+inline void SkillInfo::clear_skillseq() {
+  _impl_.skillseq_ = 0;
+}
+inline int32_t SkillInfo::_internal_skillseq() const {
+  return _impl_.skillseq_;
+}
+inline int32_t SkillInfo::skillseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillSeq)
+  return _internal_skillseq();
+}
+inline void SkillInfo::_internal_set_skillseq(int32_t value) {
+  
+  _impl_.skillseq_ = value;
+}
+inline void SkillInfo::set_skillseq(int32_t value) {
+  _internal_set_skillseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillSeq)
+}
+
+// int32 skillId = 2;
+inline void SkillInfo::clear_skillid() {
+  _impl_.skillid_ = 0;
+}
+inline int32_t SkillInfo::_internal_skillid() const {
+  return _impl_.skillid_;
+}
+inline int32_t SkillInfo::skillid() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillId)
+  return _internal_skillid();
+}
+inline void SkillInfo::_internal_set_skillid(int32_t value) {
+  
+  _impl_.skillid_ = value;
+}
+inline void SkillInfo::set_skillid(int32_t value) {
+  _internal_set_skillid(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillId)
+}
+
+// string skillName = 3;
+inline void SkillInfo::clear_skillname() {
+  _impl_.skillname_.ClearToEmpty();
+}
+inline const std::string& SkillInfo::skillname() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillName)
+  return _internal_skillname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SkillInfo::set_skillname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.skillname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillName)
+}
+inline std::string* SkillInfo::mutable_skillname() {
+  std::string* _s = _internal_mutable_skillname();
+  // @@protoc_insertion_point(field_mutable:Protocol.SkillInfo.skillName)
+  return _s;
+}
+inline const std::string& SkillInfo::_internal_skillname() const {
+  return _impl_.skillname_.Get();
+}
+inline void SkillInfo::_internal_set_skillname(const std::string& value) {
+  
+  _impl_.skillname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SkillInfo::_internal_mutable_skillname() {
+  
+  return _impl_.skillname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SkillInfo::release_skillname() {
+  // @@protoc_insertion_point(field_release:Protocol.SkillInfo.skillName)
+  return _impl_.skillname_.Release();
+}
+inline void SkillInfo::set_allocated_skillname(std::string* skillname) {
+  if (skillname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.skillname_.SetAllocated(skillname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.skillname_.IsDefault()) {
+    _impl_.skillname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SkillInfo.skillName)
+}
+
+// int32 skillLevel = 4;
+inline void SkillInfo::clear_skilllevel() {
+  _impl_.skilllevel_ = 0;
+}
+inline int32_t SkillInfo::_internal_skilllevel() const {
+  return _impl_.skilllevel_;
+}
+inline int32_t SkillInfo::skilllevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillLevel)
+  return _internal_skilllevel();
+}
+inline void SkillInfo::_internal_set_skilllevel(int32_t value) {
+  
+  _impl_.skilllevel_ = value;
+}
+inline void SkillInfo::set_skilllevel(int32_t value) {
+  _internal_set_skilllevel(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillLevel)
+}
+
+// int32 skillIdx = 5;
+inline void SkillInfo::clear_skillidx() {
+  _impl_.skillidx_ = 0;
+}
+inline int32_t SkillInfo::_internal_skillidx() const {
+  return _impl_.skillidx_;
+}
+inline int32_t SkillInfo::skillidx() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillIdx)
+  return _internal_skillidx();
+}
+inline void SkillInfo::_internal_set_skillidx(int32_t value) {
+  
+  _impl_.skillidx_ = value;
+}
+inline void SkillInfo::set_skillidx(int32_t value) {
+  _internal_set_skillidx(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillIdx)
+}
+
+// int32 Cost = 6;
+inline void SkillInfo::clear_cost() {
+  _impl_.cost_ = 0;
+}
+inline int32_t SkillInfo::_internal_cost() const {
+  return _impl_.cost_;
+}
+inline int32_t SkillInfo::cost() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.Cost)
+  return _internal_cost();
+}
+inline void SkillInfo::_internal_set_cost(int32_t value) {
+  
+  _impl_.cost_ = value;
+}
+inline void SkillInfo::set_cost(int32_t value) {
+  _internal_set_cost(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.Cost)
+}
+
+// float CoolTime = 7;
+inline void SkillInfo::clear_cooltime() {
+  _impl_.cooltime_ = 0;
+}
+inline float SkillInfo::_internal_cooltime() const {
+  return _impl_.cooltime_;
+}
+inline float SkillInfo::cooltime() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.CoolTime)
+  return _internal_cooltime();
+}
+inline void SkillInfo::_internal_set_cooltime(float value) {
+  
+  _impl_.cooltime_ = value;
+}
+inline void SkillInfo::set_cooltime(float value) {
+  _internal_set_cooltime(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.CoolTime)
+}
+
+// string skillText = 8;
+inline void SkillInfo::clear_skilltext() {
+  _impl_.skilltext_.ClearToEmpty();
+}
+inline const std::string& SkillInfo::skilltext() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillText)
+  return _internal_skilltext();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SkillInfo::set_skilltext(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.skilltext_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillText)
+}
+inline std::string* SkillInfo::mutable_skilltext() {
+  std::string* _s = _internal_mutable_skilltext();
+  // @@protoc_insertion_point(field_mutable:Protocol.SkillInfo.skillText)
+  return _s;
+}
+inline const std::string& SkillInfo::_internal_skilltext() const {
+  return _impl_.skilltext_.Get();
+}
+inline void SkillInfo::_internal_set_skilltext(const std::string& value) {
+  
+  _impl_.skilltext_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SkillInfo::_internal_mutable_skilltext() {
+  
+  return _impl_.skilltext_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SkillInfo::release_skilltext() {
+  // @@protoc_insertion_point(field_release:Protocol.SkillInfo.skillText)
+  return _impl_.skilltext_.Release();
+}
+inline void SkillInfo::set_allocated_skilltext(std::string* skilltext) {
+  if (skilltext != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.skilltext_.SetAllocated(skilltext, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.skilltext_.IsDefault()) {
+    _impl_.skilltext_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SkillInfo.skillText)
+}
+
+// int32 skillDistance = 9;
+inline void SkillInfo::clear_skilldistance() {
+  _impl_.skilldistance_ = 0;
+}
+inline int32_t SkillInfo::_internal_skilldistance() const {
+  return _impl_.skilldistance_;
+}
+inline int32_t SkillInfo::skilldistance() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillDistance)
+  return _internal_skilldistance();
+}
+inline void SkillInfo::_internal_set_skilldistance(int32_t value) {
+  
+  _impl_.skilldistance_ = value;
+}
+inline void SkillInfo::set_skilldistance(int32_t value) {
+  _internal_set_skilldistance(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillDistance)
+}
+
+// int32 skillKind = 10;
+inline void SkillInfo::clear_skillkind() {
+  _impl_.skillkind_ = 0;
+}
+inline int32_t SkillInfo::_internal_skillkind() const {
+  return _impl_.skillkind_;
+}
+inline int32_t SkillInfo::skillkind() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillKind)
+  return _internal_skillkind();
+}
+inline void SkillInfo::_internal_set_skillkind(int32_t value) {
+  
+  _impl_.skillkind_ = value;
+}
+inline void SkillInfo::set_skillkind(int32_t value) {
+  _internal_set_skillkind(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillKind)
+}
+
+// int32 skillAbnormal = 11;
+inline void SkillInfo::clear_skillabnormal() {
+  _impl_.skillabnormal_ = 0;
+}
+inline int32_t SkillInfo::_internal_skillabnormal() const {
+  return _impl_.skillabnormal_;
+}
+inline int32_t SkillInfo::skillabnormal() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillAbnormal)
+  return _internal_skillabnormal();
+}
+inline void SkillInfo::_internal_set_skillabnormal(int32_t value) {
+  
+  _impl_.skillabnormal_ = value;
+}
+inline void SkillInfo::set_skillabnormal(int32_t value) {
+  _internal_set_skillabnormal(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillInfo.skillAbnormal)
+}
+
+// .Protocol.UserTotalStatus skilPasiveStatus = 12;
+inline bool SkillInfo::_internal_has_skilpasivestatus() const {
+  return this != internal_default_instance() && _impl_.skilpasivestatus_ != nullptr;
+}
+inline bool SkillInfo::has_skilpasivestatus() const {
+  return _internal_has_skilpasivestatus();
+}
+inline void SkillInfo::clear_skilpasivestatus() {
+  if (GetArenaForAllocation() == nullptr && _impl_.skilpasivestatus_ != nullptr) {
+    delete _impl_.skilpasivestatus_;
+  }
+  _impl_.skilpasivestatus_ = nullptr;
+}
+inline const ::Protocol::UserTotalStatus& SkillInfo::_internal_skilpasivestatus() const {
+  const ::Protocol::UserTotalStatus* p = _impl_.skilpasivestatus_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::UserTotalStatus&>(
+      ::Protocol::_UserTotalStatus_default_instance_);
+}
+inline const ::Protocol::UserTotalStatus& SkillInfo::skilpasivestatus() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skilPasiveStatus)
+  return _internal_skilpasivestatus();
+}
+inline void SkillInfo::unsafe_arena_set_allocated_skilpasivestatus(
+    ::Protocol::UserTotalStatus* skilpasivestatus) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.skilpasivestatus_);
+  }
+  _impl_.skilpasivestatus_ = skilpasivestatus;
+  if (skilpasivestatus) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SkillInfo.skilPasiveStatus)
+}
+inline ::Protocol::UserTotalStatus* SkillInfo::release_skilpasivestatus() {
+  
+  ::Protocol::UserTotalStatus* temp = _impl_.skilpasivestatus_;
+  _impl_.skilpasivestatus_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::UserTotalStatus* SkillInfo::unsafe_arena_release_skilpasivestatus() {
+  // @@protoc_insertion_point(field_release:Protocol.SkillInfo.skilPasiveStatus)
+  
+  ::Protocol::UserTotalStatus* temp = _impl_.skilpasivestatus_;
+  _impl_.skilpasivestatus_ = nullptr;
+  return temp;
+}
+inline ::Protocol::UserTotalStatus* SkillInfo::_internal_mutable_skilpasivestatus() {
+  
+  if (_impl_.skilpasivestatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::UserTotalStatus>(GetArenaForAllocation());
+    _impl_.skilpasivestatus_ = p;
+  }
+  return _impl_.skilpasivestatus_;
+}
+inline ::Protocol::UserTotalStatus* SkillInfo::mutable_skilpasivestatus() {
+  ::Protocol::UserTotalStatus* _msg = _internal_mutable_skilpasivestatus();
+  // @@protoc_insertion_point(field_mutable:Protocol.SkillInfo.skilPasiveStatus)
+  return _msg;
+}
+inline void SkillInfo::set_allocated_skilpasivestatus(::Protocol::UserTotalStatus* skilpasivestatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.skilpasivestatus_;
+  }
+  if (skilpasivestatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(skilpasivestatus);
+    if (message_arena != submessage_arena) {
+      skilpasivestatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, skilpasivestatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.skilpasivestatus_ = skilpasivestatus;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SkillInfo.skilPasiveStatus)
+}
+
+// .Protocol.SkillActive skillActiveStatus = 13;
+inline bool SkillInfo::_internal_has_skillactivestatus() const {
+  return this != internal_default_instance() && _impl_.skillactivestatus_ != nullptr;
+}
+inline bool SkillInfo::has_skillactivestatus() const {
+  return _internal_has_skillactivestatus();
+}
+inline void SkillInfo::clear_skillactivestatus() {
+  if (GetArenaForAllocation() == nullptr && _impl_.skillactivestatus_ != nullptr) {
+    delete _impl_.skillactivestatus_;
+  }
+  _impl_.skillactivestatus_ = nullptr;
+}
+inline const ::Protocol::SkillActive& SkillInfo::_internal_skillactivestatus() const {
+  const ::Protocol::SkillActive* p = _impl_.skillactivestatus_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::SkillActive&>(
+      ::Protocol::_SkillActive_default_instance_);
+}
+inline const ::Protocol::SkillActive& SkillInfo::skillactivestatus() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillInfo.skillActiveStatus)
+  return _internal_skillactivestatus();
+}
+inline void SkillInfo::unsafe_arena_set_allocated_skillactivestatus(
+    ::Protocol::SkillActive* skillactivestatus) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.skillactivestatus_);
+  }
+  _impl_.skillactivestatus_ = skillactivestatus;
+  if (skillactivestatus) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SkillInfo.skillActiveStatus)
+}
+inline ::Protocol::SkillActive* SkillInfo::release_skillactivestatus() {
+  
+  ::Protocol::SkillActive* temp = _impl_.skillactivestatus_;
+  _impl_.skillactivestatus_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::SkillActive* SkillInfo::unsafe_arena_release_skillactivestatus() {
+  // @@protoc_insertion_point(field_release:Protocol.SkillInfo.skillActiveStatus)
+  
+  ::Protocol::SkillActive* temp = _impl_.skillactivestatus_;
+  _impl_.skillactivestatus_ = nullptr;
+  return temp;
+}
+inline ::Protocol::SkillActive* SkillInfo::_internal_mutable_skillactivestatus() {
+  
+  if (_impl_.skillactivestatus_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::SkillActive>(GetArenaForAllocation());
+    _impl_.skillactivestatus_ = p;
+  }
+  return _impl_.skillactivestatus_;
+}
+inline ::Protocol::SkillActive* SkillInfo::mutable_skillactivestatus() {
+  ::Protocol::SkillActive* _msg = _internal_mutable_skillactivestatus();
+  // @@protoc_insertion_point(field_mutable:Protocol.SkillInfo.skillActiveStatus)
+  return _msg;
+}
+inline void SkillInfo::set_allocated_skillactivestatus(::Protocol::SkillActive* skillactivestatus) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.skillactivestatus_;
+  }
+  if (skillactivestatus) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(skillactivestatus);
+    if (message_arena != submessage_arena) {
+      skillactivestatus = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, skillactivestatus, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.skillactivestatus_ = skillactivestatus;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SkillInfo.skillActiveStatus)
+}
+
+// -------------------------------------------------------------------
+
+// SkillActive
+
+// int32 skillDamage = 1;
+inline void SkillActive::clear_skilldamage() {
+  _impl_.skilldamage_ = 0;
+}
+inline int32_t SkillActive::_internal_skilldamage() const {
+  return _impl_.skilldamage_;
+}
+inline int32_t SkillActive::skilldamage() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillDamage)
+  return _internal_skilldamage();
+}
+inline void SkillActive::_internal_set_skilldamage(int32_t value) {
+  
+  _impl_.skilldamage_ = value;
+}
+inline void SkillActive::set_skilldamage(int32_t value) {
+  _internal_set_skilldamage(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillDamage)
+}
+
+// int32 skillMp = 2;
+inline void SkillActive::clear_skillmp() {
+  _impl_.skillmp_ = 0;
+}
+inline int32_t SkillActive::_internal_skillmp() const {
+  return _impl_.skillmp_;
+}
+inline int32_t SkillActive::skillmp() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillMp)
+  return _internal_skillmp();
+}
+inline void SkillActive::_internal_set_skillmp(int32_t value) {
+  
+  _impl_.skillmp_ = value;
+}
+inline void SkillActive::set_skillmp(int32_t value) {
+  _internal_set_skillmp(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillMp)
+}
+
+// float skillCasting = 3;
+inline void SkillActive::clear_skillcasting() {
+  _impl_.skillcasting_ = 0;
+}
+inline float SkillActive::_internal_skillcasting() const {
+  return _impl_.skillcasting_;
+}
+inline float SkillActive::skillcasting() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillCasting)
+  return _internal_skillcasting();
+}
+inline void SkillActive::_internal_set_skillcasting(float value) {
+  
+  _impl_.skillcasting_ = value;
+}
+inline void SkillActive::set_skillcasting(float value) {
+  _internal_set_skillcasting(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillCasting)
+}
+
+// float skillDuration = 4;
+inline void SkillActive::clear_skillduration() {
+  _impl_.skillduration_ = 0;
+}
+inline float SkillActive::_internal_skillduration() const {
+  return _impl_.skillduration_;
+}
+inline float SkillActive::skillduration() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillDuration)
+  return _internal_skillduration();
+}
+inline void SkillActive::_internal_set_skillduration(float value) {
+  
+  _impl_.skillduration_ = value;
+}
+inline void SkillActive::set_skillduration(float value) {
+  _internal_set_skillduration(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillDuration)
+}
+
+// float skillCoolDown = 5;
+inline void SkillActive::clear_skillcooldown() {
+  _impl_.skillcooldown_ = 0;
+}
+inline float SkillActive::_internal_skillcooldown() const {
+  return _impl_.skillcooldown_;
+}
+inline float SkillActive::skillcooldown() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillCoolDown)
+  return _internal_skillcooldown();
+}
+inline void SkillActive::_internal_set_skillcooldown(float value) {
+  
+  _impl_.skillcooldown_ = value;
+}
+inline void SkillActive::set_skillcooldown(float value) {
+  _internal_set_skillcooldown(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillCoolDown)
+}
+
+// .Protocol.SkillType skillType = 6;
+inline void SkillActive::clear_skilltype() {
+  _impl_.skilltype_ = 0;
+}
+inline ::Protocol::SkillType SkillActive::_internal_skilltype() const {
+  return static_cast< ::Protocol::SkillType >(_impl_.skilltype_);
+}
+inline ::Protocol::SkillType SkillActive::skilltype() const {
+  // @@protoc_insertion_point(field_get:Protocol.SkillActive.skillType)
+  return _internal_skilltype();
+}
+inline void SkillActive::_internal_set_skilltype(::Protocol::SkillType value) {
+  
+  _impl_.skilltype_ = value;
+}
+inline void SkillActive::set_skilltype(::Protocol::SkillType value) {
+  _internal_set_skilltype(value);
+  // @@protoc_insertion_point(field_set:Protocol.SkillActive.skillType)
 }
 
 // -------------------------------------------------------------------
@@ -6082,6 +7262,10 @@ inline void Talent::set_thirdlevel(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

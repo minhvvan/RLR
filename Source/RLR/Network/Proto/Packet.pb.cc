@@ -231,12 +231,56 @@ struct StatusResponsePacketDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StatusResponsePacketDefaultTypeInternal _StatusResponsePacket_default_instance_;
+PROTOBUF_CONSTEXPR ServerReqeustPacket::ServerReqeustPacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0u
+  , /*decltype(_impl_.playerseq_)*/0u
+  , /*decltype(_impl_.mapid_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ServerReqeustPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ServerReqeustPacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ServerReqeustPacketDefaultTypeInternal() {}
+  union {
+    ServerReqeustPacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ServerReqeustPacketDefaultTypeInternal _ServerReqeustPacket_default_instance_;
+PROTOBUF_CONSTEXPR ChannelRequestPacket::ChannelRequestPacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0u
+  , /*decltype(_impl_.playerseq_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ChannelRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ChannelRequestPacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ChannelRequestPacketDefaultTypeInternal() {}
+  union {
+    ChannelRequestPacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChannelRequestPacketDefaultTypeInternal _ChannelRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR ChannelResponsePacket::ChannelResponsePacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0u
+  , /*decltype(_impl_.channelid_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ChannelResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ChannelResponsePacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ChannelResponsePacketDefaultTypeInternal() {}
+  union {
+    ChannelResponsePacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChannelResponsePacketDefaultTypeInternal _ChannelResponsePacket_default_instance_;
 PROTOBUF_CONSTEXPR MoveRequestPacket::MoveRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0u
   , /*decltype(_impl_.transx_)*/0
   , /*decltype(_impl_.transy_)*/0
   , /*decltype(_impl_.transz_)*/0
+  , /*decltype(_impl_.mapid_)*/uint64_t{0u}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MoveRequestPacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MoveRequestPacketDefaultTypeInternal()
@@ -327,6 +371,36 @@ struct AttackBroadcastPacketDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttackBroadcastPacketDefaultTypeInternal _AttackBroadcastPacket_default_instance_;
+PROTOBUF_CONSTEXPR DamageRequestPacket::DamageRequestPacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.targetseq_)*/{}
+  , /*decltype(_impl_._targetseq_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.damage_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DamageRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DamageRequestPacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DamageRequestPacketDefaultTypeInternal() {}
+  union {
+    DamageRequestPacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DamageRequestPacketDefaultTypeInternal _DamageRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR DamageResponsePacket::DamageResponsePacket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.damage_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DamageResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DamageResponsePacketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DamageResponsePacketDefaultTypeInternal() {}
+  union {
+    DamageResponsePacket _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DamageResponsePacketDefaultTypeInternal _DamageResponsePacket_default_instance_;
 PROTOBUF_CONSTEXPR MonsterAttackRequestPacket::MonsterAttackRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.skill_)*/nullptr
@@ -602,7 +676,7 @@ struct PartyStatusUpdateDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PartyStatusUpdateDefaultTypeInternal _PartyStatusUpdate_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Packet_2eproto[40];
+static ::_pb::Metadata file_level_metadata_Packet_2eproto[45];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Packet_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Packet_2eproto = nullptr;
 
@@ -729,6 +803,31 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::StatusResponsePacket, _impl_.userseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::StatusResponsePacket, _impl_.usercharacter_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ServerReqeustPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ServerReqeustPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ServerReqeustPacket, _impl_.playerseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ServerReqeustPacket, _impl_.mapid_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelRequestPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelRequestPacket, _impl_.playerseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelResponsePacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelResponsePacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::ChannelResponsePacket, _impl_.channelid_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -738,6 +837,7 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transx_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transy_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transz_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.mapid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -788,6 +888,23 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::AttackBroadcastPacket, _impl_.skill_),
   PROTOBUF_FIELD_OFFSET(::Protocol::AttackBroadcastPacket, _impl_.damagedealt_),
   PROTOBUF_FIELD_OFFSET(::Protocol::AttackBroadcastPacket, _impl_.targetkilled_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageRequestPacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageRequestPacket, _impl_.damage_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageRequestPacket, _impl_.targetseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageResponsePacket, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageResponsePacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::DamageResponsePacket, _impl_.damage_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::MonsterAttackRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -965,31 +1082,36 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 95, -1, -1, sizeof(::Protocol::EnterGameResponsePacket)},
   { 106, -1, -1, sizeof(::Protocol::StatusRequestPacket)},
   { 113, -1, -1, sizeof(::Protocol::StatusResponsePacket)},
-  { 121, -1, -1, sizeof(::Protocol::MoveRequestPacket)},
-  { 131, -1, -1, sizeof(::Protocol::MoveResponsePacket)},
-  { 138, -1, -1, sizeof(::Protocol::MoveBroadcastPacket)},
-  { 149, -1, -1, sizeof(::Protocol::AttackRequestPacket)},
-  { 156, -1, -1, sizeof(::Protocol::AttackResponsePacket)},
-  { 172, -1, -1, sizeof(::Protocol::AttackBroadcastPacket)},
-  { 181, -1, -1, sizeof(::Protocol::MonsterAttackRequestPacket)},
-  { 189, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
-  { 201, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
-  { 213, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
-  { 220, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
-  { 231, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
-  { 241, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
-  { 248, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
-  { 257, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
-  { 265, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
-  { 272, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
-  { 280, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
-  { 289, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
-  { 296, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
-  { 304, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
-  { 312, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
-  { 319, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
-  { 326, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
-  { 333, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
+  { 121, -1, -1, sizeof(::Protocol::ServerReqeustPacket)},
+  { 130, -1, -1, sizeof(::Protocol::ChannelRequestPacket)},
+  { 138, -1, -1, sizeof(::Protocol::ChannelResponsePacket)},
+  { 146, -1, -1, sizeof(::Protocol::MoveRequestPacket)},
+  { 157, -1, -1, sizeof(::Protocol::MoveResponsePacket)},
+  { 164, -1, -1, sizeof(::Protocol::MoveBroadcastPacket)},
+  { 175, -1, -1, sizeof(::Protocol::AttackRequestPacket)},
+  { 182, -1, -1, sizeof(::Protocol::AttackResponsePacket)},
+  { 198, -1, -1, sizeof(::Protocol::AttackBroadcastPacket)},
+  { 207, -1, -1, sizeof(::Protocol::DamageRequestPacket)},
+  { 216, -1, -1, sizeof(::Protocol::DamageResponsePacket)},
+  { 224, -1, -1, sizeof(::Protocol::MonsterAttackRequestPacket)},
+  { 232, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
+  { 244, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
+  { 256, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
+  { 263, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
+  { 274, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
+  { 284, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
+  { 291, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
+  { 300, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
+  { 308, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
+  { 315, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
+  { 323, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
+  { 332, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
+  { 339, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
+  { 347, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
+  { 355, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
+  { 362, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
+  { 369, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
+  { 376, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -1008,12 +1130,17 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_EnterGameResponsePacket_default_instance_._instance,
   &::Protocol::_StatusRequestPacket_default_instance_._instance,
   &::Protocol::_StatusResponsePacket_default_instance_._instance,
+  &::Protocol::_ServerReqeustPacket_default_instance_._instance,
+  &::Protocol::_ChannelRequestPacket_default_instance_._instance,
+  &::Protocol::_ChannelResponsePacket_default_instance_._instance,
   &::Protocol::_MoveRequestPacket_default_instance_._instance,
   &::Protocol::_MoveResponsePacket_default_instance_._instance,
   &::Protocol::_MoveBroadcastPacket_default_instance_._instance,
   &::Protocol::_AttackRequestPacket_default_instance_._instance,
   &::Protocol::_AttackResponsePacket_default_instance_._instance,
   &::Protocol::_AttackBroadcastPacket_default_instance_._instance,
+  &::Protocol::_DamageRequestPacket_default_instance_._instance,
+  &::Protocol::_DamageResponsePacket_default_instance_._instance,
   &::Protocol::_MonsterAttackRequestPacket_default_instance_._instance,
   &::Protocol::_MonsterAttackResponsePacket_default_instance_._instance,
   &::Protocol::_MonsterMoveRequestPacket_default_instance_._instance,
@@ -1063,67 +1190,76 @@ const char descriptor_table_protodef_Packet_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "erverPort\030\005 \001(\r\"&\n\023StatusRequestPacket\022\017"
   "\n\007userSeq\030\001 \001(\r\"W\n\024StatusResponsePacket\022"
   "\017\n\007userSeq\030\001 \001(\r\022.\n\ruserCharacter\030\002 \001(\0132"
-  "\027.Protocol.UserCharacter\"T\n\021MoveRequestP"
-  "acket\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006transX\030\002 \001(\002\022\016"
-  "\n\006transY\030\003 \001(\002\022\016\n\006transZ\030\004 \001(\002\"%\n\022MoveRe"
-  "sponsePacket\022\017\n\007success\030\001 \001(\010\"\210\001\n\023MoveBr"
-  "oadcastPacket\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006transX"
-  "\030\002 \001(\002\022\016\n\006transY\030\003 \001(\002\022\016\n\006transZ\030\004 \001(\002\0220"
-  "\n\020allUserPositions\030\005 \003(\0132\026.Protocol.User"
-  "Position\"5\n\023AttackRequestPacket\022\036\n\005skill"
-  "\030\001 \001(\0132\017.Protocol.Skill\"\346\001\n\024AttackRespon"
-  "sePacket\022\017\n\007success\030\001 \001(\010\022\036\n\005skill\030\002 \001(\013"
-  "2\017.Protocol.Skill\022\023\n\013damageDealt\030\003 \001(\005\022\024"
-  "\n\014targetKilled\030\004 \001(\010\022\022\n\nattackerHp\030\005 \001(\005"
-  "\022\022\n\nattackerMp\030\006 \001(\005\022\020\n\010targetHp\030\007 \001(\005\022\020"
-  "\n\010targetMp\030\010 \001(\005\022\024\n\014statusEffect\030\t \001(\t\022\020"
-  "\n\010duration\030\n \001(\004\"b\n\025AttackBroadcastPacke"
-  "t\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill\022\023\n\013dam"
-  "ageDealt\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\"L\n\032"
-  "MonsterAttackRequestPacket\022\036\n\005skill\030\001 \001("
-  "\0132\017.Protocol.Skill\022\016\n\006damage\030\002 \001(\002\"\223\001\n\033M"
-  "onsterAttackResponsePacket\022\017\n\007success\030\001 "
-  "\001(\010\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKilled"
-  "\030\003 \001(\010\022\020\n\010targetHp\030\004 \001(\005\022\024\n\014statusEffect"
-  "\030\005 \001(\t\022\020\n\010duration\030\006 \001(\004\"\200\001\n\030MonsterMove"
-  "RequestPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmon"
+  "\027.Protocol.UserCharacter\"H\n\023ServerReqeus"
+  "tPacket\022\017\n\007userSeq\030\001 \001(\r\022\021\n\tplayerSeq\030\002 "
+  "\001(\r\022\r\n\005mapId\030\003 \001(\r\":\n\024ChannelRequestPack"
+  "et\022\017\n\007userSeq\030\001 \001(\r\022\021\n\tplayerseq\030\002 \001(\r\";"
+  "\n\025ChannelResponsePacket\022\017\n\007userSeq\030\001 \001(\r"
+  "\022\021\n\tchannelId\030\002 \001(\r\"c\n\021MoveRequestPacket"
+  "\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006transX\030\002 \001(\002\022\016\n\006tra"
+  "nsY\030\003 \001(\002\022\016\n\006transZ\030\004 \001(\002\022\r\n\005mapId\030\005 \001(\004"
+  "\"%\n\022MoveResponsePacket\022\017\n\007success\030\001 \001(\010\""
+  "\210\001\n\023MoveBroadcastPacket\022\017\n\007userSeq\030\001 \001(\r"
+  "\022\016\n\006transX\030\002 \001(\002\022\016\n\006transY\030\003 \001(\002\022\016\n\006tran"
+  "sZ\030\004 \001(\002\0220\n\020allUserPositions\030\005 \003(\0132\026.Pro"
+  "tocol.UserPosition\"5\n\023AttackRequestPacke"
+  "t\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill\"\346\001\n\024At"
+  "tackResponsePacket\022\017\n\007success\030\001 \001(\010\022\036\n\005s"
+  "kill\030\002 \001(\0132\017.Protocol.Skill\022\023\n\013damageDea"
+  "lt\030\003 \001(\005\022\024\n\014targetKilled\030\004 \001(\010\022\022\n\nattack"
+  "erHp\030\005 \001(\005\022\022\n\nattackerMp\030\006 \001(\005\022\020\n\010target"
+  "Hp\030\007 \001(\005\022\020\n\010targetMp\030\010 \001(\005\022\024\n\014statusEffe"
+  "ct\030\t \001(\t\022\020\n\010duration\030\n \001(\004\"b\n\025AttackBroa"
+  "dcastPacket\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Sk"
+  "ill\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKilled"
+  "\030\003 \001(\010\"I\n\023DamageRequestPacket\022\017\n\007userSeq"
+  "\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\022\021\n\ttargetSeq\030\003 \003("
+  "\r\"7\n\024DamageResponsePacket\022\017\n\007userSeq\030\001 \001"
+  "(\005\022\016\n\006damage\030\002 \001(\002\"L\n\032MonsterAttackReque"
+  "stPacket\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill"
+  "\022\016\n\006damage\030\002 \001(\002\"\223\001\n\033MonsterAttackRespon"
+  "sePacket\022\017\n\007success\030\001 \001(\010\022\023\n\013damageDealt"
+  "\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\022\020\n\010targetHp"
+  "\030\004 \001(\005\022\024\n\014statusEffect\030\005 \001(\t\022\020\n\010duration"
+  "\030\006 \001(\004\"\200\001\n\030MonsterMoveRequestPacket\022\022\n\nm"
+  "onsterSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006tr"
+  "ansX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001"
+  "(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031MonsterMoveResponse"
+  "Packet\022\017\n\007success\030\001 \001(\010\"s\n\032MonsterMoveBr"
+  "oadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmon"
   "sterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004"
-  " \001(\002\022\016\n\006transZ\030\005 \001(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031M"
-  "onsterMoveResponsePacket\022\017\n\007success\030\001 \001("
-  "\010\"s\n\032MonsterMoveBroadcastPacket\022\022\n\nmonst"
-  "erSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006transX"
-  "\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\"]"
-  "\n\031MonsterStatusUpdatePacket\022\022\n\nmonsterSe"
-  "q\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\022\r"
-  "\n\005mapId\030\004 \001(\003\"4\n!MonsterStatusUpdateResp"
-  "onsePacket\022\017\n\007success\030\001 \001(\010\"Q\n\034MonsterSt"
-  "atusBroadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022"
-  "\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\"O\n\031Monste"
-  "rSpawnRequestPacket\022\r\n\005mapId\030\001 \001(\004\022#\n\010mo"
-  "nsters\030\002 \003(\0132\021.Protocol.Monster\"-\n\032Monst"
-  "erSpawnResponsePacket\022\017\n\007success\030\001 \001(\010\"\?"
-  "\n\033MapMonsterInfoRequestPacket\022\r\n\005mapId\030\001"
-  " \001(\004\022\021\n\tchannelId\030\002 \001(\003\"e\n\034MapMonsterInf"
-  "oResponsePacket\022\r\n\005mapId\030\001 \001(\004\022\021\n\tchanne"
-  "lId\030\002 \001(\003\022#\n\010monsters\030\003 \003(\0132\021.Protocol.M"
-  "onster\"%\n\022CreatePartyRequest\022\017\n\007userseq\030"
-  "\001 \001(\r\"7\n\023CreatePartyResponse\022\017\n\007partyid\030"
-  "\001 \001(\r\022\017\n\007success\030\002 \001(\010\"4\n\020JoinPartyReque"
-  "st\022\017\n\007partyid\030\001 \001(\r\022\017\n\007userseq\030\002 \001(\r\"$\n\021"
-  "JoinPartyResponse\022\017\n\007success\030\001 \001(\010\"$\n\021Le"
-  "avePartyRequest\022\017\n\007userseq\030\001 \001(\r\"%\n\022Leav"
-  "ePartyResponse\022\017\n\007success\030\001 \001(\010\"N\n\021Party"
-  "StatusUpdate\022\017\n\007partyid\030\001 \001(\r\022(\n\007members"
-  "\030\002 \003(\0132\027.Protocol.UserCharacterb\006proto3"
+  " \001(\002\022\016\n\006transZ\030\005 \001(\002\"]\n\031MonsterStatusUpd"
+  "atePacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001("
+  "\002\022\021\n\tmonsterId\030\003 \001(\003\022\r\n\005mapId\030\004 \001(\003\"4\n!M"
+  "onsterStatusUpdateResponsePacket\022\017\n\007succ"
+  "ess\030\001 \001(\010\"Q\n\034MonsterStatusBroadcastPacke"
+  "t\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmon"
+  "sterId\030\003 \001(\003\"O\n\031MonsterSpawnRequestPacke"
+  "t\022\r\n\005mapId\030\001 \001(\004\022#\n\010monsters\030\002 \003(\0132\021.Pro"
+  "tocol.Monster\"-\n\032MonsterSpawnResponsePac"
+  "ket\022\017\n\007success\030\001 \001(\010\"\?\n\033MapMonsterInfoRe"
+  "questPacket\022\r\n\005mapId\030\001 \001(\004\022\021\n\tchannelId\030"
+  "\002 \001(\003\"e\n\034MapMonsterInfoResponsePacket\022\r\n"
+  "\005mapId\030\001 \001(\004\022\021\n\tchannelId\030\002 \001(\003\022#\n\010monst"
+  "ers\030\003 \003(\0132\021.Protocol.Monster\"%\n\022CreatePa"
+  "rtyRequest\022\017\n\007userseq\030\001 \001(\r\"7\n\023CreatePar"
+  "tyResponse\022\017\n\007partyid\030\001 \001(\r\022\017\n\007success\030\002"
+  " \001(\010\"4\n\020JoinPartyRequest\022\017\n\007partyid\030\001 \001("
+  "\r\022\017\n\007userseq\030\002 \001(\r\"$\n\021JoinPartyResponse\022"
+  "\017\n\007success\030\001 \001(\010\"$\n\021LeavePartyRequest\022\017\n"
+  "\007userseq\030\001 \001(\r\"%\n\022LeavePartyResponse\022\017\n\007"
+  "success\030\001 \001(\010\"N\n\021PartyStatusUpdate\022\017\n\007pa"
+  "rtyid\030\001 \001(\r\022(\n\007members\030\002 \003(\0132\027.Protocol."
+  "UserCharacterb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Packet_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Packet_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_2eproto = {
-    false, false, 3159, descriptor_table_protodef_Packet_2eproto,
+    false, false, 3501, descriptor_table_protodef_Packet_2eproto,
     "Packet.proto",
-    &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 40,
+    &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 45,
     schemas, file_default_instances, TableStruct_Packet_2eproto::offsets,
     file_level_metadata_Packet_2eproto, file_level_enum_descriptors_Packet_2eproto,
     file_level_service_descriptors_Packet_2eproto,
@@ -4556,6 +4692,663 @@ void StatusResponsePacket::InternalSwap(StatusResponsePacket* other) {
 
 // ===================================================================
 
+class ServerReqeustPacket::_Internal {
+ public:
+};
+
+ServerReqeustPacket::ServerReqeustPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.ServerReqeustPacket)
+}
+ServerReqeustPacket::ServerReqeustPacket(const ServerReqeustPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ServerReqeustPacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.playerseq_){}
+    , decltype(_impl_.mapid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mapid_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.ServerReqeustPacket)
+}
+
+inline void ServerReqeustPacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0u}
+    , decltype(_impl_.playerseq_){0u}
+    , decltype(_impl_.mapid_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ServerReqeustPacket::~ServerReqeustPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ServerReqeustPacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ServerReqeustPacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ServerReqeustPacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ServerReqeustPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ServerReqeustPacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.mapid_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ServerReqeustPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 playerSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.playerseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 mapId = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ServerReqeustPacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ServerReqeustPacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // uint32 playerSeq = 2;
+  if (this->_internal_playerseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_playerseq(), target);
+  }
+
+  // uint32 mapId = 3;
+  if (this->_internal_mapid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_mapid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ServerReqeustPacket)
+  return target;
+}
+
+size_t ServerReqeustPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ServerReqeustPacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
+  }
+
+  // uint32 playerSeq = 2;
+  if (this->_internal_playerseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_playerseq());
+  }
+
+  // uint32 mapId = 3;
+  if (this->_internal_mapid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_mapid());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ServerReqeustPacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ServerReqeustPacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ServerReqeustPacket::GetClassData() const { return &_class_data_; }
+
+
+void ServerReqeustPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ServerReqeustPacket*>(&to_msg);
+  auto& from = static_cast<const ServerReqeustPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ServerReqeustPacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_playerseq() != 0) {
+    _this->_internal_set_playerseq(from._internal_playerseq());
+  }
+  if (from._internal_mapid() != 0) {
+    _this->_internal_set_mapid(from._internal_mapid());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ServerReqeustPacket::CopyFrom(const ServerReqeustPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ServerReqeustPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerReqeustPacket::IsInitialized() const {
+  return true;
+}
+
+void ServerReqeustPacket::InternalSwap(ServerReqeustPacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ServerReqeustPacket, _impl_.mapid_)
+      + sizeof(ServerReqeustPacket::_impl_.mapid_)
+      - PROTOBUF_FIELD_OFFSET(ServerReqeustPacket, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ServerReqeustPacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[15]);
+}
+
+// ===================================================================
+
+class ChannelRequestPacket::_Internal {
+ public:
+};
+
+ChannelRequestPacket::ChannelRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.ChannelRequestPacket)
+}
+ChannelRequestPacket::ChannelRequestPacket(const ChannelRequestPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ChannelRequestPacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.playerseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.playerseq_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.playerseq_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.ChannelRequestPacket)
+}
+
+inline void ChannelRequestPacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0u}
+    , decltype(_impl_.playerseq_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ChannelRequestPacket::~ChannelRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ChannelRequestPacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ChannelRequestPacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ChannelRequestPacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ChannelRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ChannelRequestPacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.playerseq_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.playerseq_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ChannelRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 playerseq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.playerseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ChannelRequestPacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ChannelRequestPacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // uint32 playerseq = 2;
+  if (this->_internal_playerseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_playerseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ChannelRequestPacket)
+  return target;
+}
+
+size_t ChannelRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ChannelRequestPacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
+  }
+
+  // uint32 playerseq = 2;
+  if (this->_internal_playerseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_playerseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ChannelRequestPacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ChannelRequestPacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ChannelRequestPacket::GetClassData() const { return &_class_data_; }
+
+
+void ChannelRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ChannelRequestPacket*>(&to_msg);
+  auto& from = static_cast<const ChannelRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ChannelRequestPacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_playerseq() != 0) {
+    _this->_internal_set_playerseq(from._internal_playerseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ChannelRequestPacket::CopyFrom(const ChannelRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ChannelRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelRequestPacket::IsInitialized() const {
+  return true;
+}
+
+void ChannelRequestPacket::InternalSwap(ChannelRequestPacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ChannelRequestPacket, _impl_.playerseq_)
+      + sizeof(ChannelRequestPacket::_impl_.playerseq_)
+      - PROTOBUF_FIELD_OFFSET(ChannelRequestPacket, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ChannelRequestPacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[16]);
+}
+
+// ===================================================================
+
+class ChannelResponsePacket::_Internal {
+ public:
+};
+
+ChannelResponsePacket::ChannelResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.ChannelResponsePacket)
+}
+ChannelResponsePacket::ChannelResponsePacket(const ChannelResponsePacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ChannelResponsePacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.channelid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.channelid_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.channelid_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.ChannelResponsePacket)
+}
+
+inline void ChannelResponsePacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0u}
+    , decltype(_impl_.channelid_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+ChannelResponsePacket::~ChannelResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.ChannelResponsePacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ChannelResponsePacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ChannelResponsePacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ChannelResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.ChannelResponsePacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.channelid_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.channelid_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ChannelResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 channelId = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.channelid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ChannelResponsePacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ChannelResponsePacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // uint32 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_channelid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ChannelResponsePacket)
+  return target;
+}
+
+size_t ChannelResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.ChannelResponsePacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
+  }
+
+  // uint32 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_channelid());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ChannelResponsePacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ChannelResponsePacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ChannelResponsePacket::GetClassData() const { return &_class_data_; }
+
+
+void ChannelResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ChannelResponsePacket*>(&to_msg);
+  auto& from = static_cast<const ChannelResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ChannelResponsePacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_channelid() != 0) {
+    _this->_internal_set_channelid(from._internal_channelid());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ChannelResponsePacket::CopyFrom(const ChannelResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ChannelResponsePacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChannelResponsePacket::IsInitialized() const {
+  return true;
+}
+
+void ChannelResponsePacket::InternalSwap(ChannelResponsePacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ChannelResponsePacket, _impl_.channelid_)
+      + sizeof(ChannelResponsePacket::_impl_.channelid_)
+      - PROTOBUF_FIELD_OFFSET(ChannelResponsePacket, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ChannelResponsePacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[17]);
+}
+
+// ===================================================================
+
 class MoveRequestPacket::_Internal {
  public:
 };
@@ -4574,12 +5367,13 @@ MoveRequestPacket::MoveRequestPacket(const MoveRequestPacket& from)
     , decltype(_impl_.transx_){}
     , decltype(_impl_.transy_){}
     , decltype(_impl_.transz_){}
+    , decltype(_impl_.mapid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transz_) -
-    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mapid_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.MoveRequestPacket)
 }
 
@@ -4592,6 +5386,7 @@ inline void MoveRequestPacket::SharedCtor(
     , decltype(_impl_.transx_){0}
     , decltype(_impl_.transy_){0}
     , decltype(_impl_.transz_){0}
+    , decltype(_impl_.mapid_){uint64_t{0u}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -4620,8 +5415,8 @@ void MoveRequestPacket::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.transz_) -
-      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
+      reinterpret_cast<char*>(&_impl_.mapid_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4660,6 +5455,14 @@ const char* MoveRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseCont
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 mapId = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -4728,6 +5531,12 @@ uint8_t* MoveRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transz(), target);
   }
 
+  // uint64 mapId = 5;
+  if (this->_internal_mapid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_mapid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4776,6 +5585,11 @@ size_t MoveRequestPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
+  // uint64 mapId = 5;
+  if (this->_internal_mapid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mapid());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -4818,6 +5632,9 @@ void MoveRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (raw_transz != 0) {
     _this->_internal_set_transz(from._internal_transz());
   }
+  if (from._internal_mapid() != 0) {
+    _this->_internal_set_mapid(from._internal_mapid());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4836,8 +5653,8 @@ void MoveRequestPacket::InternalSwap(MoveRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.transz_)
-      + sizeof(MoveRequestPacket::_impl_.transz_)
+      PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.mapid_)
+      + sizeof(MoveRequestPacket::_impl_.mapid_)
       - PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.userseq_)>(
           reinterpret_cast<char*>(&_impl_.userseq_),
           reinterpret_cast<char*>(&other->_impl_.userseq_));
@@ -4846,7 +5663,7 @@ void MoveRequestPacket::InternalSwap(MoveRequestPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MoveRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[15]);
+      file_level_metadata_Packet_2eproto[18]);
 }
 
 // ===================================================================
@@ -5024,7 +5841,7 @@ void MoveResponsePacket::InternalSwap(MoveResponsePacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MoveResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[16]);
+      file_level_metadata_Packet_2eproto[19]);
 }
 
 // ===================================================================
@@ -5356,7 +6173,7 @@ void MoveBroadcastPacket::InternalSwap(MoveBroadcastPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MoveBroadcastPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[17]);
+      file_level_metadata_Packet_2eproto[20]);
 }
 
 // ===================================================================
@@ -5555,7 +6372,7 @@ void AttackRequestPacket::InternalSwap(AttackRequestPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AttackRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[18]);
+      file_level_metadata_Packet_2eproto[21]);
 }
 
 // ===================================================================
@@ -6009,7 +6826,7 @@ void AttackResponsePacket::InternalSwap(AttackResponsePacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AttackResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[19]);
+      file_level_metadata_Packet_2eproto[22]);
 }
 
 // ===================================================================
@@ -6267,7 +7084,495 @@ void AttackBroadcastPacket::InternalSwap(AttackBroadcastPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AttackBroadcastPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[20]);
+      file_level_metadata_Packet_2eproto[23]);
+}
+
+// ===================================================================
+
+class DamageRequestPacket::_Internal {
+ public:
+};
+
+DamageRequestPacket::DamageRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.DamageRequestPacket)
+}
+DamageRequestPacket::DamageRequestPacket(const DamageRequestPacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  DamageRequestPacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.targetseq_){from._impl_.targetseq_}
+    , /*decltype(_impl_._targetseq_cached_byte_size_)*/{0}
+    , decltype(_impl_.userseq_){}
+    , decltype(_impl_.damage_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.damage_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.damage_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.DamageRequestPacket)
+}
+
+inline void DamageRequestPacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.targetseq_){arena}
+    , /*decltype(_impl_._targetseq_cached_byte_size_)*/{0}
+    , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.damage_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+DamageRequestPacket::~DamageRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.DamageRequestPacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DamageRequestPacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.targetseq_.~RepeatedField();
+}
+
+void DamageRequestPacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DamageRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.DamageRequestPacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.targetseq_.Clear();
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.damage_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.damage_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* DamageRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float damage = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+          _impl_.damage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated uint32 targetSeq = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_targetseq(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 24) {
+          _internal_add_targetseq(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DamageRequestPacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.DamageRequestPacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_damage(), target);
+  }
+
+  // repeated uint32 targetSeq = 3;
+  {
+    int byte_size = _impl_._targetseq_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(
+          3, _internal_targetseq(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.DamageRequestPacket)
+  return target;
+}
+
+size_t DamageRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.DamageRequestPacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint32 targetSeq = 3;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt32Size(this->_impl_.targetseq_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._targetseq_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    total_size += 1 + 4;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DamageRequestPacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    DamageRequestPacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DamageRequestPacket::GetClassData() const { return &_class_data_; }
+
+
+void DamageRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<DamageRequestPacket*>(&to_msg);
+  auto& from = static_cast<const DamageRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.DamageRequestPacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.targetseq_.MergeFrom(from._impl_.targetseq_);
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = from._internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    _this->_internal_set_damage(from._internal_damage());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DamageRequestPacket::CopyFrom(const DamageRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.DamageRequestPacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DamageRequestPacket::IsInitialized() const {
+  return true;
+}
+
+void DamageRequestPacket::InternalSwap(DamageRequestPacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.targetseq_.InternalSwap(&other->_impl_.targetseq_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DamageRequestPacket, _impl_.damage_)
+      + sizeof(DamageRequestPacket::_impl_.damage_)
+      - PROTOBUF_FIELD_OFFSET(DamageRequestPacket, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata DamageRequestPacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[24]);
+}
+
+// ===================================================================
+
+class DamageResponsePacket::_Internal {
+ public:
+};
+
+DamageResponsePacket::DamageResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.DamageResponsePacket)
+}
+DamageResponsePacket::DamageResponsePacket(const DamageResponsePacket& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  DamageResponsePacket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.damage_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.damage_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.damage_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.DamageResponsePacket)
+}
+
+inline void DamageResponsePacket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0}
+    , decltype(_impl_.damage_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+DamageResponsePacket::~DamageResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.DamageResponsePacket)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DamageResponsePacket::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DamageResponsePacket::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DamageResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.DamageResponsePacket)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.damage_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.damage_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* DamageResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float damage = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+          _impl_.damage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DamageResponsePacket::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.DamageResponsePacket)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_damage(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.DamageResponsePacket)
+  return target;
+}
+
+size_t DamageResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.DamageResponsePacket)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  // float damage = 2;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = this->_internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    total_size += 1 + 4;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DamageResponsePacket::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    DamageResponsePacket::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DamageResponsePacket::GetClassData() const { return &_class_data_; }
+
+
+void DamageResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<DamageResponsePacket*>(&to_msg);
+  auto& from = static_cast<const DamageResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.DamageResponsePacket)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_damage = from._internal_damage();
+  uint32_t raw_damage;
+  memcpy(&raw_damage, &tmp_damage, sizeof(tmp_damage));
+  if (raw_damage != 0) {
+    _this->_internal_set_damage(from._internal_damage());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DamageResponsePacket::CopyFrom(const DamageResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.DamageResponsePacket)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DamageResponsePacket::IsInitialized() const {
+  return true;
+}
+
+void DamageResponsePacket::InternalSwap(DamageResponsePacket* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DamageResponsePacket, _impl_.damage_)
+      + sizeof(DamageResponsePacket::_impl_.damage_)
+      - PROTOBUF_FIELD_OFFSET(DamageResponsePacket, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata DamageResponsePacket::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
+      file_level_metadata_Packet_2eproto[25]);
 }
 
 // ===================================================================
@@ -6509,7 +7814,7 @@ void MonsterAttackRequestPacket::InternalSwap(MonsterAttackRequestPacket* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterAttackRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[21]);
+      file_level_metadata_Packet_2eproto[26]);
 }
 
 // ===================================================================
@@ -6844,7 +8149,7 @@ void MonsterAttackResponsePacket::InternalSwap(MonsterAttackResponsePacket* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterAttackResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[22]);
+      file_level_metadata_Packet_2eproto[27]);
 }
 
 // ===================================================================
@@ -7187,7 +8492,7 @@ void MonsterMoveRequestPacket::InternalSwap(MonsterMoveRequestPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterMoveRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[23]);
+      file_level_metadata_Packet_2eproto[28]);
 }
 
 // ===================================================================
@@ -7365,7 +8670,7 @@ void MonsterMoveResponsePacket::InternalSwap(MonsterMoveResponsePacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterMoveResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[24]);
+      file_level_metadata_Packet_2eproto[29]);
 }
 
 // ===================================================================
@@ -7684,7 +8989,7 @@ void MonsterMoveBroadcastPacket::InternalSwap(MonsterMoveBroadcastPacket* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterMoveBroadcastPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[25]);
+      file_level_metadata_Packet_2eproto[30]);
 }
 
 // ===================================================================
@@ -7955,7 +9260,7 @@ void MonsterStatusUpdatePacket::InternalSwap(MonsterStatusUpdatePacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterStatusUpdatePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[26]);
+      file_level_metadata_Packet_2eproto[31]);
 }
 
 // ===================================================================
@@ -8133,7 +9438,7 @@ void MonsterStatusUpdateResponsePacket::InternalSwap(MonsterStatusUpdateResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterStatusUpdateResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[27]);
+      file_level_metadata_Packet_2eproto[32]);
 }
 
 // ===================================================================
@@ -8380,7 +9685,7 @@ void MonsterStatusBroadcastPacket::InternalSwap(MonsterStatusBroadcastPacket* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterStatusBroadcastPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[28]);
+      file_level_metadata_Packet_2eproto[33]);
 }
 
 // ===================================================================
@@ -8595,7 +9900,7 @@ void MonsterSpawnRequestPacket::InternalSwap(MonsterSpawnRequestPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterSpawnRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[29]);
+      file_level_metadata_Packet_2eproto[34]);
 }
 
 // ===================================================================
@@ -8773,7 +10078,7 @@ void MonsterSpawnResponsePacket::InternalSwap(MonsterSpawnResponsePacket* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata MonsterSpawnResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[30]);
+      file_level_metadata_Packet_2eproto[35]);
 }
 
 // ===================================================================
@@ -8984,7 +10289,7 @@ void MapMonsterInfoRequestPacket::InternalSwap(MapMonsterInfoRequestPacket* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata MapMonsterInfoRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[31]);
+      file_level_metadata_Packet_2eproto[36]);
 }
 
 // ===================================================================
@@ -9232,7 +10537,7 @@ void MapMonsterInfoResponsePacket::InternalSwap(MapMonsterInfoResponsePacket* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata MapMonsterInfoResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[32]);
+      file_level_metadata_Packet_2eproto[37]);
 }
 
 // ===================================================================
@@ -9410,7 +10715,7 @@ void CreatePartyRequest::InternalSwap(CreatePartyRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreatePartyRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[33]);
+      file_level_metadata_Packet_2eproto[38]);
 }
 
 // ===================================================================
@@ -9621,7 +10926,7 @@ void CreatePartyResponse::InternalSwap(CreatePartyResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreatePartyResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[34]);
+      file_level_metadata_Packet_2eproto[39]);
 }
 
 // ===================================================================
@@ -9832,7 +11137,7 @@ void JoinPartyRequest::InternalSwap(JoinPartyRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata JoinPartyRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[35]);
+      file_level_metadata_Packet_2eproto[40]);
 }
 
 // ===================================================================
@@ -10010,7 +11315,7 @@ void JoinPartyResponse::InternalSwap(JoinPartyResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata JoinPartyResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[36]);
+      file_level_metadata_Packet_2eproto[41]);
 }
 
 // ===================================================================
@@ -10188,7 +11493,7 @@ void LeavePartyRequest::InternalSwap(LeavePartyRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LeavePartyRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[37]);
+      file_level_metadata_Packet_2eproto[42]);
 }
 
 // ===================================================================
@@ -10366,7 +11671,7 @@ void LeavePartyResponse::InternalSwap(LeavePartyResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LeavePartyResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[38]);
+      file_level_metadata_Packet_2eproto[43]);
 }
 
 // ===================================================================
@@ -10581,7 +11886,7 @@ void PartyStatusUpdate::InternalSwap(PartyStatusUpdate* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PartyStatusUpdate::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_2eproto_getter, &descriptor_table_Packet_2eproto_once,
-      file_level_metadata_Packet_2eproto[39]);
+      file_level_metadata_Packet_2eproto[44]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -10647,6 +11952,18 @@ template<> PROTOBUF_NOINLINE ::Protocol::StatusResponsePacket*
 Arena::CreateMaybeMessage< ::Protocol::StatusResponsePacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::StatusResponsePacket >(arena);
 }
+template<> PROTOBUF_NOINLINE ::Protocol::ServerReqeustPacket*
+Arena::CreateMaybeMessage< ::Protocol::ServerReqeustPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ServerReqeustPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::ChannelRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::ChannelRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ChannelRequestPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::ChannelResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::ChannelResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::ChannelResponsePacket >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Protocol::MoveRequestPacket*
 Arena::CreateMaybeMessage< ::Protocol::MoveRequestPacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::MoveRequestPacket >(arena);
@@ -10670,6 +11987,14 @@ Arena::CreateMaybeMessage< ::Protocol::AttackResponsePacket >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::AttackBroadcastPacket*
 Arena::CreateMaybeMessage< ::Protocol::AttackBroadcastPacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::AttackBroadcastPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::DamageRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::DamageRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::DamageRequestPacket >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::DamageResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::DamageResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::DamageResponsePacket >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::MonsterAttackRequestPacket*
 Arena::CreateMaybeMessage< ::Protocol::MonsterAttackRequestPacket >(Arena* arena) {

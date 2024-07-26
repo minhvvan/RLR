@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include <Network/Proto/Struct.pb.h>
+#include <Network/Proto/Skill.pb.h>
 #include "RLRStruct.generated.h"
 
 /**
@@ -529,6 +530,8 @@ struct FSkillData : public FTableRowBase
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	ESkillType SkillType;
+
+	void MakeSkillData(Protocol::SkillInfo skill);
 };
 
 
