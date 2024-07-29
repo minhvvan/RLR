@@ -140,6 +140,7 @@ void ARLRPlayerController::OnMoveStarted()
 void ARLRPlayerController::OnMove()
 {
 	pressTime += GetWorld()->GetDeltaSeconds();
+	RLR_LOG(LogRLR, Log, TEXT("받고는 있을까?"));
 
 	if (IsMove())
 	{

@@ -35,9 +35,9 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 	statSet->OnChangedExp.AddDynamic(this, &UInGameMainUI::OnChangedExp);
 }
 
-bool UInGameMainUI::ToggleSubUI(int inputID)
+bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
 {
-	USubUI* subUI = GetSubUI(inputID);
+	USubUI* subUI = GetSubUI(inputTag);
 	if (!subUI) return false;
 
 	bool bOpen = subUI->GetVisibility() == ESlateVisibility::Hidden;

@@ -76,8 +76,6 @@ public:
 	TObjectPtr<UKeyOption> KeyOptionUI;
 
 public:
-	virtual bool ToggleSubUI(int inputID);
-	virtual class USubUI* GetSubUI(int inputID);
 
 protected:
 	UFUNCTION()
