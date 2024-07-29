@@ -275,17 +275,17 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
 
     Protocol::MoveRequestPacket packet;
     packet.set_userseq(userSeq);
-    //packet.set_mapid();
-    //packet.set_channelid();  
-    packet.set_transx(vector.X);
-    packet.set_transy(vector.Y);
-    packet.set_transz(vector.Z);
+    packet.set_mapid(mapid);
+    packet.set_channelid(channelid);  
+    packet.set_transx((float)vector.X);
+    packet.set_transy((float)vector.Y);
+    packet.set_transz((float)vector.Z);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool aSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
     bool bSuccess = MonsterServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 
-    if (!bSuccess) {
+    if (!bSuccess && !aSuccess) {
         UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
     }
     else {

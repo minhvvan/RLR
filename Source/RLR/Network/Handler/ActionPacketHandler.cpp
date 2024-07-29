@@ -32,7 +32,6 @@ bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol:
 bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterMoveRequestPacket& pkt)
 {
     // TODO :  몬스터 아이디를 통해 몬스터 매니저에있는 monster Data 중 Search하여 해당 몬스터의 좌표 변경 + 애니메이션 
-
     GameInstance->GetMonsterManager()->UpdateMonsterTransform(pkt.monsterid(), pkt.transx(), pkt.transy(), pkt.transz());
 
     return false;
