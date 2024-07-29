@@ -144,7 +144,7 @@ void ARLRPlayerCharacter::BanInput(bool value)
 // 컨트롤러 이닛
 void ARLRPlayerCharacter::SetController()
 {
-	playerController = Cast<AUserController>(GetWorld()->GetFirstPlayerController());
+	playerController = Cast<ARLRPlayerController>(GetWorld()->GetFirstPlayerController());
 }
 
 void ARLRPlayerCharacter::Tick(float DeltaSeconds)

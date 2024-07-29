@@ -4,7 +4,7 @@
 #include "ActionSystem/Action/ActionAttack.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "User/UserController.h"
+#include "Player/RLRPlayerController.h"
 #include "RLR.h"
 
 UActionAttack::UActionAttack():
@@ -18,7 +18,7 @@ void UActionAttack::ActivateAction()
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
-	AUserController* Controller = Cast<AUserController>(Player->GetController());
+	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
 	if (!Controller) return;
 
 	//Set Actor Orientation

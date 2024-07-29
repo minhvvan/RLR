@@ -17,7 +17,7 @@ void UActionSkill_Area_Meteor::ActivateAction()
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
-	AUserController* Controller = Cast<AUserController>(Player->GetController());
+	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
 	if (!Controller) return;
 
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();

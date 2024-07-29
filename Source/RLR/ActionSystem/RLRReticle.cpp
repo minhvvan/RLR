@@ -2,7 +2,7 @@
 
 
 #include "ActionSystem/RLRReticle.h"
-#include "User/UserController.h"
+#include "Player/RLRPlayerController.h"
 #include "Components/DecalComponent.h"
 
 // Sets default values
@@ -37,7 +37,7 @@ void ARLRReticle::Tick(float DeltaTime)
 	}
 }
 
-void ARLRReticle::InitializeReticle(AUserController* PlayerController, float SkillRadius)
+void ARLRReticle::InitializeReticle(ARLRPlayerController* PlayerController, float SkillRadius)
 {
 	AddTickPrerequisiteActor(PlayerController);
 	OwnerPC = PlayerController;

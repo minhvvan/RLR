@@ -23,11 +23,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void InitializeReticle(class AUserController* PlayerController, float SkillRadius);
+	void InitializeReticle(class ARLRPlayerController* PlayerController, float SkillRadius);
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<AUserController> OwnerPC;
+	TObjectPtr<ARLRPlayerController> OwnerPC;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UDecalComponent> Decal;

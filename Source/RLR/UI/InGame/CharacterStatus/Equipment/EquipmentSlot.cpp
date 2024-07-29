@@ -61,7 +61,7 @@ void UEquipmentSlot::OnHoveredItemSlot()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->OpenSubUINearTargetSlot(this);
+	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
 void UEquipmentSlot::OnUnHoveredItemSlot()
@@ -75,7 +75,7 @@ void UEquipmentSlot::OnUnHoveredItemSlot()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUINearTargetSlot();
+	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
 }
 
 void UEquipmentSlot::SetItemData(FItemData ItemData)

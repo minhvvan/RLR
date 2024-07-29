@@ -8,12 +8,6 @@
 #include "Network/Proto/Packet.pb.h"
 #include "CharacterStatusUI.generated.h"
 
-/**
- 
-	일단 Proto 구조체를 썡으로 써보다가, 나중에 수정이 필요할 것 같으면 바꿔줄 예정
-
- */
-
 
  using FPlayerInfo = FUserCharacter;
 

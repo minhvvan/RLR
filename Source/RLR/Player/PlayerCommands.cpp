@@ -2,93 +2,120 @@
 
 
 #include "PlayerCommands.h"
-#include "User/UserController.h"
+#include "Player/RLRPlayerController.h"
+
+#include "Player/RLREnhancedInputComponent.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameManager/GameplayTagManager.h"
+
+/*
+
+		RLRInputConfig
+
+*/
+
+const UInputAction* URLRInputConfig::FindInputActionByInputTag(const FGameplayTag& InputTag) const
+{
+	for (const FRLRInput& RLRInput : InputList)
+	{
+		if (RLRInput.InputAction && RLRInput.InputTag == InputTag)
+		{
+			return RLRInput.InputAction;
+		}
+
+	}
+	return nullptr;
+}
+
+const FGameplayTag URLRInputConfig::FindInputTagByActionTag(const FGameplayTag& ActionTag) const
+{
+
+	for (const FRLRInput& RLRInput : InputList)
+	{
+		if(RLRInput.ActionTag == ActionTag)
+			return RLRInput.InputTag;
+
+	}
+
+	return FGameplayTag();
+}
+
+FRLRInput& URLRInputConfig::FindRLRInputByInputTag(const FGameplayTag& InputTag)
+{
+	for (FRLRInput& RLRInput : InputList)
+	{
+		if (RLRInput.InputTag == InputTag)
+			return RLRInput;
+	}
+
+
+	return EmptyRLRInput;
+}
+
+/*
+	
+	PlayerCommands
+
+*/
 
 APlayerCommands::APlayerCommands()
 {
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void APlayerCommands::BindDefaultAction(TObjectPtr<AUserController> Controller)
+void APlayerCommands::BindDefaultAction(TObjectPtr<ARLRPlayerController> Controller)
 {
 	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(Controller->InputComponent);
 	if (component == nullptr) return;
 
-	component->BindAction(Move, ETriggerEvent::Started, Controller.Get(), &AUserController::OnCursorEffect);
-	component->BindAction(Move, ETriggerEvent::Started, Controller.Get(), &AUserController::OnMoveStarted);
-	component->BindAction(Move, ETriggerEvent::Triggered, Controller.Get(), &AUserController::OnMove);
-	component->BindAction(Move, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnMoveCompleted);
+	component->BindAction(Move, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnCursorEffect);
+	component->BindAction(Move, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnMoveStarted);
+	component->BindAction(Move, ETriggerEvent::Triggered, Controller.Get(), &ARLRPlayerController::OnMove);
+	component->BindAction(Move, ETriggerEvent::Completed, Controller.Get(), &ARLRPlayerController::OnMoveCompleted);
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 
-	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &AUserController::OnDefaultAction, TagManager.Action_Default_Jump);
-	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &AUserController::OnDefaultAction, TagManager.Action_Default_Attack);
+	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Jump);
+	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Attack);
 }
 
-void APlayerCommands::BindSkillAction(TObjectPtr<class AUserController> Controller)
+void APlayerCommands::BIndInput(TObjectPtr<ARLRPlayerController> Controller)
 {
-	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(Controller->InputComponent);
-	if (component == nullptr) return;
+	if(IsValid(Controller) == false)
+		return;
 
-	//Commands가 Enum이면 반복문으로 코드 줄일 수 있음
-	int inputID = 0;
 
-	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	BindDefaultAction(Controller);
 
-	component->BindAction(Skill.Q, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_Q_Anim);
-	component->BindAction(Skill.W, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_W_Anim);
-	component->BindAction(Skill.E, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_E_Anim);
-	component->BindAction(Skill.R, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_R_Anim);
-	component->BindAction(Skill.A, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_A_Anim);
-	component->BindAction(Skill.S, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_S_Anim);
-	component->BindAction(Skill.D, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_D_Anim);
-	component->BindAction(Skill.F, ETriggerEvent::Started, Controller.Get(), &AUserController::OnSkillStarted, TagManager.Action_Skill_F_Anim);
+	/*
+		InputConfig DataAsset을 이용해서 액션 바인딩을 해준다.
+	*/
 
-	component->BindAction(Skill.Q, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_Q_Anim);
-	component->BindAction(Skill.W, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_W_Anim);
-	component->BindAction(Skill.E, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_E_Anim);
-	component->BindAction(Skill.R, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_R_Anim);
-	component->BindAction(Skill.A, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_A_Anim);
-	component->BindAction(Skill.S, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_S_Anim);
-	component->BindAction(Skill.D, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_D_Anim);
-	component->BindAction(Skill.F, ETriggerEvent::Completed, Controller.Get(), &AUserController::OnSkillCompleted, TagManager.Action_Skill_F_Anim);
+	Util::Checkf(InputConfig, TEXT("InputConfig is nullptr. 값을 할당해주세요."));
+	URLREnhancedInputComponent* RLRInputComponent = CastChecked<URLREnhancedInputComponent>(Controller->InputComponent);
+	Util::Checkf(RLRInputComponent, TEXT("URLREnhancedInputComponent  is nullptr."));
+
+	for (const FRLRInput& Input : InputConfig->InputList)
+	{
+		if(Input.InputType == EInputType::None)
+			continue;
+
+		switch (Input.InputType)
+		{
+			case EInputType::Action:
+				RLRInputComponent->BindInputActions(Input, Controller.Get(), &ARLRPlayerController::OnSkillStarted, &ARLRPlayerController::OnSkillCompleted, &ARLRPlayerController::OnSkillHeld);
+			break;
+
+			case EInputType::OpenUI:
+				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnOpenUI, Input.ActionTag);
+			break;
+
+			case EInputType::Consume:
+				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnConsumeItem, Input.ActionTag);
+			break;
+			default:
+			break;
+		}
+	}
 }
 
-void APlayerCommands::BindConsumeAction(TObjectPtr<class AUserController> Controller)
-{
-	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(Controller->InputComponent);
-	if (component == nullptr) return;
-
-	int inputID = 0;
-	component->BindAction(Consume.Num0, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num1, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num2, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num3, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num4, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num5, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num6, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num7, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num8, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-	component->BindAction(Consume.Num9, ETriggerEvent::Started, Controller.Get(), &AUserController::OnConsumeItem, inputID++);
-}						  
-
-void APlayerCommands::BindUserAction(TObjectPtr<class AUserController> Controller)
-{
-	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(Controller->InputComponent);
-	if (component == nullptr) return;
-
-	int inputID = 0;
-	component->BindAction(User.I, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.O, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.P, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.J, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.K, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.L, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.N, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.M, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.G, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.U, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.F4, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-	component->BindAction(User.ESC, ETriggerEvent::Started, Controller.Get(), &AUserController::OnOpenUI, inputID++);
-}

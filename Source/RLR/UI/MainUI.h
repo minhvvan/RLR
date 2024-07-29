@@ -5,11 +5,16 @@
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
 #include "GameManager/RLRStruct.h"
+#include "GameManager/GameplayTagManager.h"
+
 #include "MainUI.generated.h"
 
 /**
  * 
  */
+
+ class USubUI;
+
 UCLASS()
 class RLR_API UMainUI : public UBaseUI
 {
@@ -21,10 +26,11 @@ public:
 	virtual void BindSubUI();
 	virtual void CloseUI();
 
-	virtual bool ToggleSubUI(int inputID) { return false; }
-	virtual class USubUI* GetSubUI(int inputID) { return nullptr; }
+	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
+	virtual class USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
 
 public:
 
-	TMap<EUIType, class USubUI*> UserActionSubUI;
+	TMap<FGameplayTag , USubUI*> UserActionSubUI;
+	TMap<EUIType, USubUI*>					SubUIMap;
 };

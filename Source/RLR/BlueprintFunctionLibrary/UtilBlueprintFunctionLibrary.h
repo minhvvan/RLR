@@ -13,6 +13,9 @@
 
  */
 
+
+ using Util = UUtilBlueprintFunctionLibrary;
+
 #define DEBUG_LOG(Message) UUtilBlueprintFunctionLibrary::DebugLog(TEXT(Message))
 
 UCLASS()
@@ -23,6 +26,9 @@ class RLR_API UUtilBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void DebugLog(FString string);
+
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Checkf(UObject* Object, FString Message);
 
 
 	/*

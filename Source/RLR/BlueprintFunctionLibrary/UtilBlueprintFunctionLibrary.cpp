@@ -22,6 +22,14 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 	}
 }
 
+void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
+{
+	if (GEngine)
+	{
+		checkf(Object, TEXT("%s"), *Message);
+	}
+}
+
 void UUtilBlueprintFunctionLibrary::MakeItemData()
 {
 	Protocol::Item TestItem;

@@ -24,13 +24,15 @@ void UMainUI::BindSubUI()
 		{
 			SubUI->SetMainUI(this);
 			EUIType Type = SubUI->GetUIType();
+			FGameplayTag Tag = SubUI->GetUITag();
 
 			if (Type == EUIType::NONE)
 			{
 				DEBUG_LOG("BIndSubUI Error. UIType이 설정이 안된 SubUI가 있습니다. 확인 바랍니다.");
 			}
 
-			UserActionSubUI.Add(Type, SubUI);
+			UserActionSubUI.Add(Tag, SubUI);
+			SubUIMap.Add(Type, SubUI);
 		}
 	}
 

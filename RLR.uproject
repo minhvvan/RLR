@@ -13,7 +13,8 @@
 				"MariaDBConnection",
 				"UMG",
 				"CoreUObject",
-				"GameplayTasks"
+				"GameplayTasks",
+				"EnhancedInput"
 			]
 		}
 	],

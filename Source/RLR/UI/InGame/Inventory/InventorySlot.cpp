@@ -167,7 +167,7 @@ void UInventorySlot::OnHoveredItemSlot()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->OpenSubUINearTargetSlot(this);
+	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
 void UInventorySlot::OnUnHoveredItemSlot()
@@ -181,7 +181,7 @@ void UInventorySlot::OnUnHoveredItemSlot()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUINearTargetSlot();
+	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
 }
 
 void UInventorySlot::SetItemData(FItemData ItemData)

@@ -28,27 +28,27 @@ public:
 	FGameplayTag Action_Attack_HitCheck;
 
 	//Action.Skill
-	FGameplayTag Action_Skill_Q;
-	FGameplayTag Action_Skill_W;
-	FGameplayTag Action_Skill_E;
-	FGameplayTag Action_Skill_R;
-	FGameplayTag Action_Skill_A;
-	FGameplayTag Action_Skill_S;
-	FGameplayTag Action_Skill_D;
-	FGameplayTag Action_Skill_F;
+	FGameplayTag Action_Skill_1;
+	FGameplayTag Action_Skill_2;
+	FGameplayTag Action_Skill_3;
+	FGameplayTag Action_Skill_4;
+	FGameplayTag Action_Skill_5;
+	FGameplayTag Action_Skill_6;
+	FGameplayTag Action_Skill_7;
+	FGameplayTag Action_Skill_8;
 
 	FGameplayTagContainer SkillTags;
 	FGameplayTagContainer SkillAnimTags;
 
 	//Action.Skill.Anim
-	FGameplayTag Action_Skill_Q_Anim;
-	FGameplayTag Action_Skill_W_Anim;
-	FGameplayTag Action_Skill_E_Anim;
-	FGameplayTag Action_Skill_R_Anim;
-	FGameplayTag Action_Skill_A_Anim;
-	FGameplayTag Action_Skill_S_Anim;
-	FGameplayTag Action_Skill_D_Anim;
-	FGameplayTag Action_Skill_F_Anim;
+	FGameplayTag Action_Skill_1_Anim;
+	FGameplayTag Action_Skill_2_Anim;
+	FGameplayTag Action_Skill_3_Anim;
+	FGameplayTag Action_Skill_4_Anim;
+	FGameplayTag Action_Skill_5_Anim;
+	FGameplayTag Action_Skill_6_Anim;
+	FGameplayTag Action_Skill_7_Anim;
+	FGameplayTag Action_Skill_8_Anim;
 
 	//Object.State
 	FGameplayTag Object_State_Hittable;
@@ -56,6 +56,82 @@ public:
 	//Player.State
 	FGameplayTag Player_State_Attacking;
 
+
+	/*
+		Action Item Quick Slot
+	*/
+
+	FGameplayTag Action_ItemQuickSlot_1;
+	FGameplayTag Action_ItemQuickSlot_2;
+	FGameplayTag Action_ItemQuickSlot_3;
+	FGameplayTag Action_ItemQuickSlot_4;
+	FGameplayTag Action_ItemQuickSlot_5;
+	FGameplayTag Action_ItemQuickSlot_6;
+	FGameplayTag Action_ItemQuickSlot_7;
+	FGameplayTag Action_ItemQuickSlot_8;
+	FGameplayTag Action_ItemQuickSlot_9;
+
+
+
+	/*
+		Action UI
+	*/
+
+	FGameplayTag UI_Inventory;
+	FGameplayTag UI_CharacterStatus;
+	FGameplayTag UI_KeyOption;
+	/*
+	
+			키 입력 바인딩에 사용되는 태그
+			Input Tag
+
+	*/
+
+	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_RMB;
+	FGameplayTag InputTag_Shift;
+	FGameplayTag InputTag_Ctrl;
+	FGameplayTag InputTag_ESC;
+
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
+	FGameplayTag InputTag_5;
+	FGameplayTag InputTag_6;
+	FGameplayTag InputTag_7;
+	FGameplayTag InputTag_8;
+	FGameplayTag InputTag_9;
+
+	FGameplayTag InputTag_A;
+	FGameplayTag InputTag_B;
+	FGameplayTag InputTag_C;
+	FGameplayTag InputTag_D;
+	FGameplayTag InputTag_E;
+	FGameplayTag InputTag_F;
+	FGameplayTag InputTag_G;
+	FGameplayTag InputTag_H;
+	FGameplayTag InputTag_I;
+	FGameplayTag InputTag_J;
+	FGameplayTag InputTag_K;
+	FGameplayTag InputTag_L;
+	FGameplayTag InputTag_M;
+	FGameplayTag InputTag_N;
+	FGameplayTag InputTag_O;
+	FGameplayTag InputTag_P;
+	FGameplayTag InputTag_Q;
+	FGameplayTag InputTag_R;
+	FGameplayTag InputTag_S;
+	FGameplayTag InputTag_T;
+	FGameplayTag InputTag_U;
+	FGameplayTag InputTag_V;
+	FGameplayTag InputTag_W;
+	FGameplayTag InputTag_X;
+	FGameplayTag InputTag_Y;
+	FGameplayTag InputTag_Z;
+
+
+	FGameplayTag None = FGameplayTag();
 
 private:
 	static FGameplayTagManager GameplayTags;

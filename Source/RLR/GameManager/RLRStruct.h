@@ -124,14 +124,13 @@ enum class EUIType : uint8
 {
 	INVENTORY,
 	CHARACTERSTAT,
-	ITEMINFO,
-	SIZE,
 	CHATOPTION,
 	ITEMINFOMATION,
 	MINIMAP,
 	STATUSDISPLAY,
 	INGAMEMENU,
 	PARTY,
+	KEYOPTION,
 	NONE,
 };
 
@@ -717,9 +716,9 @@ struct FMonsterStatus
 		AppendStatString(TEXT("Name"), MonsterName);
 		AppendStatInt(TEXT("Level"), MonsterLevel);
 		AppendStatInt(TEXT("Exp"), MontserExp);
-		AppendStatInt(TEXT("Damage"), MonsterAttackRate);
+		AppendStatInt(TEXT("Attack Rate"), MonsterAttackRate);
 		AppendStatInt(TEXT("Defence"), MonsterDefence);
-		AppendStatFloat(TEXT("Distance"), MonsterAttackRange);
+		AppendStatFloat(TEXT("Attack Range"), MonsterAttackRange);
 		AppendStatFloat(TEXT("X"), MonsterTransform.X);
 		AppendStatFloat(TEXT("Y"), MonsterTransform.Y);
 		AppendStatFloat(TEXT("Z"), MonsterTransform.Z);
@@ -749,19 +748,19 @@ struct FAttackResult
 	{}
 
 	UPROPERTY(EditAnyWhere)
-		int32 SkillSeq;
+	int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere)
-		int32 Level;
+	int32 Level;
 
 	UPROPERTY(EditAnyWhere)
-		uint64 Timestamp;
+	uint64 Timestamp;
 
 	UPROPERTY(EditAnyWhere)
-		uint32 UserSeq;
+	uint32 UserSeq;
 
 	UPROPERTY(EditAnyWhere)
-		TArray<uint32> TargetSeq;
+	TArray<uint32> TargetSeq;
 
 	FString ToString() const
 	{

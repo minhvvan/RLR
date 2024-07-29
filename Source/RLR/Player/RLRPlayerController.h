@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 //#include "../Chat/GameClient.h"
 #include "GameplayTagContainer.h"
-#include "UserController.generated.h"
+#include "RLRPlayerController.generated.h"
 
 class ARLRPlayerCharacter;
 class UPlayerManager;
@@ -15,12 +15,12 @@ class APlayerCommands;
 class UInputMappingContext;
 
 UCLASS()
-class RLR_API AUserController : public APlayerController
+class RLR_API ARLRPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
 public:
-	AUserController();
+	ARLRPlayerController();
 
 protected:
 	virtual void BeginPlay() override;
@@ -34,18 +34,21 @@ public:
 
 	FVector GetClickPosition();
 
+	void InitBinding();
+
 private:
 	void OnMoveCompleted();
 	void OnMove();
 	void OnCursorEffect();
-	void InitBinding();
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
 	void OnSkillStarted(FGameplayTag TriggerTag);
 	void OnSkillCompleted(FGameplayTag TriggerTag);
+	void OnSkillHeld(FGameplayTag TriggerTag);
 	void OnConsumeItem(int inputID);
-	void OnOpenUI(int inputID);
+	void OnConsumeItem(FGameplayTag InputTag);
+	void OnOpenUI(FGameplayTag InputTag);
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	TObjectPtr<UNiagaraSystem> Cursor;

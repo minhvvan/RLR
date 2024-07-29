@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "UserController.h"
+#include "RLRPlayerController.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
@@ -17,7 +17,10 @@
 #include "EnhancedInputComponent.h"
 #include "RLR.h"
 
-AUserController::AUserController():
+#include "Player/PlayerCommands.h"
+#include "Player/RLREnhancedInputComponent.h"
+
+ARLRPlayerController::ARLRPlayerController():
 	movePacketInterval(1.f),
 	timeSinceLastMovePacket(1.f),
 	lastSentPosition(FVector::ZeroVector)
@@ -27,13 +30,13 @@ AUserController::AUserController():
     DefaultMouseCursor = EMouseCursor::Default;
 }
 
-void AUserController::BeginPlay()
+void ARLRPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerManager = GameInstance->GetPlayerManager();
 }
 
-void AUserController::OnPossess(APawn* InPawn)
+void ARLRPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
@@ -52,7 +55,7 @@ void AUserController::OnPossess(APawn* InPawn)
 	PlayerCharacter = Cast<ARLRPlayerCharacter>(InPawn);
 }
 
-void AUserController::Tick(float DeltaTime)
+void ARLRPlayerController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
@@ -93,7 +96,7 @@ void AUserController::Tick(float DeltaTime)
     }
 }
 
-void AUserController::SetupInputComponent()
+void ARLRPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
@@ -105,7 +108,7 @@ void AUserController::SetupInputComponent()
 	InitBinding();
 }
 
-void AUserController::InitBinding()
+void ARLRPlayerController::InitBinding()
 {
 	UEnhancedInputComponent* component = Cast<UEnhancedInputComponent>(InputComponent);
 	if (component == nullptr) return;
@@ -115,14 +118,18 @@ void AUserController::InitBinding()
 		Commands = GetWorld()->SpawnActor<APlayerCommands>(CommandClass);
 	}
 
-	//bind Default Action
-	Commands->BindDefaultAction(this);
-	Commands->BindSkillAction(this);
-	Commands->BindConsumeAction(this);
-	Commands->BindUserAction(this);
+
+	URLREnhancedInputComponent* Component = Cast<URLREnhancedInputComponent>(InputComponent);
+	if (Component &&  Commands)
+	{
+		Component->ClearActionBindings();
+		Component->ClearActionEventBindings();
+		Component->ClearActionValueBindings();
+		Commands->BIndInput(this);
+	}
 }
 
-void AUserController::OnMoveStarted()
+void ARLRPlayerController::OnMoveStarted()
 {
 	if (IsMove())
 	{
@@ -132,7 +139,7 @@ void AUserController::OnMoveStarted()
 	pressTime = 0.f;
 }
 
-void AUserController::OnMove()
+void ARLRPlayerController::OnMove()
 {
 	pressTime += GetWorld()->GetDeltaSeconds();
 
@@ -143,7 +150,7 @@ void AUserController::OnMove()
 	}
 }
 
-void AUserController::OnMoveCompleted()
+void ARLRPlayerController::OnMoveCompleted()
 {
 	if (IsMove())
 	{
@@ -155,19 +162,19 @@ void AUserController::OnMoveCompleted()
 	}
 }
 
-void AUserController::OnCursorEffect()
+void ARLRPlayerController::OnCursorEffect()
 {
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, Cursor, GetClickPosition(), FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
 }
 
-FVector AUserController::GetClickPosition()
+FVector ARLRPlayerController::GetClickPosition()
 {
 	FHitResult Hit;
 	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
 	return Hit.Location;
 }
 
-void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
+void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 {
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
@@ -181,7 +188,7 @@ void AUserController::OnDefaultAction(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void AUserController::OnSkillStarted(FGameplayTag TriggerTag)
+void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
@@ -189,7 +196,7 @@ void AUserController::OnSkillStarted(FGameplayTag TriggerTag)
 	SkillManager->SkillAttack(TriggerTag);
 }
 
-void AUserController::OnSkillCompleted(FGameplayTag TriggerTag)
+void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
@@ -197,13 +204,27 @@ void AUserController::OnSkillCompleted(FGameplayTag TriggerTag)
 	SkillManager->SkillComplete(TriggerTag);
 }
 
-void AUserController::OnConsumeItem(int inputID)
+void ARLRPlayerController::OnSkillHeld(FGameplayTag TriggerTag)
+{
+	/*
+		나중에 홀딩하는 스킬 생기면 넣어주기
+	*/
+
+
+}
+
+void ARLRPlayerController::OnConsumeItem(int inputID)
 {
 	//Consume Item
 	RLR_LOG(LogRLR, Log, TEXT("OnConsumeItem: %d"), inputID);
 }
 
-void AUserController::OnOpenUI(int inputID)
+void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
+{
+
+}
+
+void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 {
 	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
 	if (GM == nullptr) return;
@@ -211,12 +232,10 @@ void AUserController::OnOpenUI(int inputID)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	RLR_LOG(LogRLR, Log, TEXT("OnOpenUI: %d"), inputID);
-
-	UIManager->ToggleSubUI(inputID);
+	UIManager->ToggleSubUI(InputTag);
 }
 
-bool AUserController::IsMove()
+bool ARLRPlayerController::IsMove()
 {
 	if (PlayerCharacter->GetCharacterMovement()->MovementMode == MOVE_Walking)
 	{

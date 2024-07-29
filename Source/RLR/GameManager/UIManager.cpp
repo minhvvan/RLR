@@ -39,23 +39,29 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 	};
 }
 
-void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target)
+void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 {
 	/*
 		1. itemInfo SubUI 토글
 		3. 상태(아이템 정보, 위치) 업데이트
 	*/
-	ToggleSubUI((int)EUIType::ITEMINFO);
-	USubUI* SubUI = MainUI->GetSubUI((int)EUIType::ITEMINFO);
-	if (!SubUI) return;
 
+	if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+		return;
+
+	USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+	SetZOrderToTop(SubUI);
+	SubUI->OpenUI();
 	SubUI->UpdateSlotState(Target);
 }
 
-void UUIManager::CloseSubUINearTargetSlot()
+void UUIManager::CloseSubUI(EUIType SubUIType)
 {
-	//itemInfo SubUI 토글
-	ToggleSubUI((int)EUIType::ITEMINFO);
+	if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+		return;
+
+	USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+	SubUI->CloseUI();
 }
 
 void UUIManager::SetZOrderToTop(USubUI* Target)
@@ -102,25 +108,25 @@ UMainUI* UUIManager::GetMainUI()
 	return MainUI;
 }
 
-void UUIManager::ToggleSubUI(int inputID)
+void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
 	//UI Toggle
-	bool bOpen = MainUI->ToggleSubUI(inputID);
-	
+	bool bOpen = MainUI->ToggleSubUI(UITag);
+
 	if (bOpen)
 	{
 		//열렸으면 Stack에 추가 -> ZOrder조정
-		SubUIStack.AddUnique(MainUI->GetSubUI(inputID));
+		SubUIStack.AddUnique(MainUI->GetSubUI(UITag));
 		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
 		CanvasSlot->SetZOrder(SubUIStack.Num());
 	}
 	else
 	{
 		//닫혔으면 Stack에서 제거 -> ZOrder 조정
-		SubUIStack.Remove(MainUI->GetSubUI(inputID));
+		SubUIStack.Remove(MainUI->GetSubUI(UITag));
 		AdjustZOrder();
 	}
-	
+
 	MainUI->InvalidateLayoutAndVolatility();
 }
 

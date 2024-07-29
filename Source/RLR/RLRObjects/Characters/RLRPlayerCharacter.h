@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include <Blueprint/AIBlueprintHelperLibrary.h>
 #include "GameFramework/CharacterMovementComponent.h"
-#include "User/UserController.h"
+#include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Skill/Skill_Explosion.h"
 #include "Player/PlayerData.h"
@@ -49,7 +49,7 @@ private:
 	int32 PlayerSeq;
 	
 	UPROPERTY();
-	AUserController* playerController;
+	ARLRPlayerController* playerController;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));

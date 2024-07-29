@@ -6,6 +6,8 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
 #include "RLRStruct.h"
+
+#include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
 /**
@@ -30,16 +32,16 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 	
 public:
 	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
-	void OpenSubUINearTargetSlot(USlotUI* Target);
-	void CloseSubUINearTargetSlot();
+	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
+	void CloseSubUI(EUIType SubUIType);
 	void SetZOrderToTop(USubUI* Target);
 
 	void CloseFrontSubUI ();
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();
+	void ToggleSubUI(FGameplayTag UITag);
 
-	void ToggleSubUI(int inputID);
 	void AdjustZOrder();
 
 private:

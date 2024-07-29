@@ -3,7 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+
 #include "UI/BaseUI.h"
+
+#include "GameManager/GameplayTagManager.h"
 #include "SubUI.generated.h"
 
 /**
@@ -48,12 +52,17 @@ public:
     void OnDragEnded();
 
 	UFUNCTION(BlueprintCallable)
-	UMainUI* GetMainUI() {return MainUI;}
+	UMainUI*					GetMainUI() {return MainUI;}
 	UFUNCTION(BlueprintCallable)
-	void			SetMainUI(UMainUI* UI){MainUI = UI;}
+	void							SetMainUI(UMainUI* UI){MainUI = UI;}
 
 	template<typename T>
-	T*				GetMainUI(){return Cast<T>(MainUI);}
+	T*								GetMainUI(){return Cast<T>(MainUI);}
+
+	UFUNCTION(BlueprintCallable)
+	void							SetUITag(FGameplayTag Tag) {UITag = Tag;}
+	UFUNCTION(BlueprintCallable)
+	FGameplayTag		GetUITag(){return UITag;}
 
 public:
 
@@ -63,7 +72,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> DragButton;
 
-	//
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USizeBox> RootSizeBox;
 
@@ -71,4 +79,11 @@ private:
 
 	UMainUI* MainUI;
 	FTimerHandle DragTimer;
+
+	/*
+		Input Binding
+	*/
+
+	UPROPERTY()
+	FGameplayTag UITag = FGameplayTag();
 };

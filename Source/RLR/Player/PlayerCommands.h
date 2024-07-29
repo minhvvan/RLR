@@ -7,117 +7,80 @@
 #include <Kismet/GameplayStatics.h>
 #include <EnhancedInputSubsystems.h>
 #include "GameFramework/Actor.h"
+
+#include "Engine/DataAsset.h"
+#include "GameManager/GameplayTagManager.h"
 #include "PlayerCommands.generated.h"
 
 
 
-USTRUCT()
-struct FSkill
+/*
+	InputAction과 GameplayTag를 연동하는 구조체.
+	이걸 통해 EnhancedInputSystem과 결합하여 런타임중에 입력을 변경할 수 있게 한다.
+*/
+
+
+class ARLRPlayerController;
+
+
+UENUM(BlueprintType)
+enum class EInputType : uint8
+{
+	Action,
+	OpenUI,
+	Consume,
+	None,
+};
+
+USTRUCT(BlueprintType)
+struct FRLRInput
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Q;
+	FRLRInput(){InputType = EInputType::None;};
+	
+	UPROPERTY(EditDefaultsOnly)
+	const class UInputAction* InputAction = nullptr;
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* W;
+	UPROPERTY(EditDefaultsOnly)
+	 FGameplayTag InputTag = FGameplayTag();
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* E;
+	 UPROPERTY(EditDefaultsOnly)
+	 FGameplayTag ActionTag = FGameplayTag();
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* R;
+	 UPROPERTY(EditDefaultsOnly)
+	 EInputType InputType = EInputType::None;
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* A;
+	 void SetInputAction(const UInputAction* NewAction){InputAction = NewAction;}
+	 void SetInputTag(FGameplayTag NewTag){InputTag = NewTag; }
+	 void SetActionTag(FGameplayTag NewTag){ActionTag = NewTag;}
+	 void SetInputType(EInputType NewType){InputType = NewType;}
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* S;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* D;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* F;
+	 void ClearActionTagAndInputType(){ActionTag = FGameplayTag::EmptyTag; InputType = EInputType::None;}
+	 void ClearInputActionAndTag(){InputAction = nullptr; InputTag = FGameplayTag::EmptyTag;};
 };
 
-USTRUCT()
-struct FUser
+UCLASS()
+class RLR_API URLRInputConfig : public UDataAsset
 {
 	GENERATED_BODY()
+public:
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* I;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* O;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* P;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* J;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* K;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* L;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* N;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* M;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* G;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* U;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* F4;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* ESC;
+	/*GameplayTag를 건네받으면, AbilityInputActions에 맵핑된 Input Action을 꺼내준다.*/
+	const UInputAction* FindInputActionByInputTag(const FGameplayTag& InputTag) const;
+
+	/*ActionTag를 건네 받으면 맵핑된 InputTag를 꺼내준다.*/
+	const FGameplayTag FindInputTagByActionTag(const FGameplayTag& ActionTag) const;
+
+	/*Input Tag와 맵핑된 RLRInput을 꺼내준다.*/
+	FRLRInput& FindRLRInputByInputTag(const FGameplayTag& InputTag);
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TArray<FRLRInput> InputList;
+	FRLRInput EmptyRLRInput;
+
 };
 
-USTRUCT()
-struct FConsume
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num0;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num1;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num2;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num3;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num4;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num5;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num6;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num7;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num8;
-	
-	UPROPERTY(EditAnywhere, Category = Action);
-	UInputAction* Num9;
-};
 
 UCLASS()
 class RLR_API APlayerCommands : public AActor
@@ -127,20 +90,9 @@ class RLR_API APlayerCommands : public AActor
 public:
 	APlayerCommands();
 
-	void BindDefaultAction(TObjectPtr<class AUserController>);
-	void BindSkillAction(TObjectPtr<class AUserController>);
-	void BindConsumeAction(TObjectPtr<class AUserController>);
-	void BindUserAction(TObjectPtr<class AUserController>);
+	void BindDefaultAction(TObjectPtr<class ARLRPlayerController>);
+	void BIndInput(TObjectPtr<ARLRPlayerController> Controller);
 
-	UPROPERTY(EditAnywhere, Category = Action);
-	FSkill Skill;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	FUser User;
-
-	UPROPERTY(EditAnywhere, Category = Action);
-	FConsume Consume;
-	
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
 
@@ -149,4 +101,14 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Attack;
+
+
+public:
+
+	/*
+		Key Binding  관련	
+	*/
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "RLR | Input")
+	TObjectPtr<URLRInputConfig> InputConfig;
 };

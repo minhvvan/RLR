@@ -54,12 +54,10 @@ bool UInGameMainUI::ToggleSubUI(int inputID)
 	return bOpen;
 }
 
-USubUI* UInGameMainUI::GetSubUI(int inputID)
+USubUI* UInGameMainUI::GetSubUI(FGameplayTag InputTag)
 {
-	EUIType inputKey = static_cast<EUIType>(inputID);
-
-	if (!UserActionSubUI.Contains(inputKey)) return nullptr;
-	return UserActionSubUI[inputKey];
+	if (!UserActionSubUI.Contains(InputTag)) return nullptr;
+	return UserActionSubUI[InputTag];
 }
 
 void UInGameMainUI::OnChangedTotalStatus()

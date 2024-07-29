@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 
 #include "GameManager/RLRStruct.h"
+#include "GameManager/GameplayTagManager.h"
+
 #include "UI/MainUI.h"
 #include "InGameMainUI.generated.h"
 
@@ -22,6 +24,7 @@
  class UStatusDisplay;
  class UInGameMenuUI;
  class UPartyUI;
+ class UKeyOption;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -69,6 +72,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPartyUI> PartyUI;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UKeyOption> KeyOptionUI;
+
 public:
 	virtual bool ToggleSubUI(int inputID);
 	virtual class USubUI* GetSubUI(int inputID);
@@ -85,4 +91,6 @@ protected:
 
 	UFUNCTION()
 	void OnChangedLevel();
+	virtual bool ToggleSubUI(FGameplayTag InputTag);
+	virtual class USubUI* GetSubUI(FGameplayTag InputTag);
 };

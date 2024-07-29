@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "RLRGameMode.h"
-#include "RLRPlayerController.h"
+#include "Player/RLRPlayerController.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARLRGameMode::ARLRGameMode()
