@@ -131,6 +131,7 @@ enum class EUIType : uint8
 	INGAMEMENU,
 	PARTY,
 	KEYOPTION,
+	SKILL,
 	NONE,
 };
 

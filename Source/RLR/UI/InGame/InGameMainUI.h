@@ -25,6 +25,7 @@
  class UInGameMenuUI;
  class UPartyUI;
  class UKeyOption;
+ class USkillUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -74,6 +75,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UKeyOption> KeyOptionUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<USkillUI> SkillUI;;
 
 public:
 

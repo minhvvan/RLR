@@ -64,6 +64,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토라")));
 	GameplayTags.UI_CharacterStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.CharacterStatus"), FString(TEXT("캐릭터창")));
 	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
+	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill"), FString(TEXT("스킬창")));
+
 
 
 

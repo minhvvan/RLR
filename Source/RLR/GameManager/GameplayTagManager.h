@@ -80,6 +80,8 @@ public:
 	FGameplayTag UI_Inventory;
 	FGameplayTag UI_CharacterStatus;
 	FGameplayTag UI_KeyOption;
+	FGameplayTag UI_Skill;
+
 	/*
 	
 			키 입력 바인딩에 사용되는 태그
