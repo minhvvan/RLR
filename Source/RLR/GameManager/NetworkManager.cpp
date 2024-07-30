@@ -271,7 +271,7 @@ bool UNetworkManager::SendServerRequest(int userSeq) {
 bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid, int64 channelid) {
 
     if (!MainServerSocket && !MonsterServerSocket) return false;
-
+    if (userSeq == 0) return false;
 
     Protocol::MoveRequestPacket packet;
     packet.set_userseq(userSeq);
