@@ -359,7 +359,7 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
 
     TotalStatus.MakeStatus(Data.totalstatus());
     SetStatus.MakeSetStatus(Data.setstatus());
-
+    Talent.MakeTalent(Data.talent());
 }
 
 void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
@@ -398,4 +398,11 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+}
+
+void FTalent::MakeTalent(Protocol::Talent Data)
+{
+    Talents.Add({ Data.firsttalent(), Data.firsttalent()});
+    Talents.Add({ Data.secondtalent(), Data.secondlevel()});
+    Talents.Add({ Data.thirdtalent(), Data.thirdlevel()});
 }

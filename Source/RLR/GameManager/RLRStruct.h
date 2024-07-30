@@ -265,6 +265,20 @@ struct FTotalStatus
 
 
 /*
+	재능 정보
+*/
+USTRUCT(Atomic, BlueprintType)
+struct FTalent
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TMap<int32, int32> Talents;
+
+	void MakeTalent(Protocol::Talent Data);
+};
+
+/*
 	아이템 정보를 위한 Status.
 */
 USTRUCT(Atomic, BlueprintType)
@@ -830,6 +844,9 @@ struct FUserCharacter
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FSetStatus SetStatus;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FTalent Talent;
 
 	void MakeUserCharacter(Protocol::UserCharacter Data);
 
