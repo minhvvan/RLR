@@ -76,11 +76,15 @@ void ARLRPlayerController::Tick(float DeltaTime)
         if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
         {
 			UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
-			if (!ASC) return;
-
+			if (!ASC) {
+				UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
+				return;
+			}
 			UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
-			if (!statSet) return;
-
+			if (!statSet) {
+				UE_LOG(LogTemp, Warning, TEXT("statSet Not in ASC"));
+				return;
+			}
 			FMoveResult moveResult;
 			moveResult.UserSeq = statSet->GetUserSeq();
 			moveResult.MapId = statSet->GetMapId();

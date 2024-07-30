@@ -7,9 +7,12 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
+#include "GameManager.h"
+#include "GameManager/NetworkManager.h"
 
 UPlayerManager::UPlayerManager()
 {
+
 }
 
 void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
@@ -37,6 +40,7 @@ void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
 	FStatChangeSpec<FTotalStatus> spec;
 	spec.ChangedStat = statSet->GetTotalStatusStat();
 	spec.NewValue = NewTotalStatus;
+
 
 	statSet->ApplyChangeStat<FTotalStatus>(spec);
 }
@@ -68,7 +72,8 @@ void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
 	//TODO: Send to Server
-	//RLR_LOG(LogRLR, Log, TEXT("MoveTo: %s"), *MoveResult.TargetTransform.ToString());
+	RLR_LOG(LogRLR, Log, TEXT("MoveTo: %s"), *MoveResult.TargetTransform.ToString());
+	GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.UserSeq, MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
 
 	return true;
 }

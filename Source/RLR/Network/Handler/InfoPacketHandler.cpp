@@ -9,6 +9,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/SkillManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/PlayerManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt) {
@@ -52,18 +53,20 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Status
 
     UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
     UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
-
+    UE_LOG(LogTemp, Log, TEXT("User Int : %d"), pkt.usercharacter().totalstatus().userintelligence());
     UUIManager* UIManager = GameInstance->GetUIManager();
-
+    
     if (IsValid(UIManager) == false)
     {
         DEBUG_LOG("Handle_STATUS_RESPONSE Error. UIManager is Null.");
         return false;
     }
 
-    FUserCharacter UserChracter;
-    UserChracter.SetUserChracterData(pkt.usercharacter());
-    UIManager->UpdatedPlayerInfo.Broadcast(UserChracter);
+    FUserCharacter UserCharacter;
+    UserCharacter.MakeUserCharacter(pkt.usercharacter());
+    
+    GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::GetSkillResponsePacket& pkt) {

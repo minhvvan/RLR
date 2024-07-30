@@ -276,7 +276,8 @@ struct ChannelResponsePacketDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChannelResponsePacketDefaultTypeInternal _ChannelResponsePacket_default_instance_;
 PROTOBUF_CONSTEXPR MoveRequestPacket::MoveRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.userseq_)*/0u
+    /*decltype(_impl_.channelid_)*/int64_t{0}
+  , /*decltype(_impl_.userseq_)*/0u
   , /*decltype(_impl_.transx_)*/0
   , /*decltype(_impl_.transy_)*/0
   , /*decltype(_impl_.transz_)*/0
@@ -834,6 +835,7 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.channelid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transx_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transy_),
   PROTOBUF_FIELD_OFFSET(::Protocol::MoveRequestPacket, _impl_.transz_),
@@ -1086,32 +1088,32 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 130, -1, -1, sizeof(::Protocol::ChannelRequestPacket)},
   { 138, -1, -1, sizeof(::Protocol::ChannelResponsePacket)},
   { 146, -1, -1, sizeof(::Protocol::MoveRequestPacket)},
-  { 157, -1, -1, sizeof(::Protocol::MoveResponsePacket)},
-  { 164, -1, -1, sizeof(::Protocol::MoveBroadcastPacket)},
-  { 175, -1, -1, sizeof(::Protocol::AttackRequestPacket)},
-  { 182, -1, -1, sizeof(::Protocol::AttackResponsePacket)},
-  { 198, -1, -1, sizeof(::Protocol::AttackBroadcastPacket)},
-  { 207, -1, -1, sizeof(::Protocol::DamageRequestPacket)},
-  { 216, -1, -1, sizeof(::Protocol::DamageResponsePacket)},
-  { 224, -1, -1, sizeof(::Protocol::MonsterAttackRequestPacket)},
-  { 232, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
-  { 244, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
-  { 256, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
-  { 263, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
-  { 274, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
-  { 284, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
-  { 291, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
-  { 300, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
-  { 308, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
-  { 315, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
-  { 323, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
-  { 332, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
-  { 339, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
-  { 347, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
-  { 355, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
-  { 362, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
-  { 369, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
-  { 376, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
+  { 158, -1, -1, sizeof(::Protocol::MoveResponsePacket)},
+  { 165, -1, -1, sizeof(::Protocol::MoveBroadcastPacket)},
+  { 176, -1, -1, sizeof(::Protocol::AttackRequestPacket)},
+  { 183, -1, -1, sizeof(::Protocol::AttackResponsePacket)},
+  { 199, -1, -1, sizeof(::Protocol::AttackBroadcastPacket)},
+  { 208, -1, -1, sizeof(::Protocol::DamageRequestPacket)},
+  { 217, -1, -1, sizeof(::Protocol::DamageResponsePacket)},
+  { 225, -1, -1, sizeof(::Protocol::MonsterAttackRequestPacket)},
+  { 233, -1, -1, sizeof(::Protocol::MonsterAttackResponsePacket)},
+  { 245, -1, -1, sizeof(::Protocol::MonsterMoveRequestPacket)},
+  { 257, -1, -1, sizeof(::Protocol::MonsterMoveResponsePacket)},
+  { 264, -1, -1, sizeof(::Protocol::MonsterMoveBroadcastPacket)},
+  { 275, -1, -1, sizeof(::Protocol::MonsterStatusUpdatePacket)},
+  { 285, -1, -1, sizeof(::Protocol::MonsterStatusUpdateResponsePacket)},
+  { 292, -1, -1, sizeof(::Protocol::MonsterStatusBroadcastPacket)},
+  { 301, -1, -1, sizeof(::Protocol::MonsterSpawnRequestPacket)},
+  { 309, -1, -1, sizeof(::Protocol::MonsterSpawnResponsePacket)},
+  { 316, -1, -1, sizeof(::Protocol::MapMonsterInfoRequestPacket)},
+  { 324, -1, -1, sizeof(::Protocol::MapMonsterInfoResponsePacket)},
+  { 333, -1, -1, sizeof(::Protocol::CreatePartyRequest)},
+  { 340, -1, -1, sizeof(::Protocol::CreatePartyResponse)},
+  { 348, -1, -1, sizeof(::Protocol::JoinPartyRequest)},
+  { 356, -1, -1, sizeof(::Protocol::JoinPartyResponse)},
+  { 363, -1, -1, sizeof(::Protocol::LeavePartyRequest)},
+  { 370, -1, -1, sizeof(::Protocol::LeavePartyResponse)},
+  { 377, -1, -1, sizeof(::Protocol::PartyStatusUpdate)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -1195,69 +1197,69 @@ const char descriptor_table_protodef_Packet_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\001(\r\022\r\n\005mapId\030\003 \001(\r\":\n\024ChannelRequestPack"
   "et\022\017\n\007userSeq\030\001 \001(\r\022\021\n\tplayerseq\030\002 \001(\r\";"
   "\n\025ChannelResponsePacket\022\017\n\007userSeq\030\001 \001(\r"
-  "\022\021\n\tchannelId\030\002 \001(\r\"c\n\021MoveRequestPacket"
-  "\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006transX\030\002 \001(\002\022\016\n\006tra"
-  "nsY\030\003 \001(\002\022\016\n\006transZ\030\004 \001(\002\022\r\n\005mapId\030\005 \001(\004"
-  "\"%\n\022MoveResponsePacket\022\017\n\007success\030\001 \001(\010\""
-  "\210\001\n\023MoveBroadcastPacket\022\017\n\007userSeq\030\001 \001(\r"
-  "\022\016\n\006transX\030\002 \001(\002\022\016\n\006transY\030\003 \001(\002\022\016\n\006tran"
-  "sZ\030\004 \001(\002\0220\n\020allUserPositions\030\005 \003(\0132\026.Pro"
-  "tocol.UserPosition\"5\n\023AttackRequestPacke"
-  "t\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill\"\346\001\n\024At"
-  "tackResponsePacket\022\017\n\007success\030\001 \001(\010\022\036\n\005s"
-  "kill\030\002 \001(\0132\017.Protocol.Skill\022\023\n\013damageDea"
-  "lt\030\003 \001(\005\022\024\n\014targetKilled\030\004 \001(\010\022\022\n\nattack"
-  "erHp\030\005 \001(\005\022\022\n\nattackerMp\030\006 \001(\005\022\020\n\010target"
-  "Hp\030\007 \001(\005\022\020\n\010targetMp\030\010 \001(\005\022\024\n\014statusEffe"
-  "ct\030\t \001(\t\022\020\n\010duration\030\n \001(\004\"b\n\025AttackBroa"
-  "dcastPacket\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Sk"
-  "ill\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKilled"
-  "\030\003 \001(\010\"I\n\023DamageRequestPacket\022\017\n\007userSeq"
-  "\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\022\021\n\ttargetSeq\030\003 \003("
-  "\r\"7\n\024DamageResponsePacket\022\017\n\007userSeq\030\001 \001"
-  "(\005\022\016\n\006damage\030\002 \001(\002\"L\n\032MonsterAttackReque"
-  "stPacket\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill"
-  "\022\016\n\006damage\030\002 \001(\002\"\223\001\n\033MonsterAttackRespon"
-  "sePacket\022\017\n\007success\030\001 \001(\010\022\023\n\013damageDealt"
-  "\030\002 \001(\005\022\024\n\014targetKilled\030\003 \001(\010\022\020\n\010targetHp"
-  "\030\004 \001(\005\022\024\n\014statusEffect\030\005 \001(\t\022\020\n\010duration"
-  "\030\006 \001(\004\"\200\001\n\030MonsterMoveRequestPacket\022\022\n\nm"
-  "onsterSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006tr"
-  "ansX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001"
-  "(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031MonsterMoveResponse"
-  "Packet\022\017\n\007success\030\001 \001(\010\"s\n\032MonsterMoveBr"
-  "oadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmon"
-  "sterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004"
-  " \001(\002\022\016\n\006transZ\030\005 \001(\002\"]\n\031MonsterStatusUpd"
-  "atePacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001("
-  "\002\022\021\n\tmonsterId\030\003 \001(\003\022\r\n\005mapId\030\004 \001(\003\"4\n!M"
-  "onsterStatusUpdateResponsePacket\022\017\n\007succ"
-  "ess\030\001 \001(\010\"Q\n\034MonsterStatusBroadcastPacke"
-  "t\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmon"
-  "sterId\030\003 \001(\003\"O\n\031MonsterSpawnRequestPacke"
-  "t\022\r\n\005mapId\030\001 \001(\004\022#\n\010monsters\030\002 \003(\0132\021.Pro"
-  "tocol.Monster\"-\n\032MonsterSpawnResponsePac"
-  "ket\022\017\n\007success\030\001 \001(\010\"\?\n\033MapMonsterInfoRe"
-  "questPacket\022\r\n\005mapId\030\001 \001(\004\022\021\n\tchannelId\030"
-  "\002 \001(\003\"e\n\034MapMonsterInfoResponsePacket\022\r\n"
-  "\005mapId\030\001 \001(\004\022\021\n\tchannelId\030\002 \001(\003\022#\n\010monst"
-  "ers\030\003 \003(\0132\021.Protocol.Monster\"%\n\022CreatePa"
-  "rtyRequest\022\017\n\007userseq\030\001 \001(\r\"7\n\023CreatePar"
-  "tyResponse\022\017\n\007partyid\030\001 \001(\r\022\017\n\007success\030\002"
-  " \001(\010\"4\n\020JoinPartyRequest\022\017\n\007partyid\030\001 \001("
-  "\r\022\017\n\007userseq\030\002 \001(\r\"$\n\021JoinPartyResponse\022"
-  "\017\n\007success\030\001 \001(\010\"$\n\021LeavePartyRequest\022\017\n"
-  "\007userseq\030\001 \001(\r\"%\n\022LeavePartyResponse\022\017\n\007"
-  "success\030\001 \001(\010\"N\n\021PartyStatusUpdate\022\017\n\007pa"
-  "rtyid\030\001 \001(\r\022(\n\007members\030\002 \003(\0132\027.Protocol."
-  "UserCharacterb\006proto3"
+  "\022\021\n\tchannelId\030\002 \001(\r\"v\n\021MoveRequestPacket"
+  "\022\017\n\007userSeq\030\001 \001(\r\022\021\n\tchannelId\030\002 \001(\003\022\016\n\006"
+  "transX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005"
+  " \001(\002\022\r\n\005mapId\030\006 \001(\004\"%\n\022MoveResponsePacke"
+  "t\022\017\n\007success\030\001 \001(\010\"\210\001\n\023MoveBroadcastPack"
+  "et\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006transX\030\002 \001(\002\022\016\n\006t"
+  "ransY\030\003 \001(\002\022\016\n\006transZ\030\004 \001(\002\0220\n\020allUserPo"
+  "sitions\030\005 \003(\0132\026.Protocol.UserPosition\"5\n"
+  "\023AttackRequestPacket\022\036\n\005skill\030\001 \001(\0132\017.Pr"
+  "otocol.Skill\"\346\001\n\024AttackResponsePacket\022\017\n"
+  "\007success\030\001 \001(\010\022\036\n\005skill\030\002 \001(\0132\017.Protocol"
+  ".Skill\022\023\n\013damageDealt\030\003 \001(\005\022\024\n\014targetKil"
+  "led\030\004 \001(\010\022\022\n\nattackerHp\030\005 \001(\005\022\022\n\nattacke"
+  "rMp\030\006 \001(\005\022\020\n\010targetHp\030\007 \001(\005\022\020\n\010targetMp\030"
+  "\010 \001(\005\022\024\n\014statusEffect\030\t \001(\t\022\020\n\010duration\030"
+  "\n \001(\004\"b\n\025AttackBroadcastPacket\022\036\n\005skill\030"
+  "\001 \001(\0132\017.Protocol.Skill\022\023\n\013damageDealt\030\002 "
+  "\001(\005\022\024\n\014targetKilled\030\003 \001(\010\"I\n\023DamageReque"
+  "stPacket\022\017\n\007userSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001("
+  "\002\022\021\n\ttargetSeq\030\003 \003(\r\"7\n\024DamageResponsePa"
+  "cket\022\017\n\007userSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\"L\n"
+  "\032MonsterAttackRequestPacket\022\036\n\005skill\030\001 \001"
+  "(\0132\017.Protocol.Skill\022\016\n\006damage\030\002 \001(\002\"\223\001\n\033"
+  "MonsterAttackResponsePacket\022\017\n\007success\030\001"
+  " \001(\010\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKille"
+  "d\030\003 \001(\010\022\020\n\010targetHp\030\004 \001(\005\022\024\n\014statusEffec"
+  "t\030\005 \001(\t\022\020\n\010duration\030\006 \001(\004\"\200\001\n\030MonsterMov"
+  "eRequestPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmo"
+  "nsterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030"
+  "\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\022\r\n\005mapId\030\006 \001(\003\",\n\031"
+  "MonsterMoveResponsePacket\022\017\n\007success\030\001 \001"
+  "(\010\"s\n\032MonsterMoveBroadcastPacket\022\022\n\nmons"
+  "terSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006trans"
+  "X\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\""
+  "]\n\031MonsterStatusUpdatePacket\022\022\n\nmonsterS"
+  "eq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\022"
+  "\r\n\005mapId\030\004 \001(\003\"4\n!MonsterStatusUpdateRes"
+  "ponsePacket\022\017\n\007success\030\001 \001(\010\"Q\n\034MonsterS"
+  "tatusBroadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\r"
+  "\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\"O\n\031Monst"
+  "erSpawnRequestPacket\022\r\n\005mapId\030\001 \001(\004\022#\n\010m"
+  "onsters\030\002 \003(\0132\021.Protocol.Monster\"-\n\032Mons"
+  "terSpawnResponsePacket\022\017\n\007success\030\001 \001(\010\""
+  "\?\n\033MapMonsterInfoRequestPacket\022\r\n\005mapId\030"
+  "\001 \001(\004\022\021\n\tchannelId\030\002 \001(\003\"e\n\034MapMonsterIn"
+  "foResponsePacket\022\r\n\005mapId\030\001 \001(\004\022\021\n\tchann"
+  "elId\030\002 \001(\003\022#\n\010monsters\030\003 \003(\0132\021.Protocol."
+  "Monster\"%\n\022CreatePartyRequest\022\017\n\007userseq"
+  "\030\001 \001(\r\"7\n\023CreatePartyResponse\022\017\n\007partyid"
+  "\030\001 \001(\r\022\017\n\007success\030\002 \001(\010\"4\n\020JoinPartyRequ"
+  "est\022\017\n\007partyid\030\001 \001(\r\022\017\n\007userseq\030\002 \001(\r\"$\n"
+  "\021JoinPartyResponse\022\017\n\007success\030\001 \001(\010\"$\n\021L"
+  "eavePartyRequest\022\017\n\007userseq\030\001 \001(\r\"%\n\022Lea"
+  "vePartyResponse\022\017\n\007success\030\001 \001(\010\"N\n\021Part"
+  "yStatusUpdate\022\017\n\007partyid\030\001 \001(\r\022(\n\007member"
+  "s\030\002 \003(\0132\027.Protocol.UserCharacterb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Packet_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Packet_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_2eproto = {
-    false, false, 3501, descriptor_table_protodef_Packet_2eproto,
+    false, false, 3520, descriptor_table_protodef_Packet_2eproto,
     "Packet.proto",
     &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 45,
     schemas, file_default_instances, TableStruct_Packet_2eproto::offsets,
@@ -1989,7 +1991,7 @@ const char* ItemAddResponsePacket::_InternalParse(const char* ptr, ::_pbi::Parse
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2378,7 +2380,7 @@ const char* ItemUseResponsePacket::_InternalParse(const char* ptr, ::_pbi::Parse
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3184,7 +3186,7 @@ const char* LoginResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseCo
       // bool success = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4055,7 +4057,7 @@ const char* EnterGameResponsePacket::_InternalParse(const char* ptr, ::_pbi::Par
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5363,7 +5365,8 @@ MoveRequestPacket::MoveRequestPacket(const MoveRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   MoveRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.userseq_){}
+      decltype(_impl_.channelid_){}
+    , decltype(_impl_.userseq_){}
     , decltype(_impl_.transx_){}
     , decltype(_impl_.transy_){}
     , decltype(_impl_.transz_){}
@@ -5371,9 +5374,9 @@ MoveRequestPacket::MoveRequestPacket(const MoveRequestPacket& from)
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+  ::memcpy(&_impl_.channelid_, &from._impl_.channelid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mapid_) -
-    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+    reinterpret_cast<char*>(&_impl_.channelid_)) + sizeof(_impl_.mapid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.MoveRequestPacket)
 }
 
@@ -5382,7 +5385,8 @@ inline void MoveRequestPacket::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.userseq_){0u}
+      decltype(_impl_.channelid_){int64_t{0}}
+    , decltype(_impl_.userseq_){0u}
     , decltype(_impl_.transx_){0}
     , decltype(_impl_.transy_){0}
     , decltype(_impl_.transz_){0}
@@ -5414,9 +5418,9 @@ void MoveRequestPacket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+  ::memset(&_impl_.channelid_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.mapid_) -
-      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+      reinterpret_cast<char*>(&_impl_.channelid_)) + sizeof(_impl_.mapid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -5434,33 +5438,41 @@ const char* MoveRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // float transX = 2;
+      // int64 channelId = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.channelid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transY = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+      // float transY = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transZ = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
+      // float transZ = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
           _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // uint64 mapId = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+      // uint64 mapId = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
@@ -5501,40 +5513,46 @@ uint8_t* MoveRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // float transX = 2;
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_channelid(), target);
+  }
+
+  // float transX = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
   memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
   if (raw_transx != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_transx(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_transx(), target);
   }
 
-  // float transY = 3;
+  // float transY = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
   memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
   if (raw_transy != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_transy(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transy(), target);
   }
 
-  // float transZ = 4;
+  // float transZ = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
   memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
   if (raw_transz != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transz(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_transz(), target);
   }
 
-  // uint64 mapId = 5;
+  // uint64 mapId = 6;
   if (this->_internal_mapid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(5, this->_internal_mapid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(6, this->_internal_mapid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5553,12 +5571,17 @@ size_t MoveRequestPacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // int64 channelId = 2;
+  if (this->_internal_channelid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_channelid());
+  }
+
   // uint32 userSeq = 1;
   if (this->_internal_userseq() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
   }
 
-  // float transX = 2;
+  // float transX = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
@@ -5567,7 +5590,7 @@ size_t MoveRequestPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float transY = 3;
+  // float transY = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
@@ -5576,7 +5599,7 @@ size_t MoveRequestPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float transZ = 4;
+  // float transZ = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
@@ -5585,7 +5608,7 @@ size_t MoveRequestPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // uint64 mapId = 5;
+  // uint64 mapId = 6;
   if (this->_internal_mapid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_mapid());
   }
@@ -5608,6 +5631,9 @@ void MoveRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_channelid() != 0) {
+    _this->_internal_set_channelid(from._internal_channelid());
+  }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
@@ -5655,9 +5681,9 @@ void MoveRequestPacket::InternalSwap(MoveRequestPacket* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.mapid_)
       + sizeof(MoveRequestPacket::_impl_.mapid_)
-      - PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.userseq_)>(
-          reinterpret_cast<char*>(&_impl_.userseq_),
-          reinterpret_cast<char*>(&other->_impl_.userseq_));
+      - PROTOBUF_FIELD_OFFSET(MoveRequestPacket, _impl_.channelid_)>(
+          reinterpret_cast<char*>(&_impl_.channelid_),
+          reinterpret_cast<char*>(&other->_impl_.channelid_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MoveRequestPacket::GetMetadata() const {
@@ -5736,7 +5762,7 @@ const char* MoveResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseCon
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6500,7 +6526,7 @@ const char* AttackResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseC
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6524,7 +6550,7 @@ const char* AttackResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseC
       // bool targetKilled = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6942,7 +6968,7 @@ const char* AttackBroadcastPacket::_InternalParse(const char* ptr, ::_pbi::Parse
       // bool targetKilled = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7915,7 +7941,7 @@ const char* MonsterAttackResponsePacket::_InternalParse(const char* ptr, ::_pbi:
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7931,7 +7957,7 @@ const char* MonsterAttackResponsePacket::_InternalParse(const char* ptr, ::_pbi:
       // bool targetKilled = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.targetkilled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8565,7 +8591,7 @@ const char* MonsterMoveResponsePacket::_InternalParse(const char* ptr, ::_pbi::P
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9333,7 +9359,7 @@ const char* MonsterStatusUpdateResponsePacket::_InternalParse(const char* ptr, :
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9973,7 +9999,7 @@ const char* MonsterSpawnResponsePacket::_InternalParse(const char* ptr, ::_pbi::
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10802,7 +10828,7 @@ const char* CreatePartyResponse::_InternalParse(const char* ptr, ::_pbi::ParseCo
       // bool success = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
           CHK_(ptr);
         } else
           goto handle_unusual;

@@ -12,7 +12,10 @@ void UStatSetMonster::UpdateTransForm(FVector NewTransform)
 	if (ARLRMonster* monster = Cast<ARLRMonster>(GetOuter()))
 	{
 		//RLR_LOG(LogRLR, Log, TEXT("%s"), *monster->GetName());
-		monster->SetActorLocation(NewTransform);
+		AsyncTask(ENamedThreads::GameThread, [monster, NewTransform]()
+			{
+				monster->SetActorLocation(NewTransform);
+			});
 	}
 }
 

@@ -3336,12 +3336,22 @@ class MoveRequestPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kChannelIdFieldNumber = 2,
     kUserSeqFieldNumber = 1,
-    kTransXFieldNumber = 2,
-    kTransYFieldNumber = 3,
-    kTransZFieldNumber = 4,
-    kMapIdFieldNumber = 5,
+    kTransXFieldNumber = 3,
+    kTransYFieldNumber = 4,
+    kTransZFieldNumber = 5,
+    kMapIdFieldNumber = 6,
   };
+  // int64 channelId = 2;
+  void clear_channelid();
+  int64_t channelid() const;
+  void set_channelid(int64_t value);
+  private:
+  int64_t _internal_channelid() const;
+  void _internal_set_channelid(int64_t value);
+  public:
+
   // uint32 userSeq = 1;
   void clear_userseq();
   uint32_t userseq() const;
@@ -3351,7 +3361,7 @@ class MoveRequestPacket final :
   void _internal_set_userseq(uint32_t value);
   public:
 
-  // float transX = 2;
+  // float transX = 3;
   void clear_transx();
   float transx() const;
   void set_transx(float value);
@@ -3360,7 +3370,7 @@ class MoveRequestPacket final :
   void _internal_set_transx(float value);
   public:
 
-  // float transY = 3;
+  // float transY = 4;
   void clear_transy();
   float transy() const;
   void set_transy(float value);
@@ -3369,7 +3379,7 @@ class MoveRequestPacket final :
   void _internal_set_transy(float value);
   public:
 
-  // float transZ = 4;
+  // float transZ = 5;
   void clear_transz();
   float transz() const;
   void set_transz(float value);
@@ -3378,7 +3388,7 @@ class MoveRequestPacket final :
   void _internal_set_transz(float value);
   public:
 
-  // uint64 mapId = 5;
+  // uint64 mapId = 6;
   void clear_mapid();
   uint64_t mapid() const;
   void set_mapid(uint64_t value);
@@ -3395,6 +3405,7 @@ class MoveRequestPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    int64_t channelid_;
     uint32_t userseq_;
     float transx_;
     float transy_;
@@ -9128,7 +9139,27 @@ inline void MoveRequestPacket::set_userseq(uint32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.MoveRequestPacket.userSeq)
 }
 
-// float transX = 2;
+// int64 channelId = 2;
+inline void MoveRequestPacket::clear_channelid() {
+  _impl_.channelid_ = int64_t{0};
+}
+inline int64_t MoveRequestPacket::_internal_channelid() const {
+  return _impl_.channelid_;
+}
+inline int64_t MoveRequestPacket::channelid() const {
+  // @@protoc_insertion_point(field_get:Protocol.MoveRequestPacket.channelId)
+  return _internal_channelid();
+}
+inline void MoveRequestPacket::_internal_set_channelid(int64_t value) {
+  
+  _impl_.channelid_ = value;
+}
+inline void MoveRequestPacket::set_channelid(int64_t value) {
+  _internal_set_channelid(value);
+  // @@protoc_insertion_point(field_set:Protocol.MoveRequestPacket.channelId)
+}
+
+// float transX = 3;
 inline void MoveRequestPacket::clear_transx() {
   _impl_.transx_ = 0;
 }
@@ -9148,7 +9179,7 @@ inline void MoveRequestPacket::set_transx(float value) {
   // @@protoc_insertion_point(field_set:Protocol.MoveRequestPacket.transX)
 }
 
-// float transY = 3;
+// float transY = 4;
 inline void MoveRequestPacket::clear_transy() {
   _impl_.transy_ = 0;
 }
@@ -9168,7 +9199,7 @@ inline void MoveRequestPacket::set_transy(float value) {
   // @@protoc_insertion_point(field_set:Protocol.MoveRequestPacket.transY)
 }
 
-// float transZ = 4;
+// float transZ = 5;
 inline void MoveRequestPacket::clear_transz() {
   _impl_.transz_ = 0;
 }
@@ -9188,7 +9219,7 @@ inline void MoveRequestPacket::set_transz(float value) {
   // @@protoc_insertion_point(field_set:Protocol.MoveRequestPacket.transZ)
 }
 
-// uint64 mapId = 5;
+// uint64 mapId = 6;
 inline void MoveRequestPacket::clear_mapid() {
   _impl_.mapid_ = uint64_t{0u};
 }

@@ -196,11 +196,11 @@ void UMonsterManager::UpdateMonsterTransform(int64 monsterId, float x, float y, 
     stat->ApplyChangeStat(spec);
 
     //TODO: Server Test
-    //status->UpdateTransForm(x, y, z);
-    //AsyncTask(ENamedThreads::GameThread, [monster, x, y, z]()
-        //{
-            //Monster->SetActorLocation(FVector(x, y, z));
-        //});
+    //stat->UpdateTransForm(x, y, z);
+    /*AsyncTask(ENamedThreads::GameThread, [monster, x, y, z]()
+        {
+            monster->SetActorLocation(FVector(x, y, z));
+        });*/
 }
 
 void UMonsterManager::UpdateMonsterHp(int64 monsterId, float newHp)

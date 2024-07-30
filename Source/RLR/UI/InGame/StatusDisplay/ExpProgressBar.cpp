@@ -21,7 +21,7 @@ UExpProgressBar::UExpProgressBar(const FObjectInitializer& ObjectInitializer)
 void UExpProgressBar::UpdateExpPercent()
 {
 	float newPercent = FMath::Clamp(float(CurrentExp) / MaxExp, 0.f, 1.f);
-	ExpProgressBar->SetPercent(newPercent);
+	//ExpProgressBar->SetPercent(1);
 }
 
 void UExpProgressBar::UpdateMaxExp(int32 CurrentLevel)
