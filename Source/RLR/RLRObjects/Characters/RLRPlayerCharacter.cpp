@@ -185,8 +185,11 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 		statSet = ASC->GetStatSet<UStatSetPlayer>();
 	}
 
-	statSet->SetStatData(Stat);
-	statSet->UpdateStat();
+	AsyncTask(ENamedThreads::GameThread, [statSet, Stat]()
+	{
+		statSet->SetStatData(Stat);
+		statSet->UpdateStat();
+	});
 }
 
 void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
