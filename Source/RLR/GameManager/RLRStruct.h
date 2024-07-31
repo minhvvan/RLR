@@ -273,9 +273,31 @@ struct FTalent
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TMap<int32, int32> Talents;
+	TMap<int32, TPair<int32, int32>> Talents;
 
 	void MakeTalent(Protocol::Talent Data);
+
+	FString toString()
+	{
+		FString talentString;
+
+		auto AppendTalent = [&talentString](int32 talent, int32 talentLevel)
+			{
+				if (!talentString.IsEmpty())
+				{
+					talentString.Append(TEXT(" "));
+				}
+
+				talentString.Append(FString::Printf(TEXT("%d = %d"), talent, talentLevel));
+			};
+
+		for (int i = 0; i < 3; i++)
+		{
+			AppendTalent(Talents[i].Key, Talents[i].Value);
+		}
+
+		return talentString;
+	}
 };
 
 /*
