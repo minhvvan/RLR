@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include <Network/Proto/Struct.pb.h>
 #include <Network/Proto/Skill.pb.h>
+#include "Templates/Tuple.h"
 #include "RLRStruct.generated.h"
 
 /**
@@ -14,7 +15,6 @@
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
-
 
 
 
@@ -263,6 +263,41 @@ struct FTotalStatus
 	}
 };
 
+
+/*
+	재능 정보
+*/
+USTRUCT(Atomic, BlueprintType)
+struct FTalent
+{
+	GENERATED_BODY()
+
+	TMap<int32, TTuple<int32, int32>> Talents;
+
+	void MakeTalent(Protocol::Talent Data);
+
+	FString toString()
+	{
+		FString talentString;
+
+		auto AppendTalent = [&talentString](int32 talent, int32 talentLevel)
+			{
+				if (!talentString.IsEmpty())
+				{
+					talentString.Append(TEXT(" "));
+				}
+
+				talentString.Append(FString::Printf(TEXT("%d = %d"), talent, talentLevel));
+			};
+
+		for (int i = 0; i < 3; i++)
+		{
+			AppendTalent(Talents[i].Key, Talents[i].Value);
+		}
+
+		return talentString;
+	}
+};
 
 /*
 	아이템 정보를 위한 Status.
@@ -830,6 +865,9 @@ struct FUserCharacter
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FSetStatus SetStatus;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FTalent Talent;
 
 	void MakeUserCharacter(Protocol::UserCharacter Data);
 

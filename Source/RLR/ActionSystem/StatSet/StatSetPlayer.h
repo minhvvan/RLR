@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedLevel);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedExp);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedTotalStatus);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedSetStatus);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnChangedTalent);
 
 UCLASS()
 class RLR_API UStatSetPlayer : public UStatSet
@@ -34,6 +35,7 @@ public:
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, AdventureRank, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, TotalStatus, FTotalStatus);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, SetStatus, FSetStatus);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Talent, FTalent);
 
 
     template<typename T>
@@ -61,13 +63,21 @@ public:
         UpdateSetStatus(ChangeSpec.NewValue);
     }
 
+    template<>
+    void ApplyChangeStat(FStatChangeSpec<FTalent>& ChangeSpec)
+    {
+        UpdateTalent(ChangeSpec.NewValue);
+    }
+
     void UpdateStat();
+    void ClearBindFunc();
 
     //Delegates
     FOnChangedLevel         OnChangedLevel;
     FOnChangedExp           OnChangedExp;
     FOnChangedTotalStatus   OnChangedTotalStatus;
     FOnChangedSetStatus     OnChangedSetStatus;
+    FOnChangedTalent        OnChangedTalent;
 
 private:
 	FUserCharacter Stat;
@@ -77,6 +87,7 @@ protected:
     void UpdateExp(int32 NewExp);
     void UpdateTotalStatus(FTotalStatus NewTotalStatus);
     void UpdateSetStatus(FSetStatus NewSetStatus);
+    void UpdateTalent(FTalent NewTalent);
 };
 
 /*

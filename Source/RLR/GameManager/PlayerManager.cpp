@@ -69,13 +69,21 @@ void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 	statSet->ApplyChangeStat(spec);
 }
 
+void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
+{
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	FStatChangeSpec<FTalent> spec;
+	spec.ChangedStat = statSet->GetTalentStat();
+	spec.NewValue = NewTalent;
+
+	statSet->ApplyChangeStat(spec);
+}
+
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
-	//TODO: Send to Server
-	RLR_LOG(LogRLR, Log, TEXT("MoveTo: %s"), *MoveResult.TargetTransform.ToString());
-	GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.UserSeq, MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
-
-	return true;
+	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.UserSeq, MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
 }
 
 void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
@@ -90,6 +98,13 @@ void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
 	}
 
 	PlayerCharacter->UpdateTransform(NewTransform);
+}
+
+bool UPlayerManager::RequestTalent(int TalentOrder)
+{
+	//TODO: TalentOrder에 맞는 재능 변경 요청
+
+	return false;
 }
 
 UStatSetPlayer* UPlayerManager::GetStatSet()

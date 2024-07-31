@@ -40,17 +40,6 @@ void ARLRPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (GM == nullptr) return;
-
-	UUIManager* UIManager = GM->GetUIManager();
-	if (UIManager == nullptr) return;
-
-	AInGameHUD* HUD = Cast<AInGameHUD>(GetHUD());
-	if (!HUD) return;
-
-	UIManager->OpenMainUI(HUD->MainUIClass);
-
 	//Set PlayerCharacter
 	PlayerCharacter = Cast<ARLRPlayerCharacter>(InPawn);
 }

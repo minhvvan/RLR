@@ -9,6 +9,16 @@ void UStatSetPlayer::UpdateStat()
 	UpdateExp(GetExp());
 	UpdateTotalStatus(GetTotalStatus());
 	UpdateSetStatus(GetSetStatus());
+	UpdateTalent(GetTalent());
+}
+
+void UStatSetPlayer::ClearBindFunc()
+{
+	OnChangedLevel.Clear();
+	OnChangedExp.Clear();
+	OnChangedTotalStatus.Clear();
+	OnChangedSetStatus.Clear();
+	OnChangedTalent.Clear();
 }
 
 void UStatSetPlayer::UpdateLevel(int32 NewLevel)
@@ -33,4 +43,10 @@ void UStatSetPlayer::UpdateSetStatus(FSetStatus NewSetStatus)
 {
 	SetSetStatus(NewSetStatus);
 	OnChangedSetStatus.Broadcast();
+}
+
+void UStatSetPlayer::UpdateTalent(FTalent NewTalent)
+{
+	SetTalent(NewTalent);
+	OnChangedTalent.Broadcast();
 }

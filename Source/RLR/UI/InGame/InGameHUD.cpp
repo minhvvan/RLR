@@ -9,6 +9,7 @@
 #include "MyPlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "RLR.h"
 
 AInGameHUD::AInGameHUD()
 {
@@ -18,10 +19,9 @@ void AInGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (GM)
+	if (GameInstance)
 	{
-		GM->GetUIManager()->OpenMainUI(MainUIClass);
+		GameInstance->GetUIManager()->OpenMainUI(MainUIClass);
 	}
 
 	AMyPlayerController* PC = Cast<AMyPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
