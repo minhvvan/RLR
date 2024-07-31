@@ -85,7 +85,10 @@ protected:
 	void OnChangedSetStatus();	
 	
 	UFUNCTION()
-	void OnChangedExp();
+	void OnChangedExp();	
+	
+	UFUNCTION()
+	void OnChangedTalent();
 
 	UFUNCTION()
 	void OnChangedLevel();

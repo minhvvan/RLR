@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include <Network/Proto/Struct.pb.h>
 #include <Network/Proto/Skill.pb.h>
+#include "Templates/Tuple.h"
 #include "RLRStruct.generated.h"
 
 /**
@@ -14,7 +15,6 @@
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
  
-
 
 
 
@@ -272,8 +272,7 @@ struct FTalent
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TMap<int32, TPair<int32, int32>> Talents;
+	TMap<int32, TTuple<int32, int32>> Talents;
 
 	void MakeTalent(Protocol::Talent Data);
 
