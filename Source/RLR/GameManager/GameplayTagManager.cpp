@@ -36,6 +36,9 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Skill_7_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.7.Anim"), FString(TEXT("7애니메이션")));
 	GameplayTags.Action_Skill_8_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.8.Anim"), FString(TEXT("8애니메이션")));
 	
+	//Action.Interaction
+	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction"), FString(TEXT("상호작용")));
+	
 	//Object
 	GameplayTags.Object_State_Hittable = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Object.State.Hittable"), FString(TEXT("공격가능")));
 	

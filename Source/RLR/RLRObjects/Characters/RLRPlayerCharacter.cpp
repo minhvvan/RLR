@@ -53,7 +53,7 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 	int inputID = 0;
 	for (auto [Tag, Action] : DefaultActions)
 	{
-		FActionSpec Spec(Action, 1, inputID++);
+		FActionSpec Spec(Action);
 		ASC->GiveAction(Tag, Spec);
 	}
 }

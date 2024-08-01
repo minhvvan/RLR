@@ -49,6 +49,7 @@ private:
 	void OnConsumeItem(int inputID);
 	void OnConsumeItem(FGameplayTag InputTag);
 	void OnOpenUI(FGameplayTag InputTag);
+	void OnActionStart(FGameplayTag InputTag);
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	TObjectPtr<UNiagaraSystem> Cursor;

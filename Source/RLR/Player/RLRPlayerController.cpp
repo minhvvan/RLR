@@ -200,8 +200,7 @@ void ARLRPlayerController::OnSkillHeld(FGameplayTag TriggerTag)
 	/*
 		나중에 홀딩하는 스킬 생기면 넣어주기
 	*/
-
-
+	//TODO: Action 내부에서 처리가능(확인하면 삭제)
 }
 
 void ARLRPlayerController::OnConsumeItem(int inputID)
@@ -224,6 +223,16 @@ void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 	if (UIManager == nullptr) return;
 
 	UIManager->ToggleSubUI(InputTag);
+}
+
+void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
+{
+	if (!PlayerCharacter) return;
+
+	UActionSystemComponent* ASC =  PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->TryActivateAction(InputTag);
 }
 
 bool ARLRPlayerController::IsMove()

@@ -150,7 +150,7 @@ public:
 		: Action(nullptr), Level(1), InputID(INDEX_NONE), bCancelable(false)
 	{ }
 
-	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 InInputID);
+	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel=1, int32 InInputID=0);
 
 	UPROPERTY()
 	TObjectPtr<UAction> Action;

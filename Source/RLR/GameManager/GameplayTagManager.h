@@ -50,6 +50,9 @@ public:
 	FGameplayTag Action_Skill_7_Anim;
 	FGameplayTag Action_Skill_8_Anim;
 
+	//Action.Interaction
+	FGameplayTag Action_Interaction;
+
 	//Object.State
 	FGameplayTag Object_State_Hittable;
 
