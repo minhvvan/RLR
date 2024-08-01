@@ -10,6 +10,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/ObjectManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -121,6 +122,18 @@ UPlayerManager* UGameManager::GetPlayerManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetPlayerManager Error."));
+    return nullptr;
+}
+
+UObjectManager* UGameManager::GetObjectManager()
+{
+    UObjectManager* ObjectManager = GetSubsystem<UObjectManager>(this);
+    if (IsValid(ObjectManager))
+    {
+        return ObjectManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetObjectManager Error."));
     return nullptr;
 }
 
