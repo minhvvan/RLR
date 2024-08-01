@@ -9,11 +9,13 @@
 #include "UI/MainUI.h"
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
+#include "UI/DialogueUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "GameManager/RLRStruct.h"
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "RLR.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -141,5 +143,49 @@ void UUIManager::AdjustZOrder()
 		{
 			CanvasSlot->SetZOrder(OrderNum);
 		}
+	}
+}
+
+TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UDialogueUI> UIClass)
+{
+	UDialogueUI* newDialogueUI = CreateWidget<UDialogueUI>(GetWorld(), UIClass);
+	if (newDialogueUI)
+	{
+		DialogueUI = newDialogueUI;
+		DialogueUI->OnDialogueEnd.AddDynamic(this, &UUIManager::OnDialogueEnded);
+
+		APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		if (playerController)
+		{
+			playerController->SetInputMode(FInputModeUIOnly());
+		}
+
+		if (MainUI)
+		{
+			MainUI->SetVisibility(ESlateVisibility::Hidden);
+		}
+
+		DialogueUI->AddToViewport();
+	};
+
+	return DialogueUI;
+}
+
+void UUIManager::OnDialogueEnded()
+{
+	RLR_LOG(LogRLR, Log, TEXT("DialougeEnd"));
+	APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (playerController)
+	{
+		FInputModeGameAndUI inputMode = FInputModeGameAndUI();
+		inputMode.SetHideCursorDuringCapture(false);
+
+		playerController->SetInputMode(inputMode);
+	}
+
+	DialogueUI->RemoveFromParent();
+	if (MainUI)
+	{
+		MainUI->SetVisibility(ESlateVisibility::Visible);
 	}
 }
