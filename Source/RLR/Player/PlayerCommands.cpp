@@ -102,19 +102,23 @@ void APlayerCommands::BIndInput(TObjectPtr<ARLRPlayerController> Controller)
 
 		switch (Input.InputType)
 		{
-			case EInputType::Action:
+			case EInputType::Skill:
 				RLRInputComponent->BindInputActions(Input, Controller.Get(), &ARLRPlayerController::OnSkillStarted, &ARLRPlayerController::OnSkillCompleted, &ARLRPlayerController::OnSkillHeld);
-			break;
+				break;
 
 			case EInputType::OpenUI:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnOpenUI, Input.ActionTag);
-			break;
+				break;
 
 			case EInputType::Consume:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnConsumeItem, Input.ActionTag);
-			break;
+				break;
+			
+			case EInputType::Action:
+				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnActionStart, Input.ActionTag);
+				break;
 			default:
-			break;
+				break;
 		}
 	}
 }

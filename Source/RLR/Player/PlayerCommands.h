@@ -26,9 +26,10 @@ class ARLRPlayerController;
 UENUM(BlueprintType)
 enum class EInputType : uint8
 {
-	Action,
+	Skill,
 	OpenUI,
 	Consume,
+	Action,
 	None,
 };
 
