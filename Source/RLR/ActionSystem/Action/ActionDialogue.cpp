@@ -4,6 +4,8 @@
 #include "ActionSystem/Action/ActionDialogue.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "ActionSystem/ActionSystemComponent.h"
 #include "UI/DialogueUI.h"
 #include "RLR.h"
 
@@ -20,10 +22,18 @@ bool UActionDialogue::PreActivateAction()
 
 void UActionDialogue::ActivateAction()
 {
-	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(DialogueUIClass);
+	UActionSystemComponent* playerASC = CurrentActorInfo->ActionSystemComponent.Get();
+	if (!playerASC) return;
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	FActionData actionData;
+	playerASC->GetActionData(TagManager.Action_Interaction, actionData);
+
+	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(actionData.UIClass);
 	if (dialogueUI.Get())
 	{
 		dialogueUI->OnDialogueEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
+		dialogueUI->SetDialogueData(actionData.InteractionData.DialogueString);
 	}
 }
 

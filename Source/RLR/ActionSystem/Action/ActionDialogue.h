@@ -27,8 +27,4 @@ public:
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
-
-protected:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<UDialogueUI> DialogueUIClass;
 };

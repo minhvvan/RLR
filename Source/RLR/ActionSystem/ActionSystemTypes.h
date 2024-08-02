@@ -13,6 +13,7 @@ class UAnimInstance;
 class UAnimMontage;
 class UMovementComponent;
 class USkeletalMeshComponent;
+class UBaseUI;
 
 
 USTRUCT(Atomic, BlueprintType)
@@ -210,6 +211,16 @@ public:
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct RLR_API FInteractionData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(VisibleAnywhere, Category = "Interaction")
+	FString DialogueString;
+};
+
+
+USTRUCT(Atomic, BlueprintType)
 struct RLR_API FActionData
 {
 	GENERATED_BODY()
@@ -219,6 +230,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
 	FVector	MousePos;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
+	TSubclassOf<UBaseUI> UIClass;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
+	FInteractionData InteractionData;
 };
 
 UENUM(BlueprintType)

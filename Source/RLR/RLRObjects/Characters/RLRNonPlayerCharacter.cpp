@@ -4,8 +4,10 @@
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Components/SphereComponent.h"
+#include "UI/DialogueUI.h"
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "GameManager/GameplayTagManager.h"
 #include "RLR.h"
 
 ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
@@ -15,6 +17,11 @@ ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
 
 	//Set Interaction Collision
 	InteractionComp->InitSphereRadius(300.f);
+}
+
+void ARLRNonPlayerCharacter::SetNPCData(FNPCData Data)
+{
+	NPCData = Data;
 }
 
 void ARLRNonPlayerCharacter::BeginPlay()
@@ -40,6 +47,16 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 		FActionSpec Spec(Action);
 		PlayerASC->GiveAction(Tag, Spec);
 	}
+
+	FActionData data;
+	data.UIClass = DialogueUI;
+
+	FInteractionData interactionData;
+	interactionData.DialogueString = FString::Printf(TEXT("I'm %s"), *GetName());
+	data.InteractionData = interactionData;
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	PlayerASC->AddActionData(TagManager.Action_Interaction, data);
 }
 
 void ARLRNonPlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -54,7 +71,6 @@ void ARLRNonPlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedCompone
 
 	for (auto [Tag, Action] : GiveToPlayerActions)
 	{
-		FActionSpec Spec(Action);
 		PlayerASC->RemoveAction(Tag);
 	}
 }

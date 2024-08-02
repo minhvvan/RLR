@@ -9,6 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDialogueEnd);
 
 class UButton;
+class UTextBlock;
 
 UCLASS()
 class RLR_API UDialogueUI : public UBaseUI
@@ -19,11 +20,17 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnTest;
 
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UTextBlock> TxtTest;
+
 protected:
 	virtual void NativeConstruct();
 
 public:
 	FOnDialogueEnd OnDialogueEnd;
+
+	//Test
+	void SetDialogueData(FString DialogueString);
 
 protected:
 	UFUNCTION()

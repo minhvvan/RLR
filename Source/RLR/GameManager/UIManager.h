@@ -45,7 +45,7 @@ public:
 
 	void AdjustZOrder();
 
-	TObjectPtr<UDialogueUI> OpenDialogue(TSubclassOf<UDialogueUI> UIClass);
+	TObjectPtr<UDialogueUI> OpenDialogue(TSubclassOf<UBaseUI> UIClass);
 
 protected:
 	UFUNCTION()

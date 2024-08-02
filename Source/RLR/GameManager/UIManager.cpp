@@ -146,7 +146,7 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
-TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UDialogueUI> UIClass)
+TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 {
 	UDialogueUI* newDialogueUI = CreateWidget<UDialogueUI>(GetWorld(), UIClass);
 	if (newDialogueUI)
