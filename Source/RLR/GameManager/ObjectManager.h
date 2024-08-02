@@ -17,6 +17,7 @@ class RLR_API UObjectManager : public UGameInstanceSubsystem
 public:
     UObjectManager();
 
+    //NPC
     UFUNCTION()
     void SetNPCData(TArray<FNPCData> Data);
 
@@ -24,6 +25,7 @@ public:
     void SpawnNPC();
 
 private:
+    //NPC
     UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
     TArray<FNPCData> NPCData;
 
@@ -33,4 +35,7 @@ private:
     TSubclassOf<ARLRNonPlayerCharacter> NPCClass;
 
     FCriticalSection NPCDataMutex;
+
+    //Other Actor
+
 };

@@ -47,7 +47,7 @@ void UObjectManager::SpawnNPC()
                 continue;
             }
 
-            npc->SetData(data);
+            npc->SetNPCData(data);
             npc->FinishSpawning(SpawnTransform);
 
             NPCInstances.Add(npc);

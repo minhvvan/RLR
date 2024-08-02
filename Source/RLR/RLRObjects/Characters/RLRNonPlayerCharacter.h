@@ -18,7 +18,7 @@ class RLR_API ARLRNonPlayerCharacter : public ARLRCharacter
 public:
 	ARLRNonPlayerCharacter();
 
-	void SetNPCData(FNPCData Data);
+	void SetNPCData(const FNPCData& Data);
 
 protected:
 	UPROPERTY(EditAnywhere)

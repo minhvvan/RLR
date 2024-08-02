@@ -19,7 +19,7 @@ ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
 	InteractionComp->InitSphereRadius(300.f);
 }
 
-void ARLRNonPlayerCharacter::SetNPCData(FNPCData Data)
+void ARLRNonPlayerCharacter::SetNPCData(const FNPCData& Data)
 {
 	NPCData = Data;
 }

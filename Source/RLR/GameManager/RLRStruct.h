@@ -904,3 +904,92 @@ struct FExpTable : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MaxExp;
 };
+
+USTRUCT(Atomic, BlueprintType)
+struct FQuest
+{
+	GENERATED_BODY()
+
+	FQuest()
+	{}
+
+	FString QuestName;
+
+	FString ToString() const
+	{
+		FString QuestString;
+
+		auto AppendStatFloat = [&QuestString](const FString& StatName, float StatValue)
+			{
+				if (!QuestString.IsEmpty()) QuestString.Append(TEXT("\n"));
+				QuestString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+			};
+
+		auto AppendStatInt = [&QuestString](const FString& StatName, int32 StatValue)
+			{
+				if (!QuestString.IsEmpty()) QuestString.Append(TEXT("\n"));
+				QuestString.Append(FString::Printf(TEXT("%s = %d"), *StatName, StatValue));
+			};
+
+		auto AppendStatString = [&QuestString](const FString& StatName, FString StatValue)
+			{
+				if (!QuestString.IsEmpty()) QuestString.Append(TEXT("\n"));
+				QuestString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue));
+			};
+
+		//AppendStatInt(TEXT("SEQ"), MonsterSeq);
+
+		return QuestString;
+	}
+
+	void MakeQuestData(/*param*/);
+	static int testID;
+};
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FNPCData
+{
+	GENERATED_BODY()
+
+	FNPCData():
+		NPCTransform(FVector::ZeroVector)
+	{}
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector NPCTransform;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<FQuest> Quests;
+
+	FString ToString() const
+	{
+		FString NPCString;
+
+		auto AppendStatFloat = [&NPCString](const FString& StatName, float StatValue)
+			{
+				if (!NPCString.IsEmpty()) NPCString.Append(TEXT("\n"));
+				NPCString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
+			};
+
+		auto AppendStatInt = [&NPCString](const FString& StatName, int32 StatValue)
+			{
+				if (!NPCString.IsEmpty()) NPCString.Append(TEXT("\n"));
+				NPCString.Append(FString::Printf(TEXT("%s = %d"), *StatName, StatValue));
+			};
+
+		auto AppendStatString = [&NPCString](const FString& StatName, FString StatValue)
+			{
+				if (!NPCString.IsEmpty()) NPCString.Append(TEXT("\n"));
+				NPCString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue));
+			};
+
+		//AppendStatInt(TEXT("SEQ"), MonsterSeq);
+
+		return NPCString;
+	}
+
+	void MakeNPCData(/*param*/);
+
+	static int testID;
+};

@@ -406,3 +406,18 @@ void FTalent::MakeTalent(Protocol::Talent Data)
     Talents.Add({ 1, TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()) });
     Talents.Add({ 2, TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()) });
 }
+
+int FQuest::testID = 0;
+void FQuest::MakeQuestData()
+{
+    //TODO: QuestData 생성
+    QuestName = FString::Printf(TEXT("Quest%d"), testID);
+}
+
+int FNPCData::testID = 0;
+void FNPCData::MakeNPCData()
+{
+    //TODO: NPCData 생성
+    //(X=1400.000000,Y=1500.000000,Z=96.062600)
+    NPCTransform = FVector(1400.f, 1500.f+500*testID++, 96);
+}
