@@ -36,3 +36,16 @@ bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::M
 
     return false;
 }
+bool Handle_DAMAGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::DamageResponsePacket& pkt) {
+    UE_LOG(LogTemp, Log, TEXT("Damage : %f"), pkt.damage());
+    //UE_LOG(LogTemp, Log, TEXT("monster Id : %d"), pkt.monsterId());
+    return true;
+}
+
+bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MonsterStatusBroadcastPacket& pkt) {
+    UE_LOG(LogTemp, Log, TEXT("monster Id : %lld"), pkt.monsterid());
+    UE_LOG(LogTemp, Log, TEXT("monster hp : %f"), pkt.hp());
+    GameInstance->GetMonsterManager()->UpdateMonsterHp(pkt.monsterid(), pkt.hp());
+    
+    return true;
+}

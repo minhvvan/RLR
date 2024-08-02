@@ -9,6 +9,9 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/Action/Skills/ActionSkill.h"
 #include "RLR.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include <ActionSystem/StatSet/StatSetMonster.h>
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -113,7 +116,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
-		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(i), TEXT(""));
+		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));
 		if (Data == nullptr)
 		{
 			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
@@ -152,24 +155,38 @@ bool USkillManager::RequestGetSelectedSkills()
 	//TODO: Request Get Selected Skill
 	//내가 설정한 8개를 가져와줘
 
-
+	
 	return false;
 }
 
 bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor)
 {
 	FAttackResult AttackResults;
-	AttackResults.SkillSeq = SkillData->SkillSeq;
-	AttackResults.Level = SkillData->Level;
-	AttackResults.Timestamp = FDateTime::UtcNow().ToUnixTimestamp();
-	//AttackResults.UserSeq = ???
+	if (SkillData) {
+		AttackResults.SkillSeq = SkillData->SkillSeq;
+		AttackResults.Level = SkillData->Level;
+		AttackResults.Timestamp = FDateTime::UtcNow().ToUnixTimestamp();
+		AttackResults.UserSeq = 1; // PlayerManager userSeq
+	}
+	else {
+		AttackResults.SkillSeq = 0;
+		AttackResults.Level = 0;
+		AttackResults.Timestamp = 0;
+		AttackResults.UserSeq = 1;
 
+	}
+	
+	
 	for (auto Target : OverlappedActor)
 	{
-		//AttackResults.TargetSeq.Add(Target->GetUserSeq)
+		ARLRCharacter* Monster = Cast<ARLRCharacter>(Target);
+		UActionSystemComponent* ASC = Monster->GetActionSystemComponent();
+		UStatSetMonster* MonsterStatus = ASC->GetStatSet<UStatSetMonster>();
+		
+		AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
 	}
 
 	//TODO: Send To Server(Skill Result) Using NetworkManager
-	//return result
+	GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
 	return false;
 }

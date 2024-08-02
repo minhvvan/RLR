@@ -155,6 +155,9 @@ ARLRMonster* UMonsterManager::GetMonsterByMonsterId(int64 monsterId)
 {
     for (ARLRMonster* Monster : MonsterInstances)
     {  
+        if (!Monster) {
+            continue;
+        }
         UStatSetMonster* status = Monster->GetActionSystemComponent()->GetStatSet<UStatSetMonster>();
         if (status->GetMonsterId() == monsterId)
         {
