@@ -34,7 +34,6 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 	//Test
 	if (!SkillData) return;
 	float SkillRange = SkillData->CollisionRange.X;
-
 	FVector StartPos = Player->GetActorLocation();
 	FVector SkillDir = (MousePos - StartPos);
 

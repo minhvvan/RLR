@@ -51,11 +51,9 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
 }
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
 
-    UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
-    UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
-    UE_LOG(LogTemp, Log, TEXT("User Int : %d"), pkt.usercharacter().totalstatus().userintelligence());
     UUIManager* UIManager = GameInstance->GetUIManager();
     
+    //UE_LOG(LogTemp, Log, TEXT("User Hp : %f"), pkt.usercharacter().totalstatus().userhp());
     if (IsValid(UIManager) == false)
     {
         DEBUG_LOG("Handle_STATUS_RESPONSE Error. UIManager is Null.");
@@ -77,7 +75,6 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Get
 
         skillDatas.Add(skillData);
     }
-
     GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
 
     return true;
@@ -87,6 +84,7 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Get
 bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::ChannelResponsePacket& pkt) {
     UE_LOG(LogTemp, Log, TEXT("User Channel : %d"), pkt.channelid());
     //TODO : PlayerManager or UserManager 만들면 거기에 Channel 정보도 같이 리스폰
+
     GameInstance->GetNetworkManager()->SendMapInfoRequest(1, pkt.channelid());
     return true;
 }

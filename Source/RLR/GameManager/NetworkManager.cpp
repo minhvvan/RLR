@@ -32,9 +32,9 @@ void UNetworkManager::RequestServerAddresses(int32 userSeq)
     int32 MonsterServerPort = FCString::Atoi(*serverAddresses[3]);
 
     UE_LOG(LogTemp, Log, TEXT("Got server addresses from LoadBalancer: MainServer=%s:%d, MonsterServer=%s:%d"), *MainServerAddress, MainServerPort, *MonsterServerAddress, MonsterServerPort);
-
-    ConnectToMainServer(MainServerAddress, MainServerPort);
     ConnectToMonsterServer(MonsterServerAddress, MonsterServerPort);
+    ConnectToMainServer(MainServerAddress, MainServerPort);
+    
 }
 void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 Port)
 {
@@ -63,7 +63,7 @@ void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Po
     TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     Addr->SetIp(IP.Value);
     Addr->SetPort(Port);
-
+    MainServerSocket->SetNonBlocking(true);
     if (MainServerSocket->Connect(*Addr))
     {
         MainServerReceiver = MakeShared<FNetworkReceiver>(MainServerSocket);
@@ -82,7 +82,7 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     Addr->SetIp(IP.Value);
     Addr->SetPort(Port);
-
+    MonsterServerSocket->SetNonBlocking(true);
     if (MonsterServerSocket->Connect(*Addr))
     {
         MonsterServerReceiver = MakeShared<FNetworkReceiver>(MonsterServerSocket);
@@ -195,7 +195,9 @@ bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
     packet.mutable_skill()->set_level(attackResult.Level);
     packet.mutable_skill()->set_userseq(attackResult.UserSeq);
     packet.mutable_skill()->set_timestamp(attackResult.Timestamp);
-    //packet.mutable_skill()->targetseq(attackResult.TargetSeq);
+    for (int i = 0; i < attackResult.TargetSeq.Num(); i++) {
+        packet.mutable_skill()->add_targetseq(attackResult.TargetSeq[i]);
+    }
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
 
@@ -204,7 +206,7 @@ bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Attack 패킷 송신 성공"));
     }
     return bSuccess;
 }
@@ -273,10 +275,13 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
     if (!MainServerSocket && !MonsterServerSocket) return false;
     if (userSeq == 0) return false;
 
+    if (userSeq == 0) {
+        return false;
+    }
     Protocol::MoveRequestPacket packet;
     packet.set_userseq(userSeq);
     packet.set_mapid(mapid);
-    packet.set_channelid(channelid);  
+    packet.set_channelid(1);  
     packet.set_transx((float)vector.X);
     packet.set_transy((float)vector.Y);
     packet.set_transz((float)vector.Z);
@@ -286,13 +291,12 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
     bool bSuccess = MonsterServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 
     if (!bSuccess && !aSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
     }
     else {
         UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
     }
 
 
-    return bSuccess && BytesSent == sendBuffer->Capacity();
-    return true;
+    return aSuccess && bSuccess;
 }

@@ -356,7 +356,7 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
 
     Exp = Data.exp();
     AdventureRank = Data.adventurerrank();
-
+    
     TotalStatus.MakeStatus(Data.totalstatus());
     SetStatus.MakeSetStatus(Data.setstatus());
     Talent.MakeTalent(Data.talent());
@@ -396,6 +396,7 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
     SkillId = skill.skillid();
 
+    CollisionRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 }

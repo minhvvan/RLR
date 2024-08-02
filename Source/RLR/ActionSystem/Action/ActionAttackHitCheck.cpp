@@ -8,6 +8,9 @@
 #include "GameManager/GameplayTagManager.h"
 #include "Physics/RLRCollision.h"
 #include "DrawDebugHelpers.h"
+#include "GameManager/SkillManager.h"
+#include "GameManager/GameManager.h"
+
 
 UActionAttackHitCheck::UActionAttackHitCheck()
 {
@@ -26,7 +29,15 @@ void UActionAttackHitCheck::ActivateAction()
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	FGameplayTag HittableTag = TagManager.Object_State_Hittable;
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (!SkillManager)
+	{
+		EndAction();
+		return;
+	}
 
+	//사거리에 맞게 Collision 생성(Test = 100)
+	TArray<AActor*> OverlappedActor;
 	if (GetWorld()->OverlapMultiByChannel(OverlapResults,	/*Result*/
 		Owner->GetActorLocation(),							/*Center*/
 		FQuat::Identity,									/*Rotate*/
@@ -55,7 +66,19 @@ void UActionAttackHitCheck::ActivateAction()
 			RLR_LOG(LogRLR, Log, TEXT("Hit Actor: %s"), *result.GetActor()->GetName());
 
 			//TODO: 판정된 Actor를 Server에 보낼 클래스 필요
+			OverlappedActor.Add(result.GetActor());
 		}
+		//TODO: 판정된 Actor를 Server에 보낼 클래스 필요
+		
+		if (SkillManager->RequestSkillResult(SkillData, OverlappedActor))
+		{
+			
+		}
+		else
+		{
+			//fail
+		}
+
 	}
 	else
 	{

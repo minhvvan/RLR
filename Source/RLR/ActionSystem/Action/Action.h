@@ -87,7 +87,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	FGameplayTag TriggerTag;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 	FGameplayTag FollowTriggerTag;
 
 	mutable const FActionActorInfo* CurrentActorInfo;
