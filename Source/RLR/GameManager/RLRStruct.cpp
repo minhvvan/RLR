@@ -421,3 +421,10 @@ void FNPCData::MakeNPCData()
     //(X=1400.000000,Y=1500.000000,Z=96.062600)
     NPCTransform = FVector(1400.f, 1500.f+500*testID++, 96);
 }
+
+int FInteractData::testID = 0;
+void FInteractData::MakeObjectData()
+{
+    InteractType = EInteractObjectType::LOGGING;
+    ObjectTransform = FVector(1400.f, 1500.f + 500 * testID++, 96);
+}

@@ -8,6 +8,7 @@
 #include "ObjectManager.generated.h"
 
 class ARLRNonPlayerCharacter;
+class ARLRInteractableActor;
 
 UCLASS()
 class RLR_API UObjectManager : public UGameInstanceSubsystem
@@ -24,6 +25,13 @@ public:
     UFUNCTION()
     void SpawnNPC();
 
+    //Object
+    UFUNCTION()
+    void SetObjectData(TArray<FInteractData> Data);
+
+    UFUNCTION()
+    void SpawnObejct();
+
 private:
     //NPC
     UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
@@ -36,6 +44,14 @@ private:
 
     FCriticalSection NPCDataMutex;
 
-    //Other Actor
+    //Object
+    UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+    TArray<FInteractData> InteractObjectData;
 
+    UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+    TArray<TObjectPtr<ARLRInteractableActor>> ObjectInstances;
+
+    TMap<EInteractObjectType,TSubclassOf<ARLRInteractableActor>> ObjectClasses;
+
+    FCriticalSection ObjectDataMutex;
 };

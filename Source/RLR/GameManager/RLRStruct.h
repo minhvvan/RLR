@@ -523,6 +523,17 @@ enum class ESkillType : uint8
 	SIZE
 };
 
+UENUM(BlueprintType)
+enum class EInteractObjectType : uint8
+{
+	COLLECT = 0,
+	MINING,
+	LOGGING,
+	FISHING,
+	SWIMMING,
+	NONE
+};
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
@@ -991,5 +1002,20 @@ struct FNPCData
 
 	void MakeNPCData(/*param*/);
 
+	static int testID;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FInteractData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	EInteractObjectType InteractType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector ObjectTransform;
+
+	void MakeObjectData(/*param*/);
 	static int testID;
 };
