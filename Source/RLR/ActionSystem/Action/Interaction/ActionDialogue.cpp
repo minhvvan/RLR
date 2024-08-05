@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ActionSystem/Action/ActionDialogue.h"
+#include "ActionSystem/Action/Interaction/ActionDialogue.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
