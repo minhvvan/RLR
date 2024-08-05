@@ -41,7 +41,6 @@ bool UActionSkill_Area::PreActivateAction()
 
 	if (ActionState == EActionState::STATE_INIT)
 	{
-		if (CheckBlockTag()) return false;
 		bPossible = true;
 
 		bIsActive = true;

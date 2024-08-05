@@ -65,7 +65,6 @@ protected:
 
 	bool CanEndAction();
 
-	bool CheckBlockTag();
 	void AddOwnedTag();
 
 public:
@@ -98,6 +97,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTagContainer ActivationBlockedTags;
 
+	UPROPERTY(EditDefaultsOnly, Category = Tags)
+	FGameplayTagContainer ActivationCancelTags;
+
 	UPROPERTY()
 	TArray<TObjectPtr<UGameplayTask>> ActiveTasks;
 
@@ -107,4 +109,6 @@ protected:
 	//Action Instance의 상태
 	UPROPERTY(VisibleAnywhere, Category = State)
 	EActionState ActionState;
+
+	friend class UActionSystemComponent;
 };

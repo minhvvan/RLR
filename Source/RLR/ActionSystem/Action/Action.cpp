@@ -68,8 +68,6 @@ bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
-		if (CheckBlockTag()) return false;
-
 		//Action 실행 전 준비
 		bIsActive = true;
 		bIsAbilityEnding = false;
@@ -184,24 +182,6 @@ bool UAction::CanEndAction()
 	}
 
 	return true;
-}
-
-bool UAction::CheckBlockTag()
-{
-	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
-	{
-		//Block
-		for (auto BlockTag : ActivationBlockedTags)
-		{
-			if (ASC->HasMatchingGameplayTag(BlockTag))
-			{
-				//Blocked this Action
-				return true;
-			}
-		}
-	}
-
-	return false;
 }
 
 void UAction::AddOwnedTag()
