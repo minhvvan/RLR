@@ -5,7 +5,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 
@@ -50,7 +50,7 @@ bool UActionSkill::PreActivateAction()
 	//Timer Widget 생성
 	if (TimerWidgetClass)
 	{
-		TimerWidget = CreateWidget<USkillProgressBar>(GetWorld(), TimerWidgetClass);
+		TimerWidget = CreateWidget<UTimerProgressBar>(GetWorld(), TimerWidgetClass);
 	}
 
 	return Super::PreActivateAction();

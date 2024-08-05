@@ -4,28 +4,28 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
-#include "SkillProgressBar.generated.h"
+#include "TimerProgressBar.generated.h"
 
 UCLASS()
-class RLR_API USkillProgressBar : public UBaseUI
+class RLR_API UTimerProgressBar : public UBaseUI
 {
 	GENERATED_BODY()
 public:
-	USkillProgressBar(const FObjectInitializer& ObjectInitializer);
+	UTimerProgressBar(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<class UProgressBar> SkillProgressBar;
+	TObjectPtr<class UProgressBar> TimerProgressBar;
 
 public:
 	virtual void NativeConstruct() override;
-	void SetSkillDuration(float Duration) { SkillDuration = Duration; }
+	void SetTimerDuration(float Duration) { TimerDuration = Duration; }
 
 protected:
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
 
 	float CurrentTime;
-	float SkillDuration;
+	float TimerDuration;
 
 	void SetPecent(float NewPercent);
 

@@ -10,6 +10,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSkillExpired);
 
+class UTimerProgressBar;
+
 UCLASS()
 class RLR_API UActionSkill : public UAction
 {
@@ -47,11 +49,11 @@ protected:
 	TSubclassOf<class ARLRReticle> ReticleClass;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class USkillProgressBar> TimerWidgetClass;
+	TSubclassOf<UTimerProgressBar> TimerWidgetClass;
 
 	//Timer Widget
 	UPROPERTY(VisibleAnywhere, Category = Timer)
-	TObjectPtr<USkillProgressBar> TimerWidget;
+	TObjectPtr<UTimerProgressBar> TimerWidget;
 
 	UPROPERTY(EditAnywhere)
 	float RotationSpeed;

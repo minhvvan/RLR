@@ -5,7 +5,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 #include "RLR.h"
@@ -53,7 +53,7 @@ bool UActionSkill_Holding::PreActivateAction()
 
 	if (TimerWidget)
 	{
-		TimerWidget->SetSkillDuration(SkillData->Duration);
+		TimerWidget->SetTimerDuration(SkillData->Duration);
 	}
 
 	return bPossible;
