@@ -42,7 +42,7 @@ public:
 
 	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);
 
-	FActionActorInfo* GetActionActorInfo();
+	FActionActorInfo* GetActionActorInfo() const;
 	virtual float PlayMontage(UAction* AnimatingAction, UAnimMontage* Montage, float InPlayRate, FName StartSectionName = NAME_None, float StartTimeSeconds = 0.0f);
 
 	UAction* GetAnimatingAction();
@@ -110,4 +110,6 @@ public:
 	void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 
 	void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
+
+	int GetGameplayTagCount(FGameplayTag TagToCheck) const;
 };

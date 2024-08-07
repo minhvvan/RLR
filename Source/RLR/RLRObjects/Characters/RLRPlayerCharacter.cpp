@@ -121,18 +121,6 @@ void ARLRPlayerCharacter::SetMovement(FVector location)
 	AddMovementInput(WorldDirection, 1.0f, false);
 }
 
-void ARLRPlayerCharacter::SetSimpleMove(FVector goalLocation)
-{
-	if (ASC)
-	{
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		if (ASC->HasMatchingGameplayTag(TagManager.Player_State_Attacking)) return;
-	}
-
-	auto controller = GetController();
-	//UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
-}
-
 void ARLRPlayerCharacter::SetOrientation(FVector Location)
 {
 	Location -= GetActorLocation();

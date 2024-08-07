@@ -16,6 +16,36 @@ class USkeletalMeshComponent;
 class UBaseUI;
 
 
+UENUM(BlueprintType)
+enum class EInputTriggerType : uint8
+{
+	TRIGGER_START					UMETA(DisplayName = "Start"),
+	TRIGGER_TRIGGER					UMETA(DisplayName = "Trigger"),
+	TRIGGER_COMPLETE				UMETA(DisplayName = "Complete"),
+	SIZE
+};
+
+UENUM(BlueprintType)
+enum class EActionInstancingPolicy : uint8
+{
+	NonInstanced,
+	InstancedPerActor,
+	InstancedPerExecution,
+};
+
+UENUM(BlueprintType)
+enum class EActionState : uint8
+{
+	STATE_INIT						UMETA(DisplayName = "Init"),
+	STATE_ACTIVATE					UMETA(DisplayName = "Activate"),
+	STATE_END						UMETA(DisplayName = "End"),
+	STATE_WAIT_ACTIVATE				UMETA(DisplayName = "Wait_Activate"),
+	STATE_WAIT_ADDTIONAL_INPUT		UMETA(DisplayName = "Wait_Input"),
+	STATE_WAIT_CANCEL				UMETA(DisplayName = "Wait_Cancel"),
+	SIZE
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct RLR_API FGameplayTagCountContainer
 {
@@ -219,7 +249,6 @@ struct RLR_API FInteractionData
 	FString DialogueString;
 };
 
-
 USTRUCT(Atomic, BlueprintType)
 struct RLR_API FActionData
 {
@@ -236,14 +265,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
 	FInteractionData InteractionData;
-};
 
-UENUM(BlueprintType)
-enum class EActionInstancingPolicy : uint8
-{
-	NonInstanced ,
-	InstancedPerActor ,
-	InstancedPerExecution ,
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ActorInfo")
+	EInputTriggerType TriggerType;
 };
 
 USTRUCT()
@@ -264,19 +288,6 @@ struct RLR_API FActionAnimMontage
 	UPROPERTY(VisibleAnywhere)
 	TWeakObjectPtr<UAction> AnimatingAction;
 };
-
-UENUM(BlueprintType)
-enum class EActionState : uint8
-{
-	STATE_INIT						UMETA(DisplayName = "Init"),
-	STATE_ACTIVATE					UMETA(DisplayName = "Activate"),
-	STATE_END						UMETA(DisplayName = "End"),
-	STATE_WAIT_ACTIVATE				UMETA(DisplayName = "Wait_Activate"),
-	STATE_WAIT_ADDTIONAL_INPUT		UMETA(DisplayName = "Wait_Input"),
-	STATE_WAIT_CANCEL				UMETA(DisplayName = "Wait_Cancel"),
-	SIZE
-};
-
 
 USTRUCT()
 struct RLR_API FStat

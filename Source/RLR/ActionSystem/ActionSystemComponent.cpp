@@ -116,6 +116,8 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 		if (Action->GetInstancingPolicy() == EActionInstancingPolicy::NonInstanced)
 		{
 			//CDO를 통해 Activate
+			Action->InitCurrentActorInfoFromASC(this);
+			Action->SetTriggerTag(Tag);
 			Action->TryActivateAction();
 		}
 		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerActor)
@@ -146,7 +148,8 @@ void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
-		for (auto ActionInstance : Spec->ActionInstances)
+		auto copied(Spec->ActionInstances);
+		for (auto ActionInstance : copied)
 		{
 			if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
 			{
@@ -186,7 +189,7 @@ UAction* UActionSystemComponent::CreateNewInstanceOfAction(FActionSpec& Spec)
 	return ActionInstance;
 }
 
-FActionActorInfo* UActionSystemComponent::GetActionActorInfo()
+FActionActorInfo* UActionSystemComponent::GetActionActorInfo() const
 {
 	return ActorInfo.Get();
 }
@@ -307,4 +310,9 @@ void UActionSystemComponent::RemoveGameplayTag(const FGameplayTag& GameplayTag, 
 	{
 		OwnedTags.RemoveTag(GameplayTag);
 	}
+}
+
+int UActionSystemComponent::GetGameplayTagCount(FGameplayTag TagToCheck) const
+{
+	return OwnedTags.GetTagCount(TagToCheck);
 }

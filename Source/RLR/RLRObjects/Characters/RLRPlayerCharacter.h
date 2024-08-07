@@ -19,7 +19,6 @@ class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 public:
 	ARLRPlayerCharacter();
 	void SetMovement(FVector);
-	void SetSimpleMove(FVector);
 	void SetOrientation(FVector);
 	void SetMoveMode(EMovementMode);
 	void BanInput(bool);

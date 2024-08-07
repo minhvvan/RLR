@@ -21,6 +21,8 @@ public:
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
 
+	//Default
+	FGameplayTag Action_Default_Move;
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
 

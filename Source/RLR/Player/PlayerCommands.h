@@ -92,7 +92,7 @@ public:
 	APlayerCommands();
 
 	void BindDefaultAction(TObjectPtr<class ARLRPlayerController>);
-	void BIndInput(TObjectPtr<ARLRPlayerController> Controller);
+	void BindInput(TObjectPtr<ARLRPlayerController> Controller);
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
