@@ -5,17 +5,20 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Player/RLRPlayerController.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "RLR.h"
 
 UActionInteract::UActionInteract()
 {
+	InstancingPolicy = EActionInstancingPolicy::InstancedPerExecution;
 }
 
 bool UActionInteract::PreActivateAction()
 {
 	bool bPossible = Super::PreActivateAction();
 	if (!bPossible) return bPossible;
+	else ActionState = EActionState::STATE_ACTIVATE;
 
 	//Attach UI
 	if (!InteractTimerUI)
@@ -42,11 +45,25 @@ void UActionInteract::ActivateAction()
 
 void UActionInteract::CancelAction()
 {
+	RLR_LOG(LogRLR, Log, TEXT("Cancel"));
 	Super::CancelAction();
 }
 
 void UActionInteract::EndAction()
 {
+	if (InteractTimerUI) InteractTimerUI->RemoveFromViewport();
+
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
+	if (!Controller) return;
+
+	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->CurrentMontageStop();
+
 	Super::EndAction();
 }
 

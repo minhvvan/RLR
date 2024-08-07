@@ -58,6 +58,7 @@ void ARLRInteractableActor::OnBeginOverlap(UPrimitiveComponent* OverlappedCompon
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	FActionSpec Spec(GiveToPlayerAction);
+	Spec.bCancelable = true;
 	PlayerASC->GiveAction(TagManager.Action_Interaction, Spec);
 
 	InteractUI->SetVisibility(true);
