@@ -8,7 +8,7 @@
 UAbnormalFreeze::UAbnormalFreeze()
 {
 	PrimaryComponentTick.bCanEverTick = true;
-	slow = CreateDefaultSubobject<UAbnormalSlow>(TEXT("Slow"));
+	//slow = CreateDefaultSubobject<UAbnormalSlow>(TEXT("Slow"));
 }
 
 void UAbnormalFreeze::ApplyAbnormal(ARLRPlayerCharacter* other, int duration)

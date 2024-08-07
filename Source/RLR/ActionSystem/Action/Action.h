@@ -36,6 +36,7 @@ public:
 	virtual void EndAction();
 
 	void InitCurrentActorInfo();
+	void InitCurrentActorInfoFromASC(TObjectPtr<UActionSystemComponent> ASC);
 	const FActionActorInfo* GetCurrentActorInfo() const;
 
 	void SetTriggerTag(FGameplayTag Tag);
@@ -78,12 +79,12 @@ protected:
 	bool bIsActive;
 
 	UPROPERTY()
-	bool bIsAbilityEnding;
+	bool bIsActionEnding;
 
 	UPROPERTY()
 	bool bIsCancelable;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTag TriggerTag;
 
 	UPROPERTY(VisibleAnywhere)

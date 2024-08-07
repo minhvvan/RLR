@@ -5,6 +5,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Player/RLRPlayerController.h"
 #include "ActionSystem/RLRReticle.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
@@ -44,7 +45,7 @@ bool UActionSkill_Area::PreActivateAction()
 		bPossible = true;
 
 		bIsActive = true;
-		bIsAbilityEnding = false;
+		bIsActionEnding = false;
 
 		ActionState = EActionState::STATE_WAIT_ACTIVATE;
 	}

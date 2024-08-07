@@ -5,6 +5,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Player/RLRPlayerController.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
@@ -12,7 +13,6 @@
 UActionSkill::UActionSkill():
 	RotationSpeed(10.f)
 {
-	ActionState = EActionState::STATE_INIT;
 }
 
 void UActionSkill::PlaySkillMontage()

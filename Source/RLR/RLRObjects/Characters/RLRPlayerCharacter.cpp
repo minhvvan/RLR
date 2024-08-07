@@ -7,7 +7,12 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/ObjectManager.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Player/RLRPlayerController.h"
+#include "Camera/CameraComponent.h"
 #include "RLR.h"
 
 // Sets default values
@@ -17,7 +22,7 @@ ARLRPlayerCharacter::ARLRPlayerCharacter():
 {
 	SetCharacterMovement();
 	SetCameraArm();
-	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
+	//data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
 }
 
 void ARLRPlayerCharacter::SetCameraArm()
@@ -61,34 +66,47 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Test
+	TArray<FInteractData> Data;
+
+	for (int i = 0; i < 3; i++)
+	{
+		FInteractData object;
+		object.MakeObjectData();
+
+		Data.Add(object);
+	}
+
+	GameInstance->GetObjectManager()->SetObjectData(Data);
 }
 
 // Check Collision Over lap
 // 몬스터, Character, Object
 void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 {
-	APlayerSkill* explosion = Cast<APlayerSkill>(other);
-	if (!explosion) return;
+	//APlayerSkill* explosion = Cast<APlayerSkill>(other);
+	//if (!explosion) return;
 
-	// TODO : GetDamage * Stat Logic
-	if (data == nullptr)
-	{
-		data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
-	}
+	//// TODO : GetDamage * Stat Logic
+	//if (data == nullptr)
+	//{
+	//	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
+	//}
 
-	data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
+	//data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
 
-	if (data->Status.HpCurrent <= 0)
-	{
-		Destroy();
-	}
+	//if (data->Status.HpCurrent <= 0)
+	//{
+	//	Destroy();
+	//}
 
-	explosion->SetIsHit(true);
-	explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
-	// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
-	// Character.Anim = anim.hit
-	// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
-	//					               클라 -> 피격 애니메이션                
+	//explosion->SetIsHit(true);
+	//explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
+	//// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
+	//// Character.Anim = anim.hit
+	//// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
+	////					               클라 -> 피격 애니메이션                
 }
 
 void ARLRPlayerCharacter::SetMovement(FVector location)
@@ -103,7 +121,7 @@ void ARLRPlayerCharacter::SetMovement(FVector location)
 	AddMovementInput(WorldDirection, 1.0f, false);
 }
 
-void ARLRPlayerCharacter::SetSimpleMove(APlayerController* controller, FVector goalLocation)
+void ARLRPlayerCharacter::SetSimpleMove(FVector goalLocation)
 {
 	if (ASC)
 	{
@@ -111,7 +129,8 @@ void ARLRPlayerCharacter::SetSimpleMove(APlayerController* controller, FVector g
 		if (ASC->HasMatchingGameplayTag(TagManager.Player_State_Attacking)) return;
 	}
 
-	UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
+	auto controller = GetController();
+	//UAIBlueprintHelperLibrary::SimpleMoveToLocation(controller, goalLocation);
 }
 
 void ARLRPlayerCharacter::SetOrientation(FVector Location)
@@ -130,21 +149,12 @@ void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
 // 모든 플레이어 Input 정지 및 해제
 void ARLRPlayerCharacter::BanInput(bool value)
 {
-	playerController->StopMovement();
-	if (value == true)
-	{
-		playerController->DisableInput(playerController);
-	}
-	else
-	{
-		playerController->EnableInput(playerController);
-	}
+
 	
 }
 // 컨트롤러 이닛
 void ARLRPlayerCharacter::SetController()
 {
-	playerController = Cast<ARLRPlayerController>(GetWorld()->GetFirstPlayerController());
 }
 
 void ARLRPlayerCharacter::Tick(float DeltaSeconds)
