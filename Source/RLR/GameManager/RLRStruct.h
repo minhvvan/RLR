@@ -272,7 +272,7 @@ struct FTalent
 {
 	GENERATED_BODY()
 
-	TMap<int32, TTuple<int32, int32>> Talents;
+	TArray<TTuple<int32, int32>> Talents;
 
 	void MakeTalent(Protocol::Talent Data);
 

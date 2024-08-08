@@ -402,9 +402,9 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
 void FTalent::MakeTalent(Protocol::Talent Data)
 {
-    Talents.Add({ 0, TPair<int32,int32>(Data.firsttalent(), Data.firsttalent()) });
-    Talents.Add({ 1, TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()) });
-    Talents.Add({ 2, TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()) });
+    Talents.Add(TPair<int32,int32>(Data.firsttalent(), Data.firsttalent()));
+    Talents.Add(TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()));
+    Talents.Add(TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()));
 }
 
 int FQuest::testID = 0;
