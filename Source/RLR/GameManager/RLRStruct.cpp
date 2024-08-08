@@ -411,20 +411,48 @@ int FQuest::testID = 0;
 void FQuest::MakeQuestData()
 {
     //TODO: QuestData 생성
-    QuestName = FString::Printf(TEXT("Quest%d"), testID);
+    QuestSeq = FQuest::testID;
+    NPCSeq = FQuest::testID;
+    QuestTitle = FString::Printf(TEXT("Quest%d"), FQuest::testID);
+    QuestText = FString::Printf(TEXT("This is QuestText%d"), FQuest::testID);
+    QuestDescription = FString::Printf(TEXT("This is QuestDescription%d"), FQuest::testID);
+    QuestKind = 0;
+    IsProgress = false;
+    IsClear = false;
 }
 
 int FNPCData::testID = 0;
 void FNPCData::MakeNPCData()
 {
     //TODO: NPCData 생성
-    //(X=1400.000000,Y=1500.000000,Z=96.062600)
-    NPCTransform = FVector(1400.f, 1500.f+500*testID++, 96);
+    NPCSeq = FNPCData::testID;
+    NPCName = FString::Printf(TEXT("NPC%d"), FNPCData::testID);
+    NPCName = FString::Printf(TEXT("Hello RLR"));
+    NPCType = 0;
+    NPCConcept = FString::Printf(TEXT("Concenpt"));
+    NPCTransform = FVector(1400.f, 1500.f+500* FNPCData::testID++, 96);
+    MapId = 0;
+    //NPCQuests = 
 }
 
 int FInteractData::testID = 0;
 void FInteractData::MakeObjectData()
 {
+    //TODO: ObjectData 생성
     InteractType = EInteractObjectType::LOGGING;
     ObjectTransform = FVector(1400.f, 1500.f + 500 * testID++, 96);
+}
+
+void FPlayerGoods::MakePlayerGoods()
+{
+    //TODO: PlayerGoods 생성
+    TotalMoney = 0;
+    Diamond = 0;
+}
+
+void FUserGoods::MakeUserGoods()
+{
+    //TODO: UserGoods 생성
+    Reputation = 0;
+    Contribution = 0;
 }

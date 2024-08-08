@@ -917,6 +917,62 @@ struct FExpTable : public FTableRowBase
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FPlayerGoods
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int TotalMoney;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int Diamond;
+
+	FString ToString() const
+	{
+		FString PlayerGoodsString;
+
+		auto AppendStatInt = [&PlayerGoodsString](const FString& StatName, int32 StatValue)
+			{
+				if (!PlayerGoodsString.IsEmpty()) PlayerGoodsString.Append(TEXT("\n"));
+				PlayerGoodsString.Append(FString::Printf(TEXT("%s = %d"), *StatName, StatValue));
+			};
+
+		AppendStatInt(TEXT("TOTALMONEY"), TotalMoney);
+		AppendStatInt(TEXT("DIAMOND"), Diamond);
+	}
+
+	void MakePlayerGoods();
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FUserGoods
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int Reputation;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int Contribution;
+
+	FString ToString() const
+	{
+		FString UserGoodsString;
+
+		auto AppendStatInt = [&UserGoodsString](const FString& StatName, int32 StatValue)
+			{
+				if (!UserGoodsString.IsEmpty()) UserGoodsString.Append(TEXT("\n"));
+				UserGoodsString.Append(FString::Printf(TEXT("%s = %d"), *StatName, StatValue));
+			};
+
+		AppendStatInt(TEXT("REPUTATION"), Reputation);
+		AppendStatInt(TEXT("CONTRIBUTION"), Contribution);
+	}
+
+	void MakeUserGoods();
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FQuest
 {
 	GENERATED_BODY()
@@ -924,17 +980,39 @@ struct FQuest
 	FQuest()
 	{}
 
-	FString QuestName;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int QuestSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int NPCSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString QuestTitle;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString QuestText;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString QuestDescription;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int QuestKind;	
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool IsProgress;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool IsClear;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FPlayerGoods PlayerGoods;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FUserGoods UserGoods;
 
 	FString ToString() const
 	{
 		FString QuestString;
-
-		auto AppendStatFloat = [&QuestString](const FString& StatName, float StatValue)
-			{
-				if (!QuestString.IsEmpty()) QuestString.Append(TEXT("\n"));
-				QuestString.Append(FString::Printf(TEXT("%s = %.2f"), *StatName, StatValue));
-			};
 
 		auto AppendStatInt = [&QuestString](const FString& StatName, int32 StatValue)
 			{
@@ -948,12 +1026,49 @@ struct FQuest
 				QuestString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue));
 			};
 
-		//AppendStatInt(TEXT("SEQ"), MonsterSeq);
+		auto AppendStatBool = [&QuestString](const FString& StatName, bool StatValue)
+			{
+				if (!QuestString.IsEmpty()) QuestString.Append(TEXT("\n"));
+				FString str = StatValue ? TEXT("TRUE") : TEXT("FALSE");
+				QuestString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *str));
+			};
+
+		/*
+		int questSeq;
+		int npcSeq;
+		string questTitle;
+		string questText;
+		string questDescription;
+		int questKind;
+		
+		bool isProgress;
+		bool isClear;
+		
+		map<string, vector<int>> rewardSeqs;
+		map<string, vector<int>> needSeqs;
+		map<string, int> rewardValues;
+		map<string, int> needValues;
+		UserGood rewardUserGoods;
+		PlayerGood rewardPlayerGoods;
+		*/
+
+		AppendStatInt(TEXT("SEQ"), QuestSeq);
+		AppendStatInt(TEXT("NPCSEQ"), NPCSeq);
+		AppendStatString(TEXT("QUESTTITLE"), QuestTitle);
+		AppendStatString(TEXT("QUESTTEXT"), QuestText);
+		AppendStatString(TEXT("QUESTDECRIPTION"), QuestDescription);
+		AppendStatInt(TEXT("QUESTKIND"), QuestKind);
+		AppendStatBool(TEXT("ISPROGRESS"), IsProgress);
+		AppendStatBool(TEXT("ISCLEAR"), IsClear);
+
+		//TODO: Reward, Need, Good
 
 		return QuestString;
 	}
 
 	void MakeQuestData(/*param*/);
+
+	//TODO:MakeData 구현 후 삭제
 	static int testID;
 };
 
@@ -968,10 +1083,28 @@ struct FNPCData
 	{}
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector NPCTransform;
+	int NPCSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TArray<FQuest> Quests;
+	FString NPCName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString NPCTalk;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int NPCType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString NPCConcept;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector NPCTransform;	
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 MapId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<FQuest> NPCQuests;
 
 	FString ToString() const
 	{
@@ -995,13 +1128,30 @@ struct FNPCData
 				NPCString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue));
 			};
 
-		//AppendStatInt(TEXT("SEQ"), MonsterSeq);
+		auto AppendStatVector = [&NPCString](const FString& StatName, FVector StatValue)
+			{
+				if (!NPCString.IsEmpty()) NPCString.Append(TEXT("\n"));
+				NPCString.Append(FString::Printf(TEXT("%s = %s"), *StatName, *StatValue.ToString()));
+			};
+
+		AppendStatInt(TEXT("SEQ"), NPCSeq);
+		AppendStatString(TEXT("NAME"), NPCName);
+		AppendStatString(TEXT("TALK"), NPCTalk);
+		AppendStatInt(TEXT("TYPE"), NPCType);
+		AppendStatString(TEXT("CONCEPT"), NPCConcept);
+		AppendStatVector(TEXT("TRANSFORM"), NPCTransform);
+		AppendStatInt(TEXT("MAPID"), MapId);
+		for (auto quest : NPCQuests)
+		{
+			AppendStatString(TEXT("QUESTS"), quest.ToString());
+		}
 
 		return NPCString;
 	}
 
 	void MakeNPCData(/*param*/);
 
+	//TODO:MakeData 구현 후 삭제
 	static int testID;
 };
 
@@ -1017,5 +1167,6 @@ struct FInteractData
 	FVector ObjectTransform;
 
 	void MakeObjectData(/*param*/);
+	//TODO:MakeData 구현 후 삭제
 	static int testID;
 };
