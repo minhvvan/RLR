@@ -419,6 +419,25 @@ void FQuest::MakeQuestData()
     QuestKind = 0;
     IsProgress = false;
     IsClear = false;
+
+    FObjectMap reward;
+    reward.Add(0, 10);
+    reward.Add(1, 11);
+    reward.Add(2, 12);
+    Rewards.Add({ TEXT("item"), reward });
+
+    FObjectMap need;
+    need.Add(0, 3);
+    need.Add(1, 5);
+    Needs.Add({ TEXT("monster"), need });
+
+    FPlayerGoods pGoods;
+    pGoods.MakePlayerGoods();
+    PlayerGoods = pGoods;
+
+    FUserGoods uGoods;  
+    uGoods.MakeUserGoods();
+    UserGoods = uGoods;
 }
 
 int FNPCData::testID = 0;
@@ -427,12 +446,16 @@ void FNPCData::MakeNPCData()
     //TODO: NPCData 생성
     NPCSeq = FNPCData::testID;
     NPCName = FString::Printf(TEXT("NPC%d"), FNPCData::testID);
-    NPCName = FString::Printf(TEXT("Hello RLR"));
+    NPCTalk = FString::Printf(TEXT("Hello RLR"));
     NPCType = 0;
     NPCConcept = FString::Printf(TEXT("Concenpt"));
     NPCTransform = FVector(1400.f, 1500.f+500* FNPCData::testID++, 96);
     MapId = 0;
-    //NPCQuests = 
+
+    FQuest quest;
+    quest.MakeQuestData();
+
+    NPCQuests.Add(quest);
 }
 
 int FInteractData::testID = 0;

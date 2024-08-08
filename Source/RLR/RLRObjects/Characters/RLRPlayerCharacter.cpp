@@ -66,19 +66,6 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//Test
-	TArray<FInteractData> Data;
-
-	for (int i = 0; i < 3; i++)
-	{
-		FInteractData object;
-		object.MakeObjectData();
-
-		Data.Add(object);
-	}
-
-	GameInstance->GetObjectManager()->SetObjectData(Data);
 }
 
 // Check Collision Over lap
