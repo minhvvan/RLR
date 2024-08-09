@@ -5,10 +5,11 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Player/RLRPlayerController.h"
 #include "ActionSystem/RLRReticle.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
-#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "UI/InGame/Skill/TimerProgressBar.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
 #include "RLR.h"
 
@@ -41,11 +42,10 @@ bool UActionSkill_Area::PreActivateAction()
 
 	if (ActionState == EActionState::STATE_INIT)
 	{
-		if (CheckBlockTag()) return false;
 		bPossible = true;
 
 		bIsActive = true;
-		bIsAbilityEnding = false;
+		bIsActionEnding = false;
 
 		ActionState = EActionState::STATE_WAIT_ACTIVATE;
 	}
@@ -87,7 +87,7 @@ void UActionSkill_Area::ActivateAction()
 		if (TimerWidget)
 		{
 			//Notify가 하나일 때 가능 늘어나면 변경 필요
-			TimerWidget->SetSkillDuration(SkillAnim->Notifies[0].GetTriggerTime());
+			TimerWidget->SetTimerDuration(SkillAnim->Notifies[0].GetTriggerTime());
 			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
 			if (AnimNotify)
 			{

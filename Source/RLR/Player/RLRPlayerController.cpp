@@ -12,13 +12,10 @@
 #include "UI/InGame/InGameHUD.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
-#include "NiagaraFunctionLibrary.h"
-#include "Player/PlayerCommands.h"
-#include "EnhancedInputComponent.h"
 #include "RLR.h"
-
 #include "Player/PlayerCommands.h"
 #include "Player/RLREnhancedInputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ARLRPlayerController::ARLRPlayerController():
 	movePacketInterval(1.f),
@@ -49,12 +46,6 @@ void ARLRPlayerController::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 
 	if (!PlayerManager || !Player) return;
-
-	if (pressTime >= 1.f)
-    {
-        OnCursorEffect();
-        pressTime = 0.f;
-    }
 
     timeSinceLastMovePacket += DeltaTime;
 
@@ -116,46 +107,34 @@ void ARLRPlayerController::InitBinding()
 		Component->ClearActionBindings();
 		Component->ClearActionEventBindings();
 		Component->ClearActionValueBindings();
-		Commands->BIndInput(this);
+		Commands->BindInput(this);
 	}
 }
 
-void ARLRPlayerController::OnMoveStarted()
+void ARLRPlayerController::OnMoveStarted(FGameplayTag TriggerTag)
 {
-	if (IsMove())
-	{
-		StopMovement();
-	}
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
 
-	pressTime = 0.f;
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
+	ASC->AddActionData(TriggerTag, actionData);
+
+	ASC->TryActivateAction(TriggerTag);
 }
 
-void ARLRPlayerController::OnMove()
+void ARLRPlayerController::OnMove(FGameplayTag TriggerTag)
 {
-	pressTime += GetWorld()->GetDeltaSeconds();
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
 
-	if (IsMove())
-	{
-		deltaTime += GetWorld()->GetDeltaSeconds();
-		PlayerCharacter->SetMovement(GetClickPosition());
-	}
-}
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_TRIGGER;
+	ASC->AddActionData(TriggerTag, actionData);
 
-void ARLRPlayerController::OnMoveCompleted()
-{
-	if (IsMove())
-	{
-		if (deltaTime <= 0.3f)
-		{
-			PlayerCharacter->SetSimpleMove(this, GetClickPosition());
-		}
-		deltaTime = 0.f;
-	}
-}
-
-void ARLRPlayerController::OnCursorEffect()
-{
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, Cursor, GetClickPosition(), FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+	ASC->TryActivateAction(TriggerTag);
 }
 
 FVector ARLRPlayerController::GetClickPosition()
@@ -169,6 +148,11 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 {
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
+
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
+	ASC->AddActionData(TriggerTag, actionData);
 
 	//Active Skill Check
 	if (ASC->ActivateWaitAction())
@@ -200,8 +184,7 @@ void ARLRPlayerController::OnSkillHeld(FGameplayTag TriggerTag)
 	/*
 		나중에 홀딩하는 스킬 생기면 넣어주기
 	*/
-
-
+	//TODO: Action 내부에서 처리가능(확인하면 삭제)
 }
 
 void ARLRPlayerController::OnConsumeItem(int inputID)
@@ -224,6 +207,16 @@ void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 	if (UIManager == nullptr) return;
 
 	UIManager->ToggleSubUI(InputTag);
+}
+
+void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
+{
+	if (!PlayerCharacter) return;
+
+	UActionSystemComponent* ASC =  PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->TryActivateAction(InputTag);
 }
 
 bool ARLRPlayerController::IsMove()

@@ -3,42 +3,46 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "RLRObjects/Characters/RLRCharacter.h"
+#include "RLRObjects/Actors/RLRActor.h"
 #include "GameManager/RLRStruct.h"
-#include "RLRNonPlayerCharacter.generated.h"
+#include "RLRInteractableActor.generated.h"
 
 class USphereComponent;
-class UDialogueUI;
+class UStaticMeshComponent;
+class UWidgetComponent;
 
 UCLASS()
-class RLR_API ARLRNonPlayerCharacter : public ARLRCharacter
+class RLR_API ARLRInteractableActor : public ARLRActor
 {
 	GENERATED_BODY()
-	
-public:
-	ARLRNonPlayerCharacter();
 
-	void SetNPCData(const FNPCData& Data);
+public:
+	ARLRInteractableActor();
+
+	void SetInteractData(const FInteractData& Data);
 
 protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USphereComponent> InteractionComp;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UStaticMeshComponent> Mesh;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UWidgetComponent> InteractUI;
 
 protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
+
 	UFUNCTION()
 	void OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 protected:
 	UPROPERTY(EditAnywhere, Category = Action)
-	TMap<FGameplayTag, TSubclassOf<UAction>> GiveToPlayerActions;
+	TSubclassOf<UAction> GiveToPlayerAction;
 
-	UPROPERTY(EditAnywhere, Category = Action)
-	TSubclassOf<UDialogueUI> DialogueUI;
-
-	FNPCData NPCData;
+	FInteractData InteractData;
 };

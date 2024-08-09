@@ -11,6 +11,7 @@ void FGameplayTagManager::Init()
 	GameplayTags.Attributes_MainStat_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attribute.MainStat.MaxHealth"), FString(TEXT("최대 체력")));
 	
 	//Action
+	GameplayTags.Action_Default_Move = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Move"), FString(TEXT("이동")));
 	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Attack"), FString(TEXT("기본공격")));
 	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Jump"), FString(TEXT("점프")));
 	
@@ -35,6 +36,9 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Skill_6_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.6.Anim"), FString(TEXT("6애니메이션")));
 	GameplayTags.Action_Skill_7_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.7.Anim"), FString(TEXT("7애니메이션")));
 	GameplayTags.Action_Skill_8_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.8.Anim"), FString(TEXT("8애니메이션")));
+	
+	//Action.Interaction
+	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction"), FString(TEXT("상호작용")));
 	
 	//Object
 	GameplayTags.Object_State_Hittable = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Object.State.Hittable"), FString(TEXT("공격가능")));

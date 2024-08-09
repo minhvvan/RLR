@@ -16,10 +16,11 @@
 
  */
 
- class UBaseUI;
- class UMainUI;
+class UBaseUI;
+class UMainUI;
 class USubUI;
 class USlotUI;
+class UDialogueUI;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter, NewPlayerInfo);
@@ -44,9 +45,16 @@ public:
 
 	void AdjustZOrder();
 
+	TObjectPtr<UDialogueUI> OpenDialogue(TSubclassOf<UBaseUI> UIClass);
+
+protected:
+	UFUNCTION()
+	void OnDialogueEnded();
+
 private:
 
 	TObjectPtr<UMainUI> MainUI;	
+	TObjectPtr<UDialogueUI> DialogueUI;
 	TArray<USubUI*> SubUIStack;
 	int32 ZOrder = 0;
 

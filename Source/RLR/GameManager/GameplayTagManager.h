@@ -21,6 +21,8 @@ public:
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
 
+	//Default
+	FGameplayTag Action_Default_Move;
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
 
@@ -49,6 +51,9 @@ public:
 	FGameplayTag Action_Skill_6_Anim;
 	FGameplayTag Action_Skill_7_Anim;
 	FGameplayTag Action_Skill_8_Anim;
+
+	//Action.Interaction
+	FGameplayTag Action_Interaction;
 
 	//Object.State
 	FGameplayTag Object_State_Hittable;

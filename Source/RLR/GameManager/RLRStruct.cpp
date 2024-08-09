@@ -403,7 +403,80 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
 void FTalent::MakeTalent(Protocol::Talent Data)
 {
-    Talents.Add({ 0, TPair<int32,int32>(Data.firsttalent(), Data.firsttalent()) });
-    Talents.Add({ 1, TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()) });
-    Talents.Add({ 2, TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()) });
+    Talents.Add(TPair<int32,int32>(Data.firsttalent(), Data.firsttalent()));
+    Talents.Add(TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()));
+    Talents.Add(TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()));
+}
+
+int FQuest::testID = 0;
+void FQuest::MakeQuestData()
+{
+    //TODO: QuestData 생성
+    QuestSeq = FQuest::testID;
+    NPCSeq = FQuest::testID;
+    QuestTitle = FString::Printf(TEXT("Quest%d"), FQuest::testID);
+    QuestText = FString::Printf(TEXT("This is QuestText%d"), FQuest::testID);
+    QuestDescription = FString::Printf(TEXT("This is QuestDescription%d"), FQuest::testID);
+    QuestKind = 0;
+    IsProgress = false;
+    IsClear = false;
+
+    FObjectMap reward;
+    reward.Add(0, 10);
+    reward.Add(1, 11);
+    reward.Add(2, 12);
+    Rewards.Add({ TEXT("item"), reward });
+
+    FObjectMap need;
+    need.Add(0, 3);
+    need.Add(1, 5);
+    Needs.Add({ TEXT("monster"), need });
+
+    FPlayerGoods pGoods;
+    pGoods.MakePlayerGoods();
+    PlayerGoods = pGoods;
+
+    FUserGoods uGoods;  
+    uGoods.MakeUserGoods();
+    UserGoods = uGoods;
+}
+
+int FNPCData::testID = 0;
+void FNPCData::MakeNPCData()
+{
+    //TODO: NPCData 생성
+    NPCSeq = FNPCData::testID;
+    NPCName = FString::Printf(TEXT("NPC%d"), FNPCData::testID);
+    NPCTalk = FString::Printf(TEXT("Hello RLR"));
+    NPCType = 0;
+    NPCConcept = FString::Printf(TEXT("Concenpt"));
+    NPCTransform = FVector(1400.f, 1500.f+500* FNPCData::testID++, 96);
+    MapId = 0;
+
+    FQuest quest;
+    quest.MakeQuestData();
+
+    NPCQuests.Add(quest);
+}
+
+int FInteractData::testID = 0;
+void FInteractData::MakeObjectData()
+{
+    //TODO: ObjectData 생성
+    InteractType = EInteractObjectType::LOGGING;
+    ObjectTransform = FVector(1400.f, 1500.f + 500 * testID++, 96);
+}
+
+void FPlayerGoods::MakePlayerGoods()
+{
+    //TODO: PlayerGoods 생성
+    TotalMoney = 0;
+    Diamond = 0;
+}
+
+void FUserGoods::MakeUserGoods()
+{
+    //TODO: UserGoods 생성
+    Reputation = 0;
+    Contribution = 0;
 }

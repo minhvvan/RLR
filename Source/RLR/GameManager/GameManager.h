@@ -27,6 +27,8 @@
 			다른 플레이어 관리.
 		PlayerUserManager
 			플레이어 관리.
+		ObjectManager
+			NPC, 오브젝트 관리.
  */
 
 
@@ -39,6 +41,7 @@ class UNetworkManager;
 class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
+class UObjectManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -72,6 +75,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UPlayerManager* GetPlayerManager();
+	
+	UFUNCTION(BlueprintCallable)
+	UObjectManager* GetObjectManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData* GetGameOptionData();

@@ -5,14 +5,14 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "UI/InGame/Skill/SkillProgressBar.h"
+#include "Player/RLRPlayerController.h"
+#include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 
 UActionSkill::UActionSkill():
 	RotationSpeed(10.f)
 {
-	ActionState = EActionState::STATE_INIT;
 }
 
 void UActionSkill::PlaySkillMontage()
@@ -50,7 +50,7 @@ bool UActionSkill::PreActivateAction()
 	//Timer Widget 생성
 	if (TimerWidgetClass)
 	{
-		TimerWidget = CreateWidget<USkillProgressBar>(GetWorld(), TimerWidgetClass);
+		TimerWidget = CreateWidget<UTimerProgressBar>(GetWorld(), TimerWidgetClass);
 	}
 
 	return Super::PreActivateAction();
