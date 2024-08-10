@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[2];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[3];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -32,11 +32,12 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\n\nEnum.proto\022\010Protocol*3\n\010itemType\022\t\n\005EQ"
   "UIP\020\000\022\017\n\013CONSUMPTION\020\001\022\013\n\007ETCITEM\020\002*.\n\tS"
   "killType\022\n\n\006NORMAL\020\000\022\010\n\004AREA\020\001\022\013\n\007HOLDIN"
-  "G\020\002b\006proto3"
+  "G\020\002*@\n\nQuestState\022\010\n\004NONE\020\000\022\016\n\nINPROGRES"
+  "S\020\001\022\014\n\010COMPLETE\020\002\022\n\n\006EXITED\020\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 131, descriptor_table_protodef_Enum_2eproto,
+    false, false, 197, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -74,6 +75,22 @@ bool SkillType_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* QuestState_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[2];
+}
+bool QuestState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
       return true;
     default:
       return false;

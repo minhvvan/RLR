@@ -51,6 +51,10 @@ public:
 
     bool SendMovePacket(int32 userSeq, FVector vector, int64 mapid, int64 channelid);
 
+    bool SendNPCInfoPacket(int64 mapId);
+
+    bool SendUserQuestPacket(int userSeq);
+
 private:
     FSocket* MainServerSocket;
     FSocket* MonsterServerSocket;
