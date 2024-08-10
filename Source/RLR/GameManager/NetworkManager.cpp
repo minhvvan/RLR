@@ -70,6 +70,8 @@ void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Po
         MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), TEXT("MainServerReceiverThread"));
         SendServerRequest(1);
         SendGetSkillPacket(1);
+        SendNPCInfoPacket(1);
+        SendUserQuestPacket(1);
     }
 }
 
@@ -299,4 +301,43 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
 
 
     return aSuccess && bSuccess;
+}
+bool UNetworkManager::SendNPCInfoPacket(int64 mapId) {
+
+    if (!MainServerSocket) return false;
+    Protocol::NPCInfoRequest packet;
+    packet.set_mapid(mapId);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool bSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+
+
+    return bSuccess;
+}
+
+bool UNetworkManager::SendUserQuestPacket(int userSeq) {
+
+    if (!MainServerSocket) return false;
+    Protocol::UserQuestInfoRequest packet;
+    packet.set_userseq(userSeq);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool bSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+
+
+    return bSuccess;
 }

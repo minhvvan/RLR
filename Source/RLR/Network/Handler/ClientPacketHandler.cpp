@@ -118,6 +118,14 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::MonsterStatusBroadcastPacket>(&Handle_MONSTER_STATUS_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_USER_QUEST_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::UserQuestInfoResponse>(&Handle_USER_QUEST_INFO_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_NPC_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::NPCInfoResponse>(&Handle_NPC_INFO_RESPONSE, session, buffer, len);
+        };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
