@@ -3,8 +3,26 @@
 
 #include "UI/SlotUI.h"
 #include "UI/BaseDragDropOperation.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
 
+#include "Components/Button.h"
+#include "Components/Image.h"
+
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
+
+void USlotUI::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	if (SlotButton)
+	{
+		SlotButton->OnClicked.AddUniqueDynamic(this, &USlotUI::OnClickedSlotButton);
+		SlotButton->OnHovered.AddUniqueDynamic(this, &USlotUI::OnHoveredSlotButton);
+		SlotButton->OnUnhovered.AddUniqueDynamic(this, &USlotUI::OnUnHoveredSlotButton);
+	}
+
+}
 
 void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
@@ -45,14 +63,46 @@ FReply USlotUI::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, cons
 	return ReplyResult.NativeReply;
 }
 
-void USlotUI::Clear()
+void USlotUI::OnClickedSlotButton()
 {
 
 }
 
+void USlotUI::OnHoveredSlotButton()
+{
+}
+
+void USlotUI::OnUnHoveredSlotButton()
+{
+}
+
+void USlotUI::SetSlotImage(UTexture2D* NewImage)
+{
+	if (IsValid(NewImage) == false)
+	{
+		DEBUG_LOG("Set Slot Image Error. New Image is Null");
+		return;
+	}
+
+	SlotImage->SetBrushFromTexture(NewImage);
+}
+
+void USlotUI::Clear()
+{
+	SlotImage->SetBrushFromTexture(DefaultSlotImage);
+}
+
 bool USlotUI::IsEmpty()
 {
-	return true;
+	/*
+		Empty의 유무를 어떻게 판단해줄까?
+			그냥 상속 받는 슬롯들마다 서로 다르게 설정할까?
+			아니면 공통된 기준을 만들까?
+	*/
+	if(SlotImage->GetBrush().GetResourceName() == DefaultSlotImage->GetName())
+		return true;
+
+	return false;
 }
 
 UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperation, EDragType DragType)

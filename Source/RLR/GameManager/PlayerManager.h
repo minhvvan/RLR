@@ -32,5 +32,6 @@ private:
     UPROPERTY()
     TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
 
+public:
     class UStatSetPlayer* GetStatSet();
 };

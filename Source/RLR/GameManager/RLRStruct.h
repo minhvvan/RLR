@@ -132,6 +132,7 @@ enum class EUIType : uint8
 	PARTY,
 	KEYOPTION,
 	SKILL,
+	SKILL_UPGRADE,
 	NONE,
 };
 
@@ -490,16 +491,34 @@ enum class ESkillType : uint8
 };
 
 
+UENUM(BlueprintType)
+enum  class ESkillGroup : uint8
+{
+	NORMAL =	 0,		//일반
+	UNIQUE,					//고유
+	ULTIMATE,				//각성기
+	NONE,
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()
 
+	FSkillData (){};
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillSeq;	
+	int32 SkillSeq = -1;	
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ECharacterMainJobType MainJobType = ECharacterMainJobType::NONE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESkillGroup SkillGroup = ESkillGroup::NONE;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level = 0;
@@ -531,7 +550,30 @@ struct FSkillData : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	ESkillType SkillType;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TObjectPtr<UTexture2D> SkillImage;
+
+	/*
+		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		스킬 미리보기 
+	*/
+
 	void MakeSkillData(Protocol::SkillInfo skill);
+	static const FSkillData EmptySkillData;
+
+	/** Operators */
+	FORCEINLINE bool operator==(FSkillData const& Other) const
+	{
+		if(SkillId != Other.SkillId)
+			return false;
+
+		if(SkillSeq != Other.SkillSeq)
+			return false;
+
+		return true;
+	}
+
+	FString ToString() const;
 };
 
 
@@ -551,6 +593,19 @@ struct FSkillClass : public FTableRowBase
 };
 
 
+/*
+	데이터 테이블에서 사용할 래핑용 구조체.
+*/
+ USTRUCT(BlueprintType)
+struct FSkillList
+{
+	 GENERATED_BODY()
+	 UPROPERTY()
+	TMap<int32, FSkillData> SkillList;
+};
+
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FAbnormal2
 {
@@ -563,81 +618,6 @@ struct FAbnormal2
 	float Duration;
 };
 
-// 문자열 배열 정의
-const FString EItemTypeStrings[] = {
-	TEXT("UNKNOWN"), // 0, 사용되지 않음
-	TEXT("EQUIPMENT"), // 1
-	TEXT("CONSUMPTION"), // 2
-	TEXT("ETC"), // 3
-	TEXT("UNKNOWN"), // 4
-	TEXT("UNKNOWN"), // 5
-	TEXT("UNKNOWN"), // 6
-	TEXT("UNKNOWN"), // 7
-	TEXT("UNKNOWN"), // 8
-	TEXT("NONE") // 9
-};
-
-const FString ECharacterMainJobTypeStrings[] = {
-	TEXT("SWORDSMAN"),
-	TEXT("THEIF"),
-	TEXT("MAGE"),
-	TEXT("ARCHER"),
-	TEXT("PRIEST"),
-	TEXT("NONE")
-};
-
-const FString ECharacterSubJobTypeStrings[] = {
-	TEXT("NONE")
-};
-
-const FString EEquipmentTypeStrings[] = {
-	TEXT("WEAPON"),
-	TEXT("SUBWEAPON"),
-	TEXT("HELMET"),
-	TEXT("UPPERBODYARMOR"),
-	TEXT("LOWERBODYARMOR"),
-	TEXT("SHOES"),
-	TEXT("GLOVES"),
-	TEXT("NECKLACE"),
-	TEXT("EARRING"),
-	TEXT("RING"),
-	TEXT("BRACELET"),
-	TEXT("NONE")
-};
-
-const FString EItemRarityStrings[] = {
-	TEXT("COMMON"),
-	TEXT("UNCOMMON"),
-	TEXT("RARE"),
-	TEXT("UNIQUE"),
-	TEXT("EPIC"),
-	TEXT("LEGEND"),
-	TEXT("NONE")
-};
-
-// 문자열 배열 정의
-const FString EStatusTypeStrings[] = {
-	TEXT("COMMON"),
-	TEXT("UNCOMMON"),
-	TEXT("RARE"),
-	TEXT("UNIQUE"),
-	TEXT("EPIC"),
-	TEXT("LEGEND"),
-	TEXT("NONE"),
-};
-
-
-EItemType StringToEItemType(const FString& ItemTypeString);
-ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString);
-ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString);
-EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString);
-EItemRarity StringToEItemRarity(const FString& RarityString);
-
-FString EItemTypeToString(EItemType ItemType);
-FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
-FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
-FString EEquipmentTypeToString(EEquipmentType EquipmentType);
-FString EStatusTypeToString(EStatusType StatusType);
 
 USTRUCT(Atomic, BlueprintType)
 struct FMonsterStatus
@@ -867,3 +847,93 @@ struct FExpTable : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MaxExp;
 };
+
+
+
+/*
+	Enum 변환 관련된 건, 찾아보기 좋게 맨 아래에 배치.
+*/
+
+// 문자열 배열 정의
+const FString EItemTypeStrings[] = {
+	TEXT("UNKNOWN"), // 0, 사용되지 않음
+	TEXT("EQUIPMENT"), // 1
+	TEXT("CONSUMPTION"), // 2
+	TEXT("ETC"), // 3
+	TEXT("UNKNOWN"), // 4
+	TEXT("UNKNOWN"), // 5
+	TEXT("UNKNOWN"), // 6
+	TEXT("UNKNOWN"), // 7
+	TEXT("UNKNOWN"), // 8
+	TEXT("NONE") // 9
+};
+
+const FString ECharacterMainJobTypeStrings[] = {
+	TEXT("SWORDSMAN"),
+	TEXT("THEIF"),
+	TEXT("MAGE"),
+	TEXT("ARCHER"),
+	TEXT("PRIEST"),
+	TEXT("NONE")
+};
+
+const FString ECharacterSubJobTypeStrings[] = {
+	TEXT("NONE")
+};
+
+const FString EEquipmentTypeStrings[] = {
+	TEXT("WEAPON"),
+	TEXT("SUBWEAPON"),
+	TEXT("HELMET"),
+	TEXT("UPPERBODYARMOR"),
+	TEXT("LOWERBODYARMOR"),
+	TEXT("SHOES"),
+	TEXT("GLOVES"),
+	TEXT("NECKLACE"),
+	TEXT("EARRING"),
+	TEXT("RING"),
+	TEXT("BRACELET"),
+	TEXT("NONE")
+};
+
+const FString EItemRarityStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE")
+};
+
+// 문자열 배열 정의
+const FString EStatusTypeStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE"),
+};
+
+
+const FString ESkillGroups[] = {
+	TEXT("NORMAL"),
+	TEXT("UNIQUE"),
+	TEXT("ULTIMATE"),
+	TEXT("NONE"),
+};
+
+EItemType StringToEItemType(const FString& ItemTypeString);
+ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString);
+ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString);
+EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString);
+EItemRarity StringToEItemRarity(const FString& RarityString);
+
+FString EItemTypeToString(EItemType ItemType);
+FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
+FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
+FString EEquipmentTypeToString(EEquipmentType EquipmentType);
+FString EStatusTypeToString(EStatusType StatusType);
+FString ESkillGroupToString(ESkillGroup SkillGroup);

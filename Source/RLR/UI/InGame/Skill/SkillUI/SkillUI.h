@@ -35,13 +35,18 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void Init();
+	virtual void OpenUI() override;
 	virtual void RefreshUI() override;
 	
 	UFUNCTION()
 	void OnClickedSkillTreeTab();
 	UFUNCTION()
 	void OnClickedSkillSettingTab();
-	void ChangeSkillTab(SKillUI_TabType TabType);
+	void ChangeTab(SKillUI_TabType TabType);
+
+
+	void UpdateSkillDetailInfo(FSkillData NewSkillData);
+	void ClearSkillDetailInfo();
 
 
 public:

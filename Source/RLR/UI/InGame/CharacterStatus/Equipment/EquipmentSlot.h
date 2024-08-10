@@ -26,14 +26,9 @@ public:
 	virtual void NativeConstruct() override;
 
 
-	UFUNCTION()
-	void OnClickedItemSlot();
-
-	UFUNCTION()
-	void				OnHoveredItemSlot();
-
-	UFUNCTION()
-	void				OnUnHoveredItemSlot();
+	virtual void OnClickedSlotButton() override;
+	virtual void	OnHoveredSlotButton() override;
+	virtual void	OnUnHoveredSlotButton() override;
 
 	UFUNCTION(BlueprintCallable)
 	void				SetItemData(FItemData ItemData);
@@ -52,9 +47,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UButton> ItemButton;
 
 		//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

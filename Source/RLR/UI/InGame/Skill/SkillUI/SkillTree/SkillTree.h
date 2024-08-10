@@ -13,6 +13,7 @@
  class UWrapBox;
  class UTextBlock;
  class USkillTreeSlot;
+ class USkillPropertyContainer;
 
 UCLASS()
 class RLR_API USkillTree : public UBaseUI
@@ -48,7 +49,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> SkillPointText;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<USkillPropertyContainer> SkillPropertyContainer;
 
 public:
 

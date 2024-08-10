@@ -15,6 +15,7 @@
 		스킬 퀵 슬롯
 		아이템 퀵 슬롯
 
+
 	SlotUI를 상속 받는 대상은 드래그 헀을 때, 끌려야 하며, 다른 슬롯으로 옮기면 옮겨져야 한다.
 
 
@@ -28,6 +29,7 @@
 
  class USizeBox;
  class UImage;
+ class UButton;
  class UDraggableWidget;
  class UBaseDragDropOperation;
 
@@ -39,6 +41,8 @@ class RLR_API USlotUI : public UBaseUI
 
 public:
 
+	virtual void NativeConstruct() override;
+
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
 
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
@@ -46,6 +50,19 @@ public:
 	virtual void NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	
+	UFUNCTION()
+	virtual void OnClickedSlotButton();
+		
+	UFUNCTION()
+	virtual void OnHoveredSlotButton();
+		
+	UFUNCTION()
+	virtual void OnUnHoveredSlotButton();
+
+	UFUNCTION()
+	virtual void SetSlotImage(UTexture2D* NewImage);
+
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Clear();
@@ -76,9 +93,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USizeBox> RootSizeBox;
 
-	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> SlotImage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UButton> SlotButton;
 
 
 	/*
@@ -86,7 +105,7 @@ public:
 	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> DefaultSlotImage;
+	TObjectPtr<UTexture2D> DefaultSlotImage = nullptr;
 
 
 	/*

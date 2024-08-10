@@ -26,6 +26,7 @@
  class UPartyUI;
  class UKeyOption;
  class USkillUI;
+ class USkillUpgrade;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -42,6 +43,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
+
+	
+	UFUNCTION(BlueprintCallable)
+	USkillUpgrade* GetSkillUpgradeUI(){return SkillUpgrade;}
 
 	void SetActionSystemComponent(AActor* Owner) override;
 
@@ -78,6 +83,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<USkillUI> SkillUI;;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<USkillUpgrade> SkillUpgrade;;
 
 public:
 

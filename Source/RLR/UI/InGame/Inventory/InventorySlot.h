@@ -36,14 +36,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void				DisplayEquippedItems(bool IsEquiped = false);
 
-	UFUNCTION(BlueprintCallable)
-	void				OnClickedItemSlot();
-
-	UFUNCTION(BlueprintCallable)
-	void				OnHoveredItemSlot();
-
-	UFUNCTION(BlueprintCallable)
-	void				OnUnHoveredItemSlot();
+	virtual void	OnClickedSlotButton() override;
+	virtual void	OnHoveredSlotButton() override;
+	virtual void	OnUnHoveredSlotButton() override;
 
 	UFUNCTION(BlueprintCallable)
 	void				SetItemData(FItemData ItemData);
@@ -64,8 +59,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UButton> ItemButton;
 
 public:
 

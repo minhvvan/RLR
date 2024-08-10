@@ -23,12 +23,6 @@ void UInventorySlot::NativeConstruct()
 	Super::NativeConstruct();
 	Clear();
 
-	if (ItemButton)
-	{
-		ItemButton->OnClicked.AddUniqueDynamic(this, &UInventorySlot::OnClickedItemSlot);
-		ItemButton->OnHovered.AddUniqueDynamic(this, &UInventorySlot::OnHoveredItemSlot);
-		ItemButton->OnUnhovered.AddUniqueDynamic(this, &UInventorySlot::OnUnHoveredItemSlot);
-	}
 }
 
 void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -120,8 +114,10 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	return true;
 }
 
-void UInventorySlot::OnClickedItemSlot()
+void UInventorySlot::OnClickedSlotButton()
 {
+	Super::OnClickedSlotButton();
+
 	/*
 		1.서버에 장착 Req 패킷을 날려준다. 
 			PacketHandler->SendEquipItemPacket(ItemData)
@@ -156,8 +152,11 @@ void UInventorySlot::OnClickedItemSlot()
 	}
 }
 
-void UInventorySlot::OnHoveredItemSlot()
+void UInventorySlot::OnHoveredSlotButton()
 {
+	Super::OnHoveredSlotButton();
+
+
 	if (IsEmpty() == true)
 		return;
 
@@ -170,8 +169,11 @@ void UInventorySlot::OnHoveredItemSlot()
 	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
-void UInventorySlot::OnUnHoveredItemSlot()
+void UInventorySlot::OnUnHoveredSlotButton()
 {
+	Super::OnUnHoveredSlotButton();
+	
+
 	if (IsEmpty() == true)
 		return;
 

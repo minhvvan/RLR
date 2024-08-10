@@ -18,13 +18,15 @@ void UEquipmentSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	ItemButton->OnClicked.AddUniqueDynamic(this, &UEquipmentSlot::OnClickedItemSlot);
-	ItemButton->OnHovered.AddUniqueDynamic(this, &UEquipmentSlot::OnHoveredItemSlot);
-	ItemButton->OnUnhovered.AddUniqueDynamic(this, &UEquipmentSlot::OnUnHoveredItemSlot);
+	//SlotButton->OnClicked.AddUniqueDynamic(this, &UEquipmentSlot::OnClickedSlotButton);
+	//SlotButton->OnHovered.AddUniqueDynamic(this, &UEquipmentSlot::OnHoveredSlotButton);
+	//SlotButton->OnUnhovered.AddUniqueDynamic(this, &UEquipmentSlot::OnUnHoveredSlotButton);
 }
 
-void UEquipmentSlot::OnClickedItemSlot()
+void UEquipmentSlot::OnClickedSlotButton()
 {
+	Super::OnClickedSlotButton();
+
 	//비어 있다면 아무것도 하지 않는다.
 	if(IsEmpty() == true)
 		return;
@@ -50,8 +52,10 @@ void UEquipmentSlot::OnClickedItemSlot()
 	Clear();
 }
 
-void UEquipmentSlot::OnHoveredItemSlot()
+void UEquipmentSlot::OnHoveredSlotButton()
 {
+	Super::OnHoveredSlotButton();
+
 	if(IsEmpty() == true)
 		return;
 
@@ -64,8 +68,10 @@ void UEquipmentSlot::OnHoveredItemSlot()
 	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
-void UEquipmentSlot::OnUnHoveredItemSlot()
+void UEquipmentSlot::OnUnHoveredSlotButton()
 {
+	Super::OnUnHoveredSlotButton();
+
 	if (IsEmpty() == true)
 		return;
 

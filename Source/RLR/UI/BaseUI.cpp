@@ -11,8 +11,16 @@ void UBaseUI::NativeConstruct()
 	Super::NativeConstruct();
 }
 
+void UBaseUI::OpenUI()
+{
+	RefreshUI();
+	SetVisibility(ESlateVisibility::Visible);
+}
+
 void UBaseUI::CloseUI()
 {
+
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UBaseUI::SetActionSystemComponent(AActor* Owner)

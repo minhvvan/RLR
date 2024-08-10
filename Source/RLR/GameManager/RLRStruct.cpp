@@ -5,6 +5,7 @@
 
 #include "Network/Proto/Packet.pb.h"
 
+const FSkillData FSkillData::EmptySkillData;
 
 void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {
@@ -93,6 +94,129 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 }
 
 
+int32 FMonsterStatus::tempID = 0;
+void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
+{
+    //(X=1250.000000,Y=1930.000000,Z=96.000000)
+    MonsterSeq = monsterData.monsterseq();
+    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
+    MonsterLevel = monsterData.monsterlevel();
+    MontserExp = monsterData.monsterexp();
+    MonsterAttackRate = monsterData.monsterdamage();
+    MonsterDefence = monsterData.monsterdefence();
+    MonsterHp = monsterData.monsterhp();
+    MonsterAttackRange = 10;  // Packet 추가 예정
+    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
+    MonsterId = monsterData.monsterid();
+    MonsterMapId = monsterData.monstermapid();
+}
+
+void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
+{
+    UserSeq = Data.userseq();
+    PlayerSeq = Data.playerseq();
+    Name = UTF8_TO_TCHAR(Data.name().c_str());
+    Level = Data.level();
+    NobilityRank = Data.nobilityrank();
+
+    MainJob = (ECharacterMainJobType)Data.mainjob();
+    SubJob = (ECharacterSubJobType)Data.subjob();
+
+    Exp = Data.exp();
+    AdventureRank = Data.adventurerrank();
+
+    TotalStatus.MakeStatus(Data.totalstatus());
+    SetStatus.MakeSetStatus(Data.setstatus());
+
+}
+
+void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
+{
+    UserHP = Data.userhp();
+    UserMP = Data.usermp();
+    UserSTR = Data.userstr();
+    UserAGI =Data.useragi();
+    UserINT =Data.userint();
+}
+
+void FAttackResult::MakeAttackData()
+{
+}
+void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
+    
+    SkillSeq = skill.skillseq();
+
+    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+
+    Level = skill.skilllevel();
+
+    Cost = skill.cost();
+
+    CoolTime = skill.cooltime();
+
+    Cind = skill.skillkind();
+
+    Damage = skill.skillactivestatus().skilldamage();
+
+    Duration = skill.skillactivestatus().skillduration();
+
+    //ActivityTime = skill.mutable_skillactivestatus()->
+
+    SkillId = skill.skillid();
+
+
+    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+}
+
+FString FSkillData::ToString() const
+{
+    {
+        FString SkillString;
+
+        auto AppendFloat = [&SkillString](const FString& Name, float Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %.2f"), *Name, Value));
+            };
+
+        auto AppendInt = [&SkillString](const FString& Name, int32 Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %d"), *Name, Value));
+            };
+
+        auto AppendString = [&SkillString](const FString& Name, FString Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %s"), *Name, *Value));
+            };
+
+        /*
+            지금은 스킬 디테일 정보를 띠워주는데 사용 중.
+            나중에 UI에서 보여줄 정보에 따라 코드를 수정할 예정
+        */
+
+        AppendString(TEXT("Name"), Name);
+        AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
+        AppendInt(TEXT("Level"), Level);
+        AppendInt(TEXT("Cost"), Cost);
+        AppendFloat(TEXT("CoolTime"), CoolTime);
+
+
+        return SkillString;
+    }
+}
+
+
+/*
+Enum 변환 관련된 건, 찾아보기 좋게 맨 아래에 배치.
+*/
 
 // 문자열을 EItemRarity으로 변환하는 함수
 EItemRarity StringToEItemRarity(const FString& RarityString)
@@ -326,76 +450,12 @@ FString EStatusTypeToString(EStatusType StatusType)
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
 
-int32 FMonsterStatus::tempID = 0;
-void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
+FString ESkillGroupToString(ESkillGroup SkillGroup)
 {
-    //(X=1250.000000,Y=1930.000000,Z=96.000000)
-    MonsterSeq = monsterData.monsterseq();
-    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
-    MonsterLevel = monsterData.monsterlevel();
-    MontserExp = monsterData.monsterexp();
-    MonsterAttackRate = monsterData.monsterdamage();
-    MonsterDefence = monsterData.monsterdefence();
-    MonsterHp = monsterData.monsterhp();
-    MonsterAttackRange = 10;  // Packet 추가 예정
-    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
-    MonsterId = monsterData.monsterid();
-    MonsterMapId = monsterData.monstermapid();
-}
-
-void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
-{
-    UserSeq = Data.userseq();
-    PlayerSeq = Data.playerseq();
-    Name = UTF8_TO_TCHAR(Data.name().c_str());
-    Level = Data.level();
-    NobilityRank = Data.nobilityrank();
-
-    MainJob = (ECharacterMainJobType)Data.mainjob();
-    SubJob = (ECharacterSubJobType)Data.subjob();
-
-    Exp = Data.exp();
-    AdventureRank = Data.adventurerrank();
-
-    TotalStatus.MakeStatus(Data.totalstatus());
-    SetStatus.MakeSetStatus(Data.setstatus());
-
-}
-
-void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
-{
-    UserHP = Data.userhp();
-    UserMP = Data.usermp();
-    UserSTR = Data.userstr();
-    UserAGI =Data.useragi();
-    UserINT =Data.userint();
-}
-
-void FAttackResult::MakeAttackData()
-{
-}
-void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
-    
-    SkillSeq = skill.skillseq();
-
-    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
-
-    Level = skill.skilllevel();
-
-    Cost = skill.cost();
-
-    CoolTime = skill.cooltime();
-
-    Cind = skill.skillkind();
-
-    Damage = skill.skillactivestatus().skilldamage();
-
-    Duration = skill.skillactivestatus().skillduration();
-
-    //ActivityTime = skill.mutable_skillactivestatus()->
-
-    SkillId = skill.skillid();
-
-
-    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+    uint8 Index = static_cast<uint8>(SkillGroup);
+    if (Index < UE_ARRAY_COUNT(ESkillGroups))
+    {
+        return ESkillGroups[Index];
+    }
+    return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
