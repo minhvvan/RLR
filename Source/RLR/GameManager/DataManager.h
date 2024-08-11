@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "DataManager.generated.h"
 
 /**
@@ -28,21 +29,26 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable)
-	FItemData GetItemData(int32 Id);
+	FItemData				GetItemData(int32 Id);
 
 	UFUNCTION(BlueprintCallable)
-	FSkillData GetSkillData(int32 Id);
+	FSkillData				GetSkillData(int32 Id);
 
 	UFUNCTION(BlueprintCallable)
-	void GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
+	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
 
 	UFUNCTION(BlueprintCallable)
-	URLRInputConfig* GetInputConfig();
+	URLRInputConfig*		GetInputConfig();
+
+	UFUNCTION(BlueprintCallable)
+	FResourceData			GetResource(FString Name);
+
+	template<typename T>
+	TSubclassOf<T>			GetClass(FString Name);
 
 	//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
-
 
 private:
 	UPROPERTY()
@@ -55,10 +61,36 @@ private:
 	UPROPERTY()
 	TMap<ECharacterMainJobType, FSkillList> SkillDictionary;
 
+	//각종 리소스 테이블.
+	UPROPERTY()
+	TObjectPtr<UDataTable> ResourceTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> ClassTable;
 
 private:
 
 	UPROPERTY()
 	TObjectPtr<URLRInputConfig> InputConfig;
-
 };
+
+template<typename T>
+inline TSubclassOf<T> UDataManager::GetClass(FString Name)
+{
+	if (IsValid(ClassTable) == true)
+	{
+		const FClassData* Data = ClassTable->FindRow<FClassData>(*Name, TEXT(""));
+		if(Data == nullptr)
+		{ 
+			DEBUG_LOG("UDataManager::GetClass Error. Data is Null");
+			return nullptr;
+		}
+
+		if (Data->RLRClass->IsChildOf(T::StaticClass()))
+		{
+			return TSubclassOf<T>(Data->RLRClass);
+		}
+	}
+
+	return nullptr;
+}

@@ -28,15 +28,6 @@ public:
 
 	virtual void Clear() override;
 
-	virtual bool IsEmpty() {return SlotItemData.ITEM_ID == -1;}
-
-	UFUNCTION(BlueprintCallable)
-	void				SetItemData(FItemData ItemData);
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FItemData	GetItemData(){return SlotItemData;};
-
-
-
 public:
 
 	UPROPERTY(EditAnywhere)

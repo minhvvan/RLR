@@ -5,7 +5,8 @@
 
 #include "Network/Proto/Packet.pb.h"
 
-const FSkillData FSkillData::EmptySkillData;
+const FItemData     FItemData::EmptyItemData;
+const FSkillData    FSkillData::EmptySkillData;
 
 void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {

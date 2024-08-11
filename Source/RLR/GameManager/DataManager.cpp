@@ -4,7 +4,7 @@
 #include "GameManager/DataManager.h"
 #include "Player/PlayerCommands.h"
 
-#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -12,17 +12,29 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 
 	ItemDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemDataTable.DT_ItemDataTable'")));
 
-	DEBUG_LOG("아이템 테이블 로드 실패");
+	if(IsValid(ItemDataTable) == false)
+		DEBUG_LOG("아이템 테이블 로드 실패");
 
 	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillDataTable.DT_SkillDataTable'")));
 	
-	DEBUG_LOG("스킬 테이블 로드 실패");
+	if (IsValid(SkillDataTable) == false)
+		DEBUG_LOG("스킬 테이블 로드 실패");
+
 
 	MakeSkillDictionary();
 
-	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, TEXT("/Script/RLR.RLRInputConfig'/Game/Blueprints/Player/Input/RLRInputConfig.RLRInputConfig''")));
+	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, TEXT("/Script/RLR.RLRInputConfig'/Game/Blueprints/Player/Input/RLRInputConfig.RLRInputConfig'")));
+	if (IsValid(InputConfig) == false)
+		DEBUG_LOG("키 입력 정보 로드 실패");
 
-	//DEBUG_LOG("키 정보 로드 실패");
+
+	ResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ResourceTable.DT_ResourceTable'")));
+	if (IsValid(ResourceTable) == false)
+		DEBUG_LOG("텍스쳐 테이블 로드 실패");
+
+	ClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ClassTable.DT_ClassTable'")));
+	if (IsValid(ClassTable) == false)
+		DEBUG_LOG("클래스 테이블 로드 실패");
 
 }
 
@@ -105,4 +117,18 @@ URLRInputConfig* UDataManager::GetInputConfig()
 	}
 
 	return InputConfig;
+}
+
+FResourceData UDataManager::GetResource(FString Name)
+{
+	if (IsValid(ResourceTable) == true)
+	{
+		const FResourceData* Data = ResourceTable->FindRow<FResourceData>(*Name, TEXT(""));
+		if (Data == nullptr)
+			return FResourceData();
+
+		return *Data;
+	}
+
+	return FResourceData();
 }

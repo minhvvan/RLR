@@ -40,6 +40,18 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
+	virtual void Clear() override;
+	void		 ClearSkillList();
+	void		 ClearQuickSlot();
+
+	void LoadQuickSlotData();
+	void LoadSkillList();
+
+	void SaveQuickSlotData();
+	void ApplyQuickSlotSetting();
+
+	void ChangeTab(SkillSetting_TabType TabType);
+
 
 	UFUNCTION()
 	void OnClickedNormalSkillTab();
@@ -48,12 +60,10 @@ public:
 	UFUNCTION()
 	void OnClickedUltimateSkillTab();
 
-	void LoadQuickSlotData();
-	void LoadSkillList();
-
-	void SaveQuickSlotData();
-
-	void ChangeTab(SkillSetting_TabType TabType);
+	UFUNCTION()
+	void OnClickedConfirmButton();
+	UFUNCTION()
+	void OnClickedCancelButton();
 
 public:
 
@@ -69,6 +79,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> UltimateSkillTabButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> ConfirmButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> CancelButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UWidgetSwitcher> SkillTabSwitcher;
@@ -96,4 +112,7 @@ public:
 
 	UPROPERTY()
 	TMap<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> SkillQuickSlotMap;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 MaxColunm = 4;
 };

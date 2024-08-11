@@ -3,6 +3,7 @@
 
 #include "UI/SlotUI.h"
 #include "UI/BaseDragDropOperation.h"
+#include "UI/DraggableWidget.h"
 
 #include "Components/Button.h"
 #include "Components/Image.h"
@@ -10,12 +11,17 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/RLRStruct.h"
+
 
 void USlotUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	if (SlotButton)
+	if (IsValid(SlotButton) == true)
 	{
 		SlotButton->OnClicked.AddUniqueDynamic(this, &USlotUI::OnClickedSlotButton);
 		SlotButton->OnHovered.AddUniqueDynamic(this, &USlotUI::OnHoveredSlotButton);
@@ -27,6 +33,45 @@ void USlotUI::NativeConstruct()
 void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
+
+	//비어있는 슬롯은 옮기지 않는다.
+	if (IsEmpty())
+		return;
+
+	TSubclassOf<UDraggableWidget> DefaultDraggableWidgetClass = GetDraggableWidgetClass();
+	if (IsValid(DefaultDraggableWidgetClass) == false)
+	{
+		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("SlotUI::NativeOnDragDetected Error. DraggableWidgetClass 정보가 없습니다. "));
+		return;
+	}
+	DraggedWidget = CreateWidget<UDraggableWidget>(this, DefaultDraggableWidgetClass);
+
+	if(IsValid(GetItemData().ItemImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemData().ItemImage);
+	else if(IsValid(GetSkillData().SkillImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillData().SkillImage);
+	else
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
+	/*
+
+	*/
+
+	TSubclassOf<UBaseDragDropOperation> DefaultDragDropClass = GetDragDropOperationClass();
+	if (IsValid(DefaultDraggableWidgetClass) == false)
+	{
+		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("SlotUI::NativeOnDragDetected Error. DraggableWidgetClass 정보가 없습니다. "));
+		return;
+	}
+	UBaseDragDropOperation* CopyOperation = Cast<UBaseDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(DefaultDragDropClass));
+
+	CopyOperation->DefaultDragVisual = DraggedWidget;
+	CopyOperation->Pivot = EDragPivot::MouseDown;
+	CopyOperation->DragOffset = DragOffset;
+	CopyOperation->SetItemData(GetItemData());
+	CopyOperation->SetSkillData(GetSkillData());
+	CopyOperation->SetMaster(this);
+	CopyOperation->DragedSlotType = GetSlotType();
+	OutOperation = CopyOperation;
 
 }
 
@@ -90,22 +135,114 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 void USlotUI::Clear()
 {
 	SlotImage->SetBrushFromTexture(DefaultSlotImage);
+	if (IsValid(DragDropOperation) == true)
+	{
+		DragDropOperation->Clear();
+	}
+	RefreshUI();
 }
 
 bool USlotUI::IsEmpty()
 {
-	/*
-		Empty의 유무를 어떻게 판단해줄까?
-			그냥 상속 받는 슬롯들마다 서로 다르게 설정할까?
-			아니면 공통된 기준을 만들까?
-	*/
-	if(SlotImage->GetBrush().GetResourceName() == DefaultSlotImage->GetName())
+	if(IsValid(DragDropOperation) == false)
 		return true;
 
-	return false;
+	return GetSlotData()->IsEmpty();
 }
 
-UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperation, EDragType DragType)
+UBaseDragDropOperation* USlotUI::GetSlotData()
+{
+	if (IsValid(DragDropOperation) == false)
+	{
+		TSubclassOf<UBaseDragDropOperation> OperationClass = GetDragDropOperationClass();
+		if (IsValid(OperationClass) == false)
+		{
+			DEBUG_LOG("SlotUI::NativeOnDragDetected Error. DragDropOperationClass 정보가 없습니다. ");
+			return nullptr;
+		}
+
+		DragDropOperation = Cast<UBaseDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(OperationClass));
+		DragDropOperation->SetMaster(this);
+		DragDropOperation->SetDragedSlotType(SlotType);
+	}
+
+	return DragDropOperation;
+}
+
+void USlotUI::SetItemData(FItemData& NewItemData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetItemData(NewItemData);
+	}
+	RefreshUI();
+}
+
+const FItemData& USlotUI::GetItemData()
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetItemData();
+	}
+
+	return FItemData::EmptyItemData;
+}
+
+void USlotUI::SetSkillData(FSkillData NewSkillData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetSkillData(NewSkillData);
+	}
+	RefreshUI();
+}
+
+const FSkillData& USlotUI::GetSkillData()
+{
+	
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetSkillData();
+	}
+
+	return FSkillData::EmptySkillData;
+}
+
+TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)
+{
+	if(Name.IsEmpty())
+	{ 
+		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetClass<UDraggableWidget>(TEXT("WBP_DraggableWidget"));
+		return RLRClass;
+	}
+	else
+	{
+		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetClass<UDraggableWidget>(*Name);
+		return RLRClass;
+	}
+}
+
+TSubclassOf<UBaseDragDropOperation> USlotUI::GetDragDropOperationClass(FString Name)
+{
+	if (Name.IsEmpty())
+	{
+		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetClass<UBaseDragDropOperation>(TEXT("WBP_BaseDragDropOperation"));
+		return RLRClass;
+	}
+	else
+	{
+		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetClass<UBaseDragDropOperation>(*Name);
+		return RLRClass;
+	}
+}
+
+UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperation, ESlotType DragType)
 {
 	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
 	if (IsValid(Operation) == false)
@@ -118,7 +255,7 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 	return Operation;
 }
 
-UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperation, EDragType DragType, EDragType DragType2)
+UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperation, ESlotType DragType, ESlotType DragType2)
 {
 	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
 	if (IsValid(Operation) == false)
@@ -129,4 +266,13 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 		return nullptr;
 
 	return Operation;
+}
+
+UTexture2D* USlotUI::GetDefaultSlotImage()
+{
+	if(IsValid(DefaultSlotImage) == true)
+		return DefaultSlotImage;
+
+
+	return GetGameManager()->GetDataManager()->GetResource("DefaultSlotImage").Texture;
 }

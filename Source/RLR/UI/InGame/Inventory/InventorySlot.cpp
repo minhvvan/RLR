@@ -21,51 +21,18 @@
 void UInventorySlot::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetSlotType(ESlotType::INVENTORY_SLOT);
 	Clear();
 
 }
 
 void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
-	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
-
-
-	//비어있는 슬롯은 옮기지 않는다.
-	if(IsEmpty())
-		return;
-
 	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
-	if(Inventory->CurrentFilter != EItemType::NONE)
+	if (Inventory->CurrentFilter != EItemType::NONE)
 		return;
 
-	if (IsValid(DraggableWidgetClass) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::NativeOnDragDetected Error. DraggableWidgetClass 정보가 없습니다. "));
-		return;
-	}
-
-	if (IsValid(DragDropOperationClass) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::NativeOnDragDetected Error. DragDropOperationClass 정보가 없습니다. "));
-		return;
-	}
-
-	DraggedWidget = CreateWidget<UDraggableWidget>(this, DraggableWidgetClass);
-	
-	DraggedWidget->SlotImage->SetBrushFromTexture(GetItemData().ItemImage);
-
-
-
-	DragDropOperation = Cast<UBaseDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(DragDropOperationClass));
-	DragDropOperation->DefaultDragVisual = DraggedWidget;
-	DragDropOperation->Pivot = EDragPivot::MouseDown;
-	
-	DragDropOperation->Master = this;
-	DragDropOperation->DragOffset = DragOffset;
-	DragDropOperation->ItemData = GetItemData();
-	DragDropOperation->DragedSlotType = EDragType::INVENTORY_SLOT;
-
-	OutOperation = DragDropOperation;
+	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 }
 
 bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -78,7 +45,7 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if (Inventory->CurrentFilter != EItemType::NONE)
 		return false;
 
-	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, EDragType::INVENTORY_SLOT);
+	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::INVENTORY_SLOT);
 	if(IsValid(Operation) == false)
 		return false;
 
@@ -114,6 +81,20 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	return true;
 }
 
+void UInventorySlot::RefreshUI()
+{
+	Super::RefreshUI();
+
+
+	if (GetItemData() == FItemData::EmptyItemData)
+	{
+		DisplayEquippedItems(false);
+		return;
+	}
+
+	DisplayEquippedItems(GetItemData().IsEquiped);
+}
+
 void UInventorySlot::OnClickedSlotButton()
 {
 	Super::OnClickedSlotButton();
@@ -124,13 +105,13 @@ void UInventorySlot::OnClickedSlotButton()
 
 		2.서버에서 Equip Item 패킷을 다시 날리면 EquipmentUI에서 해당 슬롯 정보를 업데이트 해준다.
 	*/
-	if (SlotItemData.ITEM_ID == -1)
+	if (IsEmpty() == true)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("해당 슬롯에는 아이템 정보가 없습니다."));
 		return;
 	}
 
-	FString ItemName = SlotItemData.NAME;
+	FString ItemName = GetItemData().NAME;
 	UUtilBlueprintFunctionLibrary::DebugLog(ItemName);
 
 
@@ -145,9 +126,9 @@ void UInventorySlot::OnClickedSlotButton()
 		UGameManager* GM = Cast<UGameManager>(GetGameInstance());
 		if (GM)
 		{
-			GM->GetInventoryManager()->ItemData[SlotItemData.ITEM_ID].IsEquiped = true;
+			GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = true;
 		}
-		MainUI->CharacterStatusUI->EquipmentUI->EquipItem(SlotItemData);
+		MainUI->CharacterStatusUI->EquipmentUI->EquipItem(GetItemData());
 		MainUI->InventoryUI->RefreshUI();
 	}
 }
@@ -186,36 +167,8 @@ void UInventorySlot::OnUnHoveredSlotButton()
 	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
 }
 
-void UInventorySlot::SetItemData(FItemData ItemData)
-{
-	//슬롯 정보를 업데이트 해준다.
-
-
-	SlotItemData = ItemData;
-
-	UTexture2D* Texture = ItemData.ItemImage;
-	if (IsValid(Texture) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
-		return;
-	}
-	SlotImage->SetBrushFromTexture(Texture, true);
-	DisplayEquippedItems(ItemData.IsEquiped);
-
-	//아이템 등급에 따른 배경 이미지 색깔 추가해주기.
-
-}
 
 void UInventorySlot::Clear()
 {
 	Super::Clear();
-
-	if (IsValid(DefaultSlotImage) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::Clear Error. Default Slot Image가 없습니다."));
-		return;
-	}
-
-	SlotImage->SetBrushFromTexture(DefaultSlotImage, true);
-	SlotItemData = FItemData();
 }

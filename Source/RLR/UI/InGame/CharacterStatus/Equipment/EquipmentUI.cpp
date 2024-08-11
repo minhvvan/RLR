@@ -26,19 +26,19 @@ void UEquipmentUI::NativeConstruct()
 	EquipmentSlotList.Add(RingSlot_2);
 	EquipmentSlotList.Add(BraceletSlot);
 
-	WeaponSlot->SlotType = EEquipmentType::WEAPON;
-	SubWeaponSlot->SlotType = EEquipmentType::SUBWEAPON;
-	HelmetSlot->SlotType = EEquipmentType::HELMET;
-	UpperBodyArmorSlot->SlotType = EEquipmentType::UPPERBODYARMOR;
-	LowerBodyArmorSlot->SlotType = EEquipmentType::LOWERBODYARMOR;
-	ShoesSlot->SlotType = EEquipmentType::SHOES;
-	GlovesSlot->SlotType = EEquipmentType::GLOVES;
-	NecklaceSlot->SlotType = EEquipmentType::NECKLACE;
-	EarringSlot_1->SlotType = EEquipmentType::EARRING;
-	EarringSlot_2->SlotType = EEquipmentType::EARRING;
-	RingSlot_1->SlotType = EEquipmentType::RING;
-	RingSlot_2->SlotType = EEquipmentType::RING;
-	BraceletSlot->SlotType = EEquipmentType::BRACELET;
+	WeaponSlot->EquipmentSlotType = EEquipmentType::WEAPON;
+	SubWeaponSlot->EquipmentSlotType = EEquipmentType::SUBWEAPON;
+	HelmetSlot->EquipmentSlotType = EEquipmentType::HELMET;
+	UpperBodyArmorSlot->EquipmentSlotType = EEquipmentType::UPPERBODYARMOR;
+	LowerBodyArmorSlot->EquipmentSlotType = EEquipmentType::LOWERBODYARMOR;
+	ShoesSlot->EquipmentSlotType = EEquipmentType::SHOES;
+	GlovesSlot->EquipmentSlotType = EEquipmentType::GLOVES;
+	NecklaceSlot->EquipmentSlotType = EEquipmentType::NECKLACE;
+	EarringSlot_1->EquipmentSlotType = EEquipmentType::EARRING;
+	EarringSlot_2->EquipmentSlotType = EEquipmentType::EARRING;
+	RingSlot_1->EquipmentSlotType = EEquipmentType::RING;
+	RingSlot_2->EquipmentSlotType = EEquipmentType::RING;
+	BraceletSlot->EquipmentSlotType = EEquipmentType::BRACELET;
 
 
 	DetailStatButton->OnClicked.AddUniqueDynamic(this, &UEquipmentUI::ToggleShowDetailStatUI);
@@ -94,7 +94,7 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 
 	for (UEquipmentSlot* EquipSlot : EquipmentSlotList)
 	{
-		if (EquipSlot->SlotType == ItemData.EQUIPMENT_TYPE)
+		if (EquipSlot->EquipmentSlotType == ItemData.EQUIPMENT_TYPE)
 		{
 			EquipSlot->SetItemData(ItemData);
 		}

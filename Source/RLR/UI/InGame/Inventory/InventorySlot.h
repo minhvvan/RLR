@@ -24,7 +24,7 @@ class RLR_API UInventorySlot : public USlotUI
 	
 public:
 
-	virtual void	NativeConstruct() override;
+	virtual void NativeConstruct() override;
 
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
 
@@ -32,23 +32,15 @@ public:
 
 	//virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
+	virtual void RefreshUI() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void				DisplayEquippedItems(bool IsEquiped = false);
+	void			DisplayEquippedItems(bool IsEquiped = false);
 
 	virtual void	OnClickedSlotButton() override;
 	virtual void	OnHoveredSlotButton() override;
 	virtual void	OnUnHoveredSlotButton() override;
-
-	UFUNCTION(BlueprintCallable)
-	void				SetItemData(FItemData ItemData);
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FItemData	GetItemData(){return SlotItemData;};
-
 	virtual void	Clear();
-
-	//Item_ID가 -1이면 아이템 정보가 없다는 뜻. 그러니 비어있는 것으로 판단해준다.
-	virtual bool	IsEmpty(){return SlotItemData.ITEM_ID == -1; }
 
 public:
 
@@ -61,9 +53,6 @@ public:
 
 
 public:
-
-	UPROPERTY(EditAnywhere)
-	FItemData SlotItemData;
 
 	UPROPERTY(EditAnywhere)
 	UInventoryUI* Inventory;

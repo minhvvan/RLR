@@ -386,6 +386,7 @@ struct FItemData : public FTableRowBase
 	//슬롯에 있는 아이템 데이터가 ITEM_ID == -1 이면 비어 있는 슬롯으로 처리 중.
 	FItemData()
 	{
+		ITEM_SEQ = -1;
 		ITEM_ID = -1;
 		ItemImage = nullptr;
 		TYPE = EItemType::NONE;
@@ -476,8 +477,17 @@ struct FItemData : public FTableRowBase
 
 	//나중에 패킷 날라오면, 그 정보로 FItemData를 만들어준다.
 	void MakeItemData(const Protocol::Item itemData);
+	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
+
+	/** Operators */
+	FORCEINLINE bool operator==(FItemData const& Other) const
+	{
+		if (ITEM_SEQ != Other.ITEM_SEQ)
+			return false;
+		return true;
+	}
 };
 
 
@@ -846,6 +856,39 @@ struct FExpTable : public FTableRowBase
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MaxExp;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FResourceData : public FTableRowBase
+{
+	GENERATED_BODY()
+	int32 ResourceID = -1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* Texture;
+};
+
+
+/*
+
+	작업을 하다보면 각종 Class 정보들을 로드해야 한다.
+	그런데 하드 코딩으로 파일 주소를 불러와서 정보를 로드하는 건 조금 그러니.
+	데이터 테이블을 만들어서 파일을 관리하기 위한 용도.
+
+	테이블의 행 이름은 왠만해선 블루프린트 이름 그대로 해주자.
+
+*/
+USTRUCT(Atomic, BlueprintType)
+struct FClassData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UObject> RLRClass;
+
+	//무슨 용도로 쓰는지 메모용.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString DataInfo;
 };
 
 

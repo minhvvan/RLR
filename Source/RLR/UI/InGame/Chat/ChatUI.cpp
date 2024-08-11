@@ -245,7 +245,7 @@ void UChatUI::OnChatOptionUIButtonClicked()
     if(IsValid(GM) == false)
         return;
 
-    UChatOptionUI* ChatOptionUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->ChatOptionUI;
+    UChatOptionUI* ChatOptionUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatOptionUI();
 
     if (IsValid(ChatOptionUI))
     {

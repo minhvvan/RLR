@@ -11,6 +11,10 @@
 /**
  * 
  */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedActionTag, FGameplayTag, ActionTag);
+
+
 UCLASS()
 class RLR_API USkillManager : public UGameInstanceSubsystem
 {
@@ -39,4 +43,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillClassTable;
+
+public:
+
+	//현재는 StatusDisplay에서 스킬 사용시, 쿨타임 효과를 재생하기 위해 호출하는 중이다.
+	FUpdatedActionTag UpdatedTryActivateAction;
 };

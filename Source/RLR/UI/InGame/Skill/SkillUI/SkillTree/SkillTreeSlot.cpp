@@ -33,7 +33,7 @@ void USkillTreeSlot::OnClickedSlotButton()
 	if(IsValid(SkillUI) == false)
 		return;
 
-	SkillUI->UpdateSkillDetailInfo(SkillData);
+	SkillUI->UpdateSkillDetailInfo(GetSkillData());
 }
 
 void USkillTreeSlot::OnHoveredSlotButton()
@@ -48,16 +48,8 @@ void USkillTreeSlot::OnUnHoveredSlotButton()
 
 }
 
-void USkillTreeSlot::SetSkillData(FSkillData& NewSkillData)
-{
-	SkillData = NewSkillData;
-	RefreshUI();
-}
-
 void USkillTreeSlot::RefreshUI()
 {
 	Super::RefreshUI();
-
-
-
+	SetSlotImage(GetSkillData().SkillImage);
 }

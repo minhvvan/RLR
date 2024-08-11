@@ -16,24 +16,30 @@
 void USkillSettingListSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	SetSlotType(ESlotType::SKILL_SETTING_LIST_SLOT);
 }
+
+void USkillSettingListSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
+{
+	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
+}
+
 
 void USkillSettingListSlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	if(SkillData ==FSkillData::EmptySkillData)
+	if(GetSkillData() ==FSkillData::EmptySkillData)
 		return;
 
 
-	if (IsValid(SkillData.SkillImage) == true)
+	if (IsValid(GetSkillData().SkillImage) == true)
 	{
-		SetSlotImage(SkillData.SkillImage);
+		SetSlotImage(GetSkillData().SkillImage);
 	}
 
-	SkillLevelText->SetText(FText::AsNumber(SkillData.Level));
-	SkillNameText->SetText(FText::FromString(SkillData.Name));
+	SkillLevelText->SetText(FText::AsNumber(GetSkillData().Level));
+	SkillNameText->SetText(FText::FromString(GetSkillData().Name));
 
 	if (IsEquipped == true)
 	{
@@ -56,7 +62,7 @@ void USkillSettingListSlot::OnClickedSlotButton()
 {
 	Super::OnClickedSlotButton();
 
-	if(SkillData == FSkillData::EmptySkillData)
+	if(GetSkillData() == FSkillData::EmptySkillData)
 		return;
 
 	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
@@ -67,17 +73,5 @@ void USkillSettingListSlot::OnClickedSlotButton()
 	if (IsValid(SkillUI) == false)
 		return;
 
-	SkillUI->UpdateSkillDetailInfo(SkillData);
-}
-
-void USkillSettingListSlot::SetSkillData(FSkillData& NewSkilData)
-{
-	if (NewSkilData == FSkillData::EmptySkillData)
-	{
-		RemoveFromParent();
-		return;
-	}
-
-	SkillData = NewSkilData;
-	RefreshUI();
+	SkillUI->UpdateSkillDetailInfo(GetSkillData());
 }

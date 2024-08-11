@@ -33,28 +33,33 @@ class RLR_API UInGameMainUI : public UMainUI
 {
 	GENERATED_BODY()
 
-
-
 public:
 	virtual void NativeConstruct() override;
-
-	UFUNCTION(BlueprintCallable)
-	UChatUI* GetChatUI(){return ChatUI;}
-
-	UFUNCTION(BlueprintCallable)
-	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
-
-	
-	UFUNCTION(BlueprintCallable)
-	USkillUpgrade* GetSkillUpgradeUI(){return SkillUpgrade;}
-
 	void SetActionSystemComponent(AActor* Owner) override;
 
+
 public:
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
+
+	UChatUI*			GetChatUI(){return ChatUI;}
+	UChatOptionUI*		GetChatOptionUI(){return ChatOptionUI;}
+	UInventoryUI*		GetInventoryUI(){return InventoryUI;}
+	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
+	UItemInformation*	GetItemInformation(){return ItemInformation;}
+	UMinimapUI*			GetMinimapUI(){return Minimap;}
+	UStatusDisplay*		GetStatusDisplayUI(){return StatusDisplayUI;}
+	UInGameMenuUI*		GetInGameMenuUI(){return InGameMenuUI;}
+	UPartyUI*			GetPartyUI(){return PartyUI;}
+	UKeyOption*			GetKeyOptionUI(){return KeyOptionUI;}
+	USkillUI*			GetSkillUI(){return SkillUI;}
+	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
+	
+public:
+	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UChatUI> ChatUI;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UChatOptionUI> ChatOptionUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))

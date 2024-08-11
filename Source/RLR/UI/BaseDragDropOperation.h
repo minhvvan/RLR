@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/DragDropOperation.h"
 #include "GameManager/RLRStruct.h"
+#include "UI/SlotUI.h"
 #include "BaseDragDropOperation.generated.h"
 
 /**
@@ -13,16 +14,6 @@
 
  */
 
-
- UENUM(BlueprintType)
-enum class EDragType : uint8
-{
-	INVENTORY_SLOT,
-	EQUIPMENT_SLOT,
-	ITEM_QUICK_SLOT,
-	SKILL_QUICK_SLOT,
-	NONE,
-};
 
 
 
@@ -35,19 +26,36 @@ class RLR_API UBaseDragDropOperation : public UDragDropOperation
 
 public:
 
-	FItemData GetItemData();
+	void			SetItemData(const FItemData& NewItemData);
+	void			SetSkillData(const FSkillData& NewSkillData);
+
+	const FItemData&		GetItemData();
+	const FSkillData&		GetSkillData();
+
+	void			SetMaster(USlotUI* From) {Master = From;}
+	USlotUI*		GetMaster(){return Master;}
+
+	void			SetDragedSlotType(ESlotType Type){DragedSlotType = Type;}
+	ESlotType		GetDragedSlotType(){return DragedSlotType;}
+
+
+	virtual void	Clear();
+	virtual bool	IsEmpty();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FItemData ItemData;
+	FItemData ItemData = FItemData::EmptyItemData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FSkillData SkillData = FSkillData::EmptySkillData;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USlotUI> Master;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector2D DragOffset;
+	FVector2D DragOffset = FVector2D::Zero();
 
 	//옮기고 있는 슬롯의 타입.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EDragType DragedSlotType = EDragType::NONE;
+	ESlotType DragedSlotType = ESlotType::NONE;
 };

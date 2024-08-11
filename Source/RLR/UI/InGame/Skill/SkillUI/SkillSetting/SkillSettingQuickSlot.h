@@ -18,19 +18,21 @@ class RLR_API USkillSettingQuickSlot : public USlotUI
 public:
 
 	virtual void NativeConstruct() override;
+
+	//드래그 드랍
+	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
+	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+	virtual void NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+
+	virtual void OnClickedSlotButton() override;
+
 	virtual void RefreshUI() override;
 
 	void SetActionTag(FGameplayTag NewActionTag);
 	void SetInputTag(FGameplayTag NewInputTag);
-	void SetSkillData(FSkillData NewSkillData);
-	virtual bool IsEmpty() override;
-
-
-
+	
 public:
 
 	FGameplayTag ActionTag;
 	FGameplayTag InputTag;
-	FSkillData SkillData;
-	
 };

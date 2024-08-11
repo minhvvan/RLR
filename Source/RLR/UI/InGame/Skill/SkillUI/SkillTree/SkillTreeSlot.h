@@ -21,20 +21,5 @@ public:
 	virtual void OnClickedSlotButton() override;
 	virtual void	OnHoveredSlotButton() override;
 	virtual void	OnUnHoveredSlotButton() override;
-
-	void SetSkillData(FSkillData& NewSkillData);
 	virtual void RefreshUI() override;
-
-
-public:
-
-	/*
-	
-	*/
-
-
-private:
-
-	FSkillData SkillData;
-	
 };

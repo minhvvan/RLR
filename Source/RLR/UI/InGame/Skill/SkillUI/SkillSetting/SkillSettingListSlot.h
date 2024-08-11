@@ -20,14 +20,14 @@ class RLR_API USkillSettingListSlot : public USlotUI
 public:
 
 	virtual void NativeConstruct() override;
+
+	//드래그 드랍
+	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
+
 	virtual void RefreshUI() override;
 	virtual void SetEquipped(bool Value);
 
 	virtual void OnClickedSlotButton() override;
-
-	void SetSkillData(FSkillData& NewSkilData);
-
-
 public:
 
 	/*
@@ -46,9 +46,6 @@ public:
 
 
 private:
-
-	UPROPERTY()
-	FSkillData SkillData = FSkillData::EmptySkillData;
 
 	UPROPERTY()
 	bool IsEquipped = false;
