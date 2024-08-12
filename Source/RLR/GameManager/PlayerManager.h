@@ -23,10 +23,15 @@ public:
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);
     void UpdatePlayerSetStatus(const FSetStatus& NewSetStatus);
     void UpdatePlayerExp(int32 NewExp);
+    void UpdateTalent(const FTalent& NewTalent);
 
     //이동
     bool RequestMove(const FMoveResult& MoveResult);
     void UpdatePlayerTransform(const FVector& NewTransform);
+
+    //재능
+    bool RequestTalent(int TalentOrder);
+
 
 private:
     UPROPERTY()

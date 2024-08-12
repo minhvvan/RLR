@@ -92,7 +92,7 @@ void UStatusDisplay::ClearSkillQuickSlot()
 void UStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)
 {
 	float hpPercent = FMath::Clamp(NewTotalStatus.HP / NewTotalStatus.MAX_HP, 0.f, 1.f);
-	float mpPercent = FMath::Clamp(NewTotalStatus.HP / NewTotalStatus.MAX_HP, 0.f, 1.f);
+	float mpPercent = FMath::Clamp(NewTotalStatus.MP / NewTotalStatus.MAX_MP, 0.f, 1.f);
 
 	UpdateHpGlobe(hpPercent);
 	UpdateMpGlobe(mpPercent);

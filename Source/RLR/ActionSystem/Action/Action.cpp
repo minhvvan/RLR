@@ -8,10 +8,11 @@
 
 UAction::UAction() :
 	bIsActive(false),
-	bIsAbilityEnding(false),
+	bIsActionEnding(false),
 	bIsCancelable(false)
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerExecution;
+	ActionState = EActionState::STATE_INIT;
 }
 
 UGameplayTasksComponent* UAction::GetGameplayTasksComponent(const UGameplayTask& Task) const
@@ -68,17 +69,19 @@ bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
-		if (CheckBlockTag()) return false;
-
 		//Action 실행 전 준비
 		bIsActive = true;
-		bIsAbilityEnding = false;
+		bIsActionEnding = false;
 
 		//cancel여부 결정
 		//bIsCancelable = true;
 
 		// Add tags
 		AddOwnedTag();
+	}
+	else
+	{
+		return false;
 	}
 
 	return true;
@@ -106,7 +109,7 @@ void UAction::EndAction()
 	//Action을 종료할 수 있는지 
 	if (!CanEndAction()) return;
 
-	bIsAbilityEnding = true;
+	bIsActionEnding = true;
 	bIsActive = false;
 
 	//Task 관리
@@ -147,6 +150,12 @@ void UAction::InitCurrentActorInfo()
 	}
 }
 
+void UAction::InitCurrentActorInfoFromASC(TObjectPtr<UActionSystemComponent> ASC)
+{
+	if (CurrentActorInfo) return;
+	CurrentActorInfo = ASC->GetActionActorInfo();
+}
+
 const FActionActorInfo* UAction::GetCurrentActorInfo() const
 {
 	return CurrentActorInfo;
@@ -177,31 +186,13 @@ bool UAction::CanActivateAction()
 
 bool UAction::CanEndAction()
 {
-	if (bIsActive == false || bIsAbilityEnding == true)
+	if (bIsActive == false || bIsActionEnding == true)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("EndAction being called multiple times"));
 		return false;
 	}
 
 	return true;
-}
-
-bool UAction::CheckBlockTag()
-{
-	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
-	{
-		//Block
-		for (auto BlockTag : ActivationBlockedTags)
-		{
-			if (ASC->HasMatchingGameplayTag(BlockTag))
-			{
-				//Blocked this Action
-				return true;
-			}
-		}
-	}
-
-	return false;
 }
 
 void UAction::AddOwnedTag()

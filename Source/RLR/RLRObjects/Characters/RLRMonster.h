@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "RLRObjects/Characters/RLRCharacter.h"
 #include "GameManager/RLRStruct.h"
 #include "RLRMonster.generated.h"
 
@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class RLR_API ARLRMonster : public ARLRNonPlayerCharacter
+class RLR_API ARLRMonster : public ARLRCharacter
 {
 	GENERATED_BODY()
 	

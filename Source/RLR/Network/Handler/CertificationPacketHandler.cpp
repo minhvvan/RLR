@@ -28,8 +28,9 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::En
     {
         FString MainServerAddress = UTF8_TO_TCHAR(pkt.mainserveraddress().c_str());
         FString MonsterServerAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
-        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
+        
         GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
+        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
     }
     else
     {

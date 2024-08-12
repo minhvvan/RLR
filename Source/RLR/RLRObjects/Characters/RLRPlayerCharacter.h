@@ -4,16 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "RLRObjects/Characters/RLRCharacter.h"
-#include "GameFramework/SpringArmComponent.h"
-#include <Blueprint/AIBlueprintHelperLibrary.h>
-#include "GameFramework/CharacterMovementComponent.h"
-#include "Player/RLRPlayerController.h"
-#include "Camera/CameraComponent.h"
-#include "Skill/Skill_Explosion.h"
-#include "Player/PlayerData.h"
+#include "GameManager/RLRStruct.h"
 #include "RLRPlayerCharacter.generated.h"
 
 class UAction;
+class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class RLR_API ARLRPlayerCharacter : public ARLRCharacter
@@ -23,7 +19,6 @@ class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 public:
 	ARLRPlayerCharacter();
 	void SetMovement(FVector);
-	void SetSimpleMove(APlayerController*, FVector);
 	void SetOrientation(FVector);
 	void SetMoveMode(EMovementMode);
 	void BanInput(bool);
@@ -45,11 +40,9 @@ private:
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
 
-	APlayerData* data;
+	//APlayerData* data;
 	int32 PlayerSeq;
 	
-	UPROPERTY();
-	ARLRPlayerController* playerController;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));

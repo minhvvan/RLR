@@ -30,10 +30,15 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 		statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	}
 
+	/*
+	StatSet에 묶여있는 Data들이 변경되면 업데이트할 UI들의 함수 Binding
+	*/
+	statSet->ClearBindFunc();
 	statSet->OnChangedTotalStatus.AddDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
 	statSet->OnChangedSetStatus.AddDynamic(this, &UInGameMainUI::OnChangedSetStatus);
 	statSet->OnChangedLevel.AddDynamic(this, &UInGameMainUI::OnChangedLevel);
 	statSet->OnChangedExp.AddDynamic(this, &UInGameMainUI::OnChangedExp);
+	statSet->OnChangedTalent.AddDynamic(this, &UInGameMainUI::OnChangedTalent);
 }
 
 bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
@@ -94,6 +99,17 @@ void UInGameMainUI::OnChangedExp()
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	int32 newExp = statSet->GetExp();
 	StatusDisplayUI->UpdateExp(newExp);
+}
+
+void UInGameMainUI::OnChangedTalent()
+{
+	if (!ActionSystemComponent) return;
+
+	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
+	FTalent newTalent = statSet->GetTalent();
+
+	//TODO: 재능 관련 UI에서 변경하도록 함수 호출
+	RLR_LOG(LogRLR, Log, TEXT("Talent: %s"), *newTalent.toString());
 }
 
 void UInGameMainUI::OnChangedLevel()

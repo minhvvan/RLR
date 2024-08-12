@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
+#include "Network/Proto/NPC.pb.h"
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
@@ -26,16 +27,19 @@ enum : uint16
     PKT_SERVER_REQUEST = 1203,
     PKT_CHANNEL_REQUEST = 1211,
     PKT_CHANNEL_RESPONSE = 1212,
-    // Add status Packet types
+    // Add info Packet types
     PKT_STATUS_REQUEST = 1301,
     PKT_STATUS_RESPONSE = 1302,
-    // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1311,
     PKT_INVENTORY_RESPONSE = 1312,
     PKT_GET_SKILL_REQUEST = 1321,
     PKT_GET_SKILL_RESPONSE = 1322,
     PKT_SKILL_CHANGE_REQUEST = 1331,
     PKT_SKILL_CHANGE_RESPONSE = 1332,
+    PKT_NPC_INFO_REQUEST = 1341,
+    PKT_NPC_INFO_RESPONSE = 1342,
+    PKT_USER_QUEST_REQUEST = 1351,
+    PKT_USER_QUEST_RESPONSE = 1352,
     // Add item packet types
     PKT_ITEM_ADD_REQUEST = 1401,
     PKT_ITEM_ADD_RESPONSE = 1402,
@@ -125,6 +129,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::GetSkillRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_GET_SKILL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::SkillChangeRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_CHANGE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
     
 public:
     template<typename PacketType>

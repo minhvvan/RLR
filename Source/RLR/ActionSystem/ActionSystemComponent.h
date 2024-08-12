@@ -42,7 +42,7 @@ public:
 
 	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);
 
-	FActionActorInfo* GetActionActorInfo();
+	FActionActorInfo* GetActionActorInfo() const;
 	virtual float PlayMontage(UAction* AnimatingAction, UAnimMontage* Montage, float InPlayRate, FName StartSectionName = NAME_None, float StartTimeSeconds = 0.0f);
 
 	UAction* GetAnimatingAction();
@@ -111,20 +111,5 @@ public:
 
 	void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1);
 
-	//FORCEINLINE bool HasMatchingGameplayTag(FGameplayTag TagToCheck) const
-	//{
-	//	return OwnedTags.HasMatchingGameplayTag(TagToCheck);
-	//}
-
-	//FORCEINLINE void AddGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	//{
-	//	//OwnedTags.AddTag(GameplayTag);
-	//	//UpdateTagMap(GameplayTag, Count);
-	//}
-
-	//FORCEINLINE void RemoveGameplayTag(const FGameplayTag& GameplayTag, int32 Count = 1)
-	//{
-	//	//OwnedTags.RemoveTag(GameplayTag);
-	//	//UpdateTagMap(GameplayTag, -Count);
-	//}
+	int GetGameplayTagCount(FGameplayTag TagToCheck) const;
 };

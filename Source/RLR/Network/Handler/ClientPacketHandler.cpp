@@ -102,9 +102,29 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::AttackResponsePacket>(&Handle_ATTACK_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_GET_SKILL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::GetSkillResponsePacket>(&Handle_GET_SKILL_RESPONSE, session, buffer, len);
+        };
     GPacketHandler[PKT_CHANNEL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::ChannelResponsePacket>(&Handle_CHANNEL_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_DAMAGE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::DamageResponsePacket>(&Handle_DAMAGE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_MONSTER_STATUS_BROADCAST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MonsterStatusBroadcastPacket>(&Handle_MONSTER_STATUS_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_USER_QUEST_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::UserQuestInfoResponse>(&Handle_USER_QUEST_INFO_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_NPC_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::NPCInfoResponse>(&Handle_NPC_INFO_RESPONSE, session, buffer, len);
         };
 }
 

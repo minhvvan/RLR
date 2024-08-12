@@ -51,11 +51,9 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
 }
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
 
-    UE_LOG(LogTemp, Log, TEXT("User level : %d"), pkt.usercharacter().level());
-    UE_LOG(LogTemp, Log, TEXT("User hp : %d"), pkt.usercharacter().setstatus().userhp());
-    UE_LOG(LogTemp, Log, TEXT("User Int : %d"), pkt.usercharacter().totalstatus().userintelligence());
     UUIManager* UIManager = GameInstance->GetUIManager();
     
+    //UE_LOG(LogTemp, Log, TEXT("User Hp : %f"), pkt.usercharacter().totalstatus().userhp());
     if (IsValid(UIManager) == false)
     {
         DEBUG_LOG("Handle_STATUS_RESPONSE Error. UIManager is Null.");
@@ -77,7 +75,6 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Get
 
         skillDatas.Add(skillData);
     }
-
     GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
 
     return true;
@@ -87,6 +84,25 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Get
 bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::ChannelResponsePacket& pkt) {
     UE_LOG(LogTemp, Log, TEXT("User Channel : %d"), pkt.channelid());
     //TODO : PlayerManager or UserManager 만들면 거기에 Channel 정보도 같이 리스폰
+
     GameInstance->GetNetworkManager()->SendMapInfoRequest(1, pkt.channelid());
     return true;
 }
+
+bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::NPCInfoResponse& pkt)
+{
+    //TODO : Object Manager 에 연결
+    UE_LOG(LogTemp, Log, TEXT("Quest  Text : %s"), UTF8_TO_TCHAR(pkt.npc().Get(0).quests().Get(0).questtext().c_str()));
+    UE_LOG(LogTemp, Log, TEXT("Quest  Title : %s"), UTF8_TO_TCHAR(pkt.npc().Get(0).quests().Get(0).questtitle().c_str()));
+    return false;
+}
+
+bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::UserQuestInfoResponse& pkt)
+{
+    //TODO : Object Manager 에 연결
+    
+    UE_LOG(LogTemp, Log, TEXT("User Quest  need Monster_1 : %d"), pkt.quests().Get(0).needvalues().at("monster_1"));
+
+    return false;
+}
+

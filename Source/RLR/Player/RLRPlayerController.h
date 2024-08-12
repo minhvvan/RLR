@@ -4,13 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-//#include "../Chat/GameClient.h"
 #include "GameplayTagContainer.h"
 #include "RLRPlayerController.generated.h"
 
 class ARLRPlayerCharacter;
 class UPlayerManager;
-class UNiagaraSystem;
 class APlayerCommands;
 class UInputMappingContext;
 
@@ -30,16 +28,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupInputComponent() override;
-	void OnMoveStarted();
 
 	FVector GetClickPosition();
 
 	void InitBinding();
 
 private:
-	void OnMoveCompleted();
-	void OnMove();
-	void OnCursorEffect();
+	void OnMoveStarted(FGameplayTag TriggerTag);
+	void OnMove(FGameplayTag TriggerTag);
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
@@ -49,9 +45,10 @@ private:
 	void OnConsumeItem(int inputID);
 	void OnConsumeItem(FGameplayTag InputTag);
 	void OnOpenUI(FGameplayTag InputTag);
+	void OnActionStart(FGameplayTag InputTag);
 
-	UPROPERTY(EditAnywhere, Category = Input);
-	TObjectPtr<UNiagaraSystem> Cursor;
+	//UPROPERTY(EditAnywhere, Category = Input);
+	//TObjectPtr<UNiagaraSystem> Cursor;
 
 	UPROPERTY(VisibleAnywhere, Category = Character);
 	TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
@@ -65,16 +62,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input);
 	TSubclassOf<APlayerCommands> CommandClass;
 
-	//void AssignPlayerSeq();
-
-	//UPROPERTY()
-	//AGameClient* GameClient;
-
 	UPROPERTY()
 	TObjectPtr<UPlayerManager> PlayerManager;
 
-	float deltaTime;
-	float pressTime;
 	float movePacketInterval;
 	float timeSinceLastMovePacket;
 	FVector lastSentPosition;

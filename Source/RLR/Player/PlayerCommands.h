@@ -26,9 +26,10 @@ class ARLRPlayerController;
 UENUM(BlueprintType)
 enum class EInputType : uint8
 {
-	Action,
+	Skill,
 	OpenUI,
 	Consume,
+	Action,
 	None,
 };
 
@@ -91,7 +92,7 @@ public:
 	APlayerCommands();
 
 	void BindDefaultAction(TObjectPtr<class ARLRPlayerController>);
-	void BIndInput(TObjectPtr<ARLRPlayerController> Controller);
+	void BindInput(TObjectPtr<ARLRPlayerController> Controller);
 
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Move;
