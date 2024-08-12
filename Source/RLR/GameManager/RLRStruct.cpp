@@ -94,8 +94,6 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     }
 }
 
-
-int32 FMonsterStatus::tempID = 0;
 void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
 {
     //(X=1250.000000,Y=1930.000000,Z=96.000000)
@@ -459,80 +457,6 @@ FString ESkillGroupToString(ESkillGroup SkillGroup)
         return ESkillGroups[Index];
     }
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
-}
-int32 FMonsterStatus::tempID = 0;
-void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
-{
-    //(X=1250.000000,Y=1930.000000,Z=96.000000)
-    MonsterSeq = monsterData.monsterseq();
-    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
-    MonsterLevel = monsterData.monsterlevel();
-    MontserExp = monsterData.monsterexp();
-    MonsterAttackRate = monsterData.monsterdamage();
-    MonsterDefence = monsterData.monsterdefence();
-    MonsterHp = monsterData.monsterhp();
-    MonsterAttackRange = 10;  // Packet 추가 예정
-    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
-    MonsterId = monsterData.monsterid();
-    MonsterMapId = monsterData.monstermapid();
-}
-
-void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
-{
-    UserSeq = Data.userseq();
-    PlayerSeq = Data.playerseq();
-    Name = UTF8_TO_TCHAR(Data.name().c_str());
-    Level = Data.level();
-    NobilityRank = Data.nobilityrank();
-
-    MainJob = (ECharacterMainJobType)Data.mainjob();
-    SubJob = (ECharacterSubJobType)Data.subjob();
-
-    Exp = Data.exp();
-    AdventureRank = Data.adventurerrank();
-    
-    TotalStatus.MakeStatus(Data.totalstatus());
-    SetStatus.MakeSetStatus(Data.setstatus());
-    Talent.MakeTalent(Data.talent());
-}
-
-void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
-{
-    UserHP = Data.userhp();
-    UserMP = Data.usermp();
-    UserSTR = Data.userstr();
-    UserAGI =Data.useragi();
-    UserINT =Data.userint();
-}
-
-void FAttackResult::MakeAttackData()
-{
-}
-void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
-    
-    SkillSeq = skill.skillseq();
-
-    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
-
-    Level = skill.skilllevel();
-
-    Cost = skill.cost();
-
-    CoolTime = skill.cooltime();
-
-    Cind = skill.skillkind();
-
-    Damage = skill.skillactivestatus().skilldamage();
-
-    Duration = skill.skillactivestatus().skillduration();
-
-    //ActivityTime = skill.mutable_skillactivestatus()->
-
-    SkillId = skill.skillid();
-
-    CollisionRange.X = skill.skilldistance() * 20;
-
-    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 }
 
 void FTalent::MakeTalent(Protocol::Talent Data)

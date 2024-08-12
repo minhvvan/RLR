@@ -17,10 +17,6 @@
 
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
- 
-
-
-
 
 UENUM(BlueprintType)
 enum class EItemType : uint8
@@ -30,7 +26,6 @@ enum class EItemType : uint8
 	ETC,
 	NONE,
 };
-
 
 UENUM(BlueprintType)
 enum class ECharacterMainJobType : uint8
@@ -43,7 +38,6 @@ enum class ECharacterMainJobType : uint8
 	NONE,
 };
 
-
 UENUM(BlueprintType)
 enum class ECharacterSubJobType : uint8
 {
@@ -54,7 +48,6 @@ enum class ECharacterSubJobType : uint8
 
 	NONE,
 };
-
 
 UENUM(BlueprintType)
 enum class EEquipmentType : uint8
@@ -98,8 +91,6 @@ enum class EStatusType : uint8
 	INT,
 	NONE,
 };
-
-
 
 UENUM(BlueprintType)
 enum class EConsumptionType : uint8
@@ -220,10 +211,7 @@ struct FTotalStatus
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float COOLDOWN_REDUCTION = 0;
 
-
 	void SetHP(float HP);
-
-
 	/*
 		날라온 패킷을 바꿔준다. 
 	*/
@@ -267,7 +255,6 @@ struct FTotalStatus
 		return StatString;
 	}
 };
-
 
 /*
 	재능 정보
@@ -476,14 +463,9 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ITEM_MAX;
-
-
 	/*
-		
 		Consumption
-	
 	*/
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float COOLDOWN;
 
@@ -527,7 +509,6 @@ struct FItemData : public FTableRowBase
 		return true;
 	}
 };
-
 
 UENUM(BlueprintType)
 enum class ESkillType : uint8
@@ -635,7 +616,6 @@ struct FSkillData : public FTableRowBase
 	FString ToString() const;
 };
 
-
 USTRUCT(Atomic, BlueprintType)
 struct FSkillClass : public FTableRowBase
 {
@@ -651,7 +631,6 @@ struct FSkillClass : public FTableRowBase
 	TSubclassOf<class UAction> SkillClass;
 };
 
-
 /*
 	데이터 테이블에서 사용할 래핑용 구조체.
 */
@@ -662,8 +641,6 @@ struct FSkillList
 	 UPROPERTY()
 	TMap<int32, FSkillData> SkillList;
 };
-
-
 
 USTRUCT(Atomic, BlueprintType)
 struct FAbnormal2
@@ -676,7 +653,6 @@ struct FAbnormal2
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
 };
-
 
 USTRUCT(Atomic, BlueprintType)
 struct FMonsterStatus
@@ -773,7 +749,6 @@ struct FMonsterStatus
 
 	void MakeMonsterData(const Protocol::Monster monsterData);
 };
-
 
 USTRUCT(Atomic, BlueprintType)
 struct FAttackResult
@@ -1033,6 +1008,7 @@ FString EEquipmentTypeToString(EEquipmentType EquipmentType);
 FString EStatusTypeToString(EStatusType StatusType);
 FString ESkillGroupToString(ESkillGroup SkillGroup);
 
+USTRUCT(Atomic, BlueprintType)
 struct FPlayerGoods
 {
 	GENERATED_BODY()

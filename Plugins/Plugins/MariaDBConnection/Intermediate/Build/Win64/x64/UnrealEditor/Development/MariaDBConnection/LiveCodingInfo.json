@@ -1,0 +1,11 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.MariaDBConnection.cpp.obj": [
+			"MariaDBActor.gen.cpp.obj",
+			"MariaDBConnection.init.gen.cpp.obj",
+			"MariaDBActor.cpp.obj",
+			"MariaDBConnection.cpp.obj"
+		]
+	}
+}

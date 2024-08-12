@@ -1,0 +1,27 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\mariadbconnection\\module.mariadbconnection.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\intermediate\\build\\win64\\x64\\rlreditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\mariadbconnection\\definitions.mariadbconnection.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\intermediate\\build\\win64\\unrealeditor\\inc\\mariadbconnection\\uht\\mariadbactor.gen.cpp",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\public\\mariadbactor.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\intermediate\\build\\win64\\unrealeditor\\inc\\mariadbconnection\\uht\\mariadbactor.generated.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\intermediate\\build\\win64\\unrealeditor\\inc\\mariadbconnection\\uht\\mariadbconnection.init.gen.cpp",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\private\\mariadbactor.cpp",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\mysql.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\mariadb_com.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\mariadb_version.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\ma_list.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\mariadb_ctype.h",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\mariac\\include\\mariadb_stmt.h",
+            "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.34.31933\\include\\iostream",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\private\\mariadbconnection.cpp",
+            "c:\\users\\kreby\\desktop\\project_rlr\\rlr\\plugins\\plugins\\mariadbconnection\\source\\mariadbconnection\\public\\mariadbconnection.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
