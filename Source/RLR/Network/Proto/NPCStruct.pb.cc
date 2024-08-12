@@ -21,10 +21,20 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
+PROTOBUF_CONSTEXPR Values_ValuesEntry_DoNotUse::Values_ValuesEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct Values_ValuesEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Values_ValuesEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Values_ValuesEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Values_ValuesEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Values_ValuesEntry_DoNotUseDefaultTypeInternal _Values_ValuesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Values::Values(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.values_)*/{}
-  , /*decltype(_impl_._values_cached_byte_size_)*/{0}
+    /*decltype(_impl_.values_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ValuesDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ValuesDefaultTypeInternal()
@@ -57,34 +67,10 @@ struct Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_NeedSeqsEntry_DoNotUse_default_instance_;
-PROTOBUF_CONSTEXPR Quest_RewardValuesEntry_DoNotUse::Quest_RewardValuesEntry_DoNotUse(
-    ::_pbi::ConstantInitialized) {}
-struct Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    Quest_RewardValuesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal _Quest_RewardValuesEntry_DoNotUse_default_instance_;
-PROTOBUF_CONSTEXPR Quest_NeedValuesEntry_DoNotUse::Quest_NeedValuesEntry_DoNotUse(
-    ::_pbi::ConstantInitialized) {}
-struct Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    Quest_NeedValuesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal _Quest_NeedValuesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Quest::Quest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.rewardseqs_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_.needseqs_)*/{::_pbi::ConstantInitialized()}
-  , /*decltype(_impl_.rewardvalues_)*/{::_pbi::ConstantInitialized()}
-  , /*decltype(_impl_.needvalues_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_.questtitle_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.questtext_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.questdescription_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -141,11 +127,21 @@ struct Vector3DefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Vector3DefaultTypeInternal _Vector3_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[8];
+static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[7];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_NPCStruct_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_NPCStruct_2eproto = nullptr;
 
 const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  PROTOBUF_FIELD_OFFSET(::Protocol::Values_ValuesEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Values_ValuesEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Values_ValuesEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Values_ValuesEntry_DoNotUse, value_),
+  0,
+  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Values, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -173,26 +169,6 @@ const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedSeqsEntry_DoNotUse, value_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_RewardValuesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_RewardValuesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_RewardValuesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_RewardValuesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedValuesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedValuesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedValuesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedValuesEntry_DoNotUse, value_),
-  0,
-  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -209,8 +185,6 @@ const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.isclear_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardseqs_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.needseqs_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardvalues_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.needvalues_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardusergoods_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardplayergoods_),
   ~0u,  // no _has_bits_
@@ -238,22 +212,20 @@ const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   PROTOBUF_FIELD_OFFSET(::Protocol::Vector3, _impl_.z_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::Values)},
-  { 7, 15, -1, sizeof(::Protocol::Quest_RewardSeqsEntry_DoNotUse)},
-  { 17, 25, -1, sizeof(::Protocol::Quest_NeedSeqsEntry_DoNotUse)},
-  { 27, 35, -1, sizeof(::Protocol::Quest_RewardValuesEntry_DoNotUse)},
-  { 37, 45, -1, sizeof(::Protocol::Quest_NeedValuesEntry_DoNotUse)},
-  { 47, -1, -1, sizeof(::Protocol::Quest)},
-  { 67, -1, -1, sizeof(::Protocol::NPC)},
-  { 81, -1, -1, sizeof(::Protocol::Vector3)},
+  { 0, 8, -1, sizeof(::Protocol::Values_ValuesEntry_DoNotUse)},
+  { 10, -1, -1, sizeof(::Protocol::Values)},
+  { 17, 25, -1, sizeof(::Protocol::Quest_RewardSeqsEntry_DoNotUse)},
+  { 27, 35, -1, sizeof(::Protocol::Quest_NeedSeqsEntry_DoNotUse)},
+  { 37, -1, -1, sizeof(::Protocol::Quest)},
+  { 55, -1, -1, sizeof(::Protocol::NPC)},
+  { 69, -1, -1, sizeof(::Protocol::Vector3)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
+  &::Protocol::_Values_ValuesEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Values_default_instance_._instance,
   &::Protocol::_Quest_RewardSeqsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_NeedSeqsEntry_DoNotUse_default_instance_._instance,
-  &::Protocol::_Quest_RewardValuesEntry_DoNotUse_default_instance_._instance,
-  &::Protocol::_Quest_NeedValuesEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_default_instance_._instance,
   &::Protocol::_NPC_default_instance_._instance,
   &::Protocol::_Vector3_default_instance_._instance,
@@ -261,31 +233,28 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_NPCStruct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\017NPCStruct.proto\022\010Protocol\032\016Player_2.pr"
-  "oto\032\014User_2.proto\"\030\n\006Values\022\016\n\006values\030\001 "
-  "\003(\005\"\304\005\n\005Quest\022\020\n\010questSeq\030\001 \001(\005\022\016\n\006npcSe"
-  "q\030\002 \001(\005\022\022\n\nquestTitle\030\003 \001(\t\022\021\n\tquestText"
-  "\030\004 \001(\t\022\030\n\020questDescription\030\005 \001(\t\022\021\n\tques"
-  "tKind\030\006 \001(\005\022\022\n\nisProgress\030\007 \001(\010\022\017\n\007isCle"
-  "ar\030\010 \001(\010\0223\n\nrewardSeqs\030\t \003(\0132\037.Protocol."
-  "Quest.RewardSeqsEntry\022/\n\010needSeqs\030\n \003(\0132"
-  "\035.Protocol.Quest.NeedSeqsEntry\0227\n\014reward"
-  "Values\030\013 \003(\0132!.Protocol.Quest.RewardValu"
-  "esEntry\0223\n\nneedValues\030\014 \003(\0132\037.Protocol.Q"
-  "uest.NeedValuesEntry\022+\n\017rewardUserGoods\030"
-  "\r \001(\0132\022.Protocol.UserGood\022/\n\021rewardPlaye"
-  "rGoods\030\016 \001(\0132\024.Protocol.PlayerGood\032C\n\017Re"
-  "wardSeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001("
-  "\0132\020.Protocol.Values:\0028\001\032A\n\rNeedSeqsEntry"
-  "\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.Protocol."
-  "Values:\0028\001\0323\n\021RewardValuesEntry\022\013\n\003key\030\001"
-  " \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\0321\n\017NeedValuesEnt"
-  "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028\001\"\265\001\n\003N"
-  "PC\022\016\n\006npcSeq\030\001 \001(\005\022\017\n\007npcName\030\002 \001(\t\022\017\n\007n"
-  "pcTalk\030\003 \001(\t\022\017\n\007npcType\030\004 \001(\005\022\022\n\nnpcConc"
-  "ept\030\005 \001(\t\022\'\n\014npcTransform\030\006 \001(\0132\021.Protoc"
-  "ol.Vector3\022\r\n\005mapId\030\007 \001(\003\022\037\n\006quests\030\010 \003("
-  "\0132\017.Protocol.Quest\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002"
-  "\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002b\006proto3"
+  "oto\032\014User_2.proto\"e\n\006Values\022,\n\006values\030\001 "
+  "\003(\0132\034.Protocol.Values.ValuesEntry\032-\n\013Val"
+  "uesEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001"
+  "\"\356\003\n\005Quest\022\020\n\010questSeq\030\001 \001(\005\022\016\n\006npcSeq\030\002"
+  " \001(\005\022\022\n\nquestTitle\030\003 \001(\t\022\021\n\tquestText\030\004 "
+  "\001(\t\022\030\n\020questDescription\030\005 \001(\t\022\021\n\tquestKi"
+  "nd\030\006 \001(\005\022\022\n\nisProgress\030\007 \001(\010\022\017\n\007isClear\030"
+  "\010 \001(\010\0223\n\nrewardSeqs\030\t \003(\0132\037.Protocol.Que"
+  "st.RewardSeqsEntry\022/\n\010needSeqs\030\n \003(\0132\035.P"
+  "rotocol.Quest.NeedSeqsEntry\022+\n\017rewardUse"
+  "rGoods\030\013 \001(\0132\022.Protocol.UserGood\022/\n\021rewa"
+  "rdPlayerGoods\030\014 \001(\0132\024.Protocol.PlayerGoo"
+  "d\032C\n\017RewardSeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005val"
+  "ue\030\002 \001(\0132\020.Protocol.Values:\0028\001\032A\n\rNeedSe"
+  "qsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.Pr"
+  "otocol.Values:\0028\001\"\265\001\n\003NPC\022\016\n\006npcSeq\030\001 \001("
+  "\005\022\017\n\007npcName\030\002 \001(\t\022\017\n\007npcTalk\030\003 \001(\t\022\017\n\007n"
+  "pcType\030\004 \001(\005\022\022\n\nnpcConcept\030\005 \001(\t\022\'\n\014npcT"
+  "ransform\030\006 \001(\0132\021.Protocol.Vector3\022\r\n\005map"
+  "Id\030\007 \001(\003\022\037\n\006quests\030\010 \003(\0132\017.Protocol.Ques"
+  "t\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030"
+  "\003 \001(\002b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_deps[2] = {
   &::descriptor_table_Player_5f2_2eproto,
@@ -293,9 +262,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_d
 };
 static ::_pbi::once_flag descriptor_table_NPCStruct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPCStruct_2eproto = {
-    false, false, 1030, descriptor_table_protodef_NPCStruct_2eproto,
+    false, false, 893, descriptor_table_protodef_NPCStruct_2eproto,
     "NPCStruct.proto",
-    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 2, 8,
+    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 2, 7,
     schemas, file_default_instances, TableStruct_NPCStruct_2eproto::offsets,
     file_level_metadata_NPCStruct_2eproto, file_level_enum_descriptors_NPCStruct_2eproto,
     file_level_service_descriptors_NPCStruct_2eproto,
@@ -310,6 +279,20 @@ namespace Protocol {
 
 // ===================================================================
 
+Values_ValuesEntry_DoNotUse::Values_ValuesEntry_DoNotUse() {}
+Values_ValuesEntry_DoNotUse::Values_ValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Values_ValuesEntry_DoNotUse::MergeFrom(const Values_ValuesEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Values_ValuesEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
+      file_level_metadata_NPCStruct_2eproto[0]);
+}
+
+// ===================================================================
+
 class Values::_Internal {
  public:
 };
@@ -318,17 +301,20 @@ Values::Values(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &Values::ArenaDtor);
+  }
   // @@protoc_insertion_point(arena_constructor:Protocol.Values)
 }
 Values::Values(const Values& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Values* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.values_){from._impl_.values_}
-    , /*decltype(_impl_._values_cached_byte_size_)*/{0}
+      /*decltype(_impl_.values_)*/{}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.values_.MergeFrom(from._impl_.values_);
   // @@protoc_insertion_point(copy_constructor:Protocol.Values)
 }
 
@@ -337,8 +323,7 @@ inline void Values::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.values_){arena}
-    , /*decltype(_impl_._values_cached_byte_size_)*/{0}
+      /*decltype(_impl_.values_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -347,6 +332,7 @@ Values::~Values() {
   // @@protoc_insertion_point(destructor:Protocol.Values)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
+    ArenaDtor(this);
     return;
   }
   SharedDtor();
@@ -354,9 +340,14 @@ Values::~Values() {
 
 inline void Values::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.values_.~RepeatedField();
+  _impl_.values_.Destruct();
+  _impl_.values_.~MapField();
 }
 
+void Values::ArenaDtor(void* object) {
+  Values* _this = reinterpret_cast< Values* >(object);
+  _this->_impl_.values_.Destruct();
+}
 void Values::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
@@ -377,14 +368,16 @@ const char* Values::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated int32 values = 1;
+      // map<int32, int32> values = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_values(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 8) {
-          _internal_add_values(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.values_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -417,12 +410,20 @@ uint8_t* Values::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated int32 values = 1;
-  {
-    int byte_size = _impl_._values_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteInt32Packed(
-          1, _internal_values(), byte_size, target);
+  // map<int32, int32> values = 1;
+  if (!this->_internal_values().empty()) {
+    using MapType = ::_pb::Map<int32_t, int32_t>;
+    using WireHelper = Values_ValuesEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_values();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(1, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(1, entry.first, entry.second, target, stream);
+      }
     }
   }
 
@@ -442,18 +443,13 @@ size_t Values::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated int32 values = 1;
-  {
-    size_t data_size = ::_pbi::WireFormatLite::
-      Int32Size(this->_impl_.values_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _impl_._values_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
+  // map<int32, int32> values = 1;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_values_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >::const_iterator
+      it = this->_internal_values().begin();
+      it != this->_internal_values().end(); ++it) {
+    total_size += Values_ValuesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -498,7 +494,7 @@ void Values::InternalSwap(Values* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Values::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[0]);
+      file_level_metadata_NPCStruct_2eproto[1]);
 }
 
 // ===================================================================
@@ -512,7 +508,7 @@ void Quest_RewardSeqsEntry_DoNotUse::MergeFrom(const Quest_RewardSeqsEntry_DoNot
 ::PROTOBUF_NAMESPACE_ID::Metadata Quest_RewardSeqsEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[1]);
+      file_level_metadata_NPCStruct_2eproto[2]);
 }
 
 // ===================================================================
@@ -526,35 +522,7 @@ void Quest_NeedSeqsEntry_DoNotUse::MergeFrom(const Quest_NeedSeqsEntry_DoNotUse&
 ::PROTOBUF_NAMESPACE_ID::Metadata Quest_NeedSeqsEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[2]);
-}
-
-// ===================================================================
-
-Quest_RewardValuesEntry_DoNotUse::Quest_RewardValuesEntry_DoNotUse() {}
-Quest_RewardValuesEntry_DoNotUse::Quest_RewardValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void Quest_RewardValuesEntry_DoNotUse::MergeFrom(const Quest_RewardValuesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata Quest_RewardValuesEntry_DoNotUse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
       file_level_metadata_NPCStruct_2eproto[3]);
-}
-
-// ===================================================================
-
-Quest_NeedValuesEntry_DoNotUse::Quest_NeedValuesEntry_DoNotUse() {}
-Quest_NeedValuesEntry_DoNotUse::Quest_NeedValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void Quest_NeedValuesEntry_DoNotUse::MergeFrom(const Quest_NeedValuesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata Quest_NeedValuesEntry_DoNotUse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[4]);
 }
 
 // ===================================================================
@@ -600,8 +568,6 @@ Quest::Quest(const Quest& from)
   new (&_impl_) Impl_{
       /*decltype(_impl_.rewardseqs_)*/{}
     , /*decltype(_impl_.needseqs_)*/{}
-    , /*decltype(_impl_.rewardvalues_)*/{}
-    , /*decltype(_impl_.needvalues_)*/{}
     , decltype(_impl_.questtitle_){}
     , decltype(_impl_.questtext_){}
     , decltype(_impl_.questdescription_){}
@@ -617,8 +583,6 @@ Quest::Quest(const Quest& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.rewardseqs_.MergeFrom(from._impl_.rewardseqs_);
   _this->_impl_.needseqs_.MergeFrom(from._impl_.needseqs_);
-  _this->_impl_.rewardvalues_.MergeFrom(from._impl_.rewardvalues_);
-  _this->_impl_.needvalues_.MergeFrom(from._impl_.needvalues_);
   _impl_.questtitle_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.questtitle_.Set("", GetArenaForAllocation());
@@ -662,8 +626,6 @@ inline void Quest::SharedCtor(
   new (&_impl_) Impl_{
       /*decltype(_impl_.rewardseqs_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_.needseqs_)*/{::_pbi::ArenaInitialized(), arena}
-    , /*decltype(_impl_.rewardvalues_)*/{::_pbi::ArenaInitialized(), arena}
-    , /*decltype(_impl_.needvalues_)*/{::_pbi::ArenaInitialized(), arena}
     , decltype(_impl_.questtitle_){}
     , decltype(_impl_.questtext_){}
     , decltype(_impl_.questdescription_){}
@@ -706,10 +668,6 @@ inline void Quest::SharedDtor() {
   _impl_.rewardseqs_.~MapField();
   _impl_.needseqs_.Destruct();
   _impl_.needseqs_.~MapField();
-  _impl_.rewardvalues_.Destruct();
-  _impl_.rewardvalues_.~MapField();
-  _impl_.needvalues_.Destruct();
-  _impl_.needvalues_.~MapField();
   _impl_.questtitle_.Destroy();
   _impl_.questtext_.Destroy();
   _impl_.questdescription_.Destroy();
@@ -721,8 +679,6 @@ void Quest::ArenaDtor(void* object) {
   Quest* _this = reinterpret_cast< Quest* >(object);
   _this->_impl_.rewardseqs_.Destruct();
   _this->_impl_.needseqs_.Destruct();
-  _this->_impl_.rewardvalues_.Destruct();
-  _this->_impl_.needvalues_.Destruct();
 }
 void Quest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
@@ -736,8 +692,6 @@ void Quest::Clear() {
 
   _impl_.rewardseqs_.Clear();
   _impl_.needseqs_.Clear();
-  _impl_.rewardvalues_.Clear();
-  _impl_.needvalues_.Clear();
   _impl_.questtitle_.ClearToEmpty();
   _impl_.questtext_.ClearToEmpty();
   _impl_.questdescription_.ClearToEmpty();
@@ -857,43 +811,17 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // map<string, int32> rewardValues = 11;
+      // .Protocol.UserGood rewardUserGoods = 11;
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&_impl_.rewardvalues_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<string, int32> needValues = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&_impl_.needvalues_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // .Protocol.UserGood rewardUserGoods = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_rewardusergoods(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.PlayerGood rewardPlayerGoods = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+      // .Protocol.PlayerGood rewardPlayerGoods = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_rewardplayergoods(), ptr);
           CHK_(ptr);
         } else
@@ -1040,69 +968,17 @@ uint8_t* Quest::_InternalSerialize(
     }
   }
 
-  // map<string, int32> rewardValues = 11;
-  if (!this->_internal_rewardvalues().empty()) {
-    using MapType = ::_pb::Map<std::string, int32_t>;
-    using WireHelper = Quest_RewardValuesEntry_DoNotUse::Funcs;
-    const auto& map_field = this->_internal_rewardvalues();
-    auto check_utf8 = [](const MapType::value_type& entry) {
-      (void)entry;
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-        entry.first.data(), static_cast<int>(entry.first.length()),
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-        "Protocol.Quest.RewardValuesEntry.key");
-    };
-
-    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
-      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
-        target = WireHelper::InternalSerialize(11, entry.first, entry.second, target, stream);
-        check_utf8(entry);
-      }
-    } else {
-      for (const auto& entry : map_field) {
-        target = WireHelper::InternalSerialize(11, entry.first, entry.second, target, stream);
-        check_utf8(entry);
-      }
-    }
-  }
-
-  // map<string, int32> needValues = 12;
-  if (!this->_internal_needvalues().empty()) {
-    using MapType = ::_pb::Map<std::string, int32_t>;
-    using WireHelper = Quest_NeedValuesEntry_DoNotUse::Funcs;
-    const auto& map_field = this->_internal_needvalues();
-    auto check_utf8 = [](const MapType::value_type& entry) {
-      (void)entry;
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-        entry.first.data(), static_cast<int>(entry.first.length()),
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-        "Protocol.Quest.NeedValuesEntry.key");
-    };
-
-    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
-      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
-        target = WireHelper::InternalSerialize(12, entry.first, entry.second, target, stream);
-        check_utf8(entry);
-      }
-    } else {
-      for (const auto& entry : map_field) {
-        target = WireHelper::InternalSerialize(12, entry.first, entry.second, target, stream);
-        check_utf8(entry);
-      }
-    }
-  }
-
-  // .Protocol.UserGood rewardUserGoods = 13;
+  // .Protocol.UserGood rewardUserGoods = 11;
   if (this->_internal_has_rewardusergoods()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(13, _Internal::rewardusergoods(this),
+      InternalWriteMessage(11, _Internal::rewardusergoods(this),
         _Internal::rewardusergoods(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 14;
+  // .Protocol.PlayerGood rewardPlayerGoods = 12;
   if (this->_internal_has_rewardplayergoods()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(14, _Internal::rewardplayergoods(this),
+      InternalWriteMessage(12, _Internal::rewardplayergoods(this),
         _Internal::rewardplayergoods(this).GetCachedSize(), target, stream);
   }
 
@@ -1140,24 +1016,6 @@ size_t Quest::ByteSizeLong() const {
     total_size += Quest_NeedSeqsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
-  // map<string, int32> rewardValues = 11;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_rewardvalues_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >::const_iterator
-      it = this->_internal_rewardvalues().begin();
-      it != this->_internal_rewardvalues().end(); ++it) {
-    total_size += Quest_RewardValuesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<string, int32> needValues = 12;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_needvalues_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >::const_iterator
-      it = this->_internal_needvalues().begin();
-      it != this->_internal_needvalues().end(); ++it) {
-    total_size += Quest_NeedValuesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
   // string questTitle = 3;
   if (!this->_internal_questtitle().empty()) {
     total_size += 1 +
@@ -1179,14 +1037,14 @@ size_t Quest::ByteSizeLong() const {
         this->_internal_questdescription());
   }
 
-  // .Protocol.UserGood rewardUserGoods = 13;
+  // .Protocol.UserGood rewardUserGoods = 11;
   if (this->_internal_has_rewardusergoods()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rewardusergoods_);
   }
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 14;
+  // .Protocol.PlayerGood rewardPlayerGoods = 12;
   if (this->_internal_has_rewardplayergoods()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1238,8 +1096,6 @@ void Quest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF
 
   _this->_impl_.rewardseqs_.MergeFrom(from._impl_.rewardseqs_);
   _this->_impl_.needseqs_.MergeFrom(from._impl_.needseqs_);
-  _this->_impl_.rewardvalues_.MergeFrom(from._impl_.rewardvalues_);
-  _this->_impl_.needvalues_.MergeFrom(from._impl_.needvalues_);
   if (!from._internal_questtitle().empty()) {
     _this->_internal_set_questtitle(from._internal_questtitle());
   }
@@ -1293,8 +1149,6 @@ void Quest::InternalSwap(Quest* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.rewardseqs_.InternalSwap(&other->_impl_.rewardseqs_);
   _impl_.needseqs_.InternalSwap(&other->_impl_.needseqs_);
-  _impl_.rewardvalues_.InternalSwap(&other->_impl_.rewardvalues_);
-  _impl_.needvalues_.InternalSwap(&other->_impl_.needvalues_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.questtitle_, lhs_arena,
       &other->_impl_.questtitle_, rhs_arena
@@ -1318,7 +1172,7 @@ void Quest::InternalSwap(Quest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Quest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[5]);
+      file_level_metadata_NPCStruct_2eproto[4]);
 }
 
 // ===================================================================
@@ -1780,7 +1634,7 @@ void NPC::InternalSwap(NPC* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata NPC::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[6]);
+      file_level_metadata_NPCStruct_2eproto[5]);
 }
 
 // ===================================================================
@@ -2051,12 +1905,16 @@ void Vector3::InternalSwap(Vector3* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Vector3::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[7]);
+      file_level_metadata_NPCStruct_2eproto[6]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::Protocol::Values_ValuesEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::Protocol::Values_ValuesEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Values_ValuesEntry_DoNotUse >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Protocol::Values*
 Arena::CreateMaybeMessage< ::Protocol::Values >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::Values >(arena);
@@ -2068,14 +1926,6 @@ Arena::CreateMaybeMessage< ::Protocol::Quest_RewardSeqsEntry_DoNotUse >(Arena* a
 template<> PROTOBUF_NOINLINE ::Protocol::Quest_NeedSeqsEntry_DoNotUse*
 Arena::CreateMaybeMessage< ::Protocol::Quest_NeedSeqsEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::Quest_NeedSeqsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::Protocol::Quest_RewardValuesEntry_DoNotUse*
-Arena::CreateMaybeMessage< ::Protocol::Quest_RewardValuesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::Quest_RewardValuesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::Protocol::Quest_NeedValuesEntry_DoNotUse*
-Arena::CreateMaybeMessage< ::Protocol::Quest_NeedValuesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::Quest_NeedValuesEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::Quest*
 Arena::CreateMaybeMessage< ::Protocol::Quest >(Arena* arena) {
