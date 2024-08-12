@@ -10,6 +10,7 @@
 #include "GameManager/SkillManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/ObjectManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt) {
@@ -92,16 +93,33 @@ bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Chan
 bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::NPCInfoResponse& pkt)
 {
     //TODO : Object Manager 에 연결
-    UE_LOG(LogTemp, Log, TEXT("Quest  Text : %s"), UTF8_TO_TCHAR(pkt.npc().Get(0).quests().Get(0).questtext().c_str()));
-    UE_LOG(LogTemp, Log, TEXT("Quest  Title : %s"), UTF8_TO_TCHAR(pkt.npc().Get(0).quests().Get(0).questtitle().c_str()));
+
+    TArray<FNPCData> npcDatas;
+    for (auto& npc : pkt.npc()) {
+        FNPCData npcData;
+        npcData.MakeNPCData(npc);
+
+        npcDatas.Add(npcData);
+    }
+
+    GameInstance->GetObjectManager()->SetNPCData(npcDatas);
+
+
+
     return false;
 }
 
 bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::UserQuestInfoResponse& pkt)
 {
-    //TODO : Object Manager 에 연결
-    
-    UE_LOG(LogTemp, Log, TEXT("User Quest  need Monster_1 : %d"), pkt.quests().Get(0).needvalues().at("monster_1"));
+    TArray<FQuest> questDatas;
+    for (auto& quest : pkt.quests()) {
+        FQuest questData;
+        questData.MakeQuestData(quest);
+        questDatas.Add(questData);
+    }
+    //TODO : Player Manager 에 User 퀘스트의 연결
+    //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
+
 
     return false;
 }

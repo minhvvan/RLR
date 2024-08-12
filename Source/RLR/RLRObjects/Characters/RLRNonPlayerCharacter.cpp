@@ -52,7 +52,7 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 	data.UIClass = DialogueUI;
 
 	FInteractionData interactionData;
-	interactionData.DialogueString = FString::Printf(TEXT("I'm %s"), *GetName());
+	interactionData.DialogueString = NPCData.NPCTalk;
 	data.InteractionData = interactionData;
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();

@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include <Network/Proto/Struct.pb.h>
 #include <Network/Proto/Skill.pb.h>
+#include <Network/Proto/NPCStruct.pb.h>
+#include <Network/Proto/User_2.pb.h>
+#include <Network/Proto/Player_2.pb.h>
 #include "Templates/Tuple.h"
 #include "RLRStruct.generated.h"
 
@@ -1056,7 +1059,7 @@ struct FPlayerGoods
 		return PlayerGoodsString;
 	}
 
-	void MakePlayerGoods();
+	void MakePlayerGoods(const Protocol::PlayerGood playerGood);
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -1086,7 +1089,7 @@ struct FUserGoods
 		return UserGoodsString;
 	}
 
-	void MakeUserGoods();
+	void MakeUserGoods(const Protocol::UserGood userGood);
 };
 
 
@@ -1219,10 +1222,9 @@ struct FQuest
 		return QuestString;
 	}
 
-	void MakeQuestData(/*param*/);
+	void MakeQuestData(const Protocol::Quest quest);
 
-	//TODO:MakeData 구현 후 삭제
-	static int testID;
+
 };
 
 
@@ -1306,10 +1308,9 @@ struct FNPCData
 		return NPCString;
 	}
 
-	void MakeNPCData(/*param*/);
+	void MakeNPCData(const Protocol::NPC npc);
 
-	//TODO:MakeData 구현 후 삭제
-	static int testID;
+
 };
 
 USTRUCT(Atomic, BlueprintType)

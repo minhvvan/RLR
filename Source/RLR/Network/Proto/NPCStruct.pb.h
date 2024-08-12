@@ -59,18 +59,15 @@ extern QuestDefaultTypeInternal _Quest_default_instance_;
 class Quest_NeedSeqsEntry_DoNotUse;
 struct Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal;
 extern Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_NeedSeqsEntry_DoNotUse_default_instance_;
-class Quest_NeedValuesEntry_DoNotUse;
-struct Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal;
-extern Quest_NeedValuesEntry_DoNotUseDefaultTypeInternal _Quest_NeedValuesEntry_DoNotUse_default_instance_;
 class Quest_RewardSeqsEntry_DoNotUse;
 struct Quest_RewardSeqsEntry_DoNotUseDefaultTypeInternal;
 extern Quest_RewardSeqsEntry_DoNotUseDefaultTypeInternal _Quest_RewardSeqsEntry_DoNotUse_default_instance_;
-class Quest_RewardValuesEntry_DoNotUse;
-struct Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal;
-extern Quest_RewardValuesEntry_DoNotUseDefaultTypeInternal _Quest_RewardValuesEntry_DoNotUse_default_instance_;
 class Values;
 struct ValuesDefaultTypeInternal;
 extern ValuesDefaultTypeInternal _Values_default_instance_;
+class Values_ValuesEntry_DoNotUse;
+struct Values_ValuesEntry_DoNotUseDefaultTypeInternal;
+extern Values_ValuesEntry_DoNotUseDefaultTypeInternal _Values_ValuesEntry_DoNotUse_default_instance_;
 class Vector3;
 struct Vector3DefaultTypeInternal;
 extern Vector3DefaultTypeInternal _Vector3_default_instance_;
@@ -79,15 +76,38 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::NPC* Arena::CreateMaybeMessage<::Protocol::NPC>(Arena*);
 template<> ::Protocol::Quest* Arena::CreateMaybeMessage<::Protocol::Quest>(Arena*);
 template<> ::Protocol::Quest_NeedSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_NeedSeqsEntry_DoNotUse>(Arena*);
-template<> ::Protocol::Quest_NeedValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_NeedValuesEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Quest_RewardSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_RewardSeqsEntry_DoNotUse>(Arena*);
-template<> ::Protocol::Quest_RewardValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_RewardValuesEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Values* Arena::CreateMaybeMessage<::Protocol::Values>(Arena*);
+template<> ::Protocol::Values_ValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Values_ValuesEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Vector3* Arena::CreateMaybeMessage<::Protocol::Vector3>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
+
+class Values_ValuesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Values_ValuesEntry_DoNotUse, 
+    int32_t, int32_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Values_ValuesEntry_DoNotUse, 
+    int32_t, int32_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> SuperType;
+  Values_ValuesEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR Values_ValuesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Values_ValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Values_ValuesEntry_DoNotUse& other);
+  static const Values_ValuesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Values_ValuesEntry_DoNotUse*>(&_Values_ValuesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  friend struct ::TableStruct_NPCStruct_2eproto;
+};
+
+// -------------------------------------------------------------------
 
 class Values final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Values) */ {
@@ -137,7 +157,7 @@ class Values final :
                &_Values_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(Values& a, Values& b) {
     a.Swap(&b);
@@ -198,6 +218,8 @@ class Values final :
   protected:
   explicit Values(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
   public:
 
   static const ClassData _class_data_;
@@ -207,31 +229,27 @@ class Values final :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kValuesFieldNumber = 1,
   };
-  // repeated int32 values = 1;
+  // map<int32, int32> values = 1;
   int values_size() const;
   private:
   int _internal_values_size() const;
   public:
   void clear_values();
   private:
-  int32_t _internal_values(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >&
       _internal_values() const;
-  void _internal_add_values(int32_t value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >*
       _internal_mutable_values();
   public:
-  int32_t values(int index) const;
-  void set_values(int index, int32_t value);
-  void add_values(int32_t value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >&
       values() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >*
       mutable_values();
 
   // @@protoc_insertion_point(class_scope:Protocol.Values)
@@ -242,8 +260,11 @@ class Values final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > values_;
-    mutable std::atomic<int> _values_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+        Values_ValuesEntry_DoNotUse,
+        int32_t, int32_t,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> values_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -303,58 +324,6 @@ public:
 
 // -------------------------------------------------------------------
 
-class Quest_RewardValuesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_RewardValuesEntry_DoNotUse, 
-    std::string, int32_t,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> {
-public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_RewardValuesEntry_DoNotUse, 
-    std::string, int32_t,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> SuperType;
-  Quest_RewardValuesEntry_DoNotUse();
-  explicit PROTOBUF_CONSTEXPR Quest_RewardValuesEntry_DoNotUse(
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit Quest_RewardValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const Quest_RewardValuesEntry_DoNotUse& other);
-  static const Quest_RewardValuesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Quest_RewardValuesEntry_DoNotUse*>(&_Quest_RewardValuesEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "Protocol.Quest.RewardValuesEntry.key");
- }
-  static bool ValidateValue(void*) { return true; }
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  friend struct ::TableStruct_NPCStruct_2eproto;
-};
-
-// -------------------------------------------------------------------
-
-class Quest_NeedValuesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_NeedValuesEntry_DoNotUse, 
-    std::string, int32_t,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> {
-public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_NeedValuesEntry_DoNotUse, 
-    std::string, int32_t,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> SuperType;
-  Quest_NeedValuesEntry_DoNotUse();
-  explicit PROTOBUF_CONSTEXPR Quest_NeedValuesEntry_DoNotUse(
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit Quest_NeedValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const Quest_NeedValuesEntry_DoNotUse& other);
-  static const Quest_NeedValuesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Quest_NeedValuesEntry_DoNotUse*>(&_Quest_NeedValuesEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "Protocol.Quest.NeedValuesEntry.key");
- }
-  static bool ValidateValue(void*) { return true; }
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  friend struct ::TableStruct_NPCStruct_2eproto;
-};
-
-// -------------------------------------------------------------------
-
 class Quest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Quest) */ {
  public:
@@ -403,7 +372,7 @@ class Quest final :
                &_Quest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(Quest& a, Quest& b) {
     a.Swap(&b);
@@ -481,13 +450,11 @@ class Quest final :
   enum : int {
     kRewardSeqsFieldNumber = 9,
     kNeedSeqsFieldNumber = 10,
-    kRewardValuesFieldNumber = 11,
-    kNeedValuesFieldNumber = 12,
     kQuestTitleFieldNumber = 3,
     kQuestTextFieldNumber = 4,
     kQuestDescriptionFieldNumber = 5,
-    kRewardUserGoodsFieldNumber = 13,
-    kRewardPlayerGoodsFieldNumber = 14,
+    kRewardUserGoodsFieldNumber = 11,
+    kRewardPlayerGoodsFieldNumber = 12,
     kQuestSeqFieldNumber = 1,
     kNpcSeqFieldNumber = 2,
     kQuestKindFieldNumber = 6,
@@ -527,40 +494,6 @@ class Quest final :
       needseqs() const;
   ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
       mutable_needseqs();
-
-  // map<string, int32> rewardValues = 11;
-  int rewardvalues_size() const;
-  private:
-  int _internal_rewardvalues_size() const;
-  public:
-  void clear_rewardvalues();
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-      _internal_rewardvalues() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-      _internal_mutable_rewardvalues();
-  public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-      rewardvalues() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-      mutable_rewardvalues();
-
-  // map<string, int32> needValues = 12;
-  int needvalues_size() const;
-  private:
-  int _internal_needvalues_size() const;
-  public:
-  void clear_needvalues();
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-      _internal_needvalues() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-      _internal_mutable_needvalues();
-  public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-      needvalues() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-      mutable_needvalues();
 
   // string questTitle = 3;
   void clear_questtitle();
@@ -604,7 +537,7 @@ class Quest final :
   std::string* _internal_mutable_questdescription();
   public:
 
-  // .Protocol.UserGood rewardUserGoods = 13;
+  // .Protocol.UserGood rewardUserGoods = 11;
   bool has_rewardusergoods() const;
   private:
   bool _internal_has_rewardusergoods() const;
@@ -622,7 +555,7 @@ class Quest final :
       ::Protocol::UserGood* rewardusergoods);
   ::Protocol::UserGood* unsafe_arena_release_rewardusergoods();
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 14;
+  // .Protocol.PlayerGood rewardPlayerGoods = 12;
   bool has_rewardplayergoods() const;
   private:
   bool _internal_has_rewardplayergoods() const;
@@ -703,16 +636,6 @@ class Quest final :
         std::string, ::Protocol::Values,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> needseqs_;
-    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-        Quest_RewardValuesEntry_DoNotUse,
-        std::string, int32_t,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> rewardvalues_;
-    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-        Quest_NeedValuesEntry_DoNotUse,
-        std::string, int32_t,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32> needvalues_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questtitle_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questtext_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questdescription_;
@@ -778,7 +701,7 @@ class NPC final :
                &_NPC_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(NPC& a, NPC& b) {
     a.Swap(&b);
@@ -1036,7 +959,7 @@ class Vector3 final :
                &_Vector3_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(Vector3& a, Vector3& b) {
     a.Swap(&b);
@@ -1165,9 +1088,11 @@ class Vector3 final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // Values
 
-// repeated int32 values = 1;
+// map<int32, int32> values = 1;
 inline int Values::_internal_values_size() const {
   return _impl_.values_.size();
 }
@@ -1177,46 +1102,24 @@ inline int Values::values_size() const {
 inline void Values::clear_values() {
   _impl_.values_.Clear();
 }
-inline int32_t Values::_internal_values(int index) const {
-  return _impl_.values_.Get(index);
-}
-inline int32_t Values::values(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.Values.values)
-  return _internal_values(index);
-}
-inline void Values::set_values(int index, int32_t value) {
-  _impl_.values_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Protocol.Values.values)
-}
-inline void Values::_internal_add_values(int32_t value) {
-  _impl_.values_.Add(value);
-}
-inline void Values::add_values(int32_t value) {
-  _internal_add_values(value);
-  // @@protoc_insertion_point(field_add:Protocol.Values.values)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >&
 Values::_internal_values() const {
-  return _impl_.values_;
+  return _impl_.values_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >&
 Values::values() const {
-  // @@protoc_insertion_point(field_list:Protocol.Values.values)
+  // @@protoc_insertion_point(field_map:Protocol.Values.values)
   return _internal_values();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >*
 Values::_internal_mutable_values() {
-  return &_impl_.values_;
+  return _impl_.values_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, int32_t >*
 Values::mutable_values() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.Values.values)
+  // @@protoc_insertion_point(field_mutable_map:Protocol.Values.values)
   return _internal_mutable_values();
 }
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -1534,65 +1437,7 @@ Quest::mutable_needseqs() {
   return _internal_mutable_needseqs();
 }
 
-// map<string, int32> rewardValues = 11;
-inline int Quest::_internal_rewardvalues_size() const {
-  return _impl_.rewardvalues_.size();
-}
-inline int Quest::rewardvalues_size() const {
-  return _internal_rewardvalues_size();
-}
-inline void Quest::clear_rewardvalues() {
-  _impl_.rewardvalues_.Clear();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-Quest::_internal_rewardvalues() const {
-  return _impl_.rewardvalues_.GetMap();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-Quest::rewardvalues() const {
-  // @@protoc_insertion_point(field_map:Protocol.Quest.rewardValues)
-  return _internal_rewardvalues();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-Quest::_internal_mutable_rewardvalues() {
-  return _impl_.rewardvalues_.MutableMap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-Quest::mutable_rewardvalues() {
-  // @@protoc_insertion_point(field_mutable_map:Protocol.Quest.rewardValues)
-  return _internal_mutable_rewardvalues();
-}
-
-// map<string, int32> needValues = 12;
-inline int Quest::_internal_needvalues_size() const {
-  return _impl_.needvalues_.size();
-}
-inline int Quest::needvalues_size() const {
-  return _internal_needvalues_size();
-}
-inline void Quest::clear_needvalues() {
-  _impl_.needvalues_.Clear();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-Quest::_internal_needvalues() const {
-  return _impl_.needvalues_.GetMap();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >&
-Quest::needvalues() const {
-  // @@protoc_insertion_point(field_map:Protocol.Quest.needValues)
-  return _internal_needvalues();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-Quest::_internal_mutable_needvalues() {
-  return _impl_.needvalues_.MutableMap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, int32_t >*
-Quest::mutable_needvalues() {
-  // @@protoc_insertion_point(field_mutable_map:Protocol.Quest.needValues)
-  return _internal_mutable_needvalues();
-}
-
-// .Protocol.UserGood rewardUserGoods = 13;
+// .Protocol.UserGood rewardUserGoods = 11;
 inline bool Quest::_internal_has_rewardusergoods() const {
   return this != internal_default_instance() && _impl_.rewardusergoods_ != nullptr;
 }
@@ -1677,7 +1522,7 @@ inline void Quest::set_allocated_rewardusergoods(::Protocol::UserGood* rewarduse
   // @@protoc_insertion_point(field_set_allocated:Protocol.Quest.rewardUserGoods)
 }
 
-// .Protocol.PlayerGood rewardPlayerGoods = 14;
+// .Protocol.PlayerGood rewardPlayerGoods = 12;
 inline bool Quest::_internal_has_rewardplayergoods() const {
   return this != internal_default_instance() && _impl_.rewardplayergoods_ != nullptr;
 }
@@ -2173,8 +2018,6 @@ inline void Vector3::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
