@@ -131,6 +131,8 @@ enum class EUIType : uint8
 	INGAMEMENU,
 	PARTY,
 	KEYOPTION,
+	SKILL,
+	SKILL_UPGRADE,
 	NONE,
 };
 
@@ -419,6 +421,7 @@ struct FItemData : public FTableRowBase
 	//슬롯에 있는 아이템 데이터가 ITEM_ID == -1 이면 비어 있는 슬롯으로 처리 중.
 	FItemData()
 	{
+		ITEM_SEQ = -1;
 		ITEM_ID = -1;
 		ItemImage = nullptr;
 		TYPE = EItemType::NONE;
@@ -509,8 +512,17 @@ struct FItemData : public FTableRowBase
 
 	//나중에 패킷 날라오면, 그 정보로 FItemData를 만들어준다.
 	void MakeItemData(const Protocol::Item itemData);
+	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
+
+	/** Operators */
+	FORCEINLINE bool operator==(FItemData const& Other) const
+	{
+		if (ITEM_SEQ != Other.ITEM_SEQ)
+			return false;
+		return true;
+	}
 };
 
 
@@ -535,16 +547,34 @@ enum class EInteractObjectType : uint8
 };
 
 
+UENUM(BlueprintType)
+enum  class ESkillGroup : uint8
+{
+	NORMAL =	 0,		//일반
+	UNIQUE,					//고유
+	ULTIMATE,				//각성기
+	NONE,
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()
 
+	FSkillData (){};
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillSeq;	
+	int32 SkillSeq = -1;	
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString Name;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ECharacterMainJobType MainJobType = ECharacterMainJobType::NONE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESkillGroup SkillGroup = ESkillGroup::NONE;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level = 0;
@@ -576,7 +606,30 @@ struct FSkillData : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	ESkillType SkillType;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TObjectPtr<UTexture2D> SkillImage;
+
+	/*
+		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+		스킬 미리보기 
+	*/
+
 	void MakeSkillData(Protocol::SkillInfo skill);
+	static const FSkillData EmptySkillData;
+
+	/** Operators */
+	FORCEINLINE bool operator==(FSkillData const& Other) const
+	{
+		if(SkillId != Other.SkillId)
+			return false;
+
+		if(SkillSeq != Other.SkillSeq)
+			return false;
+
+		return true;
+	}
+
+	FString ToString() const;
 };
 
 
@@ -596,6 +649,19 @@ struct FSkillClass : public FTableRowBase
 };
 
 
+/*
+	데이터 테이블에서 사용할 래핑용 구조체.
+*/
+ USTRUCT(BlueprintType)
+struct FSkillList
+{
+	 GENERATED_BODY()
+	 UPROPERTY()
+	TMap<int32, FSkillData> SkillList;
+};
+
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FAbnormal2
 {
@@ -608,81 +674,6 @@ struct FAbnormal2
 	float Duration;
 };
 
-// 문자열 배열 정의
-const FString EItemTypeStrings[] = {
-	TEXT("UNKNOWN"), // 0, 사용되지 않음
-	TEXT("EQUIPMENT"), // 1
-	TEXT("CONSUMPTION"), // 2
-	TEXT("ETC"), // 3
-	TEXT("UNKNOWN"), // 4
-	TEXT("UNKNOWN"), // 5
-	TEXT("UNKNOWN"), // 6
-	TEXT("UNKNOWN"), // 7
-	TEXT("UNKNOWN"), // 8
-	TEXT("NONE") // 9
-};
-
-const FString ECharacterMainJobTypeStrings[] = {
-	TEXT("SWORDSMAN"),
-	TEXT("THEIF"),
-	TEXT("MAGE"),
-	TEXT("ARCHER"),
-	TEXT("PRIEST"),
-	TEXT("NONE")
-};
-
-const FString ECharacterSubJobTypeStrings[] = {
-	TEXT("NONE")
-};
-
-const FString EEquipmentTypeStrings[] = {
-	TEXT("WEAPON"),
-	TEXT("SUBWEAPON"),
-	TEXT("HELMET"),
-	TEXT("UPPERBODYARMOR"),
-	TEXT("LOWERBODYARMOR"),
-	TEXT("SHOES"),
-	TEXT("GLOVES"),
-	TEXT("NECKLACE"),
-	TEXT("EARRING"),
-	TEXT("RING"),
-	TEXT("BRACELET"),
-	TEXT("NONE")
-};
-
-const FString EItemRarityStrings[] = {
-	TEXT("COMMON"),
-	TEXT("UNCOMMON"),
-	TEXT("RARE"),
-	TEXT("UNIQUE"),
-	TEXT("EPIC"),
-	TEXT("LEGEND"),
-	TEXT("NONE")
-};
-
-// 문자열 배열 정의
-const FString EStatusTypeStrings[] = {
-	TEXT("COMMON"),
-	TEXT("UNCOMMON"),
-	TEXT("RARE"),
-	TEXT("UNIQUE"),
-	TEXT("EPIC"),
-	TEXT("LEGEND"),
-	TEXT("NONE"),
-};
-
-
-EItemType StringToEItemType(const FString& ItemTypeString);
-ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString);
-ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString);
-EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString);
-EItemRarity StringToEItemRarity(const FString& RarityString);
-
-FString EItemTypeToString(EItemType ItemType);
-FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
-FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
-FString EEquipmentTypeToString(EEquipmentType EquipmentType);
-FString EStatusTypeToString(EStatusType StatusType);
 
 USTRUCT(Atomic, BlueprintType)
 struct FMonsterStatus
@@ -917,6 +908,128 @@ struct FExpTable : public FTableRowBase
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FResourceData : public FTableRowBase
+{
+	GENERATED_BODY()
+	int32 ResourceID = -1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* Texture;
+};
+
+
+/*
+
+	작업을 하다보면 각종 Class 정보들을 로드해야 한다.
+	그런데 하드 코딩으로 파일 주소를 불러와서 정보를 로드하는 건 조금 그러니.
+	데이터 테이블을 만들어서 파일을 관리하기 위한 용도.
+
+	테이블의 행 이름은 왠만해선 블루프린트 이름 그대로 해주자.
+
+*/
+USTRUCT(Atomic, BlueprintType)
+struct FClassData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UObject> RLRClass;
+
+	//무슨 용도로 쓰는지 메모용.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString DataInfo;
+};
+
+
+
+/*
+	Enum 변환 관련된 건, 찾아보기 좋게 맨 아래에 배치.
+*/
+
+// 문자열 배열 정의
+const FString EItemTypeStrings[] = {
+	TEXT("UNKNOWN"), // 0, 사용되지 않음
+	TEXT("EQUIPMENT"), // 1
+	TEXT("CONSUMPTION"), // 2
+	TEXT("ETC"), // 3
+	TEXT("UNKNOWN"), // 4
+	TEXT("UNKNOWN"), // 5
+	TEXT("UNKNOWN"), // 6
+	TEXT("UNKNOWN"), // 7
+	TEXT("UNKNOWN"), // 8
+	TEXT("NONE") // 9
+};
+
+const FString ECharacterMainJobTypeStrings[] = {
+	TEXT("SWORDSMAN"),
+	TEXT("THEIF"),
+	TEXT("MAGE"),
+	TEXT("ARCHER"),
+	TEXT("PRIEST"),
+	TEXT("NONE")
+};
+
+const FString ECharacterSubJobTypeStrings[] = {
+	TEXT("NONE")
+};
+
+const FString EEquipmentTypeStrings[] = {
+	TEXT("WEAPON"),
+	TEXT("SUBWEAPON"),
+	TEXT("HELMET"),
+	TEXT("UPPERBODYARMOR"),
+	TEXT("LOWERBODYARMOR"),
+	TEXT("SHOES"),
+	TEXT("GLOVES"),
+	TEXT("NECKLACE"),
+	TEXT("EARRING"),
+	TEXT("RING"),
+	TEXT("BRACELET"),
+	TEXT("NONE")
+};
+
+const FString EItemRarityStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE")
+};
+
+// 문자열 배열 정의
+const FString EStatusTypeStrings[] = {
+	TEXT("COMMON"),
+	TEXT("UNCOMMON"),
+	TEXT("RARE"),
+	TEXT("UNIQUE"),
+	TEXT("EPIC"),
+	TEXT("LEGEND"),
+	TEXT("NONE"),
+};
+
+
+const FString ESkillGroups[] = {
+	TEXT("NORMAL"),
+	TEXT("UNIQUE"),
+	TEXT("ULTIMATE"),
+	TEXT("NONE"),
+};
+
+EItemType StringToEItemType(const FString& ItemTypeString);
+ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString);
+ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString);
+EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString);
+EItemRarity StringToEItemRarity(const FString& RarityString);
+
+FString EItemTypeToString(EItemType ItemType);
+FString ECharacterMainJobTypeToString(ECharacterMainJobType MainJobType);
+FString ECharacterSubJobTypeToString(ECharacterSubJobType SubJobType);
+FString EEquipmentTypeToString(EEquipmentType EquipmentType);
+FString EStatusTypeToString(EStatusType StatusType);
+FString ESkillGroupToString(ESkillGroup SkillGroup);
+
 struct FPlayerGoods
 {
 	GENERATED_BODY()

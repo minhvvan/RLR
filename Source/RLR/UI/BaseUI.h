@@ -24,6 +24,8 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI(){};
+	virtual void OpenUI();
+	virtual void Clear(){};
 	virtual void CloseUI();
 
 	void SetUIType(EUIType Type) {UIType = Type;}

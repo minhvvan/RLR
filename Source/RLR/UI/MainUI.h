@@ -24,13 +24,14 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void BindSubUI();
+	virtual void RefreshUI() override;
 	virtual void CloseUI();
 
 	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
-	virtual class USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
+	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
 
 public:
 
 	TMap<FGameplayTag , USubUI*> UserActionSubUI;
-	TMap<EUIType, USubUI*>					SubUIMap;
+	TMap<EUIType, USubUI*>				SubUIMap;
 };

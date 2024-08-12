@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameManager/RLRStruct.h"
 #include "UI/BaseUI.h"
+#include "GameManager/GameplayTagManager.h"
 #include "StatusDisplay.generated.h"
 
 /**
@@ -16,6 +17,7 @@
  class USkillQuickSlotContainer;
  class UItemQuickSlotContainer;
  class UExpProgressBar;
+ class USkillQuickSlot;
 
 UCLASS()
 class RLR_API UStatusDisplay : public UBaseUI
@@ -25,6 +27,24 @@ class RLR_API UStatusDisplay : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void RefreshUI() override;
+
+	USkillQuickSlot*	GetSkillQuickSlot(FGameplayTag ActionTag);
+
+	void LoadSkillQuickSlotData();
+
+	void ClearSkillQuickSlot();
+
+public:
+	void UpdateTotalStat(const FTotalStatus& NewTotalStatus);
+
+	void UpdateHpGlobe(float NewPercent);
+	void UpdateMpGlobe(float NewPercent);
+	void UpdateLevel(int32 NewLevel);
+	void UpdateExp(int32 NewExp);
+
+	UFUNCTION()
+	void UpdateSkillAttack(FGameplayTag ActionTag);
 
 public:
 
@@ -45,12 +65,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UExpProgressBar> ExpProgressBar;
 
-
 public:
-	void UpdateTotalStat(const FTotalStatus& NewTotalStatus);
+	UPROPERTY()
+	TMap<FGameplayTag, USkillQuickSlot*> SkillQuickSlotMap;
 
-	void UpdateHpGlobe(float NewPercent);
-	void UpdateMpGlobe(float NewPercent);
-	void UpdateLevel(int32 NewLevel);
-	void UpdateExp(int32 NewExp);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass;
+
 };

@@ -16,6 +16,7 @@
 void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	RefreshUI();
 }
 
 void UInGameMainUI::SetActionSystemComponent(AActor* Owner)

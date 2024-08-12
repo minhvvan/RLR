@@ -20,6 +20,7 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
 	}
+	UpdatedTryActivateAction.Clear();
 }
 
 void USkillManager::Init()
@@ -45,6 +46,7 @@ void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 	if (!ASC) return;
 
 	ASC->TryActivateAction(TriggerTag);
+	UpdatedTryActivateAction.Broadcast(TriggerTag);
 }
 
 void USkillManager::SkillComplete(FGameplayTag TriggerTag)

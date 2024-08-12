@@ -133,7 +133,7 @@ void UChatOptionUI::OnConfirmButtonClicked()
         CloseUI();
         SaveChatOption();
 
-        UChatUI* ChatUI = GetMainUI<UInGameMainUI>()->ChatUI;
+        UChatUI* ChatUI = GetMainUI<UInGameMainUI>()->GetChatUI();
         if(ChatUI)
             ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
     }

@@ -17,14 +17,30 @@
 void UEquipmentSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetSlotType(ESlotType::EQUIPMENT_SLOT);
 
-	ItemButton->OnClicked.AddUniqueDynamic(this, &UEquipmentSlot::OnClickedItemSlot);
-	ItemButton->OnHovered.AddUniqueDynamic(this, &UEquipmentSlot::OnHoveredItemSlot);
-	ItemButton->OnUnhovered.AddUniqueDynamic(this, &UEquipmentSlot::OnUnHoveredItemSlot);
+	//SlotButton->OnClicked.AddUniqueDynamic(this, &UEquipmentSlot::OnClickedSlotButton);
+	//SlotButton->OnHovered.AddUniqueDynamic(this, &UEquipmentSlot::OnHoveredSlotButton);
+	//SlotButton->OnUnhovered.AddUniqueDynamic(this, &UEquipmentSlot::OnUnHoveredSlotButton);
 }
 
-void UEquipmentSlot::OnClickedItemSlot()
+void UEquipmentSlot::RefreshUI()
 {
+	Super::RefreshUI();
+
+	UTexture2D* Texture = GetItemData().ItemImage;
+	if (IsValid(Texture) == false)
+	{
+		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
+		return;
+	}
+	SlotImage->SetBrushFromTexture(Texture, true);
+}
+
+void UEquipmentSlot::OnClickedSlotButton()
+{
+	Super::OnClickedSlotButton();
+
 	//비어 있다면 아무것도 하지 않는다.
 	if(IsEmpty() == true)
 		return;
@@ -42,7 +58,7 @@ void UEquipmentSlot::OnClickedItemSlot()
 	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
 	if (GM)
 	{
-		GM->GetInventoryManager()->ItemData[SlotItemData.ITEM_ID].IsEquiped = false;
+		GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = false;
 
 		UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
 		MainUI->InventoryUI->RefreshUI();
@@ -50,8 +66,10 @@ void UEquipmentSlot::OnClickedItemSlot()
 	Clear();
 }
 
-void UEquipmentSlot::OnHoveredItemSlot()
+void UEquipmentSlot::OnHoveredSlotButton()
 {
+	Super::OnHoveredSlotButton();
+
 	if(IsEmpty() == true)
 		return;
 
@@ -64,8 +82,10 @@ void UEquipmentSlot::OnHoveredItemSlot()
 	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
-void UEquipmentSlot::OnUnHoveredItemSlot()
+void UEquipmentSlot::OnUnHoveredSlotButton()
 {
+	Super::OnUnHoveredSlotButton();
+
 	if (IsEmpty() == true)
 		return;
 
@@ -76,31 +96,4 @@ void UEquipmentSlot::OnUnHoveredItemSlot()
 	if (UIManager == nullptr) return;
 
 	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
-}
-
-void UEquipmentSlot::SetItemData(FItemData ItemData)
-{
-	SlotItemData = ItemData;
-
-	UTexture2D* Texture = ItemData.ItemImage;
-	if (IsValid(Texture) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
-		return;
-	}
-	SlotImage->SetBrushFromTexture(Texture, true);
-
-}
-
-void UEquipmentSlot::Clear()
-{
-	if (IsValid(DefaultSlotImage) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::Clear Error. Default Slot Image가 없습니다."));
-		return;
-	}
-
-	SlotImage->SetBrushFromTexture(DefaultSlotImage, true);
-
-	SlotItemData = FItemData();
 }

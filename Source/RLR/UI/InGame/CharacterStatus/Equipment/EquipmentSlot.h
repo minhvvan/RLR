@@ -23,28 +23,12 @@ class RLR_API UEquipmentSlot : public USlotUI
 
 public:
 
-	virtual void NativeConstruct() override;
+	virtual void	NativeConstruct() override;
+	virtual void	RefreshUI() override;
 
-
-	UFUNCTION()
-	void OnClickedItemSlot();
-
-	UFUNCTION()
-	void				OnHoveredItemSlot();
-
-	UFUNCTION()
-	void				OnUnHoveredItemSlot();
-
-	UFUNCTION(BlueprintCallable)
-	void				SetItemData(FItemData ItemData);
-	UFUNCTION(BlueprintCallable)
-	FItemData	GetItemData(){return SlotItemData;}
-
-	virtual void	Clear();
-
-	//Item_ID가 -1이면 아이템 정보가 없다는 뜻. 그러니 비어있는 것으로 판단해준다.
-	virtual bool	IsEmpty(){return SlotItemData.ITEM_ID == -1; }
-
+	virtual void	OnClickedSlotButton() override;
+	virtual void	OnHoveredSlotButton() override;
+	virtual void	OnUnHoveredSlotButton() override;
 public:
 
 
@@ -53,19 +37,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UButton> ItemButton;
-
 		//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
 
-	EEquipmentType SlotType = EEquipmentType::NONE;
-
-
-
-private:
-
-	UPROPERTY()
-	FItemData SlotItemData;
+	EEquipmentType EquipmentSlotType = EEquipmentType::NONE;
 };
