@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Delegates/DelegateCombinations.h"
 #include "GameFramework/PlayerController.h"
 #include "GameplayTagContainer.h"
 #include "RLRPlayerController.generated.h"
@@ -18,6 +19,9 @@ class RLR_API ARLRPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSoundEvent);
+	
 	ARLRPlayerController();
 
 protected:
@@ -55,7 +59,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Input);
 	UInputMappingContext* CurrentContext;
-	
+
 	UPROPERTY(VisibleAnywhere, Category = Input);
 	TObjectPtr<APlayerCommands> Commands;
 
@@ -64,6 +68,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UPlayerManager> PlayerManager;
+
+	UPROPERTY(BlueprintAssignable, Category = "SoundEvent");
+	FSoundEvent soundEvent;
 
 	float movePacketInterval;
 	float timeSinceLastMovePacket;
