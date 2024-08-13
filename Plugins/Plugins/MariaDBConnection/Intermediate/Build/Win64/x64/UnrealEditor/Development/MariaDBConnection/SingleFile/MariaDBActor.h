@@ -1,1 +1,0 @@
-#include "C:/Users/admin/Desktop/RLR/RLR/Plugins/MariaDBConnection/Source/MariaDBConnection/Public/MariaDBActor.h"
