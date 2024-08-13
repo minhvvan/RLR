@@ -46,6 +46,18 @@ void FGameplayTagManager::Init()
 	//Player
 	GameplayTags.Player_State_Attacking = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Player.State.Attacking"), FString(TEXT("공격중")));
 
+	//Abnormal
+	GameplayTags.Abnormal_Stun = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Stun"), FString(TEXT("기절")));
+	GameplayTags.Abnormal_Bind = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Bind"), FString(TEXT("속박")));
+	GameplayTags.Abnormal_Frozen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Frozen"), FString(TEXT("빙결")));
+	GameplayTags.Abnormal_Stiffen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Stiffen"), FString(TEXT("경직")));
+	GameplayTags.Abnormal_Provoke = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Provoke"), FString(TEXT("도발")));
+	GameplayTags.Abnormal_Electric = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Electric"), FString(TEXT("감전")));
+	GameplayTags.Abnormal_Silence = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Silence"), FString(TEXT("침묵")));
+	GameplayTags.Abnormal_Burn = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Burn"), FString(TEXT("화상")));
+	GameplayTags.Abnormal_Poison = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Poison"), FString(TEXT("중독")));
+	GameplayTags.Abnormal_Slow = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Slow"), FString(TEXT("슬로우")));
+	GameplayTags.Abnormal_Bleeding = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Bleeding"), FString(TEXT("출혈")));
 
 
 	/*

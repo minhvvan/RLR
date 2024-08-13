@@ -61,6 +61,19 @@ public:
 	//Player.State
 	FGameplayTag Player_State_Attacking;
 
+	//Abnormal
+	FGameplayTag Abnormal_Stun;
+	FGameplayTag Abnormal_Bind;
+	FGameplayTag Abnormal_Frozen;
+	FGameplayTag Abnormal_Stiffen;
+	FGameplayTag Abnormal_Provoke;
+	FGameplayTag Abnormal_Electric;
+	FGameplayTag Abnormal_Silence;
+	FGameplayTag Abnormal_Burn;
+	FGameplayTag Abnormal_Poison;
+	FGameplayTag Abnormal_Slow;
+	FGameplayTag Abnormal_Bleeding;
+
 
 	/*
 		Action Item Quick Slot
