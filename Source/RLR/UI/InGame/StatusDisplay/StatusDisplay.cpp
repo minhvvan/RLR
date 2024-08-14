@@ -35,7 +35,7 @@ void UStatusDisplay::RefreshUI()
 
 USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 {
-	return SkillQuickSlotMap[ActionTag];
+	return  nullptr; //SkillQuickSlotMap[ActionTag];
 }
 
 void UStatusDisplay::LoadSkillQuickSlotData()
