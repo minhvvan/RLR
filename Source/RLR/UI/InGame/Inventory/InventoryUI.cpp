@@ -37,8 +37,8 @@ void UInventoryUI::Init()
 	InventorySlotList.Empty();
 
 	//슬롯 생성
-	InventorySlotList.Init(nullptr, MaxSlotCount);
-	for (int32 Count = 0; Count < MaxSlotCount; Count++)
+	InventorySlotList.Init(nullptr, MaxInventorySlotCount);
+	for (int32 Count = 0; Count < MaxInventorySlotCount; Count++)
 	{
 		UInventorySlot* NewSlot = CreateWidget<UInventorySlot>(this, InventorySlotClass);
 		InventorySlotList[Count] = NewSlot;
@@ -60,7 +60,7 @@ void UInventoryUI::RefreshUI()
 	}
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-	if (IsValid(InventoryManager) == false)
+	if(CHECK_VALID(InventoryManager) == false)
 		return;
 
 
@@ -77,14 +77,18 @@ void UInventoryUI::RefreshUI()
 	int32 ItemCount = 0;
 	for (FItemData ItemData : ItemList)
 	{
-		//설정된 값보다 아이템 숫가 많으면 에러
-		if (MaxSlotCount <= ItemCount)
+		//설정된 값보다 아이템 수가 많으면 에러
+		if (MaxInventorySlotCount <= ItemCount)
 		{
 			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
 			break;
 		}
 
 		ItemCount++;
+
+		int32 ItemSlotIndex = ItemData.ITEM_SLOT_IDX;
+		if(ItemSlotIndex >= MaxInventorySlotCount || ItemSlotIndex < 0 )
+			continue;
 		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
 	}
 }
@@ -104,6 +108,10 @@ void UInventoryUI::RefreshGoldAndCashUI()
 
 void UInventoryUI::ShowItemsByType(EItemType ItemType)
 {
+	/*
+		선택된 속성의 아이템들만 보여준다.
+	*/
+
 	for (UInventorySlot* ItemSlot : InventorySlotList)
 	{
 		ItemSlot->Clear();
@@ -123,7 +131,7 @@ void UInventoryUI::ShowItemsByType(EItemType ItemType)
 			continue;
 		
 		//설정된 값보다 아이템 숫가 많으면 에러
-		if (MaxSlotCount <= ItemCount)
+		if (MaxInventorySlotCount <= ItemCount)
 		{
 
 			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
@@ -139,6 +147,14 @@ void UInventoryUI::SortItem()
 	//아이템 정렬을 하면, 클라이언트에서 처리해도 되는 건가?
 
 	UUtilBlueprintFunctionLibrary::DebugLog(TEXT("제작 중"));
+}
+
+void UInventoryUI::SetItemData(FItemData& NewItem)
+{
+	/*
+		특정 슬로 아이템 셋
+	*/
+
 }
 
 void UInventoryUI::OnAllButtonClicked()
@@ -167,7 +183,7 @@ void UInventoryUI::OnEtcItemButtonClicked()
 
 void UInventoryUI::SetMaxSlotCount(int32 Count)
 {
-	MaxSlotCount = Count;
+	MaxInventorySlotCount = Count;
 	Init();
 	RefreshUI();
 }

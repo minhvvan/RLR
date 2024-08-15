@@ -2,17 +2,32 @@
 
 
 #include "GameManager/PlayerManager.h"
-#include "Kismet/GameplayStatics.h"
-#include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "ActionSystem/ActionSystemComponent.h"
-#include "ActionSystem/StatSet/StatSetPlayer.h"
-#include "RLR.h"
 #include "GameManager.h"
 #include "GameManager/NetworkManager.h"
+
+#include "Kismet/GameplayStatics.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
+
+#include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
+
+#include "RLR.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 UPlayerManager::UPlayerManager()
 {
 
+}
+
+ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
+{
+	if(IsValid(PlayerCharacter) == false)
+	{ 
+		DEBUG_LOG("GetPlayerCharacter Error. Player Character Is Null");
+		return nullptr;
+	}
+
+	return PlayerCharacter;
 }
 
 void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
@@ -30,6 +45,26 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 
 		PlayerCharacter->SetStat(PlayerData);
 	}
+}
+
+int32 UPlayerManager::GetPlayerSeq()
+{
+	if (IsValid(PlayerCharacter) == false)
+	{
+		DEBUG_LOG("GetPlayerSeq Error. Player Character Is Null");
+		return 1;
+	}
+
+	return PlayerCharacter->GetPlayerSeq();
+}
+
+int32 UPlayerManager::GetUserSeq()
+{
+	/*
+		아직 미구현
+	*/
+
+	return 1;
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)

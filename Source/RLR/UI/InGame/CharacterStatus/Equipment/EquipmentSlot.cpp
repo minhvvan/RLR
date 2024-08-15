@@ -4,11 +4,15 @@
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
 #include "EquipmentSlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 #include "Components/Image.h"
 #include "Components/Button.h"
+
 #include "GameManager/InventoryManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
@@ -47,23 +51,9 @@ void UEquipmentSlot::OnClickedSlotButton()
 
 	/*
 		서버에 착용 해제 요청을 보낸다.
-			PacketHandler->SendUnEquipItemPacket();
 	*/
 
-
-	/*
-		임시 코드. 서버에서 아이템 착용 관련 기능이 완성되면 삭제될 예정.
-	*/
-
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (GM)
-	{
-		GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = false;
-
-		UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-		MainUI->InventoryUI->RefreshUI();
-	}
-	Clear();
+	GetNetworkManager()->SendUnEquipChangePacket(GetItemData());
 }
 
 void UEquipmentSlot::OnHoveredSlotButton()

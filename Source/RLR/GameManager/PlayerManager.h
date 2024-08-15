@@ -17,7 +17,11 @@ class RLR_API UPlayerManager : public UGameInstanceSubsystem
 public:
 	UPlayerManager();
 
-    void SetPlayerData(FUserCharacter PlayerData);
+    void                  SetPlayerData(FUserCharacter PlayerData);
+
+    ARLRPlayerCharacter*  GetPlayerCharacter();
+    int32                 GetPlayerSeq();
+    int32                 GetUserSeq();
 
     //UpdateStat
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);

@@ -177,6 +177,11 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 	});
 }
 
+const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
+{
+	return ASC->GetStatSet<UStatSetPlayer>();
+}
+
 void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 {
 	//플레이어 위치 설정
