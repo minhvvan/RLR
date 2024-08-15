@@ -6,7 +6,7 @@
 
 static bool SortByEndtime(const FAbnormalTimer& a, const FAbnormalTimer& b)
 {
-	return a.EndTime < b.EndTime;
+	return a < b;
 }
 
 UStatSet::UStatSet()
@@ -36,7 +36,7 @@ void UStatSet::RemoveAbnormalTimer(FAbnormalTimer* NewTimer)
 	FMemory::Free(NewTimer);
 }
 
-const FAbnormalTimer* UStatSet::GetTimerTop()
+FAbnormalTimer* UStatSet::GetTimerTop()
 {
 	return AbnoramlTimers.HeapTop();
 }
@@ -53,11 +53,17 @@ const FAbnormalMark* UStatSet::GetAbnormalMark(int AbnormalType)
 	return Data;
 }
 
+bool UStatSet::HasActivatedTimer()
+{
+	return !AbnoramlTimers.IsEmpty();
+}
+
 FAbnormalTimer* FAbnormalTimer::MakeTimer(const FAbnormal2& Abnormal)
 {
 	FAbnormalTimer* newTimer = (FAbnormalTimer*)FMemory::Malloc(sizeof(FAbnormalTimer));
-	newTimer->EndTime = FDateTime::UtcNow().ToUnixTimestamp() + Abnormal.Duration;
+	newTimer->EndTime = FDateTime::UtcNow() + FDateTime(Abnormal.Duration);
 	newTimer->AbnormalData = Abnormal;
+	newTimer->bDisplayed = false;
 
 	return newTimer;
 }

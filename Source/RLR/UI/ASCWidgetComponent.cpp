@@ -2,6 +2,7 @@
 
 
 #include "UI/ASCWidgetComponent.h"
+#include "UI/BaseUI.h"
 #include "UI/InGame/Monster/MonsterHpBar.h"
 #include "RLR.h"
 
@@ -9,12 +10,12 @@ void UASCWidgetComponent::InitWidget()
 {
 	Super::InitWidget();
 
-	UMonsterHpBar* MonsterHpBar = Cast<UMonsterHpBar>(GetWidget());
-	if (!MonsterHpBar)
+	UBaseUI* ASCWidget = Cast<UBaseUI>(GetWidget());
+	if (!ASCWidget)
 	{
-		RLR_LOG(LogRLR, Log, TEXT("MonsterHpBar is Null"));
+		RLR_LOG(LogRLR, Log, TEXT("ASCWidget is Null"));
 		return;
 	}
 
-	MonsterHpBar->SetActionSystemComponent(GetOwner());
+	ASCWidget->SetActionSystemComponent(GetOwner());
 }

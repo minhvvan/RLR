@@ -51,15 +51,15 @@ struct FAbnormalTimer
 
 public:
 	FTimerHandle AbnormalTimerHandle;
-	int64 EndTime;
-	bool bActivated = false;
+	FDateTime EndTime;
+	bool bDisplayed;
 	FAbnormal2 AbnormalData;
 
 	static FAbnormalTimer* MakeTimer(const FAbnormal2& Abnormal);
 
-	bool operator<(const FAbnormalTimer& Other)
+	bool operator<(const FAbnormalTimer& Other) const
 	{
-		return EndTime < Other.EndTime;
+		return EndTime > Other.EndTime;
 	}
 };
 
@@ -89,8 +89,9 @@ public:
 	void AddAbnormalTimer(FAbnormalTimer* NewTimer);
 	void RemoveAbnormalTimer(FAbnormalTimer* NewTimer);
 
-	const FAbnormalTimer* GetTimerTop();
+	FAbnormalTimer* GetTimerTop();
 	const FAbnormalMark* GetAbnormalMark(int AbnormalType);
+	bool HasActivatedTimer();
 
 protected:
 	UPROPERTY()

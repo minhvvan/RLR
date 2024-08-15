@@ -45,14 +45,15 @@ void UStatSetMonster::ApplyAbnormal(const FAbnormal2& abnormal)
 	ASC->AddGameplayTag(TagManager.GetAbnormalTag((int)abnormal.AbnormalType));
 
 	auto abnormlMark = GetAbnormalMark((int)abnormal.AbnormalType);
-	monster->DisplayAbnormal(abnormlMark);
+	monster->DisplayAbnormalText(abnormlMark->AbnormalText);
+	if (!HasActivatedTimer())
+	{
+		monster->DisplayAbnormalFX(abnormlMark->AbnoramlFX);
+		newTimer->bDisplayed = true;
+	}
 
 	FTimerDelegate AbnormalDelegate = FTimerDelegate::CreateUObject(this, &UStatSetMonster::ExpiredAbnormalTimer, newTimer);
-	ASC->GetWorld()->GetTimerManager().SetTimer(
-		newTimer->AbnormalTimerHandle,
-		AbnormalDelegate,
-		abnormal.Duration,
-		false);
+	ASC->GetWorld()->GetTimerManager().SetTimer(newTimer->AbnormalTimerHandle, AbnormalDelegate, abnormal.Duration, false);
 
 	AddAbnormalTimer(newTimer);
 }
@@ -65,18 +66,21 @@ void UStatSetMonster::ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer)
 	auto* ASC = monster->GetActionSystemComponent();
 	if (!ASC) return;
 
-	const FAbnormalTimer* abnormalTimer = GetTimerTop();
-	if (abnormalTimer != ExpiredTimer && !abnormalTimer->bActivated)
+	FAbnormalTimer* lastEndTimer = GetTimerTop();
+	if (lastEndTimer != ExpiredTimer && !lastEndTimer->bDisplayed)
 	{
 		//다음거 표시
-		auto abnormlMark = GetAbnormalMark((int)ExpiredTimer->AbnormalData.AbnormalType);
-		monster->DisplayAbnormal(abnormlMark);
+		auto abnormlMark = GetAbnormalMark((int)lastEndTimer->AbnormalData.AbnormalType);
+		monster->DisplayAbnormalFX(abnormlMark->AbnoramlFX);
+		lastEndTimer->bDisplayed = true;
+	}
+	else
+	{
+		monster->DisplayAbnormalFX(nullptr);
 	}
 	
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	ASC->RemoveGameplayTag(TagManager.GetAbnormalTag((int)ExpiredTimer->AbnormalData.AbnormalType));
-
-	monster->DisplayAbnormal(nullptr);
 
 	RemoveAbnormalTimer(ExpiredTimer);
 }

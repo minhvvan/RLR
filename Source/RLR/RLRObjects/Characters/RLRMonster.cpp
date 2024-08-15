@@ -12,10 +12,10 @@ ARLRMonster::ARLRMonster()
 {
 	HpBar = CreateDefaultSubobject<UASCWidgetComponent>(TEXT("HpBar"));
 	HpBar->SetupAttachment(RootComponent);
-	HpBar->SetRelativeLocation(FVector(0, 0.f, 110.f));
+	HpBar->SetRelativeLocation(FVector(0.f, 0.f, 125.f));
 
 	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
-	HpBar->SetDrawSize({ 70.f,10.f });
+	HpBar->SetDrawSize({ 90.f, 40.f });
 }
 
 void ARLRMonster::SetStat(FMonsterStatus& Stat)

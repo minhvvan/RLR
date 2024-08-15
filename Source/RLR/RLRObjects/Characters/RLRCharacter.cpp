@@ -6,11 +6,13 @@
 #include "Components/DecalComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/StatSet/StatSet.h"
+#include "UI/ASCWidgetComponent.h"
+#include "UI/InGame/Monster/AbnormalDisplay.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Materials/Material.h"
-#include "Engine/World.h"
+#include "RLR.h"
 
 ARLRCharacter::ARLRCharacter()
 {
@@ -38,6 +40,13 @@ ARLRCharacter::ARLRCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
+
+	AbnormalDisplay = CreateDefaultSubobject<UASCWidgetComponent>(TEXT("AbnormalDisplay"));
+	AbnormalDisplay->SetupAttachment(RootComponent);
+	AbnormalDisplay->SetRelativeLocation(FVector(0.f, 50.f, 80.f));
+
+	AbnormalDisplay->SetWidgetSpace(EWidgetSpace::Screen);
+	AbnormalDisplay->SetDrawSize({ 30.f, 20.f });
 }
 
 UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
@@ -48,6 +57,23 @@ UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
 void ARLRCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+}
+
+void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
+{
+	UAbnormalDisplay* abnormalDisplay = Cast<UAbnormalDisplay>(AbnormalDisplay->GetWidget());
+	if (!abnormalDisplay) return;
+
+	abnormalDisplay->ShowAbnormal(AbnormalText);
+}
+
+void ARLRCharacter::DisplayAbnormalFX(const UNiagaraSystem* AbnormalFX)
+{
+	if (AbnormalFX == nullptr)
+	{
+		//show off
+		return;
+	}
 }
 
 void ARLRCharacter::BeginPlay()
