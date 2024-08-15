@@ -7,7 +7,6 @@
 
 #include <winsock2.h>
 #include "Windows/HideWindowsPlatformTypes.h"
-#include "MyPlayerController.h" 
 #pragma comment(lib, "ws2_32.lib")
 #include "GameFramework/Actor.h"
 #include "ChatClient.generated.h"
