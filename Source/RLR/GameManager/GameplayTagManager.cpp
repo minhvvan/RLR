@@ -172,3 +172,25 @@ const FGameplayTagContainer* FGameplayTagManager::GetSkillAnimTags()
 
 	return &SkillAnimTags;
 }
+
+FGameplayTag FGameplayTagManager::GetAbnormalTag(int AbnormalType)
+{
+	if (AbnormalTags.Num() != 11)
+	{
+		AbnormalTags.Reset(11);
+
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Stun);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Bind);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Frozen);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Stiffen);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Provoke);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Electric);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Silence);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Burn);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Poison);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Slow);
+		AbnormalTags.AddTag(GameplayTags.Abnormal_Bleeding);
+	}
+
+	return AbnormalTags.GetByIndex(AbnormalType);
+}

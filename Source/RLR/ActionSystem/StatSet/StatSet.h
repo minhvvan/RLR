@@ -44,6 +44,38 @@
 		STAT_SETTER(PropertyName, PropertyType)
 
 
+USTRUCT()
+struct FAbnormalTimer
+{
+	GENERATED_BODY()
+
+public:
+	FTimerHandle AbnormalTimerHandle;
+	int64 EndTime;
+	bool bActivated = false;
+	FAbnormal2 AbnormalData;
+
+	static FAbnormalTimer* MakeTimer(const FAbnormal2& Abnormal);
+
+	bool operator<(const FAbnormalTimer& Other)
+	{
+		return EndTime < Other.EndTime;
+	}
+};
+
+USTRUCT()
+struct FAbnormalMark : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+	FString AbnormalText;
+
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* AbnoramlFX;
+};
+
 UCLASS()
 class RLR_API UStatSet : public UObject
 {
@@ -52,6 +84,22 @@ class RLR_API UStatSet : public UObject
 public:
 	UStatSet();
 	
+	//Abnormal
+	virtual void ApplyAbnormal(const FAbnormal2& abnormal) {};
+	void AddAbnormalTimer(FAbnormalTimer* NewTimer);
+	void RemoveAbnormalTimer(FAbnormalTimer* NewTimer);
+
+	const FAbnormalTimer* GetTimerTop();
+	const FAbnormalMark* GetAbnormalMark(int AbnormalType);
+
+protected:
+	UPROPERTY()
+	TObjectPtr<UDataTable> AbnoramlMarkTable;
+
+private:
+	TArray<FAbnormalTimer*> AbnoramlTimers;
+
+
 	//--------------------------
 	//사용법
 	//--------------------------

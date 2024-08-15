@@ -17,6 +17,7 @@ public:
 
 	const FGameplayTagContainer* GetSkillTags();
 	const FGameplayTagContainer* GetSkillAnimTags();
+	FGameplayTag GetAbnormalTag(int AbnormalType);
 
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
@@ -74,6 +75,7 @@ public:
 	FGameplayTag Abnormal_Slow;
 	FGameplayTag Abnormal_Bleeding;
 
+	FGameplayTagContainer AbnormalTags;
 
 	/*
 		Action Item Quick Slot
