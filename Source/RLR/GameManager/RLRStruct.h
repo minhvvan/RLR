@@ -534,6 +534,22 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class EAbnormalType : uint8
+{
+	STUN = 0,
+	BIND,
+	FROZEN,
+	STIFFEN,
+	PROVOKE,
+	ELECTRIC,
+	SILENCE,
+	BURN,
+	POISON,
+	SLOW,
+	BLEEDING,
+	NONE
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
@@ -602,10 +618,13 @@ struct FAbnormal2
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	EAbnormalType AbnormalType;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Power;
 };
 
 // 문자열 배열 정의
