@@ -3,6 +3,7 @@
 
 #include "UI/InGame/Monster/MonsterHpBar.h"
 #include "Components/ProgressBar.h"
+#include "Components/TextBlock.h"
 #include "ActionSystem/StatSet/StatSetMonster.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "RLRObjects/Characters/RLRMonster.h"
@@ -29,6 +30,8 @@ void UMonsterHpBar::SetActionSystemComponent(AActor* Owner)
 
 	MaxHp = statSet->GetMonsterHp();
 	CurrentHp = statSet->GetMonsterHp();
+
+	Name->SetText(FText::FromString(statSet->GetMonsterName()));
 	UpdateHp();
 
 	statSet->OnHpChanged.AddDynamic(this, &UMonsterHpBar::OnHpChanged);

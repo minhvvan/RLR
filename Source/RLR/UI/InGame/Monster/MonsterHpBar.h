@@ -20,6 +20,9 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<class UProgressBar> HpProgressBar;
 
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<class UTextBlock> Name;
+
 public:
 	virtual void NativeConstruct() override;
 	void SetActionSystemComponent(AActor* Owner) override;
