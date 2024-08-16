@@ -73,20 +73,17 @@ void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
 
 void ARLRCharacter::DisplayAbnormalFX(UNiagaraSystem* AbnormalFX)
 {
-	if (AbnormalFX == nullptr)
-	{
-		//show off
-		if (AbnormalNiagaraComp) AbnormalNiagaraComp->Deactivate();
-		return;
-	}
-
-	FVector spawnLoc = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 120.0f);
-	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), AbnormalFX, spawnLoc);
-
+	//show off
 	if (AbnormalNiagaraComp)
 	{
-		AbnormalNiagaraComp->Activate();
+		AbnormalNiagaraComp->Deactivate();
 	}
+	if (AbnormalFX == nullptr) return;
+
+	FVector spawnLoc = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 160.0f);
+	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), AbnormalFX, spawnLoc, FRotator::ZeroRotator, FVector(.3f));
+
+	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Activate();
 }
 
 void ARLRCharacter::BeginPlay()

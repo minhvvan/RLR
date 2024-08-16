@@ -35,7 +35,7 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UASCWidgetComponent> AbnormalDisplay;
 
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	UPROPERTY(EditDefaultsOnly, Category = "Default")
 	UNiagaraComponent* AbnormalNiagaraComp;
 
 protected:
