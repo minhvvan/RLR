@@ -13,7 +13,10 @@
 
  class UUIManager;
  class UGameManager;
+ class UNetworkManager;
  class UActionSystemComponent;
+ class UPlayerManager;
+ class USkillManager;
 
 UCLASS()
 class RLR_API UBaseUI : public UUserWidget
@@ -34,11 +37,27 @@ public:
 	virtual void SetActionSystemComponent(AActor* Owner);
 
 public:
-	EUIType			UIType = EUIType::NONE;
-	UUIManager* GetUIManager();
-	UGameManager* GetGameManager();
+	EUIType	UIType = EUIType::NONE;
+
+	/*UI Cpp에서 구현할 떄마다 Manager 헤더 파일 추가하기 귀찮아서 만듬.*/
+	UUIManager*			GetUIManager();
+	UGameManager*		GetGameManager();
+	UNetworkManager*	GetNetworkManager();
+	UPlayerManager*		GetPlayerManager();
+	USkillManager*		GetSkillManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
+
+public:
+
+	template<typename T>
+	TSubclassOf<T> GetClass(FString Name);
 };
+
+template<typename T>
+inline TSubclassOf<T> UBaseUI::GetClass(FString Name)
+{
+	return GetGameManager()->GetDataManager()->GetClass<T>(Name);
+}

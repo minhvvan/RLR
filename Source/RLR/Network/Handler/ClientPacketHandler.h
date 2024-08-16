@@ -4,6 +4,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/NPC.pb.h"
+#include "Network/Proto/Item.pb.h"
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
@@ -45,7 +46,8 @@ enum : uint16
     PKT_ITEM_ADD_RESPONSE = 1402,
     PKT_ITEM_USE_REQUEST = 1403,
     PKT_ITEM_USE_RESPONSE = 1404,
-
+    PKT_EQUIP_CHANGE_REQUEST = 1411,
+    PKT_UNEQUIP_CHANGE_REQUEST = 1412,
 
     // Add move packet types
     PKT_MOVE_REQUEST = 1501,
@@ -131,7 +133,11 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
-    
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
+    //static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UmEquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_UNEQUIP_CHANGE_REQUEST); }
+
+
+
 public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

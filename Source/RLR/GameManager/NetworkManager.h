@@ -41,11 +41,17 @@ public:
 
     bool SendInventoryPacket(int32 userSeq);
 
+    //Item.Proto
+    bool SendEquipChangePacket(const FItemData& ItemData);      //아이템 장착 패킷.
+    bool SendUnEquipChangePacket(const FItemData& ItemData);    //아이템 해제 패킷.
+    //Item.Proto End
+
     bool SendAttackPacket(FAttackResult attackResult);
 
+    //Skill.Proto
     bool SendGetSkillPacket(int userSeq);
-
-    bool SendChangeSkillPacket(const FSkillData* SkillData, int userSeq, int skillIdx);
+    bool SendChangeSkillPacket(const FSkillData* SkillData, int userSeq, int skillIdx); //스킬 퀵 슬롯 변경
+    //Skill.Proto End
 
     bool SendServerRequest(int userSeq);
 
@@ -67,3 +73,15 @@ private:
     FRunnableThread* LobbyServerThread;
     LoadBalancerClient* LoadBalancer;
 };
+
+#define SEND_PACKET(Packet) \
+    do { \
+        TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(Packet); \
+        bool bSuccess = SendToMainSocket(sendBuffer); \
+        if (!bSuccess) { \
+            UE_LOG(LogTemp, Log, TEXT("%s 패킷 송신 실패"), *FString(UTF8_TO_TCHAR(#Packet))); \
+        } else { \
+            UE_LOG(LogTemp, Log, TEXT("%s 패킷 송신 성공"), *FString(UTF8_TO_TCHAR(#Packet))); \
+        } \
+        return bSuccess;\
+    } while (0)

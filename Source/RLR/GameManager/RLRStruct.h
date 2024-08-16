@@ -102,6 +102,7 @@ enum class EConsumptionType : uint8
 
 	COMMON,
 	POTION,
+	NONE,
 };
 
 UENUM(BlueprintType)
@@ -282,7 +283,7 @@ struct FTalent
 				talentString.Append(FString::Printf(TEXT("%d = %d"), talent, talentLevel));
 			};
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < Talents.Num(); i++)
 		{
 			AppendTalent(Talents[i].Key, Talents[i].Value);
 		}
@@ -497,6 +498,7 @@ struct FItemData : public FTableRowBase
 
 	//나중에 패킷 날라오면, 그 정보로 FItemData를 만들어준다.
 	void MakeItemData(const Protocol::Item itemData);
+	Protocol::Item MakeItemPacket();
 	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
@@ -807,11 +809,13 @@ struct FUserCharacter
 {
 	GENERATED_BODY()
 
+	//유저 캐릭터
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 UserSeq; 
+	int32 UserSeq = -1; 
 
+	//플레이어 == 클라이언트
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 PlayerSeq;
+	int32 PlayerSeq = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MapId;

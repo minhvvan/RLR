@@ -94,6 +94,67 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     }
 }
 
+Protocol::Item FItemData::MakeItemPacket()
+{
+    Protocol::Item itemData;
+
+    itemData.set_itemseq(ITEM_SEQ);
+    itemData.set_itemid(ITEM_ID);
+    itemData.set_itemslotidx(ITEM_SLOT_IDX);
+    itemData.set_name(TCHAR_TO_UTF8(*NAME));  // FString -> std::string
+
+    // ItemType 변환 (EItemType -> string)
+    FString ItemTypeStr = EItemTypeToString(TYPE);  
+    itemData.set_type(TCHAR_TO_UTF8(*ItemTypeStr));
+
+    itemData.set_rank(RANK.GetIntValue());
+    itemData.set_equiplevel(EQUIPMENT_LEVEL);
+    itemData.set_saleprice(SALE_PRICE);
+    itemData.set_useperiod(USE_PERIOD);
+    itemData.set_text(TCHAR_TO_UTF8(*TEXT));
+
+    itemData.set_itemvalue(ITEM_VALUE);
+    itemData.set_itemmax(ITEM_MAX);
+
+    if (EQUIPMENT_TYPE != EEquipmentType::NONE) { 
+        auto* equipData = itemData.mutable_equip();
+
+        equipData->set_hp(ITEM_STATUS.HP);
+        equipData->set_hpabsorb(ITEM_STATUS.HP_ABSORB);
+        equipData->set_mp(ITEM_STATUS.MP);
+        equipData->set_mpabsorb(ITEM_STATUS.MP_ABSORB);
+        equipData->set_strength(ITEM_STATUS.STRENGTH);
+        equipData->set_agility(ITEM_STATUS.AGILITY);
+        equipData->set_intelligence(ITEM_STATUS.INTELLIGENCE);
+        equipData->set_attack(ITEM_STATUS.ATTACK);
+        equipData->set_defence(ITEM_STATUS.DEFENCE);
+        equipData->set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
+        equipData->set_movespeed(ITEM_STATUS.MOVE_SPEED);
+        equipData->set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
+        equipData->set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
+        equipData->set_avoid(ITEM_STATUS.AVOID);
+        equipData->set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
+        equipData->set_equippart(EQUIPMENT_TYPE.GetIntValue());
+    }
+
+    if (CONSUMPTION_TYPE != EConsumptionType::NONE) {  // 소비 아이템 데이터가 있는지 확인하는 변수
+        auto* consumptionData = itemData.mutable_consumption();
+
+        consumptionData->set_cooldown(COOLDOWN);
+        consumptionData->set_value(CONSUMPTION_VALUE);
+        consumptionData->set_duration(CONSUMPTION_DURATION);
+        consumptionData->set_statustype(CONSUMPTION_STATUS_TYPE.GetIntValue());
+        consumptionData->set_contype(CONSUMPTION_TYPE.GetIntValue());
+    }
+
+    if (ETC_TYPE != EETCType::NONE) {  // 기타 아이템 데이터가 있는지 확인하는 변수
+        auto* etcItemData = itemData.mutable_etcitem();
+
+        etcItemData->set_etctype(ETC_TYPE.GetIntValue());
+    }
+    return itemData;
+}
+
 void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
 {
     //(X=1250.000000,Y=1930.000000,Z=96.000000)

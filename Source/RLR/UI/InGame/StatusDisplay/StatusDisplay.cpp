@@ -41,21 +41,22 @@ USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 void UStatusDisplay::LoadSkillQuickSlotData()
 {
 	//GameOption에 저장되어 있는 Skill Quick Slot Data를 불러온다.
-	if (IsValid(SkillQuickSlotClass) == false)
-	{
-		DEBUG_LOG("LoadSkillQuickSlotData Error. SkillQuickSlotClass is Null.");
-		return;
-	}
-
 	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
 	if(IsValid(GameOption) == false)
 		return;
 
 	FSkillQuickSlotOption QuickOption = GameOption->GetSkillQuickSlotOption();
 
+
+	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass = GetClass<USkillQuickSlot>(TEXT("WBP_SkillQuickSlot"));
+	if (IsValid(SkillQuickSlotClass) == false)
+	{
+		DEBUG_LOG("LoadSkillQuickSlotData Error. SkillQuickSlotClass is Null.");
+		return;
+	}
+
 	//그리드 채우기용
 	int32 cnt = 0;
-
 	for (TTuple<FGameplayTag, int32> Element : QuickOption.SkillQuickSlotList)
 	{
 		FGameplayTag ActionTag = Element.Key;
