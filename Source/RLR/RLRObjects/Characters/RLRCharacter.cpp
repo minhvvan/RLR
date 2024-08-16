@@ -49,8 +49,6 @@ ARLRCharacter::ARLRCharacter()
 
 	AbnormalDisplay->SetWidgetSpace(EWidgetSpace::Screen);
 	AbnormalDisplay->SetDrawSize({ 30.f, 20.f });
-
-
 }
 
 UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
@@ -74,15 +72,10 @@ void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
 void ARLRCharacter::DisplayAbnormalFX(UNiagaraSystem* AbnormalFX)
 {
 	//show off
-	if (AbnormalNiagaraComp)
-	{
-		AbnormalNiagaraComp->Deactivate();
-	}
+	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Deactivate();
 	if (AbnormalFX == nullptr) return;
 
-	FVector spawnLoc = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 160.0f);
-	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), AbnormalFX, spawnLoc, FRotator::ZeroRotator, FVector(.3f));
-
+	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(AbnormalFX, GetMesh(), TEXT("Socket_Abnormal"), FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset, true);
 	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Activate();
 }
 

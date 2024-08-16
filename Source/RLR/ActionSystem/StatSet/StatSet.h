@@ -85,7 +85,9 @@ public:
 	UStatSet();
 	
 	//Abnormal
-	virtual void ApplyAbnormal(const FAbnormal2& abnormal) {};
+	void ApplyAbnormal(const FAbnormal2& abnormal);
+	void ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer);
+
 	void AddAbnormalTimer(FAbnormalTimer* NewTimer);
 	void RemoveAbnormalTimer(FAbnormalTimer* NewTimer);
 

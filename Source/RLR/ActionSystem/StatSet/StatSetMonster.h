@@ -52,10 +52,6 @@ public:
 	//Delegates
 	FOnHpChanged OnHpChanged;
 
-	//Abnormal
-	void ApplyAbnormal(const FAbnormal2& abnormal) override;
-	void ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer);
-
 private:
 	FMonsterStatus Stat;
 
