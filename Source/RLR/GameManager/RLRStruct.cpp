@@ -347,7 +347,7 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
 {
     UserSeq = Data.userseq();
     PlayerSeq = Data.playerseq();
-    Name = UTF8_TO_TCHAR(Data.name().c_str());
+    NickName = UTF8_TO_TCHAR(Data.name().c_str());
     Level = Data.level();
     NobilityRank = Data.nobilityrank();
 

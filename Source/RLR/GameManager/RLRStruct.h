@@ -870,7 +870,7 @@ struct FUserCharacter
 	int64 ChannelId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	FString NickName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level;

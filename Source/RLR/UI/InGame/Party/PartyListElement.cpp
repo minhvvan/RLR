@@ -22,7 +22,7 @@ void UPartyListElement::RefreshUI()
 	float Value = FMath::Clamp(CurrentHp/ MaxHp, 0, 1);
 	SetPercentHpBar(Value);
 
-	SetPlayerName(UserCharacterData.Name);
+	SetPlayerName(UserCharacterData.NickName);
 }
 
 void UPartyListElement::SetPercentHpBar(float Value)
