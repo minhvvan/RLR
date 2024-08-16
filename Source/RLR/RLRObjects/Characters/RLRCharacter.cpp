@@ -13,6 +13,8 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "RLR.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 ARLRCharacter::ARLRCharacter()
 {
@@ -47,6 +49,8 @@ ARLRCharacter::ARLRCharacter()
 
 	AbnormalDisplay->SetWidgetSpace(EWidgetSpace::Screen);
 	AbnormalDisplay->SetDrawSize({ 30.f, 20.f });
+
+
 }
 
 UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
@@ -67,12 +71,21 @@ void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
 	abnormalDisplay->ShowAbnormal(AbnormalText);
 }
 
-void ARLRCharacter::DisplayAbnormalFX(const UNiagaraSystem* AbnormalFX)
+void ARLRCharacter::DisplayAbnormalFX(UNiagaraSystem* AbnormalFX)
 {
 	if (AbnormalFX == nullptr)
 	{
 		//show off
+		if (AbnormalNiagaraComp) AbnormalNiagaraComp->Deactivate();
 		return;
+	}
+
+	FVector spawnLoc = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 120.0f);
+	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), AbnormalFX, spawnLoc);
+
+	if (AbnormalNiagaraComp)
+	{
+		AbnormalNiagaraComp->Activate();
 	}
 }
 

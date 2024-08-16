@@ -12,6 +12,7 @@ class UAction;
 class UActionSystemComponent;
 struct FAbnormalMark;
 class UNiagaraSystem;
+class UNiagaraComponent;
 
 UCLASS(Blueprintable)
 class ARLRCharacter : public ACharacter, public IActionSystemInterface
@@ -25,7 +26,7 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	void DisplayAbnormalText(const FString AbnormalText);
-	void DisplayAbnormalFX(const UNiagaraSystem* AbnormalFX);
+	void DisplayAbnormalFX(UNiagaraSystem* AbnormalFX);
 
 protected:
 	virtual void BeginPlay() override;
@@ -33,6 +34,9 @@ protected:
 protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UASCWidgetComponent> AbnormalDisplay;
+
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
+	UNiagaraComponent* AbnormalNiagaraComp;
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category=Action , meta=( AllowPrivateAccess="true" ));
