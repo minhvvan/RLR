@@ -20,9 +20,6 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<class UProgressBar> HpProgressBar;
-
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<class UTextBlock> Name;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
@@ -33,21 +30,7 @@ protected:
 
 public:
 	virtual void NativeConstruct() override;
-	void SetActionSystemComponent(AActor* Owner) override;
+	virtual void SetActionSystemComponent(AActor* Owner) override;
 
 	void ShowAbnormal(const FString Text);
-
-protected:
-	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
-
-	void UpdateHp();
-
-	UFUNCTION()
-	void OnHpChanged();
-
-protected:
-	bool bCompletedChange;
-	int MaxHp;
-	int CurrentHp;
-	int TargetHp;
 };

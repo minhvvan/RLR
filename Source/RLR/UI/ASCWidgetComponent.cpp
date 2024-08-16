@@ -3,7 +3,7 @@
 
 #include "UI/ASCWidgetComponent.h"
 #include "UI/BaseUI.h"
-#include "UI/InGame/Monster/MonsterHpBar.h"
+#include "UI/InGame/CharacterDisplay/CharacterStatDisplay.h"
 #include "RLR.h"
 
 void UASCWidgetComponent::InitWidget()

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Monster/AbnormalText.h"
+#include "UI/InGame/CharacterDisplay/AbnormalText.h"
 #include "Components/TextBlock.h"
 #include "Animation/WidgetAnimation.h"
 

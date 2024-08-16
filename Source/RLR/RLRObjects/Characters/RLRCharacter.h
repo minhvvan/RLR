@@ -33,7 +33,7 @@ protected:
 
 protected:
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<class UASCWidgetComponent> AbnormalDisplay;
+	TObjectPtr<class UASCWidgetComponent> StatDisplay;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Default")
 	UNiagaraComponent* AbnormalNiagaraComp;
