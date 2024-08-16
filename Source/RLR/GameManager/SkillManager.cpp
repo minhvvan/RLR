@@ -162,11 +162,61 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 bool USkillManager::RequestGetSelectedSkills()
 {
+	TArray<FSkillData> SelectedSkills;
 	//TODO: Request Get Selected Skill
 	//내가 설정한 8개를 가져와줘
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return false;
 
-	
-	return false;
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return false;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return false;
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
+	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
+
+	FSkillData asd;
+	asd.SkillSeq = 1;
+	asd.SkillType = ESkillType::NORMAL;
+	SelectedSkills.Add(asd);
+	for (int i = 0; i < SelectedSkills.Num(); i++)
+	{
+		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));
+		if (Data == nullptr)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
+			return false;
+		}
+
+		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
+
+		OwnSkills.Add({ SkillTag, &SelectedSkills[i] });
+
+		//TriggerAction
+		{
+			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+			//Chain HitCheck Class(for Transfer Data)
+			Spec.FollowActionTag = SkillTag;
+
+			if (SelectedSkills[i].SkillType == ESkillType::AREA || SelectedSkills[i].SkillType == ESkillType::HOLDING)
+			{
+				Spec.bCancelable = true;
+			}
+
+			ASC->GiveAction(SkillAnimTag, Spec);
+		}
+
+		//CheckAction 
+		{
+			FActionSpec Spec(Data->SkillClass, 1, 0);
+			ASC->GiveAction(SkillTag, Spec);
+		}
+	}
+	return true;
 }
 
 bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor)
@@ -194,6 +244,7 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		UStatSetMonster* MonsterStatus = ASC->GetStatSet<UStatSetMonster>();
 		
 		AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
+		// EffectManager.SpawnEffect(monsterStatus -> GetMonsterSeq, tranasform); -> 피격이펙트
 	}
 
 	//TODO: Send To Server(Skill Result) Using NetworkManager

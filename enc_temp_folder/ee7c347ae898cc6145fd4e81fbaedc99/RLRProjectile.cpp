@@ -26,9 +26,6 @@ ARLRProjectile::ARLRProjectile():
 	ProjectileMovement->MaxSpeed = 3000.0f;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f;
-	ProjectileMovement->Velocity = GetActorForwardVector() * ProjectileMovement->InitialSpeed;
-
-
 }
 
 void ARLRProjectile::BeginPlay()
@@ -50,11 +47,11 @@ void ARLRProjectile::Tick(float DeltaTime)
 	}
 }
 
-void ARLRProjectile::SetFireDir()
+void ARLRProjectile::SetFireDir(const FVector& ShootDirection)
 {
 	if (!ProjectileMovement) return;
 
-	ProjectileMovement->Velocity = GetActorForwardVector() * ProjectileMovement->InitialSpeed;
+	ProjectileMovement->Velocity = ShootDirection * ProjectileMovement->InitialSpeed;
 }
 
 void ARLRProjectile::SetSkillRange(const float& Range)

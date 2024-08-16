@@ -10,7 +10,6 @@
 #include "RLRObjects/Actors/RLRProjectile.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
-#include "RLR.h"
 #include "GameManager/RLRStruct.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
@@ -42,23 +41,22 @@ void UActionSkill_Normal_SwordAura::ActivateAction()
 	}
 
 	float SkillRange = 1000.f;
-	/*FVector StartPos = Player->GetActorLocation();
-	FVector SkillDir = (MousePos - StartPos);*/
-	FRotator playerRotation = Player->GetActorRotation();
-	playerRotation.Pitch = 0.f;
-	/*FRotator Rotator = FRotationMatrix::MakeFromX(SkillDir).Rotator();
-	Rotator.Pitch = 0.f;*/
+	FVector StartPos = Player->GetActorLocation();
+	FVector SkillDir = (MousePos - StartPos);
 
+	FRotator Rotator = FRotationMatrix::MakeFromX(SkillDir).Rotator();
+	Rotator.Pitch = 0.f;
+
+	FVector Dir = Rotator.Vector().GetSafeNormal();
 
 	ARLRProjectile* Aura = GetWorld()->SpawnActorDeferred<ARLRProjectile>(SwordAuraProjectile, FTransform::Identity, Player);
-	/*Aura->SetFireDir();*/
+	Aura->SetFireDir(Dir);
 	Aura->SetSkillRange(SkillRange);
+
 	Aura->OnFinishSkill.AddDynamic(this, &UActionSkill_Normal_SwordAura::OnFinishSkill);
 
-	FTransform SpawnLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
-	SpawnLoc.SetRotation(playerRotation.Quaternion());
-
-	Aura->FinishSpawning(SpawnLoc);
+	FTransform SpanwLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
+	Aura->FinishSpawning(SpanwLoc);
 }
 
 void UActionSkill_Normal_SwordAura::OnFinishSkill(TArray<AActor*> OverlappedActor)
