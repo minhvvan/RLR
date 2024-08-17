@@ -4,6 +4,8 @@
 #include "RLRObjects/Actors/RLRProjectile.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameManager/EffectManager.h"
+
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "RLR.h"
 
@@ -68,6 +70,17 @@ void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 	RLR_LOG(LogRLR, Log, TEXT("Overlapped Actor: %s"), *OtherActor->GetName());
 	OverlappedActors.Add(OtherActor);
+	UEffectManager* EffectManager = GetGameInstance()->GetSubsystem<UEffectManager>();
+	if (EffectManager)
+	{
+		FVector effectLocation = (OtherActor->GetActorLocation() - SweepResult.Location) / 2;
+		EffectManager->SpawnPlayerHitEffect(OtherActor->GetActorLocation() - effectLocation);
+		RLR_LOG(LogRLR,Log,TEXT("위치는 : %s"),*(OtherActor->GetActorLocation()-SweepResult.Location).ToString())
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("EffectManager is null!"));
+	}
 }
 
 void ARLRProjectile::FinishSkill()

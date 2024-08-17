@@ -66,6 +66,7 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 // Check Collision Over lap
@@ -93,7 +94,12 @@ void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
 	//// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
 	//// Character.Anim = anim.hit
 	//// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
-	////					               클라 -> 피격 애니메이션                
+	////					               클라 -> 피격 애니메이션     
+
+	if (other != nullptr)
+	{
+		UE_LOG(LogTemp, Log, TEXT(" other Actor name : %s"), *other->GetName());
+	}
 }
 
 void ARLRPlayerCharacter::SetMovement(FVector location)

@@ -8,13 +8,18 @@
 
 UEffectManager::UEffectManager()
 {
-	// TODO :  This -> DataManager 
+	SpawnMonsterHitEffect();
+
+	min = -50.0f;
+	max = 50.0f;
+}
+void UEffectManager::SpawnMonsterHitEffect()
+{
 	UDataTable* EffectDataTable = LoadObject<UDataTable>(nullptr, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectDataTable.DT_EffectDataTable'"));
 
 	if (EffectDataTable)
 	{
 		static const FString ContextString(TEXT("Effect Data Context"));
-		// TODO : 다형성 맞춰서 제작
 		FEffectData* EffectData = EffectDataTable->FindRow<FEffectData>(*FString::FromInt(1), ContextString);
 
 		if (EffectData)
@@ -22,12 +27,6 @@ UEffectManager::UEffectManager()
 			effect = LoadObject<UNiagaraSystem>(nullptr, *EffectData->EffectPath);
 		}
 	}
-	min = -50.0f;
-	max = 50.0f;
-}
-void UEffectManager::SpawnMonsterHitEffect()
-{
-	
 }
 
 void UEffectManager::SpawnPlayerHitEffect(FVector location)
@@ -37,22 +36,22 @@ void UEffectManager::SpawnPlayerHitEffect(FVector location)
 		FVector result = location;
 		result.Z += 10;
 		EffectLocation = result;
-		RemainingCalls = 3;
 
-		SpawnEffect();
-
-		GetWorld()->GetTimerManager().SetTimer(
-			TimerHandle,
-			this,
-			&UEffectManager::SpawnEffect,
-			0.2f,
-			true
-		);
-
+		for (int32 i = 0; i < 3; ++i)
+		{
+			GetWorld()->GetTimerManager().SetTimer(
+				TimerHandle,
+				this,
+				&UEffectManager::GenerateRandomLocation,
+				0.1f,
+				true
+			);
+			FVector RandomLocation = GenerateRandomOffset(result);
+		}
 	}
 }
 
-FVector UEffectManager::GetRandomLocation(FVector location)
+FVector UEffectManager::GenerateRandomOffset(FVector location)
 {
 	float RandomX = FMath::RandRange(min, max);
 	float RandomY = FMath::RandRange(min, max);
@@ -61,11 +60,11 @@ FVector UEffectManager::GetRandomLocation(FVector location)
 	return location + FVector(RandomX, RandomY, RandomZ);
 }
 
-void UEffectManager::SpawnEffect()
+void UEffectManager::GenerateRandomLocation()
 {
 	if (RemainingCalls > 0)
 	{
-		FVector RandomLocation = GetRandomLocation(EffectLocation);
+		FVector RandomLocation = GenerateRandomOffset(EffectLocation);
 		UE_LOG(LogTemp, Log, TEXT("좌표값 : %s"), *RandomLocation.ToString());
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), effect, RandomLocation);
 
