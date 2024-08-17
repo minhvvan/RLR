@@ -20,7 +20,7 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterSeq, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterName, FString);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterLevel, int32);
-	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MontserExp, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterExp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRate, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterDefence, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterHp, int32);

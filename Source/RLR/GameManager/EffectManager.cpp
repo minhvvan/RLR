@@ -66,7 +66,6 @@ void UEffectManager::SpawnEffect()
 	if (RemainingCalls > 0)
 	{
 		FVector RandomLocation = GetRandomLocation(EffectLocation);
-		UE_LOG(LogTemp, Log, TEXT("좌표값 : %s"), *RandomLocation.ToString());
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), effect, RandomLocation);
 
 		RemainingCalls--;

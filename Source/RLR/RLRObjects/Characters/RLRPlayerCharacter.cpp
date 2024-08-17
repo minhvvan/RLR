@@ -70,59 +70,6 @@ void ARLRPlayerCharacter::BeginPlay()
 
 }
 
-// Check Collision Over lap
-// 몬스터, Character, Object
-void ARLRPlayerCharacter::NotifyActorBeginOverlap(AActor* other)
-{
-	//APlayerSkill* explosion = Cast<APlayerSkill>(other);
-	//if (!explosion) return;
-
-	//// TODO : GetDamage * Stat Logic
-	//if (data == nullptr)
-	//{
-	//	data = CreateDefaultSubobject<APlayerData>(TEXT("Data"));
-	//}
-
-	//data->Status.HpCurrent -= explosion->GetDamage() * data->Status.AttackDamage;
-
-	//if (data->Status.HpCurrent <= 0)
-	//{
-	//	Destroy();
-	//}
-
-	//explosion->SetIsHit(true);
-	//explosion->Abnormal->ApplyAbnormal(this, explosion->GetDuration());
-	//// if (skill == fire) , skill == freeze,  또는 물리 로직 -> 데이터 서버 -> 물리 로직 적용
-	//// Character.Anim = anim.hit
-	//// Attakc -> Hit 체크 이후 패킷 전송 -> 		  서버 -> 데미지 처리 -> 클라에 적용 -> UI 적용
-	////					               클라 -> 피격 애니메이션     
-
-	if (other != nullptr)
-	{
-		UE_LOG(LogTemp, Log, TEXT(" other Actor name : %s"), *other->GetName());
-	}
-}
-
-void ARLRPlayerCharacter::SetMovement(FVector location)
-{
-	if (ASC)
-	{
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		if (ASC->HasMatchingGameplayTag(TagManager.Player_State_Attacking)) return;
-	}
-
-	FVector WorldDirection = (location - GetActorLocation()).GetSafeNormal();
-	AddMovementInput(WorldDirection, 1.0f, false);
-}
-
-void ARLRPlayerCharacter::SetOrientation(FVector Location)
-{
-	Location -= GetActorLocation();
-	FRotator Rotator = FRotationMatrix::MakeFromX(Location).Rotator();
-	Rotator.Pitch = 0.f;
-	SetActorRotation(Rotator);
-}
-
 void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
 {
 	GetCharacterMovement()->SetMovementMode(mode);

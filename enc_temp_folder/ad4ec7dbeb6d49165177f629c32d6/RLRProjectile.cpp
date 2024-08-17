@@ -75,6 +75,7 @@ void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 	{
 		FVector effectLocation = (OtherActor->GetActorLocation() - SweepResult.Location) / 2;
 		EffectManager->SpawnPlayerHitEffect(OtherActor->GetActorLocation() - effectLocation);
+		RLR_LOG(LogRLR,Log,TEXT("위치는 : %s"),*(OtherActor->GetActorLocation()-SweepResult.Location).ToString())
 	}
 	else
 	{

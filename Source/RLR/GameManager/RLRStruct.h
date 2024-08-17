@@ -684,7 +684,7 @@ struct FMonsterStatus
 		MonsterSeq(-1),
 		MonsterName(TEXT("")),
 		MonsterLevel(0),
-		MontserExp(0),
+		MonsterExp(0),
 		MonsterAttackRate(0),
 		MonsterDefence(0),
 		MonsterHp(0),
@@ -704,7 +704,7 @@ struct FMonsterStatus
 	int32 MonsterLevel;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 MontserExp;
+	int32 MonsterExp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 MonsterAttackRate;
@@ -752,7 +752,7 @@ struct FMonsterStatus
 		AppendStatInt(TEXT("SEQ"), MonsterSeq);
 		AppendStatString(TEXT("Name"), MonsterName);
 		AppendStatInt(TEXT("Level"), MonsterLevel);
-		AppendStatInt(TEXT("Exp"), MontserExp);
+		AppendStatInt(TEXT("Exp"), MonsterExp);
 		AppendStatInt(TEXT("Attack Rate"), MonsterAttackRate);
 		AppendStatInt(TEXT("Defence"), MonsterDefence);
 		AppendStatFloat(TEXT("Attack Range"), MonsterAttackRange);

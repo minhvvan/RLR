@@ -23,14 +23,15 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 	void SetTargetRotation(FVector TargetLoc, float Speed = 1);
-
-	void					SetStat(const FUserCharacter& Stat);
-	const UStatSetPlayer*	GetStat();
+	int32 GetPlayerSeq() const { return PlayerSeq; }
+	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
+	void SetStat(const FUserCharacter& Stat);
+	const UStatSetPlayer* GetStat();
 
 	void UpdateTransform(FVector NewTransform);
 
 private:
-
+	
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
 
@@ -39,6 +40,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
+
+	//APlayerData* data;
+	int32 PlayerSeq;
 
 	void SetCameraArm();
 	void SetCharacterMovement();
@@ -53,7 +57,7 @@ public:
 	//-------------------------------------
 
 	UPROPERTY(EditAnywhere, Category = Action)
-	UAnimMontage* AttackMontage;
+		UAnimMontage* AttackMontage;
 
 protected:
 	virtual void PostInitializeComponents() override;
