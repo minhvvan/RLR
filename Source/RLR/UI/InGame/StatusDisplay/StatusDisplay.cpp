@@ -48,7 +48,7 @@ void UStatusDisplay::LoadSkillQuickSlotData()
 	FSkillQuickSlotOption QuickOption = GameOption->GetSkillQuickSlotOption();
 
 
-	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass = GetClass<USkillQuickSlot>(TEXT("WBP_SkillQuickSlot"));
+	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass = GetWidgetClass<USkillQuickSlot>(TEXT("WBP_SkillQuickSlot"));
 	if (IsValid(SkillQuickSlotClass) == false)
 	{
 		DEBUG_LOG("LoadSkillQuickSlotData Error. SkillQuickSlotClass is Null.");

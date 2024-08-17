@@ -39,7 +39,7 @@ void USkillSettingListSlot::RefreshUI()
 	}
 
 	SkillLevelText->SetText(FText::AsNumber(GetSkillData().Level));
-	SkillNameText->SetText(FText::FromString(GetSkillData().Name));
+	SkillNameText->SetText(GetSkillData().Name);
 
 	if (IsEquipped == true)
 	{

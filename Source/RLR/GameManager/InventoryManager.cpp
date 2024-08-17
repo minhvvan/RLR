@@ -65,9 +65,9 @@ void UInventoryManager::SetCopper(int32 NewCopper)
 	OnUpdateGoldAndCash.Broadcast();
 }
 
-void UInventoryManager::SetSilber(int32 NewSilber)
+void UInventoryManager::SetSilver(int32 NewSilver)
 {
-	Silber = NewSilber;
+	Silver = NewSilver;
 	OnUpdateGoldAndCash.Broadcast();
 }
 

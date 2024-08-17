@@ -98,7 +98,7 @@ void USkillSetting::LoadQuickSlotData()
 	if(CHECK_VALID(GameOption) == false)
 		return;
 
-	TSubclassOf<USkillSettingQuickSlot> SlotClass = GetClass<USkillSettingQuickSlot>("WBP_SkillSettingQuickSlot");
+	TSubclassOf<USkillSettingQuickSlot> SlotClass = GetWidgetClass<USkillSettingQuickSlot>("WBP_SkillSettingQuickSlot");
 	if(CHECK_VALID(SlotClass) == false)
 		return;
 	
@@ -199,7 +199,7 @@ void USkillSetting::LoadSkillList()
 	UniqueSkillWrapBox->ClearChildren();
 	UltimateSkillWrapBox->ClearChildren();
 
-	TSubclassOf<USkillSettingListSlot> SlotClass = GetClass<USkillSettingListSlot>("WBP_SkillSettingListSlot");
+	TSubclassOf<USkillSettingListSlot> SlotClass = GetWidgetClass<USkillSettingListSlot>("WBP_SkillSettingListSlot");
 
 	//가져온 스킬 데이터를 UI로 띄워준다.
 	for (FSkillData SkillData : SkillList)

@@ -218,12 +218,12 @@ TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)
 {
 	if(Name.IsEmpty())
 	{ 
-		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetClass<UDraggableWidget>(TEXT("WBP_DraggableWidget"));
+		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UDraggableWidget>(TEXT("WBP_DraggableWidget"));
 		return RLRClass;
 	}
 	else
 	{
-		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetClass<UDraggableWidget>(*Name);
+		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UDraggableWidget>(*Name);
 		return RLRClass;
 	}
 }
@@ -232,12 +232,12 @@ TSubclassOf<UBaseDragDropOperation> USlotUI::GetDragDropOperationClass(FString N
 {
 	if (Name.IsEmpty())
 	{
-		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetClass<UBaseDragDropOperation>(TEXT("WBP_BaseDragDropOperation"));
+		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseDragDropOperation>(TEXT("WBP_BaseDragDropOperation"));
 		return RLRClass;
 	}
 	else
 	{
-		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetClass<UBaseDragDropOperation>(*Name);
+		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseDragDropOperation>(*Name);
 		return RLRClass;
 	}
 }

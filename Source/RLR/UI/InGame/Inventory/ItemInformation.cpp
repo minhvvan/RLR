@@ -22,7 +22,7 @@ void UItemInformation::SetItemData(FItemData NewData)
 {
 	ItemData = NewData;
 
-	ItemInformationText->SetText(FText::FromString(ItemData.TEXT));
+	ItemInformationText->SetText(NewData.TEXT);
 	//ItemNameText->SetText(FText::FromString(ItemData.NAME));
 	SetItemNameText(NewData);
 	SetItemStatusText(NewData);

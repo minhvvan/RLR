@@ -36,13 +36,13 @@ void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 void FItemData::MakeItemData(const Protocol::Item itemData)
 {
     ITEM_SEQ = itemData.itemseq();
-   ITEM_ID = itemData.itemid();
+    ITEM_ID = itemData.itemid();
     ITEM_SLOT_IDX = itemData.itemslotidx();
     UE_LOG(LogTemp, Log, TEXT("ITEM_SEQ : %d"), ITEM_SEQ);
     UE_LOG(LogTemp, Log, TEXT("ITEM_ID : %lld"), itemData.itemid());
     UE_LOG(LogTemp, Log, TEXT("ITEM_SLOT_IDX : %d"), ITEM_SLOT_IDX);
 
-	NAME = UTF8_TO_TCHAR(itemData.name().c_str());
+	NAME = STRING_TO_FTEXT(itemData.name().c_str());
 
     FString ItemType = UTF8_TO_TCHAR(itemData.type().c_str());
 	TYPE = StringToEItemType(ItemType);
@@ -52,7 +52,7 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     EQUIPMENT_LEVEL = itemData.equiplevel();
 	SALE_PRICE = itemData.saleprice();
 	USE_PERIOD = itemData.useperiod();
-	TEXT = UTF8_TO_TCHAR(itemData.text().c_str());
+	TEXT = STRING_TO_FTEXT(itemData.text().c_str());
 
 	ITEM_VALUE = itemData.itemvalue();
 	ITEM_MAX = itemData.itemmax();
@@ -101,7 +101,7 @@ Protocol::Item FItemData::MakeItemPacket()
     itemData.set_itemseq(ITEM_SEQ);
     itemData.set_itemid(ITEM_ID);
     itemData.set_itemslotidx(ITEM_SLOT_IDX);
-    itemData.set_name(TCHAR_TO_UTF8(*NAME));  // FString -> std::string
+    itemData.set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
 
     // ItemType 변환 (EItemType -> string)
     FString ItemTypeStr = EItemTypeToString(TYPE);  
@@ -111,7 +111,7 @@ Protocol::Item FItemData::MakeItemPacket()
     itemData.set_equiplevel(EQUIPMENT_LEVEL);
     itemData.set_saleprice(SALE_PRICE);
     itemData.set_useperiod(USE_PERIOD);
-    itemData.set_text(TCHAR_TO_UTF8(*TEXT));
+    itemData.set_text(TCHAR_TO_UTF8(*TEXT.ToString()));
 
     itemData.set_itemvalue(ITEM_VALUE);
     itemData.set_itemmax(ITEM_MAX);
@@ -207,7 +207,8 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     
     SkillSeq = skill.skillseq();
 
-    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+    FString NameString = UTF8_TO_TCHAR(skill.skillname().c_str());
+    Name = STRING_TO_FTEXT(skill.skillname().c_str());
 
     Level = skill.skilllevel();
 
@@ -263,12 +264,13 @@ FString FSkillData::ToString() const
             나중에 UI에서 보여줄 정보에 따라 코드를 수정할 예정
         */
 
-        AppendString(TEXT("Name"), Name);
+        AppendString(TEXT("Name"), Name.ToString());
         AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
         AppendInt(TEXT("Level"), Level);
-        AppendInt(TEXT("Cost"), Cost);
+        AppendString(TEXT("CostType"), UEnum::GetValueAsString(CostType));
+        AppendInt(TEXT("Cost"), CostValue);
         AppendFloat(TEXT("CoolTime"), CoolTime);
-
+        AppendString(TEXT("SkillInfo"), SkillInfo.ToString());
 
         return SkillString;
     }

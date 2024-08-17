@@ -102,7 +102,7 @@ void UInventoryUI::RefreshGoldAndCashUI()
 	FText NewGold = FText::FromString(FString::FromInt(InventoryManager->GetGold()));
 	GoldText->SetText(NewGold);
 
-	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilber()));
+	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilver()));
 	SilberText->SetText(NewSilber);
 }
 

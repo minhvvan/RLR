@@ -42,9 +42,9 @@ public:
 	void SetCopper(int32 NewCopper);
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetSilber() {return Silber;}
+	int32 GetSilver() {return Silver;}
 	UFUNCTION(BlueprintCallable)
-	void SetSilber(int32 NewSilber);
+	void SetSilver(int32 NewSilver);
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetGold(){return Gold;}
@@ -74,7 +74,7 @@ private:
 	int32 Copper;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 Silber;
+	int32 Silver;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int32 Gold;

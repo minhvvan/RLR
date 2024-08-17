@@ -43,6 +43,10 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 			}
 		}
 
+
+		if(IsValid(PlayerCharacter) == false)
+			return;
+
 		PlayerCharacter->SetStat(PlayerData);
 	}
 }
@@ -154,6 +158,10 @@ UStatSetPlayer* UPlayerManager::GetStatSet()
 				PlayerCharacter = player;
 			}
 		}
+
+		//찾지 못하는 경우도 있어서 안전검사 추가.
+		if(IsValid(PlayerCharacter) == false)
+			return nullptr;
 
 		UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 		if (!ASC) return nullptr;

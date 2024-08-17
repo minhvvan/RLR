@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
 #include "GameManager/RLRStruct.h"
+#include "RLR.h"
 #include "OtherUserManager.generated.h"
 
 /**
@@ -30,10 +31,17 @@ public:
 	
 	UOtherUserManager();
 	void AddPlayer(Protocol::UserCharacter& NewPlayer);
+	ARLRPlayerCharacter* GetPlayer(int32 PlayerID);
 	void RemovePlayer(int32 PlayerID);
 
 	//Move Packet이 만들어지면 마저 완성. 
 	//void MovePlayer();
+
+	/*
+		다른 플레이어 동기화 관련
+	*/
+	void UpdateOtherPlayerTransform(int32 PlayerID, int32 X, int32 Y, int32 Z);
+
 
 
 	/*
@@ -47,6 +55,7 @@ public:
 
 	void AddPlayerToParty(Protocol::UserCharacter& NewPlayer);
 
+	TSubclassOf<ARLRPlayerCharacter> GetPlayerCharacterClass(ECharacterMainJobType JobType);
 
 public:
 
@@ -55,7 +64,4 @@ public:
 
 	UPROPERTY()
 	TMap<int32, FUserCharacter> PartyPlayerList;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<ARLRPlayerCharacter> PlayerCharacterClass;
 };
