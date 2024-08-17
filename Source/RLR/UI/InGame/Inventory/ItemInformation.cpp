@@ -58,7 +58,7 @@ void UItemInformation::UpdateSlotState(USlotUI* Target)
 	UInventorySlot* TargetSlot = Cast<UInventorySlot>(Target);
 	if (!TargetSlot) return;
 
-	SetItemData(TargetSlot->SlotItemData);
+	SetItemData(TargetSlot->GetItemData());
 
 	//마우스 커서 위치를 가져온다.
 	FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());

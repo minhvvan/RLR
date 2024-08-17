@@ -49,7 +49,6 @@ void UKeyOption::NativeConstruct()
 void UKeyOption::OpenUI()
 {
 	Super::OpenUI();
-	RefreshUI();
 }
 
 void UKeyOption::RefreshUI()

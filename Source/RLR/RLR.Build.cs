@@ -12,8 +12,7 @@ public class RLR : ModuleRules
             ,"Protobuf","SlateCore", "GameplayTags", "GameplayTasks", "AssetRegistry", "UnrealEd" });
 
         PublicIncludePaths.AddRange(new string[] { "RLR" });
-        PrivateDependencyModuleNames.AddRange(new string[] { });
-        PrivateDependencyModuleNames.Add("MariaDBConnection");
+
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

@@ -119,7 +119,7 @@ void AChatClient::ReceiveMessages()
 
                 FFunctionGraphTask::CreateAndDispatchWhenReady([this, Message]()
                     {
-                        if (AMyPlayerController::GetInstance())
+                      /*  if (AMyPlayerController::GetInstance())
                         {
                             TArray<FString> Path;
                             
@@ -151,10 +151,10 @@ void AChatClient::ReceiveMessages()
                             else if (Path[0].Contains(TEXT("동료"))) {
                                 AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 8);
                             }
-                          
+                         
                             UE_LOG(LogTemp, Log, TEXT("PlayerController 체크"));
                             
-                        }
+                        } */
                     }, TStatId(), nullptr, ENamedThreads::GameThread);
             }
         }

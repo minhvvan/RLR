@@ -19,6 +19,8 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
 	}
+	UpdatedTryActivateAction.Clear();
+	UpdatedSkillManager.Clear();
 }
 
 void USkillManager::Init()
@@ -44,6 +46,7 @@ void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 	if (!ASC) return;
 
 	ASC->TryActivateAction(TriggerTag);
+	UpdatedTryActivateAction.Broadcast(TriggerTag);
 }
 
 void USkillManager::SkillComplete(FGameplayTag TriggerTag)
@@ -81,6 +84,11 @@ const FSkillData* USkillManager::GetSkillData(FGameplayTag TriggerTag)
 	}
 
 	return Result;
+}
+
+const TMap<FGameplayTag, FSkillData*>& USkillManager::GetOwnSkills()
+{
+	return OwnSkills;
 }
 
 bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
@@ -147,6 +155,8 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}
+
+	UpdatedSkillManager.Broadcast();
 }
 
 bool USkillManager::RequestGetSelectedSkills()

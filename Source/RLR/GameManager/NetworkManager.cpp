@@ -8,6 +8,8 @@
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
+#include "Network/Proto/Item.pb.h"
+
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
     LoadBalancer = new LoadBalancerClient(host, port);
@@ -70,6 +72,8 @@ void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Po
         MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), TEXT("MainServerReceiverThread"));
         SendServerRequest(1);
         SendGetSkillPacket(1);
+        SendNPCInfoPacket(1);
+        SendUserQuestPacket(1);
     }
 }
 
@@ -186,6 +190,7 @@ bool UNetworkManager::SendInventoryPacket(int32 userSeq)
     }
     return bSuccess;
 }
+
 bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
 {
     if (!MainServerSocket) return false;
@@ -279,7 +284,7 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
         return false;
     }
     Protocol::MoveRequestPacket packet;
-    packet.set_userseq(userSeq);
+    packet.set_userseq(1);
     packet.set_mapid(mapid);
     packet.set_channelid(1);  
     packet.set_transx((float)vector.X);
@@ -299,4 +304,43 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
 
 
     return aSuccess && bSuccess;
+}
+bool UNetworkManager::SendNPCInfoPacket(int64 mapId) {
+
+    if (!MainServerSocket) return false;
+    Protocol::NPCInfoRequest packet;
+    packet.set_mapid(mapId);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool bSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+
+
+    return bSuccess;
+}
+
+bool UNetworkManager::SendUserQuestPacket(int userSeq) {
+
+    if (!MainServerSocket) return false;
+    Protocol::UserQuestInfoRequest packet;
+    packet.set_userseq(userSeq);
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    int32 BytesSent = 0;
+    bool bSuccess = MainServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+
+
+    return bSuccess;
 }

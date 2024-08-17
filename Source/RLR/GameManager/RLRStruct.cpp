@@ -5,6 +5,8 @@
 
 #include "Network/Proto/Packet.pb.h"
 
+const FItemData     FItemData::EmptyItemData;
+const FSkillData    FSkillData::EmptySkillData;
 
 void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {
@@ -92,7 +94,190 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     }
 }
 
+Protocol::Item FItemData::MakeItemPacket()
+{
+    Protocol::Item itemData;
 
+    itemData.set_itemseq(ITEM_SEQ);
+    itemData.set_itemid(ITEM_ID);
+    itemData.set_itemslotidx(ITEM_SLOT_IDX);
+    itemData.set_name(TCHAR_TO_UTF8(*NAME));  // FString -> std::string
+
+    // ItemType 변환 (EItemType -> string)
+    FString ItemTypeStr = EItemTypeToString(TYPE);  
+    itemData.set_type(TCHAR_TO_UTF8(*ItemTypeStr));
+
+    itemData.set_rank(RANK.GetIntValue());
+    itemData.set_equiplevel(EQUIPMENT_LEVEL);
+    itemData.set_saleprice(SALE_PRICE);
+    itemData.set_useperiod(USE_PERIOD);
+    itemData.set_text(TCHAR_TO_UTF8(*TEXT));
+
+    itemData.set_itemvalue(ITEM_VALUE);
+    itemData.set_itemmax(ITEM_MAX);
+
+    if (EQUIPMENT_TYPE != EEquipmentType::NONE) { 
+        auto* equipData = itemData.mutable_equip();
+
+        equipData->set_hp(ITEM_STATUS.HP);
+        equipData->set_hpabsorb(ITEM_STATUS.HP_ABSORB);
+        equipData->set_mp(ITEM_STATUS.MP);
+        equipData->set_mpabsorb(ITEM_STATUS.MP_ABSORB);
+        equipData->set_strength(ITEM_STATUS.STRENGTH);
+        equipData->set_agility(ITEM_STATUS.AGILITY);
+        equipData->set_intelligence(ITEM_STATUS.INTELLIGENCE);
+        equipData->set_attack(ITEM_STATUS.ATTACK);
+        equipData->set_defence(ITEM_STATUS.DEFENCE);
+        equipData->set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
+        equipData->set_movespeed(ITEM_STATUS.MOVE_SPEED);
+        equipData->set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
+        equipData->set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
+        equipData->set_avoid(ITEM_STATUS.AVOID);
+        equipData->set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
+        equipData->set_equippart(EQUIPMENT_TYPE.GetIntValue());
+    }
+
+    if (CONSUMPTION_TYPE != EConsumptionType::NONE) {  // 소비 아이템 데이터가 있는지 확인하는 변수
+        auto* consumptionData = itemData.mutable_consumption();
+
+        consumptionData->set_cooldown(COOLDOWN);
+        consumptionData->set_value(CONSUMPTION_VALUE);
+        consumptionData->set_duration(CONSUMPTION_DURATION);
+        consumptionData->set_statustype(CONSUMPTION_STATUS_TYPE.GetIntValue());
+        consumptionData->set_contype(CONSUMPTION_TYPE.GetIntValue());
+    }
+
+    if (ETC_TYPE != EETCType::NONE) {  // 기타 아이템 데이터가 있는지 확인하는 변수
+        auto* etcItemData = itemData.mutable_etcitem();
+
+        etcItemData->set_etctype(ETC_TYPE.GetIntValue());
+    }
+    return itemData;
+}
+
+void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
+{
+    //(X=1250.000000,Y=1930.000000,Z=96.000000)
+    MonsterSeq = monsterData.monsterseq();
+    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
+    MonsterLevel = monsterData.monsterlevel();
+    MontserExp = monsterData.monsterexp();
+    MonsterAttackRate = monsterData.monsterdamage();
+    MonsterDefence = monsterData.monsterdefence();
+    MonsterHp = monsterData.monsterhp();
+    MonsterAttackRange = 10;  // Packet 추가 예정
+    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
+    MonsterId = monsterData.monsterid();
+    MonsterMapId = monsterData.monstermapid();
+}
+
+void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
+{
+    UserSeq = Data.userseq();
+    PlayerSeq = Data.playerseq();
+    Name = UTF8_TO_TCHAR(Data.name().c_str());
+    Level = Data.level();
+    NobilityRank = Data.nobilityrank();
+
+    MainJob = (ECharacterMainJobType)Data.mainjob();
+    SubJob = (ECharacterSubJobType)Data.subjob();
+
+    Exp = Data.exp();
+    AdventureRank = Data.adventurerrank();
+
+    TotalStatus.MakeStatus(Data.totalstatus());
+    SetStatus.MakeSetStatus(Data.setstatus());
+    Talent.MakeTalent(Data.talent());
+
+}
+
+void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
+{
+    UserHP = Data.userhp();
+    UserMP = Data.usermp();
+    UserSTR = Data.userstr();
+    UserAGI =Data.useragi();
+    UserINT =Data.userint();
+}
+
+void FAttackResult::MakeAttackData()
+{
+}
+void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
+    
+    SkillSeq = skill.skillseq();
+
+    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+
+    Level = skill.skilllevel();
+
+    Cost = skill.cost();
+
+    CoolTime = skill.cooltime();
+
+    Cind = skill.skillkind();
+
+    Damage = skill.skillactivestatus().skilldamage();
+
+    Duration = skill.skillactivestatus().skillduration();
+
+    //ActivityTime = skill.mutable_skillactivestatus()->
+
+    SkillId = skill.skillid();
+
+
+    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+}
+
+FString FSkillData::ToString() const
+{
+    {
+        FString SkillString;
+
+        auto AppendFloat = [&SkillString](const FString& Name, float Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %.2f"), *Name, Value));
+            };
+
+        auto AppendInt = [&SkillString](const FString& Name, int32 Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %d"), *Name, Value));
+            };
+
+        auto AppendString = [&SkillString](const FString& Name, FString Value)
+            {
+                if (!SkillString.IsEmpty())
+                    SkillString.Append(TEXT("\n"));
+
+                SkillString.Append(FString::Printf(TEXT("%s = %s"), *Name, *Value));
+            };
+
+        /*
+            지금은 스킬 디테일 정보를 띠워주는데 사용 중.
+            나중에 UI에서 보여줄 정보에 따라 코드를 수정할 예정
+        */
+
+        AppendString(TEXT("Name"), Name);
+        AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
+        AppendInt(TEXT("Level"), Level);
+        AppendInt(TEXT("Cost"), Cost);
+        AppendFloat(TEXT("CoolTime"), CoolTime);
+
+
+        return SkillString;
+    }
+}
+
+
+/*
+Enum 변환 관련된 건, 찾아보기 좋게 맨 아래에 배치.
+*/
 
 // 문자열을 EItemRarity으로 변환하는 함수
 EItemRarity StringToEItemRarity(const FString& RarityString)
@@ -326,8 +511,7 @@ FString EStatusTypeToString(EStatusType StatusType)
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
 
-int32 FMonsterStatus::tempID = 0;
-void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
+FString ESkillGroupToString(ESkillGroup SkillGroup)
 {
     //(X=1250.000000,Y=1930.000000,Z=96.000000)
     MonsterSeq = monsterData.monsterseq();
@@ -399,6 +583,13 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     CollisionRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+
+    uint8 Index = static_cast<uint8>(SkillGroup);
+    if (Index < UE_ARRAY_COUNT(ESkillGroups))
+    {
+        return ESkillGroups[Index];
+    }
+    return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
 
 void FTalent::MakeTalent(Protocol::Talent Data)
@@ -407,56 +598,66 @@ void FTalent::MakeTalent(Protocol::Talent Data)
     Talents.Add(TPair<int32,int32>(Data.secondtalent(), Data.secondlevel()));
     Talents.Add(TPair<int32,int32>(Data.thirdtalent(), Data.thirdlevel()));
 }
-
-int FQuest::testID = 0;
-void FQuest::MakeQuestData()
+void FQuest::MakeQuestData(const Protocol::Quest quest)
 {
     //TODO: QuestData 생성
-    QuestSeq = FQuest::testID;
-    NPCSeq = FQuest::testID;
-    QuestTitle = FString::Printf(TEXT("Quest%d"), FQuest::testID);
-    QuestText = FString::Printf(TEXT("This is QuestText%d"), FQuest::testID);
-    QuestDescription = FString::Printf(TEXT("This is QuestDescription%d"), FQuest::testID);
-    QuestKind = 0;
+    QuestSeq = quest.questseq();
+    NPCSeq = quest.npcseq();
+    QuestTitle = UTF8_TO_TCHAR(quest.questtitle().c_str());
+    QuestText = UTF8_TO_TCHAR(quest.questtext().c_str());
+    QuestDescription = UTF8_TO_TCHAR(quest.questdescription().c_str());
+    QuestKind = quest.questkind();
     IsProgress = false;
     IsClear = false;
 
-    FObjectMap reward;
-    reward.Add(0, 10);
-    reward.Add(1, 11);
-    reward.Add(2, 12);
-    Rewards.Add({ TEXT("item"), reward });
+   
+    for (const auto& questReward : quest.rewardseqs()) {
+        FString rewardKey = UTF8_TO_TCHAR(questReward.first.c_str());  // rewardSeqs의 key
+        FObjectMap reward;
+        for (const auto& rewardMap : questReward.second.values()) {
+        
+            // 맵에 추가
+            reward.Add(rewardMap.first, rewardMap.second);
+        }
+        Rewards.Add(rewardKey, reward);
+    }
 
-    FObjectMap need;
-    need.Add(0, 3);
-    need.Add(1, 5);
-    Needs.Add({ TEXT("monster"), need });
+    for (const auto& questNeed : quest.needseqs()) {
+        FString needKey = UTF8_TO_TCHAR(questNeed.first.c_str());  // needSeqs의 key
+        FObjectMap need;
+        for (const auto& needMap : questNeed.second.values()) {
 
+            // 맵에 추가
+            need.Add(needMap.first, needMap.second);
+        }
+        Needs.Add(needKey, need);
+    }
     FPlayerGoods pGoods;
-    pGoods.MakePlayerGoods();
+    pGoods.MakePlayerGoods(quest.rewardplayergoods());
     PlayerGoods = pGoods;
 
     FUserGoods uGoods;  
-    uGoods.MakeUserGoods();
+    uGoods.MakeUserGoods(quest.rewardusergoods());
     UserGoods = uGoods;
 }
 
-int FNPCData::testID = 0;
-void FNPCData::MakeNPCData()
+void FNPCData::MakeNPCData(const Protocol::NPC npc)
 {
     //TODO: NPCData 생성
-    NPCSeq = FNPCData::testID;
-    NPCName = FString::Printf(TEXT("NPC%d"), FNPCData::testID);
-    NPCTalk = FString::Printf(TEXT("Hello RLR"));
-    NPCType = 0;
-    NPCConcept = FString::Printf(TEXT("Concenpt"));
-    NPCTransform = FVector(1400.f, 1500.f+500* FNPCData::testID++, 96);
-    MapId = 0;
+    NPCSeq = npc.npcseq();
+    NPCName = UTF8_TO_TCHAR(npc.npcname().c_str());
+    NPCTalk = UTF8_TO_TCHAR(npc.npctalk().c_str());
+    NPCType = npc.npctype();
+    NPCConcept = UTF8_TO_TCHAR(npc.npcconcept().c_str());
+    NPCTransform = FVector(npc.npctransform().x(), npc.npctransform().y(), npc.npctransform().z());
+    MapId = npc.mapid();
 
     FQuest quest;
-    quest.MakeQuestData();
-
-    NPCQuests.Add(quest);
+    for (auto&& npcQuest : npc.quests()) {
+        quest.MakeQuestData(npcQuest);
+        NPCQuests.Add(quest);
+    }
+    
 }
 
 int FInteractData::testID = 0;
@@ -467,16 +668,16 @@ void FInteractData::MakeObjectData()
     ObjectTransform = FVector(1400.f, 1500.f + 500 * testID++, 96);
 }
 
-void FPlayerGoods::MakePlayerGoods()
+void FPlayerGoods::MakePlayerGoods(const Protocol::PlayerGood playerGood)
 {
     //TODO: PlayerGoods 생성
-    TotalMoney = 0;
-    Diamond = 0;
+    TotalMoney = playerGood.totalmoney();
+    Diamond = playerGood.diamond();
 }
 
-void FUserGoods::MakeUserGoods()
+void FUserGoods::MakeUserGoods(const Protocol::UserGood userGood)
 {
     //TODO: UserGoods 생성
-    Reputation = 0;
-    Contribution = 0;
+    Reputation = userGood.reputation();
+    Contribution = userGood.contribution();
 }

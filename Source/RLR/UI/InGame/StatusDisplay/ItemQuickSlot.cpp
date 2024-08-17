@@ -21,7 +21,7 @@
 void UItemQuickSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	SetSlotType(ESlotType::ITEM_QUICK_SLOT);
 }
 
 void UItemQuickSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -55,7 +55,7 @@ void UItemQuickSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 	DragDropOperation->Master = this;
 	DragDropOperation->DragOffset = DragOffset;
 	DragDropOperation->ItemData = GetItemData();
-	DragDropOperation->DragedSlotType = EDragType::ITEM_QUICK_SLOT;
+	DragDropOperation->DragedSlotType = ESlotType::ITEM_QUICK_SLOT;
 
 	OutOperation = DragDropOperation;
 	Clear();
@@ -67,7 +67,7 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if(Ret == false)
 		return false;
 
-	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, EDragType::INVENTORY_SLOT, EDragType::ITEM_QUICK_SLOT);
+	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::INVENTORY_SLOT, ESlotType::ITEM_QUICK_SLOT);
 	if(IsValid(Operation) == false)
 		return false;
 
@@ -76,12 +76,12 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		return false;
 
 	//인벤토리에서 드래그 된 거면 아이템 정보만 설정해주고,
-	if(Operation->DragedSlotType == EDragType::INVENTORY_SLOT)
+	if(Operation->DragedSlotType == ESlotType::INVENTORY_SLOT)
 	{ 
 		SetItemData(Operation->ItemData);
 	}
 	//다른 퀙 슬롯에서 가져온 거면, 가져왔던 퀵 슬롯을 비워준다.
-	else if(Operation->DragedSlotType == EDragType::ITEM_QUICK_SLOT)
+	else if(Operation->DragedSlotType == ESlotType::ITEM_QUICK_SLOT)
 	{
 		Operation->Master->Clear();
 		SetItemData(Operation->ItemData);
@@ -100,27 +100,4 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 void UItemQuickSlot::Clear()
 {
 	Super::Clear();
-
-	if (IsValid(DefaultSlotImage) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UItemQuickSlot::Clear Error. Default Slot Image가 없습니다."));
-		return;
-	}
-
-	SlotImage->SetBrushFromTexture(DefaultSlotImage, true);
-	SlotItemData = FItemData();
-}
-
-void UItemQuickSlot::SetItemData(FItemData ItemData)
-{
-	//슬롯 정보를 업데이트 해준다.
-	SlotItemData = ItemData;
-
-	UTexture2D* Texture = ItemData.ItemImage;
-	if (IsValid(Texture) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
-		return;
-	}
-	SlotImage->SetBrushFromTexture(Texture, true);
 }

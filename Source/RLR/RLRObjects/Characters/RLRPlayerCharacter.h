@@ -10,6 +10,7 @@
 class UAction;
 class UCameraComponent;
 class USpringArmComponent;
+class UStatSetPlayer;
 
 UCLASS()
 class RLR_API ARLRPlayerCharacter : public ARLRCharacter
@@ -23,7 +24,9 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 	void SetTargetRotation(FVector TargetLoc, float Speed = 1);
 
-	void SetStat(const FUserCharacter& Stat);
+	void					SetStat(const FUserCharacter& Stat);
+	const UStatSetPlayer*	GetStat();
+
 	void UpdateTransform(FVector NewTransform);
 
 private:

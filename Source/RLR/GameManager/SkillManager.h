@@ -11,6 +11,10 @@
 /**
  * 
  */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedActionTag, FGameplayTag, ActionTag);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdatedSkillInfo);
+
 UCLASS()
 class RLR_API USkillManager : public UGameInstanceSubsystem
 {
@@ -24,7 +28,8 @@ public:
 	void SkillAttack(FGameplayTag TriggerTag);
 	void SkillComplete(FGameplayTag TriggerTag);
 
-	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
+	const FSkillData*						GetSkillData(FGameplayTag TriggerTag);
+	const TMap<FGameplayTag, FSkillData*>&	GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
 	//Response
@@ -39,4 +44,15 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillClassTable;
+
+public:
+
+	//현재는 StatusDisplay에서 스킬 사용시, 쿨타임 효과를 재생하기 위해 호출하는 중이다.
+	FUpdatedActionTag UpdatedTryActivateAction;
+
+	/*
+		현재 사용처.
+			1.스킬 퀵 슬롯 위치가 바뀌면 업데이트
+	*/
+	FUpdatedSkillInfo UpdatedSkillManager;
 };

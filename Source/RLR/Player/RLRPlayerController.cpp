@@ -208,6 +208,7 @@ void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 	if (UIManager == nullptr) return;
 
 	UIManager->ToggleSubUI(InputTag);
+	soundEvent.Broadcast();;
 }
 
 void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
