@@ -18,6 +18,9 @@
 
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
+#define STRING_TO_FTEXT(String) FText::FromString(UTF8_TO_TCHAR(String));
+
+class UAction;
 
 UENUM(BlueprintType)
 enum class EItemType : uint8
@@ -425,7 +428,7 @@ struct FItemData : public FTableRowBase
 	int32 ITEM_SEQ;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString NAME;
+	FText NAME;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<ECharacterMainJobType> MainJobType;
@@ -458,7 +461,7 @@ struct FItemData : public FTableRowBase
 	int32 USE_PERIOD;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString TEXT;
+	FText TEXT;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ITEM_VALUE;
@@ -519,7 +522,11 @@ enum class ESkillType : uint8
 	NORMAL = 0,
 	AREA,
 	HOLDING,
-	SIZE
+	CASTING,
+	MOVILITY,
+	TARGETING,
+	CHAIN,
+	NONE,
 };
 
 UENUM(BlueprintType)
@@ -553,9 +560,44 @@ enum class EAbnormalType : uint8
 UENUM(BlueprintType)
 enum  class ESkillGroup : uint8
 {
-	NORMAL =	 0,		//일반
+	NORMAL =	 0,			//일반
 	UNIQUE,					//고유
 	ULTIMATE,				//각성기
+	NONE,
+};
+
+UENUM(BlueprintType)
+enum class ESkillKind : uint8		//버프? 디버프?
+{
+	ACTIVE,
+	PASSIVE,
+	BUFF,
+	DEBUFF,
+	NONE,
+};
+
+//Proto 에서 정의한 Abnormal을 보면 enum의 값 순서를 맞춰줘야 할 거 같은데, 나중에 해줄것.
+UENUM(BlueprintType)
+enum class ESkillAbnormal : uint8	//상태 이상
+{
+	BLEEDING,
+	BURN,
+	ELECTRIC,
+	FREEZE,
+	POISON,
+	PROVOKE,
+	SILENCE,
+	SLOW,
+	STIFFEN,
+	STUN,
+	NONE,
+};
+
+UENUM(BlueprintType)
+enum class ECostType : uint8	//코스트 타입
+{
+	MP,
+	HP,
 	NONE,
 };
 
@@ -568,49 +610,92 @@ struct FSkillData : public FTableRowBase
 	FSkillData (){};
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 SkillId = -1;;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 SkillSeq = -1;	
 	
+	//텍스트
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	FText Name;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FText	SkillInfo;
+
+	//타입
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<ECharacterMainJobType> MainJobType = ECharacterMainJobType::NONE;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ECharacterMainJobType MainJobType = ECharacterMainJobType::NONE;
+	TEnumAsByte<ESkillGroup>	SkillGroup = ESkillGroup::NONE;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESkillGroup SkillGroup = ESkillGroup::NONE;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ESkillType>		SkillType = ESkillType::NONE;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ESkillKind>		SillKind = ESkillKind::NONE;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ESkillAbnormal> SkillAbnormal = ESkillAbnormal::NONE;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TEnumAsByte<ECostType>		CostType = ECostType::MP;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 Cost = 0;									//코스트 타입
+
+	//수치
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Cost = 0;
+	int32 RequiredLevel = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillIdx = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float CoolTime;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SkillDistance = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector CollisionRange;	
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Cind;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Damage;
+	int32 Damage;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 CostValue = 0;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Casting;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Duration;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTotalStatus PassiveStatus = FTotalStatus();
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float CoolDown;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float ActivityTime;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 SkillId;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector CollisionRange;	
-	
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	ESkillType SkillType;
-
+	//리소스
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TObjectPtr<UTexture2D> SkillImage;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<UAction> SkillAnimClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<UAction> SkillClass;
 
 	/*
 		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -644,10 +729,10 @@ struct FSkillClass : public FTableRowBase
 	int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<class UAction> SkillAnimClass;
+	TSubclassOf<UAction> SkillAnimClass;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<class UAction> SkillClass;
+	TSubclassOf<UAction> SkillClass;
 };
 
 /*

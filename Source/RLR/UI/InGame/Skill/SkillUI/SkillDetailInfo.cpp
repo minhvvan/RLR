@@ -41,7 +41,7 @@ void USkillDetailInfo::RefreshUI()
 		지금은 스킬 이미지를 띄워주고 있지만, 나중에는 미리보기 영상이 나오게 해주기
 	*/
 
-	SkillNameText->SetText(FText::FromString(SkillData.Name));
+	SkillNameText->SetText(SkillData.Name);
 
 	FString SkillInfoString = SkillData.ToString();
 	SkillInfoText->SetText(FText::FromString(SkillInfoString));

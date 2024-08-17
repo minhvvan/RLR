@@ -32,10 +32,13 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	if (IsValid(ResourceTable) == false)
 		DEBUG_LOG("텍스쳐 테이블 로드 실패");
 
-	ClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ClassTable.DT_ClassTable'")));
-	if (IsValid(ClassTable) == false)
-		DEBUG_LOG("클래스 테이블 로드 실패");
+	WidgetClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_WidgetClassTable.DT_WidgetClassTable'")));
+	if (IsValid(WidgetClassTable) == false)
+		DEBUG_LOG("위젯 클래스 테이블 로드 실패");
 
+	CharacterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_CharacterClassTable.DT_CharacterClassTable'")));
+	if (IsValid(CharacterClassTable) == false)
+		DEBUG_LOG("캐릭터 클래스 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()

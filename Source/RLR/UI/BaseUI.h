@@ -53,11 +53,11 @@ protected:
 public:
 
 	template<typename T>
-	TSubclassOf<T> GetClass(FString Name);
+	TSubclassOf<T> GetWidgetClass(FString Name);
 };
 
 template<typename T>
-inline TSubclassOf<T> UBaseUI::GetClass(FString Name)
+inline TSubclassOf<T> UBaseUI::GetWidgetClass(FString Name)
 {
-	return GetGameManager()->GetDataManager()->GetClass<T>(Name);
+	return GetGameManager()->GetDataManager()->GetWidgetClass<T>(Name);
 }

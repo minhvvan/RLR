@@ -66,7 +66,7 @@ void USkillQuickSlot::UpdatedSkillAttack()
 		return;
 	
 
-	FText DebugText = FText::Format(FText::FromString("Update Skill Attack {0}"), FText::FromString(GetSkillData().Name));
+	FText DebugText = FText::Format(FText::FromString("Update Skill Attack {0}"), GetSkillData().Name);
 	Util::DebugLog(DebugText.ToString());
 }
 

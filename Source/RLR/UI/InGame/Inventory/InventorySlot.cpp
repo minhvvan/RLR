@@ -5,6 +5,7 @@
 
 #include "Components/Image.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
@@ -90,6 +91,7 @@ void UInventorySlot::RefreshUI()
 	Super::RefreshUI();
 
 	SetSlotImage(GetItemData().ItemImage);
+	ItemNameText->SetText(GetItemData().NAME);
 	if (GetItemData() == FItemData::EmptyItemData)
 	{
 		DisplayEquippedItems(false);

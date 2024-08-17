@@ -44,7 +44,10 @@ public:
 	FResourceData			GetResource(FString Name);
 
 	template<typename T>
-	TSubclassOf<T>			GetClass(FString Name);
+	TSubclassOf<T>			GetWidgetClass(FString Name);
+
+	template<typename T>
+	TSubclassOf<T>			GetCharacterClass(FString Name);
 
 	//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -66,7 +69,11 @@ private:
 	TObjectPtr<UDataTable> ResourceTable;
 
 	UPROPERTY()
-	TObjectPtr<UDataTable> ClassTable;
+	TObjectPtr<UDataTable> WidgetClassTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> CharacterClassTable;
+
 
 private:
 
@@ -75,14 +82,14 @@ private:
 };
 
 template<typename T>
-inline TSubclassOf<T> UDataManager::GetClass(FString Name)
+inline TSubclassOf<T> UDataManager::GetWidgetClass(FString Name)
 {
-	if (IsValid(ClassTable) == true)
+	if (IsValid(WidgetClassTable) == true)
 	{
-		const FClassData* Data = ClassTable->FindRow<FClassData>(*Name, TEXT(""));
+		const FClassData* Data = WidgetClassTable->FindRow<FClassData>(*Name, TEXT(""));
 		if(Data == nullptr)
 		{ 
-			DEBUG_LOG("UDataManager::GetClass Error. Data is Null. DT_ClassTable에 데이터를 넣어주세요.");
+			DEBUG_LOG("UDataManager::GetWidgetClass Error. Data is Null. DT_WidgetClassTable에 데이터를 넣어주세요.");
 			return nullptr;
 		}
 
@@ -92,6 +99,28 @@ inline TSubclassOf<T> UDataManager::GetClass(FString Name)
 		}
 	}
 
-	DEBUG_LOG("UDataManager::GetClass Error. DT_ClassTable is Null. DT_ClassTable의 위치를 확인해주세요.");
+	DEBUG_LOG("UDataManager::GetWidgetClass Error. DT_WidgetClassTable is Null. DT_WidgetClassTable의 위치를 확인해주세요.");
+	return nullptr;
+}
+
+template<typename T>
+inline TSubclassOf<T> UDataManager::GetCharacterClass(FString Name)
+{
+	if (IsValid(CharacterClassTable) == true)
+	{
+		const FClassData* Data = CharacterClassTable->FindRow<FClassData>(*Name, TEXT(""));
+		if (Data == nullptr)
+		{
+			DEBUG_LOG("UDataManager::GetCharacterClass Error. FClassData is Null. DT_CharacterClassTable에 데이터를 넣어주세요.");
+			return nullptr;
+		}
+
+		if (Data->RLRClass->IsChildOf(T::StaticClass()))
+		{
+			return TSubclassOf<T>(Data->RLRClass);
+		}
+	}
+
+	DEBUG_LOG("UDataManager::GetCharacterClass Error. DT_CharacterClassTable is Null. DT_CharacterClassTable의 위치를 확인해주세요.");
 	return nullptr;
 }
