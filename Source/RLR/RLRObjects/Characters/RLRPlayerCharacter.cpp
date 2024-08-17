@@ -8,6 +8,7 @@
 #include "GameManager/MonsterManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/SkillManager.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -125,17 +126,6 @@ void ARLRPlayerCharacter::SetOrientation(FVector Location)
 void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
 {
 	GetCharacterMovement()->SetMovementMode(mode);
-}
-
-// 모든 플레이어 Input 정지 및 해제
-void ARLRPlayerCharacter::BanInput(bool value)
-{
-
-	
-}
-// 컨트롤러 이닛
-void ARLRPlayerCharacter::SetController()
-{
 }
 
 void ARLRPlayerCharacter::Tick(float DeltaSeconds)

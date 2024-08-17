@@ -532,6 +532,22 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class EAbnormalType : uint8
+{
+	STUN = 0,
+	BIND,
+	FROZEN,
+	STIFFEN,
+	PROVOKE,
+	ELECTRIC,
+	SILENCE,
+	BURN,
+	POISON,
+	SLOW,
+	BLEEDING,
+	NONE
+};
 
 UENUM(BlueprintType)
 enum  class ESkillGroup : uint8
@@ -650,10 +666,13 @@ struct FAbnormal2
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	EAbnormalType AbnormalType;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Power;
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -824,7 +843,7 @@ struct FUserCharacter
 	int64 ChannelId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	FString NickName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level;

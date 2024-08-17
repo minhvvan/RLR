@@ -191,9 +191,9 @@ bool AGameClient::ReceiveData(uint8* buffer, int32 bufferSize) {
 ARLRPlayerCharacter* AGameClient::FindPlayerCharacterBySeq(int32_t playerSeq, float newX, float newY) {
     for (TActorIterator<ARLRPlayerCharacter> It(GetWorld()); It; ++It) {
         ARLRPlayerCharacter* PlayerCharacter = *It;
-        if (PlayerCharacter && PlayerCharacter->GetPlayerSeq() == playerSeq) {
-            return PlayerCharacter;
-        }
+        //if (PlayerCharacter && PlayerCharacter->GetPlayerSeq() == playerSeq) {
+            //return PlayerCharacter;
+        //}
     }
 
     return SpawnNewPlayerCharacter(playerSeq, newX, newY);
@@ -217,7 +217,7 @@ ARLRPlayerCharacter* AGameClient::SpawnNewPlayerCharacter(int32_t playerSeq, flo
     ARLRPlayerCharacter* NewPlayerCharacter = World->SpawnActor<ARLRPlayerCharacter>(playerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
 
     if (NewPlayerCharacter) {
-        NewPlayerCharacter->SetPlayerSeq(playerSeq);
+        //NewPlayerCharacter->SetPlayerSeq(playerSeq);
     }
 
     return NewPlayerCharacter;
