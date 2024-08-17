@@ -3,6 +3,7 @@
 
 #include "GameManager/SkillManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "Skill/Skill_Explosion.h"
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
@@ -10,6 +11,7 @@
 #include "RLR.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+
 #include <ActionSystem/StatSet/StatSetMonster.h>
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
@@ -241,6 +243,7 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		ARLRCharacter* Monster = Cast<ARLRCharacter>(Target);
 		UActionSystemComponent* ASC = Monster->GetActionSystemComponent();
 		UStatSetMonster* MonsterStatus = ASC->GetStatSet<UStatSetMonster>();
+
 		
 		//AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
 	}

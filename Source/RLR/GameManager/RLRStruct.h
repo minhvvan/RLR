@@ -1327,3 +1327,21 @@ struct FInteractData
 	//TODO:MakeData 구현 후 삭제
 	static int testID;
 };
+
+USTRUCT(Atomic, BlueprintType)
+struct FEffectData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 PlayerSkillSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 MonsterSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FVector HitTransform;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FString EffectPath;
+};
