@@ -7,6 +7,9 @@
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
+#include "Network/Proto/Drop.pb.h"
+#include "Network/Proto/Item.pb.h"
+#include "Network/Proto/Monster.pb.h"
 
 class PacketSession;
 
