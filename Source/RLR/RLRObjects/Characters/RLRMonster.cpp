@@ -10,12 +10,6 @@
 
 ARLRMonster::ARLRMonster()
 {
-	HpBar = CreateDefaultSubobject<UASCWidgetComponent>(TEXT("HpBar"));
-	HpBar->SetupAttachment(RootComponent);
-	HpBar->SetRelativeLocation(FVector(0, 0.f, 110.f));
-
-	HpBar->SetWidgetSpace(EWidgetSpace::Screen);
-	HpBar->SetDrawSize({ 70.f,10.f });
 }
 
 void ARLRMonster::SetStat(FMonsterStatus& Stat)
@@ -28,23 +22,6 @@ void ARLRMonster::SetStat(FMonsterStatus& Stat)
 	}
 
 	statSet->SetStatData(Stat);
-
-	//--------------------------------
-	// Test Log
-	//--------------------------------
-	if (statSet)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
-		RLR_LOG(LogRLR, Log, TEXT("Seq: %d"), statSet->GetMonsterSeq());
-		RLR_LOG(LogRLR, Log, TEXT("Name: %s"), *statSet->GetMonsterName());
-		RLR_LOG(LogRLR, Log, TEXT("Level: %d"), statSet->GetMonsterLevel());
-		RLR_LOG(LogRLR, Log, TEXT("HP: %d"), statSet->GetMonsterHp());
-		RLR_LOG(LogRLR, Log, TEXT("TransX: %f"), statSet->GetMonsterTransform().X);
-		RLR_LOG(LogRLR, Log, TEXT("TransY: %f"), statSet->GetMonsterTransform().Y);
-		RLR_LOG(LogRLR, Log, TEXT("TransZ: %f"), statSet->GetMonsterTransform().Z);
-		RLR_LOG(LogRLR, Log, TEXT("Id: %lld"), statSet->GetMonsterId());
-		RLR_LOG(LogRLR, Log, TEXT("---------------------------------"));
-	}
 }
 
 void ARLRMonster::PostInitializeComponents()

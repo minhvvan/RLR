@@ -15,6 +15,7 @@
 #include "RLR.h"
 #include "Player/PlayerCommands.h"
 #include "Player/RLREnhancedInputComponent.h"
+#include "Physics/RLRCollision.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 ARLRPlayerController::ARLRPlayerController():
@@ -140,7 +141,7 @@ void ARLRPlayerController::OnMove(FGameplayTag TriggerTag)
 FVector ARLRPlayerController::GetClickPosition()
 {
 	FHitResult Hit;
-	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
+	GetHitResultUnderCursor(CCHANNEL_RLRMOVE, true, Hit);
 	return Hit.Location;
 }
 

@@ -116,6 +116,14 @@ void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
 	statSet->ApplyChangeStat(spec);
 }
 
+void UPlayerManager::ApplyAbnormal(const FAbnormal2& Abnormal)
+{
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	statSet->ApplyAbnormal(Abnormal);
+}
+
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
 	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.UserSeq, MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);

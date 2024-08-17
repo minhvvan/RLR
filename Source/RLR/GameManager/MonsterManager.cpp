@@ -236,3 +236,30 @@ void UMonsterManager::UpdateMonsterHp(int64 monsterId, float newHp)
 
     stat->ApplyChangeStat(spec);
 }
+
+void UMonsterManager::ApplyAbnormal(int64 monsterId, const FAbnormal2& abnormal)
+{
+    ARLRMonster* monster = GetMonsterByMonsterId(monsterId);
+
+    if (!monster)
+    {
+        RLR_LOG(LogRLR, Error, TEXT("Monster is null"));
+        return;
+    }
+
+    UActionSystemComponent* ActionSystem = monster->GetActionSystemComponent();
+    if (!ActionSystem)
+    {
+        RLR_LOG(LogRLR, Error, TEXT("ActionSystemComponent is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    UStatSetMonster* stat = ActionSystem->GetStatSet<UStatSetMonster>();
+    if (!stat)
+    {
+        RLR_LOG(LogRLR, Error, TEXT("StatSetMonster is null for Monster with ID: %lld"), monsterId);
+        return;
+    }
+
+    stat->ApplyAbnormal(abnormal);
+}

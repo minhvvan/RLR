@@ -26,7 +26,7 @@ public:
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MapId, int64);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, ChannelId, int64);
-    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Name, FString);
+    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NickName, FString);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Level, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NobilityRank, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MainJob, ECharacterMainJobType);
