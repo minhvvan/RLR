@@ -126,6 +126,18 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::NPCInfoResponse>(&Handle_NPC_INFO_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_EQUIP_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EquipInfoResponse>(&Handle_EQUIP_INFO_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_EQUIP_CHANGE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::EquipChangeRespnse>(&Handle_EQUIP_CHANGE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_MONSTER_DIE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::MonsterDieBroadcast>(&Handle_MONSTER_DIE_RESPONSE, session, buffer, len);
+        };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

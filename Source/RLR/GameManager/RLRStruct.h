@@ -8,6 +8,7 @@
 #include <Network/Proto/NPCStruct.pb.h>
 #include <Network/Proto/User_2.pb.h>
 #include <Network/Proto/Player_2.pb.h>
+#include <Network/Proto/Drop.pb.h>
 #include "Templates/Tuple.h"
 #include "RLRStruct.generated.h"
 
@@ -1323,7 +1324,7 @@ struct FInteractData
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FVector ObjectTransform;
 
-	void MakeObjectData(/*param*/);
+	void MakeObjectData();
 	//TODO:MakeData 구현 후 삭제
 	static int testID;
 };

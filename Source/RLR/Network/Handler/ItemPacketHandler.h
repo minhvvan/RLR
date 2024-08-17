@@ -7,3 +7,6 @@
 
 bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt);
 bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt);
+bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::DropRequest& pkt);
+bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EquipInfoResponse& pkt);
+bool Handle_EQUIP_CHANGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EquipChangeRespnse& pkt);
