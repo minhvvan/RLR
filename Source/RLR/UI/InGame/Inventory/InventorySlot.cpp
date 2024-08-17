@@ -2,11 +2,15 @@
 
 #include "UI/InGame/Inventory/InventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 #include "Components/Image.h"
 #include "Components/Button.h"
+
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/InGameMainUI.h"
@@ -85,7 +89,7 @@ void UInventorySlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-
+	SetSlotImage(GetItemData().ItemImage);
 	if (GetItemData() == FItemData::EmptyItemData)
 	{
 		DisplayEquippedItems(false);
@@ -99,38 +103,33 @@ void UInventorySlot::OnClickedSlotButton()
 {
 	Super::OnClickedSlotButton();
 
-	/*
-		1.서버에 장착 Req 패킷을 날려준다. 
-			PacketHandler->SendEquipItemPacket(ItemData)
-
-		2.서버에서 Equip Item 패킷을 다시 날리면 EquipmentUI에서 해당 슬롯 정보를 업데이트 해준다.
-	*/
 	if (IsEmpty() == true)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("해당 슬롯에는 아이템 정보가 없습니다."));
 		return;
 	}
 
-	FString ItemName = GetItemData().NAME;
-	UUtilBlueprintFunctionLibrary::DebugLog(ItemName);
-
-
 	/*
-		임시 코드.
-		원래라면 서버에 패킷을 보내고 끝내야 하지만, 지금은 서버가 준비가 안되었으므로 클라 내부에서 자체적으로 처리.
+		임시코드. 패킷 연결 확인되면 주석 처리한거 지울 예정.
 	*/
 
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	if (MainUI)
-	{
-		UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-		if (GM)
-		{
-			GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = true;
-		}
-		MainUI->CharacterStatusUI->EquipmentUI->EquipItem(GetItemData());
-		MainUI->InventoryUI->RefreshUI();
-	}
+	//FString ItemName = GetItemData().NAME;
+	//UUtilBlueprintFunctionLibrary::DebugLog(ItemName);
+
+	//UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
+	//if (MainUI)
+	//{
+	//	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	//	if (GM)
+	//	{
+	//		GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = true;
+	//	}
+	//	MainUI->CharacterStatusUI->EquipmentUI->EquipItem(GetItemData());
+	//	MainUI->InventoryUI->RefreshUI();
+	//}
+
+	GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
+		
 }
 
 void UInventorySlot::OnHoveredSlotButton()

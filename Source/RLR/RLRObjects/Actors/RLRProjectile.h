@@ -38,7 +38,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void SetFireDir(const FVector& ShootDirection);
+	void SetFireDir();
 	void SetSkillRange(const float& Range);
 
 	FOnFinishSkill OnFinishSkill;

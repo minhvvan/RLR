@@ -30,6 +30,21 @@ void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
 	}
 }
 
+bool UUtilBlueprintFunctionLibrary::CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int LineNumber)
+{
+	//널 값이 아니면 리턴.
+	if (IsValid(Object) == true)
+		return true;
+	if (GEngine == nullptr)
+		return false;
+
+	FString Result = FString::Printf(TEXT("%s Error #s %d, %s is not valid"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber, *Message);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Result);
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *Result);
+
+	return false;
+}
+
 void UUtilBlueprintFunctionLibrary::MakeItemData()
 {
 	Protocol::Item TestItem;

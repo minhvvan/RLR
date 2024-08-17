@@ -82,7 +82,7 @@ inline TSubclassOf<T> UDataManager::GetClass(FString Name)
 		const FClassData* Data = ClassTable->FindRow<FClassData>(*Name, TEXT(""));
 		if(Data == nullptr)
 		{ 
-			DEBUG_LOG("UDataManager::GetClass Error. Data is Null");
+			DEBUG_LOG("UDataManager::GetClass Error. Data is Null. DT_ClassTable에 데이터를 넣어주세요.");
 			return nullptr;
 		}
 
@@ -92,5 +92,6 @@ inline TSubclassOf<T> UDataManager::GetClass(FString Name)
 		}
 	}
 
+	DEBUG_LOG("UDataManager::GetClass Error. DT_ClassTable is Null. DT_ClassTable의 위치를 확인해주세요.");
 	return nullptr;
 }

@@ -3,21 +3,19 @@
 
 #include "GameManager/InventoryManager.h"
 
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 
 void UInventoryManager::AddItem(FItemData NewItem)
 {
+	if (NewItem == FItemData::EmptyItemData)
+	{
+		DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
+		return;
+	}
+	
 
-	//임시코드. 나중에는 서버에서 보내주는 값으로 해결할 것.
-	NewItem.ITEM_SLOT_IDX = ItemKey;
-	NewItem.ITEM_ID = ItemKey;
-
-	//아이템 DB ID
-	NewItem.ITEM_SEQ = ItemKey;
-	ItemData.Add(ItemKey, NewItem);
-	ItemKey++;
-	//
-
-
+	ItemData.Add(NewItem.ITEM_SEQ, NewItem);
 	OnUpdateInventoryManager.Broadcast();
 }
 

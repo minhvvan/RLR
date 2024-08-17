@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SortItem();
 
+	UFUNCTION(BlueprintCallable)
+	void SetItemData(FItemData& NewItem);
+
 public:
 
 	//Bind Widget
@@ -97,12 +100,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MaxColumm = 8;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxSlotCount = 32;
+	int32 MaxInventorySlotCount = 32;
 
 	UFUNCTION(BlueprintCallable)
 	void	SetMaxSlotCount(int32 Count);
 	UFUNCTION(BlueprintCallable)
-	int32	GetMaxSlotCount(){return MaxSlotCount;};
+	int32	GetMaxSlotCount(){return MaxInventorySlotCount;};
 public:
 	//인벤토리 클래스 정보는 BP에서 설정.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

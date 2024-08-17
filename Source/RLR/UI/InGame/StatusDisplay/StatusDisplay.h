@@ -68,8 +68,4 @@ public:
 public:
 	UPROPERTY()
 	TMap<FGameplayTag, USkillQuickSlot*> SkillQuickSlotMap;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass;
-
 };

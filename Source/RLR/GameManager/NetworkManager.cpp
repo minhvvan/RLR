@@ -8,6 +8,8 @@
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
+#include "Network/Proto/Item.pb.h"
+
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
     LoadBalancer = new LoadBalancerClient(host, port);
@@ -188,6 +190,7 @@ bool UNetworkManager::SendInventoryPacket(int32 userSeq)
     }
     return bSuccess;
 }
+
 bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
 {
     if (!MainServerSocket) return false;
@@ -281,7 +284,7 @@ bool UNetworkManager::SendMovePacket(int32 userSeq, FVector vector, int64 mapid,
         return false;
     }
     Protocol::MoveRequestPacket packet;
-    packet.set_userseq(userSeq);
+    packet.set_userseq(1);
     packet.set_mapid(mapid);
     packet.set_channelid(1);  
     packet.set_transx((float)vector.X);

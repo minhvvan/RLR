@@ -105,6 +105,9 @@ public:
 	virtual void					SetSlotType(ESlotType Type){SlotType = Type;}
 	virtual const ESlotType			GetSlotType(){return SlotType;}
 
+	void							SetSlotIndex(int32 NewIndex){SlotIndex = NewIndex;}
+	int32							GetSlotIndex(){return SlotIndex;}
+
 	TSubclassOf<UDraggableWidget>	GetDraggableWidgetClass(FString Name = FString());
 	TSubclassOf<UBaseDragDropOperation> GetDragDropOperationClass(FString Name = FString());
 

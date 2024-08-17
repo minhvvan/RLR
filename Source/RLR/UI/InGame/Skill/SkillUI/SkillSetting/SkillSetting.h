@@ -47,8 +47,12 @@ public:
 	void LoadQuickSlotData();
 	void LoadSkillList();
 
+	void ReqeustSkillQuickSlotChange();
 	void SaveQuickSlotData();
 	void ApplyQuickSlotSetting();
+
+	UFUNCTION()
+	void UpdatedSkillManager();
 
 	void ChangeTab(SkillSetting_TabType TabType);
 
@@ -103,12 +107,6 @@ public:
 
 
 public:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<USkillSettingListSlot> SkillSettingListSlotClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<USkillSettingQuickSlot> SkillSettingQuickSlotClass;
 
 	UPROPERTY()
 	TMap<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> SkillQuickSlotMap;

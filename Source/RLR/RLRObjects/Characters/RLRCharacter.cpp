@@ -6,11 +6,15 @@
 #include "Components/DecalComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "ActionSystem/StatSet/StatSet.h"
+#include "UI/ASCWidgetComponent.h"
+#include "UI/InGame/CharacterDisplay/CharacterStatDisplay.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Materials/Material.h"
-#include "Engine/World.h"
+#include "RLR.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 ARLRCharacter::ARLRCharacter()
 {
@@ -38,6 +42,13 @@ ARLRCharacter::ARLRCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 	ASC = CreateDefaultSubobject<UActionSystemComponent>(TEXT("ASC"));
+
+	StatDisplay = CreateDefaultSubobject<UASCWidgetComponent>(TEXT("StatDisplay"));
+	StatDisplay->SetupAttachment(RootComponent);
+	StatDisplay->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
+
+	StatDisplay->SetWidgetSpace(EWidgetSpace::Screen);
+	StatDisplay->SetDrawSize({ 150.f, 150.f });
 }
 
 UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
@@ -48,6 +59,24 @@ UActionSystemComponent* ARLRCharacter::GetActionSystemComponent() const
 void ARLRCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+}
+
+void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
+{
+	UCharacterStatDisplay* statDisplay = Cast<UCharacterStatDisplay>(StatDisplay->GetWidget());
+	if (!statDisplay) return;
+
+	statDisplay->ShowAbnormal(AbnormalText);
+}
+
+void ARLRCharacter::DisplayAbnormalFX(UNiagaraSystem* AbnormalFX)
+{
+	//show off
+	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Deactivate();
+	if (AbnormalFX == nullptr) return;
+
+	AbnormalNiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(AbnormalFX, GetMesh(), TEXT("Socket_Abnormal"), FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset, true);
+	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Activate();
 }
 
 void ARLRCharacter::BeginPlay()

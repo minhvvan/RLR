@@ -14,8 +14,10 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/SkillManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameOptionData/GameOptionData.h"
 
 #include "Components/WrapBox.h"
@@ -40,6 +42,12 @@ void USkillSetting::NativeConstruct()
 	CancelButton->OnClicked.AddUniqueDynamic(this, &USkillSetting::OnClickedCancelButton);
 
 	Clear();
+
+	USkillManager* SkillManager = GetSkillManager();
+	if (IsValid(SkillManager))
+	{
+		SkillManager->UpdatedSkillManager.AddUniqueDynamic(this, &USkillSetting::UpdatedSkillManager);
+	}
 }
 
 void USkillSetting::RefreshUI()
@@ -83,24 +91,22 @@ void USkillSetting::LoadQuickSlotData()
 	ClearQuickSlot();
 
 	URLRInputConfig* InputConfig = GameInstance->GetDataManager()->GetInputConfig();
-	if(IsValid(InputConfig) == false)
-	{
-		DEBUG_LOG("Load Quick Slot Data Error. InputConfig is Null");
+	if(CHECK_VALID(InputConfig) == false)
 		return;
-	}
 
 	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
-	if (IsValid(GameOption) == false)
-	{
-		DEBUG_LOG("Load Quick Slot Data Error. GameOption is Null");
+	if(CHECK_VALID(GameOption) == false)
 		return;
-	}
 
+	TSubclassOf<USkillSettingQuickSlot> SlotClass = GetClass<USkillSettingQuickSlot>("WBP_SkillSettingQuickSlot");
+	if(CHECK_VALID(SlotClass) == false)
+		return;
+	
 	const int32 QuickSlotCount = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList.Num();
 
-	for(int32 i = 0; i < QuickSlotCount; i++ )
+	for(int32 CurrentSlotIndex = 0; CurrentSlotIndex < QuickSlotCount; CurrentSlotIndex++ )
 	{
-		FText FirstKey = FText::Format(FText::FromString("Action.Skill.{0}.Anim"), i+1);
+		FText FirstKey = FText::Format(FText::FromString("Action.Skill.{0}.Anim"), CurrentSlotIndex+1);
 		//FText SecondKey = FText::Format(FText::FromString("Input.{0}"), InputTagKeySelector_2->GetKeySelectionText());
 
 		FGameplayTag FindActionTag = UGameplayTagsManager::Get().RequestGameplayTag(FName(*FirstKey.ToString()), false);
@@ -112,14 +118,13 @@ void USkillSetting::LoadQuickSlotData()
 			if (SkillQuickSlotMap.Contains(FindActionTag) == false)
 			{ 
 
-				NewQuickSlot = CreateWidget<USkillSettingQuickSlot>(this, SkillSettingQuickSlotClass);
+				NewQuickSlot = CreateWidget<USkillSettingQuickSlot>(this, SlotClass);
 				if (IsValid(NewQuickSlot) == false)
 					continue;
 
 				SkillQuickSlotMap.Add(FindActionTag, NewQuickSlot);
-				SkillQuickSlotGridPanel->AddChildToUniformGrid(NewQuickSlot, i / MaxColunm, i % MaxColunm);
-
-
+				SkillQuickSlotGridPanel->AddChildToUniformGrid(NewQuickSlot, CurrentSlotIndex / MaxColunm, CurrentSlotIndex % MaxColunm);
+				NewQuickSlot->SetSlotIndex(CurrentSlotIndex);
 			}
 			else if (SkillQuickSlotMap.Contains(FindActionTag) == true)
 			{
@@ -194,7 +199,7 @@ void USkillSetting::LoadSkillList()
 	UniqueSkillWrapBox->ClearChildren();
 	UltimateSkillWrapBox->ClearChildren();
 
-	Util::Checkf(SkillSettingListSlotClass, TEXT("SkillSettingListSlotClass is Null"));
+	TSubclassOf<USkillSettingListSlot> SlotClass = GetClass<USkillSettingListSlot>("WBP_SkillSettingListSlot");
 
 	//가져온 스킬 데이터를 UI로 띄워준다.
 	for (FSkillData SkillData : SkillList)
@@ -203,7 +208,7 @@ void USkillSetting::LoadSkillList()
 		if (SkillGroup == ESkillGroup::NONE)
 			continue;
 
-		USkillSettingListSlot* NewSlot = CreateWidget<USkillSettingListSlot>(this, SkillSettingListSlotClass);
+		USkillSettingListSlot* NewSlot = CreateWidget<USkillSettingListSlot>(this, SlotClass);
 		NewSlot->SetSkillData(SkillData);
 
 
@@ -233,25 +238,39 @@ void USkillSetting::LoadSkillList()
 	}
 }
 
+void USkillSetting::ReqeustSkillQuickSlotChange()
+{
+	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	for (TTuple<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> Element : SkillQuickSlotMap)
+	{
+
+		const FSkillData& TempData = Element.Value->GetSkillData();
+		GetNetworkManager()->SendChangeSkillPacket(&TempData, UserSeq, Element.Value->GetSlotIndex());
+	}
+}
+
 void USkillSetting::SaveQuickSlotData()
 {
-	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
-	if (IsValid(GameOption) == false)
-	{
-		DEBUG_LOG("SaveQuickSlotData Error. GameOption is Null");
-		return;
-	}
+	/*
+		현재 세팅 되어 있는 퀵 슬롯 저장
+	*/
 
+	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
+	if(CHECK_VALID(GameOption) == false)
+		return;
+
+	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
-	for (TTuple<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> Element : SkillQuickSlotMap)
+	TMap<FGameplayTag, FSkillData*> OwnSkills = GetSkillManager()->GetOwnSkills();
+
+	for (TTuple<FGameplayTag, FSkillData*> Element : OwnSkills)
 	{
 		if (QuickSlotList.Contains(Element.Key) == true)
 		{
-			const FSkillData& TempData = Element.Value->GetSkillData();
-			QuickSlotList[Element.Key] = Element.Value->GetSkillData().SkillId;
+			const FSkillData* TempData = Element.Value;
+			QuickSlotList[Element.Key] = TempData->SkillId;
 		}
 	}
-
 	GameInstance->SaveGameOption();
 	ApplyQuickSlotSetting();
 }
@@ -270,8 +289,17 @@ void USkillSetting::ApplyQuickSlotSetting()
 	if(IsValid(SD) == false)
 		return;
 
-
 	SD->LoadSkillQuickSlotData();
+}
+
+void USkillSetting::UpdatedSkillManager()
+{
+	/*
+		스킬 퀵 슬롯 세팅이 바뀌거나,
+		스킬 정보가 바뀐다거나, 할 때 Skill Manager에서 이벤트를 준다.
+	*/
+	SaveQuickSlotData();
+	RefreshUI();
 }
 
 void USkillSetting::ChangeTab(SkillSetting_TabType TabType)
@@ -299,7 +327,8 @@ void USkillSetting::OnClickedUltimateSkillTab()
 
 void USkillSetting::OnClickedConfirmButton()
 {
-	SaveQuickSlotData();
+	//SaveQuickSlotData();
+	ReqeustSkillQuickSlotChange();
 }
 
 void USkillSetting::OnClickedCancelButton()

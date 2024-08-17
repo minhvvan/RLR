@@ -4,6 +4,7 @@
 #include "ActionSystem/Action/Skills/ActionSkill.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
+#include "ActionSystem/AnimNotify_ActivateAction.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Player/RLRPlayerController.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
@@ -34,6 +35,14 @@ void UActionSkill::PlaySkillMontage()
 	FActionData Data;
 	Data.MousePos = MousePos;
 	ASC->AddActionData(FollowTriggerTag, Data);
+
+	for (const auto& notify : SkillAnim->Notifies)
+	{
+		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
+		if (!noti) continue;
+
+		noti->SetTriggerTag(FollowTriggerTag);
+	}
 
 	//Play Montage
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), SkillAnim);

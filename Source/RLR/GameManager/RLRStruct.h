@@ -103,6 +103,7 @@ enum class EConsumptionType : uint8
 
 	COMMON,
 	POTION,
+	NONE,
 };
 
 UENUM(BlueprintType)
@@ -283,7 +284,7 @@ struct FTalent
 				talentString.Append(FString::Printf(TEXT("%d = %d"), talent, talentLevel));
 			};
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < Talents.Num(); i++)
 		{
 			AppendTalent(Talents[i].Key, Talents[i].Value);
 		}
@@ -498,6 +499,7 @@ struct FItemData : public FTableRowBase
 
 	//나중에 패킷 날라오면, 그 정보로 FItemData를 만들어준다.
 	void MakeItemData(const Protocol::Item itemData);
+	Protocol::Item MakeItemPacket();
 	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
@@ -531,6 +533,22 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class EAbnormalType : uint8
+{
+	STUN = 0,
+	BIND,
+	FROZEN,
+	STIFFEN,
+	PROVOKE,
+	ELECTRIC,
+	SILENCE,
+	BURN,
+	POISON,
+	SLOW,
+	BLEEDING,
+	NONE
+};
 
 UENUM(BlueprintType)
 enum  class ESkillGroup : uint8
@@ -649,10 +667,13 @@ struct FAbnormal2
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	EAbnormalType AbnormalType;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Power;
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -664,7 +685,7 @@ struct FMonsterStatus
 		MonsterSeq(-1),
 		MonsterName(TEXT("")),
 		MonsterLevel(0),
-		MontserExp(0),
+		MonsterExp(0),
 		MonsterAttackRate(0),
 		MonsterDefence(0),
 		MonsterHp(0),
@@ -684,7 +705,7 @@ struct FMonsterStatus
 	int32 MonsterLevel;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 MontserExp;
+	int32 MonsterExp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 MonsterAttackRate;
@@ -732,7 +753,7 @@ struct FMonsterStatus
 		AppendStatInt(TEXT("SEQ"), MonsterSeq);
 		AppendStatString(TEXT("Name"), MonsterName);
 		AppendStatInt(TEXT("Level"), MonsterLevel);
-		AppendStatInt(TEXT("Exp"), MontserExp);
+		AppendStatInt(TEXT("Exp"), MonsterExp);
 		AppendStatInt(TEXT("Attack Rate"), MonsterAttackRate);
 		AppendStatInt(TEXT("Defence"), MonsterDefence);
 		AppendStatFloat(TEXT("Attack Range"), MonsterAttackRange);
@@ -808,11 +829,13 @@ struct FUserCharacter
 {
 	GENERATED_BODY()
 
+	//유저 캐릭터
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 UserSeq; 
+	int32 UserSeq = -1; 
 
+	//플레이어 == 클라이언트
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 PlayerSeq;
+	int32 PlayerSeq = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 MapId;
@@ -821,7 +844,7 @@ struct FUserCharacter
 	int64 ChannelId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	FString NickName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level;
@@ -1304,4 +1327,22 @@ struct FInteractData
 	void MakeObjectData();
 	//TODO:MakeData 구현 후 삭제
 	static int testID;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FEffectData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 PlayerSkillSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 MonsterSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FVector HitTransform;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FString EffectPath;
 };

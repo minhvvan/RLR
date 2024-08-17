@@ -135,9 +135,9 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 void USlotUI::Clear()
 {
 	SlotImage->SetBrushFromTexture(DefaultSlotImage);
-	if (IsValid(DragDropOperation) == true)
+	if (IsValid(GetSlotData()) == true)
 	{
-		DragDropOperation->Clear();
+		GetSlotData()->Clear();
 	}
 	RefreshUI();
 }

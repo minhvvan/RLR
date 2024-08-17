@@ -42,10 +42,18 @@ USTRUCT(BlueprintType)
 struct FSkillQuickSlotOption
 {
     GENERATED_BODY()
-    //옵션 정보에 스킬 퀵 슬롯을 저장하기 위한 구조체.
+    /*
+      옵션 정보에 스킬 퀵 슬롯을 저장하기 위한 구조체.
 
-    //<Skill Action Tag, Skill ID> 
-    //만약 Skill ID가 -1이면 없는 걸로 친다.
+      <Skill Action Tag, Skill ID> 
+      만약 Skill ID가 -1이면 없는 걸로 친다.
+
+  
+      이제 서버에서 스킬 퀵 슬롯 정보를 관리할거라서 추후 삭제할 수도 있음. 
+      하지만 일단 클라이언트 자체에서 스킬 옵션 정보를 가지고 있어서 나쁠 건 없으니,
+      가지고 있는 걸로.
+    */
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TMap<FGameplayTag, int32> SkillQuickSlotList;
 
