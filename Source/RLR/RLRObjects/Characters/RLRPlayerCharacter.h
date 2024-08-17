@@ -19,34 +19,21 @@ class RLR_API ARLRPlayerCharacter : public ARLRCharacter
 
 public:
 	ARLRPlayerCharacter();
-	void SetMovement(FVector);
-	void SetOrientation(FVector);
 	void SetMoveMode(EMovementMode);
-	void BanInput(bool);
-	void SetController();
-	void SetIsAttack(bool value) { bIsAttack = value; };
-	bool IsAttack() { return bIsAttack; };
-
-	int32 GetPlayerSeq() const { return PlayerSeq; }
-	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
 
 	virtual void Tick(float DeltaSeconds) override;
 	void SetTargetRotation(FVector TargetLoc, float Speed = 1);
-
-	void					SetStat(const FUserCharacter& Stat);
-	const UStatSetPlayer*	GetStat();
+	int32 GetPlayerSeq() const { return PlayerSeq; }
+	void SetPlayerSeq(int32 Seq) { PlayerSeq = Seq; }
+	void SetStat(const FUserCharacter& Stat);
+	const UStatSetPlayer* GetStat();
 
 	void UpdateTransform(FVector NewTransform);
 
 private:
-
+	
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return cameraArm; };
-
-	//APlayerData* data;
-	int32 PlayerSeq;
-	
-	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class UCameraComponent* camera;
@@ -54,9 +41,11 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"));
 	class USpringArmComponent* cameraArm;
 
+	//APlayerData* data;
+	int32 PlayerSeq;
+
 	void SetCameraArm();
 	void SetCharacterMovement();
-	bool bIsAttack = true;
 
 	FRotator TargetRotation;
 	bool bShouldRotate;
@@ -68,7 +57,7 @@ public:
 	//-------------------------------------
 
 	UPROPERTY(EditAnywhere, Category = Action)
-	UAnimMontage* AttackMontage;
+		UAnimMontage* AttackMontage;
 
 protected:
 	virtual void PostInitializeComponents() override;

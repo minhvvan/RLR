@@ -8,6 +8,9 @@
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
+#include "Network/Proto/Drop.pb.h"
+#include "Network/Proto/Item.pb.h"
+#include "Network/Proto/Monster.pb.h"
 
 class PacketSession;
 
@@ -28,26 +31,32 @@ enum : uint16
     PKT_SERVER_REQUEST = 1203,
     PKT_CHANNEL_REQUEST = 1211,
     PKT_CHANNEL_RESPONSE = 1212,
-    // Add info Packet types
+    // Add status Packet types
     PKT_STATUS_REQUEST = 1301,
     PKT_STATUS_RESPONSE = 1302,
+    // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1311,
     PKT_INVENTORY_RESPONSE = 1312,
     PKT_GET_SKILL_REQUEST = 1321,
     PKT_GET_SKILL_RESPONSE = 1322,
     PKT_SKILL_CHANGE_REQUEST = 1331,
     PKT_SKILL_CHANGE_RESPONSE = 1332,
-    PKT_NPC_INFO_REQUEST = 1341,
-    PKT_NPC_INFO_RESPONSE = 1342,
-    PKT_USER_QUEST_REQUEST = 1351,
-    PKT_USER_QUEST_RESPONSE = 1352,
+    PKT_EQUIP_INFO_REQUEST = 1341,
+    PKT_EQUIP_INFO_RESPONSE = 1342,
+    PKT_EQUIP_CHANGE_REQUEST = 1351,
+    PKT_EQUIP_CHANGE_RESPONSE = 1352,
+    PKT_NPC_INFO_REQUEST = 1361,
+    PKT_NPC_INFO_RESPONSE = 1362,
+    PKT_USER_QUEST_REQUEST = 1371,
+    PKT_USER_QUEST_RESPONSE = 1372,
     // Add item packet types
     PKT_ITEM_ADD_REQUEST = 1401,
     PKT_ITEM_ADD_RESPONSE = 1402,
     PKT_ITEM_USE_REQUEST = 1403,
     PKT_ITEM_USE_RESPONSE = 1404,
-    PKT_EQUIP_CHANGE_REQUEST = 1411,
-    PKT_UNEQUIP_CHANGE_REQUEST = 1412,
+
+    PKT_ADD_ITEM_REQUEST = 1411,
+    PKT_ADD_ITEM_RESPONSE = 1412,
 
     // Add move packet types
     PKT_MOVE_REQUEST = 1501,
@@ -68,11 +77,17 @@ enum : uint16
     // Add monster spawn packet types
     PKT_MONSTER_SPAWN_REQUEST = 1621,
     PKT_MONSTER_SPAWN_RESPONSE = 1622,
+    PKT_MONSTER_RESPAWN_BROADCAST = 1623,
     PKT_MONTSER_MAPINFO_REQUEST = 1631,
     PKT_MONTSER_MAPINFO_RESPONSE = 1632,
     // Add monster attack packet types
     PKT_MONSTER_ATTACK_REQUEST = 1641,
     PKT_MONSTER_ATTACK_RESPONSE = 1642,
+    PKT_MONSTER_DIE_REQUEST = 1643,
+    PKT_DROP_REQUEST = 1651,
+    PKT_DROP_RESPONSE = 1652,
+    PKT_EXP_INCREASE_REQUEST = 1653,
+    PKT_EXP_INCREASE_RESPONSE = 1654,
     // Add party packet types
     PKT_CREATE_PARTY_REQUEST = 1701,
     PKT_CREATE_PARTY_RESPONSE = 1702,
@@ -133,8 +148,11 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
-    //static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UmEquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_UNEQUIP_CHANGE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::DropRequest& pkt) { return MakeSendBuffer(pkt, PKT_DROP_REQUEST); }
+
+    
 
 
 

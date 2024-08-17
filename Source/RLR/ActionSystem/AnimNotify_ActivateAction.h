@@ -21,6 +21,8 @@ public:
 
 	FOnTriggered OnTriggered;
 
+	void SetTriggerTag(FGameplayTag Tag) { TriggerActionTag = Tag; }
+
 protected:
 	UPROPERTY(EditAnywhere, Category=Action)
 	FGameplayTag TriggerActionTag;

@@ -28,6 +28,7 @@ public:
     void UpdatePlayerSetStatus(const FSetStatus& NewSetStatus);
     void UpdatePlayerExp(int32 NewExp);
     void UpdateTalent(const FTalent& NewTalent);
+    void ApplyAbnormal(const FAbnormal2& Abnormal);
 
     //이동
     bool RequestMove(const FMoveResult& MoveResult);

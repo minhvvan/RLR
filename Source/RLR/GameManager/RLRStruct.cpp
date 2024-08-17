@@ -161,7 +161,7 @@ void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
     MonsterSeq = monsterData.monsterseq();
     MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
     MonsterLevel = monsterData.monsterlevel();
-    MontserExp = monsterData.monsterexp();
+    MonsterExp = monsterData.monsterexp();
     MonsterAttackRate = monsterData.monsterdamage();
     MonsterDefence = monsterData.monsterdefence();
     MonsterHp = monsterData.monsterhp();
@@ -169,65 +169,6 @@ void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
     MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
     MonsterId = monsterData.monsterid();
     MonsterMapId = monsterData.monstermapid();
-}
-
-void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
-{
-    UserSeq = Data.userseq();
-    PlayerSeq = Data.playerseq();
-    Name = UTF8_TO_TCHAR(Data.name().c_str());
-    Level = Data.level();
-    NobilityRank = Data.nobilityrank();
-
-    MainJob = (ECharacterMainJobType)Data.mainjob();
-    SubJob = (ECharacterSubJobType)Data.subjob();
-
-    Exp = Data.exp();
-    AdventureRank = Data.adventurerrank();
-
-    TotalStatus.MakeStatus(Data.totalstatus());
-    SetStatus.MakeSetStatus(Data.setstatus());
-    Talent.MakeTalent(Data.talent());
-
-}
-
-void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
-{
-    UserHP = Data.userhp();
-    UserMP = Data.usermp();
-    UserSTR = Data.userstr();
-    UserAGI =Data.useragi();
-    UserINT =Data.userint();
-}
-
-void FAttackResult::MakeAttackData()
-{
-}
-void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
-    
-    SkillSeq = skill.skillseq();
-
-    FString NameString = UTF8_TO_TCHAR(skill.skillname().c_str());
-    Name = STRING_TO_FTEXT(skill.skillname().c_str());
-
-    Level = skill.skilllevel();
-
-    Cost = skill.cost();
-
-    CoolTime = skill.cooltime();
-
-    Cind = skill.skillkind();
-
-    Damage = skill.skillactivestatus().skilldamage();
-
-    Duration = skill.skillactivestatus().skillduration();
-
-    //ActivityTime = skill.mutable_skillactivestatus()->
-
-    SkillId = skill.skillid();
-
-
-    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 }
 
 FString FSkillData::ToString() const
@@ -521,6 +462,64 @@ FString ESkillGroupToString(ESkillGroup SkillGroup)
         return ESkillGroups[Index];
     }
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
+}
+
+void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
+{
+    UserSeq = Data.userseq();
+    PlayerSeq = Data.playerseq();
+    NickName = UTF8_TO_TCHAR(Data.name().c_str());
+    Level = Data.level();
+    NobilityRank = Data.nobilityrank();
+
+    MainJob = (ECharacterMainJobType)Data.mainjob();
+    SubJob = (ECharacterSubJobType)Data.subjob();
+
+    Exp = Data.exp();
+    AdventureRank = Data.adventurerrank();
+    
+    TotalStatus.MakeStatus(Data.totalstatus());
+    SetStatus.MakeSetStatus(Data.setstatus());
+    Talent.MakeTalent(Data.talent());
+}
+
+void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
+{
+    UserHP = Data.userhp();
+    UserMP = Data.usermp();
+    UserSTR = Data.userstr();
+    UserAGI =Data.useragi();
+    UserINT =Data.userint();
+}
+
+void FAttackResult::MakeAttackData()
+{
+}
+void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
+    
+    SkillSeq = skill.skillseq();
+
+    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+
+    Level = skill.skilllevel();
+
+    Cost = skill.cost();
+
+    CoolTime = skill.cooltime();
+
+    Cind = skill.skillkind();
+
+    Damage = skill.skillactivestatus().skilldamage();
+
+    Duration = skill.skillactivestatus().skillduration();
+
+    //ActivityTime = skill.mutable_skillactivestatus()->
+
+    SkillId = skill.skillid();
+
+    CollisionRange.X = skill.skilldistance() * 20;
+
+    SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 }
 
 void FTalent::MakeTalent(Protocol::Talent Data)

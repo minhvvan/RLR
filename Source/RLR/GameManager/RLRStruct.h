@@ -8,6 +8,7 @@
 #include <Network/Proto/NPCStruct.pb.h>
 #include <Network/Proto/User_2.pb.h>
 #include <Network/Proto/Player_2.pb.h>
+#include <Network/Proto/Drop.pb.h>
 #include "Templates/Tuple.h"
 #include "RLRStruct.generated.h"
 
@@ -539,6 +540,22 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class EAbnormalType : uint8
+{
+	STUN = 0,
+	BIND,
+	FROZEN,
+	STIFFEN,
+	PROVOKE,
+	ELECTRIC,
+	SILENCE,
+	BURN,
+	POISON,
+	SLOW,
+	BLEEDING,
+	NONE
+};
 
 UENUM(BlueprintType)
 enum  class ESkillGroup : uint8
@@ -735,10 +752,13 @@ struct FAbnormal2
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	EAbnormalType AbnormalType;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Duration;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Power;
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -750,7 +770,7 @@ struct FMonsterStatus
 		MonsterSeq(-1),
 		MonsterName(TEXT("")),
 		MonsterLevel(0),
-		MontserExp(0),
+		MonsterExp(0),
 		MonsterAttackRate(0),
 		MonsterDefence(0),
 		MonsterHp(0),
@@ -770,7 +790,7 @@ struct FMonsterStatus
 	int32 MonsterLevel;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 MontserExp;
+	int32 MonsterExp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 MonsterAttackRate;
@@ -818,7 +838,7 @@ struct FMonsterStatus
 		AppendStatInt(TEXT("SEQ"), MonsterSeq);
 		AppendStatString(TEXT("Name"), MonsterName);
 		AppendStatInt(TEXT("Level"), MonsterLevel);
-		AppendStatInt(TEXT("Exp"), MontserExp);
+		AppendStatInt(TEXT("Exp"), MonsterExp);
 		AppendStatInt(TEXT("Attack Rate"), MonsterAttackRate);
 		AppendStatInt(TEXT("Defence"), MonsterDefence);
 		AppendStatFloat(TEXT("Attack Range"), MonsterAttackRange);
@@ -909,7 +929,7 @@ struct FUserCharacter
 	int64 ChannelId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString Name;
+	FString NickName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level;
@@ -1389,7 +1409,25 @@ struct FInteractData
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FVector ObjectTransform;
 
-	void MakeObjectData(/*param*/);
+	void MakeObjectData();
 	//TODO:MakeData 구현 후 삭제
 	static int testID;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FEffectData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 PlayerSkillSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	int32 MonsterSeq;
+	
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FVector HitTransform;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FString EffectPath;
 };
