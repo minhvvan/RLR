@@ -499,7 +499,7 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     
     SkillSeq = skill.skillseq();
 
-    Name = UTF8_TO_TCHAR(skill.skillname().c_str());
+    Name = FText::FromString(skill.skillname().c_str());
 
     Level = skill.skilllevel();
 
