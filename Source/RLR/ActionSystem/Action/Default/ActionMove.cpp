@@ -15,6 +15,7 @@ UActionMove::UActionMove():
 	CursorPeriod(50)
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerActor;
+	bIsCancelable = true;
 }
 
 bool UActionMove::PreActivateAction()
@@ -107,5 +108,6 @@ void UActionMove::MoveToLocation()
 
 void UActionMove::OnMoveComplete(bool bSuccess)
 {
-	EndAction();
+	if (bSuccess) EndAction();
+	else CancelAction();
 }

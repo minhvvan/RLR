@@ -71,7 +71,6 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
 		{
 			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
-			NewActionInstance->SetCancelable(Spec.bCancelable);
 		}
 	}
 }
@@ -132,7 +131,6 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
 			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
-			NewActionInstance->SetCancelable(Spec->bCancelable);
 
 			if (!NewActionInstance->TryActivateAction())
 			{

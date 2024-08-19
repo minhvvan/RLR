@@ -12,6 +12,7 @@
 UActionInteract::UActionInteract()
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerExecution;
+	bIsCancelable = true;
 }
 
 bool UActionInteract::PreActivateAction()
