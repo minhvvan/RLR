@@ -35,11 +35,11 @@ bool UActionMove::PreActivateAction()
 	}
 	else if (ActionData.TriggerType == EInputTriggerType::TRIGGER_TRIGGER)
 	{
-		ActionState = EActionState::STATE_WAIT_ACTIVATE;
+		ActionState = EActionState::STATE_ACTIVATE;
 	}
 	else if (ActionData.TriggerType == EInputTriggerType::TRIGGER_COMPLETE)
 	{
-		ActionState = EActionState::STATE_ACTIVATE;
+		ActionState = EActionState::STATE_END;
 	}
 
 	return bPossible;
@@ -51,11 +51,11 @@ void UActionMove::ActivateAction()
 	{
 		StartMove();
 	}
-	else if (ActionState == EActionState::STATE_WAIT_ACTIVATE)
+	else if (ActionState == EActionState::STATE_ACTIVATE)
 	{
 		AddMovementInput();
 	}
-	else if (ActionState == EActionState::STATE_ACTIVATE)
+	else if (ActionState == EActionState::STATE_END)
 	{
 		//Cursor
 		SpawnCursorCnt = 1;
