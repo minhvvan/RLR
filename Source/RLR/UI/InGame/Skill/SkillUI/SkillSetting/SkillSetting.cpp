@@ -261,14 +261,13 @@ void USkillSetting::SaveQuickSlotData()
 
 	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
-	TMap<FGameplayTag, FSkillData*> OwnSkills = GetSkillManager()->GetOwnSkills();
+	TMap<FGameplayTag, FSkillData> OwnSkills = GetSkillManager()->GetOwnSkills();
 
-	for (TTuple<FGameplayTag, FSkillData*> Element : OwnSkills)
+	for (auto& [Tag, Data] : OwnSkills)
 	{
-		if (QuickSlotList.Contains(Element.Key) == true)
+		if (QuickSlotList.Contains(Tag) == true)
 		{
-			const FSkillData* TempData = Element.Value;
-			QuickSlotList[Element.Key] = TempData->SkillId;
+			QuickSlotList[Tag] = Data.SkillId;
 		}
 	}
 	GameInstance->SaveGameOption();

@@ -29,7 +29,7 @@ public:
 	void SkillComplete(FGameplayTag TriggerTag);
 
 	const FSkillData*						GetSkillData(FGameplayTag TriggerTag);
-	const TMap<FGameplayTag, FSkillData*>&	GetOwnSkills();
+	const TMap<FGameplayTag, FSkillData>&	GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
 	//Response
@@ -40,7 +40,7 @@ public:
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
 private:
-	TMap<FGameplayTag, FSkillData*> OwnSkills;
+	TMap<FGameplayTag, FSkillData> OwnSkills;
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillClassTable;
