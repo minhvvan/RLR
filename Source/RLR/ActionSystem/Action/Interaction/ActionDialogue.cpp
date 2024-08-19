@@ -12,6 +12,7 @@
 UActionDialogue::UActionDialogue()
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerExecution;
+	bIsCancelable = true;
 }
 
 bool UActionDialogue::PreActivateAction()

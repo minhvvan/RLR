@@ -73,20 +73,18 @@ void USkillManager::SkillComplete(FGameplayTag TriggerTag)
 
 const FSkillData* USkillManager::GetSkillData(FGameplayTag TriggerTag)
 {
-	FSkillData* Result = nullptr;
-
 	for (auto& [Tag, Data] : OwnSkills)
 	{
 		if (TriggerTag.MatchesTag(Tag))
 		{
-			Result = Data;
+			return &Data;
 		}
 	}
 
-	return Result;
+	return nullptr;
 }
 
-const TMap<FGameplayTag, FSkillData*>& USkillManager::GetOwnSkills()
+const TMap<FGameplayTag, FSkillData>& USkillManager::GetOwnSkills()
 {
 	return OwnSkills;
 }
@@ -133,19 +131,13 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
-		OwnSkills.Add({ SkillTag, &SelectedSkills[i]});
+		OwnSkills.Add({ SkillTag, SelectedSkills[i]});
 
 		//TriggerAction
 		{
 			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
 			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
-
-			if (SelectedSkills[i].SkillType == ESkillType::AREA || SelectedSkills[i].SkillType == ESkillType::HOLDING)
-			{
-				Spec.bCancelable = true;
-			}
-
 			ASC->GiveAction(SkillAnimTag, Spec);
 		}
 
@@ -177,10 +169,20 @@ bool USkillManager::RequestGetSelectedSkills()
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
 	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
 
-	FSkillData asd;
-	asd.SkillSeq = 1;
-	asd.SkillType = ESkillType::NORMAL;
-	SelectedSkills.Add(asd);
+	{
+		FSkillData asd;
+		asd.SkillSeq = 1;
+		asd.SkillType = ESkillType::NORMAL;
+		SelectedSkills.Add(asd);
+	}
+
+	{
+		FSkillData asd;
+		asd.SkillSeq = 2;
+		asd.SkillType = ESkillType::AREA;
+		asd.CollisionRange = FVector(100.f);
+		SelectedSkills.Add(asd);
+	}
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
 		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));
@@ -193,19 +195,13 @@ bool USkillManager::RequestGetSelectedSkills()
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
-		OwnSkills.Add({ SkillTag, &SelectedSkills[i] });
+		OwnSkills.Add({ SkillTag, SelectedSkills[i] });
 
 		//TriggerAction
 		{
 			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
 			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
-
-			if (SelectedSkills[i].SkillType == ESkillType::AREA || SelectedSkills[i].SkillType == ESkillType::HOLDING)
-			{
-				Spec.bCancelable = true;
-			}
-
 			ASC->GiveAction(SkillAnimTag, Spec);
 		}
 

@@ -178,7 +178,7 @@ struct RLR_API FActionSpec
 
 public:
 	FActionSpec()
-		: Action(nullptr), Level(1), InputID(INDEX_NONE), bCancelable(false)
+		: Action(nullptr), Level(1), InputID(INDEX_NONE)
 	{ }
 
 	FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel=1, int32 InInputID=0);
@@ -186,18 +186,15 @@ public:
 	UPROPERTY()
 	TObjectPtr<UAction> Action;
 
-	/** What level to grant this ability at */
+	/** What level to grant this action at */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 Level;
 
-	/** Input ID to bind this ability to */
+	/** Input ID to bind this action to */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Action")
-	bool bCancelable;
-
-	/** Chain ActionTag (e.g. AttackCheck) */
+	/* Chain ActionTag (e.g. AttackCheck) */
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	FGameplayTag FollowActionTag;
 

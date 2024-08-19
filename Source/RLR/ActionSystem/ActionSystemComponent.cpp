@@ -71,7 +71,6 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
 		{
 			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
-			NewActionInstance->SetCancelable(Spec.bCancelable);
 		}
 	}
 }
@@ -132,7 +131,6 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
 			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
-			NewActionInstance->SetCancelable(Spec->bCancelable);
 
 			if (!NewActionInstance->TryActivateAction())
 			{
@@ -276,17 +274,14 @@ bool UActionSystemComponent::ActivateWaitAction()
 {
 	bool bResult = false;
 
-	for (auto [Tag, Spec] : GrantedActions)
+	for (auto& [Tag, Spec] : GrantedActions)
 	{
-		for (auto ActionInstance : Spec.ActionInstances)
+		for (auto& ActionInstance : Spec.ActionInstances)
 		{
 			if (ActionInstance->GetActionState() == EActionState::STATE_WAIT_ACTIVATE)
 			{
 				TryActivateAction(Tag);
-
-				//대기중인 Action이 하나라면 (두개 이상이 되면 break 제거 필요)
 				bResult = true;
-				break;
 			}
 		}
 	}

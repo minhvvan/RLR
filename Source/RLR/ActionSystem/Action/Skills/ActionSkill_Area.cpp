@@ -16,6 +16,7 @@
 UActionSkill_Area::UActionSkill_Area()
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerActor;
+	bIsCancelable = true;
 }
 
 void UActionSkill_Area::CancelAction()

@@ -23,9 +23,6 @@ void UActionSkill_Holding::CancelAction()
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
-	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
-	if (!Controller) return;
-
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 	

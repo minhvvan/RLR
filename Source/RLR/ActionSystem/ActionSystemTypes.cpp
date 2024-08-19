@@ -52,7 +52,6 @@ FActionSpec::FActionSpec(TSubclassOf<UAction> ActionClass, int32 InLevel, int32 
 	: Action(ActionClass ? ActionClass.GetDefaultObject() : nullptr)
 	, Level(InLevel)
 	, InputID(InInputID)
-	, bCancelable(false)
 {
 }
 
