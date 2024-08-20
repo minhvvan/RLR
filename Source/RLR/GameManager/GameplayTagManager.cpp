@@ -27,6 +27,16 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Skill_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.7"), FString(TEXT("7스킬")));
 	GameplayTags.Action_Skill_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.8"), FString(TEXT("8스킬")));
 	
+	//Skill.Type
+	GameplayTags.Action_Skill_Type_Normal = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Normal"), FString(TEXT("Normal스킬")));
+	GameplayTags.Action_Skill_Type_Area = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Area"), FString(TEXT("Area스킬")));
+	GameplayTags.Action_Skill_Type_Holding = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Holding"), FString(TEXT("Holding스킬")));
+	GameplayTags.Action_Skill_Type_Casting = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Casting"), FString(TEXT("Casting스킬")));
+	GameplayTags.Action_Skill_Type_Movility = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Movility"), FString(TEXT("Movility스킬")));
+	GameplayTags.Action_Skill_Type_Targeting = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Targeting"), FString(TEXT("Targeting스킬")));
+	GameplayTags.Action_Skill_Type_Chain = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Chain"), FString(TEXT("Chain스킬")));
+
+
 	//Skill.Anim
 	GameplayTags.Action_Skill_1_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.1.Anim"), FString(TEXT("1애니메이션")));
 	GameplayTags.Action_Skill_2_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.2.Anim"), FString(TEXT("2애니메이션")));

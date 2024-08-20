@@ -40,6 +40,15 @@ public:
 	FGameplayTag Action_Skill_7;
 	FGameplayTag Action_Skill_8;
 
+	//Action.Skill.Type
+	FGameplayTag Action_Skill_Type_Normal;
+	FGameplayTag Action_Skill_Type_Area;
+	FGameplayTag Action_Skill_Type_Holding;
+	FGameplayTag Action_Skill_Type_Casting;
+	FGameplayTag Action_Skill_Type_Movility;
+	FGameplayTag Action_Skill_Type_Targeting;
+	FGameplayTag Action_Skill_Type_Chain;
+
 	FGameplayTagContainer SkillTags;
 	FGameplayTagContainer SkillAnimTags;
 
