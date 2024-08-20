@@ -4,6 +4,8 @@
 #include "Network/Handler/ActionPacketHandler.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
+#include "GameManager/OtherUserManager.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ClientPacketHandler.h"
 
 
@@ -17,11 +19,24 @@ bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResp
     return true;
 }
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt) {
-    // TODO : OTHERUSERMAGER 연결하여 다른 유저의 위치 연동
-    UE_LOG(LogTemp, Log, TEXT("User seq : %d"), pkt.userseq());
-    UE_LOG(LogTemp, Log, TEXT("User Trans X : %d"), pkt.transx());
-    UE_LOG(LogTemp, Log, TEXT("User Trans Y : %d"), pkt.transy());
-    UE_LOG(LogTemp, Log, TEXT("User Trans Z : %d"), pkt.transz());
+   
+    UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
+
+
+    if (OtherManager->GetPlayer(pkt.userseq())) {
+        OtherManager->GetPlayer(pkt.userseq())->UpdateTransform(FVector(pkt.transx(), pkt.transy(), pkt.transz()));
+    }
+    else {
+
+        Protocol::UserCharacter userCharacter;
+        userCharacter.set_userseq(pkt.userseq());
+        userCharacter.set_transx(pkt.transx());
+        userCharacter.set_transy(pkt.transy());
+        userCharacter.set_transz(pkt.transz());
+
+        OtherManager->AddPlayer(userCharacter);
+    }
+    //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 

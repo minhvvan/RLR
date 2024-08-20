@@ -14,7 +14,9 @@
 
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
+#if WITH_EDITOR
 #include "UnrealEd.h"
+#endif
 #include "UObject/Package.h"
 
 #include "AssetRegistry/AssetRegistryModule.h"
@@ -192,8 +194,9 @@ void UKeyOption::ApplyKeyOption()
 	// 에셋의 수정 내용을 에디터에도 적용시켜준다.
 	TArray<UObject*> ObjectsToSync;
 	ObjectsToSync.Add(InputConfig);
+#if WITH_EDITOR
 	GEditor->SyncBrowserToObjects(ObjectsToSync);
-
+#endif
 	/*
 		플레이어 InputComponent를 가져와서 다시 적용 시킨다.
 	*/
@@ -242,9 +245,9 @@ void UKeyOption::CreateDataAsset()
 
 	TArray<UObject*> ObjectsToSync;
 	ObjectsToSync.Add(NewAsset);
+#if WITH_EDITOR
 	GEditor->SyncBrowserToObjects(ObjectsToSync);
-
-
+#endif
 }
 
 
