@@ -49,6 +49,8 @@ void FGameplayTagManager::Init()
 	
 	//Action.Interaction
 	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction"), FString(TEXT("상호작용")));
+	GameplayTags.Action_Interaction_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction.Dialogue"), FString(TEXT("대화")));
+	GameplayTags.Action_Interaction_Logging = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction.Logging"), FString(TEXT("벌목")));
 	
 	//Object
 	GameplayTags.Object_State_Hittable = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Object.State.Hittable"), FString(TEXT("공격가능")));

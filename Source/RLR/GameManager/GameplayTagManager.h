@@ -64,6 +64,9 @@ public:
 
 	//Action.Interaction
 	FGameplayTag Action_Interaction;
+	FGameplayTag Action_Interaction_Dialogue;
+	FGameplayTag Action_Interaction_Logging;
+
 
 	//Object.State
 	FGameplayTag Object_State_Hittable;
