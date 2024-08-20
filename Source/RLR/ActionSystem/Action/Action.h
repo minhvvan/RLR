@@ -93,6 +93,9 @@ protected:
 	mutable const FActionActorInfo* CurrentActorInfo;
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
+	FGameplayTagContainer ActionTags;
+
+	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTagContainer ActivationOwnedTags;
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)

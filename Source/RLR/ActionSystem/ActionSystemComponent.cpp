@@ -142,16 +142,19 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 
 void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 {
-	if (!GrantedActions.Contains(Tag)) return;
+	//if (!GrantedActions.Contains(Tag)) return;
 
-	if (auto Spec = GrantedActions.Find(Tag))
+	for (auto& [triggerTag, spec] : GrantedActions)
 	{
-		auto copied(Spec->ActionInstances);
-		for (auto ActionInstance : copied)
+		if (spec.Action->ActionTags.HasTag(Tag))
 		{
-			if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
+			auto copied(spec. ActionInstances);
+			for (auto ActionInstance : copied)
 			{
-				ActionInstance->CancelAction();
+				if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
+				{
+					ActionInstance->CancelAction();
+				}
 			}
 		}
 	}
