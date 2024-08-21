@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "RLR.h"
 #include "DataManager.generated.h"
 
 /**
@@ -49,6 +50,9 @@ public:
 	template<typename T>
 	TSubclassOf<T>			GetCharacterClass(FString Name);
 
+	template<typename T>
+	TSubclassOf<T>			GetObjectClass(FString Name);
+
 	//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
@@ -74,6 +78,8 @@ private:
 	UPROPERTY()
 	TObjectPtr<UDataTable> CharacterClassTable;
 
+	UPROPERTY()
+	TObjectPtr<UDataTable> ObjectClassTable;
 
 private:
 
@@ -122,5 +128,28 @@ inline TSubclassOf<T> UDataManager::GetCharacterClass(FString Name)
 	}
 
 	DEBUG_LOG("UDataManager::GetCharacterClass Error. DT_CharacterClassTable is Null. DT_CharacterClassTable의 위치를 확인해주세요.");
+	return nullptr;
+}
+
+
+template<typename T>
+inline TSubclassOf<T> UDataManager::GetObjectClass(FString Name)
+{
+	if (IsValid(ObjectClassTable) == true)
+	{
+		const FClassData* Data = ObjectClassTable->FindRow<FClassData>(*Name, TEXT(""));
+		if (Data == nullptr)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("FClassData is Null."));
+			return nullptr;
+		}
+
+		if (Data->RLRClass->IsChildOf(T::StaticClass()))
+		{
+			return TSubclassOf<T>(Data->RLRClass);
+		}
+	}
+
+	DEBUG_LOG("ObjectClassTable is Null.");
 	return nullptr;
 }

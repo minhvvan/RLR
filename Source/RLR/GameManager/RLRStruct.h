@@ -21,6 +21,7 @@
 #define STRING_TO_FTEXT(String) FText::FromString(UTF8_TO_TCHAR(String));
 
 class UAction;
+struct FDropItem;
 
 UENUM(BlueprintType)
 enum class EItemType : uint8
