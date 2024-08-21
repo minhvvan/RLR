@@ -32,7 +32,7 @@ public:
     UFUNCTION()
     void SpawnMonsters();
 
-    const FVector GetMonsterTranformById(int MonsterId);
+    const FVector GetMonsterTransformById(int MonsterId);
 
 private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

@@ -128,7 +128,7 @@ void UMonsterManager::SpawnMonsters()
     //AddMonstersToInstances();
 }
 
-const FVector UMonsterManager::GetMonsterTranformById(int MonsterId)
+const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
 {
     FVector result = FVector::ZeroVector;
 
