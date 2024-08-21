@@ -10,6 +10,7 @@
 #include "GameManager/GameManager.h"
 #include "Physics/RLRCollision.h"
 #include "GameManager/SkillManager.h"
+#include <Player/RLRPlayerController.h>
 
 void UActionSkill_Area_Meteor::ActivateAction()
 {

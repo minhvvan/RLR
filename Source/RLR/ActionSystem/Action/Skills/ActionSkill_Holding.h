@@ -14,6 +14,7 @@ class RLR_API UActionSkill_Holding : public UActionSkill
 {
 	GENERATED_BODY()
 
+
 public:
 	UActionSkill_Holding();
 
@@ -25,4 +26,18 @@ protected:
 	virtual void ActivateAction();
 
 	virtual void OnCompletePlayMontage();
+	
+	
+
+private:
+	FTimerHandle InputHandle;
+	void CheckForInputEnd();
+
+	UFUNCTION()
+	void OnAnimNotified();
+
+	UFUNCTION()
+	void OnMontageEndNotified();
+
+	float TimerStartTime;
 };

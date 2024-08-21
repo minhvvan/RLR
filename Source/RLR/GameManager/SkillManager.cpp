@@ -183,6 +183,16 @@ bool USkillManager::RequestGetSelectedSkills()
 		asd.CollisionRange = FVector(100.f);
 		SelectedSkills.Add(asd);
 	}
+
+	{
+		FSkillData asd;
+		asd.SkillSeq = 3;
+		asd.Duration = 4;
+		asd.SkillType = ESkillType::HOLDING;
+		asd.CollisionRange = FVector(1000.f, 0.f, 0.f);
+		SelectedSkills.Add(asd);
+	}
+
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
 		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));

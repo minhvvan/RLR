@@ -5,10 +5,12 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "ActionSystem/RLRReticle.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
 #include "RLR.h"
+#include <ActionSystem/AnimNotify_ActivateAction.h>
 
 UActionSkill_Holding::UActionSkill_Holding()
 {
@@ -29,12 +31,16 @@ void UActionSkill_Holding::CancelAction()
 	ASC->CurrentMontageStop();
 
 	Super::CancelAction();
+
+	if (TimerWidget) TimerWidget->RemoveFromParent();
 }
  
 void UActionSkill_Holding::EndAction()
 {
 	if (TimerWidget) TimerWidget->RemoveFromParent();
 
+
+	ActionState = EActionState::STATE_END;
 	Super::EndAction();
 }
 
@@ -53,21 +59,98 @@ bool UActionSkill_Holding::PreActivateAction()
 		TimerWidget->SetTimerDuration(SkillData->Duration);
 	}
 
+
 	return bPossible;
 }
 
 void UActionSkill_Holding::ActivateAction()
 {
+	if (ActionState == EActionState::STATE_ACTIVATE)
+	{
+		//Play Montage
+		PlaySkillMontage();
+		
+		ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+		if (!Player) return;
+
+
+		if (TimerWidget)
+		{
+			UE_LOG(LogTemp, Log, TEXT("ActivateAction called. TimerWidget Duration: %f"), TimerWidget->GetTimerDuration());
+			if (TimerWidget->GetTimerDuration() <= 0)
+			{
+				/* 전체 시간을 3초로 설정 (로아 쏜살바람새 3초) */
+				TimerWidget->SetTimerDuration(SkillData->Duration);
+				TimerStartTime = GetWorld()->GetTimeSeconds();
+			}
+
+			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
+			if (AnimNotify)
+			{
+				AnimNotify->OnTriggered.Clear();
+				AnimNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnAnimNotified);
+			}
+
+			// 두 번째 Notify (애니메이션 끝에서 타이머 제거)
+			UAnimNotify_ActivateAction* EndNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[1].Notify);
+			if (EndNotify)
+			{
+				EndNotify->OnTriggered.Clear();
+				EndNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnMontageEndNotified);
+			}
+		}
+		ActionState = EActionState::STATE_WAIT_CANCEL;
+	}
 	Super::ActivateAction();
-
-	//Play Montage
-	PlaySkillMontage();
-
-	//Set Action State
-	ActionState = EActionState::STATE_WAIT_CANCEL;
 }
 
 void UActionSkill_Holding::OnCompletePlayMontage()
 {
-	EndAction();
+	
+	if (ActionState != EActionState::STATE_WAIT_CANCEL)
+	{
+		EndAction();
+	}
+	else
+	{
+		/* 만약에 필요하다고 생각되면, 다시 반복 재생 가능 */
+	}
+}
+
+void UActionSkill_Holding::CheckForInputEnd()
+{
+	if (ActionState == EActionState::STATE_WAIT_CANCEL)
+	{
+		EndAction();
+	}
+}
+
+void UActionSkill_Holding::OnAnimNotified()
+{
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	UAnimInstance* AnimInstance = Player->GetMesh()->GetAnimInstance();
+	if (AnimInstance && SkillAnim)
+	{
+		float CurrentTime = GetWorld()->GetTimeSeconds();
+
+		float ElapsedTime = CurrentTime - TimerStartTime;
+		// 남은 시간이 있으면 반복 (예: TimerWidget으로 남은 시간 확인)
+		if (TimerWidget->GetRemainingTime() > 1)
+		{
+			// HoldingLoop 섹션을 다시 반복
+			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("HoldingLoop"), SkillAnim);
+		}
+		else
+		{
+			// 남은 시간이 없으면 EndSection으로 이동
+			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("EndSection"), SkillAnim);
+		}
+	}
+}
+
+void UActionSkill_Holding::OnMontageEndNotified()
+{
+	if (TimerWidget) TimerWidget->RemoveFromParent();
 }
