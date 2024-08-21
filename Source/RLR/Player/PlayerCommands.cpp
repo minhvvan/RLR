@@ -71,7 +71,7 @@ void APlayerCommands::BindDefaultAction(TObjectPtr<ARLRPlayerController> Control
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	component->BindAction(Move, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnMoveStarted, TagManager.Action_Default_Move);
 	component->BindAction(Move, ETriggerEvent::Triggered, Controller.Get(), &ARLRPlayerController::OnMove, TagManager.Action_Default_Move);
-	component->BindAction(Move, ETriggerEvent::Completed, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Move);
+	component->BindAction(Move, ETriggerEvent::Completed, Controller.Get(), &ARLRPlayerController::OnMoveCompleted, TagManager.Action_Default_Move);
 	
 	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Jump);
 	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Attack);

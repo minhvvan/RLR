@@ -40,6 +40,7 @@ public:
 private:
 	void OnMoveStarted(FGameplayTag TriggerTag);
 	void OnMove(FGameplayTag TriggerTag);
+	void OnMoveCompleted(FGameplayTag TriggerTag);
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
