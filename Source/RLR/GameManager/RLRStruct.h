@@ -602,6 +602,16 @@ enum class ECostType : uint8	//코스트 타입
 	NONE,
 };
 
+UENUM(BlueprintType)
+enum class EGoodsType : uint8	//재화 타입
+{
+	Total,
+	Diamond,
+	Reputation,
+	Contribution,
+	SIZE
+};
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase

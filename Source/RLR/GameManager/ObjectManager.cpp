@@ -151,8 +151,11 @@ void UObjectManager::SpawnDropItem()
                 }
 
                 object->SetDropItemData(data);
-                object->FinishSpawning(SpawnTransform);
-                DropItemInstances.Add(object);
+                object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
+                {
+                    object->FinishSpawning(SpawnTransform);
+                    DropItemInstances.Add(object);
+                });
             }
         });
 }
@@ -176,6 +179,8 @@ TObjectPtr<ARLRDropItem> UObjectManager::GetObjectInstanceById(int ObjectId)
 void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
 {
     //TODO: 아이템 획득 pkt보내기
+
+    //클라 -> 서버(아이템 요청)
     RLR_LOG(LogRLR, Log, TEXT("Called RequestPickUpItem"));
     ResponePickUpItem(Dropitem.ObjectId, true);
 }
