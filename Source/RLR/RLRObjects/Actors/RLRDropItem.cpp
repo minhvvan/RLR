@@ -56,5 +56,5 @@ void FDropItem::MakeDropItemData(/*param*/)
 
 	//TODO: Data채우기
 	//Seq enum : EGoodsType
-	ObjectTransform = monsterManager->GetMonsterTranformById(0/*monsterID*/);
+	ObjectTransform = monsterManager->GetMonsterTransformById(0/*monsterID*/);
 }
