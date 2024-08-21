@@ -32,6 +32,8 @@ public:
     UFUNCTION()
     void SpawnMonsters();
 
+    const FVector GetMonsterTransformById(int MonsterId);
+
 private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
     TArray<FMonsterStatus> Monsters;

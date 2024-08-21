@@ -21,6 +21,7 @@
 #define STRING_TO_FTEXT(String) FText::FromString(UTF8_TO_TCHAR(String));
 
 class UAction;
+struct FDropItem;
 
 UENUM(BlueprintType)
 enum class EItemType : uint8
@@ -599,6 +600,16 @@ enum class ECostType : uint8	//코스트 타입
 	MP,
 	HP,
 	NONE,
+};
+
+UENUM(BlueprintType)
+enum class EGoodsType : uint8	//재화 타입
+{
+	Total,
+	Diamond,
+	Reputation,
+	Contribution,
+	SIZE
 };
 
 
