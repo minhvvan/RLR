@@ -79,7 +79,7 @@ void UActionSkill_Holding::ActivateAction()
 			UE_LOG(LogTemp, Log, TEXT("ActivateAction called. TimerWidget Duration: %f"), TimerWidget->GetTimerDuration());
 			if (TimerWidget->GetTimerDuration() <= 0)
 			{
-				/* 전체 시간을 3초로 설정 (로아 쏜살바람새 3초) */
+				/* 전체 시간을 4초로 설정 (로아 쏜살바람새 3초) */
 				TimerWidget->SetTimerDuration(SkillData->Duration);
 				TimerStartTime = GetWorld()->GetTimeSeconds();
 			}

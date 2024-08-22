@@ -33,7 +33,6 @@ void UActionSkill_Holding_Skill::ActivateAction()
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
 	{
-		UE_LOG(LogTemp, Log, TEXT("SkillManager is not valid"));
 		EndAction();
 		return;
 	}

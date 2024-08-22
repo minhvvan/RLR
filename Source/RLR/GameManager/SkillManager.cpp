@@ -189,7 +189,7 @@ bool USkillManager::RequestGetSelectedSkills()
 		asd.SkillSeq = 3;
 		asd.Duration = 4;
 		asd.SkillType = ESkillType::HOLDING;
-		asd.CollisionRange = FVector(1000.f, 0.f, 0.f);
+		asd.CollisionRange = FVector(400.f, 0.f, 0.f);
 		SelectedSkills.Add(asd);
 	}
 
