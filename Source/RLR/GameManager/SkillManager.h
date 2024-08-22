@@ -27,7 +27,7 @@ public:
 	void Init();
 	void SkillAttack(FGameplayTag TriggerTag);
 	void SkillComplete(FGameplayTag TriggerTag);
-
+	
 	const FSkillData*						GetSkillData(FGameplayTag TriggerTag);
 	const TMap<FGameplayTag, FSkillData>&	GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
