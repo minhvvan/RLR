@@ -39,5 +39,5 @@ private:
 	UFUNCTION()
 	void OnMontageEndNotified();
 
-	float TimerStartTime;
+	float timerStartTime;
 };

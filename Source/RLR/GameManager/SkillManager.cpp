@@ -169,30 +169,6 @@ bool USkillManager::RequestGetSelectedSkills()
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
 	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
 
-	{
-		FSkillData asd;
-		asd.SkillSeq = 1;
-		asd.SkillType = ESkillType::NORMAL;
-		SelectedSkills.Add(asd);
-	}
-
-	{
-		FSkillData asd;
-		asd.SkillSeq = 2;
-		asd.SkillType = ESkillType::AREA;
-		asd.CollisionRange = FVector(100.f);
-		SelectedSkills.Add(asd);
-	}
-
-	{
-		FSkillData asd;
-		asd.SkillSeq = 3;
-		asd.Duration = 4;
-		asd.SkillType = ESkillType::HOLDING;
-		asd.CollisionRange = FVector(400.f, 0.f, 0.f);
-		SelectedSkills.Add(asd);
-	}
-
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
 		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));

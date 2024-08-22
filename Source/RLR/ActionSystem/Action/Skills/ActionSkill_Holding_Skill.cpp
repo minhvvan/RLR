@@ -42,10 +42,10 @@ void UActionSkill_Holding_Skill::ActivateAction()
 
 	ARLRProjectile* HoldingProjectile = GetWorld()->SpawnActorDeferred<ARLRProjectile>(HoldingSkillProjectile, FTransform::Identity, Player);
 	HoldingProjectile->SetSkillRange(SkillRange);
-
-	FTransform SpawnLocation(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
-	SpawnLocation.SetRotation(PlayerRotation.Quaternion());
-	HoldingProjectile->FinishSpawning(SpawnLocation);
+	/* TODO : 50은 나중에 데이터 처리 */
+	FTransform SpawnRange(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
+	SpawnRange.SetRotation(PlayerRotation.Quaternion());
+	HoldingProjectile->FinishSpawning(SpawnRange);
 
 
 	TArray<AActor*> OverlappedActors;
@@ -70,16 +70,14 @@ void UActionSkill_Holding_Skill::ActivateAction()
 
 			OverlappedActors.Add(Result.GetActor());
 		}
-
 		if (SkillManager->RequestSkillResult(SkillData, OverlappedActors))
 		{
-			// 스킬 처리 성공
-			UE_LOG(LogTemp, Log, TEXT("ActionSkill_Holding_Skill: Skill result applied to overlapped actors."));
+			/* IActionSystemInterface와 충돌 성공 */
+
 		}
 		else
 		{
-			// 스킬 처리 실패
-			UE_LOG(LogTemp, Warning, TEXT("ActionSkill_Holding_Skill: Skill result application failed."));
+
 		}
 	}
 }

@@ -15,18 +15,15 @@ public:
 
 	/* 남은 타이머 시간 반환하는 함수 */ 
 	float GetRemainingTime() const { return TimerDuration - CurrentTime; }
-	
 	float GetTimerDuration() const { return TimerDuration; }
+
+	virtual void NativeConstruct() override;
+	void SetTimerDuration(float Duration) { TimerDuration = Duration; }
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<class UProgressBar> TimerProgressBar;
 
-public:
-	virtual void NativeConstruct() override;
-	void SetTimerDuration(float Duration) { TimerDuration = Duration; }
-
-protected:
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
 	void SetPecent(float NewPercent);
 

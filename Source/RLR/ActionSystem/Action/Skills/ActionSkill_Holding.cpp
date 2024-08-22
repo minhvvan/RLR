@@ -50,7 +50,7 @@ bool UActionSkill_Holding::PreActivateAction()
 
 	if (ActionState == EActionState::STATE_INIT)
 	{
-		//스킬 상태 변경(INIT->ACTIVATE)
+		// 스킬 상태 변경(INIT->ACTIVATE)
 		ActionState = EActionState::STATE_ACTIVATE;
 	}
 
@@ -81,7 +81,7 @@ void UActionSkill_Holding::ActivateAction()
 			{
 				/* 전체 시간을 4초로 설정 (로아 쏜살바람새 3초) */
 				TimerWidget->SetTimerDuration(SkillData->Duration);
-				TimerStartTime = GetWorld()->GetTimeSeconds();
+				timerStartTime = GetWorld()->GetTimeSeconds();
 			}
 
 			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
@@ -135,8 +135,8 @@ void UActionSkill_Holding::OnAnimNotified()
 	{
 		float CurrentTime = GetWorld()->GetTimeSeconds();
 
-		float ElapsedTime = CurrentTime - TimerStartTime;
-		// 남은 시간이 있으면 반복 (예: TimerWidget으로 남은 시간 확인)
+		float ElapsedTime = CurrentTime - timerStartTime;
+		
 		if (TimerWidget->GetRemainingTime() > 1)
 		{
 			// HoldingLoop 섹션을 다시 반복
