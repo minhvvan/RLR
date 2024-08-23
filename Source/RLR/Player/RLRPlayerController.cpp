@@ -138,6 +138,19 @@ void ARLRPlayerController::OnMove(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
+void ARLRPlayerController::OnMoveCompleted(FGameplayTag TriggerTag)
+{
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
+	ASC->AddActionData(TriggerTag, actionData);
+
+	ASC->TryActivateAction(TriggerTag);
+}
+
 FVector ARLRPlayerController::GetClickPosition()
 {
 	FHitResult Hit;

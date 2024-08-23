@@ -128,6 +128,24 @@ void UMonsterManager::SpawnMonsters()
     //AddMonstersToInstances();
 }
 
+const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
+{
+    FVector result = FVector::ZeroVector;
+
+    for (auto monster : MonsterInstances)
+    {
+        UStatSetMonster* monsterStatSet = monster->GetActionSystemComponent()->GetStatSet<UStatSetMonster>();
+        if (!monsterStatSet) continue;
+
+        if (monsterStatSet->GetMonsterId() == MonsterId)
+        {
+            result = monsterStatSet->GetMonsterTransform();
+        }
+    }
+
+    return result;
+}
+
 void UMonsterManager::AddMonstersToInstances()
 {
     auto World = GetWorld();

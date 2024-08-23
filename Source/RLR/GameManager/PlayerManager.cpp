@@ -130,7 +130,7 @@ void UPlayerManager::ApplyAbnormal(const FAbnormal2& Abnormal)
 
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
-	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.UserSeq, MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
+	return GameInstance->GetNetworkManager()->SendMovePacket( MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
 }
 
 void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)

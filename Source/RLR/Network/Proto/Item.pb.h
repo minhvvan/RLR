@@ -46,55 +46,55 @@ struct TableStruct_Item_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Item_2eproto;
 namespace Protocol {
-class ChangeInventoryRequest;
-struct ChangeInventoryRequestDefaultTypeInternal;
-extern ChangeInventoryRequestDefaultTypeInternal _ChangeInventoryRequest_default_instance_;
-class ChangeInventoryResponse;
-struct ChangeInventoryResponseDefaultTypeInternal;
-extern ChangeInventoryResponseDefaultTypeInternal _ChangeInventoryResponse_default_instance_;
-class EquipChangeRequest;
-struct EquipChangeRequestDefaultTypeInternal;
-extern EquipChangeRequestDefaultTypeInternal _EquipChangeRequest_default_instance_;
-class EquipChangeRespnse;
-struct EquipChangeRespnseDefaultTypeInternal;
-extern EquipChangeRespnseDefaultTypeInternal _EquipChangeRespnse_default_instance_;
-class EquipInfoRequest;
-struct EquipInfoRequestDefaultTypeInternal;
-extern EquipInfoRequestDefaultTypeInternal _EquipInfoRequest_default_instance_;
-class EquipInfoResponse;
-struct EquipInfoResponseDefaultTypeInternal;
-extern EquipInfoResponseDefaultTypeInternal _EquipInfoResponse_default_instance_;
+class CS_ChangeInventoryRequest;
+struct CS_ChangeInventoryRequestDefaultTypeInternal;
+extern CS_ChangeInventoryRequestDefaultTypeInternal _CS_ChangeInventoryRequest_default_instance_;
+class CS_EquipChangeRequest;
+struct CS_EquipChangeRequestDefaultTypeInternal;
+extern CS_EquipChangeRequestDefaultTypeInternal _CS_EquipChangeRequest_default_instance_;
+class CS_EquipInfoRequest;
+struct CS_EquipInfoRequestDefaultTypeInternal;
+extern CS_EquipInfoRequestDefaultTypeInternal _CS_EquipInfoRequest_default_instance_;
+class SC_ChangeInventoryResponse;
+struct SC_ChangeInventoryResponseDefaultTypeInternal;
+extern SC_ChangeInventoryResponseDefaultTypeInternal _SC_ChangeInventoryResponse_default_instance_;
+class SC_EquipChangeRespnse;
+struct SC_EquipChangeRespnseDefaultTypeInternal;
+extern SC_EquipChangeRespnseDefaultTypeInternal _SC_EquipChangeRespnse_default_instance_;
+class SC_EquipInfoResponse;
+struct SC_EquipInfoResponseDefaultTypeInternal;
+extern SC_EquipInfoResponseDefaultTypeInternal _SC_EquipInfoResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::ChangeInventoryRequest* Arena::CreateMaybeMessage<::Protocol::ChangeInventoryRequest>(Arena*);
-template<> ::Protocol::ChangeInventoryResponse* Arena::CreateMaybeMessage<::Protocol::ChangeInventoryResponse>(Arena*);
-template<> ::Protocol::EquipChangeRequest* Arena::CreateMaybeMessage<::Protocol::EquipChangeRequest>(Arena*);
-template<> ::Protocol::EquipChangeRespnse* Arena::CreateMaybeMessage<::Protocol::EquipChangeRespnse>(Arena*);
-template<> ::Protocol::EquipInfoRequest* Arena::CreateMaybeMessage<::Protocol::EquipInfoRequest>(Arena*);
-template<> ::Protocol::EquipInfoResponse* Arena::CreateMaybeMessage<::Protocol::EquipInfoResponse>(Arena*);
+template<> ::Protocol::CS_ChangeInventoryRequest* Arena::CreateMaybeMessage<::Protocol::CS_ChangeInventoryRequest>(Arena*);
+template<> ::Protocol::CS_EquipChangeRequest* Arena::CreateMaybeMessage<::Protocol::CS_EquipChangeRequest>(Arena*);
+template<> ::Protocol::CS_EquipInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_EquipInfoRequest>(Arena*);
+template<> ::Protocol::SC_ChangeInventoryResponse* Arena::CreateMaybeMessage<::Protocol::SC_ChangeInventoryResponse>(Arena*);
+template<> ::Protocol::SC_EquipChangeRespnse* Arena::CreateMaybeMessage<::Protocol::SC_EquipChangeRespnse>(Arena*);
+template<> ::Protocol::SC_EquipInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_EquipInfoResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
 
-class EquipInfoRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.EquipInfoRequest) */ {
+class CS_EquipInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_EquipInfoRequest) */ {
  public:
-  inline EquipInfoRequest() : EquipInfoRequest(nullptr) {}
-  ~EquipInfoRequest() override;
-  explicit PROTOBUF_CONSTEXPR EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_EquipInfoRequest() : CS_EquipInfoRequest(nullptr) {}
+  ~CS_EquipInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EquipInfoRequest(const EquipInfoRequest& from);
-  EquipInfoRequest(EquipInfoRequest&& from) noexcept
-    : EquipInfoRequest() {
+  CS_EquipInfoRequest(const CS_EquipInfoRequest& from);
+  CS_EquipInfoRequest(CS_EquipInfoRequest&& from) noexcept
+    : CS_EquipInfoRequest() {
     *this = ::std::move(from);
   }
 
-  inline EquipInfoRequest& operator=(const EquipInfoRequest& from) {
+  inline CS_EquipInfoRequest& operator=(const CS_EquipInfoRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EquipInfoRequest& operator=(EquipInfoRequest&& from) noexcept {
+  inline CS_EquipInfoRequest& operator=(CS_EquipInfoRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -117,20 +117,20 @@ class EquipInfoRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EquipInfoRequest& default_instance() {
+  static const CS_EquipInfoRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EquipInfoRequest* internal_default_instance() {
-    return reinterpret_cast<const EquipInfoRequest*>(
-               &_EquipInfoRequest_default_instance_);
+  static inline const CS_EquipInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_EquipInfoRequest*>(
+               &_CS_EquipInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(EquipInfoRequest& a, EquipInfoRequest& b) {
+  friend void swap(CS_EquipInfoRequest& a, CS_EquipInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(EquipInfoRequest* other) {
+  inline void Swap(CS_EquipInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -143,7 +143,7 @@ class EquipInfoRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EquipInfoRequest* other) {
+  void UnsafeArenaSwap(CS_EquipInfoRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -151,14 +151,14 @@ class EquipInfoRequest final :
 
   // implements Message ----------------------------------------------
 
-  EquipInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EquipInfoRequest>(arena);
+  CS_EquipInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_EquipInfoRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EquipInfoRequest& from);
+  void CopyFrom(const CS_EquipInfoRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EquipInfoRequest& from) {
-    EquipInfoRequest::MergeImpl(*this, from);
+  void MergeFrom( const CS_EquipInfoRequest& from) {
+    CS_EquipInfoRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -176,15 +176,15 @@ class EquipInfoRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EquipInfoRequest* other);
+  void InternalSwap(CS_EquipInfoRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.EquipInfoRequest";
+    return "Protocol.CS_EquipInfoRequest";
   }
   protected:
-  explicit EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -209,7 +209,7 @@ class EquipInfoRequest final :
   void _internal_set_userseq(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.EquipInfoRequest)
+  // @@protoc_insertion_point(class_scope:Protocol.CS_EquipInfoRequest)
  private:
   class _Internal;
 
@@ -225,24 +225,24 @@ class EquipInfoRequest final :
 };
 // -------------------------------------------------------------------
 
-class EquipInfoResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.EquipInfoResponse) */ {
+class SC_EquipInfoResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_EquipInfoResponse) */ {
  public:
-  inline EquipInfoResponse() : EquipInfoResponse(nullptr) {}
-  ~EquipInfoResponse() override;
-  explicit PROTOBUF_CONSTEXPR EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SC_EquipInfoResponse() : SC_EquipInfoResponse(nullptr) {}
+  ~SC_EquipInfoResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EquipInfoResponse(const EquipInfoResponse& from);
-  EquipInfoResponse(EquipInfoResponse&& from) noexcept
-    : EquipInfoResponse() {
+  SC_EquipInfoResponse(const SC_EquipInfoResponse& from);
+  SC_EquipInfoResponse(SC_EquipInfoResponse&& from) noexcept
+    : SC_EquipInfoResponse() {
     *this = ::std::move(from);
   }
 
-  inline EquipInfoResponse& operator=(const EquipInfoResponse& from) {
+  inline SC_EquipInfoResponse& operator=(const SC_EquipInfoResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EquipInfoResponse& operator=(EquipInfoResponse&& from) noexcept {
+  inline SC_EquipInfoResponse& operator=(SC_EquipInfoResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -265,20 +265,20 @@ class EquipInfoResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EquipInfoResponse& default_instance() {
+  static const SC_EquipInfoResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EquipInfoResponse* internal_default_instance() {
-    return reinterpret_cast<const EquipInfoResponse*>(
-               &_EquipInfoResponse_default_instance_);
+  static inline const SC_EquipInfoResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_EquipInfoResponse*>(
+               &_SC_EquipInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(EquipInfoResponse& a, EquipInfoResponse& b) {
+  friend void swap(SC_EquipInfoResponse& a, SC_EquipInfoResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(EquipInfoResponse* other) {
+  inline void Swap(SC_EquipInfoResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -291,7 +291,7 @@ class EquipInfoResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EquipInfoResponse* other) {
+  void UnsafeArenaSwap(SC_EquipInfoResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -299,14 +299,14 @@ class EquipInfoResponse final :
 
   // implements Message ----------------------------------------------
 
-  EquipInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EquipInfoResponse>(arena);
+  SC_EquipInfoResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_EquipInfoResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EquipInfoResponse& from);
+  void CopyFrom(const SC_EquipInfoResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EquipInfoResponse& from) {
-    EquipInfoResponse::MergeImpl(*this, from);
+  void MergeFrom( const SC_EquipInfoResponse& from) {
+    SC_EquipInfoResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -324,15 +324,15 @@ class EquipInfoResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EquipInfoResponse* other);
+  void InternalSwap(SC_EquipInfoResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.EquipInfoResponse";
+    return "Protocol.SC_EquipInfoResponse";
   }
   protected:
-  explicit EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SC_EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -366,7 +366,7 @@ class EquipInfoResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >&
       equips() const;
 
-  // @@protoc_insertion_point(class_scope:Protocol.EquipInfoResponse)
+  // @@protoc_insertion_point(class_scope:Protocol.SC_EquipInfoResponse)
  private:
   class _Internal;
 
@@ -382,24 +382,24 @@ class EquipInfoResponse final :
 };
 // -------------------------------------------------------------------
 
-class EquipChangeRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.EquipChangeRequest) */ {
+class CS_EquipChangeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_EquipChangeRequest) */ {
  public:
-  inline EquipChangeRequest() : EquipChangeRequest(nullptr) {}
-  ~EquipChangeRequest() override;
-  explicit PROTOBUF_CONSTEXPR EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_EquipChangeRequest() : CS_EquipChangeRequest(nullptr) {}
+  ~CS_EquipChangeRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EquipChangeRequest(const EquipChangeRequest& from);
-  EquipChangeRequest(EquipChangeRequest&& from) noexcept
-    : EquipChangeRequest() {
+  CS_EquipChangeRequest(const CS_EquipChangeRequest& from);
+  CS_EquipChangeRequest(CS_EquipChangeRequest&& from) noexcept
+    : CS_EquipChangeRequest() {
     *this = ::std::move(from);
   }
 
-  inline EquipChangeRequest& operator=(const EquipChangeRequest& from) {
+  inline CS_EquipChangeRequest& operator=(const CS_EquipChangeRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EquipChangeRequest& operator=(EquipChangeRequest&& from) noexcept {
+  inline CS_EquipChangeRequest& operator=(CS_EquipChangeRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -422,20 +422,20 @@ class EquipChangeRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EquipChangeRequest& default_instance() {
+  static const CS_EquipChangeRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EquipChangeRequest* internal_default_instance() {
-    return reinterpret_cast<const EquipChangeRequest*>(
-               &_EquipChangeRequest_default_instance_);
+  static inline const CS_EquipChangeRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_EquipChangeRequest*>(
+               &_CS_EquipChangeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(EquipChangeRequest& a, EquipChangeRequest& b) {
+  friend void swap(CS_EquipChangeRequest& a, CS_EquipChangeRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(EquipChangeRequest* other) {
+  inline void Swap(CS_EquipChangeRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -448,7 +448,7 @@ class EquipChangeRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EquipChangeRequest* other) {
+  void UnsafeArenaSwap(CS_EquipChangeRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -456,14 +456,14 @@ class EquipChangeRequest final :
 
   // implements Message ----------------------------------------------
 
-  EquipChangeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EquipChangeRequest>(arena);
+  CS_EquipChangeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_EquipChangeRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EquipChangeRequest& from);
+  void CopyFrom(const CS_EquipChangeRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EquipChangeRequest& from) {
-    EquipChangeRequest::MergeImpl(*this, from);
+  void MergeFrom( const CS_EquipChangeRequest& from) {
+    CS_EquipChangeRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -481,15 +481,15 @@ class EquipChangeRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EquipChangeRequest* other);
+  void InternalSwap(CS_EquipChangeRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.EquipChangeRequest";
+    return "Protocol.CS_EquipChangeRequest";
   }
   protected:
-  explicit EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -543,7 +543,7 @@ class EquipChangeRequest final :
   void _internal_set_userseq(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.EquipChangeRequest)
+  // @@protoc_insertion_point(class_scope:Protocol.CS_EquipChangeRequest)
  private:
   class _Internal;
 
@@ -561,24 +561,24 @@ class EquipChangeRequest final :
 };
 // -------------------------------------------------------------------
 
-class EquipChangeRespnse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.EquipChangeRespnse) */ {
+class SC_EquipChangeRespnse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_EquipChangeRespnse) */ {
  public:
-  inline EquipChangeRespnse() : EquipChangeRespnse(nullptr) {}
-  ~EquipChangeRespnse() override;
-  explicit PROTOBUF_CONSTEXPR EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SC_EquipChangeRespnse() : SC_EquipChangeRespnse(nullptr) {}
+  ~SC_EquipChangeRespnse() override;
+  explicit PROTOBUF_CONSTEXPR SC_EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  EquipChangeRespnse(const EquipChangeRespnse& from);
-  EquipChangeRespnse(EquipChangeRespnse&& from) noexcept
-    : EquipChangeRespnse() {
+  SC_EquipChangeRespnse(const SC_EquipChangeRespnse& from);
+  SC_EquipChangeRespnse(SC_EquipChangeRespnse&& from) noexcept
+    : SC_EquipChangeRespnse() {
     *this = ::std::move(from);
   }
 
-  inline EquipChangeRespnse& operator=(const EquipChangeRespnse& from) {
+  inline SC_EquipChangeRespnse& operator=(const SC_EquipChangeRespnse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EquipChangeRespnse& operator=(EquipChangeRespnse&& from) noexcept {
+  inline SC_EquipChangeRespnse& operator=(SC_EquipChangeRespnse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -601,20 +601,20 @@ class EquipChangeRespnse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const EquipChangeRespnse& default_instance() {
+  static const SC_EquipChangeRespnse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const EquipChangeRespnse* internal_default_instance() {
-    return reinterpret_cast<const EquipChangeRespnse*>(
-               &_EquipChangeRespnse_default_instance_);
+  static inline const SC_EquipChangeRespnse* internal_default_instance() {
+    return reinterpret_cast<const SC_EquipChangeRespnse*>(
+               &_SC_EquipChangeRespnse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(EquipChangeRespnse& a, EquipChangeRespnse& b) {
+  friend void swap(SC_EquipChangeRespnse& a, SC_EquipChangeRespnse& b) {
     a.Swap(&b);
   }
-  inline void Swap(EquipChangeRespnse* other) {
+  inline void Swap(SC_EquipChangeRespnse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -627,7 +627,7 @@ class EquipChangeRespnse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(EquipChangeRespnse* other) {
+  void UnsafeArenaSwap(SC_EquipChangeRespnse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -635,14 +635,14 @@ class EquipChangeRespnse final :
 
   // implements Message ----------------------------------------------
 
-  EquipChangeRespnse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<EquipChangeRespnse>(arena);
+  SC_EquipChangeRespnse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_EquipChangeRespnse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const EquipChangeRespnse& from);
+  void CopyFrom(const SC_EquipChangeRespnse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const EquipChangeRespnse& from) {
-    EquipChangeRespnse::MergeImpl(*this, from);
+  void MergeFrom( const SC_EquipChangeRespnse& from) {
+    SC_EquipChangeRespnse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -660,15 +660,15 @@ class EquipChangeRespnse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EquipChangeRespnse* other);
+  void InternalSwap(SC_EquipChangeRespnse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.EquipChangeRespnse";
+    return "Protocol.SC_EquipChangeRespnse";
   }
   protected:
-  explicit EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SC_EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -693,7 +693,7 @@ class EquipChangeRespnse final :
   void _internal_set_success(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.EquipChangeRespnse)
+  // @@protoc_insertion_point(class_scope:Protocol.SC_EquipChangeRespnse)
  private:
   class _Internal;
 
@@ -709,24 +709,24 @@ class EquipChangeRespnse final :
 };
 // -------------------------------------------------------------------
 
-class ChangeInventoryRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ChangeInventoryRequest) */ {
+class CS_ChangeInventoryRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_ChangeInventoryRequest) */ {
  public:
-  inline ChangeInventoryRequest() : ChangeInventoryRequest(nullptr) {}
-  ~ChangeInventoryRequest() override;
-  explicit PROTOBUF_CONSTEXPR ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_ChangeInventoryRequest() : CS_ChangeInventoryRequest(nullptr) {}
+  ~CS_ChangeInventoryRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ChangeInventoryRequest(const ChangeInventoryRequest& from);
-  ChangeInventoryRequest(ChangeInventoryRequest&& from) noexcept
-    : ChangeInventoryRequest() {
+  CS_ChangeInventoryRequest(const CS_ChangeInventoryRequest& from);
+  CS_ChangeInventoryRequest(CS_ChangeInventoryRequest&& from) noexcept
+    : CS_ChangeInventoryRequest() {
     *this = ::std::move(from);
   }
 
-  inline ChangeInventoryRequest& operator=(const ChangeInventoryRequest& from) {
+  inline CS_ChangeInventoryRequest& operator=(const CS_ChangeInventoryRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ChangeInventoryRequest& operator=(ChangeInventoryRequest&& from) noexcept {
+  inline CS_ChangeInventoryRequest& operator=(CS_ChangeInventoryRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -749,20 +749,20 @@ class ChangeInventoryRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ChangeInventoryRequest& default_instance() {
+  static const CS_ChangeInventoryRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ChangeInventoryRequest* internal_default_instance() {
-    return reinterpret_cast<const ChangeInventoryRequest*>(
-               &_ChangeInventoryRequest_default_instance_);
+  static inline const CS_ChangeInventoryRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_ChangeInventoryRequest*>(
+               &_CS_ChangeInventoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  friend void swap(ChangeInventoryRequest& a, ChangeInventoryRequest& b) {
+  friend void swap(CS_ChangeInventoryRequest& a, CS_ChangeInventoryRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChangeInventoryRequest* other) {
+  inline void Swap(CS_ChangeInventoryRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -775,7 +775,7 @@ class ChangeInventoryRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ChangeInventoryRequest* other) {
+  void UnsafeArenaSwap(CS_ChangeInventoryRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -783,14 +783,14 @@ class ChangeInventoryRequest final :
 
   // implements Message ----------------------------------------------
 
-  ChangeInventoryRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ChangeInventoryRequest>(arena);
+  CS_ChangeInventoryRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_ChangeInventoryRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const ChangeInventoryRequest& from);
+  void CopyFrom(const CS_ChangeInventoryRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const ChangeInventoryRequest& from) {
-    ChangeInventoryRequest::MergeImpl(*this, from);
+  void MergeFrom( const CS_ChangeInventoryRequest& from) {
+    CS_ChangeInventoryRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -808,15 +808,15 @@ class ChangeInventoryRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ChangeInventoryRequest* other);
+  void InternalSwap(CS_ChangeInventoryRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.ChangeInventoryRequest";
+    return "Protocol.CS_ChangeInventoryRequest";
   }
   protected:
-  explicit ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -830,28 +830,10 @@ class ChangeInventoryRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kItemFieldNumber = 3,
     kUserSeqFieldNumber = 1,
-    kSlotIdxFieldNumber = 2,
+    kBeforeSlotIdxFieldNumber = 2,
+    kChangeSlotIdxFieldNumber = 3,
   };
-  // .Protocol.Item item = 3;
-  bool has_item() const;
-  private:
-  bool _internal_has_item() const;
-  public:
-  void clear_item();
-  const ::Protocol::Item& item() const;
-  PROTOBUF_NODISCARD ::Protocol::Item* release_item();
-  ::Protocol::Item* mutable_item();
-  void set_allocated_item(::Protocol::Item* item);
-  private:
-  const ::Protocol::Item& _internal_item() const;
-  ::Protocol::Item* _internal_mutable_item();
-  public:
-  void unsafe_arena_set_allocated_item(
-      ::Protocol::Item* item);
-  ::Protocol::Item* unsafe_arena_release_item();
-
   // int32 userSeq = 1;
   void clear_userseq();
   int32_t userseq() const;
@@ -861,16 +843,25 @@ class ChangeInventoryRequest final :
   void _internal_set_userseq(int32_t value);
   public:
 
-  // int32 slotIdx = 2;
-  void clear_slotidx();
-  int32_t slotidx() const;
-  void set_slotidx(int32_t value);
+  // int32 beforeSlotIdx = 2;
+  void clear_beforeslotidx();
+  int32_t beforeslotidx() const;
+  void set_beforeslotidx(int32_t value);
   private:
-  int32_t _internal_slotidx() const;
-  void _internal_set_slotidx(int32_t value);
+  int32_t _internal_beforeslotidx() const;
+  void _internal_set_beforeslotidx(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.ChangeInventoryRequest)
+  // int32 changeSlotIdx = 3;
+  void clear_changeslotidx();
+  int32_t changeslotidx() const;
+  void set_changeslotidx(int32_t value);
+  private:
+  int32_t _internal_changeslotidx() const;
+  void _internal_set_changeslotidx(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_ChangeInventoryRequest)
  private:
   class _Internal;
 
@@ -878,9 +869,9 @@ class ChangeInventoryRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::Protocol::Item* item_;
     int32_t userseq_;
-    int32_t slotidx_;
+    int32_t beforeslotidx_;
+    int32_t changeslotidx_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -888,24 +879,24 @@ class ChangeInventoryRequest final :
 };
 // -------------------------------------------------------------------
 
-class ChangeInventoryResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ChangeInventoryResponse) */ {
+class SC_ChangeInventoryResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_ChangeInventoryResponse) */ {
  public:
-  inline ChangeInventoryResponse() : ChangeInventoryResponse(nullptr) {}
-  ~ChangeInventoryResponse() override;
-  explicit PROTOBUF_CONSTEXPR ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SC_ChangeInventoryResponse() : SC_ChangeInventoryResponse(nullptr) {}
+  ~SC_ChangeInventoryResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ChangeInventoryResponse(const ChangeInventoryResponse& from);
-  ChangeInventoryResponse(ChangeInventoryResponse&& from) noexcept
-    : ChangeInventoryResponse() {
+  SC_ChangeInventoryResponse(const SC_ChangeInventoryResponse& from);
+  SC_ChangeInventoryResponse(SC_ChangeInventoryResponse&& from) noexcept
+    : SC_ChangeInventoryResponse() {
     *this = ::std::move(from);
   }
 
-  inline ChangeInventoryResponse& operator=(const ChangeInventoryResponse& from) {
+  inline SC_ChangeInventoryResponse& operator=(const SC_ChangeInventoryResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ChangeInventoryResponse& operator=(ChangeInventoryResponse&& from) noexcept {
+  inline SC_ChangeInventoryResponse& operator=(SC_ChangeInventoryResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -928,20 +919,20 @@ class ChangeInventoryResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ChangeInventoryResponse& default_instance() {
+  static const SC_ChangeInventoryResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ChangeInventoryResponse* internal_default_instance() {
-    return reinterpret_cast<const ChangeInventoryResponse*>(
-               &_ChangeInventoryResponse_default_instance_);
+  static inline const SC_ChangeInventoryResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_ChangeInventoryResponse*>(
+               &_SC_ChangeInventoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     5;
 
-  friend void swap(ChangeInventoryResponse& a, ChangeInventoryResponse& b) {
+  friend void swap(SC_ChangeInventoryResponse& a, SC_ChangeInventoryResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ChangeInventoryResponse* other) {
+  inline void Swap(SC_ChangeInventoryResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -954,7 +945,7 @@ class ChangeInventoryResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ChangeInventoryResponse* other) {
+  void UnsafeArenaSwap(SC_ChangeInventoryResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -962,14 +953,14 @@ class ChangeInventoryResponse final :
 
   // implements Message ----------------------------------------------
 
-  ChangeInventoryResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ChangeInventoryResponse>(arena);
+  SC_ChangeInventoryResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_ChangeInventoryResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const ChangeInventoryResponse& from);
+  void CopyFrom(const SC_ChangeInventoryResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const ChangeInventoryResponse& from) {
-    ChangeInventoryResponse::MergeImpl(*this, from);
+  void MergeFrom( const SC_ChangeInventoryResponse& from) {
+    SC_ChangeInventoryResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -987,15 +978,15 @@ class ChangeInventoryResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ChangeInventoryResponse* other);
+  void InternalSwap(SC_ChangeInventoryResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.ChangeInventoryResponse";
+    return "Protocol.SC_ChangeInventoryResponse";
   }
   protected:
-  explicit ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SC_ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1020,7 +1011,7 @@ class ChangeInventoryResponse final :
   void _internal_set_success(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.ChangeInventoryResponse)
+  // @@protoc_insertion_point(class_scope:Protocol.SC_ChangeInventoryResponse)
  private:
   class _Internal;
 
@@ -1043,130 +1034,130 @@ class ChangeInventoryResponse final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// EquipInfoRequest
+// CS_EquipInfoRequest
 
 // int32 userSeq = 1;
-inline void EquipInfoRequest::clear_userseq() {
+inline void CS_EquipInfoRequest::clear_userseq() {
   _impl_.userseq_ = 0;
 }
-inline int32_t EquipInfoRequest::_internal_userseq() const {
+inline int32_t CS_EquipInfoRequest::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline int32_t EquipInfoRequest::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipInfoRequest.userSeq)
+inline int32_t CS_EquipInfoRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_EquipInfoRequest.userSeq)
   return _internal_userseq();
 }
-inline void EquipInfoRequest::_internal_set_userseq(int32_t value) {
+inline void CS_EquipInfoRequest::_internal_set_userseq(int32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void EquipInfoRequest::set_userseq(int32_t value) {
+inline void CS_EquipInfoRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.EquipInfoRequest.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.CS_EquipInfoRequest.userSeq)
 }
 
 // -------------------------------------------------------------------
 
-// EquipInfoResponse
+// SC_EquipInfoResponse
 
 // repeated .Protocol.Equip equips = 1;
-inline int EquipInfoResponse::_internal_equips_size() const {
+inline int SC_EquipInfoResponse::_internal_equips_size() const {
   return _impl_.equips_.size();
 }
-inline int EquipInfoResponse::equips_size() const {
+inline int SC_EquipInfoResponse::equips_size() const {
   return _internal_equips_size();
 }
-inline ::Protocol::Equip* EquipInfoResponse::mutable_equips(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.EquipInfoResponse.equips)
+inline ::Protocol::Equip* SC_EquipInfoResponse::mutable_equips(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_EquipInfoResponse.equips)
   return _impl_.equips_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >*
-EquipInfoResponse::mutable_equips() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.EquipInfoResponse.equips)
+SC_EquipInfoResponse::mutable_equips() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_EquipInfoResponse.equips)
   return &_impl_.equips_;
 }
-inline const ::Protocol::Equip& EquipInfoResponse::_internal_equips(int index) const {
+inline const ::Protocol::Equip& SC_EquipInfoResponse::_internal_equips(int index) const {
   return _impl_.equips_.Get(index);
 }
-inline const ::Protocol::Equip& EquipInfoResponse::equips(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipInfoResponse.equips)
+inline const ::Protocol::Equip& SC_EquipInfoResponse::equips(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_EquipInfoResponse.equips)
   return _internal_equips(index);
 }
-inline ::Protocol::Equip* EquipInfoResponse::_internal_add_equips() {
+inline ::Protocol::Equip* SC_EquipInfoResponse::_internal_add_equips() {
   return _impl_.equips_.Add();
 }
-inline ::Protocol::Equip* EquipInfoResponse::add_equips() {
+inline ::Protocol::Equip* SC_EquipInfoResponse::add_equips() {
   ::Protocol::Equip* _add = _internal_add_equips();
-  // @@protoc_insertion_point(field_add:Protocol.EquipInfoResponse.equips)
+  // @@protoc_insertion_point(field_add:Protocol.SC_EquipInfoResponse.equips)
   return _add;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >&
-EquipInfoResponse::equips() const {
-  // @@protoc_insertion_point(field_list:Protocol.EquipInfoResponse.equips)
+SC_EquipInfoResponse::equips() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_EquipInfoResponse.equips)
   return _impl_.equips_;
 }
 
 // -------------------------------------------------------------------
 
-// EquipChangeRequest
+// CS_EquipChangeRequest
 
 // int64 objectId = 1;
-inline void EquipChangeRequest::clear_objectid() {
+inline void CS_EquipChangeRequest::clear_objectid() {
   _impl_.objectid_ = int64_t{0};
 }
-inline int64_t EquipChangeRequest::_internal_objectid() const {
+inline int64_t CS_EquipChangeRequest::_internal_objectid() const {
   return _impl_.objectid_;
 }
-inline int64_t EquipChangeRequest::objectid() const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipChangeRequest.objectId)
+inline int64_t CS_EquipChangeRequest::objectid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_EquipChangeRequest.objectId)
   return _internal_objectid();
 }
-inline void EquipChangeRequest::_internal_set_objectid(int64_t value) {
+inline void CS_EquipChangeRequest::_internal_set_objectid(int64_t value) {
   
   _impl_.objectid_ = value;
 }
-inline void EquipChangeRequest::set_objectid(int64_t value) {
+inline void CS_EquipChangeRequest::set_objectid(int64_t value) {
   _internal_set_objectid(value);
-  // @@protoc_insertion_point(field_set:Protocol.EquipChangeRequest.objectId)
+  // @@protoc_insertion_point(field_set:Protocol.CS_EquipChangeRequest.objectId)
 }
 
 // int32 userSeq = 2;
-inline void EquipChangeRequest::clear_userseq() {
+inline void CS_EquipChangeRequest::clear_userseq() {
   _impl_.userseq_ = 0;
 }
-inline int32_t EquipChangeRequest::_internal_userseq() const {
+inline int32_t CS_EquipChangeRequest::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline int32_t EquipChangeRequest::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipChangeRequest.userSeq)
+inline int32_t CS_EquipChangeRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_EquipChangeRequest.userSeq)
   return _internal_userseq();
 }
-inline void EquipChangeRequest::_internal_set_userseq(int32_t value) {
+inline void CS_EquipChangeRequest::_internal_set_userseq(int32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void EquipChangeRequest::set_userseq(int32_t value) {
+inline void CS_EquipChangeRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.EquipChangeRequest.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.CS_EquipChangeRequest.userSeq)
 }
 
 // .Protocol.Equip item = 3;
-inline bool EquipChangeRequest::_internal_has_item() const {
+inline bool CS_EquipChangeRequest::_internal_has_item() const {
   return this != internal_default_instance() && _impl_.item_ != nullptr;
 }
-inline bool EquipChangeRequest::has_item() const {
+inline bool CS_EquipChangeRequest::has_item() const {
   return _internal_has_item();
 }
-inline const ::Protocol::Equip& EquipChangeRequest::_internal_item() const {
+inline const ::Protocol::Equip& CS_EquipChangeRequest::_internal_item() const {
   const ::Protocol::Equip* p = _impl_.item_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Equip&>(
       ::Protocol::_Equip_default_instance_);
 }
-inline const ::Protocol::Equip& EquipChangeRequest::item() const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipChangeRequest.item)
+inline const ::Protocol::Equip& CS_EquipChangeRequest::item() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_EquipChangeRequest.item)
   return _internal_item();
 }
-inline void EquipChangeRequest::unsafe_arena_set_allocated_item(
+inline void CS_EquipChangeRequest::unsafe_arena_set_allocated_item(
     ::Protocol::Equip* item) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
@@ -1177,9 +1168,9 @@ inline void EquipChangeRequest::unsafe_arena_set_allocated_item(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.EquipChangeRequest.item)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.CS_EquipChangeRequest.item)
 }
-inline ::Protocol::Equip* EquipChangeRequest::release_item() {
+inline ::Protocol::Equip* CS_EquipChangeRequest::release_item() {
   
   ::Protocol::Equip* temp = _impl_.item_;
   _impl_.item_ = nullptr;
@@ -1194,14 +1185,14 @@ inline ::Protocol::Equip* EquipChangeRequest::release_item() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Equip* EquipChangeRequest::unsafe_arena_release_item() {
-  // @@protoc_insertion_point(field_release:Protocol.EquipChangeRequest.item)
+inline ::Protocol::Equip* CS_EquipChangeRequest::unsafe_arena_release_item() {
+  // @@protoc_insertion_point(field_release:Protocol.CS_EquipChangeRequest.item)
   
   ::Protocol::Equip* temp = _impl_.item_;
   _impl_.item_ = nullptr;
   return temp;
 }
-inline ::Protocol::Equip* EquipChangeRequest::_internal_mutable_item() {
+inline ::Protocol::Equip* CS_EquipChangeRequest::_internal_mutable_item() {
   
   if (_impl_.item_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Equip>(GetArenaForAllocation());
@@ -1209,12 +1200,12 @@ inline ::Protocol::Equip* EquipChangeRequest::_internal_mutable_item() {
   }
   return _impl_.item_;
 }
-inline ::Protocol::Equip* EquipChangeRequest::mutable_item() {
+inline ::Protocol::Equip* CS_EquipChangeRequest::mutable_item() {
   ::Protocol::Equip* _msg = _internal_mutable_item();
-  // @@protoc_insertion_point(field_mutable:Protocol.EquipChangeRequest.item)
+  // @@protoc_insertion_point(field_mutable:Protocol.CS_EquipChangeRequest.item)
   return _msg;
 }
-inline void EquipChangeRequest::set_allocated_item(::Protocol::Equip* item) {
+inline void CS_EquipChangeRequest::set_allocated_item(::Protocol::Equip* item) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
@@ -1232,184 +1223,119 @@ inline void EquipChangeRequest::set_allocated_item(::Protocol::Equip* item) {
     
   }
   _impl_.item_ = item;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.EquipChangeRequest.item)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CS_EquipChangeRequest.item)
 }
 
 // -------------------------------------------------------------------
 
-// EquipChangeRespnse
+// SC_EquipChangeRespnse
 
 // int32 success = 1;
-inline void EquipChangeRespnse::clear_success() {
+inline void SC_EquipChangeRespnse::clear_success() {
   _impl_.success_ = 0;
 }
-inline int32_t EquipChangeRespnse::_internal_success() const {
+inline int32_t SC_EquipChangeRespnse::_internal_success() const {
   return _impl_.success_;
 }
-inline int32_t EquipChangeRespnse::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.EquipChangeRespnse.success)
+inline int32_t SC_EquipChangeRespnse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_EquipChangeRespnse.success)
   return _internal_success();
 }
-inline void EquipChangeRespnse::_internal_set_success(int32_t value) {
+inline void SC_EquipChangeRespnse::_internal_set_success(int32_t value) {
   
   _impl_.success_ = value;
 }
-inline void EquipChangeRespnse::set_success(int32_t value) {
+inline void SC_EquipChangeRespnse::set_success(int32_t value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.EquipChangeRespnse.success)
+  // @@protoc_insertion_point(field_set:Protocol.SC_EquipChangeRespnse.success)
 }
 
 // -------------------------------------------------------------------
 
-// ChangeInventoryRequest
+// CS_ChangeInventoryRequest
 
 // int32 userSeq = 1;
-inline void ChangeInventoryRequest::clear_userseq() {
+inline void CS_ChangeInventoryRequest::clear_userseq() {
   _impl_.userseq_ = 0;
 }
-inline int32_t ChangeInventoryRequest::_internal_userseq() const {
+inline int32_t CS_ChangeInventoryRequest::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline int32_t ChangeInventoryRequest::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.ChangeInventoryRequest.userSeq)
+inline int32_t CS_ChangeInventoryRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ChangeInventoryRequest.userSeq)
   return _internal_userseq();
 }
-inline void ChangeInventoryRequest::_internal_set_userseq(int32_t value) {
+inline void CS_ChangeInventoryRequest::_internal_set_userseq(int32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void ChangeInventoryRequest::set_userseq(int32_t value) {
+inline void CS_ChangeInventoryRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.ChangeInventoryRequest.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.CS_ChangeInventoryRequest.userSeq)
 }
 
-// int32 slotIdx = 2;
-inline void ChangeInventoryRequest::clear_slotidx() {
-  _impl_.slotidx_ = 0;
+// int32 beforeSlotIdx = 2;
+inline void CS_ChangeInventoryRequest::clear_beforeslotidx() {
+  _impl_.beforeslotidx_ = 0;
 }
-inline int32_t ChangeInventoryRequest::_internal_slotidx() const {
-  return _impl_.slotidx_;
+inline int32_t CS_ChangeInventoryRequest::_internal_beforeslotidx() const {
+  return _impl_.beforeslotidx_;
 }
-inline int32_t ChangeInventoryRequest::slotidx() const {
-  // @@protoc_insertion_point(field_get:Protocol.ChangeInventoryRequest.slotIdx)
-  return _internal_slotidx();
+inline int32_t CS_ChangeInventoryRequest::beforeslotidx() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ChangeInventoryRequest.beforeSlotIdx)
+  return _internal_beforeslotidx();
 }
-inline void ChangeInventoryRequest::_internal_set_slotidx(int32_t value) {
+inline void CS_ChangeInventoryRequest::_internal_set_beforeslotidx(int32_t value) {
   
-  _impl_.slotidx_ = value;
+  _impl_.beforeslotidx_ = value;
 }
-inline void ChangeInventoryRequest::set_slotidx(int32_t value) {
-  _internal_set_slotidx(value);
-  // @@protoc_insertion_point(field_set:Protocol.ChangeInventoryRequest.slotIdx)
+inline void CS_ChangeInventoryRequest::set_beforeslotidx(int32_t value) {
+  _internal_set_beforeslotidx(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ChangeInventoryRequest.beforeSlotIdx)
 }
 
-// .Protocol.Item item = 3;
-inline bool ChangeInventoryRequest::_internal_has_item() const {
-  return this != internal_default_instance() && _impl_.item_ != nullptr;
+// int32 changeSlotIdx = 3;
+inline void CS_ChangeInventoryRequest::clear_changeslotidx() {
+  _impl_.changeslotidx_ = 0;
 }
-inline bool ChangeInventoryRequest::has_item() const {
-  return _internal_has_item();
+inline int32_t CS_ChangeInventoryRequest::_internal_changeslotidx() const {
+  return _impl_.changeslotidx_;
 }
-inline const ::Protocol::Item& ChangeInventoryRequest::_internal_item() const {
-  const ::Protocol::Item* p = _impl_.item_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Item&>(
-      ::Protocol::_Item_default_instance_);
+inline int32_t CS_ChangeInventoryRequest::changeslotidx() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ChangeInventoryRequest.changeSlotIdx)
+  return _internal_changeslotidx();
 }
-inline const ::Protocol::Item& ChangeInventoryRequest::item() const {
-  // @@protoc_insertion_point(field_get:Protocol.ChangeInventoryRequest.item)
-  return _internal_item();
-}
-inline void ChangeInventoryRequest::unsafe_arena_set_allocated_item(
-    ::Protocol::Item* item) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
-  }
-  _impl_.item_ = item;
-  if (item) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.ChangeInventoryRequest.item)
-}
-inline ::Protocol::Item* ChangeInventoryRequest::release_item() {
+inline void CS_ChangeInventoryRequest::_internal_set_changeslotidx(int32_t value) {
   
-  ::Protocol::Item* temp = _impl_.item_;
-  _impl_.item_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
+  _impl_.changeslotidx_ = value;
 }
-inline ::Protocol::Item* ChangeInventoryRequest::unsafe_arena_release_item() {
-  // @@protoc_insertion_point(field_release:Protocol.ChangeInventoryRequest.item)
-  
-  ::Protocol::Item* temp = _impl_.item_;
-  _impl_.item_ = nullptr;
-  return temp;
-}
-inline ::Protocol::Item* ChangeInventoryRequest::_internal_mutable_item() {
-  
-  if (_impl_.item_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::Item>(GetArenaForAllocation());
-    _impl_.item_ = p;
-  }
-  return _impl_.item_;
-}
-inline ::Protocol::Item* ChangeInventoryRequest::mutable_item() {
-  ::Protocol::Item* _msg = _internal_mutable_item();
-  // @@protoc_insertion_point(field_mutable:Protocol.ChangeInventoryRequest.item)
-  return _msg;
-}
-inline void ChangeInventoryRequest::set_allocated_item(::Protocol::Item* item) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.item_);
-  }
-  if (item) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(item));
-    if (message_arena != submessage_arena) {
-      item = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, item, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.item_ = item;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.ChangeInventoryRequest.item)
+inline void CS_ChangeInventoryRequest::set_changeslotidx(int32_t value) {
+  _internal_set_changeslotidx(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ChangeInventoryRequest.changeSlotIdx)
 }
 
 // -------------------------------------------------------------------
 
-// ChangeInventoryResponse
+// SC_ChangeInventoryResponse
 
 // int32 success = 1;
-inline void ChangeInventoryResponse::clear_success() {
+inline void SC_ChangeInventoryResponse::clear_success() {
   _impl_.success_ = 0;
 }
-inline int32_t ChangeInventoryResponse::_internal_success() const {
+inline int32_t SC_ChangeInventoryResponse::_internal_success() const {
   return _impl_.success_;
 }
-inline int32_t ChangeInventoryResponse::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.ChangeInventoryResponse.success)
+inline int32_t SC_ChangeInventoryResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ChangeInventoryResponse.success)
   return _internal_success();
 }
-inline void ChangeInventoryResponse::_internal_set_success(int32_t value) {
+inline void SC_ChangeInventoryResponse::_internal_set_success(int32_t value) {
   
   _impl_.success_ = value;
 }
-inline void ChangeInventoryResponse::set_success(int32_t value) {
+inline void SC_ChangeInventoryResponse::set_success(int32_t value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.ChangeInventoryResponse.success)
+  // @@protoc_insertion_point(field_set:Protocol.SC_ChangeInventoryResponse.success)
 }
 
 #ifdef __GNUC__

@@ -57,7 +57,7 @@ void LoadBalancerClient::Connect()
 void LoadBalancerClient::SendRequest(int32 userSeq)
 {
 
-    Protocol::EnterGamePacket request;
+    Protocol::CS_EnterGamePacket request;
     request.set_userseq(userSeq);
 
     // 패킷 생성
@@ -99,7 +99,7 @@ void LoadBalancerClient::SendRequest(int32 userSeq)
 
 void LoadBalancerClient::OnRecv(const uint8* buffer, int32 len)
 {
-    Protocol::EnterGameResponsePacket response;
+    Protocol::SC_EnterGameResponsePacket response;
     if (response.ParseFromArray(buffer, len))
     {
         std::unique_lock<std::mutex> lock(mutex);

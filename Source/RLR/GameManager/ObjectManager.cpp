@@ -4,6 +4,9 @@
 #include "GameManager/ObjectManager.h"
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
 #include "RLRObjects/Actors/RLRInteractableActor.h"
+#include "RLRObjects/Actors/RLRDropItem.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 #include "RLR.h"
 
 UObjectManager::UObjectManager()
@@ -46,7 +49,7 @@ void UObjectManager::SpawnNPC()
 
 	AsyncTask(ENamedThreads::GameThread, [this, world]()
 	{
-        for (auto data : NPCData)
+        for (auto& data : NPCData)
         {
             FTransform SpawnTransform;
             SpawnTransform.SetLocation(FVector(data.NPCTransform.X, data.NPCTransform.Y, data.NPCTransform.Z));
@@ -86,7 +89,7 @@ void UObjectManager::SpawnObejct()
 
     AsyncTask(ENamedThreads::GameThread, [this, world]()
         {
-            for (auto data : InteractObjectData)
+            for (auto& data : InteractObjectData)
             {
                 if (!ObjectClasses.Contains(data.InteractType)) continue;
                 auto objectClass = ObjectClasses[data.InteractType];
@@ -107,5 +110,91 @@ void UObjectManager::SpawnObejct()
 
                 ObjectInstances.Add(object);
             }
+        });
+}
+
+void UObjectManager::SetDropItemData(TArray<FDropItem> Data)
+{
+    FScopeLock Lock(&ItemDataMutex);
+
+    for (auto& data : Data)
+    {
+        DropItemData.Add(data);
+    }
+
+    SpawnDropItem();
+}
+
+void UObjectManager::SpawnDropItem()
+{
+    auto world = GetWorld();
+    if (!world) return;
+
+    auto* dataManager = GameInstance->GetDataManager();
+    if (!dataManager) return;
+    
+    AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
+        {
+            for (auto& data : DropItemData)
+            {
+                TSubclassOf<ARLRDropItem> itemClass = dataManager->GetObjectClass<ARLRDropItem>(TEXT("BP_DropItem"));
+                if (!itemClass) continue;
+
+                FTransform SpawnTransform;
+                SpawnTransform.SetLocation(data.ObjectTransform);
+
+                ARLRDropItem* object = world->SpawnActorDeferred<ARLRDropItem>(itemClass, FTransform::Identity);
+                if (!object)
+                {
+                    RLR_LOG(LogRLR, Log, TEXT("Failed to spawn DropItem"));
+                    continue;
+                }
+
+                object->SetDropItemData(data);
+                object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
+                {
+                    object->FinishSpawning(SpawnTransform);
+                    DropItemInstances.Add(object);
+                });
+            }
+        });
+}
+
+TObjectPtr<ARLRDropItem> UObjectManager::GetObjectInstanceById(int ObjectId)
+{
+    TObjectPtr<ARLRDropItem> result = nullptr;
+
+    for (auto dropItem : DropItemInstances)
+    {
+        if (dropItem->GetObjectId() == ObjectId)
+        {
+            result = dropItem;
+            break;
+        }
+    }
+
+    return result;
+}
+
+void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
+{
+    //TODO: 아이템 획득 pkt보내기
+
+    //클라 -> 서버(아이템 요청)
+    RLR_LOG(LogRLR, Log, TEXT("Called RequestPickUpItem"));
+    ResponePickUpItem(Dropitem.ObjectId, true);
+}
+
+void UObjectManager::ResponePickUpItem(int ObjectId, bool bSuccess)
+{
+    if (!bSuccess) return;
+    auto dropItemInstance = GetObjectInstanceById(ObjectId);
+    if (!dropItemInstance) return;
+
+    DropItemInstances.Remove(dropItemInstance);
+
+    AsyncTask(ENamedThreads::GameThread, [&dropItemInstance]()
+        {
+            dropItemInstance->Destroy();
         });
 }

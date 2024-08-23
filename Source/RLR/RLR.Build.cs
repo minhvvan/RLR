@@ -9,10 +9,23 @@ public class RLR : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput","Sockets", "Networking", "UMG",  "Slate"
-            ,"Protobuf","SlateCore", "GameplayTags", "GameplayTasks", "AssetRegistry", "UnrealEd" });
+            ,"Protobuf","SlateCore", "GameplayTags", "GameplayTasks", "AssetRegistry" });
 
         PublicIncludePaths.AddRange(new string[] { "RLR" });
 
+
+        PrivateDependencyModuleNames.AddRange(new string[] { });
+
+        if (Target.Type == TargetRules.TargetType.Editor)
+        {
+            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd" });
+        }
+
+        // 에디터 전용 모듈이 게임 타겟에 포함되지 않도록 보장
+        if (Target.Type != TargetRules.TargetType.Editor)
+        {
+            PrivateDependencyModuleNames.Remove("UnrealEd");
+        }
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

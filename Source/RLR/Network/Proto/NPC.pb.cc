@@ -21,86 +21,86 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
-PROTOBUF_CONSTEXPR NPCInfoRequest::NPCInfoRequest(
+PROTOBUF_CONSTEXPR CS_NPCInfoRequest::CS_NPCInfoRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.mapid_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct NPCInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NPCInfoRequestDefaultTypeInternal()
+struct CS_NPCInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_NPCInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NPCInfoRequestDefaultTypeInternal() {}
+  ~CS_NPCInfoRequestDefaultTypeInternal() {}
   union {
-    NPCInfoRequest _instance;
+    CS_NPCInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NPCInfoRequestDefaultTypeInternal _NPCInfoRequest_default_instance_;
-PROTOBUF_CONSTEXPR NPCInfoResponse::NPCInfoResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_NPCInfoRequestDefaultTypeInternal _CS_NPCInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_NPCInfoResponse::SC_NPCInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.npc_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct NPCInfoResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NPCInfoResponseDefaultTypeInternal()
+struct SC_NPCInfoResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_NPCInfoResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NPCInfoResponseDefaultTypeInternal() {}
+  ~SC_NPCInfoResponseDefaultTypeInternal() {}
   union {
-    NPCInfoResponse _instance;
+    SC_NPCInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NPCInfoResponseDefaultTypeInternal _NPCInfoResponse_default_instance_;
-PROTOBUF_CONSTEXPR UserQuestInfoRequest::UserQuestInfoRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_NPCInfoResponseDefaultTypeInternal _SC_NPCInfoResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_UserQuestInfoRequest::CS_UserQuestInfoRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct UserQuestInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserQuestInfoRequestDefaultTypeInternal()
+struct CS_UserQuestInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_UserQuestInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~UserQuestInfoRequestDefaultTypeInternal() {}
+  ~CS_UserQuestInfoRequestDefaultTypeInternal() {}
   union {
-    UserQuestInfoRequest _instance;
+    CS_UserQuestInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserQuestInfoRequestDefaultTypeInternal _UserQuestInfoRequest_default_instance_;
-PROTOBUF_CONSTEXPR UserQuestInfoResponse::UserQuestInfoResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_UserQuestInfoRequestDefaultTypeInternal _CS_UserQuestInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.quests_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct UserQuestInfoResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR UserQuestInfoResponseDefaultTypeInternal()
+struct SC_UserQuestInfoResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_UserQuestInfoResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~UserQuestInfoResponseDefaultTypeInternal() {}
+  ~SC_UserQuestInfoResponseDefaultTypeInternal() {}
   union {
-    UserQuestInfoResponse _instance;
+    SC_UserQuestInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserQuestInfoResponseDefaultTypeInternal _UserQuestInfoResponse_default_instance_;
-PROTOBUF_CONSTEXPR QuestCheckRequest::QuestCheckRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_UserQuestInfoResponseDefaultTypeInternal _SC_UserQuestInfoResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_QuestCheckRequest::CS_QuestCheckRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.questseq_)*/0
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct QuestCheckRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR QuestCheckRequestDefaultTypeInternal()
+struct CS_QuestCheckRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_QuestCheckRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~QuestCheckRequestDefaultTypeInternal() {}
+  ~CS_QuestCheckRequestDefaultTypeInternal() {}
   union {
-    QuestCheckRequest _instance;
+    CS_QuestCheckRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 QuestCheckRequestDefaultTypeInternal _QuestCheckRequest_default_instance_;
-PROTOBUF_CONSTEXPR QuestCheckResponse::QuestCheckResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_QuestCheckRequestDefaultTypeInternal _CS_QuestCheckRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_QuestCheckResponse::SC_QuestCheckResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.questseq_)*/0
   , /*decltype(_impl_.queststate_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct QuestCheckResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR QuestCheckResponseDefaultTypeInternal()
+struct SC_QuestCheckResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_QuestCheckResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~QuestCheckResponseDefaultTypeInternal() {}
+  ~SC_QuestCheckResponseDefaultTypeInternal() {}
   union {
-    QuestCheckResponse _instance;
+    SC_QuestCheckResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 QuestCheckResponseDefaultTypeInternal _QuestCheckResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_QuestCheckResponseDefaultTypeInternal _SC_QuestCheckResponse_default_instance_;
 }  // namespace Protocol
 static ::_pb::Metadata file_level_metadata_NPC_2eproto[6];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_NPC_2eproto = nullptr;
@@ -108,79 +108,79 @@ static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors
 
 const uint32_t TableStruct_NPC_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::NPCInfoRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NPCInfoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::NPCInfoRequest, _impl_.mapid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NPCInfoRequest, _impl_.mapid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::NPCInfoResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_NPCInfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::NPCInfoResponse, _impl_.npc_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_NPCInfoResponse, _impl_.npc_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::UserQuestInfoRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_UserQuestInfoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::UserQuestInfoRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_UserQuestInfoRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::UserQuestInfoResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserQuestInfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::UserQuestInfoResponse, _impl_.quests_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserQuestInfoResponse, _impl_.quests_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCheckRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckRequest, _impl_.questseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCheckRequest, _impl_.questseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCheckRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCheckResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckResponse, _impl_.questseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::QuestCheckResponse, _impl_.queststate_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCheckResponse, _impl_.questseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCheckResponse, _impl_.queststate_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::NPCInfoRequest)},
-  { 7, -1, -1, sizeof(::Protocol::NPCInfoResponse)},
-  { 14, -1, -1, sizeof(::Protocol::UserQuestInfoRequest)},
-  { 21, -1, -1, sizeof(::Protocol::UserQuestInfoResponse)},
-  { 28, -1, -1, sizeof(::Protocol::QuestCheckRequest)},
-  { 36, -1, -1, sizeof(::Protocol::QuestCheckResponse)},
+  { 0, -1, -1, sizeof(::Protocol::CS_NPCInfoRequest)},
+  { 7, -1, -1, sizeof(::Protocol::SC_NPCInfoResponse)},
+  { 14, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
+  { 21, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
+  { 28, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
+  { 36, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::Protocol::_NPCInfoRequest_default_instance_._instance,
-  &::Protocol::_NPCInfoResponse_default_instance_._instance,
-  &::Protocol::_UserQuestInfoRequest_default_instance_._instance,
-  &::Protocol::_UserQuestInfoResponse_default_instance_._instance,
-  &::Protocol::_QuestCheckRequest_default_instance_._instance,
-  &::Protocol::_QuestCheckResponse_default_instance_._instance,
+  &::Protocol::_CS_NPCInfoRequest_default_instance_._instance,
+  &::Protocol::_SC_NPCInfoResponse_default_instance_._instance,
+  &::Protocol::_CS_UserQuestInfoRequest_default_instance_._instance,
+  &::Protocol::_SC_UserQuestInfoResponse_default_instance_._instance,
+  &::Protocol::_CS_QuestCheckRequest_default_instance_._instance,
+  &::Protocol::_SC_QuestCheckResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_NPC_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\tNPC.proto\022\010Protocol\032\nEnum.proto\032\017NPCSt"
-  "ruct.proto\"\037\n\016NPCInfoRequest\022\r\n\005mapId\030\001 "
-  "\001(\003\"-\n\017NPCInfoResponse\022\032\n\003npc\030\001 \003(\0132\r.Pr"
-  "otocol.NPC\"\'\n\024UserQuestInfoRequest\022\017\n\007us"
-  "erSeq\030\001 \001(\005\"8\n\025UserQuestInfoResponse\022\037\n\006"
-  "quests\030\001 \003(\0132\017.Protocol.Quest\"6\n\021QuestCh"
-  "eckRequest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030"
-  "\002 \001(\005\"P\n\022QuestCheckResponse\022\020\n\010questSeq\030"
-  "\001 \001(\005\022(\n\nqueststate\030\002 \001(\0162\024.Protocol.Que"
-  "stStateb\006proto3"
+  "ruct.proto\"\"\n\021CS_NPCInfoRequest\022\r\n\005mapId"
+  "\030\001 \001(\003\"0\n\022SC_NPCInfoResponse\022\032\n\003npc\030\001 \003("
+  "\0132\r.Protocol.NPC\"*\n\027CS_UserQuestInfoRequ"
+  "est\022\017\n\007userSeq\030\001 \001(\005\";\n\030SC_UserQuestInfo"
+  "Response\022\037\n\006quests\030\001 \003(\0132\017.Protocol.Ques"
+  "t\"9\n\024CS_QuestCheckRequest\022\020\n\010questSeq\030\001 "
+  "\001(\005\022\017\n\007userSeq\030\002 \001(\005\"S\n\025SC_QuestCheckRes"
+  "ponse\022\020\n\010questSeq\030\001 \001(\005\022(\n\nqueststate\030\002 "
+  "\001(\0162\024.Protocol.QuestStateb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -188,7 +188,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2]
 };
 static ::_pbi::once_flag descriptor_table_NPC_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPC_2eproto = {
-    false, false, 375, descriptor_table_protodef_NPC_2eproto,
+    false, false, 393, descriptor_table_protodef_NPC_2eproto,
     "NPC.proto",
     &descriptor_table_NPC_2eproto_once, descriptor_table_NPC_2eproto_deps, 2, 6,
     schemas, file_default_instances, TableStruct_NPC_2eproto::offsets,
@@ -205,29 +205,29 @@ namespace Protocol {
 
 // ===================================================================
 
-class NPCInfoRequest::_Internal {
+class CS_NPCInfoRequest::_Internal {
  public:
 };
 
-NPCInfoRequest::NPCInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_NPCInfoRequest::CS_NPCInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.NPCInfoRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_NPCInfoRequest)
 }
-NPCInfoRequest::NPCInfoRequest(const NPCInfoRequest& from)
+CS_NPCInfoRequest::CS_NPCInfoRequest(const CS_NPCInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  NPCInfoRequest* const _this = this; (void)_this;
+  CS_NPCInfoRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.mapid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.mapid_ = from._impl_.mapid_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.NPCInfoRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_NPCInfoRequest)
 }
 
-inline void NPCInfoRequest::SharedCtor(
+inline void CS_NPCInfoRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -237,8 +237,8 @@ inline void NPCInfoRequest::SharedCtor(
   };
 }
 
-NPCInfoRequest::~NPCInfoRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.NPCInfoRequest)
+CS_NPCInfoRequest::~CS_NPCInfoRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_NPCInfoRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -246,16 +246,16 @@ NPCInfoRequest::~NPCInfoRequest() {
   SharedDtor();
 }
 
-inline void NPCInfoRequest::SharedDtor() {
+inline void CS_NPCInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void NPCInfoRequest::SetCachedSize(int size) const {
+void CS_NPCInfoRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void NPCInfoRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.NPCInfoRequest)
+void CS_NPCInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_NPCInfoRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -264,7 +264,7 @@ void NPCInfoRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* NPCInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_NPCInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -301,9 +301,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NPCInfoRequest::_InternalSerialize(
+uint8_t* CS_NPCInfoRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.NPCInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_NPCInfoRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -317,12 +317,12 @@ uint8_t* NPCInfoRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.NPCInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_NPCInfoRequest)
   return target;
 }
 
-size_t NPCInfoRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.NPCInfoRequest)
+size_t CS_NPCInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_NPCInfoRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -337,17 +337,17 @@ size_t NPCInfoRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NPCInfoRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_NPCInfoRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    NPCInfoRequest::MergeImpl
+    CS_NPCInfoRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NPCInfoRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_NPCInfoRequest::GetClassData() const { return &_class_data_; }
 
 
-void NPCInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<NPCInfoRequest*>(&to_msg);
-  auto& from = static_cast<const NPCInfoRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.NPCInfoRequest)
+void CS_NPCInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_NPCInfoRequest*>(&to_msg);
+  auto& from = static_cast<const CS_NPCInfoRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_NPCInfoRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -358,24 +358,24 @@ void NPCInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void NPCInfoRequest::CopyFrom(const NPCInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.NPCInfoRequest)
+void CS_NPCInfoRequest::CopyFrom(const CS_NPCInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_NPCInfoRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool NPCInfoRequest::IsInitialized() const {
+bool CS_NPCInfoRequest::IsInitialized() const {
   return true;
 }
 
-void NPCInfoRequest::InternalSwap(NPCInfoRequest* other) {
+void CS_NPCInfoRequest::InternalSwap(CS_NPCInfoRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.mapid_, other->_impl_.mapid_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NPCInfoRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_NPCInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[0]);
@@ -383,31 +383,31 @@ void NPCInfoRequest::InternalSwap(NPCInfoRequest* other) {
 
 // ===================================================================
 
-class NPCInfoResponse::_Internal {
+class SC_NPCInfoResponse::_Internal {
  public:
 };
 
-void NPCInfoResponse::clear_npc() {
+void SC_NPCInfoResponse::clear_npc() {
   _impl_.npc_.Clear();
 }
-NPCInfoResponse::NPCInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_NPCInfoResponse::SC_NPCInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.NPCInfoResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_NPCInfoResponse)
 }
-NPCInfoResponse::NPCInfoResponse(const NPCInfoResponse& from)
+SC_NPCInfoResponse::SC_NPCInfoResponse(const SC_NPCInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  NPCInfoResponse* const _this = this; (void)_this;
+  SC_NPCInfoResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.npc_){from._impl_.npc_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:Protocol.NPCInfoResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_NPCInfoResponse)
 }
 
-inline void NPCInfoResponse::SharedCtor(
+inline void SC_NPCInfoResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -417,8 +417,8 @@ inline void NPCInfoResponse::SharedCtor(
   };
 }
 
-NPCInfoResponse::~NPCInfoResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.NPCInfoResponse)
+SC_NPCInfoResponse::~SC_NPCInfoResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_NPCInfoResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -426,17 +426,17 @@ NPCInfoResponse::~NPCInfoResponse() {
   SharedDtor();
 }
 
-inline void NPCInfoResponse::SharedDtor() {
+inline void SC_NPCInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.npc_.~RepeatedPtrField();
 }
 
-void NPCInfoResponse::SetCachedSize(int size) const {
+void SC_NPCInfoResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void NPCInfoResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.NPCInfoResponse)
+void SC_NPCInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_NPCInfoResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -445,7 +445,7 @@ void NPCInfoResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* NPCInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_NPCInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -487,9 +487,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NPCInfoResponse::_InternalSerialize(
+uint8_t* SC_NPCInfoResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.NPCInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_NPCInfoResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -505,12 +505,12 @@ uint8_t* NPCInfoResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.NPCInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_NPCInfoResponse)
   return target;
 }
 
-size_t NPCInfoResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.NPCInfoResponse)
+size_t SC_NPCInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_NPCInfoResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -527,17 +527,17 @@ size_t NPCInfoResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NPCInfoResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_NPCInfoResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    NPCInfoResponse::MergeImpl
+    SC_NPCInfoResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NPCInfoResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_NPCInfoResponse::GetClassData() const { return &_class_data_; }
 
 
-void NPCInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<NPCInfoResponse*>(&to_msg);
-  auto& from = static_cast<const NPCInfoResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.NPCInfoResponse)
+void SC_NPCInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_NPCInfoResponse*>(&to_msg);
+  auto& from = static_cast<const SC_NPCInfoResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_NPCInfoResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -546,24 +546,24 @@ void NPCInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void NPCInfoResponse::CopyFrom(const NPCInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.NPCInfoResponse)
+void SC_NPCInfoResponse::CopyFrom(const SC_NPCInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_NPCInfoResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool NPCInfoResponse::IsInitialized() const {
+bool SC_NPCInfoResponse::IsInitialized() const {
   return true;
 }
 
-void NPCInfoResponse::InternalSwap(NPCInfoResponse* other) {
+void SC_NPCInfoResponse::InternalSwap(SC_NPCInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.npc_.InternalSwap(&other->_impl_.npc_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NPCInfoResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_NPCInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[1]);
@@ -571,29 +571,29 @@ void NPCInfoResponse::InternalSwap(NPCInfoResponse* other) {
 
 // ===================================================================
 
-class UserQuestInfoRequest::_Internal {
+class CS_UserQuestInfoRequest::_Internal {
  public:
 };
 
-UserQuestInfoRequest::UserQuestInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_UserQuestInfoRequest::CS_UserQuestInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.UserQuestInfoRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_UserQuestInfoRequest)
 }
-UserQuestInfoRequest::UserQuestInfoRequest(const UserQuestInfoRequest& from)
+CS_UserQuestInfoRequest::CS_UserQuestInfoRequest(const CS_UserQuestInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  UserQuestInfoRequest* const _this = this; (void)_this;
+  CS_UserQuestInfoRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.userseq_ = from._impl_.userseq_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.UserQuestInfoRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_UserQuestInfoRequest)
 }
 
-inline void UserQuestInfoRequest::SharedCtor(
+inline void CS_UserQuestInfoRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -603,8 +603,8 @@ inline void UserQuestInfoRequest::SharedCtor(
   };
 }
 
-UserQuestInfoRequest::~UserQuestInfoRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.UserQuestInfoRequest)
+CS_UserQuestInfoRequest::~CS_UserQuestInfoRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_UserQuestInfoRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -612,16 +612,16 @@ UserQuestInfoRequest::~UserQuestInfoRequest() {
   SharedDtor();
 }
 
-inline void UserQuestInfoRequest::SharedDtor() {
+inline void CS_UserQuestInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void UserQuestInfoRequest::SetCachedSize(int size) const {
+void CS_UserQuestInfoRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void UserQuestInfoRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.UserQuestInfoRequest)
+void CS_UserQuestInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_UserQuestInfoRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -630,7 +630,7 @@ void UserQuestInfoRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UserQuestInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_UserQuestInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -667,9 +667,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserQuestInfoRequest::_InternalSerialize(
+uint8_t* CS_UserQuestInfoRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.UserQuestInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_UserQuestInfoRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -683,12 +683,12 @@ uint8_t* UserQuestInfoRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.UserQuestInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_UserQuestInfoRequest)
   return target;
 }
 
-size_t UserQuestInfoRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.UserQuestInfoRequest)
+size_t CS_UserQuestInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_UserQuestInfoRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -703,17 +703,17 @@ size_t UserQuestInfoRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UserQuestInfoRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_UserQuestInfoRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    UserQuestInfoRequest::MergeImpl
+    CS_UserQuestInfoRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UserQuestInfoRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_UserQuestInfoRequest::GetClassData() const { return &_class_data_; }
 
 
-void UserQuestInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<UserQuestInfoRequest*>(&to_msg);
-  auto& from = static_cast<const UserQuestInfoRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.UserQuestInfoRequest)
+void CS_UserQuestInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_UserQuestInfoRequest*>(&to_msg);
+  auto& from = static_cast<const CS_UserQuestInfoRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_UserQuestInfoRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -724,24 +724,24 @@ void UserQuestInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void UserQuestInfoRequest::CopyFrom(const UserQuestInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.UserQuestInfoRequest)
+void CS_UserQuestInfoRequest::CopyFrom(const CS_UserQuestInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_UserQuestInfoRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool UserQuestInfoRequest::IsInitialized() const {
+bool CS_UserQuestInfoRequest::IsInitialized() const {
   return true;
 }
 
-void UserQuestInfoRequest::InternalSwap(UserQuestInfoRequest* other) {
+void CS_UserQuestInfoRequest::InternalSwap(CS_UserQuestInfoRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.userseq_, other->_impl_.userseq_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata UserQuestInfoRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_UserQuestInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[2]);
@@ -749,31 +749,31 @@ void UserQuestInfoRequest::InternalSwap(UserQuestInfoRequest* other) {
 
 // ===================================================================
 
-class UserQuestInfoResponse::_Internal {
+class SC_UserQuestInfoResponse::_Internal {
  public:
 };
 
-void UserQuestInfoResponse::clear_quests() {
+void SC_UserQuestInfoResponse::clear_quests() {
   _impl_.quests_.Clear();
 }
-UserQuestInfoResponse::UserQuestInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.UserQuestInfoResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_UserQuestInfoResponse)
 }
-UserQuestInfoResponse::UserQuestInfoResponse(const UserQuestInfoResponse& from)
+SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(const SC_UserQuestInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  UserQuestInfoResponse* const _this = this; (void)_this;
+  SC_UserQuestInfoResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.quests_){from._impl_.quests_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:Protocol.UserQuestInfoResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_UserQuestInfoResponse)
 }
 
-inline void UserQuestInfoResponse::SharedCtor(
+inline void SC_UserQuestInfoResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -783,8 +783,8 @@ inline void UserQuestInfoResponse::SharedCtor(
   };
 }
 
-UserQuestInfoResponse::~UserQuestInfoResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.UserQuestInfoResponse)
+SC_UserQuestInfoResponse::~SC_UserQuestInfoResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_UserQuestInfoResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -792,17 +792,17 @@ UserQuestInfoResponse::~UserQuestInfoResponse() {
   SharedDtor();
 }
 
-inline void UserQuestInfoResponse::SharedDtor() {
+inline void SC_UserQuestInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.quests_.~RepeatedPtrField();
 }
 
-void UserQuestInfoResponse::SetCachedSize(int size) const {
+void SC_UserQuestInfoResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void UserQuestInfoResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.UserQuestInfoResponse)
+void SC_UserQuestInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_UserQuestInfoResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -811,7 +811,7 @@ void UserQuestInfoResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UserQuestInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_UserQuestInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -853,9 +853,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* UserQuestInfoResponse::_InternalSerialize(
+uint8_t* SC_UserQuestInfoResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.UserQuestInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_UserQuestInfoResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -871,12 +871,12 @@ uint8_t* UserQuestInfoResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.UserQuestInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_UserQuestInfoResponse)
   return target;
 }
 
-size_t UserQuestInfoResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.UserQuestInfoResponse)
+size_t SC_UserQuestInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_UserQuestInfoResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -893,17 +893,17 @@ size_t UserQuestInfoResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UserQuestInfoResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_UserQuestInfoResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    UserQuestInfoResponse::MergeImpl
+    SC_UserQuestInfoResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UserQuestInfoResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_UserQuestInfoResponse::GetClassData() const { return &_class_data_; }
 
 
-void UserQuestInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<UserQuestInfoResponse*>(&to_msg);
-  auto& from = static_cast<const UserQuestInfoResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.UserQuestInfoResponse)
+void SC_UserQuestInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_UserQuestInfoResponse*>(&to_msg);
+  auto& from = static_cast<const SC_UserQuestInfoResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_UserQuestInfoResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -912,24 +912,24 @@ void UserQuestInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void UserQuestInfoResponse::CopyFrom(const UserQuestInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.UserQuestInfoResponse)
+void SC_UserQuestInfoResponse::CopyFrom(const SC_UserQuestInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_UserQuestInfoResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool UserQuestInfoResponse::IsInitialized() const {
+bool SC_UserQuestInfoResponse::IsInitialized() const {
   return true;
 }
 
-void UserQuestInfoResponse::InternalSwap(UserQuestInfoResponse* other) {
+void SC_UserQuestInfoResponse::InternalSwap(SC_UserQuestInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.quests_.InternalSwap(&other->_impl_.quests_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata UserQuestInfoResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_UserQuestInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[3]);
@@ -937,19 +937,19 @@ void UserQuestInfoResponse::InternalSwap(UserQuestInfoResponse* other) {
 
 // ===================================================================
 
-class QuestCheckRequest::_Internal {
+class CS_QuestCheckRequest::_Internal {
  public:
 };
 
-QuestCheckRequest::QuestCheckRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_QuestCheckRequest::CS_QuestCheckRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.QuestCheckRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_QuestCheckRequest)
 }
-QuestCheckRequest::QuestCheckRequest(const QuestCheckRequest& from)
+CS_QuestCheckRequest::CS_QuestCheckRequest(const CS_QuestCheckRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  QuestCheckRequest* const _this = this; (void)_this;
+  CS_QuestCheckRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.questseq_){}
     , decltype(_impl_.userseq_){}
@@ -959,10 +959,10 @@ QuestCheckRequest::QuestCheckRequest(const QuestCheckRequest& from)
   ::memcpy(&_impl_.questseq_, &from._impl_.questseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
     reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.userseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.QuestCheckRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_QuestCheckRequest)
 }
 
-inline void QuestCheckRequest::SharedCtor(
+inline void CS_QuestCheckRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -973,8 +973,8 @@ inline void QuestCheckRequest::SharedCtor(
   };
 }
 
-QuestCheckRequest::~QuestCheckRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.QuestCheckRequest)
+CS_QuestCheckRequest::~CS_QuestCheckRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_QuestCheckRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -982,16 +982,16 @@ QuestCheckRequest::~QuestCheckRequest() {
   SharedDtor();
 }
 
-inline void QuestCheckRequest::SharedDtor() {
+inline void CS_QuestCheckRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void QuestCheckRequest::SetCachedSize(int size) const {
+void CS_QuestCheckRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void QuestCheckRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.QuestCheckRequest)
+void CS_QuestCheckRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_QuestCheckRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1002,7 +1002,7 @@ void QuestCheckRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* QuestCheckRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_QuestCheckRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1047,9 +1047,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* QuestCheckRequest::_InternalSerialize(
+uint8_t* CS_QuestCheckRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.QuestCheckRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_QuestCheckRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1069,12 +1069,12 @@ uint8_t* QuestCheckRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.QuestCheckRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_QuestCheckRequest)
   return target;
 }
 
-size_t QuestCheckRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.QuestCheckRequest)
+size_t CS_QuestCheckRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_QuestCheckRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1094,17 +1094,17 @@ size_t QuestCheckRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData QuestCheckRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_QuestCheckRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    QuestCheckRequest::MergeImpl
+    CS_QuestCheckRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*QuestCheckRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_QuestCheckRequest::GetClassData() const { return &_class_data_; }
 
 
-void QuestCheckRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<QuestCheckRequest*>(&to_msg);
-  auto& from = static_cast<const QuestCheckRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.QuestCheckRequest)
+void CS_QuestCheckRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_QuestCheckRequest*>(&to_msg);
+  auto& from = static_cast<const CS_QuestCheckRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_QuestCheckRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1118,29 +1118,29 @@ void QuestCheckRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void QuestCheckRequest::CopyFrom(const QuestCheckRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.QuestCheckRequest)
+void CS_QuestCheckRequest::CopyFrom(const CS_QuestCheckRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_QuestCheckRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool QuestCheckRequest::IsInitialized() const {
+bool CS_QuestCheckRequest::IsInitialized() const {
   return true;
 }
 
-void QuestCheckRequest::InternalSwap(QuestCheckRequest* other) {
+void CS_QuestCheckRequest::InternalSwap(CS_QuestCheckRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(QuestCheckRequest, _impl_.userseq_)
-      + sizeof(QuestCheckRequest::_impl_.userseq_)
-      - PROTOBUF_FIELD_OFFSET(QuestCheckRequest, _impl_.questseq_)>(
+      PROTOBUF_FIELD_OFFSET(CS_QuestCheckRequest, _impl_.userseq_)
+      + sizeof(CS_QuestCheckRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_QuestCheckRequest, _impl_.questseq_)>(
           reinterpret_cast<char*>(&_impl_.questseq_),
           reinterpret_cast<char*>(&other->_impl_.questseq_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata QuestCheckRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestCheckRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[4]);
@@ -1148,19 +1148,19 @@ void QuestCheckRequest::InternalSwap(QuestCheckRequest* other) {
 
 // ===================================================================
 
-class QuestCheckResponse::_Internal {
+class SC_QuestCheckResponse::_Internal {
  public:
 };
 
-QuestCheckResponse::QuestCheckResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_QuestCheckResponse::SC_QuestCheckResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.QuestCheckResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_QuestCheckResponse)
 }
-QuestCheckResponse::QuestCheckResponse(const QuestCheckResponse& from)
+SC_QuestCheckResponse::SC_QuestCheckResponse(const SC_QuestCheckResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  QuestCheckResponse* const _this = this; (void)_this;
+  SC_QuestCheckResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.questseq_){}
     , decltype(_impl_.queststate_){}
@@ -1170,10 +1170,10 @@ QuestCheckResponse::QuestCheckResponse(const QuestCheckResponse& from)
   ::memcpy(&_impl_.questseq_, &from._impl_.questseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.queststate_) -
     reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.queststate_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.QuestCheckResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_QuestCheckResponse)
 }
 
-inline void QuestCheckResponse::SharedCtor(
+inline void SC_QuestCheckResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -1184,8 +1184,8 @@ inline void QuestCheckResponse::SharedCtor(
   };
 }
 
-QuestCheckResponse::~QuestCheckResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.QuestCheckResponse)
+SC_QuestCheckResponse::~SC_QuestCheckResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_QuestCheckResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1193,16 +1193,16 @@ QuestCheckResponse::~QuestCheckResponse() {
   SharedDtor();
 }
 
-inline void QuestCheckResponse::SharedDtor() {
+inline void SC_QuestCheckResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void QuestCheckResponse::SetCachedSize(int size) const {
+void SC_QuestCheckResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void QuestCheckResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.QuestCheckResponse)
+void SC_QuestCheckResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_QuestCheckResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1213,7 +1213,7 @@ void QuestCheckResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* QuestCheckResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_QuestCheckResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1259,9 +1259,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* QuestCheckResponse::_InternalSerialize(
+uint8_t* SC_QuestCheckResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.QuestCheckResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_QuestCheckResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1282,12 +1282,12 @@ uint8_t* QuestCheckResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.QuestCheckResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_QuestCheckResponse)
   return target;
 }
 
-size_t QuestCheckResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.QuestCheckResponse)
+size_t SC_QuestCheckResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_QuestCheckResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1308,17 +1308,17 @@ size_t QuestCheckResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData QuestCheckResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_QuestCheckResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    QuestCheckResponse::MergeImpl
+    SC_QuestCheckResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*QuestCheckResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_QuestCheckResponse::GetClassData() const { return &_class_data_; }
 
 
-void QuestCheckResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<QuestCheckResponse*>(&to_msg);
-  auto& from = static_cast<const QuestCheckResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.QuestCheckResponse)
+void SC_QuestCheckResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_QuestCheckResponse*>(&to_msg);
+  auto& from = static_cast<const SC_QuestCheckResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_QuestCheckResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1332,29 +1332,29 @@ void QuestCheckResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void QuestCheckResponse::CopyFrom(const QuestCheckResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.QuestCheckResponse)
+void SC_QuestCheckResponse::CopyFrom(const SC_QuestCheckResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_QuestCheckResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool QuestCheckResponse::IsInitialized() const {
+bool SC_QuestCheckResponse::IsInitialized() const {
   return true;
 }
 
-void QuestCheckResponse::InternalSwap(QuestCheckResponse* other) {
+void SC_QuestCheckResponse::InternalSwap(SC_QuestCheckResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(QuestCheckResponse, _impl_.queststate_)
-      + sizeof(QuestCheckResponse::_impl_.queststate_)
-      - PROTOBUF_FIELD_OFFSET(QuestCheckResponse, _impl_.questseq_)>(
+      PROTOBUF_FIELD_OFFSET(SC_QuestCheckResponse, _impl_.queststate_)
+      + sizeof(SC_QuestCheckResponse::_impl_.queststate_)
+      - PROTOBUF_FIELD_OFFSET(SC_QuestCheckResponse, _impl_.questseq_)>(
           reinterpret_cast<char*>(&_impl_.questseq_),
           reinterpret_cast<char*>(&other->_impl_.questseq_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata QuestCheckResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestCheckResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
       file_level_metadata_NPC_2eproto[5]);
@@ -1363,29 +1363,29 @@ void QuestCheckResponse::InternalSwap(QuestCheckResponse* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Protocol::NPCInfoRequest*
-Arena::CreateMaybeMessage< ::Protocol::NPCInfoRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::NPCInfoRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_NPCInfoRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_NPCInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_NPCInfoRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::NPCInfoResponse*
-Arena::CreateMaybeMessage< ::Protocol::NPCInfoResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::NPCInfoResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_NPCInfoResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_NPCInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_NPCInfoResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::UserQuestInfoRequest*
-Arena::CreateMaybeMessage< ::Protocol::UserQuestInfoRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::UserQuestInfoRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_UserQuestInfoRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_UserQuestInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_UserQuestInfoRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::UserQuestInfoResponse*
-Arena::CreateMaybeMessage< ::Protocol::UserQuestInfoResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::UserQuestInfoResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_UserQuestInfoResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_UserQuestInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_UserQuestInfoResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::QuestCheckRequest*
-Arena::CreateMaybeMessage< ::Protocol::QuestCheckRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::QuestCheckRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_QuestCheckRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_QuestCheckRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_QuestCheckRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::QuestCheckResponse*
-Arena::CreateMaybeMessage< ::Protocol::QuestCheckResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::QuestCheckResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_QuestCheckResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_QuestCheckResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_QuestCheckResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

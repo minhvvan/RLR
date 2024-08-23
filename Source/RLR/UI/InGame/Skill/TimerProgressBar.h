@@ -13,21 +13,24 @@ class RLR_API UTimerProgressBar : public UBaseUI
 public:
 	UTimerProgressBar(const FObjectInitializer& ObjectInitializer);
 
-protected:
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<class UProgressBar> TimerProgressBar;
+	/* 남은 타이머 시간 반환하는 함수 */ 
+	float GetRemainingTime() const { return TimerDuration - CurrentTime; }
+	float GetTimerDuration() const { return TimerDuration; }
 
-public:
 	virtual void NativeConstruct() override;
 	void SetTimerDuration(float Duration) { TimerDuration = Duration; }
 
 protected:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<class UProgressBar> TimerProgressBar;
+
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
+	void SetPecent(float NewPercent);
+
 
 	float CurrentTime;
 	float TimerDuration;
 
-	void SetPecent(float NewPercent);
 
 	bool bStarted;
 };

@@ -28,10 +28,10 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
         아이템 장착.
     */
 
-    Protocol::EquipChangeRequest packet;
+    Protocol::CS_EquipChangeRequest packet;
 
     int32 OjbectId = ItemData.ITEM_SEQ;
-    int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    //int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
     packet.set_objectid(OjbectId);
     packet.set_userseq(UserSeq);       
@@ -50,10 +50,10 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
         아직 proto에 만들어진 패킷이 없어서 임시 구현
     */
 
-    //Protocol::EquipUnChangeRequest packet;
+    Protocol::CS_EquipChangeRequest packet;
 
-   /* int32 OjbectId = ItemData.ITEM_SEQ;
-	int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 OjbectId = ItemData.ITEM_SEQ;
+   // int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
 	packet.set_objectid(OjbectId);
 	packet.set_userseq(UserSeq);*/
