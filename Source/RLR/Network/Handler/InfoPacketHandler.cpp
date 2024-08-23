@@ -58,8 +58,12 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
 
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
-    
+    GameInstance->GetNetworkManager()->SetUserSeq(pkt.userseq());
+    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
+
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
@@ -81,7 +85,7 @@ bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_C
     UE_LOG(LogTemp, Log, TEXT("User Channel : %d"), pkt.channelid());
     //TODO : PlayerManager or UserManager 만들면 거기에 Channel 정보도 같이 리스폰
 
-    GameInstance->GetNetworkManager()->SendMapInfoRequest(1, pkt.channelid());
+    GameInstance->GetNetworkManager()->SendMapInfoRequest(pkt.channelid());
     return true;
 }
 
