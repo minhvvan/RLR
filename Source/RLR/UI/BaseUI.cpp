@@ -7,6 +7,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/InventoryManager.h"
 
 #include "ActionSystem/ActionSystemInterface.h"
 
@@ -93,6 +94,18 @@ USkillManager* UBaseUI::GetSkillManager()
 	if (GM)
 	{
 		return GM->GetSkillManager();
+	}
+
+	return nullptr;
+}
+
+UInventoryManager* UBaseUI::GetInventoryManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM->GetInventoryManager();
 	}
 
 	return nullptr;

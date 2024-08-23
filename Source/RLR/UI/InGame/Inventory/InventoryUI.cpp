@@ -22,8 +22,8 @@ void UInventoryUI::NativeConstruct()
 		return;
 
 	Init();
-	InventoryManager->OnUpdateInventoryManager.AddDynamic(this, &UInventoryUI::RefreshUI);
-	InventoryManager->OnUpdateGoldAndCash.AddDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
+	InventoryManager->OnUpdateInventoryDelegate.AddDynamic(this, &UInventoryUI::RefreshUI);
+	InventoryManager->OnUpdateGoldAndCashDelegate.AddDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
 
 	AllButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnAllButtonClicked);
 	EquipmentButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnEquipmentButtonClicked);

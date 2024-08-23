@@ -55,10 +55,10 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
     int32 OjbectId = ItemData.ITEM_SEQ;
    // int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    packet.set_objectid(OjbectId);
-    packet.set_userseq(UserSeq);
+	packet.set_objectid(OjbectId);
+	packet.set_userseq(UserSeq);*/
 
-    SEND_PACKET(packet);
+    //SEND_PACKET(packet);
 
     return false;
 }

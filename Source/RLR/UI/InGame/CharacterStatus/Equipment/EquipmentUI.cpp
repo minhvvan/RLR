@@ -3,9 +3,17 @@
 
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentSlot.h"
+
 #include "Components/Button.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
+
+#include "GameManager/GameManager.h"
+#include "GameManager/PlayerManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/InventoryManager.h"
+
+
 #include "RLR.h"
 
 void UEquipmentUI::NativeConstruct()
@@ -42,6 +50,7 @@ void UEquipmentUI::NativeConstruct()
 
 
 	DetailStatButton->OnClicked.AddUniqueDynamic(this, &UEquipmentUI::ToggleShowDetailStatUI);
+	GetInventoryManager()->OnUpdateEquipDelegate.AddUniqueDynamic(this, &UEquipmentUI::EquipItem);
 }
 
 void UEquipmentUI::EquipItem(FItemData ItemData)
@@ -119,9 +128,8 @@ void UEquipmentUI::ToggleShowDetailStatUI()
 	}
 }
 
-void UEquipmentUI::RefreshStatUI(const FTotalStatus& NewStatus)
+void UEquipmentUI::RefreshStatUI(FTotalStatus NewStatus)
 {
-	
 	HPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_HP));
 	MPStatText->SetText(FLOAT_TO_FTEXT(NewStatus.MAX_MP));
 	StrengthStatText->SetText(FLOAT_TO_FTEXT(NewStatus.STRENGTH));
@@ -136,3 +144,4 @@ void UEquipmentUI::RefreshStatUI(const FTotalStatus& NewStatus)
 	CriticalChanceStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_CHANCE));
 	CriticalDamageStatText->SetText(FLOAT_TO_FTEXT(NewStatus.CRITICAL_DAMAGE));
 }
+

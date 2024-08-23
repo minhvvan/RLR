@@ -21,17 +21,13 @@ class RLR_API UCharacterStatusUI : public USubUI
 public:
 
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
 	virtual void RefreshUI() override;
-	
-	//UFUNCTION()
-	//void SetPlayerInfo(FUserCharacter NewPlayerInfo);
 
 	void UpdateTotalStat(const FTotalStatus& NewTotalStat);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UEquipmentUI> EquipmentUI;
-
-public:
-	FTotalStatus TotalStat;
 };
