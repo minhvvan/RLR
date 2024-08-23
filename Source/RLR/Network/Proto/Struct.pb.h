@@ -1973,9 +1973,9 @@ class UserCharacter final :
 
   enum : int {
     kNameFieldNumber = 3,
-    kSetStatusFieldNumber = 15,
-    kTotalStatusFieldNumber = 16,
-    kTalentFieldNumber = 17,
+    kSetStatusFieldNumber = 14,
+    kTotalStatusFieldNumber = 15,
+    kTalentFieldNumber = 16,
     kUserSeqFieldNumber = 1,
     kPlayerSeqFieldNumber = 2,
     kLevelFieldNumber = 4,
@@ -1986,9 +1986,8 @@ class UserCharacter final :
     kAdventurerRankFieldNumber = 9,
     kTransXFieldNumber = 10,
     kTransYFieldNumber = 11,
+    kMapIdFieldNumber = 13,
     kTransZFieldNumber = 12,
-    kMapTransXFieldNumber = 13,
-    kMapTransYFieldNumber = 14,
   };
   // string name = 3;
   void clear_name();
@@ -2004,7 +2003,7 @@ class UserCharacter final :
   std::string* _internal_mutable_name();
   public:
 
-  // .Protocol.UserSetStatus setStatus = 15;
+  // .Protocol.UserSetStatus setStatus = 14;
   bool has_setstatus() const;
   private:
   bool _internal_has_setstatus() const;
@@ -2022,7 +2021,7 @@ class UserCharacter final :
       ::Protocol::UserSetStatus* setstatus);
   ::Protocol::UserSetStatus* unsafe_arena_release_setstatus();
 
-  // .Protocol.UserTotalStatus totalStatus = 16;
+  // .Protocol.UserTotalStatus totalStatus = 15;
   bool has_totalstatus() const;
   private:
   bool _internal_has_totalstatus() const;
@@ -2040,7 +2039,7 @@ class UserCharacter final :
       ::Protocol::UserTotalStatus* totalstatus);
   ::Protocol::UserTotalStatus* unsafe_arena_release_totalstatus();
 
-  // .Protocol.Talent talent = 17;
+  // .Protocol.Talent talent = 16;
   bool has_talent() const;
   private:
   bool _internal_has_talent() const;
@@ -2148,6 +2147,15 @@ class UserCharacter final :
   void _internal_set_transy(float value);
   public:
 
+  // int64 mapId = 13;
+  void clear_mapid();
+  int64_t mapid() const;
+  void set_mapid(int64_t value);
+  private:
+  int64_t _internal_mapid() const;
+  void _internal_set_mapid(int64_t value);
+  public:
+
   // float transZ = 12;
   void clear_transz();
   float transz() const;
@@ -2155,24 +2163,6 @@ class UserCharacter final :
   private:
   float _internal_transz() const;
   void _internal_set_transz(float value);
-  public:
-
-  // int32 mapTransX = 13;
-  void clear_maptransx();
-  int32_t maptransx() const;
-  void set_maptransx(int32_t value);
-  private:
-  int32_t _internal_maptransx() const;
-  void _internal_set_maptransx(int32_t value);
-  public:
-
-  // int32 mapTransY = 14;
-  void clear_maptransy();
-  int32_t maptransy() const;
-  void set_maptransy(int32_t value);
-  private:
-  int32_t _internal_maptransy() const;
-  void _internal_set_maptransy(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.UserCharacter)
@@ -2197,9 +2187,8 @@ class UserCharacter final :
     int32_t adventurerrank_;
     float transx_;
     float transy_;
+    int64_t mapid_;
     float transz_;
-    int32_t maptransx_;
-    int32_t maptransy_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5658,47 +5647,27 @@ inline void UserCharacter::set_transz(float value) {
   // @@protoc_insertion_point(field_set:Protocol.UserCharacter.transZ)
 }
 
-// int32 mapTransX = 13;
-inline void UserCharacter::clear_maptransx() {
-  _impl_.maptransx_ = 0;
+// int64 mapId = 13;
+inline void UserCharacter::clear_mapid() {
+  _impl_.mapid_ = int64_t{0};
 }
-inline int32_t UserCharacter::_internal_maptransx() const {
-  return _impl_.maptransx_;
+inline int64_t UserCharacter::_internal_mapid() const {
+  return _impl_.mapid_;
 }
-inline int32_t UserCharacter::maptransx() const {
-  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransX)
-  return _internal_maptransx();
+inline int64_t UserCharacter::mapid() const {
+  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapId)
+  return _internal_mapid();
 }
-inline void UserCharacter::_internal_set_maptransx(int32_t value) {
+inline void UserCharacter::_internal_set_mapid(int64_t value) {
   
-  _impl_.maptransx_ = value;
+  _impl_.mapid_ = value;
 }
-inline void UserCharacter::set_maptransx(int32_t value) {
-  _internal_set_maptransx(value);
-  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransX)
+inline void UserCharacter::set_mapid(int64_t value) {
+  _internal_set_mapid(value);
+  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapId)
 }
 
-// int32 mapTransY = 14;
-inline void UserCharacter::clear_maptransy() {
-  _impl_.maptransy_ = 0;
-}
-inline int32_t UserCharacter::_internal_maptransy() const {
-  return _impl_.maptransy_;
-}
-inline int32_t UserCharacter::maptransy() const {
-  // @@protoc_insertion_point(field_get:Protocol.UserCharacter.mapTransY)
-  return _internal_maptransy();
-}
-inline void UserCharacter::_internal_set_maptransy(int32_t value) {
-  
-  _impl_.maptransy_ = value;
-}
-inline void UserCharacter::set_maptransy(int32_t value) {
-  _internal_set_maptransy(value);
-  // @@protoc_insertion_point(field_set:Protocol.UserCharacter.mapTransY)
-}
-
-// .Protocol.UserSetStatus setStatus = 15;
+// .Protocol.UserSetStatus setStatus = 14;
 inline bool UserCharacter::_internal_has_setstatus() const {
   return this != internal_default_instance() && _impl_.setstatus_ != nullptr;
 }
@@ -5788,7 +5757,7 @@ inline void UserCharacter::set_allocated_setstatus(::Protocol::UserSetStatus* se
   // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.setStatus)
 }
 
-// .Protocol.UserTotalStatus totalStatus = 16;
+// .Protocol.UserTotalStatus totalStatus = 15;
 inline bool UserCharacter::_internal_has_totalstatus() const {
   return this != internal_default_instance() && _impl_.totalstatus_ != nullptr;
 }
@@ -5878,7 +5847,7 @@ inline void UserCharacter::set_allocated_totalstatus(::Protocol::UserTotalStatus
   // @@protoc_insertion_point(field_set_allocated:Protocol.UserCharacter.totalStatus)
 }
 
-// .Protocol.Talent talent = 17;
+// .Protocol.Talent talent = 16;
 inline bool UserCharacter::_internal_has_talent() const {
   return this != internal_default_instance() && _impl_.talent_ != nullptr;
 }

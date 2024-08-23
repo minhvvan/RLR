@@ -21,60 +21,60 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
-PROTOBUF_CONSTEXPR GetSkillRequestPacket::GetSkillRequestPacket(
+PROTOBUF_CONSTEXPR CS_GetSkillRequestPacket::CS_GetSkillRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetSkillRequestPacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetSkillRequestPacketDefaultTypeInternal()
+struct CS_GetSkillRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_GetSkillRequestPacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetSkillRequestPacketDefaultTypeInternal() {}
+  ~CS_GetSkillRequestPacketDefaultTypeInternal() {}
   union {
-    GetSkillRequestPacket _instance;
+    CS_GetSkillRequestPacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetSkillRequestPacketDefaultTypeInternal _GetSkillRequestPacket_default_instance_;
-PROTOBUF_CONSTEXPR GetSkillResponsePacket::GetSkillResponsePacket(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_GetSkillRequestPacketDefaultTypeInternal _CS_GetSkillRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR SC_GetSkillResponsePacket::SC_GetSkillResponsePacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.skill_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetSkillResponsePacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetSkillResponsePacketDefaultTypeInternal()
+struct SC_GetSkillResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_GetSkillResponsePacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetSkillResponsePacketDefaultTypeInternal() {}
+  ~SC_GetSkillResponsePacketDefaultTypeInternal() {}
   union {
-    GetSkillResponsePacket _instance;
+    SC_GetSkillResponsePacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetSkillResponsePacketDefaultTypeInternal _GetSkillResponsePacket_default_instance_;
-PROTOBUF_CONSTEXPR SkillChangeRequestPacket::SkillChangeRequestPacket(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_GetSkillResponsePacketDefaultTypeInternal _SC_GetSkillResponsePacket_default_instance_;
+PROTOBUF_CONSTEXPR CS_SkillChangeRequestPacket::CS_SkillChangeRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.skill_)*/nullptr
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_.skillidx_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct SkillChangeRequestPacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SkillChangeRequestPacketDefaultTypeInternal()
+struct CS_SkillChangeRequestPacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_SkillChangeRequestPacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SkillChangeRequestPacketDefaultTypeInternal() {}
+  ~CS_SkillChangeRequestPacketDefaultTypeInternal() {}
   union {
-    SkillChangeRequestPacket _instance;
+    CS_SkillChangeRequestPacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SkillChangeRequestPacketDefaultTypeInternal _SkillChangeRequestPacket_default_instance_;
-PROTOBUF_CONSTEXPR SkillChangeResponsePacket::SkillChangeResponsePacket(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_SkillChangeRequestPacketDefaultTypeInternal _CS_SkillChangeRequestPacket_default_instance_;
+PROTOBUF_CONSTEXPR SC_SkillChangeResponsePacket::SC_SkillChangeResponsePacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.success_)*/false
+    /*decltype(_impl_.success_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct SkillChangeResponsePacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SkillChangeResponsePacketDefaultTypeInternal()
+struct SC_SkillChangeResponsePacketDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_SkillChangeResponsePacketDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SkillChangeResponsePacketDefaultTypeInternal() {}
+  ~SC_SkillChangeResponsePacketDefaultTypeInternal() {}
   union {
-    SkillChangeResponsePacket _instance;
+    SC_SkillChangeResponsePacket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SkillChangeResponsePacketDefaultTypeInternal _SkillChangeResponsePacket_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_SkillChangeResponsePacketDefaultTypeInternal _SC_SkillChangeResponsePacket_default_instance_;
 }  // namespace Protocol
 static ::_pb::Metadata file_level_metadata_Skill_2eproto[4];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Skill_2eproto = nullptr;
@@ -82,66 +82,66 @@ static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors
 
 const uint32_t TableStruct_Skill_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::GetSkillRequestPacket, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GetSkillRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::GetSkillRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GetSkillRequestPacket, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::GetSkillResponsePacket, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GetSkillResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::GetSkillResponsePacket, _impl_.skill_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GetSkillResponsePacket, _impl_.skill_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeRequestPacket, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_SkillChangeRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeRequestPacket, _impl_.skill_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeRequestPacket, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeRequestPacket, _impl_.skillidx_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_SkillChangeRequestPacket, _impl_.skill_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_SkillChangeRequestPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_SkillChangeRequestPacket, _impl_.skillidx_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeResponsePacket, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_SkillChangeResponsePacket, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SkillChangeResponsePacket, _impl_.success_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_SkillChangeResponsePacket, _impl_.success_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::GetSkillRequestPacket)},
-  { 7, -1, -1, sizeof(::Protocol::GetSkillResponsePacket)},
-  { 14, -1, -1, sizeof(::Protocol::SkillChangeRequestPacket)},
-  { 23, -1, -1, sizeof(::Protocol::SkillChangeResponsePacket)},
+  { 0, -1, -1, sizeof(::Protocol::CS_GetSkillRequestPacket)},
+  { 7, -1, -1, sizeof(::Protocol::SC_GetSkillResponsePacket)},
+  { 14, -1, -1, sizeof(::Protocol::CS_SkillChangeRequestPacket)},
+  { 23, -1, -1, sizeof(::Protocol::SC_SkillChangeResponsePacket)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::Protocol::_GetSkillRequestPacket_default_instance_._instance,
-  &::Protocol::_GetSkillResponsePacket_default_instance_._instance,
-  &::Protocol::_SkillChangeRequestPacket_default_instance_._instance,
-  &::Protocol::_SkillChangeResponsePacket_default_instance_._instance,
+  &::Protocol::_CS_GetSkillRequestPacket_default_instance_._instance,
+  &::Protocol::_SC_GetSkillResponsePacket_default_instance_._instance,
+  &::Protocol::_CS_SkillChangeRequestPacket_default_instance_._instance,
+  &::Protocol::_SC_SkillChangeResponsePacket_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Skill_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013Skill.proto\022\010Protocol\032\014Struct.proto\"(\n"
-  "\025GetSkillRequestPacket\022\017\n\007userSeq\030\001 \001(\005\""
-  "<\n\026GetSkillResponsePacket\022\"\n\005skill\030\001 \003(\013"
-  "2\023.Protocol.SkillInfo\"a\n\030SkillChangeRequ"
-  "estPacket\022\"\n\005skill\030\001 \001(\0132\023.Protocol.Skil"
-  "lInfo\022\017\n\007userSeq\030\002 \001(\005\022\020\n\010skillIdx\030\003 \001(\005"
-  "\",\n\031SkillChangeResponsePacket\022\017\n\007success"
-  "\030\001 \001(\010b\006proto3"
+  "\n\013Skill.proto\022\010Protocol\032\014Struct.proto\"+\n"
+  "\030CS_GetSkillRequestPacket\022\017\n\007userSeq\030\001 \001"
+  "(\005\"\?\n\031SC_GetSkillResponsePacket\022\"\n\005skill"
+  "\030\001 \003(\0132\023.Protocol.SkillInfo\"d\n\033CS_SkillC"
+  "hangeRequestPacket\022\"\n\005skill\030\001 \001(\0132\023.Prot"
+  "ocol.SkillInfo\022\017\n\007userSeq\030\002 \001(\005\022\020\n\010skill"
+  "Idx\030\003 \001(\005\"/\n\034SC_SkillChangeResponsePacke"
+  "t\022\017\n\007success\030\001 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Skill_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Skill_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Skill_2eproto = {
-    false, false, 294, descriptor_table_protodef_Skill_2eproto,
+    false, false, 306, descriptor_table_protodef_Skill_2eproto,
     "Skill.proto",
     &descriptor_table_Skill_2eproto_once, descriptor_table_Skill_2eproto_deps, 1, 4,
     schemas, file_default_instances, TableStruct_Skill_2eproto::offsets,
@@ -158,29 +158,29 @@ namespace Protocol {
 
 // ===================================================================
 
-class GetSkillRequestPacket::_Internal {
+class CS_GetSkillRequestPacket::_Internal {
  public:
 };
 
-GetSkillRequestPacket::GetSkillRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_GetSkillRequestPacket::CS_GetSkillRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.GetSkillRequestPacket)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_GetSkillRequestPacket)
 }
-GetSkillRequestPacket::GetSkillRequestPacket(const GetSkillRequestPacket& from)
+CS_GetSkillRequestPacket::CS_GetSkillRequestPacket(const CS_GetSkillRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetSkillRequestPacket* const _this = this; (void)_this;
+  CS_GetSkillRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.userseq_ = from._impl_.userseq_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.GetSkillRequestPacket)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_GetSkillRequestPacket)
 }
 
-inline void GetSkillRequestPacket::SharedCtor(
+inline void CS_GetSkillRequestPacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -190,8 +190,8 @@ inline void GetSkillRequestPacket::SharedCtor(
   };
 }
 
-GetSkillRequestPacket::~GetSkillRequestPacket() {
-  // @@protoc_insertion_point(destructor:Protocol.GetSkillRequestPacket)
+CS_GetSkillRequestPacket::~CS_GetSkillRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_GetSkillRequestPacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -199,16 +199,16 @@ GetSkillRequestPacket::~GetSkillRequestPacket() {
   SharedDtor();
 }
 
-inline void GetSkillRequestPacket::SharedDtor() {
+inline void CS_GetSkillRequestPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void GetSkillRequestPacket::SetCachedSize(int size) const {
+void CS_GetSkillRequestPacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetSkillRequestPacket::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.GetSkillRequestPacket)
+void CS_GetSkillRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_GetSkillRequestPacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -217,7 +217,7 @@ void GetSkillRequestPacket::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetSkillRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_GetSkillRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -254,9 +254,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetSkillRequestPacket::_InternalSerialize(
+uint8_t* CS_GetSkillRequestPacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.GetSkillRequestPacket)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_GetSkillRequestPacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -270,12 +270,12 @@ uint8_t* GetSkillRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.GetSkillRequestPacket)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_GetSkillRequestPacket)
   return target;
 }
 
-size_t GetSkillRequestPacket::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.GetSkillRequestPacket)
+size_t CS_GetSkillRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_GetSkillRequestPacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -290,17 +290,17 @@ size_t GetSkillRequestPacket::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetSkillRequestPacket::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_GetSkillRequestPacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetSkillRequestPacket::MergeImpl
+    CS_GetSkillRequestPacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetSkillRequestPacket::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_GetSkillRequestPacket::GetClassData() const { return &_class_data_; }
 
 
-void GetSkillRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetSkillRequestPacket*>(&to_msg);
-  auto& from = static_cast<const GetSkillRequestPacket&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.GetSkillRequestPacket)
+void CS_GetSkillRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_GetSkillRequestPacket*>(&to_msg);
+  auto& from = static_cast<const CS_GetSkillRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_GetSkillRequestPacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -311,24 +311,24 @@ void GetSkillRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetSkillRequestPacket::CopyFrom(const GetSkillRequestPacket& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.GetSkillRequestPacket)
+void CS_GetSkillRequestPacket::CopyFrom(const CS_GetSkillRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_GetSkillRequestPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetSkillRequestPacket::IsInitialized() const {
+bool CS_GetSkillRequestPacket::IsInitialized() const {
   return true;
 }
 
-void GetSkillRequestPacket::InternalSwap(GetSkillRequestPacket* other) {
+void CS_GetSkillRequestPacket::InternalSwap(CS_GetSkillRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.userseq_, other->_impl_.userseq_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetSkillRequestPacket::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_GetSkillRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Skill_2eproto_getter, &descriptor_table_Skill_2eproto_once,
       file_level_metadata_Skill_2eproto[0]);
@@ -336,31 +336,31 @@ void GetSkillRequestPacket::InternalSwap(GetSkillRequestPacket* other) {
 
 // ===================================================================
 
-class GetSkillResponsePacket::_Internal {
+class SC_GetSkillResponsePacket::_Internal {
  public:
 };
 
-void GetSkillResponsePacket::clear_skill() {
+void SC_GetSkillResponsePacket::clear_skill() {
   _impl_.skill_.Clear();
 }
-GetSkillResponsePacket::GetSkillResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_GetSkillResponsePacket::SC_GetSkillResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.GetSkillResponsePacket)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_GetSkillResponsePacket)
 }
-GetSkillResponsePacket::GetSkillResponsePacket(const GetSkillResponsePacket& from)
+SC_GetSkillResponsePacket::SC_GetSkillResponsePacket(const SC_GetSkillResponsePacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetSkillResponsePacket* const _this = this; (void)_this;
+  SC_GetSkillResponsePacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.skill_){from._impl_.skill_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:Protocol.GetSkillResponsePacket)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_GetSkillResponsePacket)
 }
 
-inline void GetSkillResponsePacket::SharedCtor(
+inline void SC_GetSkillResponsePacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -370,8 +370,8 @@ inline void GetSkillResponsePacket::SharedCtor(
   };
 }
 
-GetSkillResponsePacket::~GetSkillResponsePacket() {
-  // @@protoc_insertion_point(destructor:Protocol.GetSkillResponsePacket)
+SC_GetSkillResponsePacket::~SC_GetSkillResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_GetSkillResponsePacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -379,17 +379,17 @@ GetSkillResponsePacket::~GetSkillResponsePacket() {
   SharedDtor();
 }
 
-inline void GetSkillResponsePacket::SharedDtor() {
+inline void SC_GetSkillResponsePacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.skill_.~RepeatedPtrField();
 }
 
-void GetSkillResponsePacket::SetCachedSize(int size) const {
+void SC_GetSkillResponsePacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetSkillResponsePacket::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.GetSkillResponsePacket)
+void SC_GetSkillResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_GetSkillResponsePacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -398,7 +398,7 @@ void GetSkillResponsePacket::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetSkillResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_GetSkillResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -440,9 +440,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetSkillResponsePacket::_InternalSerialize(
+uint8_t* SC_GetSkillResponsePacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.GetSkillResponsePacket)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_GetSkillResponsePacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -458,12 +458,12 @@ uint8_t* GetSkillResponsePacket::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.GetSkillResponsePacket)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_GetSkillResponsePacket)
   return target;
 }
 
-size_t GetSkillResponsePacket::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.GetSkillResponsePacket)
+size_t SC_GetSkillResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_GetSkillResponsePacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -480,17 +480,17 @@ size_t GetSkillResponsePacket::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetSkillResponsePacket::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_GetSkillResponsePacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetSkillResponsePacket::MergeImpl
+    SC_GetSkillResponsePacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetSkillResponsePacket::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_GetSkillResponsePacket::GetClassData() const { return &_class_data_; }
 
 
-void GetSkillResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetSkillResponsePacket*>(&to_msg);
-  auto& from = static_cast<const GetSkillResponsePacket&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.GetSkillResponsePacket)
+void SC_GetSkillResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_GetSkillResponsePacket*>(&to_msg);
+  auto& from = static_cast<const SC_GetSkillResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_GetSkillResponsePacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -499,24 +499,24 @@ void GetSkillResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetSkillResponsePacket::CopyFrom(const GetSkillResponsePacket& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.GetSkillResponsePacket)
+void SC_GetSkillResponsePacket::CopyFrom(const SC_GetSkillResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_GetSkillResponsePacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetSkillResponsePacket::IsInitialized() const {
+bool SC_GetSkillResponsePacket::IsInitialized() const {
   return true;
 }
 
-void GetSkillResponsePacket::InternalSwap(GetSkillResponsePacket* other) {
+void SC_GetSkillResponsePacket::InternalSwap(SC_GetSkillResponsePacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.skill_.InternalSwap(&other->_impl_.skill_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetSkillResponsePacket::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_GetSkillResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Skill_2eproto_getter, &descriptor_table_Skill_2eproto_once,
       file_level_metadata_Skill_2eproto[1]);
@@ -524,30 +524,30 @@ void GetSkillResponsePacket::InternalSwap(GetSkillResponsePacket* other) {
 
 // ===================================================================
 
-class SkillChangeRequestPacket::_Internal {
+class CS_SkillChangeRequestPacket::_Internal {
  public:
-  static const ::Protocol::SkillInfo& skill(const SkillChangeRequestPacket* msg);
+  static const ::Protocol::SkillInfo& skill(const CS_SkillChangeRequestPacket* msg);
 };
 
 const ::Protocol::SkillInfo&
-SkillChangeRequestPacket::_Internal::skill(const SkillChangeRequestPacket* msg) {
+CS_SkillChangeRequestPacket::_Internal::skill(const CS_SkillChangeRequestPacket* msg) {
   return *msg->_impl_.skill_;
 }
-void SkillChangeRequestPacket::clear_skill() {
+void CS_SkillChangeRequestPacket::clear_skill() {
   if (GetArenaForAllocation() == nullptr && _impl_.skill_ != nullptr) {
     delete _impl_.skill_;
   }
   _impl_.skill_ = nullptr;
 }
-SkillChangeRequestPacket::SkillChangeRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_SkillChangeRequestPacket::CS_SkillChangeRequestPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.SkillChangeRequestPacket)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_SkillChangeRequestPacket)
 }
-SkillChangeRequestPacket::SkillChangeRequestPacket(const SkillChangeRequestPacket& from)
+CS_SkillChangeRequestPacket::CS_SkillChangeRequestPacket(const CS_SkillChangeRequestPacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SkillChangeRequestPacket* const _this = this; (void)_this;
+  CS_SkillChangeRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.skill_){nullptr}
     , decltype(_impl_.userseq_){}
@@ -561,10 +561,10 @@ SkillChangeRequestPacket::SkillChangeRequestPacket(const SkillChangeRequestPacke
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.skillidx_) -
     reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.skillidx_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.SkillChangeRequestPacket)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_SkillChangeRequestPacket)
 }
 
-inline void SkillChangeRequestPacket::SharedCtor(
+inline void CS_SkillChangeRequestPacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -576,8 +576,8 @@ inline void SkillChangeRequestPacket::SharedCtor(
   };
 }
 
-SkillChangeRequestPacket::~SkillChangeRequestPacket() {
-  // @@protoc_insertion_point(destructor:Protocol.SkillChangeRequestPacket)
+CS_SkillChangeRequestPacket::~CS_SkillChangeRequestPacket() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_SkillChangeRequestPacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -585,17 +585,17 @@ SkillChangeRequestPacket::~SkillChangeRequestPacket() {
   SharedDtor();
 }
 
-inline void SkillChangeRequestPacket::SharedDtor() {
+inline void CS_SkillChangeRequestPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.skill_;
 }
 
-void SkillChangeRequestPacket::SetCachedSize(int size) const {
+void CS_SkillChangeRequestPacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void SkillChangeRequestPacket::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.SkillChangeRequestPacket)
+void CS_SkillChangeRequestPacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_SkillChangeRequestPacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -610,7 +610,7 @@ void SkillChangeRequestPacket::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SkillChangeRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_SkillChangeRequestPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -663,9 +663,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SkillChangeRequestPacket::_InternalSerialize(
+uint8_t* CS_SkillChangeRequestPacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SkillChangeRequestPacket)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_SkillChangeRequestPacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -692,12 +692,12 @@ uint8_t* SkillChangeRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SkillChangeRequestPacket)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_SkillChangeRequestPacket)
   return target;
 }
 
-size_t SkillChangeRequestPacket::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.SkillChangeRequestPacket)
+size_t CS_SkillChangeRequestPacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_SkillChangeRequestPacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -724,17 +724,17 @@ size_t SkillChangeRequestPacket::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SkillChangeRequestPacket::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_SkillChangeRequestPacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SkillChangeRequestPacket::MergeImpl
+    CS_SkillChangeRequestPacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SkillChangeRequestPacket::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_SkillChangeRequestPacket::GetClassData() const { return &_class_data_; }
 
 
-void SkillChangeRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SkillChangeRequestPacket*>(&to_msg);
-  auto& from = static_cast<const SkillChangeRequestPacket&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SkillChangeRequestPacket)
+void CS_SkillChangeRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_SkillChangeRequestPacket*>(&to_msg);
+  auto& from = static_cast<const CS_SkillChangeRequestPacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_SkillChangeRequestPacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -752,29 +752,29 @@ void SkillChangeRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void SkillChangeRequestPacket::CopyFrom(const SkillChangeRequestPacket& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SkillChangeRequestPacket)
+void CS_SkillChangeRequestPacket::CopyFrom(const CS_SkillChangeRequestPacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_SkillChangeRequestPacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SkillChangeRequestPacket::IsInitialized() const {
+bool CS_SkillChangeRequestPacket::IsInitialized() const {
   return true;
 }
 
-void SkillChangeRequestPacket::InternalSwap(SkillChangeRequestPacket* other) {
+void CS_SkillChangeRequestPacket::InternalSwap(CS_SkillChangeRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SkillChangeRequestPacket, _impl_.skillidx_)
-      + sizeof(SkillChangeRequestPacket::_impl_.skillidx_)
-      - PROTOBUF_FIELD_OFFSET(SkillChangeRequestPacket, _impl_.skill_)>(
+      PROTOBUF_FIELD_OFFSET(CS_SkillChangeRequestPacket, _impl_.skillidx_)
+      + sizeof(CS_SkillChangeRequestPacket::_impl_.skillidx_)
+      - PROTOBUF_FIELD_OFFSET(CS_SkillChangeRequestPacket, _impl_.skill_)>(
           reinterpret_cast<char*>(&_impl_.skill_),
           reinterpret_cast<char*>(&other->_impl_.skill_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SkillChangeRequestPacket::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_SkillChangeRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Skill_2eproto_getter, &descriptor_table_Skill_2eproto_once,
       file_level_metadata_Skill_2eproto[2]);
@@ -782,40 +782,40 @@ void SkillChangeRequestPacket::InternalSwap(SkillChangeRequestPacket* other) {
 
 // ===================================================================
 
-class SkillChangeResponsePacket::_Internal {
+class SC_SkillChangeResponsePacket::_Internal {
  public:
 };
 
-SkillChangeResponsePacket::SkillChangeResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_SkillChangeResponsePacket::SC_SkillChangeResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.SkillChangeResponsePacket)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_SkillChangeResponsePacket)
 }
-SkillChangeResponsePacket::SkillChangeResponsePacket(const SkillChangeResponsePacket& from)
+SC_SkillChangeResponsePacket::SC_SkillChangeResponsePacket(const SC_SkillChangeResponsePacket& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SkillChangeResponsePacket* const _this = this; (void)_this;
+  SC_SkillChangeResponsePacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.SkillChangeResponsePacket)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_SkillChangeResponsePacket)
 }
 
-inline void SkillChangeResponsePacket::SharedCtor(
+inline void SC_SkillChangeResponsePacket::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.success_){false}
+      decltype(_impl_.success_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-SkillChangeResponsePacket::~SkillChangeResponsePacket() {
-  // @@protoc_insertion_point(destructor:Protocol.SkillChangeResponsePacket)
+SC_SkillChangeResponsePacket::~SC_SkillChangeResponsePacket() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_SkillChangeResponsePacket)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -823,34 +823,34 @@ SkillChangeResponsePacket::~SkillChangeResponsePacket() {
   SharedDtor();
 }
 
-inline void SkillChangeResponsePacket::SharedDtor() {
+inline void SC_SkillChangeResponsePacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SkillChangeResponsePacket::SetCachedSize(int size) const {
+void SC_SkillChangeResponsePacket::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void SkillChangeResponsePacket::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.SkillChangeResponsePacket)
+void SC_SkillChangeResponsePacket::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_SkillChangeResponsePacket)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.success_ = false;
+  _impl_.success_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SkillChangeResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_SkillChangeResponsePacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bool success = 1;
+      // int32 success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;;
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -878,53 +878,53 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SkillChangeResponsePacket::_InternalSerialize(
+uint8_t* SC_SkillChangeResponsePacket::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SkillChangeResponsePacket)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_SkillChangeResponsePacket)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool success = 1;
+  // int32 success = 1;
   if (this->_internal_success() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_success(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SkillChangeResponsePacket)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_SkillChangeResponsePacket)
   return target;
 }
 
-size_t SkillChangeResponsePacket::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.SkillChangeResponsePacket)
+size_t SC_SkillChangeResponsePacket::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_SkillChangeResponsePacket)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool success = 1;
+  // int32 success = 1;
   if (this->_internal_success() != 0) {
-    total_size += 1 + 1;
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_success());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SkillChangeResponsePacket::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_SkillChangeResponsePacket::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SkillChangeResponsePacket::MergeImpl
+    SC_SkillChangeResponsePacket::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SkillChangeResponsePacket::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_SkillChangeResponsePacket::GetClassData() const { return &_class_data_; }
 
 
-void SkillChangeResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SkillChangeResponsePacket*>(&to_msg);
-  auto& from = static_cast<const SkillChangeResponsePacket&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SkillChangeResponsePacket)
+void SC_SkillChangeResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_SkillChangeResponsePacket*>(&to_msg);
+  auto& from = static_cast<const SC_SkillChangeResponsePacket&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_SkillChangeResponsePacket)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -935,24 +935,24 @@ void SkillChangeResponsePacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_m
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void SkillChangeResponsePacket::CopyFrom(const SkillChangeResponsePacket& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SkillChangeResponsePacket)
+void SC_SkillChangeResponsePacket::CopyFrom(const SC_SkillChangeResponsePacket& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_SkillChangeResponsePacket)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SkillChangeResponsePacket::IsInitialized() const {
+bool SC_SkillChangeResponsePacket::IsInitialized() const {
   return true;
 }
 
-void SkillChangeResponsePacket::InternalSwap(SkillChangeResponsePacket* other) {
+void SC_SkillChangeResponsePacket::InternalSwap(SC_SkillChangeResponsePacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.success_, other->_impl_.success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SkillChangeResponsePacket::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_SkillChangeResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Skill_2eproto_getter, &descriptor_table_Skill_2eproto_once,
       file_level_metadata_Skill_2eproto[3]);
@@ -961,21 +961,21 @@ void SkillChangeResponsePacket::InternalSwap(SkillChangeResponsePacket* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Protocol::GetSkillRequestPacket*
-Arena::CreateMaybeMessage< ::Protocol::GetSkillRequestPacket >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::GetSkillRequestPacket >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_GetSkillRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::CS_GetSkillRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_GetSkillRequestPacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::GetSkillResponsePacket*
-Arena::CreateMaybeMessage< ::Protocol::GetSkillResponsePacket >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::GetSkillResponsePacket >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_GetSkillResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::SC_GetSkillResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_GetSkillResponsePacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::SkillChangeRequestPacket*
-Arena::CreateMaybeMessage< ::Protocol::SkillChangeRequestPacket >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::SkillChangeRequestPacket >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_SkillChangeRequestPacket*
+Arena::CreateMaybeMessage< ::Protocol::CS_SkillChangeRequestPacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_SkillChangeRequestPacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::SkillChangeResponsePacket*
-Arena::CreateMaybeMessage< ::Protocol::SkillChangeResponsePacket >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::SkillChangeResponsePacket >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_SkillChangeResponsePacket*
+Arena::CreateMaybeMessage< ::Protocol::SC_SkillChangeResponsePacket >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_SkillChangeResponsePacket >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

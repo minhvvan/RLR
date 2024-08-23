@@ -45,7 +45,7 @@ void AGameClient::Tick(float DeltaTime) {
 
 bool AGameClient::SendLoginPacket(std::string playerId) {
     if (!socket) return false;
-    Protocol::LoginRequestPacket packet;
+    Protocol::CS_LoginRequestPacket packet;
     packet.set_playerid(playerId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
@@ -109,7 +109,7 @@ bool AGameClient::SendStatusPacket(int32 userSeq)
 {
     if (!socket) return false;
 
-    Protocol::StatusRequestPacket packet;
+    Protocol::CS_StatusRequestPacket packet;
     packet.set_userseq(userSeq);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet, PKT_STATUS_REQUEST);
     int32 BytesSent = 0;
@@ -129,7 +129,7 @@ bool AGameClient::SendInventoryPacket(int32 userSeq)
 {
     if (!socket) return false;
 
-    Protocol::InventoryRequestPacket packet;
+    Protocol::CS_InventoryRequestPacket packet;
     packet.set_userseq(userSeq);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet, PKT_INVENTORY_REQUEST);
     int32 BytesSent = 0;

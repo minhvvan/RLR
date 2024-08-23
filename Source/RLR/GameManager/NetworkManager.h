@@ -22,7 +22,7 @@ public:
     UFUNCTION(BlueprintCallable)
     void RequestServerAddresses(int32 userSeq);
     UFUNCTION(BlueprintCallable)
-    void ConnectToLobbyServer(const FString& ServerAddress, int32 Port);
+    void ConnectToLobbyServer(const FString& ServerAddress, int32 Port,int32 playerSeq);
     UFUNCTION(BlueprintCallable)
     void ConnectToMainServer(const FString& ServerAddress, int32 Port);
     UFUNCTION(BlueprintCallable)
@@ -35,11 +35,11 @@ public:
 
     bool SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer);
 
-    bool SendMapInfoRequest(int64 mapId, int64 channelId);
-    bool SendPlayerPacket(int32 playerSeq);
-    bool SendStatusPacket(int32 userSeq);
+    bool SendMapInfoRequest(int64 channelId);
+    bool SendPlayerPacket();
+    bool SendStatusPacket();
 
-    bool SendInventoryPacket(int32 userSeq);
+    bool SendInventoryPacket();
 
     //Item.Proto
     bool SendEquipChangePacket(const FItemData& ItemData);      //아이템 장착 패킷.
@@ -49,18 +49,25 @@ public:
     bool SendAttackPacket(FAttackResult attackResult);
 
     //Skill.Proto
-    bool SendGetSkillPacket(int userSeq);
-    bool SendChangeSkillPacket(const FSkillData* SkillData, int userSeq, int skillIdx); //스킬 퀵 슬롯 변경
+    bool SendGetSkillPacket();
+    bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
     //Skill.Proto End
 
-    bool SendServerRequest(int userSeq);
+    bool SendServerRequest();
 
-    bool SendMovePacket(int32 userSeq, FVector vector, int64 mapid, int64 channelid);
+    bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
 
-    bool SendNPCInfoPacket(int64 mapId);
+    bool SendNPCInfoPacket();
 
-    bool SendUserQuestPacket(int userSeq);
+    bool SendUserQuestPacket();
 
+    bool SendEnterPacket(int32 userSeq); //게임 입장 패킷
+
+    bool SendAddItemPacket(int64 itemId, int32 value); // 아이템 획득 패킷
+
+    void SetUserSeq(int32 userSeq);
+    void SetPlayerSeq(int32 playerSeq);
+    void SetMapId(int64 mapId);
 private:
     FSocket* MainServerSocket;
     FSocket* MonsterServerSocket;
@@ -72,6 +79,10 @@ private:
     FRunnableThread* MonsterServerThread;
     FRunnableThread* LobbyServerThread;
     LoadBalancerClient* LoadBalancer;
+
+    int32 PlayerSeq;
+    int32 UserSeq;
+    int64 MapId;
 };
 
 #define SEND_PACKET(Packet) \

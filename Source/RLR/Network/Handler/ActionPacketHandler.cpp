@@ -9,16 +9,16 @@
 #include "ClientPacketHandler.h"
 
 
-bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::AttackResponsePacket& pkt) {
+bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_AttackResponsePacket& pkt) {
     int skillSeq =  pkt.skill().skillseq();
     // 남에꺼 소환하는 거 만들어주세요
 	return true;
 }
 
-bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MoveResponsePacket& pkt) {
+bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MoveResponsePacket& pkt) {
     return true;
 }
-bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBroadcastPacket& pkt) {
+bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_MoveBroadcastPacket& pkt) {
    
     UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
 
@@ -40,24 +40,24 @@ bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::MoveBro
     return true;
 }
 
-bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterAttackRequestPacket& pkt) {
+bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SS_MonsterAttackRequestPacket& pkt) {
 
     return false;
 }
-bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MonsterMoveRequestPacket& pkt)
+bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_MonsterMoveRequestPacket& pkt)
 {
     // TODO :  몬스터 아이디를 통해 몬스터 매니저에있는 monster Data 중 Search하여 해당 몬스터의 좌표 변경 + 애니메이션 
     GameInstance->GetMonsterManager()->UpdateMonsterTransform(pkt.monsterid(), pkt.transx(), pkt.transy(), pkt.transz());
 
     return false;
 }
-bool Handle_DAMAGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::DamageResponsePacket& pkt) {
+bool Handle_DAMAGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SS_DamageResponsePacket& pkt) {
     UE_LOG(LogTemp, Log, TEXT("Damage : %f"), pkt.damage());
     //UE_LOG(LogTemp, Log, TEXT("monster Id : %d"), pkt.monsterId());
     return true;
 }
 
-bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MonsterStatusBroadcastPacket& pkt) {
+bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MonsterStatusBroadcastPacket& pkt) {
     UE_LOG(LogTemp, Log, TEXT("monster Id : %lld"), pkt.monsterid());
     UE_LOG(LogTemp, Log, TEXT("monster hp : %f"), pkt.hp());
     GameInstance->GetMonsterManager()->UpdateMonsterHp(pkt.monsterid(), pkt.hp());

@@ -245,7 +245,7 @@ void USkillSetting::ReqeustSkillQuickSlotChange()
 	{
 
 		const FSkillData& TempData = Element.Value->GetSkillData();
-		GetNetworkManager()->SendChangeSkillPacket(&TempData, UserSeq, Element.Value->GetSlotIndex());
+		GetNetworkManager()->SendChangeSkillPacket(&TempData,  Element.Value->GetSlotIndex());
 	}
 }
 

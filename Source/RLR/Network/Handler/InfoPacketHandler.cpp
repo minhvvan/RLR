@@ -13,12 +13,7 @@
 #include "GameManager/ObjectManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
-bool Handle_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoRequestPacket& pkt) {
-
-
-    return false;
-}
-bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MapMonsterInfoResponsePacket& pkt) {
+bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MapMonsterInfoResponsePacket& pkt) {
 
     TArray< FMonsterStatus> monsterDatas;
     for (int i = 0; i < pkt.monsters_size(); i++) {
@@ -34,7 +29,7 @@ bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MapM
 
     return false;
 }
-bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::InventoryResponsePacket& pkt)
+bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_InventoryResponsePacket& pkt)
 {
 
     TArray<FItemData> itemDatas;
@@ -50,7 +45,7 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Inv
 
     return true;
 }
-bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::StatusResponsePacket& pkt) {
+bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_StatusResponsePacket& pkt) {
 
     UUIManager* UIManager = GameInstance->GetUIManager();
     
@@ -63,12 +58,16 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Status
 
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
-    
+    GameInstance->GetNetworkManager()->SetUserSeq(pkt.userseq());
+    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
+
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
-bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::GetSkillResponsePacket& pkt) {
+bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {
     TArray<FSkillData> skillDatas;
     for (auto& skill : pkt.skill()) {
         FSkillData skillData;
@@ -82,15 +81,15 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Get
 }
 
 
-bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::ChannelResponsePacket& pkt) {
+bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ChannelResponsePacket& pkt) {
     UE_LOG(LogTemp, Log, TEXT("User Channel : %d"), pkt.channelid());
     //TODO : PlayerManager or UserManager 만들면 거기에 Channel 정보도 같이 리스폰
 
-    GameInstance->GetNetworkManager()->SendMapInfoRequest(1, pkt.channelid());
+    GameInstance->GetNetworkManager()->SendMapInfoRequest(pkt.channelid());
     return true;
 }
 
-bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::NPCInfoResponse& pkt)
+bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NPCInfoResponse& pkt)
 {
     //TODO : Object Manager 에 연결
 
@@ -109,7 +108,7 @@ bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::NPCI
     return false;
 }
 
-bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::UserQuestInfoResponse& pkt)
+bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserQuestInfoResponse& pkt)
 {
     TArray<FQuest> questDatas;
     for (auto& quest : pkt.quests()) {

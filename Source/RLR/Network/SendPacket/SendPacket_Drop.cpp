@@ -17,6 +17,22 @@
 
 */
 
+bool UNetworkManager::SendAddItemPacket(int64 itemId, int32 value)
+{
+    if (!MainServerSocket) return false;
 
+    /*
+        아이템 획득.
+    */
 
+    Protocol::CS_AddItemRequest packet;
+   
+    packet.set_objectid(itemId);
+    packet.set_userseq(UserSeq);
+    packet.set_value(value);
+
+    SEND_PACKET(packet);
+
+    return false;
+}
 

@@ -21,88 +21,88 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
-PROTOBUF_CONSTEXPR EquipInfoRequest::EquipInfoRequest(
+PROTOBUF_CONSTEXPR CS_EquipInfoRequest::CS_EquipInfoRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct EquipInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EquipInfoRequestDefaultTypeInternal()
+struct CS_EquipInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_EquipInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~EquipInfoRequestDefaultTypeInternal() {}
+  ~CS_EquipInfoRequestDefaultTypeInternal() {}
   union {
-    EquipInfoRequest _instance;
+    CS_EquipInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EquipInfoRequestDefaultTypeInternal _EquipInfoRequest_default_instance_;
-PROTOBUF_CONSTEXPR EquipInfoResponse::EquipInfoResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_EquipInfoRequestDefaultTypeInternal _CS_EquipInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_EquipInfoResponse::SC_EquipInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.equips_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct EquipInfoResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EquipInfoResponseDefaultTypeInternal()
+struct SC_EquipInfoResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_EquipInfoResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~EquipInfoResponseDefaultTypeInternal() {}
+  ~SC_EquipInfoResponseDefaultTypeInternal() {}
   union {
-    EquipInfoResponse _instance;
+    SC_EquipInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EquipInfoResponseDefaultTypeInternal _EquipInfoResponse_default_instance_;
-PROTOBUF_CONSTEXPR EquipChangeRequest::EquipChangeRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_EquipInfoResponseDefaultTypeInternal _SC_EquipInfoResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_EquipChangeRequest::CS_EquipChangeRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.item_)*/nullptr
   , /*decltype(_impl_.objectid_)*/int64_t{0}
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct EquipChangeRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EquipChangeRequestDefaultTypeInternal()
+struct CS_EquipChangeRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_EquipChangeRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~EquipChangeRequestDefaultTypeInternal() {}
+  ~CS_EquipChangeRequestDefaultTypeInternal() {}
   union {
-    EquipChangeRequest _instance;
+    CS_EquipChangeRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EquipChangeRequestDefaultTypeInternal _EquipChangeRequest_default_instance_;
-PROTOBUF_CONSTEXPR EquipChangeRespnse::EquipChangeRespnse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_EquipChangeRequestDefaultTypeInternal _CS_EquipChangeRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_EquipChangeRespnse::SC_EquipChangeRespnse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.success_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct EquipChangeRespnseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR EquipChangeRespnseDefaultTypeInternal()
+struct SC_EquipChangeRespnseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_EquipChangeRespnseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~EquipChangeRespnseDefaultTypeInternal() {}
+  ~SC_EquipChangeRespnseDefaultTypeInternal() {}
   union {
-    EquipChangeRespnse _instance;
+    SC_EquipChangeRespnse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EquipChangeRespnseDefaultTypeInternal _EquipChangeRespnse_default_instance_;
-PROTOBUF_CONSTEXPR ChangeInventoryRequest::ChangeInventoryRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_EquipChangeRespnseDefaultTypeInternal _SC_EquipChangeRespnse_default_instance_;
+PROTOBUF_CONSTEXPR CS_ChangeInventoryRequest::CS_ChangeInventoryRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.item_)*/nullptr
-  , /*decltype(_impl_.userseq_)*/0
-  , /*decltype(_impl_.slotidx_)*/0
+    /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.beforeslotidx_)*/0
+  , /*decltype(_impl_.changeslotidx_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ChangeInventoryRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ChangeInventoryRequestDefaultTypeInternal()
+struct CS_ChangeInventoryRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_ChangeInventoryRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ChangeInventoryRequestDefaultTypeInternal() {}
+  ~CS_ChangeInventoryRequestDefaultTypeInternal() {}
   union {
-    ChangeInventoryRequest _instance;
+    CS_ChangeInventoryRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChangeInventoryRequestDefaultTypeInternal _ChangeInventoryRequest_default_instance_;
-PROTOBUF_CONSTEXPR ChangeInventoryResponse::ChangeInventoryResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_ChangeInventoryRequestDefaultTypeInternal _CS_ChangeInventoryRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_ChangeInventoryResponse::SC_ChangeInventoryResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.success_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ChangeInventoryResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ChangeInventoryResponseDefaultTypeInternal()
+struct SC_ChangeInventoryResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_ChangeInventoryResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ChangeInventoryResponseDefaultTypeInternal() {}
+  ~SC_ChangeInventoryResponseDefaultTypeInternal() {}
   union {
-    ChangeInventoryResponse _instance;
+    SC_ChangeInventoryResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChangeInventoryResponseDefaultTypeInternal _ChangeInventoryResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_ChangeInventoryResponseDefaultTypeInternal _SC_ChangeInventoryResponse_default_instance_;
 }  // namespace Protocol
 static ::_pb::Metadata file_level_metadata_Item_2eproto[6];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Item_2eproto = nullptr;
@@ -110,88 +110,89 @@ static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors
 
 const uint32_t TableStruct_Item_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipInfoRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipInfoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipInfoRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipInfoRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipInfoResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_EquipInfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipInfoResponse, _impl_.equips_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_EquipInfoResponse, _impl_.equips_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipChangeRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRequest, _impl_.objectid_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRequest, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRequest, _impl_.item_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipChangeRequest, _impl_.objectid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipChangeRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_EquipChangeRequest, _impl_.item_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRespnse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_EquipChangeRespnse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::EquipChangeRespnse, _impl_.success_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_EquipChangeRespnse, _impl_.success_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ChangeInventoryRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryRequest, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryRequest, _impl_.slotidx_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryRequest, _impl_.item_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ChangeInventoryRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ChangeInventoryRequest, _impl_.beforeslotidx_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ChangeInventoryRequest, _impl_.changeslotidx_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ChangeInventoryResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ChangeInventoryResponse, _impl_.success_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ChangeInventoryResponse, _impl_.success_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::EquipInfoRequest)},
-  { 7, -1, -1, sizeof(::Protocol::EquipInfoResponse)},
-  { 14, -1, -1, sizeof(::Protocol::EquipChangeRequest)},
-  { 23, -1, -1, sizeof(::Protocol::EquipChangeRespnse)},
-  { 30, -1, -1, sizeof(::Protocol::ChangeInventoryRequest)},
-  { 39, -1, -1, sizeof(::Protocol::ChangeInventoryResponse)},
+  { 0, -1, -1, sizeof(::Protocol::CS_EquipInfoRequest)},
+  { 7, -1, -1, sizeof(::Protocol::SC_EquipInfoResponse)},
+  { 14, -1, -1, sizeof(::Protocol::CS_EquipChangeRequest)},
+  { 23, -1, -1, sizeof(::Protocol::SC_EquipChangeRespnse)},
+  { 30, -1, -1, sizeof(::Protocol::CS_ChangeInventoryRequest)},
+  { 39, -1, -1, sizeof(::Protocol::SC_ChangeInventoryResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::Protocol::_EquipInfoRequest_default_instance_._instance,
-  &::Protocol::_EquipInfoResponse_default_instance_._instance,
-  &::Protocol::_EquipChangeRequest_default_instance_._instance,
-  &::Protocol::_EquipChangeRespnse_default_instance_._instance,
-  &::Protocol::_ChangeInventoryRequest_default_instance_._instance,
-  &::Protocol::_ChangeInventoryResponse_default_instance_._instance,
+  &::Protocol::_CS_EquipInfoRequest_default_instance_._instance,
+  &::Protocol::_SC_EquipInfoResponse_default_instance_._instance,
+  &::Protocol::_CS_EquipChangeRequest_default_instance_._instance,
+  &::Protocol::_SC_EquipChangeRespnse_default_instance_._instance,
+  &::Protocol::_CS_ChangeInventoryRequest_default_instance_._instance,
+  &::Protocol::_SC_ChangeInventoryResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Item_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nItem.proto\022\010Protocol\032\014Struct.proto\"#\n\020"
-  "EquipInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"4\n\021Equ"
-  "ipInfoResponse\022\037\n\006equips\030\001 \003(\0132\017.Protoco"
-  "l.Equip\"V\n\022EquipChangeRequest\022\020\n\010objectI"
-  "d\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\022\035\n\004item\030\003 \001(\0132\017"
-  ".Protocol.Equip\"%\n\022EquipChangeRespnse\022\017\n"
-  "\007success\030\001 \001(\005\"X\n\026ChangeInventoryRequest"
-  "\022\017\n\007userSeq\030\001 \001(\005\022\017\n\007slotIdx\030\002 \001(\005\022\034\n\004it"
-  "em\030\003 \001(\0132\016.Protocol.Item\"*\n\027ChangeInvent"
-  "oryResponse\022\017\n\007success\030\001 \001(\005b\006proto3"
+  "\n\nItem.proto\022\010Protocol\032\014Struct.proto\"&\n\023"
+  "CS_EquipInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"7\n\024"
+  "SC_EquipInfoResponse\022\037\n\006equips\030\001 \003(\0132\017.P"
+  "rotocol.Equip\"Y\n\025CS_EquipChangeRequest\022\020"
+  "\n\010objectId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\022\035\n\004ite"
+  "m\030\003 \001(\0132\017.Protocol.Equip\"(\n\025SC_EquipChan"
+  "geRespnse\022\017\n\007success\030\001 \001(\005\"Z\n\031CS_ChangeI"
+  "nventoryRequest\022\017\n\007userSeq\030\001 \001(\005\022\025\n\rbefo"
+  "reSlotIdx\030\002 \001(\005\022\025\n\rchangeSlotIdx\030\003 \001(\005\"-"
+  "\n\032SC_ChangeInventoryResponse\022\017\n\007success\030"
+  "\001 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Item_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Item_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Item_2eproto = {
-    false, false, 396, descriptor_table_protodef_Item_2eproto,
+    false, false, 413, descriptor_table_protodef_Item_2eproto,
     "Item.proto",
     &descriptor_table_Item_2eproto_once, descriptor_table_Item_2eproto_deps, 1, 6,
     schemas, file_default_instances, TableStruct_Item_2eproto::offsets,
@@ -208,29 +209,29 @@ namespace Protocol {
 
 // ===================================================================
 
-class EquipInfoRequest::_Internal {
+class CS_EquipInfoRequest::_Internal {
  public:
 };
 
-EquipInfoRequest::EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_EquipInfoRequest::CS_EquipInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.EquipInfoRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_EquipInfoRequest)
 }
-EquipInfoRequest::EquipInfoRequest(const EquipInfoRequest& from)
+CS_EquipInfoRequest::CS_EquipInfoRequest(const CS_EquipInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  EquipInfoRequest* const _this = this; (void)_this;
+  CS_EquipInfoRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.userseq_ = from._impl_.userseq_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.EquipInfoRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_EquipInfoRequest)
 }
 
-inline void EquipInfoRequest::SharedCtor(
+inline void CS_EquipInfoRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -240,8 +241,8 @@ inline void EquipInfoRequest::SharedCtor(
   };
 }
 
-EquipInfoRequest::~EquipInfoRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.EquipInfoRequest)
+CS_EquipInfoRequest::~CS_EquipInfoRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_EquipInfoRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -249,16 +250,16 @@ EquipInfoRequest::~EquipInfoRequest() {
   SharedDtor();
 }
 
-inline void EquipInfoRequest::SharedDtor() {
+inline void CS_EquipInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void EquipInfoRequest::SetCachedSize(int size) const {
+void CS_EquipInfoRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void EquipInfoRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.EquipInfoRequest)
+void CS_EquipInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_EquipInfoRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -267,7 +268,7 @@ void EquipInfoRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EquipInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_EquipInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -304,9 +305,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EquipInfoRequest::_InternalSerialize(
+uint8_t* CS_EquipInfoRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.EquipInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_EquipInfoRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -320,12 +321,12 @@ uint8_t* EquipInfoRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.EquipInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_EquipInfoRequest)
   return target;
 }
 
-size_t EquipInfoRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.EquipInfoRequest)
+size_t CS_EquipInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_EquipInfoRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -340,17 +341,17 @@ size_t EquipInfoRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EquipInfoRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_EquipInfoRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    EquipInfoRequest::MergeImpl
+    CS_EquipInfoRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EquipInfoRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_EquipInfoRequest::GetClassData() const { return &_class_data_; }
 
 
-void EquipInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<EquipInfoRequest*>(&to_msg);
-  auto& from = static_cast<const EquipInfoRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.EquipInfoRequest)
+void CS_EquipInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_EquipInfoRequest*>(&to_msg);
+  auto& from = static_cast<const CS_EquipInfoRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_EquipInfoRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -361,24 +362,24 @@ void EquipInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void EquipInfoRequest::CopyFrom(const EquipInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.EquipInfoRequest)
+void CS_EquipInfoRequest::CopyFrom(const CS_EquipInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_EquipInfoRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EquipInfoRequest::IsInitialized() const {
+bool CS_EquipInfoRequest::IsInitialized() const {
   return true;
 }
 
-void EquipInfoRequest::InternalSwap(EquipInfoRequest* other) {
+void CS_EquipInfoRequest::InternalSwap(CS_EquipInfoRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.userseq_, other->_impl_.userseq_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EquipInfoRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_EquipInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[0]);
@@ -386,31 +387,31 @@ void EquipInfoRequest::InternalSwap(EquipInfoRequest* other) {
 
 // ===================================================================
 
-class EquipInfoResponse::_Internal {
+class SC_EquipInfoResponse::_Internal {
  public:
 };
 
-void EquipInfoResponse::clear_equips() {
+void SC_EquipInfoResponse::clear_equips() {
   _impl_.equips_.Clear();
 }
-EquipInfoResponse::EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_EquipInfoResponse::SC_EquipInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.EquipInfoResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_EquipInfoResponse)
 }
-EquipInfoResponse::EquipInfoResponse(const EquipInfoResponse& from)
+SC_EquipInfoResponse::SC_EquipInfoResponse(const SC_EquipInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  EquipInfoResponse* const _this = this; (void)_this;
+  SC_EquipInfoResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.equips_){from._impl_.equips_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:Protocol.EquipInfoResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_EquipInfoResponse)
 }
 
-inline void EquipInfoResponse::SharedCtor(
+inline void SC_EquipInfoResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -420,8 +421,8 @@ inline void EquipInfoResponse::SharedCtor(
   };
 }
 
-EquipInfoResponse::~EquipInfoResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.EquipInfoResponse)
+SC_EquipInfoResponse::~SC_EquipInfoResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_EquipInfoResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -429,17 +430,17 @@ EquipInfoResponse::~EquipInfoResponse() {
   SharedDtor();
 }
 
-inline void EquipInfoResponse::SharedDtor() {
+inline void SC_EquipInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.equips_.~RepeatedPtrField();
 }
 
-void EquipInfoResponse::SetCachedSize(int size) const {
+void SC_EquipInfoResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void EquipInfoResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.EquipInfoResponse)
+void SC_EquipInfoResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_EquipInfoResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -448,7 +449,7 @@ void EquipInfoResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EquipInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_EquipInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -490,9 +491,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EquipInfoResponse::_InternalSerialize(
+uint8_t* SC_EquipInfoResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.EquipInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_EquipInfoResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -508,12 +509,12 @@ uint8_t* EquipInfoResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.EquipInfoResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_EquipInfoResponse)
   return target;
 }
 
-size_t EquipInfoResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.EquipInfoResponse)
+size_t SC_EquipInfoResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_EquipInfoResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -530,17 +531,17 @@ size_t EquipInfoResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EquipInfoResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_EquipInfoResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    EquipInfoResponse::MergeImpl
+    SC_EquipInfoResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EquipInfoResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_EquipInfoResponse::GetClassData() const { return &_class_data_; }
 
 
-void EquipInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<EquipInfoResponse*>(&to_msg);
-  auto& from = static_cast<const EquipInfoResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.EquipInfoResponse)
+void SC_EquipInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_EquipInfoResponse*>(&to_msg);
+  auto& from = static_cast<const SC_EquipInfoResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_EquipInfoResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -549,24 +550,24 @@ void EquipInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void EquipInfoResponse::CopyFrom(const EquipInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.EquipInfoResponse)
+void SC_EquipInfoResponse::CopyFrom(const SC_EquipInfoResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_EquipInfoResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EquipInfoResponse::IsInitialized() const {
+bool SC_EquipInfoResponse::IsInitialized() const {
   return true;
 }
 
-void EquipInfoResponse::InternalSwap(EquipInfoResponse* other) {
+void SC_EquipInfoResponse::InternalSwap(SC_EquipInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.equips_.InternalSwap(&other->_impl_.equips_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EquipInfoResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_EquipInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[1]);
@@ -574,30 +575,30 @@ void EquipInfoResponse::InternalSwap(EquipInfoResponse* other) {
 
 // ===================================================================
 
-class EquipChangeRequest::_Internal {
+class CS_EquipChangeRequest::_Internal {
  public:
-  static const ::Protocol::Equip& item(const EquipChangeRequest* msg);
+  static const ::Protocol::Equip& item(const CS_EquipChangeRequest* msg);
 };
 
 const ::Protocol::Equip&
-EquipChangeRequest::_Internal::item(const EquipChangeRequest* msg) {
+CS_EquipChangeRequest::_Internal::item(const CS_EquipChangeRequest* msg) {
   return *msg->_impl_.item_;
 }
-void EquipChangeRequest::clear_item() {
+void CS_EquipChangeRequest::clear_item() {
   if (GetArenaForAllocation() == nullptr && _impl_.item_ != nullptr) {
     delete _impl_.item_;
   }
   _impl_.item_ = nullptr;
 }
-EquipChangeRequest::EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_EquipChangeRequest::CS_EquipChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.EquipChangeRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_EquipChangeRequest)
 }
-EquipChangeRequest::EquipChangeRequest(const EquipChangeRequest& from)
+CS_EquipChangeRequest::CS_EquipChangeRequest(const CS_EquipChangeRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  EquipChangeRequest* const _this = this; (void)_this;
+  CS_EquipChangeRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.item_){nullptr}
     , decltype(_impl_.objectid_){}
@@ -611,10 +612,10 @@ EquipChangeRequest::EquipChangeRequest(const EquipChangeRequest& from)
   ::memcpy(&_impl_.objectid_, &from._impl_.objectid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
     reinterpret_cast<char*>(&_impl_.objectid_)) + sizeof(_impl_.userseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.EquipChangeRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_EquipChangeRequest)
 }
 
-inline void EquipChangeRequest::SharedCtor(
+inline void CS_EquipChangeRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -626,8 +627,8 @@ inline void EquipChangeRequest::SharedCtor(
   };
 }
 
-EquipChangeRequest::~EquipChangeRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.EquipChangeRequest)
+CS_EquipChangeRequest::~CS_EquipChangeRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_EquipChangeRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -635,17 +636,17 @@ EquipChangeRequest::~EquipChangeRequest() {
   SharedDtor();
 }
 
-inline void EquipChangeRequest::SharedDtor() {
+inline void CS_EquipChangeRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.item_;
 }
 
-void EquipChangeRequest::SetCachedSize(int size) const {
+void CS_EquipChangeRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void EquipChangeRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.EquipChangeRequest)
+void CS_EquipChangeRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_EquipChangeRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -660,7 +661,7 @@ void EquipChangeRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EquipChangeRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_EquipChangeRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -713,9 +714,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EquipChangeRequest::_InternalSerialize(
+uint8_t* CS_EquipChangeRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.EquipChangeRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_EquipChangeRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -742,12 +743,12 @@ uint8_t* EquipChangeRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.EquipChangeRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_EquipChangeRequest)
   return target;
 }
 
-size_t EquipChangeRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.EquipChangeRequest)
+size_t CS_EquipChangeRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_EquipChangeRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -774,17 +775,17 @@ size_t EquipChangeRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EquipChangeRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_EquipChangeRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    EquipChangeRequest::MergeImpl
+    CS_EquipChangeRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EquipChangeRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_EquipChangeRequest::GetClassData() const { return &_class_data_; }
 
 
-void EquipChangeRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<EquipChangeRequest*>(&to_msg);
-  auto& from = static_cast<const EquipChangeRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.EquipChangeRequest)
+void CS_EquipChangeRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_EquipChangeRequest*>(&to_msg);
+  auto& from = static_cast<const CS_EquipChangeRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_EquipChangeRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -802,29 +803,29 @@ void EquipChangeRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void EquipChangeRequest::CopyFrom(const EquipChangeRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.EquipChangeRequest)
+void CS_EquipChangeRequest::CopyFrom(const CS_EquipChangeRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_EquipChangeRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EquipChangeRequest::IsInitialized() const {
+bool CS_EquipChangeRequest::IsInitialized() const {
   return true;
 }
 
-void EquipChangeRequest::InternalSwap(EquipChangeRequest* other) {
+void CS_EquipChangeRequest::InternalSwap(CS_EquipChangeRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EquipChangeRequest, _impl_.userseq_)
-      + sizeof(EquipChangeRequest::_impl_.userseq_)
-      - PROTOBUF_FIELD_OFFSET(EquipChangeRequest, _impl_.item_)>(
+      PROTOBUF_FIELD_OFFSET(CS_EquipChangeRequest, _impl_.userseq_)
+      + sizeof(CS_EquipChangeRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_EquipChangeRequest, _impl_.item_)>(
           reinterpret_cast<char*>(&_impl_.item_),
           reinterpret_cast<char*>(&other->_impl_.item_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EquipChangeRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_EquipChangeRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[2]);
@@ -832,29 +833,29 @@ void EquipChangeRequest::InternalSwap(EquipChangeRequest* other) {
 
 // ===================================================================
 
-class EquipChangeRespnse::_Internal {
+class SC_EquipChangeRespnse::_Internal {
  public:
 };
 
-EquipChangeRespnse::EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_EquipChangeRespnse::SC_EquipChangeRespnse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.EquipChangeRespnse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_EquipChangeRespnse)
 }
-EquipChangeRespnse::EquipChangeRespnse(const EquipChangeRespnse& from)
+SC_EquipChangeRespnse::SC_EquipChangeRespnse(const SC_EquipChangeRespnse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  EquipChangeRespnse* const _this = this; (void)_this;
+  SC_EquipChangeRespnse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.EquipChangeRespnse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_EquipChangeRespnse)
 }
 
-inline void EquipChangeRespnse::SharedCtor(
+inline void SC_EquipChangeRespnse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -864,8 +865,8 @@ inline void EquipChangeRespnse::SharedCtor(
   };
 }
 
-EquipChangeRespnse::~EquipChangeRespnse() {
-  // @@protoc_insertion_point(destructor:Protocol.EquipChangeRespnse)
+SC_EquipChangeRespnse::~SC_EquipChangeRespnse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_EquipChangeRespnse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -873,16 +874,16 @@ EquipChangeRespnse::~EquipChangeRespnse() {
   SharedDtor();
 }
 
-inline void EquipChangeRespnse::SharedDtor() {
+inline void SC_EquipChangeRespnse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void EquipChangeRespnse::SetCachedSize(int size) const {
+void SC_EquipChangeRespnse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void EquipChangeRespnse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.EquipChangeRespnse)
+void SC_EquipChangeRespnse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_EquipChangeRespnse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -891,7 +892,7 @@ void EquipChangeRespnse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EquipChangeRespnse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_EquipChangeRespnse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -928,9 +929,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* EquipChangeRespnse::_InternalSerialize(
+uint8_t* SC_EquipChangeRespnse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.EquipChangeRespnse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_EquipChangeRespnse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -944,12 +945,12 @@ uint8_t* EquipChangeRespnse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.EquipChangeRespnse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_EquipChangeRespnse)
   return target;
 }
 
-size_t EquipChangeRespnse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.EquipChangeRespnse)
+size_t SC_EquipChangeRespnse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_EquipChangeRespnse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -964,17 +965,17 @@ size_t EquipChangeRespnse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EquipChangeRespnse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_EquipChangeRespnse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    EquipChangeRespnse::MergeImpl
+    SC_EquipChangeRespnse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EquipChangeRespnse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_EquipChangeRespnse::GetClassData() const { return &_class_data_; }
 
 
-void EquipChangeRespnse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<EquipChangeRespnse*>(&to_msg);
-  auto& from = static_cast<const EquipChangeRespnse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.EquipChangeRespnse)
+void SC_EquipChangeRespnse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_EquipChangeRespnse*>(&to_msg);
+  auto& from = static_cast<const SC_EquipChangeRespnse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_EquipChangeRespnse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -985,24 +986,24 @@ void EquipChangeRespnse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void EquipChangeRespnse::CopyFrom(const EquipChangeRespnse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.EquipChangeRespnse)
+void SC_EquipChangeRespnse::CopyFrom(const SC_EquipChangeRespnse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_EquipChangeRespnse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool EquipChangeRespnse::IsInitialized() const {
+bool SC_EquipChangeRespnse::IsInitialized() const {
   return true;
 }
 
-void EquipChangeRespnse::InternalSwap(EquipChangeRespnse* other) {
+void SC_EquipChangeRespnse::InternalSwap(SC_EquipChangeRespnse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.success_, other->_impl_.success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata EquipChangeRespnse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_EquipChangeRespnse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[3]);
@@ -1010,60 +1011,46 @@ void EquipChangeRespnse::InternalSwap(EquipChangeRespnse* other) {
 
 // ===================================================================
 
-class ChangeInventoryRequest::_Internal {
+class CS_ChangeInventoryRequest::_Internal {
  public:
-  static const ::Protocol::Item& item(const ChangeInventoryRequest* msg);
 };
 
-const ::Protocol::Item&
-ChangeInventoryRequest::_Internal::item(const ChangeInventoryRequest* msg) {
-  return *msg->_impl_.item_;
-}
-void ChangeInventoryRequest::clear_item() {
-  if (GetArenaForAllocation() == nullptr && _impl_.item_ != nullptr) {
-    delete _impl_.item_;
-  }
-  _impl_.item_ = nullptr;
-}
-ChangeInventoryRequest::ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_ChangeInventoryRequest::CS_ChangeInventoryRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.ChangeInventoryRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_ChangeInventoryRequest)
 }
-ChangeInventoryRequest::ChangeInventoryRequest(const ChangeInventoryRequest& from)
+CS_ChangeInventoryRequest::CS_ChangeInventoryRequest(const CS_ChangeInventoryRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ChangeInventoryRequest* const _this = this; (void)_this;
+  CS_ChangeInventoryRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.item_){nullptr}
-    , decltype(_impl_.userseq_){}
-    , decltype(_impl_.slotidx_){}
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.beforeslotidx_){}
+    , decltype(_impl_.changeslotidx_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_item()) {
-    _this->_impl_.item_ = new ::Protocol::Item(*from._impl_.item_);
-  }
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.slotidx_) -
-    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.slotidx_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.ChangeInventoryRequest)
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.changeslotidx_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.changeslotidx_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_ChangeInventoryRequest)
 }
 
-inline void ChangeInventoryRequest::SharedCtor(
+inline void CS_ChangeInventoryRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.item_){nullptr}
-    , decltype(_impl_.userseq_){0}
-    , decltype(_impl_.slotidx_){0}
+      decltype(_impl_.userseq_){0}
+    , decltype(_impl_.beforeslotidx_){0}
+    , decltype(_impl_.changeslotidx_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-ChangeInventoryRequest::~ChangeInventoryRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.ChangeInventoryRequest)
+CS_ChangeInventoryRequest::~CS_ChangeInventoryRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_ChangeInventoryRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1071,32 +1058,27 @@ ChangeInventoryRequest::~ChangeInventoryRequest() {
   SharedDtor();
 }
 
-inline void ChangeInventoryRequest::SharedDtor() {
+inline void CS_ChangeInventoryRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.item_;
 }
 
-void ChangeInventoryRequest::SetCachedSize(int size) const {
+void CS_ChangeInventoryRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ChangeInventoryRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.ChangeInventoryRequest)
+void CS_ChangeInventoryRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_ChangeInventoryRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.item_ != nullptr) {
-    delete _impl_.item_;
-  }
-  _impl_.item_ = nullptr;
   ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.slotidx_) -
-      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.slotidx_));
+      reinterpret_cast<char*>(&_impl_.changeslotidx_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.changeslotidx_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ChangeInventoryRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_ChangeInventoryRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1110,18 +1092,18 @@ const char* ChangeInventoryRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // int32 slotIdx = 2;
+      // int32 beforeSlotIdx = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.slotidx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.beforeslotidx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Item item = 3;
+      // int32 changeSlotIdx = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_item(), ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.changeslotidx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1149,9 +1131,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ChangeInventoryRequest::_InternalSerialize(
+uint8_t* CS_ChangeInventoryRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ChangeInventoryRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_ChangeInventoryRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1161,106 +1143,102 @@ uint8_t* ChangeInventoryRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // int32 slotIdx = 2;
-  if (this->_internal_slotidx() != 0) {
+  // int32 beforeSlotIdx = 2;
+  if (this->_internal_beforeslotidx() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_slotidx(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_beforeslotidx(), target);
   }
 
-  // .Protocol.Item item = 3;
-  if (this->_internal_has_item()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::item(this),
-        _Internal::item(this).GetCachedSize(), target, stream);
+  // int32 changeSlotIdx = 3;
+  if (this->_internal_changeslotidx() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_changeslotidx(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ChangeInventoryRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_ChangeInventoryRequest)
   return target;
 }
 
-size_t ChangeInventoryRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.ChangeInventoryRequest)
+size_t CS_ChangeInventoryRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_ChangeInventoryRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.Item item = 3;
-  if (this->_internal_has_item()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.item_);
-  }
-
   // int32 userSeq = 1;
   if (this->_internal_userseq() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
   }
 
-  // int32 slotIdx = 2;
-  if (this->_internal_slotidx() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_slotidx());
+  // int32 beforeSlotIdx = 2;
+  if (this->_internal_beforeslotidx() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_beforeslotidx());
+  }
+
+  // int32 changeSlotIdx = 3;
+  if (this->_internal_changeslotidx() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_changeslotidx());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ChangeInventoryRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_ChangeInventoryRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ChangeInventoryRequest::MergeImpl
+    CS_ChangeInventoryRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ChangeInventoryRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_ChangeInventoryRequest::GetClassData() const { return &_class_data_; }
 
 
-void ChangeInventoryRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ChangeInventoryRequest*>(&to_msg);
-  auto& from = static_cast<const ChangeInventoryRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ChangeInventoryRequest)
+void CS_ChangeInventoryRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_ChangeInventoryRequest*>(&to_msg);
+  auto& from = static_cast<const CS_ChangeInventoryRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_ChangeInventoryRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_item()) {
-    _this->_internal_mutable_item()->::Protocol::Item::MergeFrom(
-        from._internal_item());
-  }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
-  if (from._internal_slotidx() != 0) {
-    _this->_internal_set_slotidx(from._internal_slotidx());
+  if (from._internal_beforeslotidx() != 0) {
+    _this->_internal_set_beforeslotidx(from._internal_beforeslotidx());
+  }
+  if (from._internal_changeslotidx() != 0) {
+    _this->_internal_set_changeslotidx(from._internal_changeslotidx());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ChangeInventoryRequest::CopyFrom(const ChangeInventoryRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ChangeInventoryRequest)
+void CS_ChangeInventoryRequest::CopyFrom(const CS_ChangeInventoryRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_ChangeInventoryRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ChangeInventoryRequest::IsInitialized() const {
+bool CS_ChangeInventoryRequest::IsInitialized() const {
   return true;
 }
 
-void ChangeInventoryRequest::InternalSwap(ChangeInventoryRequest* other) {
+void CS_ChangeInventoryRequest::InternalSwap(CS_ChangeInventoryRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChangeInventoryRequest, _impl_.slotidx_)
-      + sizeof(ChangeInventoryRequest::_impl_.slotidx_)
-      - PROTOBUF_FIELD_OFFSET(ChangeInventoryRequest, _impl_.item_)>(
-          reinterpret_cast<char*>(&_impl_.item_),
-          reinterpret_cast<char*>(&other->_impl_.item_));
+      PROTOBUF_FIELD_OFFSET(CS_ChangeInventoryRequest, _impl_.changeslotidx_)
+      + sizeof(CS_ChangeInventoryRequest::_impl_.changeslotidx_)
+      - PROTOBUF_FIELD_OFFSET(CS_ChangeInventoryRequest, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ChangeInventoryRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_ChangeInventoryRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[4]);
@@ -1268,29 +1246,29 @@ void ChangeInventoryRequest::InternalSwap(ChangeInventoryRequest* other) {
 
 // ===================================================================
 
-class ChangeInventoryResponse::_Internal {
+class SC_ChangeInventoryResponse::_Internal {
  public:
 };
 
-ChangeInventoryResponse::ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_ChangeInventoryResponse::SC_ChangeInventoryResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.ChangeInventoryResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_ChangeInventoryResponse)
 }
-ChangeInventoryResponse::ChangeInventoryResponse(const ChangeInventoryResponse& from)
+SC_ChangeInventoryResponse::SC_ChangeInventoryResponse(const SC_ChangeInventoryResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ChangeInventoryResponse* const _this = this; (void)_this;
+  SC_ChangeInventoryResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.success_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.success_ = from._impl_.success_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.ChangeInventoryResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_ChangeInventoryResponse)
 }
 
-inline void ChangeInventoryResponse::SharedCtor(
+inline void SC_ChangeInventoryResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -1300,8 +1278,8 @@ inline void ChangeInventoryResponse::SharedCtor(
   };
 }
 
-ChangeInventoryResponse::~ChangeInventoryResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.ChangeInventoryResponse)
+SC_ChangeInventoryResponse::~SC_ChangeInventoryResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_ChangeInventoryResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -1309,16 +1287,16 @@ ChangeInventoryResponse::~ChangeInventoryResponse() {
   SharedDtor();
 }
 
-inline void ChangeInventoryResponse::SharedDtor() {
+inline void SC_ChangeInventoryResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ChangeInventoryResponse::SetCachedSize(int size) const {
+void SC_ChangeInventoryResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ChangeInventoryResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.ChangeInventoryResponse)
+void SC_ChangeInventoryResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_ChangeInventoryResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1327,7 +1305,7 @@ void ChangeInventoryResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ChangeInventoryResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_ChangeInventoryResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -1364,9 +1342,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ChangeInventoryResponse::_InternalSerialize(
+uint8_t* SC_ChangeInventoryResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ChangeInventoryResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_ChangeInventoryResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1380,12 +1358,12 @@ uint8_t* ChangeInventoryResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ChangeInventoryResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_ChangeInventoryResponse)
   return target;
 }
 
-size_t ChangeInventoryResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.ChangeInventoryResponse)
+size_t SC_ChangeInventoryResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_ChangeInventoryResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1400,17 +1378,17 @@ size_t ChangeInventoryResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ChangeInventoryResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_ChangeInventoryResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ChangeInventoryResponse::MergeImpl
+    SC_ChangeInventoryResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ChangeInventoryResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_ChangeInventoryResponse::GetClassData() const { return &_class_data_; }
 
 
-void ChangeInventoryResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ChangeInventoryResponse*>(&to_msg);
-  auto& from = static_cast<const ChangeInventoryResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ChangeInventoryResponse)
+void SC_ChangeInventoryResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_ChangeInventoryResponse*>(&to_msg);
+  auto& from = static_cast<const SC_ChangeInventoryResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_ChangeInventoryResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1421,24 +1399,24 @@ void ChangeInventoryResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ChangeInventoryResponse::CopyFrom(const ChangeInventoryResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ChangeInventoryResponse)
+void SC_ChangeInventoryResponse::CopyFrom(const SC_ChangeInventoryResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_ChangeInventoryResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ChangeInventoryResponse::IsInitialized() const {
+bool SC_ChangeInventoryResponse::IsInitialized() const {
   return true;
 }
 
-void ChangeInventoryResponse::InternalSwap(ChangeInventoryResponse* other) {
+void SC_ChangeInventoryResponse::InternalSwap(SC_ChangeInventoryResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.success_, other->_impl_.success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ChangeInventoryResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_ChangeInventoryResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Item_2eproto_getter, &descriptor_table_Item_2eproto_once,
       file_level_metadata_Item_2eproto[5]);
@@ -1447,29 +1425,29 @@ void ChangeInventoryResponse::InternalSwap(ChangeInventoryResponse* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Protocol::EquipInfoRequest*
-Arena::CreateMaybeMessage< ::Protocol::EquipInfoRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::EquipInfoRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_EquipInfoRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_EquipInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_EquipInfoRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::EquipInfoResponse*
-Arena::CreateMaybeMessage< ::Protocol::EquipInfoResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::EquipInfoResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_EquipInfoResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_EquipInfoResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_EquipInfoResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::EquipChangeRequest*
-Arena::CreateMaybeMessage< ::Protocol::EquipChangeRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::EquipChangeRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_EquipChangeRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_EquipChangeRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_EquipChangeRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::EquipChangeRespnse*
-Arena::CreateMaybeMessage< ::Protocol::EquipChangeRespnse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::EquipChangeRespnse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_EquipChangeRespnse*
+Arena::CreateMaybeMessage< ::Protocol::SC_EquipChangeRespnse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_EquipChangeRespnse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::ChangeInventoryRequest*
-Arena::CreateMaybeMessage< ::Protocol::ChangeInventoryRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::ChangeInventoryRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_ChangeInventoryRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_ChangeInventoryRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_ChangeInventoryRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::ChangeInventoryResponse*
-Arena::CreateMaybeMessage< ::Protocol::ChangeInventoryResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::ChangeInventoryResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_ChangeInventoryResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_ChangeInventoryResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_ChangeInventoryResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

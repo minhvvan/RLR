@@ -11,7 +11,7 @@
 #include "Network/Proto/Drop.pb.h"
 #include "Network/Proto/Item.pb.h"
 #include "Network/Proto/Monster.pb.h"
-
+#include "Network/Proto/Lobby.pb.h"
 class PacketSession;
 
 using PacketHandlerFunc = bool(*)(TSharedPtr<PacketSession>&, uint8*, int32);
@@ -126,31 +126,24 @@ public:
 
     bool HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len);
 
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::LoginResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemAddResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_ADD_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ItemUseResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::InventoryResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MoveBroadcastPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_BROADCAST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MonsterMoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_MOVE_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MonsterAttackResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_ATTACK_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::MapMonsterInfoRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MONTSER_MAPINFO_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGamePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EnterGameResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::AttackRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ATTACK_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::GetSkillRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_GET_SKILL_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::SkillChangeRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_CHANGE_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::DropRequest& pkt) { return MakeSendBuffer(pkt, PKT_DROP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ItemUseRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MonsterMoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_MOVE_RESPONSE); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapMonsterInfoRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MONTSER_MAPINFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EnterGamePacket& pkt) { return MakeSendBuffer(pkt, PKT_ENTER_GAME_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AttackRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ATTACK_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GetSkillRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_GET_SKILL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SkillChangeRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_CHANGE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_ITEM_REQUEST); }
 
     
 

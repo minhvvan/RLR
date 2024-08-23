@@ -21,131 +21,157 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
-PROTOBUF_CONSTEXPR DropRequest::DropRequest(
+PROTOBUF_CONSTEXPR SC_DropRequest::SC_DropRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.objectid_)*/int64_t{0}
   , /*decltype(_impl_.monsterid_)*/int64_t{0}
   , /*decltype(_impl_.value_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct DropRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DropRequestDefaultTypeInternal()
+struct SC_DropRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_DropRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DropRequestDefaultTypeInternal() {}
+  ~SC_DropRequestDefaultTypeInternal() {}
   union {
-    DropRequest _instance;
+    SC_DropRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DropRequestDefaultTypeInternal _DropRequest_default_instance_;
-PROTOBUF_CONSTEXPR AddItemRequest::AddItemRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_DropRequestDefaultTypeInternal _SC_DropRequest_default_instance_;
+PROTOBUF_CONSTEXPR CS_AddItemRequest::CS_AddItemRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.objectid_)*/int64_t{0}
   , /*decltype(_impl_.value_)*/0
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct AddItemRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR AddItemRequestDefaultTypeInternal()
+struct CS_AddItemRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_AddItemRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~AddItemRequestDefaultTypeInternal() {}
+  ~CS_AddItemRequestDefaultTypeInternal() {}
   union {
-    AddItemRequest _instance;
+    CS_AddItemRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AddItemRequestDefaultTypeInternal _AddItemRequest_default_instance_;
-PROTOBUF_CONSTEXPR ExpIncreaseRequest::ExpIncreaseRequest(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_AddItemRequestDefaultTypeInternal _CS_AddItemRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_AddItemResponse::SC_AddItemResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.objectid_)*/int64_t{0}
+  , /*decltype(_impl_.success_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_AddItemResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_AddItemResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_AddItemResponseDefaultTypeInternal() {}
+  union {
+    SC_AddItemResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_AddItemResponseDefaultTypeInternal _SC_AddItemResponse_default_instance_;
+PROTOBUF_CONSTEXPR SS_ExpIncreaseRequest::SS_ExpIncreaseRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.exp_)*/0
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ExpIncreaseRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExpIncreaseRequestDefaultTypeInternal()
+struct SS_ExpIncreaseRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SS_ExpIncreaseRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ExpIncreaseRequestDefaultTypeInternal() {}
+  ~SS_ExpIncreaseRequestDefaultTypeInternal() {}
   union {
-    ExpIncreaseRequest _instance;
+    SS_ExpIncreaseRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpIncreaseRequestDefaultTypeInternal _ExpIncreaseRequest_default_instance_;
-PROTOBUF_CONSTEXPR ExpIncreaseResponse::ExpIncreaseResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SS_ExpIncreaseRequestDefaultTypeInternal _SS_ExpIncreaseRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_ExpIncreaseResponse::SC_ExpIncreaseResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.exp_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct ExpIncreaseResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ExpIncreaseResponseDefaultTypeInternal()
+struct SC_ExpIncreaseResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_ExpIncreaseResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ExpIncreaseResponseDefaultTypeInternal() {}
+  ~SC_ExpIncreaseResponseDefaultTypeInternal() {}
   union {
-    ExpIncreaseResponse _instance;
+    SC_ExpIncreaseResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExpIncreaseResponseDefaultTypeInternal _ExpIncreaseResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_ExpIncreaseResponseDefaultTypeInternal _SC_ExpIncreaseResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Drop_2eproto[4];
+static ::_pb::Metadata file_level_metadata_Drop_2eproto[5];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Drop_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Drop_2eproto = nullptr;
 
 const uint32_t TableStruct_Drop_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::DropRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_DropRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::DropRequest, _impl_.objectid_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::DropRequest, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::DropRequest, _impl_.monsterid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_DropRequest, _impl_.objectid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_DropRequest, _impl_.value_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_DropRequest, _impl_.monsterid_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::AddItemRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_AddItemRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::AddItemRequest, _impl_.objectid_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::AddItemRequest, _impl_.value_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::AddItemRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_AddItemRequest, _impl_.objectid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_AddItemRequest, _impl_.value_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_AddItemRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ExpIncreaseRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_AddItemResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ExpIncreaseRequest, _impl_.exp_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::ExpIncreaseRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_AddItemResponse, _impl_.objectid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_AddItemResponse, _impl_.success_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ExpIncreaseResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::ExpIncreaseResponse, _impl_.exp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.exp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.userseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ExpIncreaseResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ExpIncreaseResponse, _impl_.exp_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::DropRequest)},
-  { 9, -1, -1, sizeof(::Protocol::AddItemRequest)},
-  { 18, -1, -1, sizeof(::Protocol::ExpIncreaseRequest)},
-  { 26, -1, -1, sizeof(::Protocol::ExpIncreaseResponse)},
+  { 0, -1, -1, sizeof(::Protocol::SC_DropRequest)},
+  { 9, -1, -1, sizeof(::Protocol::CS_AddItemRequest)},
+  { 18, -1, -1, sizeof(::Protocol::SC_AddItemResponse)},
+  { 26, -1, -1, sizeof(::Protocol::SS_ExpIncreaseRequest)},
+  { 34, -1, -1, sizeof(::Protocol::SC_ExpIncreaseResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::Protocol::_DropRequest_default_instance_._instance,
-  &::Protocol::_AddItemRequest_default_instance_._instance,
-  &::Protocol::_ExpIncreaseRequest_default_instance_._instance,
-  &::Protocol::_ExpIncreaseResponse_default_instance_._instance,
+  &::Protocol::_SC_DropRequest_default_instance_._instance,
+  &::Protocol::_CS_AddItemRequest_default_instance_._instance,
+  &::Protocol::_SC_AddItemResponse_default_instance_._instance,
+  &::Protocol::_SS_ExpIncreaseRequest_default_instance_._instance,
+  &::Protocol::_SC_ExpIncreaseResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Drop_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nDrop.proto\022\010Protocol\"A\n\013DropRequest\022\020\n"
-  "\010objectId\030\001 \001(\003\022\r\n\005value\030\002 \001(\005\022\021\n\tmonste"
-  "rId\030\003 \001(\003\"B\n\016AddItemRequest\022\020\n\010objectId\030"
-  "\001 \001(\003\022\r\n\005value\030\002 \001(\005\022\017\n\007userSeq\030\003 \001(\005\"2\n"
-  "\022ExpIncreaseRequest\022\013\n\003exp\030\001 \001(\005\022\017\n\007user"
-  "Seq\030\002 \001(\005\"\"\n\023ExpIncreaseResponse\022\013\n\003exp\030"
-  "\001 \001(\005b\006proto3"
+  "\n\nDrop.proto\022\010Protocol\"D\n\016SC_DropRequest"
+  "\022\020\n\010objectId\030\001 \001(\003\022\r\n\005value\030\002 \001(\005\022\021\n\tmon"
+  "sterId\030\003 \001(\003\"E\n\021CS_AddItemRequest\022\020\n\010obj"
+  "ectId\030\001 \001(\003\022\r\n\005value\030\002 \001(\005\022\017\n\007userSeq\030\003 "
+  "\001(\005\"7\n\022SC_AddItemResponse\022\020\n\010objectId\030\001 "
+  "\001(\003\022\017\n\007success\030\002 \001(\005\"5\n\025SS_ExpIncreaseRe"
+  "quest\022\013\n\003exp\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\"%\n\026S"
+  "C_ExpIncreaseResponse\022\013\n\003exp\030\001 \001(\005b\006prot"
+  "o3"
   ;
 static ::_pbi::once_flag descriptor_table_Drop_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Drop_2eproto = {
-    false, false, 253, descriptor_table_protodef_Drop_2eproto,
+    false, false, 322, descriptor_table_protodef_Drop_2eproto,
     "Drop.proto",
-    &descriptor_table_Drop_2eproto_once, nullptr, 0, 4,
+    &descriptor_table_Drop_2eproto_once, nullptr, 0, 5,
     schemas, file_default_instances, TableStruct_Drop_2eproto::offsets,
     file_level_metadata_Drop_2eproto, file_level_enum_descriptors_Drop_2eproto,
     file_level_service_descriptors_Drop_2eproto,
@@ -160,19 +186,19 @@ namespace Protocol {
 
 // ===================================================================
 
-class DropRequest::_Internal {
+class SC_DropRequest::_Internal {
  public:
 };
 
-DropRequest::DropRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_DropRequest::SC_DropRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.DropRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_DropRequest)
 }
-DropRequest::DropRequest(const DropRequest& from)
+SC_DropRequest::SC_DropRequest(const SC_DropRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  DropRequest* const _this = this; (void)_this;
+  SC_DropRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.objectid_){}
     , decltype(_impl_.monsterid_){}
@@ -183,10 +209,10 @@ DropRequest::DropRequest(const DropRequest& from)
   ::memcpy(&_impl_.objectid_, &from._impl_.objectid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.value_) -
     reinterpret_cast<char*>(&_impl_.objectid_)) + sizeof(_impl_.value_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.DropRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_DropRequest)
 }
 
-inline void DropRequest::SharedCtor(
+inline void SC_DropRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -198,8 +224,8 @@ inline void DropRequest::SharedCtor(
   };
 }
 
-DropRequest::~DropRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.DropRequest)
+SC_DropRequest::~SC_DropRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_DropRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -207,16 +233,16 @@ DropRequest::~DropRequest() {
   SharedDtor();
 }
 
-inline void DropRequest::SharedDtor() {
+inline void SC_DropRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DropRequest::SetCachedSize(int size) const {
+void SC_DropRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void DropRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.DropRequest)
+void SC_DropRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_DropRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -227,7 +253,7 @@ void DropRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* DropRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_DropRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -280,9 +306,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DropRequest::_InternalSerialize(
+uint8_t* SC_DropRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.DropRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_DropRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -308,12 +334,12 @@ uint8_t* DropRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.DropRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_DropRequest)
   return target;
 }
 
-size_t DropRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.DropRequest)
+size_t SC_DropRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_DropRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -338,17 +364,17 @@ size_t DropRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DropRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_DropRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    DropRequest::MergeImpl
+    SC_DropRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DropRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_DropRequest::GetClassData() const { return &_class_data_; }
 
 
-void DropRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<DropRequest*>(&to_msg);
-  auto& from = static_cast<const DropRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.DropRequest)
+void SC_DropRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_DropRequest*>(&to_msg);
+  auto& from = static_cast<const SC_DropRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_DropRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -365,29 +391,29 @@ void DropRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void DropRequest::CopyFrom(const DropRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.DropRequest)
+void SC_DropRequest::CopyFrom(const SC_DropRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_DropRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DropRequest::IsInitialized() const {
+bool SC_DropRequest::IsInitialized() const {
   return true;
 }
 
-void DropRequest::InternalSwap(DropRequest* other) {
+void SC_DropRequest::InternalSwap(SC_DropRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DropRequest, _impl_.value_)
-      + sizeof(DropRequest::_impl_.value_)
-      - PROTOBUF_FIELD_OFFSET(DropRequest, _impl_.objectid_)>(
+      PROTOBUF_FIELD_OFFSET(SC_DropRequest, _impl_.value_)
+      + sizeof(SC_DropRequest::_impl_.value_)
+      - PROTOBUF_FIELD_OFFSET(SC_DropRequest, _impl_.objectid_)>(
           reinterpret_cast<char*>(&_impl_.objectid_),
           reinterpret_cast<char*>(&other->_impl_.objectid_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata DropRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_DropRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Drop_2eproto_getter, &descriptor_table_Drop_2eproto_once,
       file_level_metadata_Drop_2eproto[0]);
@@ -395,19 +421,19 @@ void DropRequest::InternalSwap(DropRequest* other) {
 
 // ===================================================================
 
-class AddItemRequest::_Internal {
+class CS_AddItemRequest::_Internal {
  public:
 };
 
-AddItemRequest::AddItemRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_AddItemRequest::CS_AddItemRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.AddItemRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_AddItemRequest)
 }
-AddItemRequest::AddItemRequest(const AddItemRequest& from)
+CS_AddItemRequest::CS_AddItemRequest(const CS_AddItemRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  AddItemRequest* const _this = this; (void)_this;
+  CS_AddItemRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.objectid_){}
     , decltype(_impl_.value_){}
@@ -418,10 +444,10 @@ AddItemRequest::AddItemRequest(const AddItemRequest& from)
   ::memcpy(&_impl_.objectid_, &from._impl_.objectid_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
     reinterpret_cast<char*>(&_impl_.objectid_)) + sizeof(_impl_.userseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.AddItemRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_AddItemRequest)
 }
 
-inline void AddItemRequest::SharedCtor(
+inline void CS_AddItemRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -433,8 +459,8 @@ inline void AddItemRequest::SharedCtor(
   };
 }
 
-AddItemRequest::~AddItemRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.AddItemRequest)
+CS_AddItemRequest::~CS_AddItemRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_AddItemRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -442,16 +468,16 @@ AddItemRequest::~AddItemRequest() {
   SharedDtor();
 }
 
-inline void AddItemRequest::SharedDtor() {
+inline void CS_AddItemRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void AddItemRequest::SetCachedSize(int size) const {
+void CS_AddItemRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void AddItemRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.AddItemRequest)
+void CS_AddItemRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_AddItemRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -462,7 +488,7 @@ void AddItemRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* AddItemRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_AddItemRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -515,9 +541,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* AddItemRequest::_InternalSerialize(
+uint8_t* CS_AddItemRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.AddItemRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_AddItemRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -543,12 +569,12 @@ uint8_t* AddItemRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.AddItemRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_AddItemRequest)
   return target;
 }
 
-size_t AddItemRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.AddItemRequest)
+size_t CS_AddItemRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_AddItemRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -573,17 +599,17 @@ size_t AddItemRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AddItemRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_AddItemRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    AddItemRequest::MergeImpl
+    CS_AddItemRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AddItemRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_AddItemRequest::GetClassData() const { return &_class_data_; }
 
 
-void AddItemRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<AddItemRequest*>(&to_msg);
-  auto& from = static_cast<const AddItemRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.AddItemRequest)
+void CS_AddItemRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_AddItemRequest*>(&to_msg);
+  auto& from = static_cast<const CS_AddItemRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_AddItemRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -600,29 +626,29 @@ void AddItemRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void AddItemRequest::CopyFrom(const AddItemRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.AddItemRequest)
+void CS_AddItemRequest::CopyFrom(const CS_AddItemRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_AddItemRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool AddItemRequest::IsInitialized() const {
+bool CS_AddItemRequest::IsInitialized() const {
   return true;
 }
 
-void AddItemRequest::InternalSwap(AddItemRequest* other) {
+void CS_AddItemRequest::InternalSwap(CS_AddItemRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AddItemRequest, _impl_.userseq_)
-      + sizeof(AddItemRequest::_impl_.userseq_)
-      - PROTOBUF_FIELD_OFFSET(AddItemRequest, _impl_.objectid_)>(
+      PROTOBUF_FIELD_OFFSET(CS_AddItemRequest, _impl_.userseq_)
+      + sizeof(CS_AddItemRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_AddItemRequest, _impl_.objectid_)>(
           reinterpret_cast<char*>(&_impl_.objectid_),
           reinterpret_cast<char*>(&other->_impl_.objectid_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata AddItemRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_AddItemRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Drop_2eproto_getter, &descriptor_table_Drop_2eproto_once,
       file_level_metadata_Drop_2eproto[1]);
@@ -630,19 +656,230 @@ void AddItemRequest::InternalSwap(AddItemRequest* other) {
 
 // ===================================================================
 
-class ExpIncreaseRequest::_Internal {
+class SC_AddItemResponse::_Internal {
  public:
 };
 
-ExpIncreaseRequest::ExpIncreaseRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_AddItemResponse::SC_AddItemResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.ExpIncreaseRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_AddItemResponse)
 }
-ExpIncreaseRequest::ExpIncreaseRequest(const ExpIncreaseRequest& from)
+SC_AddItemResponse::SC_AddItemResponse(const SC_AddItemResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ExpIncreaseRequest* const _this = this; (void)_this;
+  SC_AddItemResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.objectid_){}
+    , decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.objectid_, &from._impl_.objectid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.success_) -
+    reinterpret_cast<char*>(&_impl_.objectid_)) + sizeof(_impl_.success_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_AddItemResponse)
+}
+
+inline void SC_AddItemResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.objectid_){int64_t{0}}
+    , decltype(_impl_.success_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_AddItemResponse::~SC_AddItemResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_AddItemResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_AddItemResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SC_AddItemResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_AddItemResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_AddItemResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.objectid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.success_) -
+      reinterpret_cast<char*>(&_impl_.objectid_)) + sizeof(_impl_.success_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_AddItemResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 objectId = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.objectid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 success = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_AddItemResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_AddItemResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 objectId = 1;
+  if (this->_internal_objectid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_objectid(), target);
+  }
+
+  // int32 success = 2;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_AddItemResponse)
+  return target;
+}
+
+size_t SC_AddItemResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_AddItemResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 objectId = 1;
+  if (this->_internal_objectid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_objectid());
+  }
+
+  // int32 success = 2;
+  if (this->_internal_success() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_success());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_AddItemResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_AddItemResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_AddItemResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_AddItemResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_AddItemResponse*>(&to_msg);
+  auto& from = static_cast<const SC_AddItemResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_AddItemResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_objectid() != 0) {
+    _this->_internal_set_objectid(from._internal_objectid());
+  }
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_AddItemResponse::CopyFrom(const SC_AddItemResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_AddItemResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_AddItemResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_AddItemResponse::InternalSwap(SC_AddItemResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_AddItemResponse, _impl_.success_)
+      + sizeof(SC_AddItemResponse::_impl_.success_)
+      - PROTOBUF_FIELD_OFFSET(SC_AddItemResponse, _impl_.objectid_)>(
+          reinterpret_cast<char*>(&_impl_.objectid_),
+          reinterpret_cast<char*>(&other->_impl_.objectid_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_AddItemResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Drop_2eproto_getter, &descriptor_table_Drop_2eproto_once,
+      file_level_metadata_Drop_2eproto[2]);
+}
+
+// ===================================================================
+
+class SS_ExpIncreaseRequest::_Internal {
+ public:
+};
+
+SS_ExpIncreaseRequest::SS_ExpIncreaseRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SS_ExpIncreaseRequest)
+}
+SS_ExpIncreaseRequest::SS_ExpIncreaseRequest(const SS_ExpIncreaseRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SS_ExpIncreaseRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){}
     , decltype(_impl_.userseq_){}
@@ -652,10 +889,10 @@ ExpIncreaseRequest::ExpIncreaseRequest(const ExpIncreaseRequest& from)
   ::memcpy(&_impl_.exp_, &from._impl_.exp_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
     reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.userseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.ExpIncreaseRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SS_ExpIncreaseRequest)
 }
 
-inline void ExpIncreaseRequest::SharedCtor(
+inline void SS_ExpIncreaseRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -666,8 +903,8 @@ inline void ExpIncreaseRequest::SharedCtor(
   };
 }
 
-ExpIncreaseRequest::~ExpIncreaseRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.ExpIncreaseRequest)
+SS_ExpIncreaseRequest::~SS_ExpIncreaseRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.SS_ExpIncreaseRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -675,16 +912,16 @@ ExpIncreaseRequest::~ExpIncreaseRequest() {
   SharedDtor();
 }
 
-inline void ExpIncreaseRequest::SharedDtor() {
+inline void SS_ExpIncreaseRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ExpIncreaseRequest::SetCachedSize(int size) const {
+void SS_ExpIncreaseRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ExpIncreaseRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.ExpIncreaseRequest)
+void SS_ExpIncreaseRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SS_ExpIncreaseRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -695,7 +932,7 @@ void ExpIncreaseRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ExpIncreaseRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SS_ExpIncreaseRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -740,9 +977,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ExpIncreaseRequest::_InternalSerialize(
+uint8_t* SS_ExpIncreaseRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ExpIncreaseRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SS_ExpIncreaseRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -762,12 +999,12 @@ uint8_t* ExpIncreaseRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ExpIncreaseRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SS_ExpIncreaseRequest)
   return target;
 }
 
-size_t ExpIncreaseRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.ExpIncreaseRequest)
+size_t SS_ExpIncreaseRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SS_ExpIncreaseRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -787,17 +1024,17 @@ size_t ExpIncreaseRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExpIncreaseRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SS_ExpIncreaseRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ExpIncreaseRequest::MergeImpl
+    SS_ExpIncreaseRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExpIncreaseRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SS_ExpIncreaseRequest::GetClassData() const { return &_class_data_; }
 
 
-void ExpIncreaseRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ExpIncreaseRequest*>(&to_msg);
-  auto& from = static_cast<const ExpIncreaseRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ExpIncreaseRequest)
+void SS_ExpIncreaseRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SS_ExpIncreaseRequest*>(&to_msg);
+  auto& from = static_cast<const SS_ExpIncreaseRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SS_ExpIncreaseRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -811,59 +1048,59 @@ void ExpIncreaseRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ExpIncreaseRequest::CopyFrom(const ExpIncreaseRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ExpIncreaseRequest)
+void SS_ExpIncreaseRequest::CopyFrom(const SS_ExpIncreaseRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SS_ExpIncreaseRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ExpIncreaseRequest::IsInitialized() const {
+bool SS_ExpIncreaseRequest::IsInitialized() const {
   return true;
 }
 
-void ExpIncreaseRequest::InternalSwap(ExpIncreaseRequest* other) {
+void SS_ExpIncreaseRequest::InternalSwap(SS_ExpIncreaseRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ExpIncreaseRequest, _impl_.userseq_)
-      + sizeof(ExpIncreaseRequest::_impl_.userseq_)
-      - PROTOBUF_FIELD_OFFSET(ExpIncreaseRequest, _impl_.exp_)>(
+      PROTOBUF_FIELD_OFFSET(SS_ExpIncreaseRequest, _impl_.userseq_)
+      + sizeof(SS_ExpIncreaseRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(SS_ExpIncreaseRequest, _impl_.exp_)>(
           reinterpret_cast<char*>(&_impl_.exp_),
           reinterpret_cast<char*>(&other->_impl_.exp_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ExpIncreaseRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SS_ExpIncreaseRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Drop_2eproto_getter, &descriptor_table_Drop_2eproto_once,
-      file_level_metadata_Drop_2eproto[2]);
+      file_level_metadata_Drop_2eproto[3]);
 }
 
 // ===================================================================
 
-class ExpIncreaseResponse::_Internal {
+class SC_ExpIncreaseResponse::_Internal {
  public:
 };
 
-ExpIncreaseResponse::ExpIncreaseResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_ExpIncreaseResponse::SC_ExpIncreaseResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.ExpIncreaseResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_ExpIncreaseResponse)
 }
-ExpIncreaseResponse::ExpIncreaseResponse(const ExpIncreaseResponse& from)
+SC_ExpIncreaseResponse::SC_ExpIncreaseResponse(const SC_ExpIncreaseResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  ExpIncreaseResponse* const _this = this; (void)_this;
+  SC_ExpIncreaseResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.exp_ = from._impl_.exp_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.ExpIncreaseResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_ExpIncreaseResponse)
 }
 
-inline void ExpIncreaseResponse::SharedCtor(
+inline void SC_ExpIncreaseResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -873,8 +1110,8 @@ inline void ExpIncreaseResponse::SharedCtor(
   };
 }
 
-ExpIncreaseResponse::~ExpIncreaseResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.ExpIncreaseResponse)
+SC_ExpIncreaseResponse::~SC_ExpIncreaseResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_ExpIncreaseResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -882,16 +1119,16 @@ ExpIncreaseResponse::~ExpIncreaseResponse() {
   SharedDtor();
 }
 
-inline void ExpIncreaseResponse::SharedDtor() {
+inline void SC_ExpIncreaseResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ExpIncreaseResponse::SetCachedSize(int size) const {
+void SC_ExpIncreaseResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void ExpIncreaseResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.ExpIncreaseResponse)
+void SC_ExpIncreaseResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_ExpIncreaseResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -900,7 +1137,7 @@ void ExpIncreaseResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ExpIncreaseResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_ExpIncreaseResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -937,9 +1174,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* ExpIncreaseResponse::_InternalSerialize(
+uint8_t* SC_ExpIncreaseResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.ExpIncreaseResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_ExpIncreaseResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -953,12 +1190,12 @@ uint8_t* ExpIncreaseResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.ExpIncreaseResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_ExpIncreaseResponse)
   return target;
 }
 
-size_t ExpIncreaseResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.ExpIncreaseResponse)
+size_t SC_ExpIncreaseResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_ExpIncreaseResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -973,17 +1210,17 @@ size_t ExpIncreaseResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExpIncreaseResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_ExpIncreaseResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    ExpIncreaseResponse::MergeImpl
+    SC_ExpIncreaseResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExpIncreaseResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_ExpIncreaseResponse::GetClassData() const { return &_class_data_; }
 
 
-void ExpIncreaseResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<ExpIncreaseResponse*>(&to_msg);
-  auto& from = static_cast<const ExpIncreaseResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.ExpIncreaseResponse)
+void SC_ExpIncreaseResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_ExpIncreaseResponse*>(&to_msg);
+  auto& from = static_cast<const SC_ExpIncreaseResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_ExpIncreaseResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -994,47 +1231,51 @@ void ExpIncreaseResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void ExpIncreaseResponse::CopyFrom(const ExpIncreaseResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.ExpIncreaseResponse)
+void SC_ExpIncreaseResponse::CopyFrom(const SC_ExpIncreaseResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_ExpIncreaseResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ExpIncreaseResponse::IsInitialized() const {
+bool SC_ExpIncreaseResponse::IsInitialized() const {
   return true;
 }
 
-void ExpIncreaseResponse::InternalSwap(ExpIncreaseResponse* other) {
+void SC_ExpIncreaseResponse::InternalSwap(SC_ExpIncreaseResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.exp_, other->_impl_.exp_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ExpIncreaseResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_ExpIncreaseResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Drop_2eproto_getter, &descriptor_table_Drop_2eproto_once,
-      file_level_metadata_Drop_2eproto[3]);
+      file_level_metadata_Drop_2eproto[4]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Protocol::DropRequest*
-Arena::CreateMaybeMessage< ::Protocol::DropRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::DropRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_DropRequest*
+Arena::CreateMaybeMessage< ::Protocol::SC_DropRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_DropRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::AddItemRequest*
-Arena::CreateMaybeMessage< ::Protocol::AddItemRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::AddItemRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_AddItemRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_AddItemRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_AddItemRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::ExpIncreaseRequest*
-Arena::CreateMaybeMessage< ::Protocol::ExpIncreaseRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::ExpIncreaseRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_AddItemResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_AddItemResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_AddItemResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::ExpIncreaseResponse*
-Arena::CreateMaybeMessage< ::Protocol::ExpIncreaseResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::ExpIncreaseResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SS_ExpIncreaseRequest*
+Arena::CreateMaybeMessage< ::Protocol::SS_ExpIncreaseRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SS_ExpIncreaseRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_ExpIncreaseResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_ExpIncreaseResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_ExpIncreaseResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
