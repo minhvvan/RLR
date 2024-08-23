@@ -22,7 +22,7 @@ public:
     UFUNCTION(BlueprintCallable)
     void RequestServerAddresses(int32 userSeq);
     UFUNCTION(BlueprintCallable)
-    void ConnectToLobbyServer(const FString& ServerAddress, int32 Port);
+    void ConnectToLobbyServer(const FString& ServerAddress, int32 Port,int32 playerSeq);
     UFUNCTION(BlueprintCallable)
     void ConnectToMainServer(const FString& ServerAddress, int32 Port);
     UFUNCTION(BlueprintCallable)
@@ -60,6 +60,8 @@ public:
     bool SendNPCInfoPacket(int64 mapId);
 
     bool SendUserQuestPacket(int userSeq);
+
+    bool SendEnterPacket(int userSeq); //게임 입장 패킷
 
 private:
     FSocket* MainServerSocket;

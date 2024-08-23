@@ -8,21 +8,18 @@
 #include "GameManager/MonsterManager.h"
 #include "GameManager/ObjectManager.h"
 #include "ClientPacketHandler.h"
-bool Handle_ITEM_ADD_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemAddRequestPacket& pkt)
+bool Handle_ADD_ITEM_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_AddItemResponse& pkt)
 {
-    FItemData itemData;
 
-    itemData.MakeItemData(pkt.item());
-    GameInstance->GetInventoryManager()->AddItem(itemData);
     return true;
 }
-bool Handle_ITEM_USE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::ItemUseRequestPacket& pkt)
+bool Handle_ITEM_USE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ItemUseResponsePacket& pkt)
 {
     // Handle item use
     return true;
 }
 
-bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::DropRequest& pkt)
+bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_DropRequest& pkt)
 {
     int64 objectId = pkt.objectid();
     int value = pkt.value();
@@ -37,7 +34,7 @@ bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::DropReque
 }
 
 // 장비창 정보 
-bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EquipInfoResponse& pkt) {
+bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_EquipInfoResponse& pkt) {
     //Equip 으로 변경 
 
     /*TArray<FItemData> itemDatas;
@@ -53,7 +50,7 @@ bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::Eq
 }
 
 //장비 장착 , 교체 해제는 X
-bool Handle_EQUIP_CHANGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::EquipChangeRespnse& pkt) {
+bool Handle_EQUIP_CHANGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_EquipChangeRespnse& pkt) {
     // pkt.success 만 확인
 
     return true;
