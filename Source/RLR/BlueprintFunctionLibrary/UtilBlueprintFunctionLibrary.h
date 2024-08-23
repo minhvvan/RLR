@@ -17,7 +17,7 @@
  using Util = UUtilBlueprintFunctionLibrary;
 
 #define DEBUG_LOG(Message)	UUtilBlueprintFunctionLibrary::DebugLog(TEXT(Message))
-#define DEBUG_MESSAGE		UUtilBlueprintFunctionLibrary::DebugLog(__FUNCTION__, __FILE__, __LINE__)
+#define DEBUG_MESSAGE		UUtilBlueprintFunctionLibrary::DebugMessage(__FUNCTION__, __FILE__, __LINE__)
 #define CHECK_VALID(Object) UUtilBlueprintFunctionLibrary::CheckValid(Object,TEXT(#Object),__FUNCTION__, __FILE__, __LINE__)
 
 UCLASS()
@@ -28,7 +28,7 @@ class RLR_API UUtilBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void DebugLog(FString string);
-	static void DebugLog2(const char* FunctionName, const char* FileName, int LineNumber);
+	static void DebugMessage(const char* FunctionName, const char* FileName, int LineNumber);
 
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void Checkf(UObject* Object, FString Message);

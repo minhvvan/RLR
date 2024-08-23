@@ -40,10 +40,10 @@ public:
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
 private:
+	
+	UPROPERTY()
 	TMap<FGameplayTag, FSkillData> OwnSkills;
 
-	UPROPERTY()
-	TObjectPtr<UDataTable> SkillClassTable;
 
 public:
 

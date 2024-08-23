@@ -33,7 +33,7 @@ public:
 	FItemData				GetItemData(int32 Id);
 
 	UFUNCTION(BlueprintCallable)
-	FSkillData				GetSkillData(int32 Id);
+	const FSkillData&		GetSkillData(int32 Id);
 
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);

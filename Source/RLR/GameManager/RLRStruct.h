@@ -535,6 +535,7 @@ struct FItemData : public FTableRowBase
 	void MakeItemData(const Protocol::Item itemData);
 	void MakeItemData(const Protocol::Equip EquipData);
 	Protocol::Item MakeItemPacket();
+	Protocol::Equip MakeEquipPacket();
 	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}

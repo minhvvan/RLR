@@ -68,6 +68,11 @@ public:
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
     void SetMapId(int64 mapId);
+
+    int32 GetUserSeq() { return UserSeq; }
+    int32 GetPlayerSeq() { return PlayerSeq; }
+    int64 GetMapId() { return MapId; }
+
 private:
     FSocket* MainServerSocket;
     FSocket* MonsterServerSocket;

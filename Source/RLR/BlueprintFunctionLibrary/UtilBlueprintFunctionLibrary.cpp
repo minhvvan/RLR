@@ -22,7 +22,7 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 	}
 }
 
-void UUtilBlueprintFunctionLibrary::DebugLog2(const char* FunctionName, const char* FileName, int LineNumber)
+void UUtilBlueprintFunctionLibrary::DebugMessage(const char* FunctionName, const char* FileName, int LineNumber)
 {
 	if (GEngine == nullptr)
 		return;

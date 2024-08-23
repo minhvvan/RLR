@@ -93,7 +93,7 @@ FItemData UDataManager::GetItemData(int32 Id)
 	return FItemData();
 }
 
-FSkillData UDataManager::GetSkillData(int32 Id)
+const FSkillData& UDataManager::GetSkillData(int32 Id)
 {
 	if (SkillDataTable)
 	{

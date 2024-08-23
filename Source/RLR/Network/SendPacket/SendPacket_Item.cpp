@@ -34,8 +34,14 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
     //int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
     packet.set_objectid(OjbectId);
-    packet.set_userseq(UserSeq);       
- 
+    packet.set_userseq(UserSeq);
+    Protocol::Equip* EquipItem = packet.mutable_item();
+
+    FItemData temp = ItemData;
+    Protocol::Equip CopyData = temp.MakeEquipPacket();
+    EquipItem->CopyFrom(CopyData);
+
+
     SEND_PACKET(packet);
 
     return false;
@@ -53,12 +59,17 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
     Protocol::CS_EquipChangeRequest packet;
 
     int32 OjbectId = ItemData.ITEM_SEQ;
-   // int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-	packet.set_objectid(OjbectId);
-	packet.set_userseq(UserSeq);*/
+    packet.set_objectid(OjbectId);
+    packet.set_userseq(UserSeq);
+    Protocol::Equip* EquipItem = packet.mutable_item();
 
-    //SEND_PACKET(packet);
+    FItemData temp = ItemData;
+    Protocol::Equip CopyData = temp.MakeEquipPacket();
+    EquipItem->CopyFrom(CopyData);
+
+
+    SEND_PACKET(packet);
 
     return false;
 }
