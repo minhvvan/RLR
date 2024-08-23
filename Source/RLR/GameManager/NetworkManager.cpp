@@ -131,7 +131,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
     if (!MonsterServerSocket) return false;
 
     Protocol::CS_MapMonsterInfoRequestPacket packet;
-    packet.set_mapid(1);
+    packet.set_mapid(MapId);
     packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
@@ -360,7 +360,7 @@ bool UNetworkManager::SendUserQuestPacket() {
 bool UNetworkManager::SendEnterPacket(int32 userSeq) {
     // 로비 ui로 이동 필요
     Protocol::CS_EnterGamePacket packet;
-    packet.set_userseq(userSeq);
+    packet.set_userseq(UserSeq);
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess =  SendToLobbySocket(sendBuffer);

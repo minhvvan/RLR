@@ -79,9 +79,11 @@ private:
     FRunnableThread* MonsterServerThread;
     FRunnableThread* LobbyServerThread;
     LoadBalancerClient* LoadBalancer;
-
+    UPROPERTY()
     int32 PlayerSeq;
+    UPROPERTY()
     int32 UserSeq;
+    UPROPERTY()
     int64 MapId;
 };
 
