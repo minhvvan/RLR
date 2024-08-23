@@ -76,7 +76,6 @@ void UActionSkill_Holding::ActivateAction()
 
 		if (TimerWidget)
 		{
-			UE_LOG(LogTemp, Log, TEXT("ActivateAction called. TimerWidget Duration: %f"), TimerWidget->GetTimerDuration());
 			if (TimerWidget->GetTimerDuration() <= 0)
 			{
 				/* 전체 시간을 4초로 설정 (로아 쏜살바람새 3초) */
@@ -117,13 +116,6 @@ void UActionSkill_Holding::OnCompletePlayMontage()
 	}
 }
 
-void UActionSkill_Holding::CheckForInputEnd()
-{
-	if (ActionState == EActionState::STATE_WAIT_CANCEL)
-	{
-		EndAction();
-	}
-}
 
 void UActionSkill_Holding::OnAnimNotified()
 {
