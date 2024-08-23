@@ -17,6 +17,7 @@
  class UActionSystemComponent;
  class UPlayerManager;
  class USkillManager;
+ class UInventoryManager;
 
 UCLASS()
 class RLR_API UBaseUI : public UUserWidget
@@ -39,12 +40,12 @@ public:
 public:
 	EUIType	UIType = EUIType::NONE;
 
-	/*UI Cpp에서 구현할 떄마다 Manager 헤더 파일 추가하기 귀찮아서 만듬.*/
 	UUIManager*			GetUIManager();
 	UGameManager*		GetGameManager();
 	UNetworkManager*	GetNetworkManager();
 	UPlayerManager*		GetPlayerManager();
 	USkillManager*		GetSkillManager();
+	UInventoryManager*	GetInventoryManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)

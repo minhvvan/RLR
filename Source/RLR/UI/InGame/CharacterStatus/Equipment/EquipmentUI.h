@@ -24,14 +24,15 @@ class RLR_API UEquipmentUI : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
 	void				EquipItem(FItemData ItemData);
 
 	UFUNCTION()
 	void ToggleShowDetailStatUI();
 
 	UFUNCTION(BlueprintCallable)
-	void RefreshStatUI(const FTotalStatus& NewStatus);
-
+	void RefreshStatUI(FTotalStatus NewStatus);
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))

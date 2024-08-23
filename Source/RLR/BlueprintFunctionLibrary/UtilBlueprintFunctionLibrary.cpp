@@ -22,6 +22,16 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 	}
 }
 
+void UUtilBlueprintFunctionLibrary::DebugLog2(const char* FunctionName, const char* FileName, int LineNumber)
+{
+	if (GEngine == nullptr)
+		return;
+
+	FString Result = FString::Printf(TEXT("%s is Error #s line - %d"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *Result);
+	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *Result);
+}
+
 void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
 {
 	if (GEngine)

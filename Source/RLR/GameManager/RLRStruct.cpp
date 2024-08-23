@@ -94,6 +94,11 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     }
 }
 
+void FItemData::MakeItemData(const Protocol::Equip EquipData)
+{
+    MakeItemData(EquipData.base());
+}
+
 Protocol::Item FItemData::MakeItemPacket()
 {
     Protocol::Item itemData;

@@ -148,6 +148,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		}
 	}
 
+	//USkillSetting::UpdatedSkillManager
 	UpdatedSkillManager.Broadcast();
 }
 

@@ -12,6 +12,7 @@
  */
 
  DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateInventoryManager);
+ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateEquip, FItemData, NewEquipItem);
 
 
 UCLASS()
@@ -21,15 +22,20 @@ class RLR_API UInventoryManager : public UGameInstanceSubsystem
 
 public:
 
+	void Update();
+
 	UFUNCTION(BlueprintCallable)
 	void AddItem(FItemData NewItem);
 	UFUNCTION(BlueprintCallable)
-	FItemData GetItem(int32 Id);
+	FItemData GetItem(int32 ItemSeq);
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem(int32 Id);
+	void RemoveItem(int32 ItemSeq);
+
+	bool EquipItem(int32 ItemSeq);								//아이템 장착
+	bool UnEquipItem(int32 ItemSeq);
 
 	UFUNCTION(BlueprintCallable)
-	void ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex);
+	void ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex);	//슬롯 바꾸기.
 
 	UFUNCTION(BlueprintCallable)
 	void GetItemList(UPARAM(ref) TArray<FItemData>& ItemArray);
@@ -63,10 +69,13 @@ public:
 
 public:
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
-	FUpdateInventoryManager OnUpdateInventoryManager;
+	FUpdateInventoryManager OnUpdateInventoryDelegate;
 
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
-	FUpdateInventoryManager OnUpdateGoldAndCash;
+	FUpdateInventoryManager OnUpdateGoldAndCashDelegate;
+
+	UPROPERTY()
+	FUpdateEquip			OnUpdateEquipDelegate;
 
 private:
 

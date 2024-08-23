@@ -19,9 +19,6 @@ void UCharacterStatusUI::NativeConstruct()
 
 void UCharacterStatusUI::RefreshUI()
 {
-
-	EquipmentUI->RefreshStatUI(TotalStat);
-
 	/*
 		나중에 다른 탭들이 추가되면 추가로 RefreshUI를 해준다`.
 	*/
@@ -37,6 +34,6 @@ void UCharacterStatusUI::RefreshUI()
 
 void UCharacterStatusUI::UpdateTotalStat(const FTotalStatus& NewTotalStat)
 {
-	TotalStat = NewTotalStat;
-	RefreshUI();
+	//델리게이트는 InGameMainUI에서 등록되어 있다.
+	EquipmentUI->RefreshStatUI(NewTotalStat);
 }

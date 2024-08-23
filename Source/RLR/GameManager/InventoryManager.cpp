@@ -6,6 +6,11 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 
+void UInventoryManager::Update()
+{
+	OnUpdateInventoryDelegate.Broadcast();
+}
+
 void UInventoryManager::AddItem(FItemData NewItem)
 {
 	if (NewItem == FItemData::EmptyItemData)
@@ -16,7 +21,7 @@ void UInventoryManager::AddItem(FItemData NewItem)
 	
 
 	ItemData.Add(NewItem.ITEM_SEQ, NewItem);
-	OnUpdateInventoryManager.Broadcast();
+	OnUpdateInventoryDelegate.Broadcast();
 }
 
 FItemData UInventoryManager::GetItem(int32 Id)
@@ -26,7 +31,7 @@ FItemData UInventoryManager::GetItem(int32 Id)
 	{
 		return ItemData[Id];
 	}
-	return FItemData();
+	return FItemData::EmptyItemData;
 }
 
 void UInventoryManager::RemoveItem(int32 Id)
@@ -35,8 +40,36 @@ void UInventoryManager::RemoveItem(int32 Id)
 	{
 		FItemData RemoveItem;
 		ItemData.RemoveAndCopyValue(Id, RemoveItem);
-		OnUpdateInventoryManager.Broadcast();
+		OnUpdateInventoryDelegate.Broadcast();
 	}
+}
+
+bool UInventoryManager::EquipItem(int32 ItemSeq)
+{
+	if (ItemData.Contains(ItemSeq) == false)
+	{
+		DEBUG_LOG("EquipItem Error. ItemData is Null");
+		return false;
+	}
+	
+	FItemData& EquipedItem = ItemData[ItemSeq];
+	EquipedItem.IsEquiped = true;
+	OnUpdateEquipDelegate.Broadcast(EquipedItem);
+	return true;
+}
+
+bool UInventoryManager::UnEquipItem(int32 ItemSeq)
+{
+	if (ItemData.Contains(ItemSeq) == false)
+	{
+		DEBUG_LOG("EquipItem Error. ItemData is Null");
+		return false;
+	}
+
+	FItemData& EquipedItem = ItemData[ItemSeq];
+	EquipedItem.IsEquiped = false;
+	OnUpdateEquipDelegate.Broadcast(EquipedItem);
+	return true;
 }
 
 void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
@@ -50,25 +83,25 @@ void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
 void UInventoryManager::SetGold(int32 NewGold)
 {
 	Gold = NewGold;
-	OnUpdateGoldAndCash.Broadcast();
+	OnUpdateGoldAndCashDelegate.Broadcast();
 }
 
 void UInventoryManager::SetPlatinum(int32 NewPlatinum)
 {
 	Platinum = NewPlatinum;
-	OnUpdateGoldAndCash.Broadcast();
+	OnUpdateGoldAndCashDelegate.Broadcast();
 }
 
 void UInventoryManager::SetCopper(int32 NewCopper)
 {
 	Copper = NewCopper;
-	OnUpdateGoldAndCash.Broadcast();
+	OnUpdateGoldAndCashDelegate.Broadcast();
 }
 
 void UInventoryManager::SetSilver(int32 NewSilver)
 {
 	Silver = NewSilver;
-	OnUpdateGoldAndCash.Broadcast();
+	OnUpdateGoldAndCashDelegate.Broadcast();
 }
 
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
