@@ -94,16 +94,16 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
 }
 void UNetworkManager::SetUserSeq(int32 userSeq)
 {
-    UserSeq = userSeq;
+    this->UserSeq = userSeq;
 
 }
 void UNetworkManager::SetPlayerSeq(int32 playerSeq)
 {
-    PlayerSeq = playerSeq;
+    this->PlayerSeq = playerSeq;
 }
 void UNetworkManager::SetMapId(int64 mapId) {
 
-    MapId = mapId;
+    this->MapId = mapId;
 }
 void UNetworkManager::Update()
 {
@@ -131,7 +131,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
     if (!MonsterServerSocket) return false;
 
     Protocol::CS_MapMonsterInfoRequestPacket packet;
-    packet.set_mapid(MapId);
+    packet.set_mapid(1);
     packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
@@ -321,6 +321,7 @@ bool UNetworkManager::SendNPCInfoPacket() {
     if (!MainServerSocket) return false;
     Protocol::CS_NPCInfoRequest packet;
     packet.set_mapid(MapId);
+    UE_LOG(LogTemp, Log, TEXT("Map Id : %d"),MapId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool bSuccess = SendToMainSocket(sendBuffer);
@@ -329,7 +330,7 @@ bool UNetworkManager::SendNPCInfoPacket() {
         UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("NPC 패킷 송신 성공"));
     }
 
 

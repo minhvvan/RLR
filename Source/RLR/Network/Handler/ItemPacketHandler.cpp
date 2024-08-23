@@ -7,6 +7,7 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/MonsterManager.h"
 #include "GameManager/ObjectManager.h"
+#include "RLRObjects/Actors/RLRDropItem.h"
 #include "ClientPacketHandler.h"
 bool Handle_ADD_ITEM_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_AddItemResponse& pkt)
 {
@@ -24,11 +25,11 @@ bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_DropRe
     int64 objectId = pkt.objectid();
     int value = pkt.value();
     int64 monsterId = pkt.monsterid();
-  /*  TArray<FInteractData> DropDatas;
-    FInteractData DropData;
-    DropData.MakeObjectData();
+   TArray<FDropItem> DropDatas;
+    FDropItem DropData;
+    DropData.MakeDropItemData(objectId,value ,monsterId);
     DropDatas.Add(DropData);
-    GameInstance->GetObjectManager()->SetObjectData(DropDatas);*/
+    GameInstance->GetObjectManager()->SetDropItemData(DropDatas);
 
     return true;
 }

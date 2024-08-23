@@ -49,12 +49,12 @@ void ARLRDropItem::ItemMeshLoadCompleted()
 	OnLoadComplete.Broadcast();
 }
 
-void FDropItem::MakeDropItemData(/*param*/)
+void FDropItem::MakeDropItemData(int64 objectId,int32 value,int64 monsterId)
 {
 	auto monsterManager = GameInstance->GetMonsterManager();
 	if (!monsterManager) return;
 
 	//TODO: Data채우기
 	//Seq enum : EGoodsType
-	ObjectTransform = monsterManager->GetMonsterTransformById(0/*monsterID*/);
+	ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
 }

@@ -224,7 +224,7 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		UActionSystemComponent* ASC = Monster->GetActionSystemComponent();
 		UStatSetMonster* MonsterStatus = ASC->GetStatSet<UStatSetMonster>();
 		
-		//AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
+		AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
 	}
 
 	//TODO: Send To Server(Skill Result) Using NetworkManager

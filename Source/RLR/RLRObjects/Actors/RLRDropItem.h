@@ -24,7 +24,7 @@ struct FDropItem
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FVector ObjectTransform;
 
-	void MakeDropItemData(/*param*/);
+	void MakeDropItemData(int64 objectId,int32 value,int64 monsterId);
 };
 
 DECLARE_MULTICAST_DELEGATE(FOnLoadComplete);

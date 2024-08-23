@@ -53,6 +53,7 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
     }
     UE_LOG(LogTemp, Error, TEXT("User Seq : %d"), pkt.users().at(0).userseq());
     GameInstance->GetNetworkManager()->SetUserSeq(pkt.users().at(0).userseq());
+    GameInstance->GetNetworkManager()->SetMapId(pkt.users().at(0).mapid());
     GameInstance->GetNetworkManager()->SendEnterPacket(pkt.users().at(0).userseq());
      //GameInstance->GetLobbyManager()->SetUsersData();
 

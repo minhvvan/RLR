@@ -49,7 +49,7 @@ void UObjectManager::SpawnNPC()
 
 	AsyncTask(ENamedThreads::GameThread, [this, world]()
 	{
-        for (auto data : NPCData)
+        for (auto& data : NPCData)
         {
             FTransform SpawnTransform;
             SpawnTransform.SetLocation(FVector(data.NPCTransform.X, data.NPCTransform.Y, data.NPCTransform.Z));
