@@ -2,8 +2,12 @@
 
 
 #include "GameManager/RLRStruct.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
 
 #include "Network/Proto/Packet.pb.h"
+
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 const FItemData     FItemData::EmptyItemData;
 const FSkillData    FSkillData::EmptySkillData;
@@ -569,6 +573,13 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     CollisionRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+
+    const FSkillData& OriginData = GameInstance->GetDataManager()->GetSkillData(SkillSeq);
+    if(OriginData == FSkillData::EmptySkillData)
+        return;
+
+    SkillAnimClass = OriginData.SkillAnimClass;
+    SkillClass = OriginData.SkillClass;
 }
 
 void FTalent::MakeTalent(Protocol::Talent Data)
