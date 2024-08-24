@@ -73,7 +73,6 @@ void UActionSkill_Holding::ActivateAction()
 		ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 		if (!Player) return;
 
-
 		if (TimerWidget)
 		{
 			if (TimerWidget->GetTimerDuration() <= 0)
@@ -90,13 +89,13 @@ void UActionSkill_Holding::ActivateAction()
 				AnimNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnAnimNotified);
 			}
 
-			// 두 번째 Notify (애니메이션 끝에서 타이머 제거)
-			UAnimNotify_ActivateAction* EndNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[1].Notify);
-			if (EndNotify)
-			{
-				EndNotify->OnTriggered.Clear();
-				EndNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnMontageEndNotified);
-			}
+			// 두 번째 Notify (애니메이션 끝에서 타이머 제거) -> 현재는 필요없는 이벤트여서 주석처리 했습니다
+			//UAnimNotify_ActivateAction* EndNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[1].Notify);
+			//if (EndNotify)
+			//{
+			//	EndNotify->OnTriggered.Clear();
+			//	EndNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnMontageEndNotified);
+			//}
 		}
 		ActionState = EActionState::STATE_WAIT_CANCEL;
 	}

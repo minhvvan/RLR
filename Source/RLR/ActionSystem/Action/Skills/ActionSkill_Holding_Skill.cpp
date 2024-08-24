@@ -47,11 +47,10 @@ void UActionSkill_Holding_Skill::ActivateAction()
 	SpawnRange.SetRotation(PlayerRotation.Quaternion());
 	HoldingProjectile->FinishSpawning(SpawnRange);
 
-
 	TArray<AActor*> OverlappedActors;
 	AActor* Owner = GetAvatarActorFromActorInfo();
 	FCollisionQueryParams Params(NAME_None, false, Player);
-	/* 서버 연결해서 데미지 들어가는지 확인해야 함 */
+
 	TArray<FOverlapResult> OverlapResults;
 	if (GetWorld()->OverlapMultiByChannel(OverlapResults,			/* Result */
 		HoldingProjectile->GetActorLocation(),				        /* Projectile 위치 */
@@ -70,14 +69,14 @@ void UActionSkill_Holding_Skill::ActivateAction()
 
 			OverlappedActors.Add(Result.GetActor());
 		}
-		if (SkillManager->RequestSkillResult(SkillData, OverlappedActors))
-		{
-			/* IActionSystemInterface와 충돌 성공 */
+	}
+	if (SkillManager->RequestSkillResult(SkillData, OverlappedActors))
+	{
+		/* IActionSystemInterface와 충돌 성공 */
 
-		}
-		else
-		{
+	}
+	else
+	{
 
-		}
 	}
 }
