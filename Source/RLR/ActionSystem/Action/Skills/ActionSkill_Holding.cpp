@@ -56,7 +56,7 @@ bool UActionSkill_Holding::PreActivateAction()
 
 	if (TimerWidget)
 	{
-		TimerWidget->SetTimerDuration(SkillData->Duration);
+		TimerWidget->SetTimerDuration(SkillData->Casting);
 	}
 
 
@@ -78,7 +78,7 @@ void UActionSkill_Holding::ActivateAction()
 			if (TimerWidget->GetTimerDuration() <= 0)
 			{
 				/* 전체 시간을 4초로 설정 (로아 쏜살바람새 3초) */
-				TimerWidget->SetTimerDuration(SkillData->Duration);
+				TimerWidget->SetTimerDuration(SkillData->Casting);
 				timerStartTime = GetWorld()->GetTimeSeconds();
 			}
 
