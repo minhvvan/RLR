@@ -898,6 +898,17 @@ struct FMonsterStatus
 	static int32 tempID;
 
 	void MakeMonsterData(const Protocol::Monster monsterData);
+	static const FMonsterStatus EmptyMonsterData;
+
+	/** Operators */
+
+	FORCEINLINE bool operator==(FMonsterStatus const& Other) const
+	{
+		if (MonsterId != Other.MonsterId)
+			return false;
+
+		return true;
+	}
 };
 
 USTRUCT(Atomic, BlueprintType)

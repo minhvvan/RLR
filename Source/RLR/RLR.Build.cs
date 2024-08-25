@@ -9,7 +9,7 @@ public class RLR : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput","Sockets", "Networking", "UMG",  "Slate"
-            ,"Protobuf","SlateCore", "GameplayTags", "GameplayTasks", "AssetRegistry" });
+            ,"Protobuf","SlateCore", "GameplayTags", "GameplayTasks", "AssetRegistry"});
 
         PublicIncludePaths.AddRange(new string[] { "RLR" });
 
@@ -18,7 +18,7 @@ public class RLR : ModuleRules
 
         if (Target.Type == TargetRules.TargetType.Editor)
         {
-            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd" });
+            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "Blutility" });
         }
 
         // 에디터 전용 모듈이 게임 타겟에 포함되지 않도록 보장

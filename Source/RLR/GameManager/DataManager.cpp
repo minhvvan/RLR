@@ -15,6 +15,11 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	if(IsValid(ItemDataTable) == false)
 		DEBUG_LOG("아이템 테이블 로드 실패");
 
+	MonsterDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterDataTable.DT_MonsterDataTable'")));
+
+	if (IsValid(MonsterDataTable) == false)
+		DEBUG_LOG("몬스터 테이블 로드 실패");
+
 	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillDataTable.DT_SkillDataTable'")));
 	
 	if (IsValid(SkillDataTable) == false)
@@ -78,11 +83,11 @@ void UDataManager::MakeSkillDictionary()
 	}
 }
 
-FItemData UDataManager::GetItemData(int32 Id)
+FItemData UDataManager::GetItemData(int32 Seq)
 {
 	if (ItemDataTable)
 	{
-		FItemData* Data = ItemDataTable->FindRow<FItemData>(*FString::FromInt(Id), TEXT(""));
+		FItemData* Data = ItemDataTable->FindRow<FItemData>(*FString::FromInt(Seq), TEXT(""));
 		if(Data == nullptr)
 			return FItemData();
 
@@ -93,11 +98,11 @@ FItemData UDataManager::GetItemData(int32 Id)
 	return FItemData();
 }
 
-const FSkillData& UDataManager::GetSkillData(int32 Id)
+const FSkillData& UDataManager::GetSkillData(int32 Seq)
 {
 	if (SkillDataTable)
 	{
-		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Id), TEXT(""));
+		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Seq), TEXT(""));
 		if(Data == nullptr)
 			return FSkillData::EmptySkillData;
 
@@ -113,6 +118,20 @@ void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkil
 		return;
 
 	SkillDictionary[JobType].SkillList.GenerateValueArray(OutArray);
+}
+
+const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)
+{
+	if (MonsterDataTable)
+	{
+		FMonsterStatus* Data = MonsterDataTable->FindRow<FMonsterStatus>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FMonsterStatus::EmptyMonsterData;
+
+		return *Data;
+	}
+
+	return FMonsterStatus::EmptyMonsterData;
 }
 
 URLRInputConfig* UDataManager::GetInputConfig()

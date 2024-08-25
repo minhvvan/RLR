@@ -65,6 +65,13 @@ public:
 
     bool SendAddItemPacket(int64 itemId, int32 value); // 아이템 획득 패킷
 
+    //Cheat.Proto <-- 만들어주세요.
+    bool SendCreateItemCheatPacket(int32 Seq);
+    bool SendCreateSkillCheatPacket(int32 Seq);
+    bool SendCreateMonsterCheatPacket(int32 Seq);
+
+    //Cheat.Proto End
+
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
     void SetMapId(int64 mapId);

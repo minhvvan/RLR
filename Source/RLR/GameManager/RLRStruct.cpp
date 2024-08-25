@@ -11,6 +11,7 @@
 
 const FItemData     FItemData::EmptyItemData;
 const FSkillData    FSkillData::EmptySkillData;
+const FMonsterStatus FMonsterStatus::EmptyMonsterData;
 
 void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {
