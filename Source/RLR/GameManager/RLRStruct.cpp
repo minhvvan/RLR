@@ -2,11 +2,16 @@
 
 
 #include "GameManager/RLRStruct.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
 
 #include "Network/Proto/Packet.pb.h"
 
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 const FItemData     FItemData::EmptyItemData;
 const FSkillData    FSkillData::EmptySkillData;
+const FMonsterStatus FMonsterStatus::EmptyMonsterData;
 
 void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
 {
@@ -158,6 +163,50 @@ Protocol::Item FItemData::MakeItemPacket()
         etcItemData->set_etctype(ETC_TYPE.GetIntValue());
     }
     return itemData;
+}
+
+Protocol::Equip FItemData::MakeEquipPacket()
+{
+    Protocol::Equip EquipData;
+    Protocol::Item* Equip_Item = EquipData.mutable_base();
+
+    Equip_Item->set_itemseq(ITEM_SEQ);
+    Equip_Item->set_itemid(ITEM_ID);
+    Equip_Item->set_itemslotidx(ITEM_SLOT_IDX);
+    Equip_Item->set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
+
+    // ItemType 변환 (EItemType -> string)
+    FString ItemTypeStr = EItemTypeToString(TYPE);
+    Equip_Item->set_type(TCHAR_TO_UTF8(*ItemTypeStr));
+
+    Equip_Item->set_rank(RANK.GetIntValue());
+    Equip_Item->set_equiplevel(EQUIPMENT_LEVEL);
+    Equip_Item->set_saleprice(SALE_PRICE);
+    Equip_Item->set_useperiod(USE_PERIOD);
+    Equip_Item->set_text(TCHAR_TO_UTF8(*TEXT.ToString()));
+
+    Equip_Item->set_itemvalue(ITEM_VALUE);
+    Equip_Item->set_itemmax(ITEM_MAX);
+
+    if (EQUIPMENT_TYPE != EEquipmentType::NONE) {
+        EquipData.set_hp(ITEM_STATUS.HP);
+        EquipData.set_hpabsorb(ITEM_STATUS.HP_ABSORB);
+        EquipData.set_mp(ITEM_STATUS.MP);
+        EquipData.set_mpabsorb(ITEM_STATUS.MP_ABSORB);
+        EquipData.set_strength(ITEM_STATUS.STRENGTH);
+        EquipData.set_agility(ITEM_STATUS.AGILITY);
+        EquipData.set_intelligence(ITEM_STATUS.INTELLIGENCE);
+        EquipData.set_attack(ITEM_STATUS.ATTACK);
+        EquipData.set_defence(ITEM_STATUS.DEFENCE);
+        EquipData.set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
+        EquipData.set_movespeed(ITEM_STATUS.MOVE_SPEED);
+        EquipData.set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
+        EquipData.set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
+        EquipData.set_avoid(ITEM_STATUS.AVOID);
+        EquipData.set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
+        EquipData.set_equippart(EQUIPMENT_TYPE.GetIntValue());
+    }
+    return EquipData;
 }
 
 void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
@@ -525,6 +574,13 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     CollisionRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
+
+    const FSkillData& OriginData = GameInstance->GetDataManager()->GetSkillData(SkillSeq);
+    if(OriginData == FSkillData::EmptySkillData)
+        return;
+
+    SkillAnimClass = OriginData.SkillAnimClass;
+    SkillClass = OriginData.SkillClass;
 }
 
 void FTalent::MakeTalent(Protocol::Talent Data)

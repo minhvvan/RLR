@@ -535,6 +535,7 @@ struct FItemData : public FTableRowBase
 	void MakeItemData(const Protocol::Item itemData);
 	void MakeItemData(const Protocol::Equip EquipData);
 	Protocol::Item MakeItemPacket();
+	Protocol::Equip MakeEquipPacket();
 	static const FItemData EmptyItemData;
 
 	void SetItemSlotIndex(int32 Id){ITEM_SLOT_IDX = Id;}
@@ -897,6 +898,17 @@ struct FMonsterStatus
 	static int32 tempID;
 
 	void MakeMonsterData(const Protocol::Monster monsterData);
+	static const FMonsterStatus EmptyMonsterData;
+
+	/** Operators */
+
+	FORCEINLINE bool operator==(FMonsterStatus const& Other) const
+	{
+		if (MonsterId != Other.MonsterId)
+			return false;
+
+		return true;
+	}
 };
 
 USTRUCT(Atomic, BlueprintType)

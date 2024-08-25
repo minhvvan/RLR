@@ -2,7 +2,6 @@
 
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-#include "GameManager/RLRStruct.h"
 #include "Network/Proto/Packet.pb.h"
 
 #include "GameManager/GameManager.h"
@@ -11,6 +10,8 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/MonsterManager.h"
 #include "GameManager/OtherUserManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/RLRStruct.h"
 
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
@@ -22,7 +23,7 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 	}
 }
 
-void UUtilBlueprintFunctionLibrary::DebugLog2(const char* FunctionName, const char* FileName, int LineNumber)
+void UUtilBlueprintFunctionLibrary::DebugMessage(const char* FunctionName, const char* FileName, int LineNumber)
 {
 	if (GEngine == nullptr)
 		return;
@@ -30,6 +31,16 @@ void UUtilBlueprintFunctionLibrary::DebugLog2(const char* FunctionName, const ch
 	FString Result = FString::Printf(TEXT("%s is Error #s line - %d"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *Result);
 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *Result);
+}
+
+void UUtilBlueprintFunctionLibrary::NotifyFeatureIncomplete()
+{
+	
+	DEBUG_LOG("아직 제작 중인 기능입니다.");
+
+	/*
+		나중에는 미완성 알림 UI 띄워주기.
+	*/
 }
 
 void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
@@ -91,5 +102,58 @@ void UUtilBlueprintFunctionLibrary::TestAddPartyPlayer()
 	TestPlayerInfo.mutable_totalstatus()->set_userhp(50);
 
 	GameInstance->GetOtherUserManager()->AddPlayerToParty(TestPlayerInfo);
+}
+
+
+
+
+
+/*
+	치트
+*/
+
+void UUtilBlueprintFunctionLibrary::CreateItem(int32 ItemSeq)
+{
+	if(IsValid(GameInstance) == false)
+		return;
+
+	FItemData Data = GameInstance->GetDataManager()->GetItemData(ItemSeq);
+	if (Data == FItemData::EmptyItemData)
+	{
+		DEBUG_LOG("데이터 테이블에 없는 아이템입니다.");
+		return;
+	}
+
+	GameInstance->GetNetworkManager()->SendCreateItemCheatPacket(ItemSeq);
+}
+
+void UUtilBlueprintFunctionLibrary::CreateSkill(int32 SkillSeq)
+{
+	if (IsValid(GameInstance) == false)
+		return;
+
+	FSkillData Data = GameInstance->GetDataManager()->GetSkillData(SkillSeq);
+	if (Data == FSkillData::EmptySkillData)
+	{
+		DEBUG_LOG("데이터 테이블에 없는 스킬입니다.");
+		return;
+	}
+
+	GameInstance->GetNetworkManager()->SendCreateSkillCheatPacket(SkillSeq);
+}
+
+void UUtilBlueprintFunctionLibrary::CreateMonster(int32 MonsterSeq)
+{
+	if (IsValid(GameInstance) == false)
+		return;
+
+	FMonsterStatus Data = GameInstance->GetDataManager()->GetMonsterData(MonsterSeq);
+	if (Data == FMonsterStatus::EmptyMonsterData)
+	{
+		DEBUG_LOG("데이터 테이블에 없는 스킬입니다.");
+		return;
+	}
+
+	GameInstance->GetNetworkManager()->SendCreateMonsterCheatPacket(MonsterSeq);
 }
 

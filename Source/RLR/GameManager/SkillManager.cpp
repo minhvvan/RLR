@@ -3,22 +3,20 @@
 
 #include "GameManager/SkillManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/Action/Skills/ActionSkill.h"
 #include "RLR.h"
-#include "GameManager/GameManager.h"
-#include "GameManager/NetworkManager.h"
+
 #include <ActionSystem/StatSet/StatSetMonster.h>
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
-	SkillClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
-	if (IsValid(SkillClassTable) == false)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("Skill Table Can't Load"));
-	}
 	UpdatedTryActivateAction.Clear();
 	UpdatedSkillManager.Clear();
 }
@@ -121,8 +119,8 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
-		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));
-		if (Data == nullptr)
+		const FSkillData& Data = SelectedSkills[i];
+		if (Data == FSkillData::EmptySkillData)
 		{
 			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
 			return;
@@ -135,7 +133,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 		//TriggerAction
 		{
-			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+			FActionSpec Spec(Data.SkillAnimClass, 1, 0);
 			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
 			ASC->GiveAction(SkillAnimTag, Spec);
@@ -143,7 +141,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 		//CheckAction 
 		{
-			FActionSpec Spec(Data->SkillClass, 1, 0);
+			FActionSpec Spec(Data.SkillClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}
@@ -172,8 +170,8 @@ bool USkillManager::RequestGetSelectedSkills()
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
-		FSkillClass* Data = SkillClassTable->FindRow<FSkillClass>(*FString::FromInt(SelectedSkills[i].SkillSeq - 1), TEXT(""));
-		if (Data == nullptr)
+		const FSkillData& Data = SelectedSkills[i];
+		if (Data == FSkillData::EmptySkillData)
 		{
 			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
 			return false;
@@ -186,7 +184,7 @@ bool USkillManager::RequestGetSelectedSkills()
 
 		//TriggerAction
 		{
-			FActionSpec Spec(Data->SkillAnimClass, 1, 0);
+			FActionSpec Spec(Data.SkillAnimClass, 1, 0);
 			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
 			ASC->GiveAction(SkillAnimTag, Spec);
@@ -194,7 +192,7 @@ bool USkillManager::RequestGetSelectedSkills()
 
 		//CheckAction 
 		{
-			FActionSpec Spec(Data->SkillClass, 1, 0);
+			FActionSpec Spec(Data.SkillClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}

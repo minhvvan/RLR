@@ -13,8 +13,31 @@
 
 /*
 
-    아이템 관련 패킷
+    스킬 관련 패킷
 
 */
 
 
+bool UNetworkManager::SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx) {
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_SkillChangeRequestPacket packet;
+
+    packet.set_skillidx(skillIdx);
+    packet.set_userseq(UserSeq);
+    Protocol::SkillInfo skillInfo = *packet.mutable_skill();
+    skillInfo.set_skillid(SkillData->SkillId);
+    skillInfo.set_skillseq(SkillData->SkillSeq);
+
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}

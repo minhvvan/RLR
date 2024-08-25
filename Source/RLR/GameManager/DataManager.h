@@ -30,19 +30,35 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable)
-	FItemData				GetItemData(int32 Id);
+	FItemData				GetItemData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
-	FSkillData				GetSkillData(int32 Id);
+	const FMonsterStatus&	GetMonsterData(int32 Seq);
+
+	UFUNCTION(BlueprintCallable)
+	const FSkillData&		GetSkillData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
+
+
+
+	/*
+	
+		Etc
+
+	*/
 
 	UFUNCTION(BlueprintCallable)
 	URLRInputConfig*		GetInputConfig();
 
 	UFUNCTION(BlueprintCallable)
 	FResourceData			GetResource(FString Name);
+
+
+	/*
+		Template
+	*/
 
 	template<typename T>
 	TSubclassOf<T>			GetWidgetClass(FString Name);
@@ -63,6 +79,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> MonsterDataTable;
 
 	//캐릭터 직업 별로 스킬 정보를 들고 있는다.
 	UPROPERTY()
