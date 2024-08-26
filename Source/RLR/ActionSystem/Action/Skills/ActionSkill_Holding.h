@@ -30,8 +30,6 @@ protected:
 	
 
 private:
-	FTimerHandle InputHandle;
-	void CheckForInputEnd();
 
 	UFUNCTION()
 	void OnAnimNotified();
