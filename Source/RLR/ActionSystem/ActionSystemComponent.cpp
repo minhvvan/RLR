@@ -143,25 +143,15 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 
 void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 {
-	const FGameplayTagManager& TagManager = FGameplayTagManager::Get();
-
 	 //if (!GrantedActions.Contains(Tag)) return;
 	for (auto& [triggerTag, spec] : GrantedActions)
 	{
 		//TODO : 홀딩 스킬에서는 입력 중단 시 스킬이 취소되어야 하기 때문에 넣어뒀습니다. 
-		if (spec.Action->ActionTags.HasTag(TagManager.Action_Skill_Type_Holding))
+		if (triggerTag.MatchesTag(Tag))
 		{
-			auto copied(spec.ActionInstances);
-			for (auto ActionInstance : copied)
-			{
-				/* 홀딩 스킬인지 확인 필요 */
-				if (ActionInstance->GetActionState() != EActionState::STATE_INIT && ActionInstance->GetCancelable())
-				{
-					ActionInstance->CancelAction();
-				}
-			}
+			Tag = spec.Action->ActionTag;
 		}
-		else if (spec.Action->ActionTags.HasTag(Tag))
+		if (spec.Action->ActionTag.MatchesTag(Tag))
 		{
 			auto copied(spec.ActionInstances);
 			for (auto ActionInstance : copied)
