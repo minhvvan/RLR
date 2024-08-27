@@ -10,9 +10,15 @@
 #include "ClientPacketHandler.h"
 // Login Handlers
 
+static bool LoginState = false;
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
+ 
+	if (LoginState == true)
+		return false;
+	LoginState = true;
+
     GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport(),pkt.playerseq());
     return true;
 }

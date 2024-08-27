@@ -19,6 +19,8 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	UpdatedTryActivateAction.Clear();
 	UpdatedSkillManager.Clear();
+
+	UpdateTest.AddDynamic(this, &USkillManager::SetSelectedSkills);
 }
 
 void USkillManager::Init()

@@ -4,6 +4,9 @@
 #include "Network/FNetworkReceiver.h"
 #include "Network/Handler/ClientPacketHandler.h"
 
+#include "GameManager/NetworkManager.h"
+#include "GameManager/GameManager.h"
+
 FNetworkReceiver::FNetworkReceiver(FSocket* InSocket) : Socket(InSocket), bStopRequested(false) {}
 FNetworkReceiver::~FNetworkReceiver() { Stop(); }
 
@@ -33,6 +36,9 @@ void FNetworkReceiver::Stop() { bStopRequested = true; }
 void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
 {
     
+    if(GameInstance == nullptr)
+        return;
+
     int32 processedBytes = 0;
 
     while (processedBytes < Size)
@@ -52,15 +58,36 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
 
         // 핸들러가 유효한지 확인
         if (GPacketHandler[header->id])
-        {
-           
-            TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
-            GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
+		{
+
+            //uint16 id = header->id;
+            //uint8 size = header->size;
+            //TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
+            //GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
+
+
+            //뭔지 모르지만 서버 연결 부분은 그냥 워커 스레드로 돌려야..?
+            if(header->id <= 1200)
+            { 
+				uint16 id = header->id;
+				uint8 size = header->size;
+				TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
+				GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
+            }else
+            {
+				uint8 size = header->size;
+				PacketMessage message;
+				message.pkt.AddUninitialized(size);
+				FMemory::Memcpy(message.pkt.GetData(), packetData, size);
+				GameInstance->GetPacketQueue()->Push(message);
+            }
         }
         else
         {
             UE_LOG(LogTemp, Error, TEXT("No handler found for packet id: %d"), header->id);
         }
+
+
 
         processedBytes += header->size;
     }

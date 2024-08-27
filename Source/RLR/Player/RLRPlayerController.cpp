@@ -8,6 +8,9 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
+#include "GameManager/NetworkManager.h"
+#include "Network/Handler/ClientPacketHandler.h"
+
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
 #include "ActionSystem/ActionSystemComponent.h"
@@ -80,6 +83,36 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
         timeSinceLastMovePacket = 0.0f;
     }
+
+
+	//플레이어 자신만 패킷 처리를 할 수 있게 해야 한다.
+	//뭔가 더 그럴듯한 방법이 필요할 듯한데. 현석님이 이거 보면 알아서 잘 해줄거라 믿음. 아멘.
+	if(GetLocalPlayer()->GetControllerId() != 0)
+		return;
+
+	const TArray<PacketMessage>& list = GameInstance->GetPacketQueue()->PopAll();
+	for (PacketMessage message : list)
+	{
+		PacketHeader* header = (PacketHeader*)message.pkt.GetData();
+		uint16 id = header->id;
+
+
+		//왜 자꾸 세션 만들어야 함? 
+		static TSharedPtr<PacketSession> session;
+			if(session == nullptr)
+				session= MakeShared<PacketSession>();
+
+		if(GPacketHandler[header->id])
+		{ 
+			GPacketHandler[id](session, message.pkt.GetData(), header->size);
+		}
+		else
+		{
+			//UE_LOG(LogTemp, Error, TEXT("No handler found for packet id: %d"), header->id);
+		}
+	}
+	GameInstance->GetPacketQueue()->Clear();
+
 }
 
 void ARLRPlayerController::SetupInputComponent()
