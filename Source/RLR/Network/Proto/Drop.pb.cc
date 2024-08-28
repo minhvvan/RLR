@@ -69,6 +69,8 @@ PROTOBUF_CONSTEXPR SS_ExpIncreaseRequest::SS_ExpIncreaseRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.exp_)*/0
   , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.monsterseq_)*/0
+  , /*decltype(_impl_.monsterid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SS_ExpIncreaseRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SS_ExpIncreaseRequestDefaultTypeInternal()
@@ -132,6 +134,8 @@ const uint32_t TableStruct_Drop_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.exp_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.monsterseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SS_ExpIncreaseRequest, _impl_.monsterid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ExpIncreaseResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -145,7 +149,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 9, -1, -1, sizeof(::Protocol::CS_AddItemRequest)},
   { 18, -1, -1, sizeof(::Protocol::SC_AddItemResponse)},
   { 26, -1, -1, sizeof(::Protocol::SS_ExpIncreaseRequest)},
-  { 34, -1, -1, sizeof(::Protocol::SC_ExpIncreaseResponse)},
+  { 36, -1, -1, sizeof(::Protocol::SC_ExpIncreaseResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -162,14 +166,15 @@ const char descriptor_table_protodef_Drop_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "sterId\030\003 \001(\003\"E\n\021CS_AddItemRequest\022\020\n\010obj"
   "ectId\030\001 \001(\003\022\r\n\005value\030\002 \001(\005\022\017\n\007userSeq\030\003 "
   "\001(\005\"7\n\022SC_AddItemResponse\022\020\n\010objectId\030\001 "
-  "\001(\003\022\017\n\007success\030\002 \001(\005\"5\n\025SS_ExpIncreaseRe"
-  "quest\022\013\n\003exp\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\"%\n\026S"
-  "C_ExpIncreaseResponse\022\013\n\003exp\030\001 \001(\005b\006prot"
-  "o3"
+  "\001(\003\022\017\n\007success\030\002 \001(\005\"\\\n\025SS_ExpIncreaseRe"
+  "quest\022\013\n\003exp\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\022\n\nm"
+  "onsterSeq\030\003 \001(\005\022\021\n\tmonsterId\030\004 \001(\005\"%\n\026SC"
+  "_ExpIncreaseResponse\022\013\n\003exp\030\001 \001(\005b\006proto"
+  "3"
   ;
 static ::_pbi::once_flag descriptor_table_Drop_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Drop_2eproto = {
-    false, false, 322, descriptor_table_protodef_Drop_2eproto,
+    false, false, 361, descriptor_table_protodef_Drop_2eproto,
     "Drop.proto",
     &descriptor_table_Drop_2eproto_once, nullptr, 0, 5,
     schemas, file_default_instances, TableStruct_Drop_2eproto::offsets,
@@ -883,12 +888,14 @@ SS_ExpIncreaseRequest::SS_ExpIncreaseRequest(const SS_ExpIncreaseRequest& from)
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){}
     , decltype(_impl_.userseq_){}
+    , decltype(_impl_.monsterseq_){}
+    , decltype(_impl_.monsterid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.exp_, &from._impl_.exp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
-    reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.userseq_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.monsterid_) -
+    reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.monsterid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.SS_ExpIncreaseRequest)
 }
 
@@ -899,6 +906,8 @@ inline void SS_ExpIncreaseRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){0}
     , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.monsterseq_){0}
+    , decltype(_impl_.monsterid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -927,8 +936,8 @@ void SS_ExpIncreaseRequest::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.exp_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.userseq_) -
-      reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.userseq_));
+      reinterpret_cast<char*>(&_impl_.monsterid_) -
+      reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.monsterid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -950,6 +959,22 @@ const char* SS_ExpIncreaseRequest::_InternalParse(const char* ptr, ::_pbi::Parse
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 monsterSeq = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.monsterseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 monsterId = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.monsterid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -995,6 +1020,18 @@ uint8_t* SS_ExpIncreaseRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_userseq(), target);
   }
 
+  // int32 monsterSeq = 3;
+  if (this->_internal_monsterseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_monsterseq(), target);
+  }
+
+  // int32 monsterId = 4;
+  if (this->_internal_monsterid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_monsterid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1021,6 +1058,16 @@ size_t SS_ExpIncreaseRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
   }
 
+  // int32 monsterSeq = 3;
+  if (this->_internal_monsterseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_monsterseq());
+  }
+
+  // int32 monsterId = 4;
+  if (this->_internal_monsterid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_monsterid());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1045,6 +1092,12 @@ void SS_ExpIncreaseRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
+  if (from._internal_monsterseq() != 0) {
+    _this->_internal_set_monsterseq(from._internal_monsterseq());
+  }
+  if (from._internal_monsterid() != 0) {
+    _this->_internal_set_monsterid(from._internal_monsterid());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1063,8 +1116,8 @@ void SS_ExpIncreaseRequest::InternalSwap(SS_ExpIncreaseRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SS_ExpIncreaseRequest, _impl_.userseq_)
-      + sizeof(SS_ExpIncreaseRequest::_impl_.userseq_)
+      PROTOBUF_FIELD_OFFSET(SS_ExpIncreaseRequest, _impl_.monsterid_)
+      + sizeof(SS_ExpIncreaseRequest::_impl_.monsterid_)
       - PROTOBUF_FIELD_OFFSET(SS_ExpIncreaseRequest, _impl_.exp_)>(
           reinterpret_cast<char*>(&_impl_.exp_),
           reinterpret_cast<char*>(&other->_impl_.exp_));

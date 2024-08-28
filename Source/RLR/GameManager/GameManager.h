@@ -53,6 +53,8 @@ public:
 
 	virtual void Init() override;
 
+	
+
 	UFUNCTION(BlueprintCallable)
 	UDataManager* GetDataManager();
 

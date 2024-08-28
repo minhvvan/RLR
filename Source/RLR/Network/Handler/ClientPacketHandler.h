@@ -12,6 +12,7 @@
 #include "Network/Proto/Item.pb.h"
 #include "Network/Proto/Monster.pb.h"
 #include "Network/Proto/Lobby.pb.h"
+#include "Network/Proto/Shop.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -51,6 +52,12 @@ enum : uint16
     PKT_NPC_INFO_RESPONSE = 1362,
     PKT_USER_QUEST_REQUEST = 1371,
     PKT_USER_QUEST_RESPONSE = 1372,
+    PKT_QUEST_ADD_REQUEST = 1373,
+    PKT_QUEST_ADD_RESPONSE = 1374,
+    PKT_QUEST_CHECK_REQUEST = 1375,
+    PKT_QUEST_CHECK_RESPONSE = 1376,
+    PKT_QUEST_COMPLETE_REQUEST = 1377,
+    PKT_QUEST_COMPLETE_RESPONSE = 1378,
     // Add item packet types
     PKT_ITEM_ADD_REQUEST = 1401,
     PKT_ITEM_ADD_RESPONSE = 1402,
@@ -59,7 +66,10 @@ enum : uint16
 
     PKT_ADD_ITEM_REQUEST = 1411,
     PKT_ADD_ITEM_RESPONSE = 1412,
-
+    PKT_SHOP_BUY_REQUEST = 1421,
+    PKT_SHOP_BUY_RESPONSE = 1422,
+    PKT_SHOP_SELL_REQUEST = 1423,
+    PKT_SHOP_SELL_RESPONSE = 1424,
     // Add move packet types
     PKT_MOVE_REQUEST = 1501,
     PKT_MOVE_RESPONSE = 1502,
@@ -147,6 +157,11 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_BuyRequest& pkt) { return MakeSendBuffer(pkt, PKT_SHOP_BUY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SellRequest& pkt) { return MakeSendBuffer(pkt, PKT_SHOP_SELL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestAddRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_ADD_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCheckRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_CHECK_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCompleteRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_COMPLETE_REQUEST); }
 
     
 

@@ -50,28 +50,44 @@ namespace Protocol {
 class CS_NPCInfoRequest;
 struct CS_NPCInfoRequestDefaultTypeInternal;
 extern CS_NPCInfoRequestDefaultTypeInternal _CS_NPCInfoRequest_default_instance_;
+class CS_QuestAddRequest;
+struct CS_QuestAddRequestDefaultTypeInternal;
+extern CS_QuestAddRequestDefaultTypeInternal _CS_QuestAddRequest_default_instance_;
 class CS_QuestCheckRequest;
 struct CS_QuestCheckRequestDefaultTypeInternal;
 extern CS_QuestCheckRequestDefaultTypeInternal _CS_QuestCheckRequest_default_instance_;
+class CS_QuestCompleteRequest;
+struct CS_QuestCompleteRequestDefaultTypeInternal;
+extern CS_QuestCompleteRequestDefaultTypeInternal _CS_QuestCompleteRequest_default_instance_;
 class CS_UserQuestInfoRequest;
 struct CS_UserQuestInfoRequestDefaultTypeInternal;
 extern CS_UserQuestInfoRequestDefaultTypeInternal _CS_UserQuestInfoRequest_default_instance_;
 class SC_NPCInfoResponse;
 struct SC_NPCInfoResponseDefaultTypeInternal;
 extern SC_NPCInfoResponseDefaultTypeInternal _SC_NPCInfoResponse_default_instance_;
+class SC_QuestAddResponse;
+struct SC_QuestAddResponseDefaultTypeInternal;
+extern SC_QuestAddResponseDefaultTypeInternal _SC_QuestAddResponse_default_instance_;
 class SC_QuestCheckResponse;
 struct SC_QuestCheckResponseDefaultTypeInternal;
 extern SC_QuestCheckResponseDefaultTypeInternal _SC_QuestCheckResponse_default_instance_;
+class SC_QuestCompleteResponse;
+struct SC_QuestCompleteResponseDefaultTypeInternal;
+extern SC_QuestCompleteResponseDefaultTypeInternal _SC_QuestCompleteResponse_default_instance_;
 class SC_UserQuestInfoResponse;
 struct SC_UserQuestInfoResponseDefaultTypeInternal;
 extern SC_UserQuestInfoResponseDefaultTypeInternal _SC_UserQuestInfoResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::CS_NPCInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_NPCInfoRequest>(Arena*);
+template<> ::Protocol::CS_QuestAddRequest* Arena::CreateMaybeMessage<::Protocol::CS_QuestAddRequest>(Arena*);
 template<> ::Protocol::CS_QuestCheckRequest* Arena::CreateMaybeMessage<::Protocol::CS_QuestCheckRequest>(Arena*);
+template<> ::Protocol::CS_QuestCompleteRequest* Arena::CreateMaybeMessage<::Protocol::CS_QuestCompleteRequest>(Arena*);
 template<> ::Protocol::CS_UserQuestInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_UserQuestInfoRequest>(Arena*);
 template<> ::Protocol::SC_NPCInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_NPCInfoResponse>(Arena*);
+template<> ::Protocol::SC_QuestAddResponse* Arena::CreateMaybeMessage<::Protocol::SC_QuestAddResponse>(Arena*);
 template<> ::Protocol::SC_QuestCheckResponse* Arena::CreateMaybeMessage<::Protocol::SC_QuestCheckResponse>(Arena*);
+template<> ::Protocol::SC_QuestCompleteResponse* Arena::CreateMaybeMessage<::Protocol::SC_QuestCompleteResponse>(Arena*);
 template<> ::Protocol::SC_UserQuestInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_UserQuestInfoResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
@@ -1004,6 +1020,631 @@ class SC_QuestCheckResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_NPC_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CS_QuestAddRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_QuestAddRequest) */ {
+ public:
+  inline CS_QuestAddRequest() : CS_QuestAddRequest(nullptr) {}
+  ~CS_QuestAddRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_QuestAddRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_QuestAddRequest(const CS_QuestAddRequest& from);
+  CS_QuestAddRequest(CS_QuestAddRequest&& from) noexcept
+    : CS_QuestAddRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_QuestAddRequest& operator=(const CS_QuestAddRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_QuestAddRequest& operator=(CS_QuestAddRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_QuestAddRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_QuestAddRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_QuestAddRequest*>(
+               &_CS_QuestAddRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(CS_QuestAddRequest& a, CS_QuestAddRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_QuestAddRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_QuestAddRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_QuestAddRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_QuestAddRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_QuestAddRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_QuestAddRequest& from) {
+    CS_QuestAddRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_QuestAddRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_QuestAddRequest";
+  }
+  protected:
+  explicit CS_QuestAddRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kQuestSeqFieldNumber = 1,
+    kUserSeqFieldNumber = 2,
+    kNpcSeqFieldNumber = 3,
+  };
+  // int32 questSeq = 1;
+  void clear_questseq();
+  int32_t questseq() const;
+  void set_questseq(int32_t value);
+  private:
+  int32_t _internal_questseq() const;
+  void _internal_set_questseq(int32_t value);
+  public:
+
+  // int32 userSeq = 2;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // int32 npcSeq = 3;
+  void clear_npcseq();
+  int32_t npcseq() const;
+  void set_npcseq(int32_t value);
+  private:
+  int32_t _internal_npcseq() const;
+  void _internal_set_npcseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_QuestAddRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t questseq_;
+    int32_t userseq_;
+    int32_t npcseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_NPC_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_QuestAddResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_QuestAddResponse) */ {
+ public:
+  inline SC_QuestAddResponse() : SC_QuestAddResponse(nullptr) {}
+  ~SC_QuestAddResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_QuestAddResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_QuestAddResponse(const SC_QuestAddResponse& from);
+  SC_QuestAddResponse(SC_QuestAddResponse&& from) noexcept
+    : SC_QuestAddResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_QuestAddResponse& operator=(const SC_QuestAddResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_QuestAddResponse& operator=(SC_QuestAddResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_QuestAddResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_QuestAddResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_QuestAddResponse*>(
+               &_SC_QuestAddResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(SC_QuestAddResponse& a, SC_QuestAddResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_QuestAddResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_QuestAddResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_QuestAddResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_QuestAddResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_QuestAddResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_QuestAddResponse& from) {
+    SC_QuestAddResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_QuestAddResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_QuestAddResponse";
+  }
+  protected:
+  explicit SC_QuestAddResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+  };
+  // int32 success = 1;
+  void clear_success();
+  int32_t success() const;
+  void set_success(int32_t value);
+  private:
+  int32_t _internal_success() const;
+  void _internal_set_success(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_QuestAddResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_NPC_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CS_QuestCompleteRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_QuestCompleteRequest) */ {
+ public:
+  inline CS_QuestCompleteRequest() : CS_QuestCompleteRequest(nullptr) {}
+  ~CS_QuestCompleteRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_QuestCompleteRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_QuestCompleteRequest(const CS_QuestCompleteRequest& from);
+  CS_QuestCompleteRequest(CS_QuestCompleteRequest&& from) noexcept
+    : CS_QuestCompleteRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_QuestCompleteRequest& operator=(const CS_QuestCompleteRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_QuestCompleteRequest& operator=(CS_QuestCompleteRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_QuestCompleteRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_QuestCompleteRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_QuestCompleteRequest*>(
+               &_CS_QuestCompleteRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(CS_QuestCompleteRequest& a, CS_QuestCompleteRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_QuestCompleteRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_QuestCompleteRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_QuestCompleteRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_QuestCompleteRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_QuestCompleteRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_QuestCompleteRequest& from) {
+    CS_QuestCompleteRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_QuestCompleteRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_QuestCompleteRequest";
+  }
+  protected:
+  explicit CS_QuestCompleteRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kQuestSeqFieldNumber = 1,
+    kUserSeqFieldNumber = 2,
+  };
+  // int32 questSeq = 1;
+  void clear_questseq();
+  int32_t questseq() const;
+  void set_questseq(int32_t value);
+  private:
+  int32_t _internal_questseq() const;
+  void _internal_set_questseq(int32_t value);
+  public:
+
+  // int32 userSeq = 2;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_QuestCompleteRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t questseq_;
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_NPC_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_QuestCompleteResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_QuestCompleteResponse) */ {
+ public:
+  inline SC_QuestCompleteResponse() : SC_QuestCompleteResponse(nullptr) {}
+  ~SC_QuestCompleteResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_QuestCompleteResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_QuestCompleteResponse(const SC_QuestCompleteResponse& from);
+  SC_QuestCompleteResponse(SC_QuestCompleteResponse&& from) noexcept
+    : SC_QuestCompleteResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_QuestCompleteResponse& operator=(const SC_QuestCompleteResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_QuestCompleteResponse& operator=(SC_QuestCompleteResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_QuestCompleteResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_QuestCompleteResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_QuestCompleteResponse*>(
+               &_SC_QuestCompleteResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(SC_QuestCompleteResponse& a, SC_QuestCompleteResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_QuestCompleteResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_QuestCompleteResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_QuestCompleteResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_QuestCompleteResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_QuestCompleteResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_QuestCompleteResponse& from) {
+    SC_QuestCompleteResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_QuestCompleteResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_QuestCompleteResponse";
+  }
+  protected:
+  explicit SC_QuestCompleteResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+  };
+  // int32 success = 1;
+  void clear_success();
+  int32_t success() const;
+  void set_success(int32_t value);
+  private:
+  int32_t _internal_success() const;
+  void _internal_set_success(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_QuestCompleteResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_NPC_2eproto;
+};
 // ===================================================================
 
 
@@ -1229,9 +1870,173 @@ inline void SC_QuestCheckResponse::set_queststate(::Protocol::QuestState value) 
   // @@protoc_insertion_point(field_set:Protocol.SC_QuestCheckResponse.queststate)
 }
 
+// -------------------------------------------------------------------
+
+// CS_QuestAddRequest
+
+// int32 questSeq = 1;
+inline void CS_QuestAddRequest::clear_questseq() {
+  _impl_.questseq_ = 0;
+}
+inline int32_t CS_QuestAddRequest::_internal_questseq() const {
+  return _impl_.questseq_;
+}
+inline int32_t CS_QuestAddRequest::questseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_QuestAddRequest.questSeq)
+  return _internal_questseq();
+}
+inline void CS_QuestAddRequest::_internal_set_questseq(int32_t value) {
+  
+  _impl_.questseq_ = value;
+}
+inline void CS_QuestAddRequest::set_questseq(int32_t value) {
+  _internal_set_questseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_QuestAddRequest.questSeq)
+}
+
+// int32 userSeq = 2;
+inline void CS_QuestAddRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_QuestAddRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_QuestAddRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_QuestAddRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_QuestAddRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_QuestAddRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_QuestAddRequest.userSeq)
+}
+
+// int32 npcSeq = 3;
+inline void CS_QuestAddRequest::clear_npcseq() {
+  _impl_.npcseq_ = 0;
+}
+inline int32_t CS_QuestAddRequest::_internal_npcseq() const {
+  return _impl_.npcseq_;
+}
+inline int32_t CS_QuestAddRequest::npcseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_QuestAddRequest.npcSeq)
+  return _internal_npcseq();
+}
+inline void CS_QuestAddRequest::_internal_set_npcseq(int32_t value) {
+  
+  _impl_.npcseq_ = value;
+}
+inline void CS_QuestAddRequest::set_npcseq(int32_t value) {
+  _internal_set_npcseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_QuestAddRequest.npcSeq)
+}
+
+// -------------------------------------------------------------------
+
+// SC_QuestAddResponse
+
+// int32 success = 1;
+inline void SC_QuestAddResponse::clear_success() {
+  _impl_.success_ = 0;
+}
+inline int32_t SC_QuestAddResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline int32_t SC_QuestAddResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_QuestAddResponse.success)
+  return _internal_success();
+}
+inline void SC_QuestAddResponse::_internal_set_success(int32_t value) {
+  
+  _impl_.success_ = value;
+}
+inline void SC_QuestAddResponse::set_success(int32_t value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_QuestAddResponse.success)
+}
+
+// -------------------------------------------------------------------
+
+// CS_QuestCompleteRequest
+
+// int32 questSeq = 1;
+inline void CS_QuestCompleteRequest::clear_questseq() {
+  _impl_.questseq_ = 0;
+}
+inline int32_t CS_QuestCompleteRequest::_internal_questseq() const {
+  return _impl_.questseq_;
+}
+inline int32_t CS_QuestCompleteRequest::questseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_QuestCompleteRequest.questSeq)
+  return _internal_questseq();
+}
+inline void CS_QuestCompleteRequest::_internal_set_questseq(int32_t value) {
+  
+  _impl_.questseq_ = value;
+}
+inline void CS_QuestCompleteRequest::set_questseq(int32_t value) {
+  _internal_set_questseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_QuestCompleteRequest.questSeq)
+}
+
+// int32 userSeq = 2;
+inline void CS_QuestCompleteRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_QuestCompleteRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_QuestCompleteRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_QuestCompleteRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_QuestCompleteRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_QuestCompleteRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_QuestCompleteRequest.userSeq)
+}
+
+// -------------------------------------------------------------------
+
+// SC_QuestCompleteResponse
+
+// int32 success = 1;
+inline void SC_QuestCompleteResponse::clear_success() {
+  _impl_.success_ = 0;
+}
+inline int32_t SC_QuestCompleteResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline int32_t SC_QuestCompleteResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_QuestCompleteResponse.success)
+  return _internal_success();
+}
+inline void SC_QuestCompleteResponse::_internal_set_success(int32_t value) {
+  
+  _impl_.success_ = value;
+}
+inline void SC_QuestCompleteResponse::set_success(int32_t value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_QuestCompleteResponse.success)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -101,8 +101,63 @@ struct SC_QuestCheckResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_QuestCheckResponseDefaultTypeInternal _SC_QuestCheckResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_QuestAddRequest::CS_QuestAddRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.questseq_)*/0
+  , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.npcseq_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CS_QuestAddRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_QuestAddRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CS_QuestAddRequestDefaultTypeInternal() {}
+  union {
+    CS_QuestAddRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_QuestAddRequestDefaultTypeInternal _CS_QuestAddRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_QuestAddResponse::SC_QuestAddResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.success_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_QuestAddResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_QuestAddResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_QuestAddResponseDefaultTypeInternal() {}
+  union {
+    SC_QuestAddResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_QuestAddResponseDefaultTypeInternal _SC_QuestAddResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_QuestCompleteRequest::CS_QuestCompleteRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.questseq_)*/0
+  , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CS_QuestCompleteRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_QuestCompleteRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CS_QuestCompleteRequestDefaultTypeInternal() {}
+  union {
+    CS_QuestCompleteRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_QuestCompleteRequestDefaultTypeInternal _CS_QuestCompleteRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_QuestCompleteResponse::SC_QuestCompleteResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.success_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_QuestCompleteResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_QuestCompleteResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_QuestCompleteResponseDefaultTypeInternal() {}
+  union {
+    SC_QuestCompleteResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_QuestCompleteResponseDefaultTypeInternal _SC_QuestCompleteResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_NPC_2eproto[6];
+static ::_pb::Metadata file_level_metadata_NPC_2eproto[10];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_NPC_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_NPC_2eproto = nullptr;
 
@@ -151,6 +206,37 @@ const uint32_t TableStruct_NPC_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(prot
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCheckResponse, _impl_.questseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCheckResponse, _impl_.queststate_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestAddRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestAddRequest, _impl_.questseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestAddRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestAddRequest, _impl_.npcseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestAddResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestAddResponse, _impl_.success_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCompleteRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCompleteRequest, _impl_.questseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCompleteRequest, _impl_.userseq_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCompleteResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_QuestCompleteResponse, _impl_.success_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CS_NPCInfoRequest)},
@@ -159,6 +245,10 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 21, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
   { 28, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
   { 36, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
+  { 44, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
+  { 53, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
+  { 60, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
+  { 68, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -168,6 +258,10 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_SC_UserQuestInfoResponse_default_instance_._instance,
   &::Protocol::_CS_QuestCheckRequest_default_instance_._instance,
   &::Protocol::_SC_QuestCheckResponse_default_instance_._instance,
+  &::Protocol::_CS_QuestAddRequest_default_instance_._instance,
+  &::Protocol::_SC_QuestAddResponse_default_instance_._instance,
+  &::Protocol::_CS_QuestCompleteRequest_default_instance_._instance,
+  &::Protocol::_SC_QuestCompleteResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_NPC_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -180,7 +274,13 @@ const char descriptor_table_protodef_NPC_2eproto[] PROTOBUF_SECTION_VARIABLE(pro
   "t\"9\n\024CS_QuestCheckRequest\022\020\n\010questSeq\030\001 "
   "\001(\005\022\017\n\007userSeq\030\002 \001(\005\"S\n\025SC_QuestCheckRes"
   "ponse\022\020\n\010questSeq\030\001 \001(\005\022(\n\nqueststate\030\002 "
-  "\001(\0162\024.Protocol.QuestStateb\006proto3"
+  "\001(\0162\024.Protocol.QuestState\"G\n\022CS_QuestAdd"
+  "Request\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001"
+  "(\005\022\016\n\006npcSeq\030\003 \001(\005\"&\n\023SC_QuestAddRespons"
+  "e\022\017\n\007success\030\001 \001(\005\"<\n\027CS_QuestCompleteRe"
+  "quest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005"
+  "\"+\n\030SC_QuestCompleteResponse\022\017\n\007success\030"
+  "\001 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -188,9 +288,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2]
 };
 static ::_pbi::once_flag descriptor_table_NPC_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPC_2eproto = {
-    false, false, 393, descriptor_table_protodef_NPC_2eproto,
+    false, false, 613, descriptor_table_protodef_NPC_2eproto,
     "NPC.proto",
-    &descriptor_table_NPC_2eproto_once, descriptor_table_NPC_2eproto_deps, 2, 6,
+    &descriptor_table_NPC_2eproto_once, descriptor_table_NPC_2eproto_deps, 2, 10,
     schemas, file_default_instances, TableStruct_NPC_2eproto::offsets,
     file_level_metadata_NPC_2eproto, file_level_enum_descriptors_NPC_2eproto,
     file_level_service_descriptors_NPC_2eproto,
@@ -1360,6 +1460,808 @@ void SC_QuestCheckResponse::InternalSwap(SC_QuestCheckResponse* other) {
       file_level_metadata_NPC_2eproto[5]);
 }
 
+// ===================================================================
+
+class CS_QuestAddRequest::_Internal {
+ public:
+};
+
+CS_QuestAddRequest::CS_QuestAddRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_QuestAddRequest)
+}
+CS_QuestAddRequest::CS_QuestAddRequest(const CS_QuestAddRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CS_QuestAddRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.questseq_){}
+    , decltype(_impl_.userseq_){}
+    , decltype(_impl_.npcseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.questseq_, &from._impl_.questseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.npcseq_) -
+    reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.npcseq_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_QuestAddRequest)
+}
+
+inline void CS_QuestAddRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.questseq_){0}
+    , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.npcseq_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CS_QuestAddRequest::~CS_QuestAddRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_QuestAddRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CS_QuestAddRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CS_QuestAddRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CS_QuestAddRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_QuestAddRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.questseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.npcseq_) -
+      reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.npcseq_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CS_QuestAddRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 questSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.questseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 userSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 npcSeq = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.npcseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CS_QuestAddRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_QuestAddRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 questSeq = 1;
+  if (this->_internal_questseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_questseq(), target);
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_userseq(), target);
+  }
+
+  // int32 npcSeq = 3;
+  if (this->_internal_npcseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_npcseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_QuestAddRequest)
+  return target;
+}
+
+size_t CS_QuestAddRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_QuestAddRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 questSeq = 1;
+  if (this->_internal_questseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_questseq());
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  // int32 npcSeq = 3;
+  if (this->_internal_npcseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_npcseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_QuestAddRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CS_QuestAddRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_QuestAddRequest::GetClassData() const { return &_class_data_; }
+
+
+void CS_QuestAddRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_QuestAddRequest*>(&to_msg);
+  auto& from = static_cast<const CS_QuestAddRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_QuestAddRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_questseq() != 0) {
+    _this->_internal_set_questseq(from._internal_questseq());
+  }
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_npcseq() != 0) {
+    _this->_internal_set_npcseq(from._internal_npcseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CS_QuestAddRequest::CopyFrom(const CS_QuestAddRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_QuestAddRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CS_QuestAddRequest::IsInitialized() const {
+  return true;
+}
+
+void CS_QuestAddRequest::InternalSwap(CS_QuestAddRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CS_QuestAddRequest, _impl_.npcseq_)
+      + sizeof(CS_QuestAddRequest::_impl_.npcseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_QuestAddRequest, _impl_.questseq_)>(
+          reinterpret_cast<char*>(&_impl_.questseq_),
+          reinterpret_cast<char*>(&other->_impl_.questseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestAddRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
+      file_level_metadata_NPC_2eproto[6]);
+}
+
+// ===================================================================
+
+class SC_QuestAddResponse::_Internal {
+ public:
+};
+
+SC_QuestAddResponse::SC_QuestAddResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_QuestAddResponse)
+}
+SC_QuestAddResponse::SC_QuestAddResponse(const SC_QuestAddResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SC_QuestAddResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.success_ = from._impl_.success_;
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_QuestAddResponse)
+}
+
+inline void SC_QuestAddResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_QuestAddResponse::~SC_QuestAddResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_QuestAddResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_QuestAddResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SC_QuestAddResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_QuestAddResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_QuestAddResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.success_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_QuestAddResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_QuestAddResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_QuestAddResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_QuestAddResponse)
+  return target;
+}
+
+size_t SC_QuestAddResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_QuestAddResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_success());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_QuestAddResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_QuestAddResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_QuestAddResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_QuestAddResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_QuestAddResponse*>(&to_msg);
+  auto& from = static_cast<const SC_QuestAddResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_QuestAddResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_QuestAddResponse::CopyFrom(const SC_QuestAddResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_QuestAddResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_QuestAddResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_QuestAddResponse::InternalSwap(SC_QuestAddResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.success_, other->_impl_.success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestAddResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
+      file_level_metadata_NPC_2eproto[7]);
+}
+
+// ===================================================================
+
+class CS_QuestCompleteRequest::_Internal {
+ public:
+};
+
+CS_QuestCompleteRequest::CS_QuestCompleteRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_QuestCompleteRequest)
+}
+CS_QuestCompleteRequest::CS_QuestCompleteRequest(const CS_QuestCompleteRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CS_QuestCompleteRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.questseq_){}
+    , decltype(_impl_.userseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.questseq_, &from._impl_.questseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
+    reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.userseq_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_QuestCompleteRequest)
+}
+
+inline void CS_QuestCompleteRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.questseq_){0}
+    , decltype(_impl_.userseq_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CS_QuestCompleteRequest::~CS_QuestCompleteRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_QuestCompleteRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CS_QuestCompleteRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CS_QuestCompleteRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CS_QuestCompleteRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_QuestCompleteRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.questseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.userseq_) -
+      reinterpret_cast<char*>(&_impl_.questseq_)) + sizeof(_impl_.userseq_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CS_QuestCompleteRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 questSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.questseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 userSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CS_QuestCompleteRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_QuestCompleteRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 questSeq = 1;
+  if (this->_internal_questseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_questseq(), target);
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_userseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_QuestCompleteRequest)
+  return target;
+}
+
+size_t CS_QuestCompleteRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_QuestCompleteRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 questSeq = 1;
+  if (this->_internal_questseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_questseq());
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_QuestCompleteRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CS_QuestCompleteRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_QuestCompleteRequest::GetClassData() const { return &_class_data_; }
+
+
+void CS_QuestCompleteRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_QuestCompleteRequest*>(&to_msg);
+  auto& from = static_cast<const CS_QuestCompleteRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_QuestCompleteRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_questseq() != 0) {
+    _this->_internal_set_questseq(from._internal_questseq());
+  }
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CS_QuestCompleteRequest::CopyFrom(const CS_QuestCompleteRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_QuestCompleteRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CS_QuestCompleteRequest::IsInitialized() const {
+  return true;
+}
+
+void CS_QuestCompleteRequest::InternalSwap(CS_QuestCompleteRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CS_QuestCompleteRequest, _impl_.userseq_)
+      + sizeof(CS_QuestCompleteRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_QuestCompleteRequest, _impl_.questseq_)>(
+          reinterpret_cast<char*>(&_impl_.questseq_),
+          reinterpret_cast<char*>(&other->_impl_.questseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestCompleteRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
+      file_level_metadata_NPC_2eproto[8]);
+}
+
+// ===================================================================
+
+class SC_QuestCompleteResponse::_Internal {
+ public:
+};
+
+SC_QuestCompleteResponse::SC_QuestCompleteResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_QuestCompleteResponse)
+}
+SC_QuestCompleteResponse::SC_QuestCompleteResponse(const SC_QuestCompleteResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SC_QuestCompleteResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.success_ = from._impl_.success_;
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_QuestCompleteResponse)
+}
+
+inline void SC_QuestCompleteResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.success_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_QuestCompleteResponse::~SC_QuestCompleteResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_QuestCompleteResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_QuestCompleteResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void SC_QuestCompleteResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_QuestCompleteResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_QuestCompleteResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.success_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_QuestCompleteResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_QuestCompleteResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_QuestCompleteResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 success = 1;
+  if (this->_internal_success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_QuestCompleteResponse)
+  return target;
+}
+
+size_t SC_QuestCompleteResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_QuestCompleteResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 success = 1;
+  if (this->_internal_success() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_success());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_QuestCompleteResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_QuestCompleteResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_QuestCompleteResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_QuestCompleteResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_QuestCompleteResponse*>(&to_msg);
+  auto& from = static_cast<const SC_QuestCompleteResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_QuestCompleteResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_success() != 0) {
+    _this->_internal_set_success(from._internal_success());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_QuestCompleteResponse::CopyFrom(const SC_QuestCompleteResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_QuestCompleteResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_QuestCompleteResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_QuestCompleteResponse::InternalSwap(SC_QuestCompleteResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.success_, other->_impl_.success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestCompleteResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPC_2eproto_getter, &descriptor_table_NPC_2eproto_once,
+      file_level_metadata_NPC_2eproto[9]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -1386,6 +2288,22 @@ Arena::CreateMaybeMessage< ::Protocol::CS_QuestCheckRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::SC_QuestCheckResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_QuestCheckResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::SC_QuestCheckResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::CS_QuestAddRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_QuestAddRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_QuestAddRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_QuestAddResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_QuestAddResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_QuestAddResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::CS_QuestCompleteRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_QuestCompleteRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_QuestCompleteRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_QuestCompleteResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_QuestCompleteResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_QuestCompleteResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

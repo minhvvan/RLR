@@ -94,6 +94,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR NPC::NPC(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.quests_)*/{}
+  , /*decltype(_impl_.shops_)*/{}
   , /*decltype(_impl_.npcname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.npctalk_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.npcconcept_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -111,6 +112,33 @@ struct NPCDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NPCDefaultTypeInternal _NPC_default_instance_;
+PROTOBUF_CONSTEXPR Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct Shop_ItemsEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Shop_ItemsEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Shop_ItemsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Shop_ItemsEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Shop_ItemsEntry_DoNotUseDefaultTypeInternal _Shop_ItemsEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR Shop::Shop(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.items_)*/{::_pbi::ConstantInitialized()}
+  , /*decltype(_impl_.shopname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.shopseq_)*/0
+  , /*decltype(_impl_.npcseq_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ShopDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ShopDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ShopDefaultTypeInternal() {}
+  union {
+    Shop _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ShopDefaultTypeInternal _Shop_default_instance_;
 PROTOBUF_CONSTEXPR Vector3::Vector3(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.x_)*/0
@@ -127,7 +155,7 @@ struct Vector3DefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Vector3DefaultTypeInternal _Vector3_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[7];
+static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[9];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_NPCStruct_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_NPCStruct_2eproto = nullptr;
 
@@ -201,6 +229,27 @@ const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.npctransform_),
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.mapid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.quests_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.shops_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _impl_.shopseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _impl_.npcseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _impl_.shopname_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _impl_.items_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Vector3, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -218,7 +267,9 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 27, 35, -1, sizeof(::Protocol::Quest_NeedSeqsEntry_DoNotUse)},
   { 37, -1, -1, sizeof(::Protocol::Quest)},
   { 55, -1, -1, sizeof(::Protocol::NPC)},
-  { 69, -1, -1, sizeof(::Protocol::Vector3)},
+  { 70, 78, -1, sizeof(::Protocol::Shop_ItemsEntry_DoNotUse)},
+  { 80, -1, -1, sizeof(::Protocol::Shop)},
+  { 90, -1, -1, sizeof(::Protocol::Vector3)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -228,43 +279,51 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_Quest_NeedSeqsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_default_instance_._instance,
   &::Protocol::_NPC_default_instance_._instance,
+  &::Protocol::_Shop_ItemsEntry_DoNotUse_default_instance_._instance,
+  &::Protocol::_Shop_default_instance_._instance,
   &::Protocol::_Vector3_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_NPCStruct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\017NPCStruct.proto\022\010Protocol\032\016Player_2.pr"
-  "oto\032\014User_2.proto\"e\n\006Values\022,\n\006values\030\001 "
-  "\003(\0132\034.Protocol.Values.ValuesEntry\032-\n\013Val"
-  "uesEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001"
-  "\"\356\003\n\005Quest\022\020\n\010questSeq\030\001 \001(\005\022\016\n\006npcSeq\030\002"
-  " \001(\005\022\022\n\nquestTitle\030\003 \001(\t\022\021\n\tquestText\030\004 "
-  "\001(\t\022\030\n\020questDescription\030\005 \001(\t\022\021\n\tquestKi"
-  "nd\030\006 \001(\005\022\022\n\nisProgress\030\007 \001(\010\022\017\n\007isClear\030"
-  "\010 \001(\010\0223\n\nrewardSeqs\030\t \003(\0132\037.Protocol.Que"
-  "st.RewardSeqsEntry\022/\n\010needSeqs\030\n \003(\0132\035.P"
-  "rotocol.Quest.NeedSeqsEntry\022+\n\017rewardUse"
-  "rGoods\030\013 \001(\0132\022.Protocol.UserGood\022/\n\021rewa"
-  "rdPlayerGoods\030\014 \001(\0132\024.Protocol.PlayerGoo"
-  "d\032C\n\017RewardSeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005val"
-  "ue\030\002 \001(\0132\020.Protocol.Values:\0028\001\032A\n\rNeedSe"
-  "qsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.Pr"
-  "otocol.Values:\0028\001\"\265\001\n\003NPC\022\016\n\006npcSeq\030\001 \001("
-  "\005\022\017\n\007npcName\030\002 \001(\t\022\017\n\007npcTalk\030\003 \001(\t\022\017\n\007n"
-  "pcType\030\004 \001(\005\022\022\n\nnpcConcept\030\005 \001(\t\022\'\n\014npcT"
-  "ransform\030\006 \001(\0132\021.Protocol.Vector3\022\r\n\005map"
-  "Id\030\007 \001(\003\022\037\n\006quests\030\010 \003(\0132\017.Protocol.Ques"
-  "t\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030"
-  "\003 \001(\002b\006proto3"
+  "oto\032\014User_2.proto\032\014Struct.proto\"e\n\006Value"
+  "s\022,\n\006values\030\001 \003(\0132\034.Protocol.Values.Valu"
+  "esEntry\032-\n\013ValuesEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005v"
+  "alue\030\002 \001(\005:\0028\001\"\356\003\n\005Quest\022\020\n\010questSeq\030\001 \001"
+  "(\005\022\016\n\006npcSeq\030\002 \001(\005\022\022\n\nquestTitle\030\003 \001(\t\022\021"
+  "\n\tquestText\030\004 \001(\t\022\030\n\020questDescription\030\005 "
+  "\001(\t\022\021\n\tquestKind\030\006 \001(\005\022\022\n\nisProgress\030\007 \001"
+  "(\010\022\017\n\007isClear\030\010 \001(\010\0223\n\nrewardSeqs\030\t \003(\0132"
+  "\037.Protocol.Quest.RewardSeqsEntry\022/\n\010need"
+  "Seqs\030\n \003(\0132\035.Protocol.Quest.NeedSeqsEntr"
+  "y\022+\n\017rewardUserGoods\030\013 \001(\0132\022.Protocol.Us"
+  "erGood\022/\n\021rewardPlayerGoods\030\014 \001(\0132\024.Prot"
+  "ocol.PlayerGood\032C\n\017RewardSeqsEntry\022\013\n\003ke"
+  "y\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.Protocol.Values"
+  ":\0028\001\032A\n\rNeedSeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005va"
+  "lue\030\002 \001(\0132\020.Protocol.Values:\0028\001\"\324\001\n\003NPC\022"
+  "\016\n\006npcSeq\030\001 \001(\005\022\017\n\007npcName\030\002 \001(\t\022\017\n\007npcT"
+  "alk\030\003 \001(\t\022\017\n\007npcType\030\004 \001(\005\022\022\n\nnpcConcept"
+  "\030\005 \001(\t\022\'\n\014npcTransform\030\006 \001(\0132\021.Protocol."
+  "Vector3\022\r\n\005mapId\030\007 \001(\003\022\037\n\006quests\030\010 \003(\0132\017"
+  ".Protocol.Quest\022\035\n\005shops\030\t \003(\0132\016.Protoco"
+  "l.Shop\"\241\001\n\004Shop\022\017\n\007shopSeq\030\001 \001(\005\022\016\n\006npcS"
+  "eq\030\002 \001(\005\022\020\n\010shopName\030\003 \001(\t\022(\n\005items\030\004 \003("
+  "\0132\031.Protocol.Shop.ItemsEntry\032<\n\nItemsEnt"
+  "ry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002 \001(\0132\016.Protoco"
+  "l.Item:\0028\001\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 "
+  "\001(\002\022\t\n\001z\030\003 \001(\002b\006proto3"
   ;
-static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_deps[2] = {
+static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_deps[3] = {
   &::descriptor_table_Player_5f2_2eproto,
+  &::descriptor_table_Struct_2eproto,
   &::descriptor_table_User_5f2_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_NPCStruct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPCStruct_2eproto = {
-    false, false, 893, descriptor_table_protodef_NPCStruct_2eproto,
+    false, false, 1102, descriptor_table_protodef_NPCStruct_2eproto,
     "NPCStruct.proto",
-    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 2, 7,
+    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 3, 9,
     schemas, file_default_instances, TableStruct_NPCStruct_2eproto::offsets,
     file_level_metadata_NPCStruct_2eproto, file_level_enum_descriptors_NPCStruct_2eproto,
     file_level_service_descriptors_NPCStruct_2eproto,
@@ -773,6 +832,7 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -781,7 +841,7 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
-          CHK_(ptr);
+
         } else
           goto handle_unusual;
         continue;
@@ -1197,6 +1257,7 @@ NPC::NPC(const NPC& from)
   NPC* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.quests_){from._impl_.quests_}
+    , decltype(_impl_.shops_){from._impl_.shops_}
     , decltype(_impl_.npcname_){}
     , decltype(_impl_.npctalk_){}
     , decltype(_impl_.npcconcept_){}
@@ -1246,6 +1307,7 @@ inline void NPC::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.quests_){arena}
+    , decltype(_impl_.shops_){arena}
     , decltype(_impl_.npcname_){}
     , decltype(_impl_.npctalk_){}
     , decltype(_impl_.npcconcept_){}
@@ -1281,6 +1343,7 @@ NPC::~NPC() {
 inline void NPC::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.quests_.~RepeatedPtrField();
+  _impl_.shops_.~RepeatedPtrField();
   _impl_.npcname_.Destroy();
   _impl_.npctalk_.Destroy();
   _impl_.npcconcept_.Destroy();
@@ -1298,6 +1361,7 @@ void NPC::Clear() {
   (void) cached_has_bits;
 
   _impl_.quests_.Clear();
+  _impl_.shops_.Clear();
   _impl_.npcname_.ClearToEmpty();
   _impl_.npctalk_.ClearToEmpty();
   _impl_.npcconcept_.ClearToEmpty();
@@ -1389,6 +1453,19 @@ const char* NPC::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .Protocol.Shop shops = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_shops(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1484,6 +1561,14 @@ uint8_t* NPC::_InternalSerialize(
         InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .Protocol.Shop shops = 9;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_shops_size()); i < n; i++) {
+    const auto& repfield = this->_internal_shops(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(9, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1503,6 +1588,13 @@ size_t NPC::ByteSizeLong() const {
   // repeated .Protocol.Quest quests = 8;
   total_size += 1UL * this->_internal_quests_size();
   for (const auto& msg : this->_impl_.quests_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .Protocol.Shop shops = 9;
+  total_size += 1UL * this->_internal_shops_size();
+  for (const auto& msg : this->_impl_.shops_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1569,6 +1661,7 @@ void NPC::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_N
   (void) cached_has_bits;
 
   _this->_impl_.quests_.MergeFrom(from._impl_.quests_);
+  _this->_impl_.shops_.MergeFrom(from._impl_.shops_);
   if (!from._internal_npcname().empty()) {
     _this->_internal_set_npcname(from._internal_npcname());
   }
@@ -1611,6 +1704,7 @@ void NPC::InternalSwap(NPC* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.quests_.InternalSwap(&other->_impl_.quests_);
+  _impl_.shops_.InternalSwap(&other->_impl_.shops_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.npcname_, lhs_arena,
       &other->_impl_.npcname_, rhs_arena
@@ -1635,6 +1729,341 @@ void NPC::InternalSwap(NPC* other) {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
       file_level_metadata_NPCStruct_2eproto[5]);
+}
+
+// ===================================================================
+
+Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse() {}
+Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Shop_ItemsEntry_DoNotUse::MergeFrom(const Shop_ItemsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Shop_ItemsEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
+      file_level_metadata_NPCStruct_2eproto[6]);
+}
+
+// ===================================================================
+
+class Shop::_Internal {
+ public:
+};
+
+void Shop::clear_items() {
+  _impl_.items_.Clear();
+}
+Shop::Shop(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &Shop::ArenaDtor);
+  }
+  // @@protoc_insertion_point(arena_constructor:Protocol.Shop)
+}
+Shop::Shop(const Shop& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Shop* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.items_)*/{}
+    , decltype(_impl_.shopname_){}
+    , decltype(_impl_.shopseq_){}
+    , decltype(_impl_.npcseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.items_.MergeFrom(from._impl_.items_);
+  _impl_.shopname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.shopname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_shopname().empty()) {
+    _this->_impl_.shopname_.Set(from._internal_shopname(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.shopseq_, &from._impl_.shopseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.npcseq_) -
+    reinterpret_cast<char*>(&_impl_.shopseq_)) + sizeof(_impl_.npcseq_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.Shop)
+}
+
+inline void Shop::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.items_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.shopname_){}
+    , decltype(_impl_.shopseq_){0}
+    , decltype(_impl_.npcseq_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.shopname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.shopname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+Shop::~Shop() {
+  // @@protoc_insertion_point(destructor:Protocol.Shop)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    ArenaDtor(this);
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Shop::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.items_.Destruct();
+  _impl_.items_.~MapField();
+  _impl_.shopname_.Destroy();
+}
+
+void Shop::ArenaDtor(void* object) {
+  Shop* _this = reinterpret_cast< Shop* >(object);
+  _this->_impl_.items_.Destruct();
+}
+void Shop::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Shop::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.Shop)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.items_.Clear();
+  _impl_.shopname_.ClearToEmpty();
+  ::memset(&_impl_.shopseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.npcseq_) -
+      reinterpret_cast<char*>(&_impl_.shopseq_)) + sizeof(_impl_.npcseq_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Shop::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 shopSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.shopseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 npcSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.npcseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string shopName = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_shopname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.Shop.shopName"));
+        } else
+          goto handle_unusual;
+        continue;
+      // map<int32, .Protocol.Item> items = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.items_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Shop::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.Shop)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 shopSeq = 1;
+  if (this->_internal_shopseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_shopseq(), target);
+  }
+
+  // int32 npcSeq = 2;
+  if (this->_internal_npcseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_npcseq(), target);
+  }
+
+  // string shopName = 3;
+  if (!this->_internal_shopname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_shopname().data(), static_cast<int>(this->_internal_shopname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.Shop.shopName");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_shopname(), target);
+  }
+
+  // map<int32, .Protocol.Item> items = 4;
+  if (!this->_internal_items().empty()) {
+    using MapType = ::_pb::Map<int32_t, ::Protocol::Item>;
+    using WireHelper = Shop_ItemsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_items();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(4, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(4, entry.first, entry.second, target, stream);
+      }
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.Shop)
+  return target;
+}
+
+size_t Shop::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.Shop)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // map<int32, .Protocol.Item> items = 4;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_items_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >::const_iterator
+      it = this->_internal_items().begin();
+      it != this->_internal_items().end(); ++it) {
+    total_size += Shop_ItemsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  // string shopName = 3;
+  if (!this->_internal_shopname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_shopname());
+  }
+
+  // int32 shopSeq = 1;
+  if (this->_internal_shopseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_shopseq());
+  }
+
+  // int32 npcSeq = 2;
+  if (this->_internal_npcseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_npcseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Shop::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Shop::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Shop::GetClassData() const { return &_class_data_; }
+
+
+void Shop::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Shop*>(&to_msg);
+  auto& from = static_cast<const Shop&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.Shop)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.items_.MergeFrom(from._impl_.items_);
+  if (!from._internal_shopname().empty()) {
+    _this->_internal_set_shopname(from._internal_shopname());
+  }
+  if (from._internal_shopseq() != 0) {
+    _this->_internal_set_shopseq(from._internal_shopseq());
+  }
+  if (from._internal_npcseq() != 0) {
+    _this->_internal_set_npcseq(from._internal_npcseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Shop::CopyFrom(const Shop& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.Shop)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Shop::IsInitialized() const {
+  return true;
+}
+
+void Shop::InternalSwap(Shop* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.items_.InternalSwap(&other->_impl_.items_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.shopname_, lhs_arena,
+      &other->_impl_.shopname_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Shop, _impl_.npcseq_)
+      + sizeof(Shop::_impl_.npcseq_)
+      - PROTOBUF_FIELD_OFFSET(Shop, _impl_.shopseq_)>(
+          reinterpret_cast<char*>(&_impl_.shopseq_),
+          reinterpret_cast<char*>(&other->_impl_.shopseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Shop::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
+      file_level_metadata_NPCStruct_2eproto[7]);
 }
 
 // ===================================================================
@@ -1905,7 +2334,7 @@ void Vector3::InternalSwap(Vector3* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Vector3::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[6]);
+      file_level_metadata_NPCStruct_2eproto[8]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -1934,6 +2363,14 @@ Arena::CreateMaybeMessage< ::Protocol::Quest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::NPC*
 Arena::CreateMaybeMessage< ::Protocol::NPC >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::NPC >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::Shop_ItemsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::Protocol::Shop_ItemsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Shop_ItemsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::Shop*
+Arena::CreateMaybeMessage< ::Protocol::Shop >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Shop >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::Vector3*
 Arena::CreateMaybeMessage< ::Protocol::Vector3 >(Arena* arena) {

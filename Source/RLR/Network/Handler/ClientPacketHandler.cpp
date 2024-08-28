@@ -127,6 +127,26 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::MonsterDieBroadcast>(&Handle_MONSTER_DIE_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_QUEST_ADD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_QuestAddResponse>(&Handle_QUEST_ADD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_QUEST_CHECK_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_QuestCheckResponse>(&Handle_QUEST_CHECK_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_QUEST_COMPLETE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_QuestCompleteResponse>(&Handle_QUEST_COMPLETE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_SHOP_BUY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_BuyResponse>(&Handle_SHOP_BUY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_SHOP_SELL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_SellResponse>(&Handle_SHOP_SELL_RESPONSE, session, buffer, len);
+        };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
