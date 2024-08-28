@@ -222,8 +222,10 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		ARLRCharacter* Monster = Cast<ARLRCharacter>(Target);
 		UActionSystemComponent* ASC = Monster->GetActionSystemComponent();
 		UStatSetMonster* MonsterStatus = ASC->GetStatSet<UStatSetMonster>();
+		if (MonsterStatus) {
+			AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
+		}
 		
-		AttackResults.TargetSeq.Add(MonsterStatus->GetMonsterId());
 	}
 
 	//TODO: Send To Server(Skill Result) Using NetworkManager
