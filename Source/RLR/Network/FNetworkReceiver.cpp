@@ -59,14 +59,6 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
         // 핸들러가 유효한지 확인
         if (GPacketHandler[header->id])
 		{
-
-            //uint16 id = header->id;
-            //uint8 size = header->size;
-            //TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
-            //GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
-
-
-            //뭔지 모르지만 서버 연결 부분은 그냥 워커 스레드로 돌려야..?
             if(header->id <= 1200)
             { 
 				uint16 id = header->id;
@@ -86,8 +78,6 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
         {
             UE_LOG(LogTemp, Error, TEXT("No handler found for packet id: %d"), header->id);
         }
-
-
 
         processedBytes += header->size;
     }

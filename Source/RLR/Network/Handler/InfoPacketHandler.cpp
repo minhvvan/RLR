@@ -75,7 +75,6 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         skillDatas.Add(skillData);
     }
     GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
-    //GameInstance->GetSkillManager()->UpdateTest.Broadcast(skillDatas);
     return true;
 }
 

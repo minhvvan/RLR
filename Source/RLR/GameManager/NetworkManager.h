@@ -118,7 +118,9 @@ private:
     } while (0)
 
 
-
+/*
+    필요 없으면 삭제.
+*/
 class PacketMessage
 {
 public:

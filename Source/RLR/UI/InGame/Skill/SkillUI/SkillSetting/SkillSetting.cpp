@@ -61,21 +61,16 @@ void USkillSetting::RefreshUI()
 
 void USkillSetting::Clear()
 {
-	//NormalSkillWrapBox->ClearChildren();
-	//UniqueSkillWrapBox->ClearChildren();
-	//UltimateSkillWrapBox->ClearChildren();
-
-
-	//SkillQuickSlotMap.Empty();
-	//SkillQuickSlotGridPanel->ClearChildren();
+	ClearSkillList();
+	SkillQuickSlotMap.Empty();
+	SkillQuickSlotGridPanel->ClearChildren();
 }
 
 void USkillSetting::ClearSkillList()
-{/*
+{
 	NormalSkillWrapBox->ClearChildren();
 	UniqueSkillWrapBox->ClearChildren();
-	UltimateSkillWrapBox->ClearChildren();*/
-
+	UltimateSkillWrapBox->ClearChildren();
 }
 
 void USkillSetting::ClearQuickSlot()
@@ -195,9 +190,9 @@ void USkillSetting::LoadSkillList()
 	TArray<FSkillData> SkillList;
 	GameInstance->GetDataManager()->GetSkillListByJob(MyJob, SkillList);
 
-	//NormalSkillWrapBox->ClearChildren();
-	//UniqueSkillWrapBox->ClearChildren();
-	//UltimateSkillWrapBox->ClearChildren();
+	NormalSkillWrapBox->ClearChildren();
+	UniqueSkillWrapBox->ClearChildren();
+	UltimateSkillWrapBox->ClearChildren();
 
 	TSubclassOf<USkillSettingListSlot> SlotClass = GetWidgetClass<USkillSettingListSlot>("WBP_SkillSettingListSlot");
 

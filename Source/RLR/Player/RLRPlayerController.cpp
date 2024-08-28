@@ -84,12 +84,6 @@ void ARLRPlayerController::Tick(float DeltaTime)
         timeSinceLastMovePacket = 0.0f;
     }
 
-
-	//플레이어 자신만 패킷 처리를 할 수 있게 해야 한다.
-	//뭔가 더 그럴듯한 방법이 필요할 듯한데. 현석님이 이거 보면 알아서 잘 해줄거라 믿음. 아멘.
-	if(GetLocalPlayer()->GetControllerId() != 0)
-		return;
-
 	const TArray<PacketMessage>& list = GameInstance->GetPacketQueue()->PopAll();
 	for (PacketMessage message : list)
 	{
@@ -97,7 +91,7 @@ void ARLRPlayerController::Tick(float DeltaTime)
 		uint16 id = header->id;
 
 
-		//왜 자꾸 세션 만들어야 함? 
+		//session을 계속 만들어서 함수에 올리던데, 필요한 거면 현석님이 수정 요망.
 		static TSharedPtr<PacketSession> session;
 			if(session == nullptr)
 				session= MakeShared<PacketSession>();
