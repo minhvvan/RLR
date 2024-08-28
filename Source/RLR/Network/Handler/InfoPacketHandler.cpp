@@ -122,3 +122,33 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
     return false;
 }
 
+bool Handle_QUEST_ADD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestAddResponse& pkt)
+{
+    // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCheckResponse& pkt)
+{
+    // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt)
+{
+    // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_BuyResponse& pkt)
+{
+    // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt)
+{
+    // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+

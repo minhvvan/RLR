@@ -694,6 +694,8 @@ class SS_ExpIncreaseRequest final :
   enum : int {
     kExpFieldNumber = 1,
     kUserSeqFieldNumber = 2,
+    kMonsterSeqFieldNumber = 3,
+    kMonsterIdFieldNumber = 4,
   };
   // int32 exp = 1;
   void clear_exp();
@@ -713,6 +715,24 @@ class SS_ExpIncreaseRequest final :
   void _internal_set_userseq(int32_t value);
   public:
 
+  // int32 monsterSeq = 3;
+  void clear_monsterseq();
+  int32_t monsterseq() const;
+  void set_monsterseq(int32_t value);
+  private:
+  int32_t _internal_monsterseq() const;
+  void _internal_set_monsterseq(int32_t value);
+  public:
+
+  // int32 monsterId = 4;
+  void clear_monsterid();
+  int32_t monsterid() const;
+  void set_monsterid(int32_t value);
+  private:
+  int32_t _internal_monsterid() const;
+  void _internal_set_monsterid(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.SS_ExpIncreaseRequest)
  private:
   class _Internal;
@@ -723,6 +743,8 @@ class SS_ExpIncreaseRequest final :
   struct Impl_ {
     int32_t exp_;
     int32_t userseq_;
+    int32_t monsterseq_;
+    int32_t monsterid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1097,6 +1119,46 @@ inline void SS_ExpIncreaseRequest::_internal_set_userseq(int32_t value) {
 inline void SS_ExpIncreaseRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
   // @@protoc_insertion_point(field_set:Protocol.SS_ExpIncreaseRequest.userSeq)
+}
+
+// int32 monsterSeq = 3;
+inline void SS_ExpIncreaseRequest::clear_monsterseq() {
+  _impl_.monsterseq_ = 0;
+}
+inline int32_t SS_ExpIncreaseRequest::_internal_monsterseq() const {
+  return _impl_.monsterseq_;
+}
+inline int32_t SS_ExpIncreaseRequest::monsterseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.SS_ExpIncreaseRequest.monsterSeq)
+  return _internal_monsterseq();
+}
+inline void SS_ExpIncreaseRequest::_internal_set_monsterseq(int32_t value) {
+  
+  _impl_.monsterseq_ = value;
+}
+inline void SS_ExpIncreaseRequest::set_monsterseq(int32_t value) {
+  _internal_set_monsterseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.SS_ExpIncreaseRequest.monsterSeq)
+}
+
+// int32 monsterId = 4;
+inline void SS_ExpIncreaseRequest::clear_monsterid() {
+  _impl_.monsterid_ = 0;
+}
+inline int32_t SS_ExpIncreaseRequest::_internal_monsterid() const {
+  return _impl_.monsterid_;
+}
+inline int32_t SS_ExpIncreaseRequest::monsterid() const {
+  // @@protoc_insertion_point(field_get:Protocol.SS_ExpIncreaseRequest.monsterId)
+  return _internal_monsterid();
+}
+inline void SS_ExpIncreaseRequest::_internal_set_monsterid(int32_t value) {
+  
+  _impl_.monsterid_ = value;
+}
+inline void SS_ExpIncreaseRequest::set_monsterid(int32_t value) {
+  _internal_set_monsterid(value);
+  // @@protoc_insertion_point(field_set:Protocol.SS_ExpIncreaseRequest.monsterId)
 }
 
 // -------------------------------------------------------------------
