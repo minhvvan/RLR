@@ -65,6 +65,19 @@ public:
 
     bool SendAddItemPacket(int64 itemId, int32 value); // 아이템 획득 패킷
 
+
+    bool SendBuyPacket(int itemSeq, int shopSeq, int quantity); // 상점 구매 패킷
+
+    bool SendSellPacket(int64 itemId, int shopSeq, int quantity); // 상점 판매 패킷
+
+    bool SendQuestAddPacket(int npcSeq, int questSeq); // 퀘스트 추가 패킷
+
+    bool SendQuestCheckPacket(int questSeq); // 퀘스트 상태 체크 패킷
+
+    bool SendQuestCompletePacket(int questSeq); // 퀘스트 완료 패킷
+
+
+
     //Cheat.Proto <-- 만들어주세요.
     bool SendCreateItemCheatPacket(int32 Seq);
     bool SendCreateSkillCheatPacket(int32 Seq);
@@ -97,6 +110,9 @@ private:
     int32 UserSeq;
     UPROPERTY()
     int64 MapId;
+
+  
+
 };
 
 #define SEND_PACKET(Packet) \
