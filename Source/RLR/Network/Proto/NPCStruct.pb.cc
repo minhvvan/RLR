@@ -831,7 +831,8 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isProgress = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -839,8 +840,8 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isClear = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
+          _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+
         } else
           goto handle_unusual;
         continue;

@@ -60,3 +60,26 @@ bool UNetworkManager::SendQuestCheckPacket(int questSeq) {
     }
     return bSuccess;
 }
+
+bool UNetworkManager::SendQuestCompletePacket(int questSeq) {
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_QuestCompleteRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_questseq(questSeq);
+    
+
+
+    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    bool bSuccess = SendToMainSocket(sendBuffer);
+
+    if (!bSuccess) {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+
+    }
+    else {
+        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+    }
+    return bSuccess;
+}

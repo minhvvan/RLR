@@ -58,6 +58,7 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
 
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
+    
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
 
