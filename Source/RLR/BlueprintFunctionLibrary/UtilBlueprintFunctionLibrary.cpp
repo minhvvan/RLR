@@ -18,7 +18,7 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *string);
+		//GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *string);
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *string);
 	}
 }

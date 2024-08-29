@@ -61,11 +61,7 @@ void USkillSetting::RefreshUI()
 
 void USkillSetting::Clear()
 {
-	NormalSkillWrapBox->ClearChildren();
-	UniqueSkillWrapBox->ClearChildren();
-	UltimateSkillWrapBox->ClearChildren();
-
-
+	ClearSkillList();
 	SkillQuickSlotMap.Empty();
 	SkillQuickSlotGridPanel->ClearChildren();
 }
@@ -75,7 +71,6 @@ void USkillSetting::ClearSkillList()
 	NormalSkillWrapBox->ClearChildren();
 	UniqueSkillWrapBox->ClearChildren();
 	UltimateSkillWrapBox->ClearChildren();
-
 }
 
 void USkillSetting::ClearQuickSlot()

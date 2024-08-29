@@ -42,6 +42,7 @@ class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
+class PacketMessageQueue;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -84,6 +85,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData* GetGameOptionData();
 
+	PacketMessageQueue* GetPacketQueue();
+
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
 
@@ -96,5 +99,7 @@ private:
 	*/
 	UPROPERTY();
 	TObjectPtr<UGameOptionData> GameOptionData;
+
+	TSharedPtr<PacketMessageQueue> PacketQueue;
 };
 extern  UGameManager* GameInstance;

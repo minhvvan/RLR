@@ -13,6 +13,8 @@
 #include "Network/Proto/Monster.pb.h"
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
+
+class PacketMessage;
 class PacketSession;
 
 using PacketHandlerFunc = bool(*)(TSharedPtr<PacketSession>&, uint8*, int32);
@@ -125,8 +127,8 @@ public:
     virtual ~PacketSession();
 
 protected:
-    virtual int32 OnRecv(uint8* buffer, int32 len);
-    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
+    //virtual int32 OnRecv(uint8* buffer, int32 len);
+    //virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
 };
 
 class ClientPacketHandler
@@ -136,6 +138,7 @@ public:
 
     bool HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len);
 
+ 
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ItemUseRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }

@@ -10,6 +10,7 @@
 #include "ClientPacketHandler.h"
 // Login Handlers
 
+static bool LoginState = false;
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());

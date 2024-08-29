@@ -13,6 +13,7 @@
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedActionTag, FGameplayTag, ActionTag);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedTest, TArray<FSkillData>&, SkillList);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdatedSkillInfo);
 
 UCLASS()
@@ -33,6 +34,7 @@ public:
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
 	//Response
+	UFUNCTION()
 	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
 
 	//Request to Server
@@ -55,4 +57,6 @@ public:
 			1.스킬 퀵 슬롯 위치가 바뀌면 업데이트
 	*/
 	FUpdatedSkillInfo UpdatedSkillManager;
+
+	FUpdatedTest		UpdateTest;
 };
