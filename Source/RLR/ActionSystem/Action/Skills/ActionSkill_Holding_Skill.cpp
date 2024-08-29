@@ -8,7 +8,8 @@
 #include <Player/RLRPlayerController.h>
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
-#include <Physics/RLRCollision.h>
+#include "Physics/RLRCollision.h"
+#include "Structs/SkillStructs.h"
 
 
 void UActionSkill_Holding_Skill::ActivateAction()

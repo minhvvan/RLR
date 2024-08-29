@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameplayTagContainer.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/SkillStructs.h"
 #include "SkillManager.generated.h"
 
 /**
@@ -29,7 +30,7 @@ public:
 	void SkillComplete(FGameplayTag TriggerTag);
 	
 	const FSkillData*						GetSkillData(FGameplayTag TriggerTag);
-	const TMap<FGameplayTag, FSkillData>&	GetOwnSkills();
+	const FSkillDictionary<FGameplayTag, FSkillData>&	GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
 
 	//Response
@@ -40,9 +41,7 @@ public:
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
 private:
-	
-	UPROPERTY()
-	TMap<FGameplayTag, FSkillData> OwnSkills;
+	FSkillDictionary<FGameplayTag, FSkillData> OwnSkills;
 
 
 public:

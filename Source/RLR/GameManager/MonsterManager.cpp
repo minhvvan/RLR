@@ -255,7 +255,7 @@ void UMonsterManager::UpdateMonsterHp(int64 monsterId, float newHp)
     stat->ApplyChangeStat(spec);
 }
 
-void UMonsterManager::ApplyAbnormal(int64 monsterId, const FAbnormal2& abnormal)
+void UMonsterManager::ApplyAbnormal(int64 monsterId, const FAbnormal& abnormal)
 {
     ARLRMonster* monster = GetMonsterByMonsterId(monsterId);
 

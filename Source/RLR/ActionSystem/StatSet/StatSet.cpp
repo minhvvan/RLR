@@ -5,6 +5,7 @@
 #include "RLRObjects/Characters/RLRCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "Structs/SkillStructs.h"
 #include "RLR.h"
 
 static bool SortByEndtime(const FAbnormalTimer& a, const FAbnormalTimer& b)
@@ -31,7 +32,7 @@ void UStatSet::AddAbnormalTimer(FAbnormalTimer* NewTimer)
 	AbnoramlTimers.HeapSort(SortByEndtime);
 }
 
-void UStatSet::ApplyAbnormal(const FAbnormal2& abnormal)
+void UStatSet::ApplyAbnormal(const FAbnormal& abnormal)
 {
 	ARLRCharacter* RLRCharacter = Cast<ARLRCharacter>(GetOuter());
 	if (!RLRCharacter) return;
@@ -71,7 +72,7 @@ void UStatSet::ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer)
 	if (lastEndTimer != ExpiredTimer && !lastEndTimer->bDisplayed)
 	{
 		//다음거 표시
-		auto abnormlMark = GetAbnormalMark((int)lastEndTimer->AbnormalData.AbnormalType);
+		auto abnormlMark = GetAbnormalMark((int)lastEndTimer->AbnormalType);
 		RLRCharacter->DisplayAbnormalFX(abnormlMark->AbnoramlFX);
 		lastEndTimer->bDisplayed = true;
 	}
@@ -81,7 +82,7 @@ void UStatSet::ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer)
 	}
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	ASC->RemoveGameplayTag(TagManager.GetAbnormalTag((int)ExpiredTimer->AbnormalData.AbnormalType));
+	ASC->RemoveGameplayTag(TagManager.GetAbnormalTag((int)ExpiredTimer->AbnormalType));
 
 	RemoveAbnormalTimer(ExpiredTimer);
 }
@@ -116,11 +117,12 @@ bool UStatSet::HasActivatedTimer()
 	return !AbnoramlTimers.IsEmpty();
 }
 
-FAbnormalTimer* FAbnormalTimer::MakeTimer(const FAbnormal2& Abnormal)
+FAbnormalTimer* FAbnormalTimer::MakeTimer(const FAbnormal& Abnormal)
 {
 	FAbnormalTimer* newTimer = (FAbnormalTimer*)FMemory::Malloc(sizeof(FAbnormalTimer));
 	newTimer->EndTime = FDateTime::UtcNow() + FDateTime(Abnormal.Duration);
-	newTimer->AbnormalData = Abnormal;
+
+	newTimer->AbnormalType = Abnormal.AbnormalType;
 	newTimer->bDisplayed = false;
 
 	return newTimer;

@@ -2,6 +2,7 @@
 
 
 #include "UI/BaseDragDropOperation.h"
+#include "Structs/SkillStructs.h"
 
 void UBaseDragDropOperation::SetItemData(const FItemData& NewItemData)
 {

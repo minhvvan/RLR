@@ -6,6 +6,7 @@
 #include "Blueprint/DragDropOperation.h"
 #include "GameManager/RLRStruct.h"
 #include "UI/SlotUI.h"
+#include "Structs/SkillStructs.h"
 #include "BaseDragDropOperation.generated.h"
 
 /**

@@ -10,7 +10,6 @@
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Player/PlayerCommands.h"
 
-#include "GameManager/RLRStruct.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/PlayerManager.h"
@@ -27,6 +26,7 @@
 #include "Components/UniformGridPanel.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "Structs/SkillStructs.h"
 
 
 
@@ -261,7 +261,7 @@ void USkillSetting::SaveQuickSlotData()
 
 	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
-	TMap<FGameplayTag, FSkillData> OwnSkills = GetSkillManager()->GetOwnSkills();
+	FSkillDictionary OwnSkills = GetSkillManager()->GetOwnSkills();
 
 	for (auto& [Tag, Data] : OwnSkills)
 	{

@@ -11,6 +11,7 @@
 #include "Physics/RLRCollision.h"
 #include "GameManager/SkillManager.h"
 #include <Player/RLRPlayerController.h>
+#include "Structs/SkillStructs.h"
 
 void UActionSkill_Area_Meteor::ActivateAction()
 {

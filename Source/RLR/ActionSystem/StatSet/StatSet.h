@@ -53,9 +53,9 @@ public:
 	FTimerHandle AbnormalTimerHandle;
 	FDateTime EndTime;
 	bool bDisplayed;
-	FAbnormal2 AbnormalData;
+	EAbnormalType AbnormalType;
 
-	static FAbnormalTimer* MakeTimer(const FAbnormal2& Abnormal);
+	static FAbnormalTimer* MakeTimer(const FAbnormal& Abnormal);
 
 	bool operator<(const FAbnormalTimer& Other) const
 	{
@@ -85,7 +85,7 @@ public:
 	UStatSet();
 	
 	//Abnormal
-	void ApplyAbnormal(const FAbnormal2& abnormal);
+	void ApplyAbnormal(const FAbnormal& abnormal);
 	void ExpiredAbnormalTimer(FAbnormalTimer* ExpiredTimer);
 
 	void AddAbnormalTimer(FAbnormalTimer* NewTimer);

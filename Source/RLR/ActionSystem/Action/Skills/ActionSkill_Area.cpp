@@ -11,6 +11,7 @@
 #include "GameManager/SkillManager.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
+#include "Structs/SkillStructs.h"
 #include "RLR.h"
 
 UActionSkill_Area::UActionSkill_Area()

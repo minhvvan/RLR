@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include <Network/Proto/Struct.pb.h>
-#include <Network/Proto/Skill.pb.h>
+//#include <Network/Proto/Skill.pb.h>
 #include <Network/Proto/NPCStruct.pb.h>
 #include <Network/Proto/User_2.pb.h>
 #include <Network/Proto/Player_2.pb.h>
@@ -22,6 +22,11 @@
 
 class UAction;
 struct FDropItem;
+struct FSkillData;
+struct FAbnormal;
+
+enum class ESkillGroup : uint8;
+enum class EAbnormalType : uint8;
 
 UENUM(BlueprintType)
 enum class EItemType : uint8
@@ -549,18 +554,6 @@ struct FItemData : public FTableRowBase
 	}
 };
 
-UENUM(BlueprintType)
-enum class ESkillType : uint8
-{
-	NORMAL = 0,
-	AREA,
-	HOLDING,
-	CASTING,
-	MOVILITY,
-	TARGETING,
-	CHAIN,
-	NONE,
-};
 
 UENUM(BlueprintType)
 enum class EInteractObjectType : uint8
@@ -573,66 +566,6 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
-UENUM(BlueprintType)
-enum class EAbnormalType : uint8
-{
-	STUN = 0,
-	BIND,
-	FROZEN,
-	STIFFEN,
-	PROVOKE,
-	ELECTRIC,
-	SILENCE,
-	BURN,
-	POISON,
-	SLOW,
-	BLEEDING,
-	NONE
-};
-
-UENUM(BlueprintType)
-enum  class ESkillGroup : uint8
-{
-	NORMAL =	 0,			//일반
-	UNIQUE,					//고유
-	ULTIMATE,				//각성기
-	NONE,
-};
-
-UENUM(BlueprintType)
-enum class ESkillKind : uint8		//버프? 디버프?
-{
-	ACTIVE,
-	PASSIVE,
-	BUFF,
-	DEBUFF,
-	NONE,
-};
-
-//Proto 에서 정의한 Abnormal을 보면 enum의 값 순서를 맞춰줘야 할 거 같은데, 나중에 해줄것.
-UENUM(BlueprintType)
-enum class ESkillAbnormal : uint8	//상태 이상
-{
-	BLEEDING,
-	BURN,
-	ELECTRIC,
-	FREEZE,
-	POISON,
-	PROVOKE,
-	SILENCE,
-	SLOW,
-	STIFFEN,
-	STUN,
-	NONE,
-};
-
-UENUM(BlueprintType)
-enum class ECostType : uint8	//코스트 타입
-{
-	MP,
-	HP,
-	NONE,
-};
 
 UENUM(BlueprintType)
 enum class EGoodsType : uint8	//재화 타입
@@ -642,125 +575,6 @@ enum class EGoodsType : uint8	//재화 타입
 	Reputation,
 	Contribution,
 	SIZE
-};
-
-
-USTRUCT(Atomic, BlueprintType)
-struct FSkillData : public FTableRowBase
-{
-	GENERATED_BODY()
-
-	FSkillData (){};
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 SkillId = -1;;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillSeq = -1;	
-	
-	//텍스트
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FText Name;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FText	SkillInfo;
-
-	//타입
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TEnumAsByte<ECharacterMainJobType> MainJobType = ECharacterMainJobType::NONE;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TEnumAsByte<ESkillGroup>	SkillGroup = ESkillGroup::NONE;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TEnumAsByte<ESkillType>		SkillType = ESkillType::NONE;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TEnumAsByte<ESkillKind>		SillKind = ESkillKind::NONE;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TEnumAsByte<ESkillAbnormal> SkillAbnormal = ESkillAbnormal::NONE;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TEnumAsByte<ECostType>		CostType = ECostType::MP;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Cost = 0;									//코스트 타입
-
-	//수치
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Level = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 RequiredLevel = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillIdx = -1;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float CoolTime;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillDistance = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector CollisionRange;	
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Cind;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Damage;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 CostValue = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Casting;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Duration;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FTotalStatus PassiveStatus = FTotalStatus();
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float CoolDown;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float ActivityTime;
-
-	//리소스
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> SkillImage;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillAnimClass;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillClass;
-
-	/*
-		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		스킬 미리보기 
-	*/
-
-	void MakeSkillData(Protocol::SkillInfo skill);
-	static const FSkillData EmptySkillData;
-
-	/** Operators */
-	FORCEINLINE bool operator==(FSkillData const& Other) const
-	{
-		if(SkillId != Other.SkillId)
-			return false;
-
-		if(SkillSeq != Other.SkillSeq)
-			return false;
-
-		return true;
-	}
-
-	FString ToString() const;
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -781,28 +595,6 @@ struct FSkillClass : public FTableRowBase
 /*
 	데이터 테이블에서 사용할 래핑용 구조체.
 */
- USTRUCT(BlueprintType)
-struct FSkillList
-{
-	 GENERATED_BODY()
-	 UPROPERTY()
-	TMap<int32, FSkillData> SkillList;
-};
-
-USTRUCT(Atomic, BlueprintType)
-struct FAbnormal2
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	EAbnormalType AbnormalType;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Duration;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Power;
-};
 
 USTRUCT(Atomic, BlueprintType)
 struct FMonsterStatus
@@ -1287,7 +1079,7 @@ struct FQuest
 	FString QuestDescription;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int QuestKind;	
+	int QuestKind;
 	
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	bool IsProgress;

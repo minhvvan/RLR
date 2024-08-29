@@ -59,5 +59,5 @@ protected:
 	void UpdateTransForm(FVector NewTransform);
 	void UpdateHp(int32 NewHp);
 
-	TMap<EAbnormalType, void(*)(const FAbnormal2&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
+	TMap<EAbnormalType, void(*)(const FAbnormal&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
 };

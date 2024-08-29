@@ -13,6 +13,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "Structs/SkillStructs.h"
 
 void USkillDetailInfo::NativeConstruct()
 {

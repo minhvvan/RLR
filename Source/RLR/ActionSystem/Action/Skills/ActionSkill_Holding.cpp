@@ -11,6 +11,7 @@
 #include "GameManager/SkillManager.h"
 #include "RLR.h"
 #include <ActionSystem/AnimNotify_ActivateAction.h>
+#include "Structs/SkillStructs.h"
 
 UActionSkill_Holding::UActionSkill_Holding()
 {

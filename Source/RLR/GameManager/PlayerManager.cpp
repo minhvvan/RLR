@@ -120,7 +120,7 @@ void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
 	statSet->ApplyChangeStat(spec);
 }
 
-void UPlayerManager::ApplyAbnormal(const FAbnormal2& Abnormal)
+void UPlayerManager::ApplyAbnormal(const FAbnormal& Abnormal)
 {
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;

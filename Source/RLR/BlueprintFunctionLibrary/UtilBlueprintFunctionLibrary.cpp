@@ -12,6 +12,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/SkillStructs.h"
 
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)

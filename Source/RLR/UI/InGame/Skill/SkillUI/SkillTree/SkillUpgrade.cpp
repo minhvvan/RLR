@@ -19,7 +19,8 @@ void USkillUpgrade::NativeConstruct()
 void USkillUpgrade::RefreshUI()
 {
 	//스킬 데이터가 없으면 닫는다.
-	if (SkillData == FSkillData::EmptySkillData)
+	TSharedPtr<FSkillData> skill = SkillData.Pin();
+	if (*skill.Get() == FSkillData::EmptySkillData)
 	{
 		CloseUI();
 		return;
@@ -46,8 +47,10 @@ void USkillUpgrade::CloseUI()
 	SetVisibility(ESlateVisibility::Hidden);
 }
 
-void USkillUpgrade::SetSkillData(FSkillData NewSkillData)
+void USkillUpgrade::SetSkillData(FSkillData& NewSkillData)
 {
-	SkillData = NewSkillData;
+	TSharedPtr<FSkillData> skill = MakeShared<FSkillData>(NewSkillData);
+	SkillData = skill.ToWeakPtr();
+
 	RefreshUI();
 }

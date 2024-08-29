@@ -13,7 +13,7 @@
 #include "ActionSystem/Action/Skills/ActionSkill.h"
 #include "RLR.h"
 
-#include <ActionSystem/StatSet/StatSetMonster.h>
+#include "ActionSystem/StatSet/StatSetMonster.h"
 
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -82,7 +82,7 @@ const FSkillData* USkillManager::GetSkillData(FGameplayTag TriggerTag)
 	return nullptr;
 }
 
-const TMap<FGameplayTag, FSkillData>& USkillManager::GetOwnSkills()
+const FSkillDictionary<FGameplayTag, FSkillData>& USkillManager::GetOwnSkills()
 {
 	return OwnSkills;
 }
@@ -129,7 +129,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
-		OwnSkills.Add({ SkillTag, SelectedSkills[i]});
+		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
 		//TriggerAction
 		{
@@ -180,7 +180,7 @@ bool USkillManager::RequestGetSelectedSkills()
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
-		OwnSkills.Add({ SkillTag, SelectedSkills[i] });
+		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
 		//TriggerAction
 		{

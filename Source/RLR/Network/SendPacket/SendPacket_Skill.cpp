@@ -10,6 +10,7 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/Item.pb.h"
 #include "Network/Proto/Skill.pb.h"
+#include "Structs/SkillStructs.h"
 
 /*
 
