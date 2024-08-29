@@ -5,6 +5,8 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/NPC.pb.h"
 #include "Network/Proto/Item.pb.h"
+#include "Network/Proto/Cheat.pb.h"
+#include "Network/Proto/User.pb.h"
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
@@ -35,6 +37,8 @@ enum : uint16
     // Add status Packet types
     PKT_STATUS_REQUEST = 1301,
     PKT_STATUS_RESPONSE = 1302,
+    PKT_USER_SPAWN_REQUEST = 1303,
+    PKT_USER_SPAWN_RESPONSE = 1304,
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1311,
     PKT_INVENTORY_RESPONSE = 1312,
@@ -105,7 +109,18 @@ enum : uint16
     PKT_JOIN_PARTY_RESPONSE = 1712,
     PKT_LEAVE_PARTY_REQUEST = 1721,
     PKT_LEAVE_PARTY_RESPONSE = 1722,
-    PKT_PARTY_STATUS_UPDATE = 1731
+    PKT_PARTY_STATUS_UPDATE = 1731,
+
+    // Add Good packet types
+    PKT_GOOD_USER_REQUEST = 1801,
+    PKT_GOOD_PLAYER_REQUEST = 1811,
+
+    PKT_GOOD_USER_RESPONSE = 1802,
+    PKT_GOOD_PLAYER_RESPONSE = 1812,
+    // Add Cheat Packet types
+    PKT_CHEAT_ITEM_REQUEST = 1901,
+    PKT_CHEAT_SKILL_REQUEST = 1902,
+    PKT_CHEAT_MONSTER_REQUEST = 1903,
 };
 
 // Custom Handlers
@@ -159,6 +174,9 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestAddRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_ADD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCheckRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_CHECK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCompleteRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_COMPLETE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateItemCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateSkillCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_SKILL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateMonsterCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_MONSTER_REQUEST); }
 
     
 

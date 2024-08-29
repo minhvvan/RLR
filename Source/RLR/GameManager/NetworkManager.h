@@ -16,7 +16,6 @@ class RLR_API UNetworkManager : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
-    void Initialize(int64 mapid);
     void SetLoadBalancer(std::string host, int32 port);
 
     UFUNCTION(BlueprintCallable)
