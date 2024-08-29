@@ -4,12 +4,14 @@
 #include "UI/DialogueUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "UI/InGame/Quest/Dialogue/QuestDialogue.h"
 
 void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
 	BtnTest->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
+	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
 }
 
 void UDialogueUI::SetDialogueData(FString DialogueString)
@@ -21,4 +23,20 @@ void UDialogueUI::SetDialogueData(FString DialogueString)
 void UDialogueUI::OnDialogueEnded()
 {
 	OnDialogueEnd.Broadcast();
+}
+
+void UDialogueUI::OnQuestDialogueBegins()
+{
+	OnQuestDialogueBegin.Broadcast();
+	OnDialogueEnd.Broadcast();
+
+	if (QuestDialogueWidgetClass)
+	{
+		UQuestDialogue* QuestDialogueWidget = CreateWidget<UQuestDialogue>(GetWorld(), QuestDialogueWidgetClass);
+		if (QuestDialogueWidget)
+		{
+			QuestDialogueWidget->AddToViewport();
+			this->RemoveFromViewport();
+		}
+	}
 }

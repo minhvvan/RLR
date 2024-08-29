@@ -7,9 +7,11 @@
 #include "DialogueUI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDialogueEnd);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestDialogueBegin);
 
 class UButton;
 class UTextBlock;
+class UQuestDialogue;
 
 UCLASS()
 class RLR_API UDialogueUI : public UBaseUI
@@ -23,16 +25,25 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtTest;
 
+	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
+	TObjectPtr<UButton> BtnQuest;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
+	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
+
 protected:
 	virtual void NativeConstruct();
 
 public:
 	FOnDialogueEnd OnDialogueEnd;
-
+	FOnQuestDialogueBegin OnQuestDialogueBegin;
 	//Test
 	void SetDialogueData(FString DialogueString);
 
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
+
+	UFUNCTION()
+	void OnQuestDialogueBegins();
 };
