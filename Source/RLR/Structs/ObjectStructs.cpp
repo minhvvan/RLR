@@ -3,6 +3,8 @@
 
 #include "Structs/ObjectStructs.h"
 #include "Network/Proto/Packet.pb.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/MonsterManager.h"
 
 void FQuest::MakeQuestData(const Protocol::Quest quest)
 {
@@ -72,4 +74,14 @@ void FInteractData::MakeObjectData()
     //TODO: ObjectData 생성
     InteractType = EInteractObjectType::LOGGING;
     ObjectTransform = FVector(1400.f, 1500.f + 500 * testID++, 96);
+}
+
+void FDropItem::MakeDropItemData(int64 objectId, int32 value, int64 monsterId)
+{
+    auto monsterManager = GameInstance->GetMonsterManager();
+    if (!monsterManager) return;
+
+    //TODO: Data채우기
+    //Seq enum : EGoodsType
+    ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
 }

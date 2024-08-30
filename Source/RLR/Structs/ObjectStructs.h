@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include <Network/Proto/Struct.pb.h>
-#include <Network/Proto/NPCStruct.pb.h>
+#include "Network/Proto/Struct.pb.h"
+#include "Network/Proto/NPCStruct.pb.h"
+#include "Network/Proto/Drop.pb.h"
+#include "Structs/ItemStructs.h"
 #include "ObjectStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -87,11 +89,11 @@ struct FQuest
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TMap<FString, FObjectMap> Needs;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//FPlayerGoods PlayerGoods;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FPlayerGoods PlayerGoods;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//FUserGoods UserGoods;
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FUserGoods UserGoods;
 
 	FString ToString() const
 	{
@@ -138,11 +140,11 @@ struct FQuest
 		{
 			AppendQuestString(type, need.ToString());
 		}
-
-		//QuestString.Append(FString::Printf(TEXT("\nPLAYERGOODS\n")));
-		//QuestString.Append(PlayerGoods.ToString());
-		//QuestString.Append(FString::Printf(TEXT("\nUSERGOODS\n")));
-		//QuestString.Append(UserGoods.ToString());
+		 
+		QuestString.Append(FString::Printf(TEXT("\nPLAYERGOODS\n")));
+		QuestString.Append(PlayerGoods.ToString());
+		QuestString.Append(FString::Printf(TEXT("\nUSERGOODS\n")));
+		QuestString.Append(UserGoods.ToString());
 
 		return QuestString;
 	}
@@ -251,4 +253,24 @@ struct FInteractData
 	void MakeObjectData();
 	//TODO:MakeData 구현 후 삭제
 	static int testID;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FDropItem
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ObjectId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ObjectSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int Num;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector ObjectTransform;
+
+	void MakeDropItemData(int64 objectId, int32 value, int64 monsterId);
 };

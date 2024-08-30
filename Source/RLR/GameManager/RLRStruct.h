@@ -3,14 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include <Network/Proto/Struct.pb.h>
-//#include <Network/Proto/Skill.pb.h>
-//#include <Network/Proto/NPCStruct.pb.h>
-//#include <Network/Proto/User_2.pb.h>
-//#include <Network/Proto/Player_2.pb.h>
-#include <Network/Proto/Drop.pb.h>
-#include "Templates/Tuple.h"
-#include "RLRStruct.generated.h"
 
 
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
@@ -72,21 +64,6 @@ struct FEffectData;
 
 enum class EUIType : uint8;
 
-
-USTRUCT(Atomic, BlueprintType)
-struct FSkillClass : public FTableRowBase
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillSeq;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillAnimClass;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillClass;
-};
 
 
 /*

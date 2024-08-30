@@ -7,25 +7,7 @@
 #include "Engine/StreamableManager.h"
 #include "RLRDropItem.generated.h"
 
-USTRUCT(Atomic, BlueprintType)
-struct FDropItem
-{
-	GENERATED_BODY()
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 ObjectId;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 ObjectSeq;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int Num;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector ObjectTransform;
-
-	void MakeDropItemData(int64 objectId,int32 value,int64 monsterId);
-};
 
 DECLARE_MULTICAST_DELEGATE(FOnLoadComplete);
 
@@ -38,7 +20,7 @@ public:
 	ARLRDropItem();
 
 	void SetDropItemData(const FDropItem& Data);
-	int GetObjectId() { return ItemData.ObjectId; }
+	int GetObjectId();
 
 	FOnLoadComplete OnLoadComplete;
 
@@ -55,5 +37,5 @@ private:
 	TArray<FSoftObjectPath> ItemMeshes;
 	TSharedPtr<FStreamableHandle> ItemMeshHandle;
 
-	FDropItem ItemData;
+	TWeakPtr<FDropItem> ItemData;
 };

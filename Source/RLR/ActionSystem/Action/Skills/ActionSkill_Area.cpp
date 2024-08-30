@@ -75,7 +75,7 @@ void UActionSkill_Area::ActivateAction()
 
 		//Spawn Reticle
 		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
-		SpawnedReticle->InitializeReticle(Controller, SkillData->CollisionRange.X);
+		SpawnedReticle->InitializeReticle(Controller, SkillData->SkillRange.X);
 
 		FTransform SpawnLoc(Controller->GetClickPosition());
 		SpawnedReticle->FinishSpawning(SpawnLoc);

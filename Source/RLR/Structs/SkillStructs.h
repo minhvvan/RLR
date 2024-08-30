@@ -6,6 +6,7 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Templates/Tuple.h"
 #include "GameplayTagContainer.h"
+#include "Structs/PlayerStructs.h"
 #include "SkillStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -70,6 +71,21 @@ enum class ECostType : uint8	//코스트 타입
 class UAction;
 
 USTRUCT(Atomic, BlueprintType)
+struct FAbnormal
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	EAbnormalType AbnormalType;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Duration;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float Power;
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -90,8 +106,8 @@ struct FSkillData : public FTableRowBase
 	FText SkillInfo;
 
 	//타입
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//TEnumAsByte<ECharacterMainJobType> MainJobType = ECharacterMainJobType::NONE;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<ECharacterMainJobType> MainJobType = ECharacterMainJobType::NONE;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<ESkillGroup>	SkillGroup = ESkillGroup::NONE;
@@ -106,9 +122,8 @@ struct FSkillData : public FTableRowBase
 	TEnumAsByte<ECostType>		CostType = ECostType::MP;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Cost = 0;
+	int32 CostValue = 0;
 
-	//수치
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Level = 0;
 
@@ -119,37 +134,31 @@ struct FSkillData : public FTableRowBase
 	int32 SkillIdx = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float CoolTime;
+	float DefaultCoolDown;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	float FinalCoolDown;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 SkillDistance = 0;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector CollisionRange;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Cind;
+	FVector SkillRange;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 Damage;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 CostValue = 0;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	float Casting;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 Duration;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//FTotalStatus PassiveStatus = FTotalStatus();
+	float Duration;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float CoolDown;
+	TArray<FAbnormal> Abnormals;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float ActivityTime;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FTotalStatus PassiveStatus = FTotalStatus();
 
 	//리소스
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -246,16 +255,16 @@ public:
 };
 
 USTRUCT(Atomic, BlueprintType)
-struct FAbnormal
+struct FSkillClass : public FTableRowBase
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	EAbnormalType AbnormalType;
+	int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Duration;
+	TSubclassOf<UAction> SkillAnimClass;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float Power;
+	TSubclassOf<UAction> SkillClass;
 };

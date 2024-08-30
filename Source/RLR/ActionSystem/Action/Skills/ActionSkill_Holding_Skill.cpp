@@ -29,7 +29,7 @@ void UActionSkill_Holding_Skill::ActivateAction()
 	FVector MousePos = ActionData.MousePos;
 
 	if (!SkillData) return;
-	float SkillRange = SkillData->CollisionRange.X;
+	float SkillRange = SkillData->SkillRange.X;
 
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
@@ -57,7 +57,7 @@ void UActionSkill_Holding_Skill::ActivateAction()
 		HoldingProjectile->GetActorLocation(),				        /* Projectile 위치 */
 		FQuat::Identity,											/* 회전 없음 */
 		CCHANNEL_RLRATTACK,											/* 충돌 채널 (적절한 채널로 변경 가능) */
-		FCollisionShape::MakeCapsule(SkillData->CollisionRange),	/* 충돌 범위 (구형) */
+		FCollisionShape::MakeCapsule(SkillData->SkillRange),	/* 충돌 범위 (구형) */
 		Params))
 	{
 		for (const FOverlapResult& Result : OverlapResults)

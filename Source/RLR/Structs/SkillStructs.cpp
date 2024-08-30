@@ -4,8 +4,9 @@
 #include "Structs/SkillStructs.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/RLRStruct.h"
 
-const FSkillData    FSkillData::EmptySkillData;
+const FSkillData FSkillData::EmptySkillData;
 
 FString FSkillData::ToString() const
 {
@@ -41,11 +42,11 @@ FString FSkillData::ToString() const
     */
 
     AppendString(TEXT("Name"), Name.ToString());
-    //AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
+    AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
     AppendInt(TEXT("Level"), Level);
     AppendString(TEXT("CostType"), UEnum::GetValueAsString(CostType));
     AppendInt(TEXT("Cost"), CostValue);
-    AppendFloat(TEXT("CoolTime"), CoolTime);
+    AppendFloat(TEXT("CoolTime"), DefaultCoolDown);
     AppendString(TEXT("SkillInfo"), SkillInfo.ToString());
 
     return SkillString;
@@ -59,21 +60,19 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
     Level = skill.skilllevel();
 
-    Cost = skill.cost();
+    //Cost = skill.cost();
 
-    CoolTime = skill.cooltime();
+    //CoolTime = skill.cooltime();
 
-    Cind = skill.skillkind();
+    //Cind = skill.skillkind();
 
     Damage = skill.skillactivestatus().skilldamage();
 
     Duration = skill.skillactivestatus().skillduration();
 
-    //ActivityTime = skill.mutable_skillactivestatus()->
-
     SkillId = skill.skillid();
 
-    CollisionRange.X = skill.skilldistance() * 20;
+    SkillRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 
