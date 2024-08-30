@@ -35,8 +35,8 @@ public:
 	*/
 	void SetPlayerName(FString String);
 	
-	void							SetUserCharacterData(FUserCharacter Data);
-	FUserCharacter	GetUserCharacterData(){return UserCharacterData;}
+	void SetUserCharacterData(const FUserCharacter& Data);
+	FUserCharacter* GetUserCharacterData();
 
 
 public:
@@ -57,7 +57,5 @@ public:
 	*/
 
 public:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FUserCharacter UserCharacterData;
+	TWeakPtr<FUserCharacter> UserCharacterData;
 };

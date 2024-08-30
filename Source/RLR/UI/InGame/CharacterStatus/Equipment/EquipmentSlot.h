@@ -22,6 +22,7 @@ class RLR_API UEquipmentSlot : public USlotUI
 	GENERATED_BODY()
 
 public:
+	UEquipmentSlot(const FObjectInitializer& ObjectInitializer);
 
 	virtual void	NativeConstruct() override;
 	virtual void	RefreshUI() override;
@@ -41,5 +42,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<EItemRarity, TObjectPtr<UTexture2D>> RarityImage;
 
-	EEquipmentType EquipmentSlotType = EEquipmentType::NONE;
+	EEquipmentType EquipmentSlotType;
 };

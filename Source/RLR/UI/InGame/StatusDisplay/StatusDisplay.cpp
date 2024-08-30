@@ -17,6 +17,8 @@
 #include "GameManager/SkillManager.h"
 #include "GameManager/UIManager.h"
 #include "GameOptionData/GameOptionData.h"
+#include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 
 void UStatusDisplay::NativeConstruct()
 {

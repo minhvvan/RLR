@@ -2,6 +2,7 @@
 
 
 #include "GameManager/InventoryManager.h"
+#include "Structs/ItemStructs.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 

@@ -12,6 +12,8 @@
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "RLRObjects/Characters/RLRPLayerCharacter.h"
+#include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 
 void UPartyUI::NativeConstruct()
 {
@@ -39,7 +41,7 @@ void UPartyUI::RefreshUI()
 	}
 }
 
-void UPartyUI::AddPlayer(FUserCharacter NewPlayer)
+void UPartyUI::AddPlayer(FUserCharacter& NewPlayer)
 {
 	if (PartyListElementClass == nullptr)
 	{
@@ -57,7 +59,7 @@ void UPartyUI::AddPlayer(FUserCharacter NewPlayer)
 	RefreshUI();
 }
 
-void UPartyUI::RemovePlayer(FUserCharacter LeavePlayer)
+void UPartyUI::RemovePlayer(FUserCharacter& LeavePlayer)
 {
 	int32 PlayerID = LeavePlayer.GetUserCharacterData().playerseq();
 

@@ -27,7 +27,7 @@ public:
     //UpdateStat
     void UpdateMonsterTransform(int64 monsterId, float x, float y, float z);
     void UpdateMonsterHp(int64 monsterId, float newHp);
-    void ApplyAbnormal(int64 monsterId, const FAbnormal2& abnormal);
+    void ApplyAbnormal(int64 monsterId, const FAbnormal& abnormal);
 
     UFUNCTION()
     void SpawnMonsters();

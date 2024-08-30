@@ -6,6 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/MonsterManager.h"
+#include "Structs/ObjectStructs.h"
 #include "Engine/AssetManager.h"
 
 ARLRDropItem::ARLRDropItem()
@@ -14,11 +15,18 @@ ARLRDropItem::ARLRDropItem()
 
 void ARLRDropItem::SetDropItemData(const FDropItem& Data)
 {
-	ItemData = Data;
+	auto dataPtr = MakeShared<FDropItem>(Data);
+	ItemData = dataPtr.ToWeakPtr();
 
 	//SetMesh
 	if (ItemMeshes.IsEmpty() || Data.ObjectSeq >= ItemMeshes.Num()) return;
 	ItemMeshHandle = UAssetManager::Get().GetStreamableManager().RequestAsyncLoad(ItemMeshes[Data.ObjectSeq], FStreamableDelegate::CreateUObject(this, &ARLRDropItem::ItemMeshLoadCompleted));
+}
+
+int ARLRDropItem::GetObjectId()
+{
+	if (!ItemData.IsValid()) return -1;
+	return ItemData.Pin()->ObjectId;
 }
 
 void ARLRDropItem::BeginPlay()
@@ -31,7 +39,8 @@ void ARLRDropItem::BeginPlay()
 
 void ARLRDropItem::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GameInstance->GetObjectManager()->RequestPickUpItem(ItemData);
+	if (!ItemData.IsValid()) return;
+	GameInstance->GetObjectManager()->RequestPickUpItem(*ItemData.Pin().Get());
 }
 
 void ARLRDropItem::ItemMeshLoadCompleted()
@@ -49,12 +58,3 @@ void ARLRDropItem::ItemMeshLoadCompleted()
 	OnLoadComplete.Broadcast();
 }
 
-void FDropItem::MakeDropItemData(int64 objectId,int32 value,int64 monsterId)
-{
-	auto monsterManager = GameInstance->GetMonsterManager();
-	if (!monsterManager) return;
-
-	//TODO: Data채우기
-	//Seq enum : EGoodsType
-	ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
-}

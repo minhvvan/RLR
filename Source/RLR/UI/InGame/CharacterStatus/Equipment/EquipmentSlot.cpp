@@ -12,11 +12,18 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "Structs/ItemStructs.h"
+#include "Structs/UtilStructs.h"
 
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
+
+UEquipmentSlot::UEquipmentSlot(const FObjectInitializer& ObjectInitializer):
+	EquipmentSlotType(EEquipmentType::NONE)
+{
+}
 
 void UEquipmentSlot::NativeConstruct()
 {

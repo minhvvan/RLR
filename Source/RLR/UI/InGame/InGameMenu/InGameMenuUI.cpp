@@ -8,6 +8,7 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/ListView.h"
 #include "Components/Button.h"
+#include "Structs/UtilStructs.h"
 
 void UInGameMenuUI::NativeConstruct()
 {

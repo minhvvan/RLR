@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/PlayerStructs.h"
 #include "RLR.h"
 #include "OtherUserManager.generated.h"
 
@@ -63,5 +64,5 @@ public:
 	TMap<int32, ARLRPlayerCharacter*> OtherPlayerList;
 
 	UPROPERTY()
-	TMap<int32, FUserCharacter> PartyPlayerList;
+	FPlayerMap PartyPlayerList;
 };

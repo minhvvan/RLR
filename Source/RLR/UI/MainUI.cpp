@@ -4,6 +4,7 @@
 #include "UI/MainUI.h"
 #include "UI/SubUI.h"
 #include "Blueprint/WidgetTree.h"
+#include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 void UMainUI::NativeConstruct()
