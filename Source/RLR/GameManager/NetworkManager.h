@@ -22,7 +22,6 @@ class RLR_API UNetworkManager : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
-    void Initialize(int64 mapid);
     void SetLoadBalancer(std::string host, int32 port);
 
     UFUNCTION(BlueprintCallable)
@@ -57,6 +56,7 @@ public:
     //Skill.Proto
     bool SendGetSkillPacket();
     bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
+    bool SendAddSkillPacket(int skillSeq);
     //Skill.Proto End
 
     bool SendServerRequest();
