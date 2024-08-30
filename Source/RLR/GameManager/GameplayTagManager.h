@@ -113,6 +113,7 @@ public:
 	FGameplayTag UI_CharacterStatus;
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;
+	FGameplayTag UI_Quest;
 	
 	FGameplayTag UI_SkillUpgrade;
 

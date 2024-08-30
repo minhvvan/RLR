@@ -18,6 +18,9 @@ class RLR_API UQuestDialogue : public UBaseUI
 {
 	GENERATED_BODY()
 
+private:
+	int32 CurrentNPCSeq;
+	int32 CurrentQuestSeq;
 protected:
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnDeny;
@@ -44,6 +47,5 @@ public:
 	FOnQuestDialogueEnd OnQuestDialogueEnd;
 	FOnQuestAccept OnQuestAccept;
 
-	void SetDialogueData(FString QuestDialogueString);
-	
+	void SetDialogueData(FString QuestDialogueString, int32 NPCSeq, int32 QuestSeq);
 };
