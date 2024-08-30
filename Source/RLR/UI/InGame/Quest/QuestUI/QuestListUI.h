@@ -3,14 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "GameManager\RLRStruct.h"
 #include "UI/SubUI.h"
 #include "QuestListUI.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class RLR_API UQuestListUI : public USubUI
 {
