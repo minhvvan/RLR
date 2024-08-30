@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
+//#include "Structs/PlayerStructs.h"
 #include "RLRStruct.h"
 
 #include "GameManager/GameplayTagManager.h"
@@ -23,8 +24,8 @@ class USlotUI;
 class UDialogueUI;
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter, NewPlayerInfo);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPartyPlayerInfo, FUserCharacter, NewPlayerInfo);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter&, NewPlayerInfo);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPartyPlayerInfo, FUserCharacter&, NewPlayerInfo);
 
 UCLASS()
 class RLR_API UUIManager : public UGameInstanceSubsystem
@@ -64,7 +65,7 @@ public:
 		Delegate
 	*/
 
-	FUpdatedPlayerInfo					UpdatedPlayerInfo;
-	FUpdatedPartyPlayerInfo			UpdatedPartyPlayerInfo;
+	FUpdatedPlayerInfo	UpdatedPlayerInfo;
+	FUpdatedPartyPlayerInfo	UpdatedPartyPlayerInfo;
 
 };

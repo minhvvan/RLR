@@ -13,7 +13,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
 
-
+#include "Structs/PlayerStructs.h"
 #include "RLR.h"
 
 void UEquipmentUI::NativeConstruct()

@@ -5,37 +5,14 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
 
+#include "Structs/PlayerStructs.h"
+
 #include "Network/Proto/Packet.pb.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 const FItemData     FItemData::EmptyItemData;
 const FMonsterStatus FMonsterStatus::EmptyMonsterData;
-
-void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
-{
-    HP = Status.userhp();
-    HP_ABSORB = Status.userhpabsorb();
-    MP = Status.usermp();
-	MP_ABSORB = Status.usermpabsorb();
-
-    STRENGTH = Status.userstrength();
-    AGILITY = Status.useragility();
-    INTELLIGENCE = Status.userintelligence();
-
-    MAX_HP = Status.usermaxhp();
-    MAX_MP = Status.usermaxmp();
-
-    ATTACK = Status.userattack();
-    DEFENCE = Status.userdefence();
-    ATTACK_SPEED = Status.userattackspeed();
-    MOVE_SPEED = Status.usermovespeed();
-    CRITICAL_CHANCE = Status.usercriticalchance();
-    CRITICAL_DAMAGE = Status.usercriticaldamage();
-    AVOID = Status.useravoid();
-    COOLDOWN_REDUCTION = Status.usercooldownreduction();
-}
-
 
 void FItemData::MakeItemData(const Protocol::Item itemData)
 {
@@ -64,22 +41,22 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     if (itemData.has_equip()) {
         auto equipData = itemData.equip();
 
-        ITEM_STATUS.HP = equipData.hp();
-        ITEM_STATUS.HP_ABSORB = equipData.hpabsorb();
-        ITEM_STATUS.MP = equipData.mp();
-        ITEM_STATUS.MP_ABSORB = equipData.mpabsorb();
-        ITEM_STATUS.STRENGTH = equipData.strength();
-        ITEM_STATUS.AGILITY = equipData.agility();
-        ITEM_STATUS.INTELLIGENCE = equipData.intelligence();
-        ITEM_STATUS.ATTACK = equipData.attack();
-        UE_LOG(LogTemp, Log, TEXT("itemData 공격력 : %f"), equipData.attack());
-        ITEM_STATUS.DEFENCE = equipData.defence();
-        ITEM_STATUS.ATTACK_SPEED = equipData.attackspeed();
-        ITEM_STATUS.MOVE_SPEED = equipData.movespeed();
-        ITEM_STATUS.CRITICAL_CHANCE = equipData.criticalchance();
-        ITEM_STATUS.CRITICAL_DAMAGE = equipData.criticaldamage();
-        ITEM_STATUS.AVOID = equipData.avoid();
-        ITEM_STATUS.COOLDOWN_REDUCTION = equipData.cooldownreduction();
+        //ITEM_STATUS.HP = equipData.hp();
+        //ITEM_STATUS.HP_ABSORB = equipData.hpabsorb();
+        //ITEM_STATUS.MP = equipData.mp();
+        //ITEM_STATUS.MP_ABSORB = equipData.mpabsorb();
+        //ITEM_STATUS.STRENGTH = equipData.strength();
+        //ITEM_STATUS.AGILITY = equipData.agility();
+        //ITEM_STATUS.INTELLIGENCE = equipData.intelligence();
+        //ITEM_STATUS.ATTACK = equipData.attack();
+        //UE_LOG(LogTemp, Log, TEXT("itemData 공격력 : %f"), equipData.attack());
+        //ITEM_STATUS.DEFENCE = equipData.defence();
+        //ITEM_STATUS.ATTACK_SPEED = equipData.attackspeed();
+        //ITEM_STATUS.MOVE_SPEED = equipData.movespeed();
+        //ITEM_STATUS.CRITICAL_CHANCE = equipData.criticalchance();
+        //ITEM_STATUS.CRITICAL_DAMAGE = equipData.criticaldamage();
+        //ITEM_STATUS.AVOID = equipData.avoid();
+        //ITEM_STATUS.COOLDOWN_REDUCTION = equipData.cooldownreduction();
         EQUIPMENT_TYPE = (EEquipmentType) equipData.equippart();
     }
 
@@ -128,21 +105,21 @@ Protocol::Item FItemData::MakeItemPacket()
     if (EQUIPMENT_TYPE != EEquipmentType::NONE) { 
         auto* equipData = itemData.mutable_equip();
 
-        equipData->set_hp(ITEM_STATUS.HP);
-        equipData->set_hpabsorb(ITEM_STATUS.HP_ABSORB);
-        equipData->set_mp(ITEM_STATUS.MP);
-        equipData->set_mpabsorb(ITEM_STATUS.MP_ABSORB);
-        equipData->set_strength(ITEM_STATUS.STRENGTH);
-        equipData->set_agility(ITEM_STATUS.AGILITY);
-        equipData->set_intelligence(ITEM_STATUS.INTELLIGENCE);
-        equipData->set_attack(ITEM_STATUS.ATTACK);
-        equipData->set_defence(ITEM_STATUS.DEFENCE);
-        equipData->set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
-        equipData->set_movespeed(ITEM_STATUS.MOVE_SPEED);
-        equipData->set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
-        equipData->set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
-        equipData->set_avoid(ITEM_STATUS.AVOID);
-        equipData->set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
+        //equipData->set_hp(ITEM_STATUS.HP);
+        //equipData->set_hpabsorb(ITEM_STATUS.HP_ABSORB);
+        //equipData->set_mp(ITEM_STATUS.MP);
+        //equipData->set_mpabsorb(ITEM_STATUS.MP_ABSORB);
+        //equipData->set_strength(ITEM_STATUS.STRENGTH);
+        //equipData->set_agility(ITEM_STATUS.AGILITY);
+        //equipData->set_intelligence(ITEM_STATUS.INTELLIGENCE);
+        //equipData->set_attack(ITEM_STATUS.ATTACK);
+        //equipData->set_defence(ITEM_STATUS.DEFENCE);
+        //equipData->set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
+        //equipData->set_movespeed(ITEM_STATUS.MOVE_SPEED);
+        //equipData->set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
+        //equipData->set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
+        //equipData->set_avoid(ITEM_STATUS.AVOID);
+        //equipData->set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
         equipData->set_equippart(EQUIPMENT_TYPE.GetIntValue());
     }
 
@@ -188,21 +165,21 @@ Protocol::Equip FItemData::MakeEquipPacket()
     Equip_Item->set_itemmax(ITEM_MAX);
 
     if (EQUIPMENT_TYPE != EEquipmentType::NONE) {
-        EquipData.set_hp(ITEM_STATUS.HP);
-        EquipData.set_hpabsorb(ITEM_STATUS.HP_ABSORB);
-        EquipData.set_mp(ITEM_STATUS.MP);
-        EquipData.set_mpabsorb(ITEM_STATUS.MP_ABSORB);
-        EquipData.set_strength(ITEM_STATUS.STRENGTH);
-        EquipData.set_agility(ITEM_STATUS.AGILITY);
-        EquipData.set_intelligence(ITEM_STATUS.INTELLIGENCE);
-        EquipData.set_attack(ITEM_STATUS.ATTACK);
-        EquipData.set_defence(ITEM_STATUS.DEFENCE);
-        EquipData.set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
-        EquipData.set_movespeed(ITEM_STATUS.MOVE_SPEED);
-        EquipData.set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
-        EquipData.set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
-        EquipData.set_avoid(ITEM_STATUS.AVOID);
-        EquipData.set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
+        //EquipData.set_hp(ITEM_STATUS.HP);
+        //EquipData.set_hpabsorb(ITEM_STATUS.HP_ABSORB);
+        //EquipData.set_mp(ITEM_STATUS.MP);
+        //EquipData.set_mpabsorb(ITEM_STATUS.MP_ABSORB);
+        //EquipData.set_strength(ITEM_STATUS.STRENGTH);
+        //EquipData.set_agility(ITEM_STATUS.AGILITY);
+        //EquipData.set_intelligence(ITEM_STATUS.INTELLIGENCE);
+        //EquipData.set_attack(ITEM_STATUS.ATTACK);
+        //EquipData.set_defence(ITEM_STATUS.DEFENCE);
+        //EquipData.set_attackspeed(ITEM_STATUS.ATTACK_SPEED);
+        //EquipData.set_movespeed(ITEM_STATUS.MOVE_SPEED);
+        //EquipData.set_criticalchance(ITEM_STATUS.CRITICAL_CHANCE);
+        //EquipData.set_criticaldamage(ITEM_STATUS.CRITICAL_DAMAGE);
+        //EquipData.set_avoid(ITEM_STATUS.AVOID);
+        //EquipData.set_cooldownreduction(ITEM_STATUS.COOLDOWN_REDUCTION);
         EquipData.set_equippart(EQUIPMENT_TYPE.GetIntValue());
     }
     return EquipData;
@@ -471,33 +448,7 @@ FString ESkillGroupToString(ESkillGroup SkillGroup)
     return TEXT("UNKNOWN"); // 알 수 없는 값 처리
 }
 
-void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
-{
-    UserSeq = Data.userseq();
-    PlayerSeq = Data.playerseq();
-    NickName = UTF8_TO_TCHAR(Data.name().c_str());
-    Level = Data.level();
-    NobilityRank = Data.nobilityrank();
 
-    MainJob = (ECharacterMainJobType)Data.mainjob();
-    SubJob = (ECharacterSubJobType)Data.subjob();
-
-    Exp = Data.exp();
-    AdventureRank = Data.adventurerrank();
-    
-    TotalStatus.MakeStatus(Data.totalstatus());
-    SetStatus.MakeSetStatus(Data.setstatus());
-    Talent.MakeTalent(Data.talent());
-}
-
-void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
-{
-    UserHP = Data.userhp();
-    UserMP = Data.usermp();
-    UserSTR = Data.userstr();
-    UserAGI =Data.useragi();
-    UserINT =Data.userint();
-}
 
 void FAttackResult::MakeAttackData()
 {

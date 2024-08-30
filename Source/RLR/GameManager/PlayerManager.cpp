@@ -12,6 +12,7 @@
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 
 #include "RLR.h"
+#include "Structs/PlayerStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 UPlayerManager::UPlayerManager()

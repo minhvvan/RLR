@@ -19,6 +19,7 @@ void USkillUpgrade::NativeConstruct()
 void USkillUpgrade::RefreshUI()
 {
 	//스킬 데이터가 없으면 닫는다.
+	if (!SkillData.IsValid()) return;
 	TSharedPtr<FSkillData> skill = SkillData.Pin();
 	if (*skill.Get() == FSkillData::EmptySkillData)
 	{

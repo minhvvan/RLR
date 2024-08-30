@@ -14,6 +14,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
+#include "Structs/PlayerStructs.h"
 #include "RLR.h"
 
 // Sets default values

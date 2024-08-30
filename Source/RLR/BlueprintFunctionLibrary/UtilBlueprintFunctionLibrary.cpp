@@ -88,6 +88,7 @@ void UUtilBlueprintFunctionLibrary::TestUpdateStatus()
 	TestPlayerInfo.mutable_totalstatus()->set_usermaxhp(999);
 	TestPlayerInfo.mutable_totalstatus()->set_userstrength(1231);
 
+	//Delegate 인자 참조자로 변경: error 발생할 수 있음
 	FUserCharacter UserCharacter;
 	UserCharacter.SetUserChracterData(TestPlayerInfo);
 	GameInstance->GetUIManager()->UpdatedPlayerInfo.Broadcast(UserCharacter);

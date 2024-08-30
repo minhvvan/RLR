@@ -3,6 +3,7 @@
 
 #include "GameManager/DataManager.h"
 #include "Player/PlayerCommands.h"
+#include "Structs/PlayerStructs.h"
 
 
 
