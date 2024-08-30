@@ -47,6 +47,7 @@ class UPlayerManager;
 class UObjectManager;
 class PacketMessageQueue;
 
+
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
 {
