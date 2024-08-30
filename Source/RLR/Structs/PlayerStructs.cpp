@@ -37,6 +37,13 @@ void FTotalStatus::MakeStatus(Protocol::UserTotalStatus Status)
     COOLDOWN_REDUCTION = Status.usercooldownreduction();
 }
 
+void FTalent::MakeTalent(Protocol::Talent Data)
+{
+    Talents.Add(TPair<int32, int32>(Data.firsttalent(), Data.firsttalent()));
+    Talents.Add(TPair<int32, int32>(Data.secondtalent(), Data.secondlevel()));
+    Talents.Add(TPair<int32, int32>(Data.thirdtalent(), Data.thirdlevel()));
+}
+
 void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
 {
     UserSeq = Data.userseq();
@@ -55,4 +62,3 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
     SetStatus.MakeSetStatus(Data.setstatus());
     Talent.MakeTalent(Data.talent());
 }
-

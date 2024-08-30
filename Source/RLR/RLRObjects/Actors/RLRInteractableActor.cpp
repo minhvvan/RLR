@@ -10,6 +10,7 @@
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
 ARLRInteractableActor::ARLRInteractableActor()
@@ -34,7 +35,8 @@ ARLRInteractableActor::ARLRInteractableActor()
 
 void ARLRInteractableActor::SetInteractData(const FInteractData& Data)
 {
-	InteractData = Data;
+	auto dataPtr = MakeShared<FInteractData>(Data);
+	InteractData = dataPtr.ToWeakPtr();
 }
 
 void ARLRInteractableActor::BeginPlay()

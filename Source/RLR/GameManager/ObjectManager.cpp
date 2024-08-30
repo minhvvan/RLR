@@ -7,6 +7,7 @@
 #include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
+#include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
 UObjectManager::UObjectManager()
