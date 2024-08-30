@@ -153,16 +153,6 @@ UGameOptionData* UGameManager::GetGameOptionData()
 	return GameOptionData;
 }
 
-PacketMessageQueue* UGameManager::GetPacketQueue()
-{
-    if (PacketQueue.IsValid() == false)
-    {
-
-        PacketQueue = MakeShared<PacketMessageQueue>();
-
-    }
-    return PacketQueue.Get();
-}
 
 void UGameManager::SaveGameOption()
 {

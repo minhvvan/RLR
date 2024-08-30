@@ -144,8 +144,8 @@ public:
     virtual ~PacketSession();
 
 protected:
-    //virtual int32 OnRecv(uint8* buffer, int32 len);
-    //virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
+    virtual int32 OnRecv(uint8* buffer, int32 len);
+    virtual void OnRecvPacket(uint8* buffer, int32 len) PURE_VIRTUAL(PacketSession::OnRecvPacket, );
 };
 
 class ClientPacketHandler
