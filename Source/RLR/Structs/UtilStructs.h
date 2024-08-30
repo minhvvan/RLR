@@ -19,6 +19,7 @@ enum class EUIType : uint8
 	KEYOPTION,
 	SKILL,
 	SKILL_UPGRADE,
+	QUEST,
 	NONE,
 };
 

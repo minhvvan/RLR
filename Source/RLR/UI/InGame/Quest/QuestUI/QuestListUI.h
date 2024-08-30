@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameManager\RLRStruct.h"
+#include "Structs/UtilStructs.h"
 #include "UI/SubUI.h"
 #include "QuestListUI.generated.h"
 

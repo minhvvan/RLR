@@ -6,7 +6,7 @@
 void UQuestListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::Quest);
+	SetUIType(EUIType::QUEST);
 	SetUITag(FGameplayTagManager::Get().UI_Quest);
 }
 

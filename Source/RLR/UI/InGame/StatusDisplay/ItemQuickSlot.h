@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
 #include "UI/SlotUI.h"
+#include "Structs/ItemStructs.h"
 #include "ItemQuickSlot.generated.h"
 
 /**
