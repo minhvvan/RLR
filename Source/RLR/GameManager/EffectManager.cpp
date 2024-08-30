@@ -4,7 +4,8 @@
 #include "GameManager/EffectManager.h"
 #include "RLRStruct.h"
 #include "NiagaraFunctionLibrary.h"
-#include <NiagaraSystem.h>
+#include "Structs/UtilStructs.h"
+#include "NiagaraSystem.h"
 
 UEffectManager::UEffectManager()
 {

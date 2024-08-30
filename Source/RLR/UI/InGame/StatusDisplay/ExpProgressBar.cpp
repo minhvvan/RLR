@@ -3,6 +3,7 @@
 
 #include "UI/InGame/StatusDisplay/ExpProgressBar.h"
 #include "Components/ProgressBar.h"
+#include "Structs/UtilStructs.h"
 #include "RLR.h"
 
 UExpProgressBar::UExpProgressBar(const FObjectInitializer& ObjectInitializer)

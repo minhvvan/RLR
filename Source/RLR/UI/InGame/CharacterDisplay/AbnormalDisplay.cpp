@@ -10,6 +10,7 @@
 #include "ActionSystem/StatSet/StatSet.h"
 #include "Blueprint/WidgetTree.h"
 #include "UI/InGame/CharacterDisplay/AbnormalText.h"
+#include "Structs/UtilStructs.h"
 
 UAbnormalDisplay::UAbnormalDisplay(const FObjectInitializer& ObjectInitializer)
 {

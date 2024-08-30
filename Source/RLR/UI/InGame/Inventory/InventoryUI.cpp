@@ -8,6 +8,7 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "GameManager/InventoryManager.h"
+#include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
 UInventoryUI::UInventoryUI(const FObjectInitializer& ObjectInitializer):

@@ -13,6 +13,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/UtilStructs.h"
 
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"

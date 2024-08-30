@@ -7,6 +7,7 @@
 #include "GameManager/RLRStruct.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Structs/SkillStructs.h"
+#include "Structs/UtilStructs.h"
 #include "RLR.h"
 #include "DataManager.generated.h"
 

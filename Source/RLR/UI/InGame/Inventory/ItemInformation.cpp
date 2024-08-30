@@ -14,6 +14,7 @@
 #include "Components/SizeBox.h"
 #include "GameManager/DataManager.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/UtilStructs.h"
 
 void UItemInformation::NativeConstruct()
 {

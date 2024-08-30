@@ -7,6 +7,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "UI/InGame/CharacterDisplay/AbnormalText.h"
+#include "Structs/UtilStructs.h"
 
 UCharacterStatDisplay::UCharacterStatDisplay(const FObjectInitializer& ObjectInitializer)
 {

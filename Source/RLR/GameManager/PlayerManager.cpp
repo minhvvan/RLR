@@ -13,6 +13,7 @@
 
 #include "RLR.h"
 #include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 UPlayerManager::UPlayerManager()

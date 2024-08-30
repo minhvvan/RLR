@@ -7,6 +7,9 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 
+#include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
+
 void UCharacterStatusUI::NativeConstruct()
 {
 	Super::NativeConstruct();

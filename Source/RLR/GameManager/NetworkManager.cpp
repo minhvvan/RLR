@@ -8,6 +8,7 @@
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
+#include "Structs/UtilStructs.h"
 #include "Network/Proto/Item.pb.h"
 
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)

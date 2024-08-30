@@ -20,6 +20,7 @@
 #include "UI/BaseDragDropOperation.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Structs/UtilStructs.h"
 
 
 

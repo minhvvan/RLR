@@ -25,7 +25,7 @@ class RLR_API UBaseUI : public UUserWidget
 	GENERATED_BODY()
 
 public:
-
+	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI(){};
 	virtual void OpenUI();
@@ -38,7 +38,7 @@ public:
 	virtual void SetActionSystemComponent(AActor* Owner);
 
 public:
-	EUIType	UIType = EUIType::NONE;
+	EUIType	UIType;
 
 	UUIManager*			GetUIManager();
 	UGameManager*		GetGameManager();

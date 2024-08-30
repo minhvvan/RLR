@@ -4,6 +4,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillUpgrade.h"
 
 #include "Components/Button.h"
+#include "Structs/UtilStructs.h"
 
 void USkillUpgrade::NativeConstruct()
 {

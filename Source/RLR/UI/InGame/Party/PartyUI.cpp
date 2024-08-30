@@ -13,6 +13,7 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "RLRObjects/Characters/RLRPLayerCharacter.h"
 #include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 
 void UPartyUI::NativeConstruct()
 {
