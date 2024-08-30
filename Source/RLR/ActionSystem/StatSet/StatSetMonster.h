@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/MonsterStructs.h"
 #include "StatSetMonster.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHpChanged);

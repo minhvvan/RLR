@@ -14,6 +14,7 @@
 #include "GameManager/RLRStruct.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/MonsterStructs.h"
 
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)

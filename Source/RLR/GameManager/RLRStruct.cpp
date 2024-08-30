@@ -12,29 +12,6 @@
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
-const FMonsterStatus FMonsterStatus::EmptyMonsterData;
-
-
-void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
-{
-    //(X=1250.000000,Y=1930.000000,Z=96.000000)
-    MonsterSeq = monsterData.monsterseq();
-    MonsterName = UTF8_TO_TCHAR(monsterData.monstername().c_str());
-    MonsterLevel = monsterData.monsterlevel();
-    MonsterExp = monsterData.monsterexp();
-    MonsterAttackRate = monsterData.monsterdamage();
-    MonsterDefence = monsterData.monsterdefence();
-    MonsterHp = monsterData.monsterhp();
-    MonsterAttackRange = 10;  // Packet 추가 예정
-    MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };
-    MonsterId = monsterData.monsterid();
-    MonsterMapId = monsterData.monstermapid();
-}
-
-
-/*
-Enum 변환 관련된 건, 찾아보기 좋게 맨 아래에 배치.
-*/
 
 // 문자열을 EItemRarity으로 변환하는 함수
 EItemRarity StringToEItemRarity(const FString& RarityString)

@@ -14,6 +14,7 @@
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
+#include "Structs/MonsterStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MapMonsterInfoResponsePacket& pkt) {
