@@ -27,6 +27,7 @@
  class UKeyOption;
  class USkillUI;
  class USkillUpgrade;
+ class UQuestListUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -52,6 +53,7 @@ public:
 	UKeyOption*			GetKeyOptionUI(){return KeyOptionUI;}
 	USkillUI*			GetSkillUI(){return SkillUI;}
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
+	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
 	
 public:
 	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
@@ -92,6 +94,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<USkillUpgrade> SkillUpgrade;;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UQuestListUI> QuestListUI;
 public:
 
 protected:

@@ -20,6 +20,12 @@ void UDialogueUI::SetDialogueData(FString DialogueString)
 	TxtTest->SetText(FText::FromString(DialogueString));
 }
 
+void UDialogueUI::SetNPCData(int32 NPCSeq, int32 QuestSeq)
+{
+	CurrentNPCSeq = NPCSeq;
+	CurrentQuestSeq = QuestSeq;
+}
+
 void UDialogueUI::OnDialogueEnded()
 {
 	OnDialogueEnd.Broadcast();
@@ -35,6 +41,7 @@ void UDialogueUI::OnQuestDialogueBegins()
 		UQuestDialogue* QuestDialogueWidget = CreateWidget<UQuestDialogue>(GetWorld(), QuestDialogueWidgetClass);
 		if (QuestDialogueWidget)
 		{
+			QuestDialogueWidget->SetDialogueData(FString::Printf(TEXT("Quest from NPC %d"), CurrentNPCSeq), CurrentNPCSeq, CurrentQuestSeq);
 			QuestDialogueWidget->AddToViewport();
 			this->RemoveFromViewport();
 		}

@@ -11,6 +11,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/QuestManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -131,6 +132,18 @@ UObjectManager* UGameManager::GetObjectManager()
     if (IsValid(ObjectManager))
     {
         return ObjectManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetObjectManager Error."));
+    return nullptr;
+}
+
+UQuestManager* UGameManager::GetQuestManager()
+{
+    UQuestManager* QuestManager = GetSubsystem<UQuestManager>(this);
+    if (IsValid(QuestManager))
+    {
+        return QuestManager;
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetObjectManager Error."));

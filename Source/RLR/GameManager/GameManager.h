@@ -29,6 +29,8 @@
 			플레이어 관리.
 		ObjectManager
 			NPC, 오브젝트 관리.
+		QuestManager
+			Quest 관리
  */
 
 
@@ -37,11 +39,13 @@ class UUIManager;
 class UInventoryManager;
 class USkillManager;
 class UGameOptionData;
+class UQuestManager;
 class UNetworkManager;
 class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
+
 
 
 UCLASS()
@@ -81,6 +85,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	UObjectManager* GetObjectManager();
+
+	UFUNCTION(BlueprintCallable)
+	UQuestManager* GetQuestManager();
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData* GetGameOptionData();

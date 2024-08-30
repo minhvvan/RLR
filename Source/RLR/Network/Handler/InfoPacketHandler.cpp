@@ -11,6 +11,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/QuestManager.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -124,7 +125,7 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
     }
     //TODO : Player Manager 에 User 퀘스트의 연결
     //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
-
+    GameInstance->GetQuestManager()->SetUserQuests(questDatas);
 
     return false;
 }
