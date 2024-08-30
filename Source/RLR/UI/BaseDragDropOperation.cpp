@@ -2,7 +2,15 @@
 
 
 #include "UI/BaseDragDropOperation.h"
-#include "Structs/SkillStructs.h"
+
+
+UBaseDragDropOperation::UBaseDragDropOperation():
+    ItemData(FItemData::EmptyItemData),
+    SkillData(FSkillData::EmptySkillData),
+    DragOffset(FVector::ZeroVector),
+    DragedSlotType(ESlotType::NONE)
+{
+}
 
 void UBaseDragDropOperation::SetItemData(const FItemData& NewItemData)
 {

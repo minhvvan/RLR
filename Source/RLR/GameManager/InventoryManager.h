@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameManager/DataManager.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "Structs/ItemStructs.h"
 #include "InventoryManager.generated.h"
 
 /**
