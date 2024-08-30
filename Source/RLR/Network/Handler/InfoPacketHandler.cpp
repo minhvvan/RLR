@@ -93,6 +93,7 @@ bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_C
 bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NPCInfoResponse& pkt)
 {
     //TODO : Object Manager 에 연결
+    UE_LOG(LogTemp, Log, TEXT("NPc Spawn Start "));
 
     TArray<FNPCData> npcDatas;
     for (auto& npc : pkt.npc()) {

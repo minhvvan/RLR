@@ -56,23 +56,16 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
             break;
         }
 
+
         // 핸들러가 유효한지 확인
         if (GPacketHandler[header->id])
 		{
-            if(header->id <= 1200)
-            { 
+
 				uint16 id = header->id;
 				uint8 size = header->size;
 				TSharedPtr<PacketSession> session = MakeShared<PacketSession>();
 				GPacketHandler[header->id](session, const_cast<uint8*>(packetData), header->size);
-            }else
-            {
-				uint8 size = header->size;
-				PacketMessage message;
-				message.pkt.AddUninitialized(size);
-				FMemory::Memcpy(message.pkt.GetData(), packetData, size);
-				GameInstance->GetPacketQueue()->Push(message);
-            }
+
         }
         else
         {
