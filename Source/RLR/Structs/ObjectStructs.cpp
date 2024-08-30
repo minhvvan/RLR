@@ -40,13 +40,13 @@ void FQuest::MakeQuestData(const Protocol::Quest quest)
         }
         Needs.Add(needKey, need);
     }
-    //FPlayerGoods pGoods;
-    //pGoods.MakePlayerGoods(quest.rewardplayergoods());
-    //PlayerGoods = pGoods;
+    FPlayerGoods pGoods;
+    pGoods.MakePlayerGoods(quest.rewardplayergoods());
+    PlayerGoods = pGoods;
 
-    //FUserGoods uGoods;  
-    //uGoods.MakeUserGoods(quest.rewardusergoods());
-    //UserGoods = uGoods;
+    FUserGoods uGoods;  
+    uGoods.MakeUserGoods(quest.rewardusergoods());
+    UserGoods = uGoods;
 }
 
 void FNPCData::MakeNPCData(const Protocol::NPC npc)

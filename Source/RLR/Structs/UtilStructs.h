@@ -113,15 +113,6 @@ struct FResourceData : public FTableRowBase
 	UTexture2D* Texture;
 };
 
-/*
-
-	작업을 하다보면 각종 Class 정보들을 로드해야 한다.
-	그런데 하드 코딩으로 파일 주소를 불러와서 정보를 로드하는 건 조금 그러니.
-	데이터 테이블을 만들어서 파일을 관리하기 위한 용도.
-
-	테이블의 행 이름은 왠만해선 블루프린트 이름 그대로 해주자.
-
-*/
 USTRUCT(Atomic, BlueprintType)
 struct FClassData : public FTableRowBase
 {

@@ -6,7 +6,6 @@
 #include "Structs/PlayerStructs.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/MonsterStructs.h"
-#include "Structs/UtilStructs.h"
 
 
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)

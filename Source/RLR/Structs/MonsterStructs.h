@@ -96,9 +96,6 @@ struct FMonsterStatus
 		return MonsterString;
 	}
 
-	//Test
-	static int32 tempID;
-
 	void MakeMonsterData(const Protocol::Monster monsterData);
 	static const FMonsterStatus EmptyMonsterData;
 
