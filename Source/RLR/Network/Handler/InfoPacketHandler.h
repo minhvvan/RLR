@@ -13,7 +13,7 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
 bool Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ChannelResponsePacket& pkt);
 bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NPCInfoResponse& pkt);
 bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserQuestInfoResponse& pkt);
-
+bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt);
 bool Handle_QUEST_ADD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestAddResponse& pkt);
 bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCheckResponse& pkt);
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt);

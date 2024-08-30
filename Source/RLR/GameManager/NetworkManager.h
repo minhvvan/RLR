@@ -22,7 +22,6 @@ class RLR_API UNetworkManager : public UGameInstanceSubsystem
     GENERATED_BODY()
 
 public:
-    void Initialize(int64 mapid);
     void SetLoadBalancer(std::string host, int32 port);
 
     UFUNCTION(BlueprintCallable)
@@ -57,6 +56,7 @@ public:
     //Skill.Proto
     bool SendGetSkillPacket();
     bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
+    bool SendAddSkillPacket(int skillSeq);
     //Skill.Proto End
 
     bool SendServerRequest();
@@ -133,49 +133,3 @@ private:
         return bSuccess;\
     } while (0)
 
-
-/*
-    필요 없으면 삭제.
-*/
-class PacketMessage
-{
-public:
-    TArray<BYTE> pkt;
-};
-
-class PacketMessageQueue
-{
-public:
-    PacketMessageQueue() {}
-    ~PacketMessageQueue() {}
-
-    void Push(PacketMessage message) {
-        lock_guard<mutex> lock(_lock);
-        _packetQueue.push(message);
-    }
-
-    const TArray<PacketMessage>& PopAll()
-    {
-        lock_guard<mutex> lock(_lock);
-        TArray<PacketMessage> list;
-        {
-            while (_packetQueue.empty() == false)
-            {
-
-                _list.Add(_packetQueue.front());
-                _packetQueue.pop();
-            }
-        }
-
-        return _list;
-    }
-
-    void Clear(){_list.Empty();}
-
-
-private:
-    TArray<PacketMessage> _list;
-    queue<PacketMessage> _packetQueue;
-    mutex _lock;
-
-};

@@ -12,6 +12,7 @@
 #include "GameManager/SkillManager.h"
 #include "RLR.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/SkillStructs.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 {

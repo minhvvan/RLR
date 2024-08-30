@@ -7,6 +7,7 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/InGame/Chat/ChatUI.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "Structs/UtilStructs.h"
 
 
 void UChatOptionUI::NativeConstruct()

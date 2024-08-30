@@ -12,6 +12,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/Item.pb.h"
+#include "Structs/ItemStructs.h"
 
 /*
 

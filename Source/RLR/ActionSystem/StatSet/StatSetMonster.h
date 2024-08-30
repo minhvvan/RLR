@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/MonsterStructs.h"
 #include "StatSetMonster.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHpChanged);
@@ -59,5 +60,5 @@ protected:
 	void UpdateTransForm(FVector NewTransform);
 	void UpdateHp(int32 NewHp);
 
-	TMap<EAbnormalType, void(*)(const FAbnormal2&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
+	TMap<EAbnormalType, void(*)(const FAbnormal&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
 };

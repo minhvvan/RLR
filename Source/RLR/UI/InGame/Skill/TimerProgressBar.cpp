@@ -3,6 +3,7 @@
 
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "Components/ProgressBar.h"
+#include "Structs/UtilStructs.h"
 
 UTimerProgressBar::UTimerProgressBar(const FObjectInitializer& ObjectInitializer):
 	CurrentTime(0.f),

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "GameManager/DataManager.h"
 #include "UI/SubUI.h"
 #include "ItemInformation.generated.h"
 
@@ -25,23 +24,24 @@ public:
 
 	virtual void NativeConstruct() override;
 
-	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FItemData	GetItemData(){return ItemData;}
+	//Item정보 표시 창에서 GetData를 할 상황이 없을 것 같음
+	//확인 이후 삭제 필요
+	//UFUNCTION(BlueprintCallable, BlueprintPure)
+	//FItemData GetItemData(){return *ItemData.Pin().Get();}
 
 	UFUNCTION(BlueprintCallable)
-	void				SetItemData(FItemData NewData);
+	void SetItemData(const FItemData& NewData);
 
 	//	Rich Text 때문에 블루프린트에서 함수 구현.
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-	void				SetItemNameText(FItemData NewData);
+	void SetItemNameText(const FItemData& NewData);
 
 	UFUNCTION(BlueprintCallable)
-	void				SetItemStatusText(FItemData NewData);
+	void SetItemStatusText(const FItemData& NewData);
 
+	void OpenItemInformation(UBaseUI* From);
 
-	 void				OpenItemInformation(UBaseUI* From);
-
-	 virtual void UpdateSlotState(class USlotUI* Target);
+	virtual void UpdateSlotState(class USlotUI* Target);
 
 public:
 
@@ -67,8 +67,9 @@ public:
 	TObjectPtr<UImage> ItemImage;
 
 private:
-
-	UPROPERTY()
-	FItemData ItemData;
+	//Item정보 표시 창에서 Data를 저장할 상황이 없을 것 같음
+	//확인 이후 삭제 필요
+	//UPROPERTY()
+	//TWeakPtr<FItemData> ItemData;
 
 };

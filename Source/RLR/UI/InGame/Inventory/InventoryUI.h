@@ -24,7 +24,8 @@ class RLR_API UInventoryUI : public USubUI
 
 
 public:
-	
+	UInventoryUI(const FObjectInitializer& ObjectInitializer);
+
 	virtual void NativeConstruct() override;
 
 	UFUNCTION(BlueprintCallable)
@@ -98,9 +99,9 @@ public:
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxColumm = 8;
+	int32 MaxColumm;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxInventorySlotCount = 32;
+	int32 MaxInventorySlotCount;
 
 	UFUNCTION(BlueprintCallable)
 	void	SetMaxSlotCount(int32 Count);
@@ -114,5 +115,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (AllowPrivateAccess = "true"))
 	TArray<TObjectPtr<UInventorySlot>> InventorySlotList;
 
-	EItemType CurrentFilter = EItemType::NONE;
+	EItemType CurrentFilter;
 };

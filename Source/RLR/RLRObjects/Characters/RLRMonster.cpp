@@ -6,6 +6,7 @@
 #include "ActionSystem/StatSet/StatSetMonster.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UI/ASCWidgetComponent.h"
+#include "Structs/MonsterStructs.h"
 #include "RLR.h"
 
 ARLRMonster::ARLRMonster()

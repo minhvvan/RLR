@@ -9,8 +9,12 @@
 #include "UI/SlotUI.h"
 #include "UI/InGame/Inventory/InventorySlot.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Structs/PlayerStructs.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/SizeBox.h"
+#include "GameManager/DataManager.h"
+#include "Structs/ItemStructs.h"
+#include "Structs/UtilStructs.h"
 
 void UItemInformation::NativeConstruct()
 {
@@ -18,21 +22,19 @@ void UItemInformation::NativeConstruct()
 	SetUIType(EUIType::ITEMINFOMATION);
 }
 
-void UItemInformation::SetItemData(FItemData NewData)
+void UItemInformation::SetItemData(const FItemData& NewData)
 {
-	ItemData = NewData;
-
 	ItemInformationText->SetText(NewData.TEXT);
-	//ItemNameText->SetText(FText::FromString(ItemData.NAME));
+	ItemNameText->SetText(NewData.NAME);
 	SetItemNameText(NewData);
 	SetItemStatusText(NewData);
-	ItemImage->SetBrushFromTexture(ItemData.ItemImage);
+	ItemImage->SetBrushFromTexture(NewData.ItemImage);
 }
 
-void UItemInformation::SetItemStatusText(FItemData NewData)
+void UItemInformation::SetItemStatusText(const FItemData& NewData)
 {
 
-	FTotalStatus ItemStatus = NewData.ITEM_STATUS;
+	FItemStatus ItemStatus = NewData.ITEM_STATUS;
 
 	/*
 		0이면 넣지 않고, 수치가 있으면 설명에 넣는다.

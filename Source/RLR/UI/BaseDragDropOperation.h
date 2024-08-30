@@ -6,6 +6,8 @@
 #include "Blueprint/DragDropOperation.h"
 #include "GameManager/RLRStruct.h"
 #include "UI/SlotUI.h"
+#include "Structs/SkillStructs.h"
+#include "Structs/ItemStructs.h"
 #include "BaseDragDropOperation.generated.h"
 
 /**
@@ -25,6 +27,7 @@ class RLR_API UBaseDragDropOperation : public UDragDropOperation
 	GENERATED_BODY()
 
 public:
+	UBaseDragDropOperation();
 
 	void			SetItemData(const FItemData& NewItemData);
 	void			SetSkillData(const FSkillData& NewSkillData);
@@ -44,18 +47,18 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FItemData ItemData = FItemData::EmptyItemData;
+	FItemData ItemData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSkillData SkillData = FSkillData::EmptySkillData;
+	FSkillData SkillData;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USlotUI> Master;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector2D DragOffset = FVector2D::Zero();
+	FVector2D DragOffset;
 
 	//옮기고 있는 슬롯의 타입.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESlotType DragedSlotType = ESlotType::NONE;
+	ESlotType DragedSlotType;
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/PlayerStructs.h"
 #include "StatSetPlayer.generated.h"
 
 

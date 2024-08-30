@@ -3,7 +3,9 @@
 
 #include "GameManager/DataManager.h"
 #include "Player/PlayerCommands.h"
-
+#include "Structs/PlayerStructs.h"
+#include "Structs/ItemStructs.h"
+#include "Structs/MonsterStructs.h"
 
 
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
@@ -63,7 +65,8 @@ void UDataManager::MakeSkillDictionary()
 	{
 		if (SkillData)
 		{
-			ECharacterMainJobType MainJob = SkillData->MainJobType;
+			//TODO: ECharacterMainJobType 분리 후 변경 필요
+			ECharacterMainJobType MainJob = ECharacterMainJobType::NONE;
 
 			if (SkillDictionary.Contains(MainJob) == false)
 			{
@@ -72,13 +75,13 @@ void UDataManager::MakeSkillDictionary()
 
 			FSkillList& SkillList = SkillDictionary[MainJob];
 
-			if (SkillList.SkillList.Contains(SkillData->SkillId) == true)
+			if (SkillDictionary[MainJob].Contains(SkillData->SkillId) == true)
 			{
 				Util::Checkf(nullptr, TEXT("스킬 데이터 테이블에 중복된 Skill ID가 존재합니다."));
 				continue;
 			}
 
-			SkillList.SkillList.Add(SkillData->SkillId, *SkillData);
+			SkillList.Add(*SkillData);
 		}
 	}
 }
@@ -117,7 +120,7 @@ void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkil
 	if(SkillDictionary.Contains(JobType) == false)
 		return;
 
-	SkillDictionary[JobType].SkillList.GenerateValueArray(OutArray);
+	OutArray = SkillDictionary[JobType].toArray();
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

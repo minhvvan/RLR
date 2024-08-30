@@ -9,7 +9,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/Item.pb.h"
-#include "Network/Proto/Skill.pb.h"
+#include "Network/Proto/Cheat.pb.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
@@ -23,27 +23,28 @@
 
 bool UNetworkManager::SendCreateItemCheatPacket(int32 Seq)
 {
-	/*   Protocol::CS_CreateItemCheatPacket packet;
-	   packet.set_itemseq(Seq);
-	   SEND_PACKET(packet);*/
+	Protocol::CS_CreateItemCheatPacket packet;
+	packet.set_itemseq(Seq);
+	SEND_PACKET(packet);
     DEBUG_INCOMPLETE;
     return false;
 }
 
 bool UNetworkManager::SendCreateSkillCheatPacket(int32 Seq)
 {
-    //Protocol::CS_CreateSkillCheatPacket packet;
-    //packet.set_itemseq(Seq);
-    //SEND_PACKET(packet);
+    Protocol::CS_CreateSkillCheatPacket packet;
+    packet.set_skillseq(Seq);
+    SEND_PACKET(packet);
     DEBUG_INCOMPLETE;
     return false;
 }
 
 bool UNetworkManager::SendCreateMonsterCheatPacket(int32 Seq)
 {
-    //Protocol::CS_CreateMonsterCheatPacket packet;
-    //packet.set_itemseq(Seq);
-    //SEND_PACKET(packet);
+    Protocol::CS_CreateMonsterCheatPacket packet;
+    packet.set_monsterseq(Seq);
+    auto sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+    SendToMonsterSocket(sendBuffer);
     DEBUG_INCOMPLETE;
     return false;
 }

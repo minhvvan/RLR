@@ -147,6 +147,11 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_SellResponse>(&Handle_SHOP_SELL_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_USER_SPAWN_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_UserSpawnResponse>(&Handle_USER_SPAWN_RESPONSE, session, buffer, len);
+        };
+
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
@@ -165,27 +170,27 @@ PacketSession::~PacketSession()
 }
 
 // [size(2)][id(2)][data....][size(2)][id(2)][data....]
-//int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
-//{
-//    int32 processLen = 0;
-//
-//    while (true)
-//    {
-//        int32 dataSize = len - processLen;
-//        // �ּ��� ����� �Ľ��� �� �־�� �Ѵ�
-//        if (dataSize < sizeof(PacketHeader))
-//            break;
-//
-//        PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
-//        // ����� ��ϵ� ��Ŷ ũ�⸦ �Ľ��� �� �־�� �Ѵ�
-//        if (dataSize < header.size)
-//            break;
-//
-//        // ��Ŷ ���� ����
-//        OnRecvPacket(&buffer[processLen], header.size);
-//
-//        processLen += header.size;
-//    }
-//
-//    return processLen;
-//}
+int32 PacketSession::OnRecv(BYTE* buffer, int32 len)
+{
+    int32 processLen = 0;
+
+    while (true)
+    {
+        int32 dataSize = len - processLen;
+        // �ּ��� ����� �Ľ��� �� �־�� �Ѵ�
+        if (dataSize < sizeof(PacketHeader))
+            break;
+
+        PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
+        // ����� ��ϵ� ��Ŷ ũ�⸦ �Ľ��� �� �־�� �Ѵ�
+        if (dataSize < header.size)
+            break;
+
+        // ��Ŷ ���� ����
+        OnRecvPacket(&buffer[processLen], header.size);
+
+        processLen += header.size;
+    }
+
+    return processLen;
+}

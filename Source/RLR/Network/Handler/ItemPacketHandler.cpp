@@ -9,6 +9,8 @@
 #include "GameManager/ObjectManager.h"
 #include "RLRObjects/Actors/RLRDropItem.h"
 #include "ClientPacketHandler.h"
+#include "Structs/ItemStructs.h"
+
 bool Handle_ADD_ITEM_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_AddItemResponse& pkt)
 {
     

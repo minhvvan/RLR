@@ -6,6 +6,8 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "Structs/SkillStructs.h"
+#include "Structs/UtilStructs.h"
 #include "RLR.h"
 #include "DataManager.generated.h"
 
@@ -84,8 +86,7 @@ private:
 	TObjectPtr<UDataTable> MonsterDataTable;
 
 	//캐릭터 직업 별로 스킬 정보를 들고 있는다.
-	UPROPERTY()
-	TMap<ECharacterMainJobType, FSkillList> SkillDictionary;
+	FSkillDictionary<ECharacterMainJobType, FSkillList> SkillDictionary;
 
 	//각종 리소스 테이블.
 	UPROPERTY()

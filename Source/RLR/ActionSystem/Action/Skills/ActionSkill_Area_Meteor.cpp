@@ -11,6 +11,7 @@
 #include "Physics/RLRCollision.h"
 #include "GameManager/SkillManager.h"
 #include <Player/RLRPlayerController.h>
+#include "Structs/SkillStructs.h"
 
 void UActionSkill_Area_Meteor::ActivateAction()
 {
@@ -33,7 +34,7 @@ void UActionSkill_Area_Meteor::ActivateAction()
 
 	//Test
 	if (!SkillData) return;
-	float SkillRange = SkillData->CollisionRange.X;
+	float SkillRange = SkillData->SkillRange.X;
 
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
@@ -52,7 +53,7 @@ void UActionSkill_Area_Meteor::ActivateAction()
 		Owner->GetActorLocation(),										/*Center*/
 		FQuat::Identity,												/*Rotate*/
 		CCHANNEL_RLRATTACK,												/*Channel*/
-		FCollisionShape::MakeCapsule(SkillData->CollisionRange),		/*AttackRange*/
+		FCollisionShape::MakeCapsule(SkillData->SkillRange),		/*AttackRange*/
 		params))
 	{
 		for (auto result : OverlapResults)

@@ -12,6 +12,7 @@
 #include "Components/InputKeySelector.h"
 #include "Components/Button.h"
 
+#include "Structs/UtilStructs.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
 #if WITH_EDITOR

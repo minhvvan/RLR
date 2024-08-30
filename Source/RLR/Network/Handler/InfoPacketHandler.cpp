@@ -12,6 +12,10 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/QuestManager.h"
+#include "Structs/SkillStructs.h"
+#include "Structs/PlayerStructs.h"
+#include "Structs/ObjectStructs.h"
+#include "Structs/MonsterStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MapMonsterInfoResponsePacket& pkt) {
@@ -59,13 +63,15 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
 
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
-    
-    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
-    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
-
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
     
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
+    return true;
+}
+bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
+
+    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {
@@ -92,6 +98,7 @@ bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_C
 bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NPCInfoResponse& pkt)
 {
     //TODO : Object Manager 에 연결
+    UE_LOG(LogTemp, Log, TEXT("NPc Spawn Start "));
 
     TArray<FNPCData> npcDatas;
     for (auto& npc : pkt.npc()) {

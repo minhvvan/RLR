@@ -10,6 +10,7 @@
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
+#include "Structs/SkillStructs.h"
 
 UActionSkill::UActionSkill():
 	RotationSpeed(10.f)
