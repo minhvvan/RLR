@@ -46,6 +46,8 @@ enum : uint16
     PKT_GET_SKILL_RESPONSE = 1322,
     PKT_SKILL_CHANGE_REQUEST = 1331,
     PKT_SKILL_CHANGE_RESPONSE = 1332,
+    PKT_SKILL_ADD_REQUEST = 1333,
+    PKT_SKILL_ADD_RESPONSE = 1334,
     PKT_EQUIP_INFO_REQUEST = 1341,
     PKT_EQUIP_INFO_RESPONSE = 1342,
     PKT_EQUIP_CHANGE_REQUEST = 1351,
@@ -177,6 +179,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateItemCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_ITEM_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateSkillCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_SKILL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateMonsterCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_MONSTER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SkillAddRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_ADD_REQUEST); }
 
     
 

@@ -50,6 +50,7 @@ public:
     //Skill.Proto
     bool SendGetSkillPacket();
     bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
+    bool SendAddSkillPacket(int skillSeq);
     //Skill.Proto End
 
     bool SendServerRequest();
