@@ -5,7 +5,7 @@
 #include "GameManager/LevelManager.h"
 #include "Player/PlayerCommands.h"
 
-
+#include "Structs/LevelStruct.h"
 
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -129,14 +129,14 @@ const FLevelData& UDataManager::GetLevelData(int32 Seq)
 {
 	if (IsValid(LevelDataTable))
 	{
-		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Seq), TEXT(""));
+		FLevelData* Data = LevelDataTable->FindRow<FLevelData>(*FString::FromInt(Seq), TEXT(""));
 		if (Data == nullptr)
-			return FSkillData::EmptySkillData;
+			return FLevelData::EmptyData;
 
 		return *Data;
 	}
 
-	return FSkillData::EmptySkillData;
+	return FLevelData::EmptyData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

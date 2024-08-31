@@ -17,26 +17,6 @@
  */
 
 
-
- /*
-  민환님이 지금 정리 중이니 임시 배치. 나중에 머지되면 RLRStruct 어딘가에 옮겨줄 예정.
-*/
-  USTRUCT(Atomic, BlueprintType)
-struct FLevelData
-{
-	GENERATED_BODY()
-
-	/*
-		나중에 현석님한테 서버 리스트에서 채울 데이터 어떻게 구성할지 물어보기.
-	*/
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 LevelSeq;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FText LevelName;			//(맵)레벨 이름.
-};
-
 UCLASS()
 class RLR_API ULevelManager : public UGameInstanceSubsystem
 {
@@ -47,7 +27,5 @@ public:
 	//bool LoadLevel(FString LevelName
 	UFUNCTION(BlueprintCallable)
 	bool LoadLevel(FName LevelName);
-
-	UFUNCTION(BlueprintCallable)
-	bool IsValidLevel(FName LevelName);
+	bool LoadLevel(int32 LevelSeq);
 };

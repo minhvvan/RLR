@@ -2,7 +2,10 @@
 
 
 #include "GameManager/LevelManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 
+#include "Structs/LevelStruct.h"
 #include "Kismet/GameplayStatics.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
@@ -15,19 +18,20 @@
 
 bool ULevelManager::LoadLevel(FName LevelName)
 {
-
-	bool Ret = IsValidLevel(LevelName);
-	if (Ret == false)
-	{
-		DEBUG_LOG("The Level does not exist.");
-		return false;
-	}
-
 	UGameplayStatics::OpenLevel(this, LevelName);
 	return true;
 }
 
-bool ULevelManager::IsValidLevel(FName LevelName)
+bool ULevelManager::LoadLevel(int32 LevelSeq)
 {
+	const FLevelData& Data = GameInstance->GetDataManager()->GetLevelData(LevelSeq);
 
+	if (Data == FLevelData::EmptyData)
+	{ 
+		DEBUG_LOG("The level does not exist");
+		return false;
+	}
+
+	UGameplayStatics::OpenLevel(this, FName(*Data.LevelName));
+	return true;
 }
