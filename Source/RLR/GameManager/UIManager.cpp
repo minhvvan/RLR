@@ -34,6 +34,13 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		NewMainUI->AddToViewport();
 		MainUI = NewMainUI;
 
+
+		/*
+			TODO
+			Title, Lobby 에서 이게 필요한 경우가 있을까?
+			없으면 이야기해서 InGameMainUI에 옮기기기.
+		*/
+
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (!playerCharacter) return;
 

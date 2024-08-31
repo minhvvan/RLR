@@ -53,8 +53,7 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
         LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
         SetPlayerSeq(playerSeq);
-        SendPlayerPacket();
-
+        //SendPlayerPacket();
     }
 }
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)

@@ -2,6 +2,7 @@
 
 
 #include "GameManager/DataManager.h"
+#include "GameManager/LevelManager.h"
 #include "Player/PlayerCommands.h"
 
 
@@ -48,6 +49,10 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassTable.DT_ObjectClassTable'")));
 	if (IsValid(ObjectClassTable) == false)
 		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");
+
+	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_LevelDataTable.DT_LevelDataTable'")));
+	if (IsValid(LevelDataTable) == false)
+		DEBUG_LOG("레벨 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()
@@ -118,6 +123,20 @@ void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkil
 		return;
 
 	SkillDictionary[JobType].SkillList.GenerateValueArray(OutArray);
+}
+
+const FLevelData& UDataManager::GetLevelData(int32 Seq)
+{
+	if (IsValid(LevelDataTable))
+	{
+		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FSkillData::EmptySkillData;
+
+		return *Data;
+	}
+
+	return FSkillData::EmptySkillData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

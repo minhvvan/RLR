@@ -60,8 +60,18 @@ private:
 
 
 public:
+
 	/*
-		Delegate
+		Title Delegate
+	*/
+
+	/*
+		Lobby Delegate
+	*/
+
+
+	/*
+		InGame Delegate
 	*/
 
 	FUpdatedPlayerInfo					UpdatedPlayerInfo;

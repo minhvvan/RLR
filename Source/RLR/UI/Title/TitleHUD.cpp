@@ -1,0 +1,10 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "UI/Title/TitleHUD.h"
+
+void ATitleHUD::BeginPlay()
+{
+	Super::BeginPlay();
+
+}

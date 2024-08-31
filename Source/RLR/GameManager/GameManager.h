@@ -29,6 +29,10 @@
 			플레이어 관리.
 		ObjectManager
 			NPC, 오브젝트 관리.
+		EffectManager
+			이펙트
+		LevelManager
+			레벨 이동 관리
  */
 
 
@@ -42,6 +46,7 @@ class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
+class ULevelManager;
 class PacketMessageQueue;
 
 UCLASS()
@@ -56,34 +61,37 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable)
-	UDataManager* GetDataManager();
+	UDataManager*		GetDataManager();
 
 	UFUNCTION(BlueprintCallable)
-	UUIManager* GetUIManager();
+	UUIManager*			GetUIManager();
 
 	UFUNCTION(BlueprintCallable)
-	UInventoryManager* GetInventoryManager();
+	UInventoryManager*	GetInventoryManager();
 
 	UFUNCTION(BlueprintCallable)
-	USkillManager* GetSkillManager();
+	USkillManager*		GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager* GetNetworkManager();
+	UNetworkManager*	GetNetworkManager();
 
 	UFUNCTION(BlueprintCallable)
-	UMonsterManager* GetMonsterManager();
+	UMonsterManager*	GetMonsterManager();
 
 	UFUNCTION(BlueprintCallable)
-	UOtherUserManager* GetOtherUserManager();
+	UOtherUserManager*	GetOtherUserManager();
 
 	UFUNCTION(BlueprintCallable)
-	UPlayerManager* GetPlayerManager();
+	UPlayerManager*		GetPlayerManager();
 	
 	UFUNCTION(BlueprintCallable)
-	UObjectManager* GetObjectManager();
+	UObjectManager*		GetObjectManager();
 
 	UFUNCTION(BlueprintCallable)
-	UGameOptionData* GetGameOptionData();
+	UGameOptionData*	GetGameOptionData();
+
+	UFUNCTION(BlueprintCallable)
+	ULevelManager*		GetLevelManager();
 
 	PacketMessageQueue* GetPacketQueue();
 

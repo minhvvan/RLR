@@ -11,6 +11,8 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/LevelManager.h"
+
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -151,6 +153,18 @@ UGameOptionData* UGameManager::GetGameOptionData()
 	}
 
 	return GameOptionData;
+}
+
+ULevelManager* UGameManager::GetLevelManager()
+{
+    ULevelManager* LevelManager = GetSubsystem<ULevelManager>(this);
+    if (IsValid(LevelManager))
+    {
+        return LevelManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLevelManager Error."));
+    return nullptr;
 }
 
 PacketMessageQueue* UGameManager::GetPacketQueue()

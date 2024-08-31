@@ -14,7 +14,7 @@
  */
 
 
-
+ struct FLevelData;
  class URLRInputConfig;
 
 UCLASS()
@@ -41,7 +41,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
 
-
+	UFUNCTION(BlueprintCallable)
+	const FLevelData&		GetLevelData(int32 Seq);
 
 	/*
 	
@@ -82,6 +83,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> MonsterDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> LevelDataTable;
 
 	//캐릭터 직업 별로 스킬 정보를 들고 있는다.
 	UPROPERTY()
