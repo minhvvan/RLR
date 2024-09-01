@@ -25,3 +25,7 @@ void ULobbyMainUI::SetInputMode()
 {
 	ChangeInputModeUIOnly();
 }
+
+void ULobbyMainUI::OpenCreateCharacterUI()
+{
+}

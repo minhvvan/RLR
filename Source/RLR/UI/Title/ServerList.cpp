@@ -42,6 +42,7 @@ void UServerList::AddServerListElement(FServerData NewServerData)
 		return;
 
 	NewServerListElement->SetServerData(NewServerData);
+	NewServerListElement->SetParent(this);
 	ServerListElementMap.Add(NewServerData.ServerSeq, NewServerListElement);
 }
 

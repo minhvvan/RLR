@@ -16,6 +16,7 @@
 
  */
 
+DECLARE_DELEGATE(FLoadLevelCompleteDelegate);
 
 UCLASS()
 class RLR_API ULevelManager : public UGameInstanceSubsystem
@@ -24,8 +25,13 @@ class RLR_API ULevelManager : public UGameInstanceSubsystem
 
 public:
 
-	//bool LoadLevel(FString LevelName
-	UFUNCTION(BlueprintCallable)
 	bool LoadLevel(FName LevelName);
 	bool LoadLevel(int32 LevelSeq);
+
+	bool EnterLevel(FName LevelName, FString MainServerAddress, int32 MainPort, FString MonsterServerAddress, int32 MonsterPort);
+	void LoadComplete(const float LoadTime, const FString& MapName);
+
+public:
+
+	FLoadLevelCompleteDelegate LoadLevelCompleteDelegate;
 };

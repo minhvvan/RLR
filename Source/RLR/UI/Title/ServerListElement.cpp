@@ -42,7 +42,11 @@ void UServerListElement::OnClickedServerSelectButton()
 {
 	if(IsValid(Parent) == false)
 		return;
+	
+	UServerList* ServerList = Cast<UServerList>(GetParent());
+	if(IsValid(ServerList) == false)
+		return;
 
-	Parent->SetSelectedServer(this);
+	ServerList->SetSelectedServer(this);
 }
 

@@ -39,16 +39,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UTextBlock>	ServerNameText;
-		
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton>		ServerSelectButton;
 
 public:
-
-	UPROPERTY()
-	TObjectPtr<UServerList> Parent;
-
 	UPROPERTY()
 	FServerData ServerData;	
 };

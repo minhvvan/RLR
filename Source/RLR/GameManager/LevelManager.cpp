@@ -4,21 +4,17 @@
 #include "GameManager/LevelManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Structs/LevelStruct.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
-
-//bool ULevelManager::LoadLevel(FString LevelName)
-//{
-//	FName Level = FName(*LevelName);
-//	return LoadLevel(Level);
-//}
-
 bool ULevelManager::LoadLevel(FName LevelName)
 {
-	UGameplayStatics::OpenLevel(this, LevelName);
+
+	UGameplayStatics::OpenLevel(this, FName("InGame"));
+	//UGameplayStatics::LoadStreamLevel(this, LevelName, true, true, FLatentActionInfo());
 	return true;
 }
 
@@ -35,3 +31,25 @@ bool ULevelManager::LoadLevel(int32 LevelSeq)
 	UGameplayStatics::OpenLevel(this, FName(*Data.LevelName));
 	return true;
 }
+
+bool ULevelManager::EnterLevel(FName LevelName, FString MainServerAddress, int32 MainPort, FString MonsterServerAddress, int32 MonsterPort)
+{
+	//GameInstance->GetLevelManager()->LoadLevelCompleteDelegate.CreateLambda([&]()
+	//	{
+	//		GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, MonsterPort);
+	//		GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, MainPort);
+	//		GameInstance->GetNetworkManager()->SendServerRequest();
+	//		GameInstance->GetNetworkManager()->SendGetSkillPacket();
+	//		GameInstance->GetNetworkManager()->SendUserQuestPacket();
+	//	});
+
+	LoadLevel(LevelName);
+	return true;
+}
+
+void ULevelManager::LoadComplete(const float LoadTime, const FString& MapName)
+{
+	LoadLevelCompleteDelegate.ExecuteIfBound();
+	LoadLevelCompleteDelegate.Unbind();
+}
+

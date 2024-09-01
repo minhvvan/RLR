@@ -32,8 +32,10 @@ public:
 	virtual void Clear(){};
 	virtual void CloseUI();
 
-	void SetUIType(EUIType Type) {UIType = Type;}
-	EUIType GetUIType() {return UIType;}
+	void		SetUIType(EUIType Type) {UIType = Type;}
+	EUIType		GetUIType() {return UIType;}
+	void		SetParent(UBaseUI* UI){Parent = UI;}
+	UBaseUI*	GetParent();
 
 	virtual void SetActionSystemComponent(AActor* Owner);
 
@@ -56,6 +58,8 @@ protected:
 	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
 
 public:
+
+	TObjectPtr<UBaseUI> Parent;
 
 	template<typename T>
 	TSubclassOf<T> GetWidgetClass(FString Name);

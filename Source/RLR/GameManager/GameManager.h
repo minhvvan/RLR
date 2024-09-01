@@ -49,6 +49,8 @@ class UObjectManager;
 class ULevelManager;
 class PacketMessageQueue;
 
+
+
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
 {
@@ -57,7 +59,7 @@ class RLR_API UGameManager : public UGameInstance
 public:
 
 	virtual void Init() override;
-
+	virtual void LoadComplete(const float LoadTime, const FString& MapName);
 	
 
 	UFUNCTION(BlueprintCallable)

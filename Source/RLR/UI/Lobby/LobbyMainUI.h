@@ -9,6 +9,11 @@
 /**
  * 
  */
+
+ class UCharacterListUI;
+ class UCharacterListElement;
+ class UCreateCharacterUI;
+
 UCLASS()
 class RLR_API ULobbyMainUI : public UMainUI
 {
@@ -19,5 +24,18 @@ public:
 	virtual void Clear() override;
 	virtual void SetInputMode() override;
 
+	void OpenCreateCharacterUI();
+
+public:
+
+	/*
+		Bind
+	*/
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UCharacterListUI> CharacterListUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UCreateCharacterUI> CreateCharacterUI;
 
 };

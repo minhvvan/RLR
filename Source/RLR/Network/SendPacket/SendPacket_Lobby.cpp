@@ -21,3 +21,43 @@
 
 */
 
+
+bool UNetworkManager::SendCharacterListReuest(int32 userSeq)
+{
+	/*
+		로비에서 캐릭터 리스트창에 띄울 캐릭터 정보 요청
+	*/
+
+	DEBUG_INCOMPLETE;
+	return false;
+}
+
+bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& DeleteCharacter)
+{
+	/*
+		로비에서 선택한 캐릭터 입장
+	*/
+
+	DEBUG_INCOMPLETE;
+	return false;
+}
+
+bool UNetworkManager::SendCharacterDeleteRequest(const FUserCharacter& DeleteCharacter)
+{
+	/*
+		로비에서 캐릭터 리스트에서 선택한 캐릭터 삭제
+	*/
+
+	DEBUG_INCOMPLETE;
+	return false;
+}
+
+
+bool UNetworkManager::SendCreateCharacterRequest(const FText NewCharacterName, int32 NewCharacterID)
+{
+	/*
+		캐릭터 생성 요청.
+	*/
+	DEBUG_INCOMPLETE;
+	return false;
+}

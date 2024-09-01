@@ -30,6 +30,21 @@ void UBaseUI::CloseUI()
 	SetVisibility(ESlateVisibility::Hidden);
 }
 
+UBaseUI* UBaseUI::GetParent()
+{
+	if (IsValid(Parent) == false)
+	{
+		UBaseUI* MainUI = GetUIManager()->GetMainUI();
+		if (IsValid(MainUI) == false)
+		{
+			DEBUG_LOG("UBaseUI::GetParent Error");
+			return nullptr;
+		}
+		Parent = MainUI;
+	}
+	return Parent;
+}
+
 void UBaseUI::SetActionSystemComponent(AActor* Owner)
 {
 	IActionSystemInterface* ASCInterface = Cast<IActionSystemInterface>(Owner);

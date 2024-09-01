@@ -29,6 +29,14 @@ void UGameManager::Init()
     
 }
 
+void UGameManager::LoadComplete(const float LoadTime, const FString& MapName)
+{
+    Super::LoadComplete(LoadTime, MapName);
+    UE_LOG(LogTemp, Log, TEXT("Level %s load completed!"), *MapName);
+
+    GetLevelManager()->LoadComplete(LoadTime, MapName);
+}
+
 UDataManager* UGameManager::GetDataManager()
 {
 	UDataManager* DataManager = GetSubsystem<UDataManager>(this);
