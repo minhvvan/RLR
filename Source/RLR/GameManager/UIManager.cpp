@@ -33,7 +33,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 	{
 		NewMainUI->AddToViewport();
 		MainUI = NewMainUI;
-
+		MainUI->SetInputMode();
 
 		/*
 			TODO

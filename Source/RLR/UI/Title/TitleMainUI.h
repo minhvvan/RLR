@@ -44,10 +44,12 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
+	virtual void SetInputMode() override;
 
 	//서버 목록 추가.
 	virtual void AddServerListElement(FServerData NewServerData);
 
+	UFUNCTION()
 	void OnClickedConnectServerButton();
 
 public:

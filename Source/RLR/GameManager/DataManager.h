@@ -15,7 +15,6 @@
  */
 
 
- struct FLevelData;
  class URLRInputConfig;
 
 UCLASS()

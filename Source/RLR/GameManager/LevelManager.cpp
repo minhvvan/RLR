@@ -4,8 +4,8 @@
 #include "GameManager/LevelManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
-
 #include "Structs/LevelStruct.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 

@@ -33,6 +33,11 @@ void UTitleMainUI::Clear()
 	Super::Clear();
 }
 
+void UTitleMainUI::SetInputMode()
+{
+	ChangeInputModeUIOnly();
+}
+
 void UTitleMainUI::AddServerListElement(FServerData NewServerData)
 {
 	ServerList->AddServerListElement(NewServerData);

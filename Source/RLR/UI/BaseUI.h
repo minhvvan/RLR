@@ -37,6 +37,10 @@ public:
 
 	virtual void SetActionSystemComponent(AActor* Owner);
 
+	void ChangeInputModeGameAndUI();
+	void ChangeInputModeGameOnly();
+	void ChangeInputModeUIOnly();
+
 public:
 	EUIType	UIType = EUIType::NONE;
 

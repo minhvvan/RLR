@@ -10,11 +10,22 @@
 */
 
 
-
- USTRUCT(BlueprintType)
-struct FLevelData
+UENUM(BlueprintType)
+enum class ETestType : uint8
 {
-	GENERATED_BODY()
+	//무기, 방어구
+	WEAPON,
+	SUBWEAPON,
+};
+
+
+USTRUCT(Atomic, BlueprintType)
+struct FLevelData : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+public:
+
+	FLevelData();
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 LevelSeq = -1;

@@ -5,8 +5,6 @@
 #include "GameManager/LevelManager.h"
 #include "Player/PlayerCommands.h"
 
-#include "Structs/LevelStruct.h"
-
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	//데이터 파일들을 읽어온다.

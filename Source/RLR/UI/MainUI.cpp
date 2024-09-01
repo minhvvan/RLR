@@ -55,3 +55,9 @@ void UMainUI::RefreshUI()
 void UMainUI::CloseUI()
 {
 }
+
+void UMainUI::SetInputMode()
+{
+	//특별한 경우가 없다면 그냥 Game And UI 모드.
+	ChangeInputModeGameAndUI();
+}

@@ -7,3 +7,7 @@
 #include "GameManager/MonsterManager.h"
 
 const FLevelData FLevelData::EmptyData;
+
+FLevelData::FLevelData()
+{
+}

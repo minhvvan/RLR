@@ -13,6 +13,8 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
 
+#include <Kismet/GameplayStatics.h>
+
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
