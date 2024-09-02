@@ -125,8 +125,6 @@ void UMonsterManager::SpawnMonsters()
 
         MonsterInstances.Add(Monster);
     }
-    //TODO: Server Test
-    //AddMonstersToInstances();
 }
 
 const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
@@ -216,13 +214,6 @@ void UMonsterManager::UpdateMonsterTransform(int64 monsterId, float x, float y, 
     spec.NewValue = FVector(x, y, z);
 
     stat->ApplyChangeStat(spec);
-
-    //TODO: Server Test
-    //stat->UpdateTransForm(x, y, z);
-    /*AsyncTask(ENamedThreads::GameThread, [monster, x, y, z]()
-        {
-            monster->SetActorLocation(FVector(x, y, z));
-        });*/
 }
 
 void UMonsterManager::UpdateMonsterHp(int64 monsterId, float newHp)

@@ -34,7 +34,7 @@ public:
 
 protected:
 	bool bCompletedChange;
-	int MaxHp;
-	int CurrentHp;
-	int TargetHp;
+	float MaxHp;
+	float CurrentHp;
+	float TargetHp;
 };

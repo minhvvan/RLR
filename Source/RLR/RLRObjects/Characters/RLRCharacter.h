@@ -28,8 +28,15 @@ public:
 	void DisplayAbnormalText(const FString AbnormalText);
 	void DisplayAbnormalFX(UNiagaraSystem* AbnormalFX);
 
+	UFUNCTION()
+	virtual void SetDead();
+
+	UFUNCTION()
+	virtual void SetRevive();
+
 protected:
 	virtual void BeginPlay() override;
+	void PlayDeadAnimation();
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -44,4 +51,7 @@ protected:
 
 	UPROPERTY(EditAnywhere , Category=Action)
 	TMap<FGameplayTag , TSubclassOf<UAction>> DefaultActions;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Anim, Meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UAnimMontage> DeadMontage;
 };

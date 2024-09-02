@@ -30,6 +30,8 @@ public:
 
 	void UpdateTransform(FVector NewTransform);
 
+	virtual void SetDead() override;
+
 private:
 	
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
