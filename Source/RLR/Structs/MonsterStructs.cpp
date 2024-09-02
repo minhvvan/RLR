@@ -14,6 +14,7 @@ void FMonsterStatus::MakeMonsterData(const Protocol::Monster monsterData)
     MonsterExp = monsterData.monsterexp();
     MonsterAttackRate = monsterData.monsterdamage();
     MonsterDefence = monsterData.monsterdefence();
+    MonsterMaxHp = monsterData.monstermaxhp();
     MonsterHp = monsterData.monsterhp();
     MonsterAttackRange = 10;  // Packet 추가 예정
     MonsterTransform = { monsterData.monstertransx(), monsterData.monstertransy(), monsterData.monstertransz() };

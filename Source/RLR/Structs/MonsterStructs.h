@@ -44,6 +44,9 @@ struct FMonsterStatus
 	int32 MonsterDefence;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 MonsterMaxHp;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 MonsterHp;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
