@@ -23,10 +23,14 @@ void UMonsterStatDisplay::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 
 	if (!bCompletedChange)
 	{
-		int newHp = FMath::Lerp(TargetHp, CurrentHp, .9f);
+		float higher = FMath::Max(TargetHp, CurrentHp);
+		float lower = FMath::Min(TargetHp, CurrentHp);
+
+		float newHp = FMath::Lerp(lower, higher, .9f);
 		CurrentHp = newHp;
 
 		UpdateHp();
+
 		if (newHp == TargetHp)
 		{
 			bCompletedChange = true;
@@ -56,7 +60,7 @@ void UMonsterStatDisplay::SetActionSystemComponent(AActor* Owner)
 	UStatSetMonster* statSet = ActionSystemComponent->GetStatSet<UStatSetMonster>();
 	if (!statSet) return;
 
-	MaxHp = statSet->GetMonsterHp();
+	MaxHp = statSet->GetMonsterMaxHp();
 	CurrentHp = statSet->GetMonsterHp();
 
 	Name->SetText(FText::FromString(statSet->GetMonsterName()));

@@ -22,8 +22,7 @@ ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
 
 void ARLRNonPlayerCharacter::SetNPCData(const FNPCData& Data)
 {
-	TSharedPtr<FNPCData> dataPtr = MakeShared<FNPCData>(Data);
-	NPCData = dataPtr.ToWeakPtr();
+	NPCData = MakeShared<FNPCData>(Data);
 }
 
 void ARLRNonPlayerCharacter::BeginPlay()
@@ -56,7 +55,7 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 	data.UIClass = DialogueUI;
 
 	FInteractionData interactionData;
-	interactionData.DialogueString = NPCData.Pin().Get()->NPCTalk;
+	interactionData.DialogueString = NPCData->NPCTalk;
 	data.InteractionData = interactionData;
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();

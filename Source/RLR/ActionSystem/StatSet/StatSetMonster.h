@@ -9,6 +9,8 @@
 #include "StatSetMonster.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHpChanged);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOutOfHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRevive);
 
 UCLASS()
 class RLR_API UStatSetMonster : public UStatSet
@@ -24,6 +26,7 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterExp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRate, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterDefence, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterMaxHp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterHp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRange, float);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterTransform, FVector);
@@ -52,6 +55,8 @@ public:
 
 	//Delegates
 	FOnHpChanged OnHpChanged;
+	FOnOutOfHealth OnOutOfHealth;
+	FOnRevive OnRevive;
 
 private:
 	FMonsterStatus Stat;

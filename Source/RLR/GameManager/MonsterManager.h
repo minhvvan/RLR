@@ -22,7 +22,6 @@ public:
     UFUNCTION()
     void SetMonsterData(TArray<FMonsterStatus>& MonsterArray);
     ARLRMonster* GetMonsterByMonsterId(int64 monsterId);
-    void AddMonstersToSpawnQueue(TArray<FMonsterStatus> MonstersToSpawn);
 
     //UpdateStat
     void UpdateMonsterTransform(int64 monsterId, float x, float y, float z);
@@ -35,18 +34,11 @@ public:
     const FVector GetMonsterTransformById(int MonsterId);
 
 private:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
     TArray<FMonsterStatus> Monsters;
 
-    TArray<FMonsterStatus> SpawnQueue;
     FCriticalSection QueueMutex;
-
 
     UPROPERTY()
     TArray<ARLRMonster*> MonsterInstances;
-    TMap<FString, TSubclassOf<ARLRMonster>> MonsterClasses;
-
-    FTimerHandle TimerHandle; // 타이머 핸들 추가
-    void AddMonstersToInstances();
-    void ProcessSpawnQueue();
 };

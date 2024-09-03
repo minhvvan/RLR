@@ -49,7 +49,11 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	
 	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassTable.DT_ObjectClassTable'")));
 	if (IsValid(ObjectClassTable) == false)
-		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");
+		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");	
+	
+	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassTable.DT_MonsterClassTable'")));
+	if (IsValid(MonsterClassTable) == false)
+		DEBUG_LOG("몬스터 클래스 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()

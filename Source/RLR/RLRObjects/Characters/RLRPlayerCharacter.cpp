@@ -131,3 +131,15 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 	//플레이어 위치 설정
 	SetActorLocation(NewTransform);
 }
+
+void ARLRPlayerCharacter::SetDead()
+{
+	Super::SetDead();
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		//TODO: UI는 건들수있게 해야할 듯
+		DisableInput(PlayerController);
+	}
+}

@@ -26,9 +26,8 @@ class RLR_API UDataManager : public UGameInstanceSubsystem
 
 
 public:
-
 	virtual void Initialize(FSubsystemCollectionBase& Collection);
-	void				MakeSkillDictionary();															//직업 별로 스킬 정보 정리
+	void MakeSkillDictionary();															//직업 별로 스킬 정보 정리
 	
 
 	UFUNCTION(BlueprintCallable)
@@ -69,7 +68,10 @@ public:
 	TSubclassOf<T>			GetCharacterClass(FString Name);
 
 	template<typename T>
-	TSubclassOf<T>			GetObjectClass(FString Name);
+	TSubclassOf<T>			GetObjectClass(FString Name);	
+	
+	template<typename T>
+	TSubclassOf<T>			GetMonsterClass(int32 MonsterSeq);
 
 	//등급에 따른 배경색
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -100,6 +102,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> ObjectClassTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> MonsterClassTable;
 
 private:
 
@@ -171,5 +176,27 @@ inline TSubclassOf<T> UDataManager::GetObjectClass(FString Name)
 	}
 
 	DEBUG_LOG("ObjectClassTable is Null.");
+	return nullptr;
+}
+
+template<typename T>
+inline TSubclassOf<T> UDataManager::GetMonsterClass(int32 MonsterSeq)
+{
+	if (IsValid(MonsterClassTable) == true)
+	{
+		const FClassData* Data = MonsterClassTable->FindRow<FClassData>(*FString::FormatAsNumber(MonsterSeq), TEXT(""));
+		if (Data == nullptr)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("FClassData is Null."));
+			return nullptr;
+		}
+
+		if (Data->RLRClass->IsChildOf(T::StaticClass()))
+		{
+			return TSubclassOf<T>(Data->RLRClass);
+		}
+	}
+
+	DEBUG_LOG("MonsterClassTable is Null.");
 	return nullptr;
 }

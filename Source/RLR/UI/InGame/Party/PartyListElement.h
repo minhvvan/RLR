@@ -57,5 +57,5 @@ public:
 	*/
 
 public:
-	TWeakPtr<FUserCharacter> UserCharacterData;
+	TSharedPtr<FUserCharacter> UserCharacterData;
 };

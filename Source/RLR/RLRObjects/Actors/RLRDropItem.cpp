@@ -15,8 +15,7 @@ ARLRDropItem::ARLRDropItem()
 
 void ARLRDropItem::SetDropItemData(const FDropItem& Data)
 {
-	auto dataPtr = MakeShared<FDropItem>(Data);
-	ItemData = dataPtr.ToWeakPtr();
+	ItemData = MakeShared<FDropItem>(Data);
 
 	//SetMesh
 	if (ItemMeshes.IsEmpty() || Data.ObjectSeq >= ItemMeshes.Num()) return;
@@ -26,7 +25,7 @@ void ARLRDropItem::SetDropItemData(const FDropItem& Data)
 int ARLRDropItem::GetObjectId()
 {
 	if (!ItemData.IsValid()) return -1;
-	return ItemData.Pin()->ObjectId;
+	return ItemData->ObjectId;
 }
 
 void ARLRDropItem::BeginPlay()
@@ -40,7 +39,7 @@ void ARLRDropItem::BeginPlay()
 void ARLRDropItem::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!ItemData.IsValid()) return;
-	GameInstance->GetObjectManager()->RequestPickUpItem(*ItemData.Pin().Get());
+	GameInstance->GetObjectManager()->RequestPickUpItem(*ItemData);
 }
 
 void ARLRDropItem::ItemMeshLoadCompleted()

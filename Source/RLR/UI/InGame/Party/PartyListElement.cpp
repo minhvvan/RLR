@@ -45,15 +45,12 @@ void UPartyListElement::SetPlayerName(FString String)
 
 void UPartyListElement::SetUserCharacterData(const FUserCharacter& Data)
 {
-	auto dataPtr = MakeShared<FUserCharacter>(Data);
-	UserCharacterData = dataPtr.ToWeakPtr();
+	UserCharacterData = MakeShared<FUserCharacter>(Data);
 	RefreshUI();
 }
 
 FUserCharacter* UPartyListElement::GetUserCharacterData()
 {
 	if (UserCharacterData.IsValid()) return nullptr;
-	
-	auto DataPtr = UserCharacterData.Pin();
-	return DataPtr.Get();
+	return UserCharacterData.Get();
 }

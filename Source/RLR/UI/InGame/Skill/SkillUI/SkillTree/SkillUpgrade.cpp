@@ -21,8 +21,7 @@ void USkillUpgrade::RefreshUI()
 {
 	//스킬 데이터가 없으면 닫는다.
 	if (!SkillData.IsValid()) return;
-	TSharedPtr<FSkillData> skill = SkillData.Pin();
-	if (*skill.Get() == FSkillData::EmptySkillData)
+	if (*SkillData == FSkillData::EmptySkillData)
 	{
 		CloseUI();
 		return;
@@ -51,8 +50,7 @@ void USkillUpgrade::CloseUI()
 
 void USkillUpgrade::SetSkillData(FSkillData& NewSkillData)
 {
-	TSharedPtr<FSkillData> skill = MakeShared<FSkillData>(NewSkillData);
-	SkillData = skill.ToWeakPtr();
+	SkillData = MakeShared<FSkillData>(NewSkillData);
 
 	RefreshUI();
 }
