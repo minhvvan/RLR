@@ -37,5 +37,5 @@ private:
 	TArray<FSoftObjectPath> ItemMeshes;
 	TSharedPtr<FStreamableHandle> ItemMeshHandle;
 
-	TWeakPtr<FDropItem> ItemData;
+	TSharedPtr<FDropItem> ItemData;
 };

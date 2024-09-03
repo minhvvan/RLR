@@ -31,7 +31,6 @@ UObjectManager::UObjectManager()
 
 void UObjectManager::SetNPCData(TArray<FNPCData> Data)
 {
-	//TODO: Add NPCDatas
 	FScopeLock Lock(&NPCDataMutex);
 
 	for (auto& data : Data)

@@ -35,8 +35,7 @@ ARLRInteractableActor::ARLRInteractableActor()
 
 void ARLRInteractableActor::SetInteractData(const FInteractData& Data)
 {
-	auto dataPtr = MakeShared<FInteractData>(Data);
-	InteractData = dataPtr.ToWeakPtr();
+	InteractData = MakeShared<FInteractData>(Data);
 }
 
 void ARLRInteractableActor::BeginPlay()

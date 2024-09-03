@@ -42,5 +42,5 @@ public:
 
 public:
 
-	TWeakPtr<FSkillData> SkillData;
+	TSharedPtr<FSkillData> SkillData;
 };
