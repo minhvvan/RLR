@@ -35,46 +35,72 @@ public:
     UFUNCTION(BlueprintCallable)
     void Update();
 
+
     bool SendToMainSocket(TSharedPtr<SendBuffer> sendBuffer);
     bool SendToMonsterSocket(TSharedPtr<SendBuffer> sendBuffer);
-
     bool SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer);
 
-    bool SendMapInfoRequest(int64 channelId);
-    bool SendPlayerPacket();
-    bool SendStatusPacket();
 
-    bool SendInventoryPacket();
-
-    //Item.Proto
-    bool SendEquipChangePacket(const FItemData& ItemData);      //아이템 장착 패킷.
-    bool SendUnEquipChangePacket(const FItemData& ItemData);    //아이템 해제 패킷.
-    //Item.Proto End
-
-    bool SendAttackPacket(FAttackResult attackResult);
-
-    //Skill.Proto
-    bool SendGetSkillPacket();
-    bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
-    bool SendAddSkillPacket(int skillSeq);
-    //Skill.Proto End
+    /*
+             Info
+                        */
 
     bool SendServerRequest();
 
-    bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
-
     bool SendNPCInfoPacket();
-
-    bool SendUserQuestPacket();
 
     bool SendEnterPacket(int32 userSeq); //게임 입장 패킷
 
+    bool SendMapInfoRequest(int64 channelId);
+
+    bool SendPlayerPacket();
+
+    bool SendStatusPacket();
+
+
+    /*
+             Item
+                        */
+
+    bool SendInventoryPacket();
+
+    bool SendEquipChangePacket(const FItemData& ItemData);      //아이템 장착 패킷.
+
+    bool SendUnEquipChangePacket(const FItemData& ItemData);    //아이템 해제 패킷.
+
     bool SendAddItemPacket(int64 itemId, int32 value); // 아이템 획득 패킷
 
+    /*
+            Action
+                        */
+
+    bool SendAttackPacket(FAttackResult attackResult);
+
+    bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
+
+    /*
+            Skill
+                        */
+    
+    bool SendGetSkillPacket();
+
+    bool SendChangeSkillPacket(const FSkillData* SkillData, int skillIdx); //스킬 퀵 슬롯 변경
+
+    bool SendAddSkillPacket(int skillSeq);
+    
+    /* 
+            Shop
+                        */
 
     bool SendBuyPacket(int itemSeq, int shopSeq, int quantity); // 상점 구매 패킷
 
     bool SendSellPacket(int64 itemId, int shopSeq, int quantity); // 상점 판매 패킷
+
+    /*
+            Quest
+                        */
+
+    bool SendUserQuestPacket();
 
     bool SendQuestAddPacket(int npcSeq, int questSeq); // 퀘스트 추가 패킷
 
@@ -82,14 +108,34 @@ public:
 
     bool SendQuestCompletePacket(int questSeq); // 퀘스트 완료 패킷
 
+    /*
+            Dungeon
+                        */
+
+    bool SendMatchMaking(int64 mapId);
+
+    /*
+            Party
+                        */
+
+    bool SendCreateParty();
+
+    bool SendJoinParty(int partyId);
+
+    bool SendLeaveParty(int partyId);
 
 
-    //Cheat.Proto <-- 만들어주세요.
+    /*
+            Cheat
+                        */
+
     bool SendCreateItemCheatPacket(int32 Seq);
+
     bool SendCreateSkillCheatPacket(int32 Seq);
+
     bool SendCreateMonsterCheatPacket(int32 Seq);
 
-    //Cheat.Proto End
+
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
@@ -118,6 +164,8 @@ private:
     int64 MapId;
 
   
+
+ 
 
 };
 
