@@ -7,118 +7,59 @@
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetMonster.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
 #include "RLR.h"
 #include "Kismet/GameplayStatics.h"
 #include "Structs/MonsterStructs.h"
 
 UMonsterManager::UMonsterManager()
 {
-    ConstructorHelpers::FClassFinder<ARLRMonster> MonsterClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Character/BP_Monster.BP_Monster_C'"));
-    if (MonsterClass.Succeeded())
-    {
-        MonsterClasses.Add(TEXT("그린 슬라임"), MonsterClass.Class);
-    }
 }
 
 void UMonsterManager::SetMonsterData(TArray<FMonsterStatus>& MonsterArray)
 {
-    // MonsterArray 데이터를 SpawnQueue에 추가
-    AddMonstersToSpawnQueue(MonsterArray);
-
-    // 타이머를 설정하여 40초 뒤에 ProcessSpawnQueue 함수를 호출합니다.
-    if (GEngine && GEngine->GameViewport)
-    {
-        UWorld* World = GEngine->GameViewport->GetWorld();
-        if (World)
-        {
-            // 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
-            AsyncTask(ENamedThreads::GameThread, [this, World]()
-                {
-                    World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 3.0f, false);
-                    //World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
-                });
-        }
-    }
-}
-
-void UMonsterManager::AddMonstersToSpawnQueue(TArray<FMonsterStatus> MonstersToSpawn)
-{
     FScopeLock Lock(&QueueMutex);
-    SpawnQueue.Append(MonstersToSpawn);
-}
+    Monsters.Append(MonsterArray);
 
-void UMonsterManager::ProcessSpawnQueue()
-{
-    if (GEngine && GEngine->GameViewport)
+    AsyncTask(ENamedThreads::GameThread, [this]()
     {
-        UWorld* World = GEngine->GameViewport->GetWorld();
-        if (World)
-        {
-            TArray<FMonsterStatus> MonstersToSpawn;
-
-            {
-                FScopeLock Lock(&QueueMutex);
-                MonstersToSpawn = SpawnQueue;
-                SpawnQueue.Empty(); // SpawnQueue 초기화
-            }
-
-            Monsters = MonstersToSpawn; // Monsters 배열에 데이터를 복사
-            SpawnMonsters(); // Monsters 배열을 이용해 몬스터 소환
-        }
-    }
+         SpawnMonsters();
+    });
 }
 
 void UMonsterManager::SpawnMonsters()
 {
     auto World = GetWorld();
-    if (!World)
+    auto DataManager = GameInstance->GetDataManager();
+    if (!World || !DataManager)
     {
-        UE_LOG(LogTemp, Error, TEXT("World is null"));
+        RLR_LOG(LogRLR, Error, TEXT("World is null"));
         return;
     }
 
-    for (auto MonsterStat : Monsters)
+    for (auto& MonsterStat : Monsters)
     {
         FString UniqueName = MonsterStat.MonsterName;
-
-        if (!MonsterClasses.Contains(UniqueName))
-        {
-            UE_LOG(LogTemp, Error, TEXT("Monster class not found for %s"), *UniqueName);
-            continue;
-        }
-
-        TSubclassOf<ARLRMonster> MonsterClass = MonsterClasses[UniqueName];
-        if (!MonsterClass)
-        {
-            UE_LOG(LogTemp, Error, TEXT("MonsterClass is invalid for %s"), *UniqueName);
-            continue;
-        }
-
-        UE_LOG(LogTemp, Warning, TEXT("Spawning Monster: %s at (%f, %f, %f)"), *UniqueName, MonsterStat.MonsterTransform.X, MonsterStat.MonsterTransform.Y, MonsterStat.MonsterTransform.Z);
+        auto MonsterClass = DataManager->GetMonsterClass<ARLRMonster>(MonsterStat.MonsterSeq);
 
         FTransform SpawnTransform;
         SpawnTransform.SetLocation(FVector(MonsterStat.MonsterTransform.X, MonsterStat.MonsterTransform.Y, MonsterStat.MonsterTransform.Z));
         SpawnTransform.SetRotation(FQuat::Identity);
         SpawnTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));
 
-        UE_LOG(LogTemp, Warning, TEXT("SpawnTransform Location: %s"), *SpawnTransform.GetLocation().ToString());
-        UE_LOG(LogTemp, Warning, TEXT("SpawnTransform Rotation: %s"), *SpawnTransform.GetRotation().ToString());
-        UE_LOG(LogTemp, Warning, TEXT("SpawnTransform Scale: %s"), *SpawnTransform.GetScale3D().ToString());
-
         if (!MonsterClass.Get())
         {
-            UE_LOG(LogTemp, Error, TEXT("MonsterClass.Get() is null for %s"), *UniqueName);
+            RLR_LOG(LogRLR, Error, TEXT("MonsterClass.Get() is null for %s"), *UniqueName);
             continue;
         }
 
         ARLRMonster* Monster = World->SpawnActorDeferred<ARLRMonster>(MonsterClass, SpawnTransform);
         if (!Monster)
         {
-            UE_LOG(LogTemp, Error, TEXT("Failed to spawn Monster: %s"), *UniqueName);
+            RLR_LOG(LogRLR, Error, TEXT("Failed to spawn Monster: %s"), *UniqueName);
             continue;
         }
-
-        UE_LOG(LogTemp, Warning, TEXT("Monster successfully spawned: %s"), *UniqueName);
 
         Monster->SetStat(MonsterStat);
         Monster->FinishSpawning(SpawnTransform);
@@ -145,28 +86,6 @@ const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
     return result;
 }
 
-void UMonsterManager::AddMonstersToInstances()
-{
-    auto World = GetWorld();
-    if (!World)
-    {
-        UE_LOG(LogTemp, Error, TEXT("World is null"));
-        return;
-    }
-
-    TArray<AActor*> FoundMonsters;
-    UGameplayStatics::GetAllActorsOfClass(World, ARLRMonster::StaticClass(), FoundMonsters);
-
-    for (AActor* Actor : FoundMonsters)
-    {
-        ARLRMonster* Monster = Cast<ARLRMonster>(Actor);
-        if (Monster)
-        {
-            MonsterInstances.Add(Monster);
-            UE_LOG(LogTemp, Warning, TEXT("Monster %s added to MonsterInstances"), *Monster->GetName());
-        }
-    }
-}
 
 ARLRMonster* UMonsterManager::GetMonsterByMonsterId(int64 monsterId)
 {

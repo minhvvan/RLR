@@ -20,8 +20,6 @@ public:
 	void SetStat(FMonsterStatus& Stat);
 
 protected:
-
-protected:
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
 
