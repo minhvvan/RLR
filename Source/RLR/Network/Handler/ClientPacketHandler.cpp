@@ -152,6 +152,14 @@ void ClientPacketHandler::Init()
             return instance.HandlePacket<Protocol::SC_UserSpawnResponse>(&Handle_USER_SPAWN_RESPONSE, session, buffer, len);
         };
 
+    GPacketHandler[PKT_DROP_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_DropRequest>(&Handle_DROP_REQUEST, session, buffer, len);
+        };
+    GPacketHandler[PKT_EXP_INCREASE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_ExpIncreaseResponse>(&Handle_EXP_INCREASE_REPONSE, session, buffer, len);
+        };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

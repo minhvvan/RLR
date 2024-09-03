@@ -160,3 +160,10 @@ bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
     return false;
 }
 
+bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt)
+{
+    GameInstance->GetPlayerManager()->UpdatePlayerExp(pkt.exp());
+   
+    return false;
+}
+
