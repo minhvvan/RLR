@@ -14,18 +14,7 @@ bool UNetworkManager::SendCreateParty() {
     Protocol::CS_CreatePartyRequest packet;
 
     packet.set_userseq(UserSeq);
-
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 bool UNetworkManager::SendJoinParty(int partyId) {
     if (!MainServerSocket) return false;
@@ -35,17 +24,7 @@ bool UNetworkManager::SendJoinParty(int partyId) {
     packet.set_userseq(UserSeq);
     packet.set_partyid(partyId);
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 bool UNetworkManager::SendLeaveParty(int partyId) {
     if (!MainServerSocket) return false;
@@ -55,15 +34,5 @@ bool UNetworkManager::SendLeaveParty(int partyId) {
     packet.set_userseq(UserSeq);
     packet.set_partyid(partyId);
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }

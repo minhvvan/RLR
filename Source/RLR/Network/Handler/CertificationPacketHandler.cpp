@@ -8,6 +8,7 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ClientPacketHandler.h"
+#include "Structs/PlayerStructs.h"
 // Login Handlers
 
 static bool LoginState = false;

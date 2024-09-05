@@ -16,6 +16,7 @@
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
 
+
 UGameManager* GameInstance = nullptr;
 
 void UGameManager::Init()
@@ -146,7 +147,7 @@ UQuestManager* UGameManager::GetQuestManager()
         return QuestManager;
     }
 
-    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetObjectManager Error."));
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetQuestManager Error."));
     return nullptr;
 }
 

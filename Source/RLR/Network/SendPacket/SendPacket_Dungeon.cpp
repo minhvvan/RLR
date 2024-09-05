@@ -19,16 +19,6 @@ bool UNetworkManager::SendMatchMaking(int64 mapId) {
     packet.set_mapid(mapId);
     packet.set_userseq(UserSeq);
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 
