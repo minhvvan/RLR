@@ -327,10 +327,10 @@ bool UNetworkManager::SendUserQuestPacket() {
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("User Quest 패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("User Quest 패킷 송신 성공"));
     }
 
 
@@ -345,10 +345,10 @@ bool UNetworkManager::SendEnterPacket(int32 userSeq) {
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess =  SendToLobbySocket(sendBuffer);
     if (!bSuccess) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("Enter 패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Enter 패킷 송신 성공"));
     }
 
 

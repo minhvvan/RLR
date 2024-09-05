@@ -123,6 +123,7 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
         questData.MakeQuestData(quest);
         questDatas.Add(questData);
     }
+
     //TODO : Player Manager 에 User 퀘스트의 연결
     //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
     GameInstance->GetQuestManager()->SetUserQuests(questDatas);
