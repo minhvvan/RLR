@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
-//#include "Structs/PlayerStructs.h"
 #include "RLRStruct.h"
 
 #include "GameManager/GameplayTagManager.h"
@@ -53,7 +52,6 @@ protected:
 	void OnDialogueEnded();
 
 private:
-
 	TObjectPtr<UMainUI> MainUI;	
 	TObjectPtr<UDialogueUI> DialogueUI;
 	TArray<USubUI*> SubUIStack;

@@ -6,12 +6,42 @@
 #include "UI/SubUI.h"
 #include "NPCShopUI.generated.h"
 
-/**
- * 
- */
+enum TabIndex
+{
+	EPurchase,
+	ESale
+};
+
+class UButton;
+class UWidgetSwitcher;
+
 UCLASS()
 class RLR_API UNPCShopUI : public USubUI
 {
 	GENERATED_BODY()
+
+protected:
+	UPROPERTY(EditAnywhere, meta=(BindWidget))
+	TObjectPtr<UButton> BtnPurchase;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UButton> BtnSale;	
 	
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UWidgetSwitcher> TabSwitcher;
+
+public:
+	virtual void NativeConstruct() override;
+
+	void SetItemData(TMap<int, FItemData>& Items);
+
+protected:
+	UFUNCTION()
+	void OnPurchaseClicked();
+
+	UFUNCTION()
+	void OnSaleClicked();
+
+protected:
+	TSharedPtr<TMap<int, FItemData>> ItemData;
 };

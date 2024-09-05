@@ -28,6 +28,7 @@
  class USkillUI;
  class USkillUpgrade;
  class UQuestListUI;
+ class UCanvasPanel;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -95,8 +96,10 @@ public:
 	TObjectPtr<USkillUpgrade> SkillUpgrade;;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UQuestListUI> QuestListUI;
+	TObjectPtr<UQuestListUI> QuestListUI;	
+	
 public:
+
 
 protected:
 	UFUNCTION()
