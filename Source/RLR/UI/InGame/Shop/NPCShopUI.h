@@ -33,7 +33,7 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 
-	void SetItemData(TMap<int, FItemData>& Items);
+	void SetItemData(TArray<FItemData>& Items);
 
 protected:
 	UFUNCTION()
@@ -43,5 +43,5 @@ protected:
 	void OnSaleClicked();
 
 protected:
-	TSharedPtr<TMap<int, FItemData>> ItemData;
+	TSharedPtr<TArray<FItemData>> ItemData;
 };

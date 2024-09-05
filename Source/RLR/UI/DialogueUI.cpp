@@ -16,7 +16,7 @@ void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnTest->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
+	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
 	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
 	BtnShop->OnClicked.AddDynamic(this, &UDialogueUI::OnShopClicked);
 }
@@ -24,7 +24,7 @@ void UDialogueUI::NativeConstruct()
 void UDialogueUI::SetDialogueData(FString DialogueString)
 {
 	//TODO: 대화 UI가 어떻게 될지에 따라 변경해야 함
-	TxtTest->SetText(FText::FromString(DialogueString));
+	TxtNPCTalk->SetText(FText::FromString(DialogueString));
 }
 
 void UDialogueUI::SetNPCData(int32 NPCSeq, int32 QuestSeq)
@@ -58,14 +58,14 @@ void UDialogueUI::OnQuestDialogueBegins()
 void UDialogueUI::OnShopClicked()
 {
 	//Test
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		FItemData item;
 		item.NAME = FText::FromString(FString::Printf(TEXT("Item%d"), i));
 		item.SALE_PRICE = i * 10;
 		item.ItemImage = ItemImage;
 
-		TestItems.Add(i, item);
+		TestItems.Add(item);
 	}
 
 	if (ShopUIClass)
@@ -73,9 +73,12 @@ void UDialogueUI::OnShopClicked()
 		auto ShopUI = CreateWidget<UNPCShopUI>(GetWorld(), ShopUIClass);
 		if (ShopUI)
 		{
+			FVector2D panelSize(ShopUI->RootSizeBox->WidthOverride, ShopUI->RootSizeBox->HeightOverride);
+			FVector2D panelPos(100.f, 100.f);
 			ShopUI->SetItemData(TestItems);
 			auto slot = Cast<UCanvasPanelSlot>(Canvas->AddChild(ShopUI));
-			slot->SetSize({ 600.f, 800.f });
+			slot->SetSize(panelSize);
+			slot->SetPosition(panelPos);
 		}
 	}
 }

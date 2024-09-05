@@ -26,16 +26,19 @@ protected:
 	TObjectPtr<UCanvasPanel> Canvas;
 
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
-	TObjectPtr<UButton> BtnTest;
-
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UTextBlock> TxtTest;
+	TObjectPtr<UButton> BtnExit;
 
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnQuest;
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UButton> BtnShop;
+	TObjectPtr<UButton> BtnShop;	
+	
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UTextBlock> TxtNPCName;
+	
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UTextBlock> TxtNPCTalk;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
@@ -71,5 +74,5 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Action)
 	UTexture2D* ItemImage;
-	TMap<int, FItemData> TestItems;
+	TArray<FItemData> TestItems;
 };

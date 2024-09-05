@@ -17,9 +17,9 @@ void UNPCShopUI::NativeConstruct()
 	OnPurchaseClicked();
 }
 
-void UNPCShopUI::SetItemData(TMap<int, FItemData>& Items)
+void UNPCShopUI::SetItemData(TArray<FItemData>& Items)
 {
-	ItemData = MakeShared<TMap<int, FItemData>>(Items);
+	ItemData = MakeShared<TArray<FItemData>>(Items);
 	auto purchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
 	if (!purchaseTab) return;
 	purchaseTab->SetItemList(ItemData.Get());

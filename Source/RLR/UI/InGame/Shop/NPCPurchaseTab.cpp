@@ -2,4 +2,119 @@
 
 
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
+#include "Components/TileView.h"
+#include "Components/TextBlock.h"
+#include "Components/Button.h"
+#include "UI/InGame/Shop/NPCShopItemSlot.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "Structs/ItemStructs.h"
+#include "UI/InGame/Shop/NPCCartSlot.h"
 
+void UNPCPurchaseTab::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	BtnBuy->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnBuyClicked);
+	BtnEmpty->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnEmptyClicked);
+
+	BtnFirst->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnFirstClicked);
+	BtnPrev->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnPrevClicked);
+	BtnNext->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnNextClicked);
+	BtnLast->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnLastClicked);
+
+	CurrentPage = 1;
+	LastPage = Items.Num() / ItemNumPerPage + (Items.Num() % ItemNumPerPage ? 1 : 0);
+	UpdatePage();
+	UpdateLastPageText();
+}
+
+void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData)
+{
+	Items = *ItemData;
+	UpdatePage();
+
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	auto cartSlotClass = dataManager->GetWidgetClass<UNPCCartSlot>(TEXT("WBP_NPCCartSlot"));
+	if (!cartSlotClass) return;
+
+	for (int i = 0; i < 10; i++)
+	{
+		auto newItem = CreateWidget<UNPCCartSlot>(GetWorld(), cartSlotClass);
+		TVCart->AddItem(newItem);
+	}
+
+	LastPage = Items.Num() / ItemNumPerPage + (Items.Num() % ItemNumPerPage ? 1 : 0);
+	UpdateLastPageText();
+}
+
+void UNPCPurchaseTab::OnBuyClicked()
+{
+	//TODO: Buy
+}
+
+void UNPCPurchaseTab::OnEmptyClicked()
+{
+	//TODO: 장바구니 비우기
+}
+
+void UNPCPurchaseTab::OnFirstClicked()
+{
+	if (CurrentPage == 1) return;
+	CurrentPage = 1;
+	UpdatePage();
+}
+
+void UNPCPurchaseTab::OnPrevClicked()
+{
+	if (CurrentPage == 1) return;
+	CurrentPage--;
+	UpdatePage();
+}
+
+void UNPCPurchaseTab::OnNextClicked()
+{
+	if (CurrentPage == LastPage) return;
+	CurrentPage++;
+	UpdatePage();
+}
+
+void UNPCPurchaseTab::OnLastClicked()
+{
+	if (CurrentPage == LastPage) return;
+	CurrentPage = LastPage;
+	UpdatePage();
+}
+
+void UNPCPurchaseTab::UpdatePage()
+{
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(TEXT("WBP_NPCItemSlot"));
+	if (!itemSlotClass) return;
+
+	int idx = (CurrentPage - 1) * ItemNumPerPage;
+	TVItem->ClearListItems();
+	for (int i = idx; i < idx + ItemNumPerPage; i++)
+	{
+		if (!Items.IsValidIndex(i)) break;
+		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
+		itemWidget->SetItemData(Items[i]);
+		TVItem->AddItem(itemWidget);
+	}
+
+	UpdateCurrentPageText();
+}
+
+void UNPCPurchaseTab::UpdateCurrentPageText()
+{
+	TxtCurrentPage->SetText(FText::AsNumber(CurrentPage));
+}
+
+void UNPCPurchaseTab::UpdateLastPageText()
+{
+	TxtLastPage->SetText(FText::AsNumber(LastPage));
+}
