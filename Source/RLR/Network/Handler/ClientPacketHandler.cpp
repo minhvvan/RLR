@@ -16,6 +16,7 @@
 #include "ItemPacketHandler.h"
 #include "CommunityPacketHandler.h"
 #include "ActionPacketHandler.h"
+#include "PartyPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -159,6 +160,26 @@ void ClientPacketHandler::Init()
     GPacketHandler[PKT_EXP_INCREASE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::SC_ExpIncreaseResponse>(&Handle_EXP_INCREASE_REPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_PARTY_MAP_INFO_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PartyMapInfoRequest>(&Handle_PARTY_MAP_INFO_REQUEST, session, buffer, len);
+        };
+    GPacketHandler[PKT_PARTY_STATUS_UPDATE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PartyStatusUpdate>(&Handle_PARTY_STATUS_UPDATE, session, buffer, len);
+        };
+    GPacketHandler[PKT_LEAVE_PARTY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_LeavePartyResponse>(&Handle_LEAVE_PARTY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CREATE_PARTY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CreatePartyResponse>(&Handle_CREATE_PARTY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_JOIN_PARTY_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_JoinPartyResponse>(&Handle_JOIN_PARTY_RESP0NSE, session, buffer, len);
         };
 }
 
