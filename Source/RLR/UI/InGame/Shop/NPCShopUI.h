@@ -14,6 +14,7 @@ enum TabIndex
 
 class UButton;
 class UWidgetSwitcher;
+class UCanvasPanel;
 
 UCLASS()
 class RLR_API UNPCShopUI : public USubUI
@@ -28,9 +29,12 @@ protected:
 	TObjectPtr<UButton> BtnSale;	
 	
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UWidgetSwitcher> TabSwitcher;
+	TObjectPtr<UWidgetSwitcher> TabSwitcher;	
 
 public:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
+
 	virtual void NativeConstruct() override;
 
 	void SetItemData(TArray<FItemData>& Items);

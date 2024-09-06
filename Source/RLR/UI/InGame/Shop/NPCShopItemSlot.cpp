@@ -33,6 +33,7 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 		{
 			//TODO: 개수 선택 UI POP
 			RLR_LOG(LogRLR, Log, TEXT("right shift + click"));
+			if (ParentUI) ParentUI->OpenBundlePurchase(GetItemData());
 		}
 		else
 		{

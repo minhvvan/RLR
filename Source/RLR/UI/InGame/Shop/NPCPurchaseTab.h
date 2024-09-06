@@ -9,6 +9,7 @@
 class UTileView;
 class UTextBlock;
 class UButton;
+class UCanvasPanel;
 class UNPCCartSlot;
 
 UCLASS()
@@ -17,6 +18,9 @@ class RLR_API UNPCPurchaseTab : public UBaseUI
 	GENERATED_BODY()
 	
 protected:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
+	
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UTileView> TVItem;	
 	
@@ -59,6 +63,7 @@ public:
 	virtual void NativeConstruct() override;
 	void SetItemList(const TArray<FItemData>* ItemData);
 	void AddToCart(const FItemData& item);
+	void OpenBundlePurchase(const FItemData& item);
 
 protected:
 	UFUNCTION()

@@ -5,11 +5,17 @@
 #include "Components/TileView.h"
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/SizeBox.h"
+#include "Components/Overlay.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
 #include "Structs/ItemStructs.h"
 #include "UI/InGame/Shop/NPCCartSlot.h"
+#include "UI/InGame/Shop/NPCShopBundlePurchase.h"
+#include "UI/InGame/Shop/NPCShopUI.h"
 #include "RLR.h"
 
 void UNPCPurchaseTab::NativeConstruct()
@@ -154,4 +160,23 @@ UNPCCartSlot* UNPCPurchaseTab::GetCartSlotWidget(int idx)
 
 	auto entry = Cast<UNPCCartSlot>(TVCart->GetEntryWidgetFromItem(listItem));
 	return entry;
+}
+
+void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item)
+{
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	auto bundlePurchaseClass = dataManager->GetWidgetClass<UNPCShopBundlePurchase>(TEXT("WBP_NPCBundlePurchase"));
+	if (!bundlePurchaseClass) return;
+
+	auto bundleUI = CreateWidget<UNPCShopBundlePurchase>(GetWorld(), bundlePurchaseClass);
+	bundleUI->SetItemData(item);
+
+	auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+	if (!shopUI) return;
+
+	FVector2D panelSize(shopUI->RootSizeBox->WidthOverride, shopUI->RootSizeBox->HeightOverride);
+	auto slot = Cast<UCanvasPanelSlot>(shopUI->Canvas->AddChild(bundleUI));
+	slot->SetSize(panelSize);
 }
