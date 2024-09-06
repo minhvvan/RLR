@@ -96,7 +96,7 @@ public:
 	virtual bool IsEmpty();
 
 	virtual UBaseDragDropOperation* GetSlotData();
-	virtual void					SetItemData(FItemData& NewItemData);
+	virtual void					SetItemData(const FItemData& NewItemData);
 	virtual	const FItemData&		GetItemData();
 
 	virtual void					SetSkillData(FSkillData NewSkillData);

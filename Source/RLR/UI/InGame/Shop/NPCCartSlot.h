@@ -7,14 +7,17 @@
 #include "Blueprint/IUserObjectListEntry.h"
 #include "NPCCartSlot.generated.h"
 
-/**
- * 
- */
+class UTextBlock;
+
 UCLASS()
 class RLR_API UNPCCartSlot : public USlotUI, public IUserObjectListEntry
 {
 	GENERATED_BODY()
 	
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> TxtItemAmount;
+
 public:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
@@ -26,4 +29,6 @@ public:
 	virtual void OnClickedSlotButton();
 	virtual void OnHoveredSlotButton();
 	virtual void OnUnHoveredSlotButton();
+
+	virtual void RefreshUI() override;
 };

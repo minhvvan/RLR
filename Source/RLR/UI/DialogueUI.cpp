@@ -61,6 +61,7 @@ void UDialogueUI::OnShopClicked()
 	for (int i = 0; i < 15; i++)
 	{
 		FItemData item;
+		item.ITEM_SEQ = i;
 		item.NAME = FText::FromString(FString::Printf(TEXT("Item%d"), i));
 		item.SALE_PRICE = i * 10;
 		item.ItemImage = ItemImage;

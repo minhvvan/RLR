@@ -10,6 +10,7 @@
 #include "GameManager/GameManager.h"
 #include "Structs/ItemStructs.h"
 #include "UI/InGame/Shop/NPCCartSlot.h"
+#include "RLR.h"
 
 void UNPCPurchaseTab::NativeConstruct()
 {
@@ -50,6 +51,31 @@ void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData)
 	UpdateLastPageText();
 }
 
+void UNPCPurchaseTab::AddToCart(const FItemData& item)
+{
+	if (Cart.Num() == MaxCartNum) return;
+
+	for (int i = 0 ; i < Cart.Num(); i++)
+	{
+		if (Cart[i].ITEM_SEQ == item.ITEM_SEQ)
+		{
+			Cart[i].ITEM_VALUE += item.ITEM_VALUE;
+
+			auto entry = GetCartSlotWidget(i);
+			if (!entry) return;
+
+			entry->SetItemData(Cart[i]);
+			return;
+		}
+	}
+
+	auto entry = GetCartSlotWidget(Cart.Num());
+	if (!entry) return;
+
+	Cart.Add(item);
+	entry->SetItemData(item);
+}
+
 void UNPCPurchaseTab::OnBuyClicked()
 {
 	//TODO: Buy
@@ -58,6 +84,7 @@ void UNPCPurchaseTab::OnBuyClicked()
 void UNPCPurchaseTab::OnEmptyClicked()
 {
 	//TODO: 장바구니 비우기
+	RLR_LOG(LogRLR, Log, TEXT("OnEmptyClicked"));
 }
 
 void UNPCPurchaseTab::OnFirstClicked()
@@ -103,6 +130,7 @@ void UNPCPurchaseTab::UpdatePage()
 		if (!Items.IsValidIndex(i)) break;
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
 		itemWidget->SetItemData(Items[i]);
+		itemWidget->SetParent(this);
 		TVItem->AddItem(itemWidget);
 	}
 
@@ -117,4 +145,13 @@ void UNPCPurchaseTab::UpdateCurrentPageText()
 void UNPCPurchaseTab::UpdateLastPageText()
 {
 	TxtLastPage->SetText(FText::AsNumber(LastPage));
+}
+
+UNPCCartSlot* UNPCPurchaseTab::GetCartSlotWidget(int idx)
+{
+	auto listItem = TVCart->GetItemAt(idx);
+	if (!listItem) return nullptr;
+
+	auto entry = Cast<UNPCCartSlot>(TVCart->GetEntryWidgetFromItem(listItem));
+	return entry;
 }

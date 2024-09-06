@@ -2,6 +2,9 @@
 
 
 #include "UI/InGame/Shop/NPCCartSlot.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "Structs/ItemStructs.h"
 
 void UNPCCartSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -32,4 +35,11 @@ void UNPCCartSlot::OnHoveredSlotButton()
 
 void UNPCCartSlot::OnUnHoveredSlotButton()
 {
+}
+
+void UNPCCartSlot::RefreshUI()
+{
+	auto itemData = GetItemData();
+	SlotImage->SetBrushFromTexture(itemData.ItemImage);
+	TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
 }

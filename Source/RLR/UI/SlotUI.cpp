@@ -170,7 +170,7 @@ UBaseDragDropOperation* USlotUI::GetSlotData()
 	return DragDropOperation;
 }
 
-void USlotUI::SetItemData(FItemData& NewItemData)
+void USlotUI::SetItemData(const FItemData& NewItemData)
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
 	if (IsValid(SlotData) == true)

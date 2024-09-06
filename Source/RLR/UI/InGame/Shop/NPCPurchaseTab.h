@@ -9,6 +9,7 @@
 class UTileView;
 class UTextBlock;
 class UButton;
+class UNPCCartSlot;
 
 UCLASS()
 class RLR_API UNPCPurchaseTab : public UBaseUI
@@ -57,6 +58,7 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 	void SetItemList(const TArray<FItemData>* ItemData);
+	void AddToCart(const FItemData& item);
 
 protected:
 	UFUNCTION()
@@ -75,16 +77,20 @@ protected:
 	void OnNextClicked();
 
 	UFUNCTION()
-	void OnLastClicked();
-
+	void OnLastClicked();	
+	
 	void UpdatePage();
 	void UpdateCurrentPageText();
 	void UpdateLastPageText();
+
+	UNPCCartSlot* GetCartSlotWidget(int idx);
 
 	int CurrentPage = 1;
 	int LastPage = 1;
 
 	const int ItemNumPerPage = 10;
+	const int MaxCartNum = 10;
 
 	TArray<FItemData> Items;
+	TArray<FItemData> Cart;
 };

@@ -2,34 +2,71 @@
 
 
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "Components/TextBlock.h"
+#include "Components/PanelWidget.h"
+#include "Structs/ItemStructs.h"
+#include "UI/InGame/Shop/NPCPurchaseTab.h"
+#include "RLR.h"
 
 void UNPCShopItemSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
-	RefreshUI();
+	UNPCShopItemSlot* itemSlot = Cast<UNPCShopItemSlot>(ListItemObject);
+
+	if (itemSlot)
+	{
+		SetItemData(const_cast<FItemData&>(itemSlot->GetItemData()));
+		SetParent(itemSlot->GetParentUI());
+		RefreshUI();
+	}
 }
 
-void UNPCShopItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
+FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+
+	if (InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
+	{
+		if (InMouseEvent.IsLeftShiftDown())
+		{
+			//TODO: 개수 선택 UI POP
+			RLR_LOG(LogRLR, Log, TEXT("right shift + click"));
+		}
+		else
+		{
+			RLR_LOG(LogRLR, Log, TEXT("right click"));
+			FItemData item(GetItemData());
+			item.ITEM_VALUE = 1;
+			if (ParentUI) ParentUI->AddToCart(item);
+		}
+	}
+
+	return result;
 }
 
-bool UNPCShopItemSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
+void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	return false;
+	//TODO: Show Item Info
+	RLR_LOG(LogRLR, Log, TEXT("OnHoveredSlotButton"));
 }
 
-void UNPCShopItemSlot::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
+void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
+	//TODO: Show Off Item Info
+	RLR_LOG(LogRLR, Log, TEXT("OnUnHoveredSlotButton"));
 }
 
-void UNPCShopItemSlot::OnClickedSlotButton()
+void UNPCShopItemSlot::RefreshUI()
 {
+	auto itemData = GetItemData();
+	TxtItemName->SetText(itemData.NAME);
+	TxtPrice->SetText(FText::AsNumber(itemData.SALE_PRICE));
+	SlotImage->SetBrushFromTexture(itemData.ItemImage);
 }
 
-void UNPCShopItemSlot::OnHoveredSlotButton()
+void UNPCShopItemSlot::SetParent(TObjectPtr<UNPCPurchaseTab> Parent)
 {
-}
-
-void UNPCShopItemSlot::OnUnHoveredSlotButton()
-{
+	ParentUI = Parent;
 }
