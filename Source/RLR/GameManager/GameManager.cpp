@@ -12,10 +12,11 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/LevelManager.h"
-
+#include "GameManager/QuestManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
+
 
 UGameManager* GameInstance = nullptr;
 
@@ -147,6 +148,18 @@ UObjectManager* UGameManager::GetObjectManager()
     return nullptr;
 }
 
+UQuestManager* UGameManager::GetQuestManager()
+{
+    UQuestManager* QuestManager = GetSubsystem<UQuestManager>(this);
+    if (IsValid(QuestManager))
+    {
+        return QuestManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetQuestManager Error."));
+    return nullptr;
+}
+
 UGameOptionData* UGameManager::GetGameOptionData()
 {
 	if (GameOptionData == nullptr)
@@ -173,17 +186,6 @@ ULevelManager* UGameManager::GetLevelManager()
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLevelManager Error."));
     return nullptr;
-}
-
-PacketMessageQueue* UGameManager::GetPacketQueue()
-{
-    if (PacketQueue.IsValid() == false)
-    {
-
-        PacketQueue = MakeShared<PacketMessageQueue>();
-
-    }
-    return PacketQueue.Get();
 }
 
 void UGameManager::SaveGameOption()

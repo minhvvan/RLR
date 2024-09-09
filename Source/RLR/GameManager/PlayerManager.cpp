@@ -12,6 +12,8 @@
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 
 #include "RLR.h"
+#include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 UPlayerManager::UPlayerManager()
@@ -120,7 +122,7 @@ void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
 	statSet->ApplyChangeStat(spec);
 }
 
-void UPlayerManager::ApplyAbnormal(const FAbnormal2& Abnormal)
+void UPlayerManager::ApplyAbnormal(const FAbnormal& Abnormal)
 {
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;

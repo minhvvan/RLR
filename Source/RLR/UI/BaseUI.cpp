@@ -10,8 +10,15 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/InventoryManager.h"
+#include "Structs/UtilStructs.h"
 
 #include "ActionSystem/ActionSystemInterface.h"
+
+void UBaseUI::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+	UIType = EUIType::NONE;
+}
 
 void UBaseUI::NativeConstruct()
 {

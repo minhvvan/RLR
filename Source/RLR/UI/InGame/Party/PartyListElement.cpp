@@ -4,25 +4,32 @@
 #include "UI/InGame/Party/PartyListElement.h"
 #include "Components/ProgressBar.h"
 #include "Components/RichTextBlock.h"
+#include "Structs/PlayerStructs.h"
 
 void UPartyListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 	UPartyListElement* Element = Cast<UPartyListElement>(ListItemObject);
 
-	FUserCharacter Data = Element->GetUserCharacterData();
-	SetUserCharacterData(Data);
+	if (Element->GetUserCharacterData() != nullptr)
+	{
+		//SetUserCharacterData(Data);
+		RefreshUI();
+	}
 }
 
 void UPartyListElement::RefreshUI()
 {
-	float MaxHp =  UserCharacterData.TotalStatus.MAX_HP;
-	float CurrentHp = UserCharacterData.TotalStatus.HP;
+	auto data = GetUserCharacterData();
+	if (data == nullptr) return;
+
+	float MaxHp = data->TotalStatus.MAX_HP;
+	float CurrentHp = data->TotalStatus.HP;
 
 	float Value = FMath::Clamp(CurrentHp/ MaxHp, 0, 1);
 	SetPercentHpBar(Value);
 
-	SetPlayerName(UserCharacterData.NickName);
+	SetPlayerName(data->NickName);
 }
 
 void UPartyListElement::SetPercentHpBar(float Value)
@@ -36,8 +43,14 @@ void UPartyListElement::SetPlayerName(FString String)
 	PlayerNameText->SetText(Name);
 }
 
-void UPartyListElement::SetUserCharacterData(FUserCharacter Data)
+void UPartyListElement::SetUserCharacterData(const FUserCharacter& Data)
 {
-	UserCharacterData = Data;
+	UserCharacterData = MakeShared<FUserCharacter>(Data);
 	RefreshUI();
+}
+
+FUserCharacter* UPartyListElement::GetUserCharacterData()
+{
+	if (UserCharacterData.IsValid()) return nullptr;
+	return UserCharacterData.Get();
 }

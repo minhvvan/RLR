@@ -8,6 +8,15 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "GameManager/InventoryManager.h"
+#include "Structs/UtilStructs.h"
+#include "Structs/ItemStructs.h"
+
+UInventoryUI::UInventoryUI(const FObjectInitializer& ObjectInitializer):
+	MaxColumm(8),
+	MaxInventorySlotCount(32),
+	CurrentFilter(EItemType::NONE)
+{
+}
 
 void UInventoryUI::NativeConstruct()
 {

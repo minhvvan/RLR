@@ -11,6 +11,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillPropertyContainer.h"
 #include "UI/InGame/Skill/SkillUI/SkillSetting/SkillSetting.h"
 #include "UI/InGame/Skill/SkillUI/SkillDetailInfo.h"
+#include "Structs/UtilStructs.h"
 
 void USkillUI::NativeConstruct()
 {

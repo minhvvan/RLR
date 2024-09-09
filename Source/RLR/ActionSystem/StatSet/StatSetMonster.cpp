@@ -24,6 +24,21 @@ void UStatSetMonster::UpdateTransForm(FVector NewTransform)
 
 void UStatSetMonster::UpdateHp(int32 NewHp)
 {
+	if (NewHp <= 0)
+	{
+		AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			OnOutOfHealth.Broadcast();
+		});
+	}
+	else if (NewHp == GetMonsterMaxHp())
+	{
+		AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			OnRevive.Broadcast();
+		});
+	}
+
 	SetMonsterHp(NewHp);
 	OnHpChanged.Broadcast();
 }

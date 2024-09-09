@@ -5,6 +5,8 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/NPC.pb.h"
 #include "Network/Proto/Item.pb.h"
+#include "Network/Proto/Cheat.pb.h"
+#include "Network/Proto/User.pb.h"
 #include <functional>
 #include <memory>
 #include "Network/Buffer.h"
@@ -13,6 +15,7 @@
 #include "Network/Proto/Monster.pb.h"
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
+#include "Network/Proto/Dungeon.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -37,6 +40,8 @@ enum : uint16
     // Add status Packet types
     PKT_STATUS_REQUEST = 1301,
     PKT_STATUS_RESPONSE = 1302,
+    PKT_USER_SPAWN_REQUEST = 1303,
+    PKT_USER_SPAWN_RESPONSE = 1304,
     // Add inventory packet types
     PKT_INVENTORY_REQUEST = 1311,
     PKT_INVENTORY_RESPONSE = 1312,
@@ -44,6 +49,8 @@ enum : uint16
     PKT_GET_SKILL_RESPONSE = 1322,
     PKT_SKILL_CHANGE_REQUEST = 1331,
     PKT_SKILL_CHANGE_RESPONSE = 1332,
+    PKT_SKILL_ADD_REQUEST = 1333,
+    PKT_SKILL_ADD_RESPONSE = 1334,
     PKT_EQUIP_INFO_REQUEST = 1341,
     PKT_EQUIP_INFO_RESPONSE = 1342,
     PKT_EQUIP_CHANGE_REQUEST = 1351,
@@ -107,7 +114,20 @@ enum : uint16
     PKT_JOIN_PARTY_RESPONSE = 1712,
     PKT_LEAVE_PARTY_REQUEST = 1721,
     PKT_LEAVE_PARTY_RESPONSE = 1722,
-    PKT_PARTY_STATUS_UPDATE = 1731
+    PKT_PARTY_STATUS_UPDATE = 1731,
+    PKT_PARTY_MAP_INFO_REQUEST = 1741,
+    // Add Good packet types
+    PKT_GOOD_USER_REQUEST = 1801,
+    PKT_GOOD_PLAYER_REQUEST = 1811,
+
+    PKT_GOOD_USER_RESPONSE = 1802,
+    PKT_GOOD_PLAYER_RESPONSE = 1812,
+    // Add Cheat Packet types
+    PKT_CHEAT_ITEM_REQUEST = 1901,
+    PKT_CHEAT_SKILL_REQUEST = 1902,
+    PKT_CHEAT_MONSTER_REQUEST = 1903,
+
+    PKT_MATCH_MAKING_REQUEST = 2001
 };
 
 // Custom Handlers
@@ -162,6 +182,14 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestAddRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_ADD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCheckRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_CHECK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCompleteRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_COMPLETE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateItemCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateSkillCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_SKILL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateMonsterCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_MONSTER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SkillAddRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_ADD_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MatchMakingRequest& pkt) { return MakeSendBuffer(pkt, PKT_MATCH_MAKING_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
 
     
 

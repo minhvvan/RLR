@@ -4,6 +4,7 @@
 #include "UI/InGame/CharacterDisplay/AbnormalText.h"
 #include "Components/TextBlock.h"
 #include "Animation/WidgetAnimation.h"
+#include "Structs/UtilStructs.h"
 
 UAbnormalText::UAbnormalText(const FObjectInitializer& ObjectInitializer)
 {

@@ -112,20 +112,9 @@ struct NPCDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NPCDefaultTypeInternal _NPC_default_instance_;
-PROTOBUF_CONSTEXPR Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse(
-    ::_pbi::ConstantInitialized) {}
-struct Shop_ItemsEntry_DoNotUseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Shop_ItemsEntry_DoNotUseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~Shop_ItemsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    Shop_ItemsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Shop_ItemsEntry_DoNotUseDefaultTypeInternal _Shop_ItemsEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Shop::Shop(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.items_)*/{::_pbi::ConstantInitialized()}
+    /*decltype(_impl_.items_)*/{}
   , /*decltype(_impl_.shopname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.shopseq_)*/0
   , /*decltype(_impl_.npcseq_)*/0
@@ -155,7 +144,7 @@ struct Vector3DefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Vector3DefaultTypeInternal _Vector3_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[9];
+static ::_pb::Metadata file_level_metadata_NPCStruct_2eproto[8];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_NPCStruct_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_NPCStruct_2eproto = nullptr;
 
@@ -230,16 +219,6 @@ const uint32_t TableStruct_NPCStruct_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.mapid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.quests_),
   PROTOBUF_FIELD_OFFSET(::Protocol::NPC, _impl_.shops_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Shop_ItemsEntry_DoNotUse, value_),
-  0,
-  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Shop, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -267,9 +246,8 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 27, 35, -1, sizeof(::Protocol::Quest_NeedSeqsEntry_DoNotUse)},
   { 37, -1, -1, sizeof(::Protocol::Quest)},
   { 55, -1, -1, sizeof(::Protocol::NPC)},
-  { 70, 78, -1, sizeof(::Protocol::Shop_ItemsEntry_DoNotUse)},
-  { 80, -1, -1, sizeof(::Protocol::Shop)},
-  { 90, -1, -1, sizeof(::Protocol::Vector3)},
+  { 70, -1, -1, sizeof(::Protocol::Shop)},
+  { 80, -1, -1, sizeof(::Protocol::Vector3)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -279,7 +257,6 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_Quest_NeedSeqsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_default_instance_._instance,
   &::Protocol::_NPC_default_instance_._instance,
-  &::Protocol::_Shop_ItemsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Shop_default_instance_._instance,
   &::Protocol::_Vector3_default_instance_._instance,
 };
@@ -307,12 +284,10 @@ const char descriptor_table_protodef_NPCStruct_2eproto[] PROTOBUF_SECTION_VARIAB
   "\030\005 \001(\t\022\'\n\014npcTransform\030\006 \001(\0132\021.Protocol."
   "Vector3\022\r\n\005mapId\030\007 \001(\003\022\037\n\006quests\030\010 \003(\0132\017"
   ".Protocol.Quest\022\035\n\005shops\030\t \003(\0132\016.Protoco"
-  "l.Shop\"\241\001\n\004Shop\022\017\n\007shopSeq\030\001 \001(\005\022\016\n\006npcS"
-  "eq\030\002 \001(\005\022\020\n\010shopName\030\003 \001(\t\022(\n\005items\030\004 \003("
-  "\0132\031.Protocol.Shop.ItemsEntry\032<\n\nItemsEnt"
-  "ry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002 \001(\0132\016.Protoco"
-  "l.Item:\0028\001\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 "
-  "\001(\002\022\t\n\001z\030\003 \001(\002b\006proto3"
+  "l.Shop\"X\n\004Shop\022\017\n\007shopSeq\030\001 \001(\005\022\016\n\006npcSe"
+  "q\030\002 \001(\005\022\020\n\010shopName\030\003 \001(\t\022\035\n\005items\030\004 \003(\013"
+  "2\016.Protocol.Item\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t"
+  "\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_deps[3] = {
   &::descriptor_table_Player_5f2_2eproto,
@@ -321,9 +296,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPCStruct_2eproto_d
 };
 static ::_pbi::once_flag descriptor_table_NPCStruct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPCStruct_2eproto = {
-    false, false, 1102, descriptor_table_protodef_NPCStruct_2eproto,
+    false, false, 1028, descriptor_table_protodef_NPCStruct_2eproto,
     "NPCStruct.proto",
-    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 3, 9,
+    &descriptor_table_NPCStruct_2eproto_once, descriptor_table_NPCStruct_2eproto_deps, 3, 8,
     schemas, file_default_instances, TableStruct_NPCStruct_2eproto::offsets,
     file_level_metadata_NPCStruct_2eproto, file_level_enum_descriptors_NPCStruct_2eproto,
     file_level_service_descriptors_NPCStruct_2eproto,
@@ -832,7 +807,6 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
-
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -841,7 +815,7 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
-
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1733,20 +1707,6 @@ void NPC::InternalSwap(NPC* other) {
 
 // ===================================================================
 
-Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse() {}
-Shop_ItemsEntry_DoNotUse::Shop_ItemsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void Shop_ItemsEntry_DoNotUse::MergeFrom(const Shop_ItemsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata Shop_ItemsEntry_DoNotUse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[6]);
-}
-
-// ===================================================================
-
 class Shop::_Internal {
  public:
 };
@@ -1758,23 +1718,19 @@ Shop::Shop(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  if (arena != nullptr && !is_message_owned) {
-    arena->OwnCustomDestructor(this, &Shop::ArenaDtor);
-  }
   // @@protoc_insertion_point(arena_constructor:Protocol.Shop)
 }
 Shop::Shop(const Shop& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Shop* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      /*decltype(_impl_.items_)*/{}
+      decltype(_impl_.items_){from._impl_.items_}
     , decltype(_impl_.shopname_){}
     , decltype(_impl_.shopseq_){}
     , decltype(_impl_.npcseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.items_.MergeFrom(from._impl_.items_);
   _impl_.shopname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.shopname_.Set("", GetArenaForAllocation());
@@ -1794,7 +1750,7 @@ inline void Shop::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      /*decltype(_impl_.items_)*/{::_pbi::ArenaInitialized(), arena}
+      decltype(_impl_.items_){arena}
     , decltype(_impl_.shopname_){}
     , decltype(_impl_.shopseq_){0}
     , decltype(_impl_.npcseq_){0}
@@ -1810,7 +1766,6 @@ Shop::~Shop() {
   // @@protoc_insertion_point(destructor:Protocol.Shop)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
-    ArenaDtor(this);
     return;
   }
   SharedDtor();
@@ -1818,15 +1773,10 @@ Shop::~Shop() {
 
 inline void Shop::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.items_.Destruct();
-  _impl_.items_.~MapField();
+  _impl_.items_.~RepeatedPtrField();
   _impl_.shopname_.Destroy();
 }
 
-void Shop::ArenaDtor(void* object) {
-  Shop* _this = reinterpret_cast< Shop* >(object);
-  _this->_impl_.items_.Destruct();
-}
 void Shop::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
@@ -1877,13 +1827,13 @@ const char* Shop::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // map<int32, .Protocol.Item> items = 4;
+      // repeated .Protocol.Item items = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&_impl_.items_, ptr);
+            ptr = ctx->ParseMessage(_internal_add_items(), ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
@@ -1941,21 +1891,12 @@ uint8_t* Shop::_InternalSerialize(
         3, this->_internal_shopname(), target);
   }
 
-  // map<int32, .Protocol.Item> items = 4;
-  if (!this->_internal_items().empty()) {
-    using MapType = ::_pb::Map<int32_t, ::Protocol::Item>;
-    using WireHelper = Shop_ItemsEntry_DoNotUse::Funcs;
-    const auto& map_field = this->_internal_items();
-
-    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
-      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
-        target = WireHelper::InternalSerialize(4, entry.first, entry.second, target, stream);
-      }
-    } else {
-      for (const auto& entry : map_field) {
-        target = WireHelper::InternalSerialize(4, entry.first, entry.second, target, stream);
-      }
-    }
+  // repeated .Protocol.Item items = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_items_size()); i < n; i++) {
+    const auto& repfield = this->_internal_items(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1974,13 +1915,11 @@ size_t Shop::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<int32, .Protocol.Item> items = 4;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_items_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >::const_iterator
-      it = this->_internal_items().begin();
-      it != this->_internal_items().end(); ++it) {
-    total_size += Shop_ItemsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  // repeated .Protocol.Item items = 4;
+  total_size += 1UL * this->_internal_items_size();
+  for (const auto& msg : this->_impl_.items_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // string shopName = 3;
@@ -2063,7 +2002,7 @@ void Shop::InternalSwap(Shop* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Shop::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[7]);
+      file_level_metadata_NPCStruct_2eproto[6]);
 }
 
 // ===================================================================
@@ -2334,7 +2273,7 @@ void Vector3::InternalSwap(Vector3* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Vector3::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_NPCStruct_2eproto_getter, &descriptor_table_NPCStruct_2eproto_once,
-      file_level_metadata_NPCStruct_2eproto[8]);
+      file_level_metadata_NPCStruct_2eproto[7]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2363,10 +2302,6 @@ Arena::CreateMaybeMessage< ::Protocol::Quest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::NPC*
 Arena::CreateMaybeMessage< ::Protocol::NPC >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::NPC >(arena);
-}
-template<> PROTOBUF_NOINLINE ::Protocol::Shop_ItemsEntry_DoNotUse*
-Arena::CreateMaybeMessage< ::Protocol::Shop_ItemsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::Shop_ItemsEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::Shop*
 Arena::CreateMaybeMessage< ::Protocol::Shop >(Arena* arena) {

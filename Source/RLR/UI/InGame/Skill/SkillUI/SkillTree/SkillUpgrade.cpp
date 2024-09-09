@@ -4,6 +4,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillUpgrade.h"
 
 #include "Components/Button.h"
+#include "Structs/UtilStructs.h"
 
 void USkillUpgrade::NativeConstruct()
 {
@@ -19,7 +20,8 @@ void USkillUpgrade::NativeConstruct()
 void USkillUpgrade::RefreshUI()
 {
 	//스킬 데이터가 없으면 닫는다.
-	if (SkillData == FSkillData::EmptySkillData)
+	if (!SkillData.IsValid()) return;
+	if (*SkillData == FSkillData::EmptySkillData)
 	{
 		CloseUI();
 		return;
@@ -46,8 +48,9 @@ void USkillUpgrade::CloseUI()
 	SetVisibility(ESlateVisibility::Hidden);
 }
 
-void USkillUpgrade::SetSkillData(FSkillData NewSkillData)
+void USkillUpgrade::SetSkillData(FSkillData& NewSkillData)
 {
-	SkillData = NewSkillData;
+	SkillData = MakeShared<FSkillData>(NewSkillData);
+
 	RefreshUI();
 }

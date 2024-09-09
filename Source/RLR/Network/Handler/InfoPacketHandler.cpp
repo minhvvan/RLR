@@ -11,6 +11,11 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/QuestManager.h"
+#include "Structs/SkillStructs.h"
+#include "Structs/PlayerStructs.h"
+#include "Structs/ObjectStructs.h"
+#include "Structs/MonsterStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MapMonsterInfoResponsePacket& pkt) {
@@ -58,13 +63,15 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
 
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
-    
-    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
-    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
-
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
     
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
+    return true;
+}
+bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
+
+    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SendNPCInfoPacket();
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {
@@ -91,6 +98,7 @@ bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_C
 bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NPCInfoResponse& pkt)
 {
     //TODO : Object Manager 에 연결
+    UE_LOG(LogTemp, Log, TEXT("NPc Spawn Start "));
 
     TArray<FNPCData> npcDatas;
     for (auto& npc : pkt.npc()) {
@@ -115,9 +123,10 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
         questData.MakeQuestData(quest);
         questDatas.Add(questData);
     }
+
     //TODO : Player Manager 에 User 퀘스트의 연결
     //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
-
+    GameInstance->GetQuestManager()->SetUserQuests(questDatas);
 
     return false;
 }
@@ -149,6 +158,13 @@ bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_B
 bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt)
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt)
+{
+    GameInstance->GetPlayerManager()->UpdatePlayerExp(pkt.exp());
+   
     return false;
 }
 

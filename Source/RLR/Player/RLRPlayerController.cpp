@@ -84,28 +84,7 @@ void ARLRPlayerController::Tick(float DeltaTime)
         timeSinceLastMovePacket = 0.0f;
     }
 
-	const TArray<PacketMessage>& list = GameInstance->GetPacketQueue()->PopAll();
-	for (PacketMessage message : list)
-	{
-		PacketHeader* header = (PacketHeader*)message.pkt.GetData();
-		uint16 id = header->id;
-
-
-		//session을 계속 만들어서 함수에 올리던데, 필요한 거면 현석님이 수정 요망.
-		static TSharedPtr<PacketSession> session;
-			if(session == nullptr)
-				session= MakeShared<PacketSession>();
-
-		if(GPacketHandler[header->id])
-		{ 
-			GPacketHandler[id](session, message.pkt.GetData(), header->size);
-		}
-		else
-		{
-			//UE_LOG(LogTemp, Error, TEXT("No handler found for packet id: %d"), header->id);
-		}
-	}
-	GameInstance->GetPacketQueue()->Clear();
+	
 
 }
 

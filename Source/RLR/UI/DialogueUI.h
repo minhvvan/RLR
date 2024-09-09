@@ -39,11 +39,15 @@ public:
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
 	//Test
 	void SetDialogueData(FString DialogueString);
-
+	void SetNPCData(int32 NPCSeq, int32 QuestSeq);
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
 
 	UFUNCTION()
 	void OnQuestDialogueBegins();
+
+private:
+	int32 CurrentNPCSeq;
+	int32 CurrentQuestSeq;
 };

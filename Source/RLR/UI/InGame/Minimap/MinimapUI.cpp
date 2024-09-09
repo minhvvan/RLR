@@ -4,6 +4,7 @@
 #include "UI/InGame/Minimap/MinimapUI.h"
 #include "Components/RichTextBlock.h"
 #include "Components/Image.h"
+#include "Structs/UtilStructs.h"
 
 
 

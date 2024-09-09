@@ -33,23 +33,22 @@
 			이펙트
 		LevelManager
 			레벨 이동 관리
+		QuestManager
+			Quest 관리
  */
-
 
 class UDataManager;
 class UUIManager;
 class UInventoryManager;
 class USkillManager;
 class UGameOptionData;
+class UQuestManager;
 class UNetworkManager;
 class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
 class ULevelManager;
-class PacketMessageQueue;
-
-
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -94,8 +93,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	ULevelManager*		GetLevelManager();
-
-	PacketMessageQueue* GetPacketQueue();
+	UQuestManager* GetQuestManager();
+	UFUNCTION(BlueprintCallable)
+	UGameOptionData* GetGameOptionData();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
@@ -110,6 +110,6 @@ private:
 	UPROPERTY();
 	TObjectPtr<UGameOptionData> GameOptionData;
 
-	TSharedPtr<PacketMessageQueue> PacketQueue;
+	
 };
 extern  UGameManager* GameInstance;

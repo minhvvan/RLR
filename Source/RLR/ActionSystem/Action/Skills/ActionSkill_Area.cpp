@@ -11,6 +11,7 @@
 #include "GameManager/SkillManager.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
+#include "Structs/SkillStructs.h"
 #include "RLR.h"
 
 UActionSkill_Area::UActionSkill_Area()
@@ -74,7 +75,7 @@ void UActionSkill_Area::ActivateAction()
 
 		//Spawn Reticle
 		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
-		SpawnedReticle->InitializeReticle(Controller, SkillData->CollisionRange.X);
+		SpawnedReticle->InitializeReticle(Controller, SkillData->SkillRange.X);
 
 		FTransform SpawnLoc(Controller->GetClickPosition());
 		SpawnedReticle->FinishSpawning(SpawnLoc);

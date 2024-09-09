@@ -8,6 +8,7 @@
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
 ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
@@ -21,7 +22,7 @@ ARLRNonPlayerCharacter::ARLRNonPlayerCharacter()
 
 void ARLRNonPlayerCharacter::SetNPCData(const FNPCData& Data)
 {
-	NPCData = Data;
+	NPCData = MakeShared<FNPCData>(Data);
 }
 
 void ARLRNonPlayerCharacter::BeginPlay()
@@ -42,6 +43,8 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 	UActionSystemComponent* PlayerASC = Player->GetActionSystemComponent();
 	if (!PlayerASC) return;
 
+	if (!NPCData.IsValid()) return;
+
 	for (auto [Tag, Action] : GiveToPlayerActions)
 	{
 		FActionSpec Spec(Action);
@@ -52,7 +55,10 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 	data.UIClass = DialogueUI;
 
 	FInteractionData interactionData;
-	interactionData.DialogueString = NPCData.NPCTalk;
+	interactionData.DialogueString = NPCData->NPCTalk;
+	// 임시 데이터 
+	interactionData.NPCSeq = NPCData->NPCSeq;
+	interactionData.QuestSeq = NPCData->NPCQuests[0].QuestSeq;
 	data.InteractionData = interactionData;
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();

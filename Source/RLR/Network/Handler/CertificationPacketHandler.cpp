@@ -14,6 +14,7 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ClientPacketHandler.h"
+#include "Structs/PlayerStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
@@ -42,6 +43,8 @@ bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     return true;
 }
 
+// Login Handlers
+
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
@@ -66,7 +69,6 @@ bool Handle_ENTER_GAME_FROM_LOBBY_RESPONSE(TSharedPtr<PacketSession>& session, P
     *   임시로 구현.
         타이틀 -> 로비 -> 인게임 이동이 완벽해지면 Handle_ENTER_GAME_RESPONSE 대신 해주기.
     */
-
     /*
         로딩 화면이 필요할거 같다.
         레벨 이동에는 딜레이가 존재하고, 딜레이 동안 로딩화면을 보여주면서, 
@@ -112,8 +114,6 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 
 bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserResponsePacket& pkt) {
 
-    
-
     TArray<FUserCharacter> users;
     for (auto& user : pkt.users()) {
         FUserCharacter Fuser;
@@ -125,8 +125,6 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
     GameInstance->GetNetworkManager()->SetMapId(pkt.users().at(0).mapid());
     GameInstance->GetNetworkManager()->SendEnterPacket(pkt.users().at(0).userseq());
      //GameInstance->GetLobbyManager()->SetUsersData();
-
-
 
     return true;
 }

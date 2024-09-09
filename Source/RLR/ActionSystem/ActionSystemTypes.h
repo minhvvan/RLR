@@ -244,6 +244,10 @@ struct RLR_API FInteractionData
 
 	UPROPERTY(VisibleAnywhere, Category = "Interaction")
 	FString DialogueString;
+
+	/* TODO : 임시 데이터 저장용 */
+	int32 NPCSeq;
+	int32 QuestSeq;
 };
 
 USTRUCT(Atomic, BlueprintType)

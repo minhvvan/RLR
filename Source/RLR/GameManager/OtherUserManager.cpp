@@ -128,9 +128,8 @@ void UOtherUserManager::AddPlayerToParty(Protocol::UserCharacter& NewPlayer)
 
 	FUserCharacter NewPartyPlayer;
 	NewPartyPlayer.MakeUserCharacter(NewPlayer);
-	PartyPlayerList.Add(NewPlayer.playerseq(), NewPartyPlayer);
-
-	GameInstance->GetUIManager()->UpdatedPartyPlayerInfo.Broadcast(NewPartyPlayer);
+	
+	GameInstance->GetUIManager()->UpdatedPartyPlayerInfo.Broadcast(PartyPlayerList.Add(NewPlayer.playerseq(), NewPartyPlayer));
 }
 
 TSubclassOf<ARLRPlayerCharacter> UOtherUserManager::GetPlayerCharacterClass(ECharacterMainJobType JobType)

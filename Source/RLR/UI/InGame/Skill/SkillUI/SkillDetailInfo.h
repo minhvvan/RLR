@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "Structs/SkillStructs.h"
 #include "SkillDetailInfo.generated.h"
 
 /**

@@ -5,9 +5,12 @@
 #include "CoreMinimal.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/MonsterStructs.h"
 #include "StatSetMonster.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHpChanged);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOutOfHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRevive);
 
 UCLASS()
 class RLR_API UStatSetMonster : public UStatSet
@@ -23,6 +26,7 @@ public:
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterExp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRate, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterDefence, int32);
+	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterMaxHp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterHp, int32);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterAttackRange, float);
 	STAT_ACCESSORS(UStatSetMonster, FMonsterStatus, MonsterTransform, FVector);
@@ -51,6 +55,8 @@ public:
 
 	//Delegates
 	FOnHpChanged OnHpChanged;
+	FOnOutOfHealth OnOutOfHealth;
+	FOnRevive OnRevive;
 
 private:
 	FMonsterStatus Stat;
@@ -59,5 +65,5 @@ protected:
 	void UpdateTransForm(FVector NewTransform);
 	void UpdateHp(int32 NewHp);
 
-	TMap<EAbnormalType, void(*)(const FAbnormal2&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
+	TMap<EAbnormalType, void(*)(const FAbnormal&, TObjectPtr<UStatSetMonster>)> AbnormalFunctors;
 };

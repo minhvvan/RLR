@@ -54,10 +54,10 @@ public:
 		ex)내가 중간에 들어온 경우라면, 한 번에 여러명씩 추가.
 	*/
 	UFUNCTION()
-	virtual void AddPlayer(FUserCharacter NewPlayer);
+	virtual void AddPlayer(FUserCharacter& NewPlayer);
 
 	UFUNCTION()
-	virtual void RemovePlayer(FUserCharacter LeavePlayer);
+	virtual void RemovePlayer(FUserCharacter& LeavePlayer);
 
 public:
 

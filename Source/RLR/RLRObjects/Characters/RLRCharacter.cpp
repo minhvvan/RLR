@@ -79,7 +79,29 @@ void ARLRCharacter::DisplayAbnormalFX(UNiagaraSystem* AbnormalFX)
 	if (AbnormalNiagaraComp) AbnormalNiagaraComp->Activate();
 }
 
+void ARLRCharacter::SetDead()
+{
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_None);
+	PlayDeadAnimation();
+	SetActorEnableCollision(false);
+}
+
+void ARLRCharacter::SetRevive()
+{
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+	SetActorEnableCollision(true);
+}
+
 void ARLRCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ARLRCharacter::PlayDeadAnimation()
+{
+	if (DeadMontage.IsNull()) return;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	AnimInstance->StopAllMontages(0.0f);
+	AnimInstance->Montage_Play(DeadMontage, 1.0f);
 }

@@ -15,6 +15,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/UtilStructs.h"
 
 
 void USlotUI::NativeConstruct()

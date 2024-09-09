@@ -6,6 +6,7 @@
 #include "ActionSystem/StatSet/StatSetMonster.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UI/ASCWidgetComponent.h"
+#include "Structs/MonsterStructs.h"
 #include "RLR.h"
 
 ARLRMonster::ARLRMonster()
@@ -21,6 +22,8 @@ void ARLRMonster::SetStat(FMonsterStatus& Stat)
 		statSet = ASC->GetStatSet<UStatSetMonster>();
 	}
 
+	statSet->OnOutOfHealth.AddDynamic(this, &ARLRMonster::SetDead);
+	statSet->OnRevive.AddDynamic(this, &ARLRMonster::SetRevive);
 	statSet->SetStatData(Stat);
 }
 
@@ -36,4 +39,22 @@ void ARLRMonster::PostInitializeComponents()
 void ARLRMonster::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ARLRMonster::SetDead()
+{
+	Super::SetDead();
+	if (auto* root = GetRootComponent())
+	{
+		root->SetVisibility(false, true);
+	}
+}
+
+void ARLRMonster::SetRevive()
+{
+	Super::SetRevive();
+	if (auto* root = GetRootComponent())
+	{
+		root->SetVisibility(true, true);
+	}
 }

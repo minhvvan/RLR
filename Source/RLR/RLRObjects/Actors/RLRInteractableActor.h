@@ -44,5 +44,5 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Action)
 	TSubclassOf<UAction> GiveToPlayerAction;
 
-	FInteractData InteractData;
+	TSharedPtr<FInteractData> InteractData;
 };

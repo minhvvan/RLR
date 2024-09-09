@@ -66,9 +66,6 @@ extern Quest_RewardSeqsEntry_DoNotUseDefaultTypeInternal _Quest_RewardSeqsEntry_
 class Shop;
 struct ShopDefaultTypeInternal;
 extern ShopDefaultTypeInternal _Shop_default_instance_;
-class Shop_ItemsEntry_DoNotUse;
-struct Shop_ItemsEntry_DoNotUseDefaultTypeInternal;
-extern Shop_ItemsEntry_DoNotUseDefaultTypeInternal _Shop_ItemsEntry_DoNotUse_default_instance_;
 class Values;
 struct ValuesDefaultTypeInternal;
 extern ValuesDefaultTypeInternal _Values_default_instance_;
@@ -85,7 +82,6 @@ template<> ::Protocol::Quest* Arena::CreateMaybeMessage<::Protocol::Quest>(Arena
 template<> ::Protocol::Quest_NeedSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_NeedSeqsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Quest_RewardSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_RewardSeqsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Shop* Arena::CreateMaybeMessage<::Protocol::Shop>(Arena*);
-template<> ::Protocol::Shop_ItemsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Shop_ItemsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Values* Arena::CreateMaybeMessage<::Protocol::Values>(Arena*);
 template<> ::Protocol::Values_ValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Values_ValuesEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Vector3* Arena::CreateMaybeMessage<::Protocol::Vector3>(Arena*);
@@ -940,30 +936,6 @@ class NPC final :
 };
 // -------------------------------------------------------------------
 
-class Shop_ItemsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Shop_ItemsEntry_DoNotUse, 
-    int32_t, ::Protocol::Item,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
-public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Shop_ItemsEntry_DoNotUse, 
-    int32_t, ::Protocol::Item,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
-  Shop_ItemsEntry_DoNotUse();
-  explicit PROTOBUF_CONSTEXPR Shop_ItemsEntry_DoNotUse(
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit Shop_ItemsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const Shop_ItemsEntry_DoNotUse& other);
-  static const Shop_ItemsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Shop_ItemsEntry_DoNotUse*>(&_Shop_ItemsEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(void*) { return true; }
-  static bool ValidateValue(void*) { return true; }
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  friend struct ::TableStruct_NPCStruct_2eproto;
-};
-
-// -------------------------------------------------------------------
-
 class Shop final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Shop) */ {
  public:
@@ -1012,7 +984,7 @@ class Shop final :
                &_Shop_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(Shop& a, Shop& b) {
     a.Swap(&b);
@@ -1073,8 +1045,6 @@ class Shop final :
   protected:
   explicit Shop(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
   public:
 
   static const ClassData _class_data_;
@@ -1084,7 +1054,6 @@ class Shop final :
 
   // nested types ----------------------------------------------------
 
-
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1093,22 +1062,23 @@ class Shop final :
     kShopSeqFieldNumber = 1,
     kNpcSeqFieldNumber = 2,
   };
-  // map<int32, .Protocol.Item> items = 4;
+  // repeated .Protocol.Item items = 4;
   int items_size() const;
   private:
   int _internal_items_size() const;
   public:
   void clear_items();
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >&
-      _internal_items() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >*
-      _internal_mutable_items();
-  public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >&
-      items() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >*
+  ::Protocol::Item* mutable_items(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
       mutable_items();
+  private:
+  const ::Protocol::Item& _internal_items(int index) const;
+  ::Protocol::Item* _internal_add_items();
+  public:
+  const ::Protocol::Item& items(int index) const;
+  ::Protocol::Item* add_items();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+      items() const;
 
   // string shopName = 3;
   void clear_shopname();
@@ -1150,11 +1120,7 @@ class Shop final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-        Shop_ItemsEntry_DoNotUse,
-        int32_t, ::Protocol::Item,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> items_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > items_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shopname_;
     int32_t shopseq_;
     int32_t npcseq_;
@@ -1213,7 +1179,7 @@ class Vector3 final :
                &_Vector3_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(Vector3& a, Vector3& b) {
     a.Swap(&b);
@@ -2247,8 +2213,6 @@ NPC::shops() const {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 // Shop
 
 // int32 shopSeq = 1;
@@ -2341,30 +2305,41 @@ inline void Shop::set_allocated_shopname(std::string* shopname) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Shop.shopName)
 }
 
-// map<int32, .Protocol.Item> items = 4;
+// repeated .Protocol.Item items = 4;
 inline int Shop::_internal_items_size() const {
   return _impl_.items_.size();
 }
 inline int Shop::items_size() const {
   return _internal_items_size();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >&
-Shop::_internal_items() const {
-  return _impl_.items_.GetMap();
+inline ::Protocol::Item* Shop::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.Shop.items)
+  return _impl_.items_.Mutable(index);
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >&
-Shop::items() const {
-  // @@protoc_insertion_point(field_map:Protocol.Shop.items)
-  return _internal_items();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >*
-Shop::_internal_mutable_items() {
-  return _impl_.items_.MutableMap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::Item >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
 Shop::mutable_items() {
-  // @@protoc_insertion_point(field_mutable_map:Protocol.Shop.items)
-  return _internal_mutable_items();
+  // @@protoc_insertion_point(field_mutable_list:Protocol.Shop.items)
+  return &_impl_.items_;
+}
+inline const ::Protocol::Item& Shop::_internal_items(int index) const {
+  return _impl_.items_.Get(index);
+}
+inline const ::Protocol::Item& Shop::items(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.Shop.items)
+  return _internal_items(index);
+}
+inline ::Protocol::Item* Shop::_internal_add_items() {
+  return _impl_.items_.Add();
+}
+inline ::Protocol::Item* Shop::add_items() {
+  ::Protocol::Item* _add = _internal_add_items();
+  // @@protoc_insertion_point(field_add:Protocol.Shop.items)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+Shop::items() const {
+  // @@protoc_insertion_point(field_list:Protocol.Shop.items)
+  return _impl_.items_;
 }
 
 // -------------------------------------------------------------------
@@ -2434,8 +2409,6 @@ inline void Vector3::set_z(float value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

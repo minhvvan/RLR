@@ -4,6 +4,8 @@
 #include "UI/DialogueUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 
 void UQuestDialogue::NativeConstruct()
 {
@@ -15,9 +17,11 @@ void UQuestDialogue::NativeConstruct()
 
 void UQuestDialogue::OnQuestAccepted()
 {
-	// 수락했다는 것을 서버에 보내야 함
+	/* TODO : NPCSeq와 NPC별 Quest 정보를 어디서 가져와야할지 몰라서 임시값으로 고정해둠 */
 	OnQuestAccept.Broadcast();
-
+	GameInstance->GetNetworkManager()->SendQuestAddPacket(CurrentNPCSeq, CurrentQuestSeq);
+	UE_LOG(LogTemp, Log, TEXT("OnQuestAccepted :: currentNPCSeq : %d, currentQuestSeq : %d"), CurrentNPCSeq, CurrentQuestSeq)
+	this->RemoveFromViewport();
 }
 
 void UQuestDialogue::OnQuestDialogueEnded()
@@ -26,8 +30,10 @@ void UQuestDialogue::OnQuestDialogueEnded()
 	this->RemoveFromViewport();
 }
 
-void UQuestDialogue::SetDialogueData(FString QuestDialogueString)
+void UQuestDialogue::SetDialogueData(FString QuestDialogueString, int32 NPCSeq, int32 QuestSeq)
 {
 	//TODO : 나중에 FQuest->Needs에 따라 바뀌게 할 것
 	TxtQuest->SetText(FText::FromString(QuestDialogueString));
+	CurrentNPCSeq = NPCSeq;
+	CurrentQuestSeq = QuestSeq;
 }

@@ -20,11 +20,11 @@ public:
 	void SetStat(FMonsterStatus& Stat);
 
 protected:
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<class UASCWidgetComponent> HpBar;
-
-protected:
 	virtual void PostInitializeComponents() override;
 	virtual void BeginPlay() override;
+
+protected:
+	virtual void SetDead() override;
+	virtual void SetRevive() override;
 };
  

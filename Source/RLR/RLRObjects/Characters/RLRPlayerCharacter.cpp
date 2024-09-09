@@ -14,6 +14,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
+#include "Structs/PlayerStructs.h"
 #include "RLR.h"
 
 // Sets default values
@@ -129,4 +130,16 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 {
 	//플레이어 위치 설정
 	SetActorLocation(NewTransform);
+}
+
+void ARLRPlayerCharacter::SetDead()
+{
+	Super::SetDead();
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		//TODO: UI는 건들수있게 해야할 듯
+		DisableInput(PlayerController);
+	}
 }

@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/BaseUI.h"
 #include "UI/SubUI.h"
+#include "Structs/SkillStructs.h"
 #include "SkillUpgrade.generated.h"
 
 /**
@@ -26,7 +26,7 @@ public:
 	virtual void CloseUI() override;
 
 
-	void SetSkillData(FSkillData NewSkillData);
+	void SetSkillData(FSkillData& NewSkillData);
 
 
 
@@ -42,6 +42,5 @@ public:
 
 public:
 
-	UPROPERTY()
-	FSkillData SkillData;
+	TSharedPtr<FSkillData> SkillData;
 };

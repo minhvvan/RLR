@@ -40,5 +40,5 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Action)
 	TSubclassOf<UDialogueUI> DialogueUI;
 
-	FNPCData NPCData;
+	TSharedPtr<FNPCData> NPCData;
 };
