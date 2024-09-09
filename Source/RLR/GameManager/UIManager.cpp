@@ -256,7 +256,7 @@ void UUIManager::CloseLoadingScreen_Internal()
 	if (IsValid(LoadingScreen) == false)
 		return;
 
-	LoadingScreen->RemoveFromParent();
+	LoadingScreen->RemoveFromViewport();
 }
 
 void UUIManager::OnDialogueEnded()

@@ -2,7 +2,8 @@
 
 
 #include "UI/Lobby/LobbyMainUI.h"
-
+#include "GameManager/GameManager.h"
+#include "GameManager/LevelManager.h"
 void ULobbyMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -28,4 +29,5 @@ void ULobbyMainUI::SetInputMode()
 
 void ULobbyMainUI::OpenCreateCharacterUI()
 {
+	GameInstance->GetLevelManager()->LoadLevel("Main");
 }
