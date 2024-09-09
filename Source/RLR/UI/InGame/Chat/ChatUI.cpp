@@ -247,12 +247,23 @@ void UChatUI::OnChatOptionUIButtonClicked()
 
 void UChatUI::AddChatMessage(const FString& Message, int ChatType)
 {
-	FChatMessage infoMessage;
-	infoMessage.Message = Message;
-	infoMessage.ChatType = EChatType(ChatType);
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World, ChatType, Message]()
+				{
+					FChatMessage infoMessage;
+					infoMessage.Message = Message;
+					infoMessage.ChatType = EChatType(ChatType);
 
-	ChatMessages.Add(infoMessage);
-	UpdateChatDisplay(GetCurrentChatTypeTab());
+					ChatMessages.Add(infoMessage);
+					UpdateChatDisplay(GetCurrentChatTypeTab());
+				});
+		}
+	}
 }
 
 void UChatUI::AddMessageToScrollBox(UScrollBox* ScrollBox, const FString& Message, FLinearColor Color)
