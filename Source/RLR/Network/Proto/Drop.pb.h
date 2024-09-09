@@ -874,6 +874,7 @@ class SC_ExpIncreaseResponse final :
 
   enum : int {
     kExpFieldNumber = 1,
+    kLevelFieldNumber = 2,
   };
   // int32 exp = 1;
   void clear_exp();
@@ -882,6 +883,15 @@ class SC_ExpIncreaseResponse final :
   private:
   int32_t _internal_exp() const;
   void _internal_set_exp(int32_t value);
+  public:
+
+  // int32 level = 2;
+  void clear_level();
+  int32_t level() const;
+  void set_level(int32_t value);
+  private:
+  int32_t _internal_level() const;
+  void _internal_set_level(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.SC_ExpIncreaseResponse)
@@ -893,6 +903,7 @@ class SC_ExpIncreaseResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int32_t exp_;
+    int32_t level_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1183,6 +1194,26 @@ inline void SC_ExpIncreaseResponse::_internal_set_exp(int32_t value) {
 inline void SC_ExpIncreaseResponse::set_exp(int32_t value) {
   _internal_set_exp(value);
   // @@protoc_insertion_point(field_set:Protocol.SC_ExpIncreaseResponse.exp)
+}
+
+// int32 level = 2;
+inline void SC_ExpIncreaseResponse::clear_level() {
+  _impl_.level_ = 0;
+}
+inline int32_t SC_ExpIncreaseResponse::_internal_level() const {
+  return _impl_.level_;
+}
+inline int32_t SC_ExpIncreaseResponse::level() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ExpIncreaseResponse.level)
+  return _internal_level();
+}
+inline void SC_ExpIncreaseResponse::_internal_set_level(int32_t value) {
+  
+  _impl_.level_ = value;
+}
+inline void SC_ExpIncreaseResponse::set_level(int32_t value) {
+  _internal_set_level(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ExpIncreaseResponse.level)
 }
 
 #ifdef __GNUC__

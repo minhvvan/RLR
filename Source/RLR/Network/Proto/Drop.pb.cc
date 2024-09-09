@@ -84,6 +84,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR SC_ExpIncreaseResponse::SC_ExpIncreaseResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.exp_)*/0
+  , /*decltype(_impl_.level_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_ExpIncreaseResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SC_ExpIncreaseResponseDefaultTypeInternal()
@@ -143,6 +144,7 @@ const uint32_t TableStruct_Drop_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ExpIncreaseResponse, _impl_.exp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ExpIncreaseResponse, _impl_.level_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::SC_DropRequest)},
@@ -168,13 +170,13 @@ const char descriptor_table_protodef_Drop_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\001(\005\"7\n\022SC_AddItemResponse\022\020\n\010objectId\030\001 "
   "\001(\003\022\017\n\007success\030\002 \001(\005\"\\\n\025SS_ExpIncreaseRe"
   "quest\022\013\n\003exp\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\022\n\nm"
-  "onsterSeq\030\003 \001(\005\022\021\n\tmonsterId\030\004 \001(\005\"%\n\026SC"
-  "_ExpIncreaseResponse\022\013\n\003exp\030\001 \001(\005b\006proto"
-  "3"
+  "onsterSeq\030\003 \001(\005\022\021\n\tmonsterId\030\004 \001(\005\"4\n\026SC"
+  "_ExpIncreaseResponse\022\013\n\003exp\030\001 \001(\005\022\r\n\005lev"
+  "el\030\002 \001(\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Drop_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Drop_2eproto = {
-    false, false, 361, descriptor_table_protodef_Drop_2eproto,
+    false, false, 376, descriptor_table_protodef_Drop_2eproto,
     "Drop.proto",
     &descriptor_table_Drop_2eproto_once, nullptr, 0, 5,
     schemas, file_default_instances, TableStruct_Drop_2eproto::offsets,
@@ -1146,10 +1148,13 @@ SC_ExpIncreaseResponse::SC_ExpIncreaseResponse(const SC_ExpIncreaseResponse& fro
   SC_ExpIncreaseResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){}
+    , decltype(_impl_.level_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.exp_ = from._impl_.exp_;
+  ::memcpy(&_impl_.exp_, &from._impl_.exp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.level_) -
+    reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.level_));
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_ExpIncreaseResponse)
 }
 
@@ -1159,6 +1164,7 @@ inline void SC_ExpIncreaseResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.exp_){0}
+    , decltype(_impl_.level_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1186,7 +1192,9 @@ void SC_ExpIncreaseResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.exp_ = 0;
+  ::memset(&_impl_.exp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.level_) -
+      reinterpret_cast<char*>(&_impl_.exp_)) + sizeof(_impl_.level_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1200,6 +1208,14 @@ const char* SC_ExpIncreaseResponse::_InternalParse(const char* ptr, ::_pbi::Pars
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.exp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 level = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1239,6 +1255,12 @@ uint8_t* SC_ExpIncreaseResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_exp(), target);
   }
 
+  // int32 level = 2;
+  if (this->_internal_level() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_level(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1258,6 +1280,11 @@ size_t SC_ExpIncreaseResponse::ByteSizeLong() const {
   // int32 exp = 1;
   if (this->_internal_exp() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_exp());
+  }
+
+  // int32 level = 2;
+  if (this->_internal_level() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_level());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1281,6 +1308,9 @@ void SC_ExpIncreaseResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   if (from._internal_exp() != 0) {
     _this->_internal_set_exp(from._internal_exp());
   }
+  if (from._internal_level() != 0) {
+    _this->_internal_set_level(from._internal_level());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1298,7 +1328,12 @@ bool SC_ExpIncreaseResponse::IsInitialized() const {
 void SC_ExpIncreaseResponse::InternalSwap(SC_ExpIncreaseResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.exp_, other->_impl_.exp_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_ExpIncreaseResponse, _impl_.level_)
+      + sizeof(SC_ExpIncreaseResponse::_impl_.level_)
+      - PROTOBUF_FIELD_OFFSET(SC_ExpIncreaseResponse, _impl_.exp_)>(
+          reinterpret_cast<char*>(&_impl_.exp_),
+          reinterpret_cast<char*>(&other->_impl_.exp_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_ExpIncreaseResponse::GetMetadata() const {
