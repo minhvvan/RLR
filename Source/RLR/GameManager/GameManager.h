@@ -35,6 +35,8 @@
 			레벨 이동 관리
 		QuestManager
 			Quest 관리
+		LobbyManager
+			Lobby 관리
  */
 
 class UDataManager;
@@ -49,6 +51,7 @@ class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
 class ULevelManager;
+class ULobbyManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -93,9 +96,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	ULevelManager*		GetLevelManager();
-	UQuestManager* GetQuestManager();
-	UFUNCTION(BlueprintCallable)
-	UGameOptionData* GetGameOptionData();
+
+	UQuestManager*		GetQuestManager();
+	
+	ULobbyManager*		GetLobbyManager();
+
+
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

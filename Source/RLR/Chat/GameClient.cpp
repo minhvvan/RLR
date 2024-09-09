@@ -5,6 +5,8 @@
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/LobbyManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
 
 
@@ -33,6 +35,7 @@ void AGameClient::BeginPlay() {
     }
     else {
         UE_LOG(LogTemp, Log, TEXT("로그인 서버에 연결 실패!"));
+       
     }
 }
 

@@ -13,6 +13,7 @@
 #include "GameManager/ObjectManager.h"
 #include "GameManager/LevelManager.h"
 #include "GameManager/QuestManager.h"
+#include "GameManager/LobbyManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -185,6 +186,17 @@ ULevelManager* UGameManager::GetLevelManager()
     }
 
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLevelManager Error."));
+    return nullptr;
+}
+ULobbyManager* UGameManager::GetLobbyManager()
+{
+    ULobbyManager* LobbyManager = GetSubsystem<ULobbyManager>(this);
+    if (IsValid(LobbyManager))
+    {
+        return LobbyManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLobbyManager Error."));
     return nullptr;
 }
 

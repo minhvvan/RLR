@@ -2,11 +2,21 @@
 
 
 #include "LobbyManager.h"
+#include <Kismet/GameplayStatics.h>
 
-ULobbyManager::ULobbyManager()
-{
-}
+
 
 void ULobbyManager::SetUserData(TArray<FUserData>& UserArray) {
+
+}
+
+void ULobbyManager::SetMapData(int mapId)
+{
+	FString MapName = TEXT("HyeonSeokTest");
+	FName MapFName(*MapName);
+	if (mapId == 1) {
+		UGameplayStatics::OpenLevel(this, MapFName);
+	}
+	
 
 }
