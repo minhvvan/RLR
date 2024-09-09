@@ -23,8 +23,8 @@ UPlayerManager::UPlayerManager()
 
 ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 {
-	if(IsValid(PlayerCharacter) == false)
-	{ 
+	if (IsValid(PlayerCharacter) == false)
+	{
 		DEBUG_LOG("GetPlayerCharacter Error. Player Character Is Null");
 		return nullptr;
 	}
@@ -46,7 +46,7 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 		}
 
 
-		if(IsValid(PlayerCharacter) == false)
+		if (IsValid(PlayerCharacter) == false)
 			return;
 
 		PlayerCharacter->SetStat(PlayerData);
@@ -110,6 +110,18 @@ void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 	statSet->ApplyChangeStat(spec);
 }
 
+void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
+{
+	UStatSetPlayer* statSet = GetStatSet();
+	if (!statSet) return;
+
+	FStatChangeSpec<int32> spec;
+	spec.ChangedStat = statSet->GetLevelStat();
+	spec.NewValue = NewLevel;
+
+	statSet->ApplyChangeStat(spec);
+}
+
 void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
 {
 	UStatSetPlayer* statSet = GetStatSet();
@@ -132,7 +144,7 @@ void UPlayerManager::ApplyAbnormal(const FAbnormal& Abnormal)
 
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
-	return GameInstance->GetNetworkManager()->SendMovePacket( MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
+	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
 }
 
 void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
@@ -170,7 +182,7 @@ UStatSetPlayer* UPlayerManager::GetStatSet()
 		}
 
 		//찾지 못하는 경우도 있어서 안전검사 추가.
-		if(IsValid(PlayerCharacter) == false)
+		if (IsValid(PlayerCharacter) == false)
 			return nullptr;
 
 		UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
