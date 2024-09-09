@@ -16,27 +16,46 @@
 
 bool ULevelManager::LoadLevel(FName LevelName)
 {
-	GameInstance->GetUIManager()->OpenLoadingScreen();
-	LoadPackageAsync(TEXT("/Game/Map/InGame/InGame"),
-		FLoadPackageAsyncDelegate::CreateLambda([=](const FName& PackageName, UPackage* LoadedPackage, EAsyncLoadingResult::Type Result)
-			{
-				ULoadingScreen* LoadingScreen = GameInstance->GetUIManager()->GetLoadingScreen();
+    GameInstance->GetUIManager()->OpenLoadingScreen();
 
-				LoadingScreen->SetLoadingResult(Result);
-				if (Result == EAsyncLoadingResult::Succeeded)
-				{
-					GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(LevelName);
-					DEBUG_LOG("Load Level Success");
-				}
-				else if (Result == EAsyncLoadingResult::Failed)
-				{
-					GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(TEXT("Title"));
-				}
-			}),
-		0,
-		PKG_ContainsMap);
+    FText LevelText;
+    if (LevelName == FName("Lobby"))
+    {
+        LevelText = FText::Format(FText::FromString("/Game/Map/Lobby/{0}"), FText::FromString(LevelName.ToString()));
+    }
+    else if (LevelName == FName("Title"))
+    {
+        LevelText = FText::Format(FText::FromString("/Game/Map/Title/{0}"), FText::FromString(LevelName.ToString()));
+    }
+    else if (LevelName == FName("Main"))
+    {
+        LevelText = FText::Format(FText::FromString("/Game/StylizedProvencal/Maps/{0}"), FText::FromString(LevelName.ToString()));
+    };
 
-	return true;
+
+    FString LevelString = LevelText.ToString();
+
+    LoadPackageAsync(LevelString,
+        FLoadPackageAsyncDelegate::CreateLambda([=](const FName& PackageName, UPackage* LoadedPackage, EAsyncLoadingResult::Type Result)
+            {
+                ULoadingScreen* LoadingScreen = GameInstance->GetUIManager()->GetLoadingScreen();
+
+                LoadingScreen->SetLoadingResult(Result);
+                if (Result == EAsyncLoadingResult::Succeeded)
+                {
+                    GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(LevelName);
+                    DEBUG_LOG("Load Level Success");
+                }
+                else if (Result == EAsyncLoadingResult::Failed)
+                {
+                    GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(TEXT("Title"));
+                    DEBUG_LOG("Load Level Fail");
+                }
+            }),
+        0,
+        PKG_ContainsMap);
+
+    return true;
 }
 
 bool ULevelManager::LoadLevel(int32 LevelSeq)

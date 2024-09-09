@@ -39,6 +39,7 @@ private:
 
     FCriticalSection QueueMutex;
 
+
     UPROPERTY()
     TArray<ARLRMonster*> MonsterInstances;
 };

@@ -75,11 +75,11 @@ void UBaseUI::ChangeInputModeGameAndUI()
 
 
 	FInputModeGameAndUI InputMode;
+	InputMode.SetHideCursorDuringCapture(false);
 	InputMode.SetWidgetToFocus(MainUI->TakeWidget());					// 포커스할 위젯 설정
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock); // 마우스 잠금 설정
 	PlayerController->SetInputMode(InputMode);
 	PlayerController->SetShowMouseCursor(true); 						// 마우스 커서를 화면에 표시
-
 }
 
 void UBaseUI::ChangeInputModeGameOnly()
