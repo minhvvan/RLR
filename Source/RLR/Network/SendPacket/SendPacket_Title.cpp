@@ -3,7 +3,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/GameManager.h"
-
+#include "GameManager/LevelManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 #include "Network/LoadBalancerClient.h"
@@ -37,6 +37,14 @@ bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
     /*
         현석님이 잘 해주겠지.
     */
+    if (ConnectToLoginServer("127.0.0.1", 27010, FText::FromString("admin"))) {
+        Protocol::CS_LoginRequestPacket packet;
+        packet.set_playerid("admin");
+        TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+        int32 BytesSent = 0;
+        bool bSuccess = LoginServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+    }
+    GameInstance->GetLevelManager()->LoadLevel("Lobby");
 
     DEBUG_INCOMPLETE;
 

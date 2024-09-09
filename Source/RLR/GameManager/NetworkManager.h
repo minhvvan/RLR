@@ -26,6 +26,7 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void RequestServerAddresses(int32 userSeq);
+    bool ConnectToLoginServer(const FString& serverAddress, int32 port, FText Id);
     UFUNCTION(BlueprintCallable)
     void ConnectToLobbyServer(const FString& ServerAddress, int32 Port,int32 playerSeq);
     UFUNCTION(BlueprintCallable)
@@ -165,6 +166,7 @@ public:
     int64 GetMapId() { return MapId; }
 
 private:
+    FSocket* LoginServerSocket;
     FSocket* MainServerSocket;
     FSocket* MonsterServerSocket;
     FSocket* LobbyServerSocket;

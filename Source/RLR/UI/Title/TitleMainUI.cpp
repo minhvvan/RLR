@@ -51,19 +51,19 @@ void UTitleMainUI::OnClickedConnectServerButton()
 
 	FText ID = IDEditableTextBox->GetText();
 	FText PW = PWEditableTextBox->GetText();
-	UServerListElement* Element = ServerList->GetSelectedServer();
+	//UServerListElement* Element = ServerList->GetSelectedServer();
 
-	if (IsValid(Element) == false)
+	/*if (IsValid(Element) == false)
 	{
 		DEBUG_LOG("선택된 서버가 없습니다.");
 		return;
-	}
+	}*/
 
-	FServerData Data = Element->GetServerData();
+	//FServerData Data = Element->GetServerData();
 
 	/*
 		뭐가 필요한지 몰라서 일단 ServerSeq만 담아서 보내봄..
 	*/
 
-	GameInstance->GetNetworkManager()->SendLoginRequest(Data.ServerSeq, ID, PW);
+	GameInstance->GetNetworkManager()->SendLoginRequest(1, ID, PW);
 }

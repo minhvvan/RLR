@@ -39,6 +39,32 @@ void UNetworkManager::RequestServerAddresses(int32 userSeq)
     ConnectToMainServer(MainServerAddress, MainServerPort);
     
 }
+
+bool UNetworkManager::ConnectToLoginServer(const FString& serverAddress, int32 port, FText Id ) {
+    FIPv4Address IP;
+    if (!FIPv4Address::Parse(serverAddress, IP)) {
+        UE_LOG(LogTemp, Error, TEXT("서버 주소 파싱 실패: %s"), *serverAddress);
+        return false;
+    }
+
+    TSharedRef<FInternetAddr> InternetAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+    InternetAddr->SetIp(IP.Value);
+    InternetAddr->SetPort(port);
+
+    LoginServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("default"), false);
+    if (!LoginServerSocket) {
+        UE_LOG(LogTemp, Error, TEXT("소켓 생성 실패"));
+        return false;
+    }
+
+    if (!LoginServerSocket->Connect(*InternetAddr)) {
+        UE_LOG(LogTemp, Error, TEXT("서버에 연결 실패"));
+        return false;
+    }
+
+    UE_LOG(LogTemp, Log, TEXT("서버에 성공적으로 연결: %s:%d"), *serverAddress, port);
+    return true;
+}
 void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 Port, int32 playerSeq)
 {
     LobbyServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LobbyServerSocket"), false);
