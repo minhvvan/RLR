@@ -6,16 +6,30 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "Structs/ObjectStructs.h"
 
 void UQuestManager::SetUserQuests(const TArray<FQuest>& Quests)
 {
 	CurrentQuests = Quests;
 
-	/* TODO : 인스턴스 받아오기 create widget 하는 곳 어디? */
-	/*if(UQuestUI* QuestUI = )*/
+	UpdateQuestUI();
 }
 
-void UQuestManager::UpdateQeustUI()
+void UQuestManager::UpdateQuestUI()
 {
 	/*TODO : QuestListUI->UpdateQuestList(CurrentQuests);*/
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if(!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if(!UIManager) return;
+
+	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	if(!InGameMainUI) return;
+
+	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();
+	if (QuestListUI)
+	{
+		QuestListUI->UpdateQuestList(CurrentQuests);
+	}
 }

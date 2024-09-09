@@ -146,6 +146,7 @@ bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt)
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    // TODO : 플레이어 보상 지급, QuestListUI에서 완료한 퀘스트 버튼 삭제
     return false;
 }
 
