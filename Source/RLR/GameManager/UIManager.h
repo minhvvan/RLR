@@ -22,6 +22,7 @@ class UMainUI;
 class USubUI;
 class USlotUI;
 class UDialogueUI;
+class ULoadingScreen;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter&, NewPlayerInfo);
@@ -46,7 +47,16 @@ public:
 
 	void AdjustZOrder();
 
-	TObjectPtr<UDialogueUI> OpenDialogue(TSubclassOf<UBaseUI> UIClass);
+	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
+	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
+	void						OpenLoadingScreen();
+	void						CloseLoadingScreen();
+	TObjectPtr<ULoadingScreen>	GetLoadingScreen();
+
+public:
+	
+	void						OpenLoadingScreen_Internal();
+	void						CloseLoadingScreen_Internal();
 
 protected:
 	UFUNCTION()
@@ -54,18 +64,27 @@ protected:
 
 private:
 
-	TObjectPtr<UMainUI> MainUI;	
-	TObjectPtr<UDialogueUI> DialogueUI;
-	TArray<USubUI*> SubUIStack;
-	int32 ZOrder = 0;
-
+	TObjectPtr<UMainUI>			MainUI;	
+	TObjectPtr<UDialogueUI>		DialogueUI;
+	TObjectPtr<ULoadingScreen>	LoadingScreen;
+	TArray<USubUI*>				SubUIStack;
+	int32						ZOrder = 0;
 
 public:
+
 	/*
-		Delegate
+		Title Delegate
 	*/
 
+	/*
+		Lobby Delegate
+	*/
+
+	/*
+		InGame Delegate
+	*/
+  
 	FUpdatedPlayerInfo	UpdatedPlayerInfo;
 	FUpdatedPartyPlayerInfo	UpdatedPartyPlayerInfo;
-
+	FTimerHandle				TimerHandle;
 };

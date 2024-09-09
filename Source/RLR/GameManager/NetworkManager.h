@@ -40,6 +40,25 @@ public:
     bool SendToMonsterSocket(TSharedPtr<SendBuffer> sendBuffer);
     bool SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer);
 
+    /*
+        Title
+    */
+
+    bool SendServerListRequest();                               //접속 가능한 서버 목록을 요청한다.
+    bool SendLoginRequest(int32 ServerSeq, FText ID, FText PW); //선택한 서버, 아디, 비번을 담아 로그인 시도 패킷을 보낸다.
+
+    /*
+        Lobby
+    */
+
+    bool SendCharacterListReuest(int32 userSeq);                                //로비의 캐릭터 리스트에 띄울 정보 요청
+    bool SendEnterGameFromLobbyReqeust(const FUserCharacter& EnterCharacter);   //선택한 캐릭터 입장
+    bool SendCharacterDeleteRequest(const FUserCharacter& DeleteCharacter);     //선택한 캐릭터 삭제
+    bool SendCreateCharacterRequest(const FText NewCharacterName, int32 NewCharacterID);    //캐릭터 생성
+
+    /*
+        InGame
+    */
 
     /*
              Info

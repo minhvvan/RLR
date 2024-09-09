@@ -9,12 +9,12 @@
 #include "Structs/SkillStructs.h"
 #include "Structs/UtilStructs.h"
 #include "RLR.h"
+#include "Structs/LevelStruct.h"
 #include "DataManager.generated.h"
 
 /**
  * 
  */
-
 
 
  class URLRInputConfig;
@@ -42,7 +42,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
 
-
+	UFUNCTION(BlueprintCallable)
+	const FLevelData&		GetLevelData(int32 Seq);
 
 	/*
 	
@@ -86,6 +87,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> MonsterDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> LevelDataTable;
 
 	//캐릭터 직업 별로 스킬 정보를 들고 있는다.
 	FSkillDictionary<ECharacterMainJobType, FSkillList> SkillDictionary;

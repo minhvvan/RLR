@@ -55,7 +55,6 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
         LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
         SetPlayerSeq(playerSeq);
         SendPlayerPacket();
-
     }
 }
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)

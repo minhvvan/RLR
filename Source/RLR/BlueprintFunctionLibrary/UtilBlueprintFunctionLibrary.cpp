@@ -16,6 +16,8 @@
 #include "Structs/ItemStructs.h"
 #include "Structs/MonsterStructs.h"
 
+#include <Kismet/GameplayStatics.h>
+
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {

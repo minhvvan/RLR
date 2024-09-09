@@ -11,6 +11,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/LevelManager.h"
 #include "GameManager/QuestManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
@@ -27,6 +28,14 @@ void UGameManager::Init()
 
     LoadGameOption();
     
+}
+
+void UGameManager::LoadComplete(const float LoadTime, const FString& MapName)
+{
+    Super::LoadComplete(LoadTime, MapName);
+    UE_LOG(LogTemp, Log, TEXT("Level %s load completed!"), *MapName);
+
+    GetLevelManager()->LoadComplete(LoadTime, MapName);
 }
 
 UDataManager* UGameManager::GetDataManager()
@@ -167,6 +176,17 @@ UGameOptionData* UGameManager::GetGameOptionData()
 	return GameOptionData;
 }
 
+ULevelManager* UGameManager::GetLevelManager()
+{
+    ULevelManager* LevelManager = GetSubsystem<ULevelManager>(this);
+    if (IsValid(LevelManager))
+    {
+        return LevelManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLevelManager Error."));
+    return nullptr;
+}
 
 void UGameManager::SaveGameOption()
 {

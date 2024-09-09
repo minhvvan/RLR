@@ -2,11 +2,11 @@
 
 
 #include "GameManager/DataManager.h"
+#include "GameManager/LevelManager.h"
 #include "Player/PlayerCommands.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/MonsterStructs.h"
-
 
 void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -49,7 +49,11 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	
 	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassTable.DT_ObjectClassTable'")));
 	if (IsValid(ObjectClassTable) == false)
-		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");	
+		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");
+
+	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_LevelDataTable.DT_LevelDataTable'")));
+	if (IsValid(LevelDataTable) == false)
+		DEBUG_LOG("레벨 테이블 로드 실패");
 	
 	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassTable.DT_MonsterClassTable'")));
 	if (IsValid(MonsterClassTable) == false)
@@ -125,6 +129,20 @@ void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkil
 		return;
 
 	OutArray = SkillDictionary[JobType].toArray();
+}
+
+const FLevelData& UDataManager::GetLevelData(int32 Seq)
+{
+	if (IsValid(LevelDataTable))
+	{
+		FLevelData* Data = LevelDataTable->FindRow<FLevelData>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FLevelData::EmptyData;
+
+		return *Data;
+	}
+
+	return FLevelData::EmptyData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

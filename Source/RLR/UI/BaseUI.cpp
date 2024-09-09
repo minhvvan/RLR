@@ -2,6 +2,8 @@
 
 
 #include "UI/BaseUI.h"
+#include "UI/MainUI.h"
+
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
@@ -35,6 +37,21 @@ void UBaseUI::CloseUI()
 	SetVisibility(ESlateVisibility::Hidden);
 }
 
+UBaseUI* UBaseUI::GetParent()
+{
+	if (IsValid(Parent) == false)
+	{
+		UBaseUI* MainUI = GetUIManager()->GetMainUI();
+		if (IsValid(MainUI) == false)
+		{
+			DEBUG_LOG("UBaseUI::GetParent Error");
+			return nullptr;
+		}
+		Parent = MainUI;
+	}
+	return Parent;
+}
+
 void UBaseUI::SetActionSystemComponent(AActor* Owner)
 {
 	IActionSystemInterface* ASCInterface = Cast<IActionSystemInterface>(Owner);
@@ -44,6 +61,53 @@ void UBaseUI::SetActionSystemComponent(AActor* Owner)
 	if (!ASC) return;
 
 	ActionSystemComponent = ASC;
+}
+
+void UBaseUI::ChangeInputModeGameAndUI()
+{
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	if(IsValid(PlayerController) == false)
+		return;
+
+	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	if(IsValid(MainUI) == false)
+		return;
+
+
+	FInputModeGameAndUI InputMode;
+	InputMode.SetWidgetToFocus(MainUI->TakeWidget());					// 포커스할 위젯 설정
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock); // 마우스 잠금 설정
+	PlayerController->SetInputMode(InputMode);
+	PlayerController->SetShowMouseCursor(true); 						// 마우스 커서를 화면에 표시
+
+}
+
+void UBaseUI::ChangeInputModeGameOnly()
+{
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	if (IsValid(PlayerController) == false)
+		return;
+
+	FInputModeGameOnly InputMode;	
+	PlayerController->SetInputMode(InputMode);
+	PlayerController->SetShowMouseCursor(false);
+}
+
+void UBaseUI::ChangeInputModeUIOnly()
+{
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	if (IsValid(PlayerController) == false)
+		return;
+
+	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	if (IsValid(MainUI) == false)
+		return;
+
+	FInputModeUIOnly InputMode;
+	InputMode.SetWidgetToFocus(MainUI->TakeWidget());					// 포커스할 위젯 설정
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock); // 마우스 잠금 설정
+	PlayerController->SetInputMode(InputMode);
+	PlayerController->SetShowMouseCursor(true);
 }
 
 UUIManager* UBaseUI::GetUIManager()

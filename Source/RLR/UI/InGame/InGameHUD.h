@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "UI/BaseHUD.h"
 #include "InGameHUD.generated.h"
 
 /**
@@ -14,7 +15,7 @@
 
  class UMainUI;
 UCLASS()
-class RLR_API AInGameHUD : public AHUD
+class RLR_API AInGameHUD : public ABaseHUD
 {
 	GENERATED_BODY()
 
@@ -23,7 +24,6 @@ public:
 
     virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UMainUI> MainUIClass;
+
 	
 };
