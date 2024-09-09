@@ -17,6 +17,10 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "UI/LoadingScreen/LoadingScreen.h"
+
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
 	UpdatedPartyPlayerInfo.Clear();
@@ -153,6 +157,20 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
+TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
+{
+	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);
+	if(IsValid(WidgetClass) == false)
+		return nullptr;
+
+	UBaseUI* NewUI = CreateWidget<UBaseUI>(GetWorld(), WidgetClass);
+	if(IsValid(NewUI) == false)
+		return nullptr;
+	NewUI->AddToViewport();
+
+	return NewUI;
+}
+
 TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 {
 	UDialogueUI* newDialogueUI = CreateWidget<UDialogueUI>(GetWorld(), UIClass);
@@ -176,6 +194,69 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 	};
 
 	return DialogueUI;
+}
+
+void UUIManager::OpenLoadingScreen()
+{
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World]()
+				{
+					World->GetTimerManager().SetTimer(TimerHandle, this, &UUIManager::OpenLoadingScreen_Internal, 0.1f, false);
+					//World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
+				});
+		}
+	}
+}
+
+void UUIManager::CloseLoadingScreen()
+{
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World]()
+				{
+					World->GetTimerManager().SetTimer(TimerHandle, this, &UUIManager::CloseLoadingScreen_Internal, 0.1f, false);
+					//World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
+				});
+		}
+	}
+}
+
+TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
+{	
+	if(IsValid(LoadingScreen) == true)
+		return LoadingScreen;
+
+	OpenLoadingScreen_Internal();
+	return LoadingScreen;
+}
+
+void UUIManager::OpenLoadingScreen_Internal()
+{
+	if (IsValid(LoadingScreen) == true)
+	{
+		LoadingScreen->AddToViewport();
+		return;
+	}
+
+	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
+	LoadingScreen->AddToViewport();
+}
+
+void UUIManager::CloseLoadingScreen_Internal()
+{
+	if (IsValid(LoadingScreen) == false)
+		return;
+
+	LoadingScreen->RemoveFromParent();
 }
 
 void UUIManager::OnDialogueEnded()
