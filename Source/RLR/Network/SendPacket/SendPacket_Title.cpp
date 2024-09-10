@@ -44,8 +44,14 @@ bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
         int32 BytesSent = 0;
         bool bSuccess = LoginServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
     }
-    GameInstance->GetLevelManager()->LoadLevel("Lobby");
-
+    bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
+    if (Ret == false)
+    {
+        //TODO
+        //UIManager->OpenPopup으로 경고 추가하기.
+        DEBUG_LOG("Load lobby level fail");
+    }
+    
     DEBUG_INCOMPLETE;
 
     return false;

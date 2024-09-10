@@ -14,6 +14,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Skill.pb.h"
 #include "Network/Proto/Item.pb.h"
+#include "Structs/PlayerStructs.h"
 
 /*
 
@@ -32,12 +33,15 @@ bool UNetworkManager::SendCharacterListReuest(int32 userSeq)
 	return false;
 }
 
-bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& DeleteCharacter)
+bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& Character)
 {
 	/*
 		로비에서 선택한 캐릭터 입장
 	*/
-
+	
+	GameInstance->GetNetworkManager()->SetUserSeq(Character.UserSeq);
+	GameInstance->GetNetworkManager()->SetMapId(Character.MapId);
+	GameInstance->GetNetworkManager()->SendEnterPacket(Character.UserSeq);
 	DEBUG_INCOMPLETE;
 	return false;
 }

@@ -74,8 +74,8 @@ void ClientPacketHandler::Init()
 
     GPacketHandler[PKT_ENTER_GAME_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-			//return instance.HandlePacket<Protocol::SC_EnterGameResponsePacket>(&Handle_ENTER_GAME_FROM_LOBBY_RESPONSE, session, buffer, len);
-			return instance.HandlePacket<Protocol::SC_EnterGameResponsePacket>(&Handle_ENTER_GAME_RESPONSE, session, buffer, len);
+		      	//return instance.HandlePacket<Protocol::SC_EnterGameResponsePacket>(&Handle_ENTER_GAME_FROM_LOBBY_RESPONSE, session, buffer, len);
+			      return instance.HandlePacket<Protocol::SC_EnterGameResponsePacket>(&Handle_ENTER_GAME_RESPONSE, session, buffer, len);
         };
     GPacketHandler[PKT_MONSTER_MOVE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {

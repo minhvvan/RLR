@@ -206,8 +206,7 @@ void UUIManager::OpenLoadingScreen()
 			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
 			AsyncTask(ENamedThreads::GameThread, [this, World]()
 				{
-					World->GetTimerManager().SetTimer(TimerHandle, this, &UUIManager::OpenLoadingScreen_Internal, 0.1f, false);
-					//World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
+					OpenLoadingScreen_Internal();
 				});
 		}
 	}
@@ -223,8 +222,7 @@ void UUIManager::CloseLoadingScreen()
 			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
 			AsyncTask(ENamedThreads::GameThread, [this, World]()
 				{
-					World->GetTimerManager().SetTimer(TimerHandle, this, &UUIManager::CloseLoadingScreen_Internal, 0.1f, false);
-					//World->GetTimerManager().SetTimer(TimerHandle, this, &UMonsterManager::ProcessSpawnQueue, 15.0f, false);
+					CloseLoadingScreen_Internal();
 				});
 		}
 	}
@@ -241,11 +239,7 @@ TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
 
 void UUIManager::OpenLoadingScreen_Internal()
 {
-	if (IsValid(LoadingScreen) == true)
-	{
-		LoadingScreen->AddToViewport();
-		return;
-	}
+	
 
 	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
 	LoadingScreen->AddToViewport();
@@ -253,10 +247,7 @@ void UUIManager::OpenLoadingScreen_Internal()
 
 void UUIManager::CloseLoadingScreen_Internal()
 {
-	if (IsValid(LoadingScreen) == false)
-		return;
-
-	LoadingScreen->RemoveFromParent();
+	
 }
 
 void UUIManager::OnDialogueEnded()
