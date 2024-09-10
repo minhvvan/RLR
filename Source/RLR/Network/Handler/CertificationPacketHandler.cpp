@@ -10,6 +10,7 @@
 #include "GameManager/LevelManager.h"
 
 #include "UI/Title/TitleMainUI.h"
+#include "UI/Lobby/LobbyMainUI.h"
 
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
@@ -107,17 +108,18 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 
 bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserResponsePacket& pkt) {
 
+    ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GameInstance->GetUIManager()->GetMainUI());
+    if (IsValid(LobbyMainUI) == false)
+        return false;
+
     TArray<FUserCharacter> users;
     for (auto& user : pkt.users()) {
-        FUserCharacter Fuser;
-        Fuser.MakeUserCharacter(user);
-        users.Add(Fuser);
+        FUserCharacter UserChracter;
+        UserChracter.MakeUserCharacter(user);
+        users.Add(UserChracter);
+        LobbyMainUI->AddUserCharacter(UserChracter);
     }
-    UE_LOG(LogTemp, Error, TEXT("User Seq : %d"), pkt.users().at(0).userseq());
-    GameInstance->GetNetworkManager()->SetUserSeq(pkt.users().at(0).userseq());
-    GameInstance->GetNetworkManager()->SetMapId(pkt.users().at(0).mapid());
-    GameInstance->GetNetworkManager()->SendEnterPacket(pkt.users().at(0).userseq());
-     //GameInstance->GetLobbyManager()->SetUsersData();
+    LobbyMainUI->RefreshUI();
 
     return true;
 }

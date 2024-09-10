@@ -188,17 +188,6 @@ ULevelManager* UGameManager::GetLevelManager()
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLevelManager Error."));
     return nullptr;
 }
-ULobbyManager* UGameManager::GetLobbyManager()
-{
-    ULobbyManager* LobbyManager = GetSubsystem<ULobbyManager>(this);
-    if (IsValid(LobbyManager))
-    {
-        return LobbyManager;
-    }
-
-    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetLobbyManager Error."));
-    return nullptr;
-}
 
 void UGameManager::SaveGameOption()
 {
