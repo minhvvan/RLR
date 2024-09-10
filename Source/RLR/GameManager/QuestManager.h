@@ -9,9 +9,8 @@
 #include "Structs/ObjectStructs.h"
 #include "QuestManager.generated.h"
 
-/**
- * 
- */
+class UQuestListUI;
+
 UCLASS()
 class RLR_API UQuestManager : public UGameInstanceSubsystem
 {
@@ -20,9 +19,12 @@ class RLR_API UQuestManager : public UGameInstanceSubsystem
 public:
 	void SetUserQuests(const TArray<FQuest>& Quests);
 	const TArray<FQuest>& GetUseerQuests() const { return CurrentQuests; }
+	void OnQuestCompleteResponse(int32 Success);
+	int32 SelectedQuestSeq;
 
 private:
 	TArray<FQuest> CurrentQuests;
+	UQuestListUI* GetQuestListUI() const;
 
 private:
 	void UpdateQuestUI();

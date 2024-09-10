@@ -15,21 +15,39 @@ void UQuestManager::SetUserQuests(const TArray<FQuest>& Quests)
 	UpdateQuestUI();
 }
 
+UQuestListUI* UQuestManager::GetQuestListUI() const
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return nullptr;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (!UIManager) return nullptr;
+
+	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	if (!InGameMainUI) return nullptr;
+
+	return InGameMainUI->GetQuestListUI();
+}
+
 void UQuestManager::UpdateQuestUI()
 {
 	/*TODO : QuestListUI->UpdateQuestList(CurrentQuests);*/
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if(!GM) return;
 
-	UUIManager* UIManager = GM->GetUIManager();
-	if(!UIManager) return;
-
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if(!InGameMainUI) return;
-
-	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();
+	UQuestListUI* QuestListUI = GetQuestListUI();
 	if (QuestListUI)
 	{
 		QuestListUI->UpdateQuestList(CurrentQuests);
+	}
+}
+
+void UQuestManager::OnQuestCompleteResponse(int32 Success)
+{
+	if (Success != 0)
+	{
+		UQuestListUI* QuestListUI = GetQuestListUI();
+		if (QuestListUI)
+		{
+			QuestListUI->RemoveCompletedQuest(SelectedQuestSeq);
+		}
 	}
 }
