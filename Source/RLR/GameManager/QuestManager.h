@@ -6,6 +6,7 @@
 
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "RLRStruct.h"
+#include "Structs/ObjectStructs.h"
 #include "QuestManager.generated.h"
 
 /**
@@ -24,5 +25,5 @@ private:
 	TArray<FQuest> CurrentQuests;
 
 private:
-	void UpdateQeustUI();
+	void UpdateQuestUI();
 };

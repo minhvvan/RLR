@@ -20,7 +20,7 @@ void UQuestDialogue::OnQuestAccepted()
 	/* TODO : NPCSeq와 NPC별 Quest 정보를 어디서 가져와야할지 몰라서 임시값으로 고정해둠 */
 	OnQuestAccept.Broadcast();
 	GameInstance->GetNetworkManager()->SendQuestAddPacket(CurrentNPCSeq, CurrentQuestSeq);
-	UE_LOG(LogTemp, Log, TEXT("OnQuestAccepted :: currentNPCSeq : %d, currentQuestSeq : %d"), CurrentNPCSeq, CurrentQuestSeq)
+	
 	this->RemoveFromViewport();
 }
 
