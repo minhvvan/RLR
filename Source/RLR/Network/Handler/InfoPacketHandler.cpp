@@ -64,12 +64,15 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
-    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
 
+    FUserCharacter UserCharacter;
+    UserCharacter.MakeUserCharacter(pkt.usercharacter());
+    GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
     return true;

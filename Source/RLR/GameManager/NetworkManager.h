@@ -26,7 +26,8 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void RequestServerAddresses(int32 userSeq);
-    bool ConnectToLoginServer(const FString& serverAddress, int32 port, FText Id);
+    UFUNCTION(BlueprintCallable)
+    bool ConnectToLoginServer(const FString& serverAddress, int32 port);
     UFUNCTION(BlueprintCallable)
     void ConnectToLobbyServer(const FString& ServerAddress, int32 Port,int32 playerSeq);
     UFUNCTION(BlueprintCallable)
@@ -173,9 +174,11 @@ private:
     TSharedPtr<FNetworkReceiver> MainServerReceiver;
     TSharedPtr<FNetworkReceiver> MonsterServerReceiver;
     TSharedPtr<FNetworkReceiver> LobbyServerReceiver;
+    TSharedPtr<FNetworkReceiver> LoginServerReceiver;
     FRunnableThread* MainServerThread;
     FRunnableThread* MonsterServerThread;
     FRunnableThread* LobbyServerThread;
+    FRunnableThread* LoginServerThread;
     LoadBalancerClient* LoadBalancer;
     UPROPERTY()
     int32 PlayerSeq;

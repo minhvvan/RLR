@@ -16,7 +16,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
-
+#include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
 #include "UI/LoadingScreen/LoadingScreen.h"
@@ -49,6 +49,18 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		if (!playerCharacter) return;
 
 		MainUI->SetActionSystemComponent(playerCharacter);
+
+		FString CurrentLevelName = GetWorld()->GetMapName();
+		if (CurrentLevelName.Contains(TEXT("Main")))
+		{
+			// UI가 완전히 로드된 후에만 네트워크 패킷 처리
+			if (GameInstance)
+			{
+				GameInstance->GetNetworkManager()->SendServerRequest();
+				//GameInstance->GetNetworkManager()->SendGetSkillPacket();
+				GameInstance->GetNetworkManager()->SendUserQuestPacket();
+			}
+		}
 	};
 }
 
