@@ -19,6 +19,7 @@ class RLR_API UQuestButtonUI : public UUserWidget
 	
 public:
 	void SetQuestInfo(const FQuest& InQuest);
+	int32 GetQuestSeq();
 
 	FOnQuestButtonClick OnQuestButtonClick;
 

@@ -15,6 +15,11 @@ void UQuestButtonUI::SetQuestInfo(const FQuest& InQuest)
 	}
 }
 
+int32 UQuestButtonUI::GetQuestSeq()
+{
+	return QuestInfo.QuestSeq;
+}
+
 void UQuestButtonUI::NativeConstruct()
 {
 	Super::NativeConstruct();
