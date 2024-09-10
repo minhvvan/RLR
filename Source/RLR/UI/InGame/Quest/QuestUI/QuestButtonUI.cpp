@@ -2,8 +2,10 @@
 
 
 #include "UI/InGame/Quest/QuestUI/QuestButtonUI.h"
+#include "Components/Button.h"
+#include "Components/TextBlock.h"
 
-void UQuestButtonUI::SetQeustInfo(const FQuest& InQuest)
+void UQuestButtonUI::SetQuestInfo(const FQuest& InQuest)
 {
 	QuestInfo = InQuest;
 

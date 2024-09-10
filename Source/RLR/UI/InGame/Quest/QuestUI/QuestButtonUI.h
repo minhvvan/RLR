@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Components/Button.h"
-#include "Components/TextBlock.h"
 #include "Structs/ObjectStructs.h"
 #include "QuestButtonUI.generated.h"
+
+class UButton;
+class UTextBlock;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnQuestButtonClick, const FQuest&);
 
@@ -17,7 +18,7 @@ class RLR_API UQuestButtonUI : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void SetQeustInfo(const FQuest& InQuest);
+	void SetQuestInfo(const FQuest& InQuest);
 
 	FOnQuestButtonClick OnQuestButtonClick;
 

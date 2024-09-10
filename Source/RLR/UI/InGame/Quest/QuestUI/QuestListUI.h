@@ -5,12 +5,13 @@
 #include "CoreMinimal.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ObjectStructs.h"
-#include "Components/VerticalBox.h"
-#include "Components/TextBlock.h"
 #include "UI/SubUI.h"
 #include "QuestListUI.generated.h"
 
 class UQuestButtonUI;
+class UVerticalBox;
+class UTextBlock;
+class UButton;
 
 UCLASS()
 class RLR_API UQuestListUI : public USubUI

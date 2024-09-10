@@ -3,6 +3,9 @@
 
 #include "UI/InGame/Quest/QuestUI/QuestListUI.h"
 #include "UI/InGame/Quest/QuestUI/QuestButtonUI.h"
+#include "Components/Button.h"
+#include "Components/TextBlock.h"
+#include "Components/VerticalBox.h"
 #include "GameManager/GameManager.h"
 #include "Components/CanvasPanel.h"
 #include "Components/PanelWidget.h"
@@ -61,7 +64,7 @@ void UQuestListUI::AddQuestButton(const FQuest& Quest)
 						UQuestButtonUI* QuestButton = CreateWidget<UQuestButtonUI>(this, QuestButtonUIClass);
 						if (QuestButton)
 						{
-							QuestButton->SetQeustInfo(Quest);
+							QuestButton->SetQuestInfo(Quest);
 							QuestButton->OnQuestButtonClick.AddUObject(this, &UQuestListUI::UpdateQuestDetails);
 							QuestListContainer->AddChild(QuestButton);
 						}
