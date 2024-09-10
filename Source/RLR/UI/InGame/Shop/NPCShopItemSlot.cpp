@@ -7,8 +7,11 @@
 #include "Components/TextBlock.h"
 #include "Components/PanelWidget.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/UtilStructs.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
 #include "RLR.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
 
 void UNPCShopItemSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -31,13 +34,10 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 	{
 		if (InMouseEvent.IsLeftShiftDown())
 		{
-			//TODO: 개수 선택 UI POP
-			RLR_LOG(LogRLR, Log, TEXT("right shift + click"));
 			if (ParentUI) ParentUI->OpenBundlePurchase(GetItemData());
 		}
 		else
 		{
-			RLR_LOG(LogRLR, Log, TEXT("right click"));
 			FItemData item(GetItemData());
 			item.ITEM_VALUE = 1;
 			if (ParentUI) ParentUI->AddToCart(item);
@@ -49,14 +49,14 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 
 void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	//TODO: Show Item Info
-	RLR_LOG(LogRLR, Log, TEXT("OnHoveredSlotButton"));
+	auto UIMananger = GetUIManager();
+	UIMananger->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
 void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
-	//TODO: Show Off Item Info
-	RLR_LOG(LogRLR, Log, TEXT("OnUnHoveredSlotButton"));
+	auto UIMananger = GetUIManager();
+	UIMananger->CloseSubUI(EUIType::ITEMINFOMATION);
 }
 
 void UNPCShopItemSlot::RefreshUI()

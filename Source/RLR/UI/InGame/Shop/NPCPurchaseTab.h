@@ -29,10 +29,10 @@ protected:
 
 	//payment
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UTextBlock> TxtPurchaseMoney;	
+	TObjectPtr<UTextBlock> TxtPurchasePrice;	
 	
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UTextBlock> TxtAfterMoney;
+	TObjectPtr<UTextBlock> TxtSafe;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UButton> BtnBuy;
@@ -62,6 +62,8 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 	void SetItemList(const TArray<FItemData>* ItemData);
+
+	UFUNCTION()
 	void AddToCart(const FItemData& item);
 	void OpenBundlePurchase(const FItemData& item);
 
@@ -87,6 +89,7 @@ protected:
 	void UpdatePage();
 	void UpdateCurrentPageText();
 	void UpdateLastPageText();
+	void UpdatePrice();
 
 	UNPCCartSlot* GetCartSlotWidget(int idx);
 
@@ -98,4 +101,6 @@ protected:
 
 	TArray<FItemData> Items;
 	TArray<FItemData> Cart;
+
+	int PurchasePrice = 0;
 };

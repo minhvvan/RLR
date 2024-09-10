@@ -10,6 +10,7 @@
 class UImage;
 class UTextBlock;
 class UNPCPurchaseTab;
+class UItemInformation;
 
 UCLASS()
 class RLR_API UNPCShopItemSlot : public USlotUI, public IUserObjectListEntry
@@ -49,5 +50,8 @@ public:
 
 protected:
 	UPROPERTY()
-	TObjectPtr<UNPCPurchaseTab> ParentUI;
+	TObjectPtr<UNPCPurchaseTab> ParentUI;	
+	
+	//UPROPERTY()
+	//TObjectPtr<UItemInformation> ItemInfoWidget;
 };

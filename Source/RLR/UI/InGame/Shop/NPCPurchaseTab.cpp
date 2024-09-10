@@ -5,14 +5,14 @@
 #include "Components/TileView.h"
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
-#include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/SizeBox.h"
-#include "Components/Overlay.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/ObjectStructs.h"
 #include "UI/InGame/Shop/NPCCartSlot.h"
 #include "UI/InGame/Shop/NPCShopBundlePurchase.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
@@ -71,6 +71,8 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
+			PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+			UpdatePrice();
 			return;
 		}
 	}
@@ -79,18 +81,46 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	if (!entry) return;
 
 	Cart.Add(item);
+	PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+	UpdatePrice();
 	entry->SetItemData(item);
 }
 
 void UNPCPurchaseTab::OnBuyClicked()
 {
-	//TODO: Buy
+	auto NetworkManager = GetNetworkManager();
+	if (NetworkManager)
+	{
+		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+		if (!shopUI) return;
+
+		AsyncTask(ENamedThreads::GameThread, [this, shopUI, NetworkManager]()
+		{
+			auto shopData = shopUI->GetShopData().Pin();
+			for (auto& item : Cart)
+			{
+				NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData->ShopSeq, item.ITEM_VALUE);
+			}
+		});
+	}
+
+	//Cart 비우기
+	OnEmptyClicked();
 }
 
 void UNPCPurchaseTab::OnEmptyClicked()
 {
-	//TODO: 장바구니 비우기
-	RLR_LOG(LogRLR, Log, TEXT("OnEmptyClicked"));
+	for (int i = 0; i < Cart.Num(); i++)
+	{
+		auto entry = GetCartSlotWidget(i);
+		if (!entry) return;
+
+		entry->SetItemData(FItemData::EmptyItemData);
+	}
+
+	Cart.Empty();
+	PurchasePrice = 0;
+	UpdatePrice();
 }
 
 void UNPCPurchaseTab::OnFirstClicked()
@@ -153,6 +183,12 @@ void UNPCPurchaseTab::UpdateLastPageText()
 	TxtLastPage->SetText(FText::AsNumber(LastPage));
 }
 
+void UNPCPurchaseTab::UpdatePrice()
+{
+	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
+	//TODO: 잔액 update
+}
+
 UNPCCartSlot* UNPCPurchaseTab::GetCartSlotWidget(int idx)
 {
 	auto listItem = TVCart->GetItemAt(idx);
@@ -172,11 +208,12 @@ void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item)
 
 	auto bundleUI = CreateWidget<UNPCShopBundlePurchase>(GetWorld(), bundlePurchaseClass);
 	bundleUI->SetItemData(item);
+	bundleUI->OnConfirmPurchase.AddDynamic(this, &UNPCPurchaseTab::AddToCart);
 
 	auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
 	if (!shopUI) return;
 
+	auto slot = Cast<UCanvasPanelSlot>(shopUI->AddChild(bundleUI));
 	FVector2D panelSize(shopUI->RootSizeBox->WidthOverride, shopUI->RootSizeBox->HeightOverride);
-	auto slot = Cast<UCanvasPanelSlot>(shopUI->Canvas->AddChild(bundleUI));
 	slot->SetSize(panelSize);
 }

@@ -11,6 +11,7 @@
 #include "GameManager/UIManager.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
+#include "UI/InGame/Inventory/ItemInformation.h"
 
 void UDialogueUI::NativeConstruct()
 {
@@ -31,6 +32,19 @@ void UDialogueUI::SetNPCData(int32 NPCSeq, int32 QuestSeq)
 {
 	CurrentNPCSeq = NPCSeq;
 	CurrentQuestSeq = QuestSeq;
+}
+
+void UDialogueUI::OpenItemInfo(USlotUI* Target)
+{
+	ItemInformationUI->OpenUI();
+	ItemInformationUI->UpdateSlotState(Target);
+
+	InvalidateLayoutAndVolatility();
+}
+
+void UDialogueUI::CloseItemInfo()
+{
+	ItemInformationUI->CloseUI();
 }
 
 void UDialogueUI::OnDialogueEnded()
@@ -64,22 +78,17 @@ void UDialogueUI::OnShopClicked()
 		item.ITEM_SEQ = i;
 		item.NAME = FText::FromString(FString::Printf(TEXT("Item%d"), i));
 		item.SALE_PRICE = i * 10;
+		item.ITEM_VALUE = 1;
 		item.ItemImage = ItemImage;
 
 		TestItems.Add(item);
 	}
 
-	if (ShopUIClass)
+	if (NPCShopUI)
 	{
-		auto ShopUI = CreateWidget<UNPCShopUI>(GetWorld(), ShopUIClass);
-		if (ShopUI)
-		{
-			FVector2D panelSize(ShopUI->RootSizeBox->WidthOverride, ShopUI->RootSizeBox->HeightOverride);
-			FVector2D panelPos(100.f, 100.f);
-			ShopUI->SetItemData(TestItems);
-			auto slot = Cast<UCanvasPanelSlot>(Canvas->AddChild(ShopUI));
-			slot->SetSize(panelSize);
-			slot->SetPosition(panelPos);
-		}
+		FVector2D panelPos(100.f, 100.f);
+		NPCShopUI->SetItemData(TestItems);
+		NPCShopUI->SetPosition(panelPos);
+		NPCShopUI->OpenUI();
 	}
 }

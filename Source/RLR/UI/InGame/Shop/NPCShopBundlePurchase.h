@@ -4,9 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "Structs/ItemStructs.h"
 #include "NPCShopBundlePurchase.generated.h"
 
 class UButton;
+class UEditableText;
+class UImage;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FConfirmPurchase, const FItemData&, itemData);
 
 UCLASS()
 class RLR_API UNPCShopBundlePurchase : public USubUI
@@ -22,6 +27,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> BtnCancel;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> BtnIncrease;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> BtnDecrease;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UEditableText> EdtAmount;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UImage> ImgItem;
+
 protected:
 	UFUNCTION()
 	void OnConfirmClicked();
@@ -29,6 +46,19 @@ protected:
 	UFUNCTION()
 	void OnCancelClicked();
 
+	UFUNCTION()
+	void OnIncreaseClicked();
+
+	UFUNCTION()
+	void OnDecreaseClicked();
+
+	void UpdateAmountText();
+
 public:
 	void SetItemData(const FItemData& item);
+
+	FConfirmPurchase OnConfirmPurchase;
+
+protected:
+	FItemData Item;
 };

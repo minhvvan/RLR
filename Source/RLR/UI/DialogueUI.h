@@ -15,6 +15,9 @@ class UTextBlock;
 class UQuestDialogue;
 class UNPCShopUI;
 class UCanvasPanel;
+class UNPCShopUI;
+class UItemInformation;
+class USlotUI;
 
 UCLASS()
 class RLR_API UDialogueUI : public UBaseUI
@@ -38,7 +41,13 @@ protected:
 	TObjectPtr<UTextBlock> TxtNPCName;
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UTextBlock> TxtNPCTalk;
+	TObjectPtr<UTextBlock> TxtNPCTalk;	
+	
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UNPCShopUI> NPCShopUI;	
+	
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UItemInformation> ItemInformationUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
@@ -53,6 +62,9 @@ public:
 	//Test
 	void SetDialogueData(FString DialogueString);
 	void SetNPCData(int32 NPCSeq, int32 QuestSeq);
+
+	void OpenItemInfo(USlotUI* Target);
+	void CloseItemInfo();
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();

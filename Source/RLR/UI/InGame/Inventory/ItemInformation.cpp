@@ -60,23 +60,25 @@ void UItemInformation::UpdateSlotState(USlotUI* Target)
 {
 	SetItemData(Target->GetItemData());
 
-	auto geo = UWidgetLayoutLibrary::GetViewportWidgetGeometry(GetWorld());
-	FVector2D position = geo.AbsoluteToLocal(Target->GetCachedGeometry().GetAbsolutePosition()) + Target->GetCachedGeometry().GetLocalSize() / 2.f;
+	auto viewportGeo = UWidgetLayoutLibrary::GetViewportWidgetGeometry(GetWorld());
+	auto targetGeo = Target->GetCachedGeometry();
+	auto geo = GetCachedGeometry();
 
-	position.X += (RootSizeBox->WidthOverride / 2.f) + (Target->RootSizeBox->WidthOverride / 2.f);
-	position.Y += (RootSizeBox->HeightOverride / 2.f) - (Target->RootSizeBox->HeightOverride / 2.f);
+	FVector2D position = viewportGeo.AbsoluteToLocal(targetGeo.GetAbsolutePosition()) + targetGeo.GetLocalSize() / 2.f;
+	position.X += targetGeo.GetLocalSize().X / 2.f;
+	position.Y -= targetGeo.GetLocalSize().Y / 2.f;
 
 	//띄우려는 창의 크기를 고려해서 위치를 조정해준다.
-	FVector2D viewportSize = geo.GetLocalSize();
+	FVector2D viewportSize = viewportGeo.GetLocalSize();
 	
-	if (position.X + RootSizeBox->WidthOverride / 2.f > viewportSize.X)
+	if (position.X + geo.GetLocalSize().X > viewportSize.X)
 	{
-		position.X -= (Target->RootSizeBox->WidthOverride + RootSizeBox->WidthOverride);
+		position.X -= (targetGeo.GetLocalSize().X + geo.GetLocalSize().X);
 	}
 
-	if (position.Y + RootSizeBox->HeightOverride / 2.f > viewportSize.Y)
+	if (position.Y + geo.GetLocalSize().Y > viewportSize.Y)
 	{
-		position.Y -= ((position.Y + RootSizeBox->HeightOverride / 2.f) - viewportSize.Y);
+		position.Y -= ((position.Y + geo.GetLocalSize().Y) - viewportSize.Y);
 	}
 
 	//pos = center pos

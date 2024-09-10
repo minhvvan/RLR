@@ -15,6 +15,7 @@ enum TabIndex
 class UButton;
 class UWidgetSwitcher;
 class UCanvasPanel;
+struct FNPCShop;
 
 UCLASS()
 class RLR_API UNPCShopUI : public USubUI
@@ -22,6 +23,9 @@ class RLR_API UNPCShopUI : public USubUI
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
+
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnPurchase;
 
@@ -32,12 +36,15 @@ protected:
 	TObjectPtr<UWidgetSwitcher> TabSwitcher;	
 
 public:
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UCanvasPanel> Canvas;
-
 	virtual void NativeConstruct() override;
 
 	void SetItemData(TArray<FItemData>& Items);
+	void SetShopData(FNPCShop& Data);
+	void SetPosition(FVector2D pos);
+
+	TWeakPtr<FNPCShop> GetShopData();
+
+	UPanelSlot* AddChild(UUserWidget* Child);
 
 protected:
 	UFUNCTION()
@@ -48,4 +55,5 @@ protected:
 
 protected:
 	TSharedPtr<TArray<FItemData>> ItemData;
+	TSharedPtr<FNPCShop> NPCShopData;
 };
