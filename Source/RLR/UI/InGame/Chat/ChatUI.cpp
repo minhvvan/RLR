@@ -245,7 +245,7 @@ void UChatUI::OnChatOptionUIButtonClicked()
 	}
 }
 
-void UChatUI::AddChatMessage(const FString& Message, int ChatType)
+void UChatUI::AddChatMessage(FString Message, int ChatType)
 {
 	if (GEngine && GEngine->GameViewport)
 	{
