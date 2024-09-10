@@ -242,13 +242,3 @@ void UGameManager::LoadGameOption()
 
 
 }
-void UGameManager::Shutdown()
-{
-    Super::Shutdown();
-
-    // SkillManager가 Singleton으로 존재한다면 이 시점에 정리 작업을 수행
-    if (GetSkillManager())
-    {
-        GetSkillManager()->ClearDelegates();  // 델리게이트 해제 등
-    }
-}

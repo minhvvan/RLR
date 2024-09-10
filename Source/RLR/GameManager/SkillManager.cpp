@@ -255,9 +255,3 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 	GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
 	return false;
 }
-void USkillManager::ClearDelegates()
-{
-	
-	// 게임이 종료될 때 델리게이트 해제
-	UpdatedSkillManager.Clear();
-}
