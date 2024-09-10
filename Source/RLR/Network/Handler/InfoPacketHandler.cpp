@@ -12,6 +12,7 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/QuestManager.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -147,6 +148,13 @@ bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
     // TODO : 플레이어 보상 지급, QuestListUI에서 완료한 퀘스트 버튼 삭제
+    int32 Success = pkt.success();
+
+    UQuestManager* QuestManager = GameInstance->GetQuestManager();
+    if (QuestManager)
+    {
+        QuestManager->OnQuestCompleteResponse(Success);
+    }
     return false;
 }
 
