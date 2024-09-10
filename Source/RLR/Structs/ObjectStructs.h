@@ -150,9 +150,28 @@ struct FQuest
 	}
 
 	void MakeQuestData(const Protocol::Quest quest);
-
-
 };
+
+USTRUCT(Atomic, BlueprintType)
+struct FNPCShop
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int ShopSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int NPCSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString ShopName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<FItemData> Items;
+
+	void MakeNPCShopData(/*param*/);
+};
+
 
 USTRUCT(Atomic, BlueprintType)
 struct FNPCData
@@ -186,6 +205,9 @@ struct FNPCData
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TArray<FQuest> NPCQuests;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FNPCShop Shop;
 
 	FString ToString() const
 	{

@@ -85,3 +85,8 @@ void FDropItem::MakeDropItemData(int64 objectId, int32 value, int64 monsterId)
     //Seq enum : EGoodsType
     ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
 }
+
+void FNPCShop::MakeNPCShopData()
+{
+    //TODO: Data채우기
+}
