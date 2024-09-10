@@ -111,6 +111,7 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
 
     }
 }
+
 void UNetworkManager::SetUserSeq(int32 userSeq)
 {
     this->UserSeq = userSeq;
@@ -140,11 +141,13 @@ bool UNetworkManager::SendToMonsterSocket(TSharedPtr<SendBuffer> sendBuffer)
     int32 BytesSent = 0;
     return  MonsterServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 }
+
 bool UNetworkManager::SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer)
 {
     int32 BytesSent = 0;
     return  LobbyServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 }
+
 bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
 
     if (!MonsterServerSocket) return false;
@@ -164,6 +167,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
         return true;
     }
 }
+
 bool UNetworkManager::SendPlayerPacket()
 {
     if (!LobbyServerSocket) return false;
@@ -183,6 +187,7 @@ bool UNetworkManager::SendPlayerPacket()
     return bSuccess;
 
 }
+
 bool UNetworkManager::SendStatusPacket()
 {
     if (!MainServerSocket) return false;
@@ -202,6 +207,7 @@ bool UNetworkManager::SendStatusPacket()
     return bSuccess;
 
 }
+
 bool UNetworkManager::SendInventoryPacket()
 {
     if (!MainServerSocket) return false;

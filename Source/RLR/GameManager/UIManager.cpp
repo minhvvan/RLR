@@ -31,7 +31,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
-
+	
 	UMainUI* NewMainUI = CreateWidget<UMainUI>(GetWorld(), UIClass);
 	if (NewMainUI)
 	{
@@ -44,7 +44,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 			Title, Lobby 에서 이게 필요한 경우가 있을까?
 			없으면 이야기해서 InGameMainUI에 옮기기기.
 		*/
-
+		RLR_LOG(LogRLR, Warning, TEXT("몇 번들어 오는지 테스트"));
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (!playerCharacter) return;
 
@@ -57,7 +57,6 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 			if (GameInstance)
 			{
 				GameInstance->GetNetworkManager()->SendServerRequest();
-				//GameInstance->GetNetworkManager()->SendGetSkillPacket();
 				GameInstance->GetNetworkManager()->SendUserQuestPacket();
 			}
 		}

@@ -42,6 +42,8 @@ public:
 	bool RequestGetSelectedSkills();
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
+	void ClearDelegates();
+
 private:
 	FSkillDictionary<FGameplayTag, FSkillData> OwnSkills;
 

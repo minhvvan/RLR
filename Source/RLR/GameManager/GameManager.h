@@ -109,6 +109,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadGameOption();
 
+	virtual void Shutdown() override;
 	
 private:
 	/*
