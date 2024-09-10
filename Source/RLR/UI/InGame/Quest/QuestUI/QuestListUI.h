@@ -54,8 +54,9 @@ private:
 	void AddQuestButton(const FQuest& Quest);
 
 	FQuest SelectedQuest;
+	TMap<int32, UQuestButtonUI*> QuestButtons;
 
 public:
 	void UpdateQuestList(const TArray<FQuest>& Quests);
-
+	void RemoveCompletedQuest(int32 CompletedQuestSeq);
 };

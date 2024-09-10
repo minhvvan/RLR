@@ -11,6 +11,7 @@
 #include "Components/PanelWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/QuestManager.h"
 
 
 void UQuestListUI::NativeConstruct()
@@ -41,16 +42,45 @@ void UQuestListUI::UpdateQuestList(const TArray<FQuest>& Quests)
 	}
 }
 
+void UQuestListUI::RemoveCompletedQuest(int32 CompletedQuestSeq)
+{
+	/* TODO : 리팩토링 대상 */
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World, CompletedQuestSeq]()
+				{
+					for (auto* ChildWidget : QuestListContainer->GetAllChildren())
+					{
+						if (UQuestButtonUI* QuestButton = Cast<UQuestButtonUI>(ChildWidget))
+						{
+							if (QuestButton->GetQuestSeq() == CompletedQuestSeq)
+							{
+								QuestButton->RemoveFromParent();
+								break;
+							}
+						}
+					}
+				});
+		}
+	}
+}
+
 void UQuestListUI::ClearQuestList()
 {
 	if (QuestListContainer)
 	{
 		QuestListContainer->ClearChildren();
 	}
+	QuestButtons.Empty();
 }
 
 void UQuestListUI::AddQuestButton(const FQuest& Quest)
 {
+	/* TODO : 리팩토링 대상 */
 	if (GEngine && GEngine->GameViewport)
 	{
 		UWorld* World = GEngine->GameViewport->GetWorld();
@@ -67,6 +97,7 @@ void UQuestListUI::AddQuestButton(const FQuest& Quest)
 							QuestButton->SetQuestInfo(Quest);
 							QuestButton->OnQuestButtonClick.AddUObject(this, &UQuestListUI::UpdateQuestDetails);
 							QuestListContainer->AddChild(QuestButton);
+							QuestButtons.Add(Quest.QuestSeq, QuestButton);
 						}
 					}
 				});
@@ -114,6 +145,7 @@ void UQuestListUI::OnCompleteButtonClicked()
 {
 	if (SelectedQuest.QuestSeq != 0)
 	{
+		GameInstance->GetQuestManager()->SelectedQuestSeq = SelectedQuest.QuestSeq;
 		GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
 	}
 }
