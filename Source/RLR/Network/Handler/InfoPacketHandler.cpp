@@ -78,6 +78,8 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     GameInstance->GetNetworkManager()->SetUserSeq(pkt.usercharacter().userseq());
     //GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
+    // item 이미지 없어서 로드 안됌 로드 완료시 연결예정
+    GameInstance->GetNetworkManager()->SendInventoryPacket();
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {

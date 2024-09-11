@@ -58,6 +58,9 @@ public:
 
 	TSubclassOf<ARLRPlayerCharacter> GetPlayerCharacterClass(ECharacterMainJobType JobType);
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+	TSubclassOf<ARLRPlayerCharacter> PlayerCharacterClass;
 public:
 
 	UPROPERTY()

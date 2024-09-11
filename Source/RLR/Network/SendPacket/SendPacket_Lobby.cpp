@@ -23,14 +23,25 @@
 */
 
 
-bool UNetworkManager::SendCharacterListReuest(int32 userSeq)
+bool UNetworkManager::SendCharacterListReuest(int32 playerSeq)
 {
-	/*
-		로비에서 캐릭터 리스트창에 띄울 캐릭터 정보 요청
-	*/
+	// 로비 ui로 이동 필요
+	Protocol::CS_CharacterRequestPacket packet;
+	packet.set_playerseq(playerSeq);
+
+	TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+	bool bSuccess = SendToLobbySocket(sendBuffer);
+	if (!bSuccess) {
+		UE_LOG(LogTemp, Error, TEXT("Enter 패킷 송신 실패"));
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("Enter 패킷 송신 성공"));
+	}
 
 	DEBUG_INCOMPLETE;
-	return false;
+
+	return bSuccess;
+
 }
 
 bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& Character)

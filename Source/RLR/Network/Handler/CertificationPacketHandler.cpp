@@ -58,6 +58,7 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
         //UIManager->OpenPopup으로 경고 추가하기.
         DEBUG_LOG("Load lobby level fail");
     }
+   // GameInstance->GetNetworkManager()->SendCharacterListReuest(pkt.playerseq());
 
    return true;
 }

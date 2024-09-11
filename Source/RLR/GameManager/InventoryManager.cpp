@@ -108,4 +108,9 @@ void UInventoryManager::SetSilver(int32 NewSilver)
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
 {
 	ItemData.GenerateValueArray(ItemArray);
+	/*AsyncTask(ENamedThreads::GameThread, [this] {
+		Update();
+		}
+	);*/
+	
 }
