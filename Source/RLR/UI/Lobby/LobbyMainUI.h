@@ -27,8 +27,10 @@ public:
 
 	void AddUserCharacter(FUserCharacter NewCharacter);
 
-
 	void OpenCreateCharacterUI();
+
+	UCharacterListUI*		GetCharacterListUI() {return CharacterListUI;};
+	UCreateCharacterUI*		GetCreateCharacterUI(){return CreateCharacterUI;};
 
 public:
 

@@ -126,8 +126,7 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 {
 	if (IsValid(NewImage) == false)
 	{
-		DEBUG_LOG("Set Slot Image Error. New Image is Null");
-		return;
+		SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	}
 
 	SlotImage->SetBrushFromTexture(NewImage);
@@ -135,7 +134,7 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 
 void USlotUI::Clear()
 {
-	SlotImage->SetBrushFromTexture(DefaultSlotImage);
+	SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	if (IsValid(GetSlotData()) == true)
 	{
 		GetSlotData()->Clear();

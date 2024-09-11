@@ -27,7 +27,8 @@ void ULobbyMainUI::Clear()
 
 void ULobbyMainUI::SetInputMode()
 {
-	ChangeInputModeUIOnly();
+	//ChangeInputModeUIOnly();
+	ChangeInputModeGameAndUI();
 }
 
 void ULobbyMainUI::AddUserCharacter(FUserCharacter NewCharacter)

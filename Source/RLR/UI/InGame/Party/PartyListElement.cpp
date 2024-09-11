@@ -51,6 +51,6 @@ void UPartyListElement::SetUserCharacterData(const FUserCharacter& Data)
 
 FUserCharacter* UPartyListElement::GetUserCharacterData()
 {
-	if (UserCharacterData.IsValid()) return nullptr;
+	if (UserCharacterData.IsValid() == false) return nullptr;
 	return UserCharacterData.Get();
 }
