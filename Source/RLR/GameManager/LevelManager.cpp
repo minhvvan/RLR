@@ -89,8 +89,12 @@ bool ULevelManager::EnterLevel(FName LevelName, FString MainServerAddress, int32
 
 void ULevelManager::LoadComplete(const float LoadTime, const FString& MapName)
 {
+    
+
 	GameInstance->GetUIManager()->CloseLoadingScreen();
 	LoadLevelCompleteDelegate.ExecuteIfBound();
 	LoadLevelCompleteDelegate.Unbind();
+
+  
 }
 

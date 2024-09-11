@@ -37,6 +37,8 @@ public:
     //재능
     bool RequestTalent(int TalentOrder);
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+    TSubclassOf<ARLRPlayerCharacter> PlayerCharacterClass;
 
 private:
     UPROPERTY()

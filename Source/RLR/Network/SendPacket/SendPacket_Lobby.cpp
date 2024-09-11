@@ -42,7 +42,8 @@ bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& Charac
 	GameInstance->GetNetworkManager()->SetUserSeq(Character.UserSeq);
 	GameInstance->GetNetworkManager()->SetMapId(Character.MapId);
 	GameInstance->GetNetworkManager()->SendEnterPacket(Character.UserSeq);
-	return true;
+	DEBUG_INCOMPLETE;
+	return false;
 }
 
 bool UNetworkManager::SendCharacterDeleteRequest(const FUserCharacter& DeleteCharacter)

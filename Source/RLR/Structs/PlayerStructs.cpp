@@ -61,4 +61,5 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
     TotalStatus.MakeStatus(Data.totalstatus());
     SetStatus.MakeSetStatus(Data.setstatus());
     Talent.MakeTalent(Data.talent());
+    Transform = FVector(Data.transx(), Data.transy(), Data.transz());
 }

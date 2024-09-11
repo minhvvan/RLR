@@ -107,14 +107,27 @@ bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
 void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 {
 	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (!Controller) return;
+	if (!Controller || !Controller->GetPawn())
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("PlayerController or Pawn is invalid."));
+		return;
+	}
 
 	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
-	if (!Character) return;
+	if (!Character)
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("PlayerCharacter is invalid."));
+		return;
+	}
 
 	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
-	if (!ASC) return;
+	if (!ASC)
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("ActionSystemComponent is invalid."));
+		return;
+	}
 
+	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
 	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
@@ -124,7 +137,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		const FSkillData& Data = SelectedSkills[i];
 		if (Data == FSkillData::EmptySkillData)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
+			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
 			return;
 		}
 
@@ -133,23 +146,31 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
-		//TriggerAction
+		// TriggerAction
 		{
 			FActionSpec Spec(Data.SkillAnimClass, 1, 0);
-			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
 			ASC->GiveAction(SkillAnimTag, Spec);
 		}
 
-		//CheckAction 
+		// CheckAction
 		{
 			FActionSpec Spec(Data.SkillClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}
 
-	//USkillSetting::UpdatedSkillManager
-	UpdatedSkillManager.Broadcast();
+	// Safely broadcast in game thread
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				RLR_LOG(LogRLR, Warning, TEXT("SkillManager is invalid during broadcast."));
+				return;
+			}
+			UpdatedSkillManager.Broadcast();
+		});
 }
 
 bool USkillManager::RequestGetSelectedSkills()

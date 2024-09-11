@@ -64,13 +64,19 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
-    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
+
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
 
+    FUserCharacter UserCharacter;
+    UserCharacter.MakeUserCharacter(pkt.usercharacter());
+    GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SetUserSeq(pkt.usercharacter().userseq());
+    //GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
     return true;
 }
@@ -146,6 +152,7 @@ bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt)
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    // TODO : 플레이어 보상 지급, QuestListUI에서 완료한 퀘스트 버튼 삭제
     return false;
 }
 

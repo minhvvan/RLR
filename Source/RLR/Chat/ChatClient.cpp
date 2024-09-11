@@ -7,6 +7,9 @@
 #include <thread>
 #include <iostream>
 #include <string>
+#include "GameManager/UIManager.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "GameManager/GameManager.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -25,7 +28,8 @@ void AChatClient::SetUserName(FString PlayerID) {
 void AChatClient::BeginPlay()
 {
     Super::BeginPlay();
-    
+
+    ConnectToServer();
 }
 
 void AChatClient::Tick(float DeltaTime)
@@ -119,42 +123,48 @@ void AChatClient::ReceiveMessages()
 
                 FFunctionGraphTask::CreateAndDispatchWhenReady([this, Message]()
                     {
-                      /*  if (AMyPlayerController::GetInstance())
+                        if (!ChatUI)
+                        {
+                            UInGameMainUI* ingameUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
+                            ChatUI = ingameUI->GetChatUI();
+                        }
+
+                        if (ChatUI)
                         {
                             TArray<FString> Path;
                             
                             Message.ParseIntoArray( Path,TEXT("]"));
                             if (Path[0].Contains(TEXT("일반"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 0);
+                                ChatUI->AddChatMessage(Message,0);
                             }
                             else if (Path[0].Contains(TEXT("귓속말"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 1);
+                                ChatUI->AddChatMessage(Message, 1);
                             }
                             else if (Path[0].Contains(TEXT("국가"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 2);
+                                ChatUI->AddChatMessage(Message, 2);
                             }
                             else if (Path[0].Contains(TEXT("세계"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 3);
+                                ChatUI->AddChatMessage(Message, 3);
                             }
                             else if (Path[0].Contains(TEXT("길드"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 4);
+                                ChatUI->AddChatMessage(Message, 4);
                             }
                             else if (Path[0].Contains(TEXT("레이드"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 5);
+                                ChatUI->AddChatMessage(Message, 5);
                             }
                             else if (Path[0].Contains(TEXT("파티"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 6);
+                                ChatUI->AddChatMessage(Message, 6);
                             }
                             else if (Path[0].Contains(TEXT("대륙"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 7);
+                                ChatUI->AddChatMessage(Message, 7);
                             }
                             else if (Path[0].Contains(TEXT("동료"))) {
-                                AMyPlayerController::GetInstance()->UpdateChatUI(Message, ChatUI, 8);
+                                ChatUI->AddChatMessage(Message, 8);
                             }
                          
                             UE_LOG(LogTemp, Log, TEXT("PlayerController 체크"));
                             
-                        } */
+                        } 
                     }, TStatId(), nullptr, ENamedThreads::GameThread);
             }
         }

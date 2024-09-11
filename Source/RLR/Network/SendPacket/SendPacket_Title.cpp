@@ -23,9 +23,7 @@
 
 bool UNetworkManager::SendServerListRequest()
 {
-    /*
-        현석님이 잘 해주겠지.
-    */
+
 
     DEBUG_INCOMPLETE;
 
@@ -34,23 +32,21 @@ bool UNetworkManager::SendServerListRequest()
 
 bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 {
-    /*
-        현석님이 잘 해주겠지.
-    */
-    if (ConnectToLoginServer("127.0.0.1", 27010, FText::FromString("admin"))) {
+
+    if (ConnectToLoginServer("127.0.0.1", 27010)) {
         Protocol::CS_LoginRequestPacket packet;
-        packet.set_playerid("admin");
+        FString PlayerIdString = ID.ToString();
+
+        // FString을 std::string으로 변환
+        std::string PlayerIdStdString(TCHAR_TO_UTF8(*PlayerIdString));
+        packet.set_playerid(PlayerIdStdString);
         TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
         int32 BytesSent = 0;
         bool bSuccess = LoginServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+
+
     }
-    bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
-    if (Ret == false)
-    {
-        //TODO
-        //UIManager->OpenPopup으로 경고 추가하기.
-        DEBUG_LOG("Load lobby level fail");
-    }
+    
     
     DEBUG_INCOMPLETE;
 
