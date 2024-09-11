@@ -36,6 +36,6 @@ public:
 	TObjectPtr<UGridPanel> SkillQuickSlotGridPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32	MaxColunm = 4;
+	int32	MaxColunm = 8;
 
 };
