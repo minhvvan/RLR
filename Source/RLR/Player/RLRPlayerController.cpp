@@ -19,6 +19,7 @@
 #include "Player/PlayerCommands.h"
 #include "Player/RLREnhancedInputComponent.h"
 #include "Physics/RLRCollision.h"
+#include "Structs/UtilStructs.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 ARLRPlayerController::ARLRPlayerController():

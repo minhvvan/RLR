@@ -49,6 +49,16 @@ void UDialogueUI::CloseItemInfo()
 	ItemInformationUI->CloseUI();
 }
 
+void UDialogueUI::AddSaleItem(const FItemData& Item)
+{
+	NPCShopUI->AddSaleItem(Item);
+}
+
+void UDialogueUI::RemoveSaleItem(const FItemData& Item)
+{
+	InventoryUI->RemoveSaleItem(Item);
+}
+
 void UDialogueUI::OnDialogueEnded()
 {
 	OnDialogueEnd.Broadcast();

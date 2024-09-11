@@ -161,9 +161,6 @@ struct FNPCShop
 	int ShopSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int NPCSeq;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString ShopName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)

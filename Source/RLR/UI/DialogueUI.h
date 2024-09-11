@@ -69,6 +69,10 @@ public:
 
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
+
+	void AddSaleItem(const FItemData& Item);
+	void RemoveSaleItem(const FItemData& Item);
+
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();

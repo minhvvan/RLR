@@ -23,6 +23,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtPrice;
+
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UTextBlock> TxtItemAmount;
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UImage> ImgPrice;
@@ -45,13 +48,11 @@ public:
 	virtual void RefreshUI() override;
 
 public:
-	virtual void SetParent(TObjectPtr<UNPCPurchaseTab> Parent);
-	TObjectPtr<UNPCPurchaseTab> GetParentUI() { return ParentUI; }
+	virtual void SetParent(TObjectPtr<UBaseUI> Parent);
+	TObjectPtr<UBaseUI> GetParentUI() { return ParentUI; }
 
+	void SetItemAmountShow(bool bVisible);
 protected:
 	UPROPERTY()
-	TObjectPtr<UNPCPurchaseTab> ParentUI;	
-	
-	//UPROPERTY()
-	//TObjectPtr<UItemInformation> ItemInfoWidget;
+	TObjectPtr<UBaseUI> ParentUI;
 };

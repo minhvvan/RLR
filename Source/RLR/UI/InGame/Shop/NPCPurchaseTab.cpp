@@ -94,9 +94,9 @@ void UNPCPurchaseTab::OnBuyClicked()
 		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
 		if (!shopUI) return;
 
-		AsyncTask(ENamedThreads::GameThread, [this, shopUI, NetworkManager]()
+		auto shopData = shopUI->GetShopData().Pin();
+		AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
 		{
-			auto shopData = shopUI->GetShopData().Pin();
 			for (auto& item : Cart)
 			{
 				NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData->ShopSeq, item.ITEM_VALUE);
@@ -165,8 +165,8 @@ void UNPCPurchaseTab::UpdatePage()
 	{
 		if (!Items.IsValidIndex(i)) break;
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
-		itemWidget->SetItemData(Items[i]);
 		itemWidget->SetParent(this);
+		itemWidget->SetItemData(Items[i]);
 		TVItem->AddItem(itemWidget);
 	}
 

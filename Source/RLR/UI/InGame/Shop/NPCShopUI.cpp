@@ -6,6 +6,7 @@
 #include "Components/WidgetSwitcher.h"
 #include "Components/CanvasPanel.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
+#include "UI/InGame/Shop/NPCSaleTab.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
 
@@ -40,6 +41,15 @@ TWeakPtr<FNPCShop> UNPCShopUI::GetShopData()
 UPanelSlot* UNPCShopUI::AddChild(UUserWidget* Child)
 {
 	return Canvas->AddChild(Child);
+}
+
+void UNPCShopUI::AddSaleItem(const FItemData& Item)
+{
+	if (TabSwitcher->GetActiveWidgetIndex() != TabIndex::ESale) return;
+	auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
+	if(!saleTab) return;
+
+	saleTab->AddToCart(Item);
 }
 
 void UNPCShopUI::OnPurchaseClicked()

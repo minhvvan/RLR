@@ -47,6 +47,9 @@ public:
 
 	TObjectPtr<UDialogueUI> OpenDialogue(TSubclassOf<UBaseUI> UIClass);
 
+	void AddSaleItem(const FItemData& Item);
+	void RemoveSaleItem(const FItemData& Item);
+
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();

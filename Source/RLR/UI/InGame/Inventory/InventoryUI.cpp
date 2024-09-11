@@ -4,6 +4,7 @@
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "Components/GridPanel.h"
 #include "UI/InGame/Inventory/InventorySlot.h"
+#include "UI/InGame/Shop/NPCShopInventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -84,7 +85,7 @@ void UInventoryUI::RefreshUI()
 	InventoryManager->GetItemList(ItemList);
 
 	int32 ItemCount = 0;
-	for (FItemData ItemData : ItemList)
+	for (FItemData& ItemData : ItemList)
 	{
 		//설정된 값보다 아이템 수가 많으면 에러
 		if (MaxInventorySlotCount <= ItemCount)
@@ -195,4 +196,12 @@ void UInventoryUI::SetMaxSlotCount(int32 Count)
 	MaxInventorySlotCount = Count;
 	Init();
 	RefreshUI();
+}
+
+void UInventoryUI::RemoveSaleItem(const FItemData& Item)
+{
+	auto slot = Cast<UNPCShopInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	if (!slot) return;
+
+	slot->CancelSale();
 }

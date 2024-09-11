@@ -45,6 +45,8 @@ public:
 
 	UPanelSlot* AddChild(UUserWidget* Child);
 
+	void AddSaleItem(const FItemData& Item);
+
 protected:
 	UFUNCTION()
 	void OnPurchaseClicked();

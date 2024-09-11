@@ -58,7 +58,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> ItemNameText;
 
-
 public:
 
 	UPROPERTY(EditAnywhere)

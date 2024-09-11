@@ -2,6 +2,10 @@
 
 
 #include "UI/InGame/Shop/NPCShopInventorySlot.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
+#include "Structs/ItemStructs.h"
+#include "Components/Button.h"
 #include "RLR.h"
 
 //void UNPCShopInventorySlot::NativeOnDragEnter(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -20,9 +24,25 @@ FReply UNPCShopInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 
 	if (InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
 	{
-		//TODO:판매탭에 추가
-		RLR_LOG(LogRLR, Log, TEXT("right"));
+		auto UIManager = GameInstance->GetUIManager();
+		if (!UIManager) return result;
+
+		UIManager->AddSaleItem(GetItemData());
+		SetIsEnabled(false);
 	}
 
 	return result;
+}
+
+void UNPCShopInventorySlot::RefreshUI()
+{
+	Super::RefreshUI();
+
+	//TODO: 판매 가능 여부에 따라 변경 필요
+	if(!GetIsEnabled()) SetIsEnabled(true);
+}
+
+void UNPCShopInventorySlot::CancelSale()
+{
+	SetIsEnabled(true);
 }

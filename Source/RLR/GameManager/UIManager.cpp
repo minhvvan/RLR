@@ -187,6 +187,18 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 	return DialogueUI;
 }
 
+void UUIManager::AddSaleItem(const FItemData& Item)
+{
+	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
+	DialogueUI->AddSaleItem(Item);
+}
+
+void UUIManager::RemoveSaleItem(const FItemData& Item)
+{
+	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
+	DialogueUI->RemoveSaleItem(Item);
+}
+
 void UUIManager::OnDialogueEnded()
 {
 	RLR_LOG(LogRLR, Log, TEXT("DialougeEnd"));
