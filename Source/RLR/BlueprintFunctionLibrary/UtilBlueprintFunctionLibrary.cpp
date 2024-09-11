@@ -12,6 +12,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
+
 #include "Structs/SkillStructs.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/MonsterStructs.h"
@@ -63,7 +64,6 @@ void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
 
 bool UUtilBlueprintFunctionLibrary::CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int32 LineNumber)
 {
-	//널 값이 아니면 리턴.
 	if (IsValid(Object) == true)
 		return true;
 	if (GEngine == nullptr)
@@ -118,11 +118,9 @@ void UUtilBlueprintFunctionLibrary::TestAddPartyPlayer()
 void UUtilBlueprintFunctionLibrary::TestCharacterList()
 {
 
-	
 	ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GameInstance->GetUIManager()->GetMainUI());
 	if (IsValid(LobbyMainUI) == false)
 		return;
-
 
 	for(int32 i = 0 ; i < 5; i++)
 	{ 
@@ -133,12 +131,7 @@ void UUtilBlueprintFunctionLibrary::TestCharacterList()
 	}
 	
 	LobbyMainUI->RefreshUI();
-
 }
-
-
-
-
 
 /*
 	치트
