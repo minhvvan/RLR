@@ -9,6 +9,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/LevelManager.h"
 
 #include "Components/ListView.h"
 #include "Components/Button.h"
@@ -49,6 +50,7 @@ void UCharacterListElement::OnClickedConnectButton()
 {
 	if(UserCharacterData.UserSeq == -1)
 		return;
+	GameInstance->GetLevelManager()->LoadLevel("Main");
 	GetNetworkManager()->SendEnterGameFromLobbyReqeust(UserCharacterData);
 }
 
