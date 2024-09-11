@@ -52,17 +52,12 @@ void UCharacterListUI::RefreshUI()
 void UCharacterListUI::Clear()
 {
 	Super::Clear();
-
 	CharacterListView->ClearListItems();
-	UserCharacterList.Empty();
 }
 
 void UCharacterListUI::SetSelectedElement(UCharacterListElement* Element)
 {
 	if(IsValid(Element) == false)
-		return;
-
-	if (IsValid(SelectedElement) == false)
 		return;
 
 	if(SelectedElement == Element)
@@ -89,7 +84,7 @@ void UCharacterListUI::SpawnSelectedElementCharacter(const FUserCharacter& Data)
 		하지만 지금은 알 수 없으므로 일단 기본 캐릭터 소환.
 	*/
 
-	TSubclassOf<ARLRCharacter> SpawnCharacterClass = GameInstance->GetDataManager()->GetObjectClass<ARLRCharacter>("BP_Player");
+	TSubclassOf<ARLRCharacter> SpawnCharacterClass = GameInstance->GetDataManager()->GetObjectClass<ARLRCharacter>("BP_DefaultPlayer");
 	if (IsValid(SpawnCharacterClass) == false)
 	{
 		DEBUG_MESSAGE;

@@ -3,6 +3,7 @@
 
 #include "UI/Lobby/CharacterListElement.h"
 #include "UI/Lobby/CharacterListUI.h"
+#include "UI/Lobby/LobbyMainUI.h"
 
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
@@ -14,7 +15,7 @@
 #include "Components/TextBlock.h"
 
 #include "GameManager/RLRStruct.h"
-#include "CharacterListElement.h"
+
 
 void UCharacterListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -34,8 +35,8 @@ void UCharacterListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 void UCharacterListElement::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
 	ConnectButton->OnClicked.AddUniqueDynamic(this, &UCharacterListElement::OnClickedConnectButton);
+	ElementButton->OnClicked.AddUniqueDynamic(this, &UCharacterListElement::OnClickedElementButton);
 }
 
 void UCharacterListElement::RefreshUI()
@@ -49,6 +50,22 @@ void UCharacterListElement::OnClickedConnectButton()
 	if(UserCharacterData.UserSeq == -1)
 		return;
 	GetNetworkManager()->SendEnterGameFromLobbyReqeust(UserCharacterData);
+}
+
+void UCharacterListElement::OnClickedElementButton()
+{
+	if (UserCharacterData.UserSeq == -1)
+		return;
+
+	ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GetUIManager()->GetMainUI());
+	if(IsValid(LobbyMainUI) == false)
+		return;
+
+	UCharacterListUI* CharacterList = LobbyMainUI->GetCharacterListUI();
+	if(IsValid(CharacterList) == false)
+		return;
+
+	CharacterList->SetSelectedElement(this);
 }
 
 void UCharacterListElement::SetUserCharacterData(FUserCharacter Data)

@@ -99,10 +99,6 @@ public:
 
 	UQuestManager*		GetQuestManager();
 	
-	ULobbyManager*		GetLobbyManager();
-
-
-
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
 

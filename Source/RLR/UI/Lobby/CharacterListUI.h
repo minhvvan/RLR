@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "Structs/PlayerStructs.h"
 #include "CharacterListUI.generated.h"
 
 /**
@@ -14,7 +15,6 @@ class UCharacterListElement;
 class UListView;
 class UButton;
 class ARLRCharacter;
-struct FUserCharacter;
 
 UCLASS()
 class RLR_API UCharacterListUI : public UBaseUI
@@ -60,10 +60,10 @@ public:
 		캐릭터 선택시 소환할 캐릭터의 위치.
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector SpawnLocation = FVector(500, 500, 100);
+	FVector SpawnLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FRotator SpawnRotation = FRotator(0, 0 ,0);
+	FRotator SpawnRotation;
 
 private:
 	UPROPERTY()

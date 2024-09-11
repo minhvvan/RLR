@@ -12,11 +12,17 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
+
 #include "Structs/SkillStructs.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/MonsterStructs.h"
 
 #include <Kismet/GameplayStatics.h>
+
+#include "Network/Handler/ClientPacketHandler.h"
+#include "Network/Handler/CertificationPacketHandler.h"
+
+#include "UI/Lobby/LobbyMainUI.h"
 
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
@@ -28,12 +34,12 @@ void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 	}
 }
 
-void UUtilBlueprintFunctionLibrary::DebugMessage(const char* FunctionName, const char* FileName, int LineNumber)
+void UUtilBlueprintFunctionLibrary::DebugMessage(const char* FunctionName, const char* FileName, int32 LineNumber)
 {
 	if (GEngine == nullptr)
 		return;
 
-	FString Result = FString::Printf(TEXT("%s is Error #s line - %d"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber);
+	FString Result = FString::Printf(TEXT("%s is Error %s line - %d"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *Result);
 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *Result);
 }
@@ -56,15 +62,14 @@ void UUtilBlueprintFunctionLibrary::Checkf(UObject* Object, FString Message)
 	}
 }
 
-bool UUtilBlueprintFunctionLibrary::CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int LineNumber)
+bool UUtilBlueprintFunctionLibrary::CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int32 LineNumber)
 {
-	//널 값이 아니면 리턴.
 	if (IsValid(Object) == true)
 		return true;
 	if (GEngine == nullptr)
 		return false;
 
-	FString Result = FString::Printf(TEXT("%s Error #s %d, %s is not valid"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber, *Message);
+	FString Result = FString::Printf(TEXT("%s Error %s %d, %s is not valid"), ANSI_TO_TCHAR(FunctionName), ANSI_TO_TCHAR(FileName), LineNumber, *Message);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *Result);
 	GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, *Result);
 
@@ -110,9 +115,23 @@ void UUtilBlueprintFunctionLibrary::TestAddPartyPlayer()
 	GameInstance->GetOtherUserManager()->AddPlayerToParty(TestPlayerInfo);
 }
 
+void UUtilBlueprintFunctionLibrary::TestCharacterList()
+{
 
+	ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GameInstance->GetUIManager()->GetMainUI());
+	if (IsValid(LobbyMainUI) == false)
+		return;
 
-
+	for(int32 i = 0 ; i < 5; i++)
+	{ 
+		FUserCharacter NewCharaceter;
+		NewCharaceter.UserSeq = i;
+		NewCharaceter.NickName = "Test_" + i;
+		LobbyMainUI->AddUserCharacter(NewCharaceter);
+	}
+	
+	LobbyMainUI->RefreshUI();
+}
 
 /*
 	치트

@@ -2,10 +2,14 @@
 
 
 #include "UI/Lobby/LobbyMainUI.h"
+#include "UI/Lobby/CharacterListUI.h"
+
 #include "GameManager/GameManager.h"
 #include "GameManager/LevelManager.h"
 #include "GameManager/NetworkManager.h"
+
 #include "Structs/PlayerStructs.h"
+
 void ULobbyMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -15,7 +19,7 @@ void ULobbyMainUI::NativeConstruct()
 void ULobbyMainUI::RefreshUI()
 {
 	Super::RefreshUI();
-
+	CharacterListUI->RefreshUI();
 }
 
 void ULobbyMainUI::Clear()
@@ -26,7 +30,13 @@ void ULobbyMainUI::Clear()
 
 void ULobbyMainUI::SetInputMode()
 {
-	ChangeInputModeUIOnly();
+	//ChangeInputModeUIOnly();
+	ChangeInputModeGameAndUI();
+}
+
+void ULobbyMainUI::AddUserCharacter(FUserCharacter NewCharacter)
+{
+	CharacterListUI->AddUserCharacter(NewCharacter);
 }
 
 void ULobbyMainUI::OpenCreateCharacterUI()

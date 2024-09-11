@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/MainUI.h"
+#include "Structs/PlayerStructs.h"
 #include "LobbyMainUI.generated.h"
 
 /**
@@ -24,7 +25,12 @@ public:
 	virtual void Clear() override;
 	virtual void SetInputMode() override;
 
+	void AddUserCharacter(FUserCharacter NewCharacter);
+
 	void OpenCreateCharacterUI();
+
+	UCharacterListUI*		GetCharacterListUI() {return CharacterListUI;};
+	UCreateCharacterUI*		GetCreateCharacterUI(){return CreateCharacterUI;};
 
 public:
 

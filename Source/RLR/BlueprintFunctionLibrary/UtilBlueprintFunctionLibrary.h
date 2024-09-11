@@ -30,7 +30,7 @@ class RLR_API UUtilBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void DebugLog(FString string);
-	static void DebugMessage(const char* FunctionName, const char* FileName, int LineNumber);
+	static void DebugMessage(const char* FunctionName, const char* FileName, int32 LineNumber);
 	
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void NotifyFeatureIncomplete();
@@ -38,7 +38,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void Checkf(UObject* Object, FString Message);
 
-	static bool CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int LineNumber);
+	static bool CheckValid(UObject* Object, FString Message, const char* FunctionName, const char* FileName, int32 LineNumber);
 
 	/*
 	
@@ -54,6 +54,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void TestAddPartyPlayer();
+
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void TestCharacterList();
 
 	/*
 		Cheat Code
