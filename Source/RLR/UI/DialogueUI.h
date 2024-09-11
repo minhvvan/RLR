@@ -17,6 +17,7 @@ class UNPCShopUI;
 class UCanvasPanel;
 class UNPCShopUI;
 class UItemInformation;
+class UInventoryUI;
 class USlotUI;
 
 UCLASS()
@@ -44,7 +45,10 @@ protected:
 	TObjectPtr<UTextBlock> TxtNPCTalk;	
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UNPCShopUI> NPCShopUI;	
+	TObjectPtr<UNPCShopUI> NPCShopUI;		
+	
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UInventoryUI> InventoryUI;
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UItemInformation> ItemInformationUI;

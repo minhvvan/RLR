@@ -4,7 +4,6 @@
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
-#include "Components/CanvasPanelSlot.h"
 #include "Components/CanvasPanel.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
 #include "Structs/ItemStructs.h"
@@ -31,14 +30,6 @@ void UNPCShopUI::SetItemData(TArray<FItemData>& Items)
 void UNPCShopUI::SetShopData(FNPCShop& Data)
 {
 	NPCShopData = MakeShared<FNPCShop>(Data);
-}
-
-void UNPCShopUI::SetPosition(FVector2D pos)
-{
-	if (auto slot = Cast<UCanvasPanelSlot>(Slot))
-	{
-		slot->SetPosition(pos);
-	}
 }
 
 TWeakPtr<FNPCShop> UNPCShopUI::GetShopData()

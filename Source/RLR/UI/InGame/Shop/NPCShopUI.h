@@ -40,7 +40,6 @@ public:
 
 	void SetItemData(TArray<FItemData>& Items);
 	void SetShopData(FNPCShop& Data);
-	void SetPosition(FVector2D pos);
 
 	TWeakPtr<FNPCShop> GetShopData();
 

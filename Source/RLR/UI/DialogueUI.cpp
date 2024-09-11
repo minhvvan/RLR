@@ -9,9 +9,11 @@
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 
 void UDialogueUI::NativeConstruct()
 {
@@ -90,5 +92,12 @@ void UDialogueUI::OnShopClicked()
 		NPCShopUI->SetItemData(TestItems);
 		NPCShopUI->SetPosition(panelPos);
 		NPCShopUI->OpenUI();
+	}
+
+	if (InventoryUI)
+	{
+		FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->WidthOverride + 10.f, 100.f);
+		InventoryUI->SetPosition(panelPos);
+		InventoryUI->OpenUI();
 	}
 }
