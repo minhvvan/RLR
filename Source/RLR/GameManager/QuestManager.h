@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "RLRStruct.h"
 #include "Structs/ObjectStructs.h"
@@ -18,9 +17,9 @@ class RLR_API UQuestManager : public UGameInstanceSubsystem
 	
 public:
 	void SetUserQuests(const TArray<FQuest>& Quests);
-	const TArray<FQuest>& GetUseerQuests() const { return CurrentQuests; }
+	const TArray<FQuest>& GetUserQuests() const { return CurrentQuests; }
 	void OnQuestCompleteResponse(int32 Success);
-	int32 SelectedQuestSeq;
+	FQuest SelectedQuestInfo;
 
 private:
 	TArray<FQuest> CurrentQuests;

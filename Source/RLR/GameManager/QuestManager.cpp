@@ -42,12 +42,12 @@ void UQuestManager::UpdateQuestUI()
 
 void UQuestManager::OnQuestCompleteResponse(int32 Success)
 {
-	if (Success != 0)
+	if (Success)
 	{
 		UQuestListUI* QuestListUI = GetQuestListUI();
 		if (QuestListUI)
 		{
-			QuestListUI->RemoveCompletedQuest(SelectedQuestSeq);
+			QuestListUI->RemoveCompletedQuest(SelectedQuestInfo);
 		}
 	}
 }
