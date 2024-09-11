@@ -16,7 +16,7 @@
 #include "ClientPacketHandler.h"
 #include "Structs/PlayerStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-
+#include "RLR.h"
 bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
 {
     /*
@@ -49,9 +49,14 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
     GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport(),pkt.playerseq());
-   //Login -> Lobby 연결해주면 주석 풀기.
-   //그리고 레벨 이동으로 인한 쓰레드 문제가 발생하니, 워커 쓰레드에서 레벨 이동하게 하지 않기.
-    
+   bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
+
+    if (Ret == false)
+    {
+        //TODO
+        //UIManager->OpenPopup으로 경고 추가하기.
+        DEBUG_LOG("Load lobby level fail");
+    }
 
    return true;
 }
@@ -93,9 +98,7 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
         
         GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
         GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
-        GameInstance->GetNetworkManager()->SendServerRequest();
-        GameInstance->GetNetworkManager()->SendGetSkillPacket();
-        GameInstance->GetNetworkManager()->SendUserQuestPacket();
+ 
     }
     else
     {

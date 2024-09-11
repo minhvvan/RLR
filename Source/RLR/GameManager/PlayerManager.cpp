@@ -15,10 +15,16 @@
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include <Player/RLRPlayerController.h>
 
 UPlayerManager::UPlayerManager()
 {
-
+	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Blueprints/Player/BP_Player.C"));
+	if (PlayerCharacterBPClass.Succeeded())
+	{
+		PlayerCharacterClass = PlayerCharacterBPClass.Class;
+	}
 }
 
 ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
@@ -34,22 +40,48 @@ ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 
 void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 {
-	if (UWorld* world = GetWorld())
+	if (UWorld* World = GetWorld())
 	{
+		// 기존에 스폰된 캐릭터가 없으면 새로 스폰
 		if (!PlayerCharacter)
 		{
-			ARLRPlayerCharacter* player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(world, 0));
-			if (player)
+			
+			ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(World, 0));
+			if (!Player)
 			{
-				PlayerCharacter = player;
+				AsyncTask(ENamedThreads::GameThread, [this, PlayerData, World]()
+					{
+				// 스폰할 위치와 회전 값이 PlayerData에 있다고 가정
+				FVector SpawnLocation(PlayerData.Trasform);
+				FRotator SpawnRotation(0.0f, 0.0f, 0.0f);  // 정면 회전
+				// 플레이어 캐릭터 스폰
+				FActorSpawnParameters SpawnParams;
+				ARLRPlayerCharacter* SpawnedCharacter = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
+				if (SpawnedCharacter)
+				{
+					PlayerCharacter = SpawnedCharacter;
+
+					// 플레이어 컨트롤러로 빙의 처리
+					ARLRPlayerController* PlayerController = Cast<ARLRPlayerController>(UGameplayStatics::GetPlayerController(World, 0));
+					if (PlayerController)
+					{
+						PlayerController->Possess(SpawnedCharacter);
+					}
+				}
+					});
 			}
+			else
+			{
+				PlayerCharacter = Player;
+			}
+			
 		}
 
-
-		if (IsValid(PlayerCharacter) == false)
-			return;
-
-		PlayerCharacter->SetStat(PlayerData);
+		// 플레이어 캐릭터가 유효하다면 데이터를 설정
+		if (IsValid(PlayerCharacter))
+		{
+			PlayerCharacter->SetStat(PlayerData);
+		}
 	}
 }
 

@@ -17,7 +17,7 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "Network/Handler/ClientPacketHandler.h"
 
 UGameManager* GameInstance = nullptr;
 
@@ -26,7 +26,7 @@ void UGameManager::Init()
     Super::Init();
     // Ensure GameInstance is set
     GameInstance = this;
-
+    ClientPacketHandler::Init();
     LoadGameOption();
     
 }

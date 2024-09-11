@@ -16,7 +16,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
-
+#include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
 #include "UI/LoadingScreen/LoadingScreen.h"
@@ -31,7 +31,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
-
+	
 	UMainUI* NewMainUI = CreateWidget<UMainUI>(GetWorld(), UIClass);
 	if (NewMainUI)
 	{
@@ -44,11 +44,22 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 			Title, Lobby 에서 이게 필요한 경우가 있을까?
 			없으면 이야기해서 InGameMainUI에 옮기기기.
 		*/
-
+		RLR_LOG(LogRLR, Warning, TEXT("몇 번들어 오는지 테스트"));
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (!playerCharacter) return;
 
 		MainUI->SetActionSystemComponent(playerCharacter);
+
+		FString CurrentLevelName = GetWorld()->GetMapName();
+		if (CurrentLevelName.Contains(TEXT("Main")))
+		{
+			// UI가 완전히 로드된 후에만 네트워크 패킷 처리
+			if (GameInstance)
+			{
+				GameInstance->GetNetworkManager()->SendServerRequest();
+				GameInstance->GetNetworkManager()->SendUserQuestPacket();
+			}
+		}
 	};
 }
 
