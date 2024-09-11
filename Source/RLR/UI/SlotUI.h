@@ -74,16 +74,8 @@ public:
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 	virtual void NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
+
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-	
-	UFUNCTION()
-	virtual void OnClickedSlotButton();
-		
-	UFUNCTION()
-	virtual void OnHoveredSlotButton();
-		
-	UFUNCTION()
-	virtual void OnUnHoveredSlotButton();
 
 	UFUNCTION()
 	virtual void SetSlotImage(UTexture2D* NewImage);
@@ -137,9 +129,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> SlotImage;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UButton> SlotButton;
 
 
 	/*

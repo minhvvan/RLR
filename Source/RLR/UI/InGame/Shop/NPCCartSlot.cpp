@@ -12,29 +12,12 @@ void UNPCCartSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 	RefreshUI();
 }
 
-void UNPCCartSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
+FReply UNPCCartSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-}
-
-bool UNPCCartSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-{
-	return false;
-}
-
-void UNPCCartSlot::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-{
-}
-
-void UNPCCartSlot::OnClickedSlotButton()
-{
-}
-
-void UNPCCartSlot::OnHoveredSlotButton()
-{
-}
-
-void UNPCCartSlot::OnUnHoveredSlotButton()
-{
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	//TODO:카트 비우기
+	
+	return result;
 }
 
 void UNPCCartSlot::RefreshUI()

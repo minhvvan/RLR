@@ -21,14 +21,6 @@
 void USlotUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if (IsValid(SlotButton) == true)
-	{
-		SlotButton->OnClicked.AddUniqueDynamic(this, &USlotUI::OnClickedSlotButton);
-		SlotButton->OnHovered.AddUniqueDynamic(this, &USlotUI::OnHoveredSlotButton);
-		SlotButton->OnUnhovered.AddUniqueDynamic(this, &USlotUI::OnUnHoveredSlotButton);
-	}
-
 }
 
 void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -109,25 +101,11 @@ FReply USlotUI::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, cons
 	return ReplyResult.NativeReply;
 }
 
-void USlotUI::OnClickedSlotButton()
-{
-
-}
-
-void USlotUI::OnHoveredSlotButton()
-{
-}
-
-void USlotUI::OnUnHoveredSlotButton()
-{
-}
-
 void USlotUI::SetSlotImage(UTexture2D* NewImage)
 {
 	if (IsValid(NewImage) == false)
 	{
-		DEBUG_LOG("Set Slot Image Error. New Image is Null");
-		return;
+		SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	}
 
 	SlotImage->SetBrushFromTexture(NewImage);
@@ -135,7 +113,7 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 
 void USlotUI::Clear()
 {
-	SlotImage->SetBrushFromTexture(DefaultSlotImage);
+	SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	if (IsValid(GetSlotData()) == true)
 	{
 		GetSlotData()->Clear();
