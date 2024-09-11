@@ -23,9 +23,7 @@
 
 bool UNetworkManager::SendServerListRequest()
 {
-    /*
-        현석님이 잘 해주겠지.
-    */
+
 
     DEBUG_INCOMPLETE;
 
@@ -35,9 +33,6 @@ bool UNetworkManager::SendServerListRequest()
 bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 {
 
-    /*
-        현석님이 잘 해주겠지.
-    */
     if (ConnectToLoginServer("127.0.0.1", 27010)) {
         Protocol::CS_LoginRequestPacket packet;
         FString PlayerIdString = ID.ToString();

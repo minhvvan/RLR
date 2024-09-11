@@ -55,9 +55,8 @@ void USkillSetting::RefreshUI()
 	Super::RefreshUI();
 
 	Clear();
-
-			LoadSkillList();
-			LoadQuickSlotData();
+	LoadSkillList();
+	LoadQuickSlotData();
 
 }
 

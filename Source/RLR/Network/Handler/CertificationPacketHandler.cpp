@@ -47,11 +47,8 @@ bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt)
 {
-    RLR_LOG(LogRLR, Warning, TEXT("왜 안와"));
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
     GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport(),pkt.playerseq());
-   //Login -> Lobby 연결해주면 주석 풀기.
-   //그리고 레벨 이동으로 인한 쓰레드 문제가 발생하니, 워커 쓰레드에서 레벨 이동하게 하지 않기.
    bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
 
     if (Ret == false)
@@ -101,9 +98,7 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
         
         GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
         GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
-   /*     GameInstance->GetNetworkManager()->SendServerRequest();
-        GameInstance->GetNetworkManager()->SendGetSkillPacket();
-        GameInstance->GetNetworkManager()->SendUserQuestPacket();*/
+ 
     }
     else
     {

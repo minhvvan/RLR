@@ -268,7 +268,7 @@ struct FUserCharacter
 	FTalent Talent;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FVector Trasform;
+	FVector Transform;
 	void MakeUserCharacter(Protocol::UserCharacter Data);
 
 	/*임시 및 테스트 용*/
