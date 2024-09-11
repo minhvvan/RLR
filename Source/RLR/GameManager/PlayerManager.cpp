@@ -52,7 +52,7 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 				AsyncTask(ENamedThreads::GameThread, [this, PlayerData, World]()
 					{
 				// 스폰할 위치와 회전 값이 PlayerData에 있다고 가정
-				FVector SpawnLocation(PlayerData.Trasform);
+				FVector SpawnLocation(PlayerData.Transform);
 				FRotator SpawnRotation(0.0f, 0.0f, 0.0f);  // 정면 회전
 				// 플레이어 캐릭터 스폰
 				FActorSpawnParameters SpawnParams;
