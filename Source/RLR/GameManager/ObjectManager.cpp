@@ -136,8 +136,11 @@ void UObjectManager::SpawnDropItem()
     
     AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
         {
+
             for (auto& data : DropItemData)
             {
+                RLR_LOG(LogRLR, Warning, TEXT("DropItemData Size: %d"), DropItemData.Num());
+                RLR_LOG(LogRLR, Warning, TEXT("DropItemInstances Size: %d"), DropItemInstances.Num());
                 TSubclassOf<ARLRDropItem> itemClass = dataManager->GetObjectClass<ARLRDropItem>(TEXT("BP_DropItem"));
                 if (!itemClass) continue;
 
@@ -152,12 +155,16 @@ void UObjectManager::SpawnDropItem()
                 }
 
                 object->SetDropItemData(data);
-                object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
-                {
-                    object->FinishSpawning(SpawnTransform);
-                    DropItemInstances.Add(object);
-                });
+                object->FinishSpawning(SpawnTransform);
+                DropItemInstances.Add(object);
+
+                //object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
+                //{
+                //    object->FinishSpawning(SpawnTransform);
+                //    DropItemInstances.Add(object);
+                //});
             }
+            DropItemData.Empty();
         });
 }
 
@@ -194,8 +201,14 @@ void UObjectManager::ResponePickUpItem(int ObjectId, bool bSuccess)
         {
             auto dropItemInstance = GetObjectInstanceById(ObjectId);
             if (!dropItemInstance) return;
-            // 유효성 검사 후 Destroy 호출
-            DropItemInstances.Remove(dropItemInstance);
-            dropItemInstance->Destroy();
+            
+            float DelayTime = 1.0f;
+            FTimerHandle TimerHandle;
+
+            GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, dropItemInstance]()
+                {
+		            DropItemInstances.Remove(dropItemInstance);
+		            dropItemInstance->Destroy();
+                }, DelayTime, false);
         });
 }
