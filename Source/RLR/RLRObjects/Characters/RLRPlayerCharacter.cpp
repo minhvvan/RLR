@@ -93,26 +93,6 @@ void ARLRPlayerCharacter::Tick(float DeltaSeconds)
 			bShouldRotate = false;
 		}
 	}
-
-	if (TargetLocation != FVector::ZeroVector)
-	{
-		FVector CurrentLocation = GetActorLocation();
-
-		UE_LOG(LogTemp, Log, TEXT("타겟 로케이션 동작중"));
-
-		// 보간을 사용하여 현재 위치에서 목표 위치로 부드럽게 이동
-		float InterpSpeed = 5.0f; // 이동 속도 설정
-		FVector NewLocation = FMath::VInterpTo(CurrentLocation, TargetLocation, DeltaSeconds, InterpSpeed);
-
-		// 새로운 위치로 설정
-		SetActorLocation(NewLocation);
-
-		// 목표 위치에 거의 도달하면 위치 업데이트 중지
-		if (FVector::Dist(NewLocation, TargetLocation) < 1.0f)
-		{
-			TargetLocation = FVector::ZeroVector;
-		}
-	}
 }
 
 void ARLRPlayerCharacter::SetTargetRotation(FVector TargetLoc, float Speed)
@@ -150,11 +130,9 @@ const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
 void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 {
 	//플레이어 위치 설정
-	AsyncTask(ENamedThreads::GameThread, [this, NewTransform]()
+	AsyncTask(ENamedThreads::GameThread, [this,NewTransform]()
 		{
-
-			ARLRPlayerController* controller = Cast<ARLRPlayerController>(GetController());
-	controller->SimpleMove(NewTransform);
+	SetActorLocation(NewTransform);
 		});
 }
 
