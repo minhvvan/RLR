@@ -151,6 +151,8 @@ void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 
 void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
 {
+	AsyncTask(ENamedThreads::GameThread, [this, NewExp]()
+		{
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;
 
@@ -159,6 +161,7 @@ void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
 	spec.NewValue = NewLevel;
 
 	statSet->ApplyChangeStat(spec);
+		});
 }
 
 void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
