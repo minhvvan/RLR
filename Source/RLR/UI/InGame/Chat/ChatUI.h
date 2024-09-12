@@ -94,7 +94,7 @@ public:
     void OnTabClicked(int32 index);
 
     UFUNCTION(BlueprintCallable)
-    void AddChatMessage(const FString& Message, int ChatType);
+    void AddChatMessage(FString Message, int ChatType);
 
     UFUNCTION(BlueprintCallable)
     void AddMessageToScrollBox(UScrollBox* ScrollBox, const FString& Message, FLinearColor Color);

@@ -29,17 +29,7 @@ bool UNetworkManager::SendBuyPacket(int itemSeq, int shopSeq, int quantity) {
     packet.set_quantity(quantity);
     
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendSellPacket(int64 itemId, int shopSeq, int quantity) {
@@ -53,15 +43,5 @@ bool UNetworkManager::SendSellPacket(int64 itemId, int shopSeq, int quantity) {
     packet.set_quantity(quantity);
 
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }

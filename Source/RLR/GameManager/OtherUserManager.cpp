@@ -15,51 +15,82 @@
 
 UOtherUserManager::UOtherUserManager()
 {
-	
+	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"));
+	if (PlayerCharacterBPClass.Succeeded())
+	{
+		PlayerCharacterClass = PlayerCharacterBPClass.Class;
+	}
+	else
+	{
+		RLR_LOG(LogRLR, Error, TEXT("Failed to load BP_Player character class"));
+	}
 }
 
 void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 {
-	/*
-		TODO
-		플레이어 스폰.
-	*/
+	AsyncTask(ENamedThreads::GameThread, [this, NewPlayer]()
+		{
 
+			FVector SpawnLocation = FVector::ZeroVector;
+			FTransform SpawnTransform;
+			SpawnLocation.X = NewPlayer.transx();
+			SpawnLocation.Y = NewPlayer.transy();
+			SpawnLocation.Z = NewPlayer.transz();
 
-	UWorld* World = GetWorld();
-	if(World == nullptr)
-		return;
+			FUserCharacter UserCharacter;
+			UserCharacter.MakeUserCharacter(NewPlayer);
+			UserCharacter.MapId = 1;
+			UserCharacter.ChannelId = 1;
+			SpawnTransform.SetLocation(SpawnLocation);
+			SpawnTransform.SetRotation(FQuat::Identity);
+			SpawnTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));
 
+			UWorld* World = GetWorld();
+			if (World == nullptr)
+			{
+				RLR_LOG(LogRLR, Error, TEXT("World is nullptr"));
+				return;
+			}
 
-	FActorSpawnParameters SpawnParams;
-	FRotator SpawnRotator;
-	FVector SpawnLocation = FVector::ZeroVector;
+			// Deferred spawning
+			ARLRPlayerCharacter* OtherPlayer = World->SpawnActorDeferred<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnTransform);
 
-	SpawnLocation.X = NewPlayer.transx();
-	SpawnLocation.Y = NewPlayer.transy();
-	SpawnLocation.Z = NewPlayer.transz();
+			// Check if the spawn failed
+			if (!OtherPlayer)
+			{
+				RLR_LOG(LogRLR, Error, TEXT("Failed to spawn Character"));
+				return;
+			}
 
-	FUserCharacter UserCharacter;
-	UserCharacter.MakeUserCharacter(NewPlayer);
+			// Add player to list before FinishSpawning
+			int32 PlayerID = NewPlayer.userseq();
+			OtherPlayerList.Add(PlayerID, OtherPlayer);
 
-	TSubclassOf<ARLRPlayerCharacter> PlayerClass = GetPlayerCharacterClass(UserCharacter.MainJob);
-	if(CHECK_VALID(PlayerClass) == false)
-		return;
+			// Finalize the spawning process
+			OtherPlayer->FinishSpawning(SpawnTransform);
 
-	ARLRPlayerCharacter* OtherPlayer = World->SpawnActor<ARLRPlayerCharacter>(PlayerClass, SpawnLocation, SpawnRotator, SpawnParams);
+			// Optional: Log success
+			RLR_LOG(LogRLR, Warning, TEXT("Player %d spawned successfully"), PlayerID);
+		});
 	
-	/*
-		TODO
-		OhterPlayer->SetUserCharacter()
-	*/
 	
-	int32 PlayerID = NewPlayer.playerseq();
-	OtherPlayerList.Add(PlayerID, OtherPlayer);
 }
 
 ARLRPlayerCharacter* UOtherUserManager::GetPlayer(int32 PlayerID)
 {
-	return OtherPlayerList[PlayerID];
+	// 먼저 PlayerID가 TMap에 존재하는지 확인
+	if (!OtherPlayerList.Contains(PlayerID)) {
+		return nullptr;  // PlayerID가 없으면 nullptr 반환
+	}
+
+	// TMap에서 PlayerID에 해당하는 값을 가져옴
+	ARLRPlayerCharacter* Player = *OtherPlayerList.Find(PlayerID);
+	if (Player == nullptr) {
+		return nullptr;  // 플레이어가 nullptr이면 nullptr 반환
+	}
+
+	return Player;  // 유효한 플레이어 반환
 }
 
 void UOtherUserManager::RemovePlayer(int32 PlayerID)
@@ -138,3 +169,4 @@ TSubclassOf<ARLRPlayerCharacter> UOtherUserManager::GetPlayerCharacterClass(ECha
 
 	return GameInstance->GetDataManager()->GetCharacterClass<ARLRPlayerCharacter>(JobString);
 }
+

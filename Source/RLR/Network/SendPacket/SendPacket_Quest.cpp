@@ -27,17 +27,7 @@ bool UNetworkManager::SendQuestAddPacket(int npcSeq, int questSeq) {
     packet.set_questseq(questSeq);
 
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 bool UNetworkManager::SendQuestCheckPacket(int questSeq) {
     if (!MainServerSocket) return false;
@@ -48,17 +38,7 @@ bool UNetworkManager::SendQuestCheckPacket(int questSeq) {
     packet.set_questseq(questSeq);
 
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendQuestCompletePacket(int questSeq) {
@@ -71,15 +51,5 @@ bool UNetworkManager::SendQuestCompletePacket(int questSeq) {
     
 
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }

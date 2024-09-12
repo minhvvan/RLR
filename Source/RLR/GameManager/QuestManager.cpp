@@ -6,16 +6,43 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "Structs/ObjectStructs.h"
 
 void UQuestManager::SetUserQuests(const TArray<FQuest>& Quests)
 {
 	CurrentQuests = Quests;
 
-	/* TODO : 인스턴스 받아오기 create widget 하는 곳 어디? */
-	/*if(UQuestUI* QuestUI = )*/
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (!GM) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (!UIManager) return;
+
+	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	if (!InGameMainUI) return;
+
+	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();
+	/* TODO : 일단 변수에 저장하는 것으로 바꿨는데, 서버연결 해서 확인해야함 */
+	QuestListUIVariable = QuestListUI;
+
+	UpdateQuestUI();
 }
 
-void UQuestManager::UpdateQeustUI()
+void UQuestManager::UpdateQuestUI()
 {
-	/*TODO : QuestListUI->UpdateQuestList(CurrentQuests);*/
+	if (QuestListUIVariable)
+	{
+		QuestListUIVariable->UpdateQuestList(CurrentQuests);
+	}
+}
+
+void UQuestManager::OnQuestCompleteResponse(int32 Success)
+{
+	if (Success)
+	{
+		if (QuestListUIVariable)
+		{
+			QuestListUIVariable->RemoveCompletedQuest(SelectedQuestInfo);
+		}
+	}
 }

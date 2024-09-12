@@ -12,6 +12,7 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/QuestManager.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -64,14 +65,22 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
-    
+
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
 
+    FUserCharacter UserCharacter;
+    UserCharacter.MakeUserCharacter(pkt.usercharacter());
+    GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
+    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->GetNetworkManager()->SetUserSeq(pkt.usercharacter().userseq());
+    //GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
+    // item 이미지 없어서 로드 안됌 로드 완료시 연결예정
+    GameInstance->GetNetworkManager()->SendInventoryPacket();
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {
@@ -123,6 +132,7 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
         questData.MakeQuestData(quest);
         questDatas.Add(questData);
     }
+
     //TODO : Player Manager 에 User 퀘스트의 연결
     //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
     GameInstance->GetQuestManager()->SetUserQuests(questDatas);
@@ -145,6 +155,14 @@ bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt)
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    // TODO : 플레이어 보상 지급, QuestListUI에서 완료한 퀘스트 버튼 삭제
+    int32 Success = pkt.success();
+
+    UQuestManager* QuestManager = GameInstance->GetQuestManager();
+    if (QuestManager)
+    {
+        QuestManager->OnQuestCompleteResponse(Success);
+    }
     return false;
 }
 
@@ -157,6 +175,15 @@ bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_B
 bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt)
 {
     // 오는게 true, false 밖에 없어서 따로 로직 구현 X
+    return false;
+}
+
+bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt)
+{
+    GameInstance->GetPlayerManager()->UpdatePlayerExp(pkt.exp());
+    GameInstance->GetPlayerManager()->UpdatePlayerLevel(pkt.level());
+    
+   
     return false;
 }
 

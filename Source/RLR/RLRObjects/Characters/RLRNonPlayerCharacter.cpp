@@ -56,6 +56,8 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 
 	FInteractionData interactionData;
 	interactionData.DialogueString = NPCData->NPCTalk;
+	// 임시 데이터 
+	interactionData.NPCSeq = NPCData->NPCSeq;
 	data.InteractionData = interactionData;
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();

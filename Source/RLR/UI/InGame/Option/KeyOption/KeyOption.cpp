@@ -15,12 +15,12 @@
 #include "Structs/UtilStructs.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
+#include "UObject/Package.h"
+#include "AssetRegistry/AssetRegistryModule.h"
+
 #if WITH_EDITOR
 #include "UnrealEd.h"
 #endif
-#include "UObject/Package.h"
-
-#include "AssetRegistry/AssetRegistryModule.h"
 
 void UKeyOption::NativeConstruct()
 {

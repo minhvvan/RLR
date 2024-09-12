@@ -28,17 +28,7 @@ bool UNetworkManager::SendChangeSkillPacket(const FSkillData* SkillData, int ski
     packet.set_userseq(UserSeq);
     packet.set_skillseq(SkillData->SkillSeq);
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendAddSkillPacket(int skillSeq) {
@@ -50,15 +40,5 @@ bool UNetworkManager::SendAddSkillPacket(int skillSeq) {
     packet.set_userseq(UserSeq);
     packet.set_skillseq(skillSeq);
 
-    TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
-    bool bSuccess = SendToMainSocket(sendBuffer);
-
-    if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
-
-    }
-    else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
-    }
-    return bSuccess;
+    SEND_PACKET(packet);
 }

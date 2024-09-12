@@ -15,6 +15,7 @@
 #include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Structs/PlayerStructs.h"
+#include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
 // Sets default values
@@ -68,7 +69,7 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 }
 
 void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
@@ -129,7 +130,10 @@ const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
 void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 {
 	//플레이어 위치 설정
+	AsyncTask(ENamedThreads::GameThread, [this,NewTransform]()
+		{
 	SetActorLocation(NewTransform);
+		});
 }
 
 void ARLRPlayerCharacter::SetDead()

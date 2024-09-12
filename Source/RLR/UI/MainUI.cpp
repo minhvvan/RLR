@@ -41,18 +41,28 @@ void UMainUI::BindSubUI()
 
 void UMainUI::RefreshUI()
 {
-	Super::RefreshUI();
-	TArray<UWidget*> Array;
-	WidgetTree->GetAllWidgets(Array);
-	for (auto Widget : Array)
-	{
-		if (UBaseUI* ChildUI = Cast<UBaseUI>(Widget))
+	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			ChildUI->RefreshUI();
-		}
-	}
+			Super::RefreshUI();
+			TArray<UWidget*> Array;
+			WidgetTree->GetAllWidgets(Array);
+			for (auto Widget : Array)
+			{
+				if (UBaseUI* ChildUI = Cast<UBaseUI>(Widget))
+				{
+					ChildUI->RefreshUI();
+				}
+			}
+		});
+	
 }
 
 void UMainUI::CloseUI()
 {
+}
+
+void UMainUI::SetInputMode()
+{
+	//특별한 경우가 없다면 그냥 Game And UI 모드.
+	ChangeInputModeGameAndUI();
 }

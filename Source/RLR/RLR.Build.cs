@@ -25,6 +25,7 @@ public class RLR : ModuleRules
         if (Target.Type != TargetRules.TargetType.Editor)
         {
             PrivateDependencyModuleNames.Remove("UnrealEd");
+            PrivateDependencyModuleNames.Remove("Blutility");
         }
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

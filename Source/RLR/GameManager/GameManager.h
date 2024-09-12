@@ -29,10 +29,15 @@
 			플레이어 관리.
 		ObjectManager
 			NPC, 오브젝트 관리.
+		EffectManager
+			이펙트
+		LevelManager
+			레벨 이동 관리
 		QuestManager
 			Quest 관리
+		LobbyManager
+			Lobby 관리
  */
-
 
 class UDataManager;
 class UUIManager;
@@ -45,8 +50,8 @@ class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
-
-
+class ULevelManager;
+class ULobbyManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -56,50 +61,51 @@ class RLR_API UGameManager : public UGameInstance
 public:
 
 	virtual void Init() override;
-
+	virtual void LoadComplete(const float LoadTime, const FString& MapName);
 	
 
 	UFUNCTION(BlueprintCallable)
-	UDataManager* GetDataManager();
+	UDataManager*		GetDataManager();
 
 	UFUNCTION(BlueprintCallable)
-	UUIManager* GetUIManager();
+	UUIManager*			GetUIManager();
 
 	UFUNCTION(BlueprintCallable)
-	UInventoryManager* GetInventoryManager();
+	UInventoryManager*	GetInventoryManager();
 
 	UFUNCTION(BlueprintCallable)
-	USkillManager* GetSkillManager();
+	USkillManager*		GetSkillManager();
 
 	UFUNCTION(BlueprintCallable)
-	UNetworkManager* GetNetworkManager();
+	UNetworkManager*	GetNetworkManager();
 
 	UFUNCTION(BlueprintCallable)
-	UMonsterManager* GetMonsterManager();
+	UMonsterManager*	GetMonsterManager();
 
 	UFUNCTION(BlueprintCallable)
-	UOtherUserManager* GetOtherUserManager();
+	UOtherUserManager*	GetOtherUserManager();
 
 	UFUNCTION(BlueprintCallable)
-	UPlayerManager* GetPlayerManager();
+	UPlayerManager*		GetPlayerManager();
 	
 	UFUNCTION(BlueprintCallable)
-	UObjectManager* GetObjectManager();
+	UObjectManager*		GetObjectManager();
 
 	UFUNCTION(BlueprintCallable)
-	UQuestManager* GetQuestManager();
+	UGameOptionData*	GetGameOptionData();
 
 	UFUNCTION(BlueprintCallable)
-	UGameOptionData* GetGameOptionData();
+	ULevelManager*		GetLevelManager();
 
+	UQuestManager*		GetQuestManager();
 	
-
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
 
 	UFUNCTION(BlueprintCallable)
 	void LoadGameOption();
 
+	
 private:
 	/*
 		게임 옵션 데이터

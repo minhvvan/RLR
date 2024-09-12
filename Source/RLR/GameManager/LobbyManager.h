@@ -15,10 +15,10 @@ class RLR_API ULobbyManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 public:
-	ULobbyManager();
+
 
 	void SetUserData(TArray<FUserData>& UserArray);
-
+	void SetMapData(int mapId);
 
 private:
 	TArray<FUserData> Users;

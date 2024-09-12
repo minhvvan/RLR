@@ -27,9 +27,9 @@ public:
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);
     void UpdatePlayerSetStatus(const FSetStatus& NewSetStatus);
     void UpdatePlayerExp(int32 NewExp);
+    void UpdatePlayerLevel(int32 NewLevel );
     void UpdateTalent(const FTalent& NewTalent);
     void ApplyAbnormal(const FAbnormal& Abnormal);
-
     //이동
     bool RequestMove(const FMoveResult& MoveResult);
     void UpdatePlayerTransform(const FVector& NewTransform);
@@ -37,6 +37,8 @@ public:
     //재능
     bool RequestTalent(int TalentOrder);
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+    TSubclassOf<ARLRPlayerCharacter> PlayerCharacterClass;
 
 private:
     UPROPERTY()

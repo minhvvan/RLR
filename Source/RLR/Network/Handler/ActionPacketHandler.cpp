@@ -5,7 +5,9 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
 #include "GameManager/OtherUserManager.h"
+#include "GameManager/PlayerManager.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Structs/PlayerStructs.h"
 #include "ClientPacketHandler.h"
 
 
@@ -21,21 +23,22 @@ bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MoveR
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_MoveBroadcastPacket& pkt) {
    
     UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
+    if (GameInstance->GetPlayerManager()->GetUserSeq() != pkt.userseq()) {
+        if (OtherManager->GetPlayer(pkt.userseq())) {
+            OtherManager->GetPlayer(pkt.userseq())->UpdateTransform(FVector(pkt.transx(), pkt.transy(), pkt.transz()));
+        }
+        else {
 
+            Protocol::UserCharacter userCharacter;
+            userCharacter.set_userseq(pkt.userseq());
+            userCharacter.set_transx(pkt.transx());
+            userCharacter.set_transy(pkt.transy());
+            userCharacter.set_transz(pkt.transz());
 
-    if (OtherManager->GetPlayer(pkt.userseq())) {
-        OtherManager->GetPlayer(pkt.userseq())->UpdateTransform(FVector(pkt.transx(), pkt.transy(), pkt.transz()));
+            OtherManager->AddPlayer(userCharacter);
+        }
     }
-    else {
-
-        Protocol::UserCharacter userCharacter;
-        userCharacter.set_userseq(pkt.userseq());
-        userCharacter.set_transx(pkt.transx());
-        userCharacter.set_transy(pkt.transy());
-        userCharacter.set_transz(pkt.transz());
-
-        OtherManager->AddPlayer(userCharacter);
-    }
+   
     //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }

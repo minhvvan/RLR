@@ -56,7 +56,6 @@ void FNetworkReceiver::ProcessReceivedData(const uint8* Data, int32 Size)
             break;
         }
 
-
         // 핸들러가 유효한지 확인
         if (GPacketHandler[header->id])
 		{

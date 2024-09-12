@@ -67,6 +67,7 @@ void FNPCData::MakeNPCData(const Protocol::NPC npc)
         quest.MakeQuestData(npcQuest);
         NPCQuests.Add(quest);
     }
+    
 
     FNPCShop shop;
     for (auto&& npcShop : npc.shops()) {

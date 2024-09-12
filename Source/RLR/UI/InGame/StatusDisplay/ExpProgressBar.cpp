@@ -19,12 +19,6 @@ UExpProgressBar::UExpProgressBar(const FObjectInitializer& ObjectInitializer)
 	}
 }
 
-void UExpProgressBar::UpdateExpPercent()
-{
-	float newPercent = FMath::Clamp(float(CurrentExp) / MaxExp, 0.f, 1.f);
-	//ExpProgressBar->SetPercent(1);
-}
-
 void UExpProgressBar::UpdateMaxExp(int32 CurrentLevel)
 {
 	FExpTable* Data = MaxExpTable->FindRow<FExpTable>(*FString::FromInt(CurrentLevel), TEXT(""));
@@ -34,12 +28,27 @@ void UExpProgressBar::UpdateMaxExp(int32 CurrentLevel)
 		return;
 	}
 
-	MaxExp = Data->MaxExp;
-	UpdateExpPercent();
+	maxExp = Data->MaxExp;
 }
 
 void UExpProgressBar::UpdateExp(int32 UpdatedExp)
 {
-	CurrentExp = UpdatedExp;
-	UpdateExpPercent();
+	currentExp += UpdatedExp;
+	float newPercent = FMath::Clamp(float(currentExp) / maxExp, 0.f, 1.f);
+
+	ExpProgressBar->SetPercent(newPercent);
+}
+
+int64 UExpProgressBar::GetMaxExp()
+{
+	return maxExp;
+}
+
+int64 UExpProgressBar::GetCurrentExp()
+{
+	return currentExp;
+}
+void UExpProgressBar::ResetCurrentExp()
+{
+	currentExp = 0;
 }

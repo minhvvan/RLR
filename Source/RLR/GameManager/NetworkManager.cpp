@@ -39,6 +39,25 @@ void UNetworkManager::RequestServerAddresses(int32 userSeq)
     ConnectToMainServer(MainServerAddress, MainServerPort);
     
 }
+
+bool UNetworkManager::ConnectToLoginServer(const FString& serverAddress, int32 port) {
+    
+    LoginServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LoginServerSocket"), false);
+    FIPv4Address IP;
+    FIPv4Address::Parse(serverAddress, IP);
+
+    TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+    Addr->SetIp(IP.Value);
+    Addr->SetPort(port);
+
+
+    if (LoginServerSocket->Connect(*Addr))
+    {
+        LoginServerReceiver = MakeShared<FNetworkReceiver>(LoginServerSocket);
+        LoginServerThread = FRunnableThread::Create(LoginServerReceiver.Get(), TEXT("LoginServerReceiverThread"));
+    }
+    return true;
+}
 void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 Port, int32 playerSeq)
 {
     LobbyServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LobbyServerSocket"), false);
@@ -54,8 +73,7 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
         LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
         SetPlayerSeq(playerSeq);
-        SendPlayerPacket();
-
+        
     }
 }
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)
@@ -93,6 +111,7 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
 
     }
 }
+
 void UNetworkManager::SetUserSeq(int32 userSeq)
 {
     this->UserSeq = userSeq;
@@ -122,11 +141,13 @@ bool UNetworkManager::SendToMonsterSocket(TSharedPtr<SendBuffer> sendBuffer)
     int32 BytesSent = 0;
     return  MonsterServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 }
+
 bool UNetworkManager::SendToLobbySocket(TSharedPtr<SendBuffer> sendBuffer)
 {
     int32 BytesSent = 0;
     return  LobbyServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
 }
+
 bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
 
     if (!MonsterServerSocket) return false;
@@ -146,6 +167,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
         return true;
     }
 }
+
 bool UNetworkManager::SendPlayerPacket()
 {
     if (!LobbyServerSocket) return false;
@@ -160,11 +182,12 @@ bool UNetworkManager::SendPlayerPacket()
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Character Request 패킷 송신 성공"));
     }
     return bSuccess;
 
 }
+
 bool UNetworkManager::SendStatusPacket()
 {
     if (!MainServerSocket) return false;
@@ -184,6 +207,7 @@ bool UNetworkManager::SendStatusPacket()
     return bSuccess;
 
 }
+
 bool UNetworkManager::SendInventoryPacket()
 {
     if (!MainServerSocket) return false;
@@ -210,7 +234,7 @@ bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
     Protocol::CS_AttackRequestPacket packet;
     packet.mutable_skill()->set_skillseq(attackResult.SkillSeq);
     packet.mutable_skill()->set_level(attackResult.Level);
-    packet.mutable_skill()->set_userseq(attackResult.UserSeq);
+    packet.mutable_skill()->set_userseq(UserSeq);
     packet.mutable_skill()->set_timestamp(attackResult.Timestamp);
     for (int i = 0; i < attackResult.TargetSeq.Num(); i++) {
         packet.mutable_skill()->add_targetseq(attackResult.TargetSeq[i]);
@@ -327,10 +351,10 @@ bool UNetworkManager::SendUserQuestPacket() {
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("User Quest 패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("User Quest 패킷 송신 성공"));
     }
 
 
@@ -345,10 +369,10 @@ bool UNetworkManager::SendEnterPacket(int32 userSeq) {
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess =  SendToLobbySocket(sendBuffer);
     if (!bSuccess) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("Enter 패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Enter 패킷 송신 성공"));
     }
 
 

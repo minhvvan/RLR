@@ -2,15 +2,191 @@
 
 
 #include "UI/InGame/Quest/QuestUI/QuestListUI.h"
+#include "UI/InGame/Quest/QuestUI/QuestButtonUI.h"
+#include "Components/Button.h"
+#include "Components/TextBlock.h"
+#include "Components/VerticalBox.h"
+#include "GameManager/GameManager.h"
+#include "Components/CanvasPanel.h"
+#include "Components/PanelWidget.h"
+#include "Blueprint/WidgetTree.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/QuestManager.h"
+
 
 void UQuestListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 	SetUIType(EUIType::QUEST);
 	SetUITag(FGameplayTagManager::Get().UI_Quest);
+
+	if (CompleteButton)
+	{
+		CompleteButton->OnClicked.AddDynamic(this, &UQuestListUI::OnCompleteButtonClicked);
+	}
+	if (DeclineButton)
+	{
+		DeclineButton->OnClicked.AddDynamic(this, &UQuestListUI::OnDeclineButtonClicked);
+	}
+
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+	{
+		FInputModeGameAndUI InputMode;
+		InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+		InputMode.SetWidgetToFocus(TakeWidget());
+		InputMode.SetHideCursorDuringCapture(false);
+		PC->SetInputMode(InputMode);
+		PC->bShowMouseCursor = true;
+	}
 }
 
 void UQuestListUI::UpdateQuestList(const TArray<FQuest>& Quests)
 {
 	/* TODO : 퀘스트 목록 구성 로직 */
+	ClearQuestList();
+
+	for (const FQuest& Quest : Quests)
+	{
+		AddQuestButton(Quest);
+	}
+}
+
+void UQuestListUI::RemoveCompletedQuest(FQuest CompletedQuest)
+{
+	/* TODO : 리팩토링 대상 */
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World, CompletedQuest]()
+				{
+					for (auto* ChildWidget : QuestListContainer->GetAllChildren())
+					{
+						if (UQuestButtonUI* QuestButton = Cast<UQuestButtonUI>(ChildWidget))
+						{
+							if (QuestButton->GetQuestTitle() == SelectedQuest.QuestTitle)
+							{
+								QuestListContainer->RemoveChild(QuestButton);
+								QuestButton->SetButtonState(false);
+								break;
+							}
+						}
+					}
+					QuestButtons.Remove(SelectedQuest.QuestTitle);
+					SelectedQuest = FQuest();
+					UpdateQuestDetails(SelectedQuest);
+				});
+		}
+	}
+}
+
+void UQuestListUI::ClearQuestList()
+{
+	if (QuestListContainer)
+	{
+		QuestListContainer->ClearChildren();
+	}
+	QuestButtons.Empty();
+}
+
+void UQuestListUI::AddQuestButton(const FQuest& Quest)
+{
+	/* TODO : 리팩토링 대상 */
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World, Quest]()
+				{
+					if (QuestListContainer && QuestButtonUIClass)
+					{
+						UQuestButtonUI* QuestButton = CreateWidget<UQuestButtonUI>(this, QuestButtonUIClass);
+						if (QuestButton)
+						{
+							QuestButton->SetQuestInfo(Quest);
+							QuestButton->OnQuestButtonClick.AddUObject(this, &UQuestListUI::OnQuestButtonClicked);
+							QuestListContainer->AddChild(QuestButton);
+							QuestButtons.Add(Quest.QuestTitle, QuestButton);
+						}
+					}
+				});
+		}
+	}
+}
+
+FReply UQuestListUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	if (IsInUI(InGeometry, InMouseEvent))
+	{
+		return FReply::Handled();
+	}
+	return FReply::Unhandled();
+}
+
+bool UQuestListUI::IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	FVector2D LocalMousePosition = InGeometry.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
+	return InGeometry.IsUnderLocation(InMouseEvent.GetScreenSpacePosition());
+}
+
+void UQuestListUI::UpdateQuestDetails(const FQuest& Quest)
+{
+	UE_LOG(LogTemp, Log, TEXT("UpdateQuestDetails called with quest: %s"), *Quest.QuestTitle);
+	SelectedQuest = Quest;
+	if (SelectedQuestTitle)
+	{
+		SelectedQuestTitle->SetText(FText::FromString(Quest.QuestTitle));
+	}
+	if (QuestDescription)
+	{
+		QuestDescription->SetText(FText::FromString(Quest.QuestText));
+	}
+}
+/* TODO : 색상 전환 원하는대로 안됨 */
+void UQuestListUI::OnQuestButtonClicked(const FQuest& ClickedQuest, UQuestButtonUI* QuestButtonUI)
+{
+	QuestButtonUI->SetButtonState(true);
+	if (!SelectedQuest.QuestTitle.IsEmpty())
+	{
+		UQuestButtonUI* QuestButton = *QuestButtons.Find(SelectedQuest.QuestTitle);
+		if (QuestButton)
+		{
+			QuestButton->SetButtonState(false);
+		}
+	}
+	UpdateQuestDetails(ClickedQuest);
+}
+
+void UQuestListUI::OnCompleteButtonClicked()
+{
+	if (SelectedQuest.QuestSeq != 0)
+	{
+		GameInstance->GetQuestManager()->SelectedQuestInfo = SelectedQuest;
+		GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
+	}
+}
+
+void UQuestListUI::OnDeclineButtonClicked()
+{
+	for (auto* ChildWidget : QuestListContainer->GetAllChildren())
+	{
+		if (UQuestButtonUI* QuestButton = Cast<UQuestButtonUI>(ChildWidget))
+		{
+			UE_LOG(LogTemp, Log, TEXT("Checking QuestButton: %s"), *QuestButton->GetQuestTitle());
+			if (QuestButton->GetQuestTitle() == SelectedQuest.QuestTitle)
+			{
+				UE_LOG(LogTemp, Log, TEXT("Decline button clicked. SelectedQuest: %s"), *SelectedQuest.QuestTitle);
+				QuestListContainer->RemoveChild(QuestButton);
+				QuestButton->SetButtonState(false);
+				break;
+			}
+		}
+	}
+	QuestButtons.Remove(SelectedQuest.QuestTitle);
+	SelectedQuest = FQuest();
+	UpdateQuestDetails(SelectedQuest);
 }

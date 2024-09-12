@@ -16,6 +16,10 @@
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "UI/LoadingScreen/LoadingScreen.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -27,17 +31,35 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
-
+	
 	UMainUI* NewMainUI = CreateWidget<UMainUI>(GetWorld(), UIClass);
 	if (NewMainUI)
 	{
 		NewMainUI->AddToViewport();
 		MainUI = NewMainUI;
+		MainUI->SetInputMode();
 
+		/*
+			TODO
+			Title, Lobby 에서 이게 필요한 경우가 있을까?
+			없으면 이야기해서 InGameMainUI에 옮기기기.
+		*/
+		RLR_LOG(LogRLR, Warning, TEXT("몇 번들어 오는지 테스트"));
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (!playerCharacter) return;
 
 		MainUI->SetActionSystemComponent(playerCharacter);
+
+		FString CurrentLevelName = GetWorld()->GetMapName();
+		if (CurrentLevelName.Contains(TEXT("Main")))
+		{
+			// UI가 완전히 로드된 후에만 네트워크 패킷 처리
+			if (GameInstance)
+			{
+				GameInstance->GetNetworkManager()->SendServerRequest();
+				GameInstance->GetNetworkManager()->SendUserQuestPacket();
+			}
+		}
 	};
 }
 
@@ -162,6 +184,20 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
+TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
+{
+	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);
+	if(IsValid(WidgetClass) == false)
+		return nullptr;
+
+	UBaseUI* NewUI = CreateWidget<UBaseUI>(GetWorld(), WidgetClass);
+	if(IsValid(NewUI) == false)
+		return nullptr;
+	NewUI->AddToViewport();
+
+	return NewUI;
+}
+
 TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 {
 	UDialogueUI* newDialogueUI = CreateWidget<UDialogueUI>(GetWorld(), UIClass);
@@ -197,6 +233,60 @@ void UUIManager::RemoveSaleItem(const FItemData& Item)
 {
 	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
 	DialogueUI->RemoveSaleItem(Item);
+}
+
+void UUIManager::OpenLoadingScreen()
+{
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World]()
+				{
+					OpenLoadingScreen_Internal();
+				});
+		}
+	}
+}
+
+void UUIManager::CloseLoadingScreen()
+{
+	if (GEngine && GEngine->GameViewport)
+	{
+		UWorld* World = GEngine->GameViewport->GetWorld();
+		if (World)
+		{
+			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
+			AsyncTask(ENamedThreads::GameThread, [this, World]()
+				{
+					CloseLoadingScreen_Internal();
+				});
+		}
+	}
+}
+
+TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
+{	
+	if(IsValid(LoadingScreen) == true)
+		return LoadingScreen;
+
+	OpenLoadingScreen_Internal();
+	return LoadingScreen;
+}
+
+void UUIManager::OpenLoadingScreen_Internal()
+{
+	
+
+	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
+	LoadingScreen->AddToViewport();
+}
+
+void UUIManager::CloseLoadingScreen_Internal()
+{
+	
 }
 
 void UUIManager::OnDialogueEnded()

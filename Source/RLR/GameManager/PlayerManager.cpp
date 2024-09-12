@@ -15,16 +15,26 @@
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include <Player/RLRPlayerController.h>
 
 UPlayerManager::UPlayerManager()
 {
-
+	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"));
+	if (PlayerCharacterBPClass.Succeeded())
+	{
+		PlayerCharacterClass = PlayerCharacterBPClass.Class;
+	}
+	else
+	{
+		RLR_LOG(LogRLR, Error, TEXT("Failed to load BP_Player character class"));
+	}
 }
 
 ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 {
-	if(IsValid(PlayerCharacter) == false)
-	{ 
+	if (IsValid(PlayerCharacter) == false)
+	{
 		DEBUG_LOG("GetPlayerCharacter Error. Player Character Is Null");
 		return nullptr;
 	}
@@ -34,22 +44,48 @@ ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 
 void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 {
-	if (UWorld* world = GetWorld())
+	if (UWorld* World = GetWorld())
 	{
+		// 기존에 스폰된 캐릭터가 없으면 새로 스폰
 		if (!PlayerCharacter)
 		{
-			ARLRPlayerCharacter* player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(world, 0));
-			if (player)
+			
+			ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(World, 0));
+			if (!Player)
 			{
-				PlayerCharacter = player;
+				AsyncTask(ENamedThreads::GameThread, [this, PlayerData, World]()
+					{
+				// 스폰할 위치와 회전 값이 PlayerData에 있다고 가정
+				FVector SpawnLocation(PlayerData.Transform);
+				FRotator SpawnRotation(0.0f, 0.0f, 0.0f);  // 정면 회전
+				// 플레이어 캐릭터 스폰
+				FActorSpawnParameters SpawnParams;
+				ARLRPlayerCharacter* SpawnedCharacter = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
+				if (SpawnedCharacter)
+				{
+					PlayerCharacter = SpawnedCharacter;
+
+					// 플레이어 컨트롤러로 빙의 처리
+					ARLRPlayerController* PlayerController = Cast<ARLRPlayerController>(UGameplayStatics::GetPlayerController(World, 0));
+					if (PlayerController)
+					{
+						PlayerController->Possess(SpawnedCharacter);
+					}
+				}
+					});
 			}
+			else
+			{
+				PlayerCharacter = Player;
+			}
+			
 		}
 
-
-		if(IsValid(PlayerCharacter) == false)
-			return;
-
-		PlayerCharacter->SetStat(PlayerData);
+		// 플레이어 캐릭터가 유효하다면 데이터를 설정
+		if (IsValid(PlayerCharacter))
+		{
+			PlayerCharacter->SetStat(PlayerData);
+		}
 	}
 }
 
@@ -70,7 +106,7 @@ int32 UPlayerManager::GetUserSeq()
 		아직 미구현
 	*/
 
-	return 1;
+	return 2;
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
@@ -100,14 +136,32 @@ void UPlayerManager::UpdatePlayerSetStatus(const FSetStatus& NewSetStatus)
 
 void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 {
+	AsyncTask(ENamedThreads::GameThread, [this, NewExp]()
+		{
+			UStatSetPlayer* statSet = GetStatSet();
+			if (!statSet) return;
+
+			FStatChangeSpec<int32> spec;
+			spec.ChangedStat = statSet->GetExpStat();
+			spec.NewValue = NewExp;
+
+			statSet->ApplyChangeStat(spec);
+		});
+}
+
+void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
+{
+	AsyncTask(ENamedThreads::GameThread, [this, NewLevel]()
+		{
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;
 
 	FStatChangeSpec<int32> spec;
-	spec.ChangedStat = statSet->GetExpStat();
-	spec.NewValue = NewExp;
+	spec.ChangedStat = statSet->GetLevelStat();
+	spec.NewValue = NewLevel;
 
 	statSet->ApplyChangeStat(spec);
+		});
 }
 
 void UPlayerManager::UpdateTalent(const FTalent& NewTalent)
@@ -132,7 +186,7 @@ void UPlayerManager::ApplyAbnormal(const FAbnormal& Abnormal)
 
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
-	return GameInstance->GetNetworkManager()->SendMovePacket( MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
+	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
 }
 
 void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
@@ -170,7 +224,7 @@ UStatSetPlayer* UPlayerManager::GetStatSet()
 		}
 
 		//찾지 못하는 경우도 있어서 안전검사 추가.
-		if(IsValid(PlayerCharacter) == false)
+		if (IsValid(PlayerCharacter) == false)
 			return nullptr;
 
 		UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();

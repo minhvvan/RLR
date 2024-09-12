@@ -19,3 +19,4 @@ bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt);
 bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_BuyResponse& pkt);
 bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt);
+bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt);
