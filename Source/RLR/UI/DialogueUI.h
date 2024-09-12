@@ -88,11 +88,5 @@ private:
 	int32 CurrentNPCSeq;
 	int32 CurrentQuestSeq;
 
-	//test
-	UPROPERTY(EditAnywhere, Category = Action)
-	TSubclassOf<UNPCShopUI> ShopUIClass;
-
-	UPROPERTY(EditAnywhere, Category = Action)
-	UTexture2D* ItemImage;
-	TArray<FItemData> TestItems;
+	bool bOpenShop;
 };

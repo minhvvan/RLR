@@ -9,9 +9,11 @@
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/ObjectManager.h"
 #include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
+#include "Structs/ObjectStructs.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 
@@ -22,6 +24,8 @@ void UDialogueUI::NativeConstruct()
 	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
 	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
 	BtnShop->OnClicked.AddDynamic(this, &UDialogueUI::OnShopClicked);
+
+	bOpenShop = false;
 }
 
 void UDialogueUI::SetDialogueData(FString DialogueString)
@@ -83,31 +87,31 @@ void UDialogueUI::OnQuestDialogueBegins()
 
 void UDialogueUI::OnShopClicked()
 {
-	//Test
-	for (int i = 0; i < 15; i++)
+	if (bOpenShop)
 	{
-		FItemData item;
-		item.ITEM_SEQ = i;
-		item.NAME = FText::FromString(FString::Printf(TEXT("Item%d"), i));
-		item.SALE_PRICE = i * 10;
-		item.ITEM_VALUE = 1;
-		item.ItemImage = ItemImage;
-
-		TestItems.Add(item);
+		bOpenShop = false;
+		NPCShopUI->CloseUI();
+		InventoryUI->CloseUI();
 	}
-
-	if (NPCShopUI)
+	else
 	{
-		FVector2D panelPos(100.f, 100.f);
-		NPCShopUI->SetItemData(TestItems);
-		NPCShopUI->SetPosition(panelPos);
-		NPCShopUI->OpenUI();
-	}
+		bOpenShop = true;
+		auto ObjectManager = GameInstance->GetObjectManager();
+		const auto& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
 
-	if (InventoryUI)
-	{
-		FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->WidthOverride + 10.f, 100.f);
-		InventoryUI->SetPosition(panelPos);
-		InventoryUI->OpenUI();
+		if (NPCShopUI)
+		{
+			FVector2D panelPos(100.f, 100.f);
+			NPCShopUI->SetItemData(npcData.Shop.Items);
+			NPCShopUI->SetPosition(panelPos);
+			NPCShopUI->OpenUI();
+		}
+
+		if (InventoryUI)
+		{
+			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->WidthOverride + 10.f, 100.f);
+			InventoryUI->SetPosition(panelPos);
+			InventoryUI->OpenUI();
+		}
 	}
 }

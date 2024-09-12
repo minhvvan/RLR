@@ -38,7 +38,7 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 
-	void SetItemData(TArray<FItemData>& Items);
+	void SetItemData(const TArray<FItemData>& Items);
 	void SetShopData(FNPCShop& Data);
 
 	TWeakPtr<FNPCShop> GetShopData();

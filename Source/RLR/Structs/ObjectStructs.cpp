@@ -6,6 +6,8 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
 
+const FNPCData FNPCData::EmptyNPCData;
+
 void FQuest::MakeQuestData(const Protocol::Quest quest)
 {
     //TODO: QuestData 생성

@@ -176,6 +176,7 @@ struct FNPCData
 	GENERATED_BODY()
 
 	FNPCData() :
+		NPCSeq(-1),
 		NPCTransform(FVector::ZeroVector)
 	{}
 
@@ -254,8 +255,7 @@ struct FNPCData
 	}
 
 	void MakeNPCData(const Protocol::NPC npc);
-
-
+	const static FNPCData EmptyNPCData;
 };
 
 USTRUCT(Atomic, BlueprintType)

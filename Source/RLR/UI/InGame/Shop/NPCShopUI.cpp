@@ -20,7 +20,7 @@ void UNPCShopUI::NativeConstruct()
 	OnPurchaseClicked();
 }
 
-void UNPCShopUI::SetItemData(TArray<FItemData>& Items)
+void UNPCShopUI::SetItemData(const TArray<FItemData>& Items)
 {
 	ItemData = MakeShared<TArray<FItemData>>(Items);
 	auto purchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
