@@ -20,10 +20,14 @@
 UPlayerManager::UPlayerManager()
 {
 	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
-	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Blueprints/Player/BP_Player.C"));
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"));
 	if (PlayerCharacterBPClass.Succeeded())
 	{
 		PlayerCharacterClass = PlayerCharacterBPClass.Class;
+	}
+	else
+	{
+		RLR_LOG(LogRLR, Error, TEXT("Failed to load BP_Player character class"));
 	}
 }
 
@@ -102,7 +106,7 @@ int32 UPlayerManager::GetUserSeq()
 		아직 미구현
 	*/
 
-	return 1;
+	return 2;
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)

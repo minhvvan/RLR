@@ -16,35 +16,62 @@
 UOtherUserManager::UOtherUserManager()
 {
 	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
-	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Blueprints/Player/BP_Player.C"));
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"));
 	if (PlayerCharacterBPClass.Succeeded())
 	{
 		PlayerCharacterClass = PlayerCharacterBPClass.Class;
+	}
+	else
+	{
+		RLR_LOG(LogRLR, Error, TEXT("Failed to load BP_Player character class"));
 	}
 }
 
 void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 {
-
-	FActorSpawnParameters SpawnParams;
-	FRotator SpawnRotator;
-	FVector SpawnLocation = FVector::ZeroVector;
-
-	SpawnLocation.X = NewPlayer.transx();
-	SpawnLocation.Y = NewPlayer.transy();
-	SpawnLocation.Z = NewPlayer.transz();
-	FUserCharacter UserCharacter;
-	UserCharacter.MakeUserCharacter(NewPlayer);
-
-	AsyncTask(ENamedThreads::GameThread, [this, NewPlayer,UserCharacter,SpawnLocation,SpawnParams,SpawnRotator]()
+	AsyncTask(ENamedThreads::GameThread, [this, NewPlayer]()
 		{
+
+			FVector SpawnLocation = FVector::ZeroVector;
+			FTransform SpawnTransform;
+			SpawnLocation.X = NewPlayer.transx();
+			SpawnLocation.Y = NewPlayer.transy();
+			SpawnLocation.Z = NewPlayer.transz();
+
+			FUserCharacter UserCharacter;
+			UserCharacter.MakeUserCharacter(NewPlayer);
+			UserCharacter.MapId = 1;
+			UserCharacter.ChannelId = 1;
+			SpawnTransform.SetLocation(SpawnLocation);
+			SpawnTransform.SetRotation(FQuat::Identity);
+			SpawnTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));
+
 			UWorld* World = GetWorld();
 			if (World == nullptr)
+			{
+				RLR_LOG(LogRLR, Error, TEXT("World is nullptr"));
 				return;
-			ARLRPlayerCharacter* OtherPlayer = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotator, SpawnParams);
-			OtherPlayer->SetStat(UserCharacter);
+			}
+
+			// Deferred spawning
+			ARLRPlayerCharacter* OtherPlayer = World->SpawnActorDeferred<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnTransform);
+
+			// Check if the spawn failed
+			if (!OtherPlayer)
+			{
+				RLR_LOG(LogRLR, Error, TEXT("Failed to spawn Character"));
+				return;
+			}
+
+			// Add player to list before FinishSpawning
 			int32 PlayerID = NewPlayer.userseq();
 			OtherPlayerList.Add(PlayerID, OtherPlayer);
+
+			// Finalize the spawning process
+			OtherPlayer->FinishSpawning(SpawnTransform);
+
+			// Optional: Log success
+			RLR_LOG(LogRLR, Warning, TEXT("Player %d spawned successfully"), PlayerID);
 		});
 	
 	
@@ -142,3 +169,4 @@ TSubclassOf<ARLRPlayerCharacter> UOtherUserManager::GetPlayerCharacterClass(ECha
 
 	return GameInstance->GetDataManager()->GetCharacterClass<ARLRPlayerCharacter>(JobString);
 }
+
