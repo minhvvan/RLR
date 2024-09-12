@@ -69,6 +69,16 @@ void UObjectManager::SpawnNPC()
 	});
 }
 
+const FNPCData& UObjectManager::GetNPCDataBySeq(int NPCSeq)
+{
+    for(auto& npcData : NPCData)
+    {
+        if (npcData.NPCSeq == NPCSeq) return npcData;
+    }
+
+    return FNPCData::EmptyNPCData;
+}
+
 void UObjectManager::SetObjectData(TArray<FInteractData> Data)
 {
     //TODO: Add NPCDatas

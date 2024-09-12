@@ -13,8 +13,7 @@ void UPartyListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 	if (Element->GetUserCharacterData() != nullptr)
 	{
-		//SetUserCharacterData(Data);
-		RefreshUI();
+		SetUserCharacterData(*Element->GetUserCharacterData());
 	}
 }
 

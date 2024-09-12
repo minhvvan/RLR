@@ -6,6 +6,8 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/MonsterManager.h"
 
+const FNPCData FNPCData::EmptyNPCData;
+
 void FQuest::MakeQuestData(const Protocol::Quest quest)
 {
     //TODO: QuestData 생성
@@ -67,6 +69,11 @@ void FNPCData::MakeNPCData(const Protocol::NPC npc)
     }
     
 
+    FNPCShop shop;
+    for (auto&& npcShop : npc.shops()) {
+        shop.MakeNPCShopData(npcShop);
+        Shop.Add(shop);
+    }
 }
 
 int FInteractData::testID = 0;
@@ -85,4 +92,11 @@ void FDropItem::MakeDropItemData(int64 objectId, int32 value, int64 monsterId)
     //TODO: Data채우기
     //Seq enum : EGoodsType
     ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
+}
+
+void FNPCShop::MakeNPCShopData(const Protocol::Shop shop)
+{
+    ShopSeq = shop.shopseq();
+    ShopName = FString::Printf(shop.shopname());
+    //TODO: Item 정보 채우기
 }

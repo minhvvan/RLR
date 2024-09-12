@@ -85,10 +85,12 @@ void USkillSettingQuickSlot::NativeOnDragLeave(const FDragDropEvent& InDragDropE
 	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
 }
 
-void USkillSettingQuickSlot::OnClickedSlotButton()
+FReply USkillSettingQuickSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	Super::OnClickedSlotButton();
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 	Clear();
+
+	return result;
 }
 
 void USkillSettingQuickSlot::RefreshUI()
@@ -99,7 +101,7 @@ void USkillSettingQuickSlot::RefreshUI()
 
 	if (SkillData == FSkillData::EmptySkillData)
 	{
-		SetSlotImage(DefaultSlotImage);
+		SetSlotImage(GetDefaultSlotImage());
 		return;
 	}
 

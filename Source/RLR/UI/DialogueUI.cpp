@@ -4,26 +4,63 @@
 #include "UI/DialogueUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Components/SizeBox.h"
 #include "UI/InGame/Quest/Dialogue/QuestDialogue.h"
+#include "UI/InGame/Shop/NPCShopUI.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/ObjectManager.h"
+#include "Components/SizeBox.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Structs/ObjectStructs.h"
+#include "UI/InGame/Inventory/ItemInformation.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 
 void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnTest->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
+	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
 	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
+	BtnShop->OnClicked.AddDynamic(this, &UDialogueUI::OnShopClicked);
+
+	bOpenShop = false;
 }
 
 void UDialogueUI::SetDialogueData(FString DialogueString)
 {
 	//TODO: 대화 UI가 어떻게 될지에 따라 변경해야 함
-	TxtTest->SetText(FText::FromString(DialogueString));
+	TxtNPCTalk->SetText(FText::FromString(DialogueString));
 }
 
 void UDialogueUI::SetNPCData(int32 NPCSeq, int32 QuestSeq)
 {
 	CurrentNPCSeq = NPCSeq;
 	CurrentQuestSeq = QuestSeq;
+}
+
+void UDialogueUI::OpenItemInfo(USlotUI* Target)
+{
+	ItemInformationUI->OpenUI();
+	ItemInformationUI->UpdateSlotState(Target);
+
+	InvalidateLayoutAndVolatility();
+}
+
+void UDialogueUI::CloseItemInfo()
+{
+	ItemInformationUI->CloseUI();
+}
+
+void UDialogueUI::AddSaleItem(const FItemData& Item)
+{
+	NPCShopUI->AddSaleItem(Item);
+}
+
+void UDialogueUI::RemoveSaleItem(const FItemData& Item)
+{
+	InventoryUI->RemoveSaleItem(Item);
 }
 
 void UDialogueUI::OnDialogueEnded()
@@ -43,7 +80,38 @@ void UDialogueUI::OnQuestDialogueBegins()
 		{
 			QuestDialogueWidget->SetDialogueData(FString::Printf(TEXT("Quest from NPC %d"), CurrentNPCSeq), CurrentNPCSeq, CurrentQuestSeq);
 			QuestDialogueWidget->AddToViewport();
-			this->RemoveFromViewport();
+			this->RemoveFromParent();
+		}
+	}
+}
+
+void UDialogueUI::OnShopClicked()
+{
+	if (bOpenShop)
+	{
+		bOpenShop = false;
+		NPCShopUI->CloseUI();
+		InventoryUI->CloseUI();
+	}
+	else
+	{
+		bOpenShop = true;
+		auto ObjectManager = GameInstance->GetObjectManager();
+		const auto& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
+
+		if (NPCShopUI)
+		{
+			FVector2D panelPos(100.f, 100.f);
+			NPCShopUI->SetItemData(npcData.Shop.Items);
+			NPCShopUI->SetPosition(panelPos);
+			NPCShopUI->OpenUI();
+		}
+
+		if (InventoryUI)
+		{
+			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->WidthOverride + 10.f, 100.f);
+			InventoryUI->SetPosition(panelPos);
+			InventoryUI->OpenUI();
 		}
 	}
 }

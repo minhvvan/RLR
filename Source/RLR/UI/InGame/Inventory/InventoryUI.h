@@ -116,4 +116,7 @@ public:
 	TArray<TObjectPtr<UInventorySlot>> InventorySlotList;
 
 	EItemType CurrentFilter;
+
+public:
+	void RemoveSaleItem(const FItemData& Item);
 };

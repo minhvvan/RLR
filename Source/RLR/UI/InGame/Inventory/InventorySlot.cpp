@@ -29,7 +29,6 @@ void UInventorySlot::NativeConstruct()
 	Super::NativeConstruct();
 	SetSlotType(ESlotType::INVENTORY_SLOT);
 	Clear();
-
 }
 
 void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -102,14 +101,14 @@ void UInventorySlot::RefreshUI()
 	DisplayEquippedItems(GetItemData().IsEquiped);
 }
 
-void UInventorySlot::OnClickedSlotButton()
+FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	Super::OnClickedSlotButton();
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
 	if (IsEmpty() == true)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("해당 슬롯에는 아이템 정보가 없습니다."));
-		return;
+		return result;
 	}
 
 	/*
@@ -132,13 +131,12 @@ void UInventorySlot::OnClickedSlotButton()
 	//}
 
 	GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
-		
+	return result;
 }
 
-void UInventorySlot::OnHoveredSlotButton()
+void UInventorySlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	Super::OnHoveredSlotButton();
-
+	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 
 	if (IsEmpty() == true)
 		return;
@@ -152,11 +150,10 @@ void UInventorySlot::OnHoveredSlotButton()
 	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
-void UInventorySlot::OnUnHoveredSlotButton()
+void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
-	Super::OnUnHoveredSlotButton();
+	Super::NativeOnMouseLeave(InMouseEvent);
 	
-
 	if (IsEmpty() == true)
 		return;
 

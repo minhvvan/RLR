@@ -74,16 +74,8 @@ public:
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 	virtual void NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
+
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-	
-	UFUNCTION()
-	virtual void OnClickedSlotButton();
-		
-	UFUNCTION()
-	virtual void OnHoveredSlotButton();
-		
-	UFUNCTION()
-	virtual void OnUnHoveredSlotButton();
 
 	UFUNCTION()
 	virtual void SetSlotImage(UTexture2D* NewImage);
@@ -96,7 +88,7 @@ public:
 	virtual bool IsEmpty();
 
 	virtual UBaseDragDropOperation* GetSlotData();
-	virtual void					SetItemData(FItemData& NewItemData);
+	virtual void					SetItemData(const FItemData& NewItemData);
 	virtual	const FItemData&		GetItemData();
 
 	virtual void					SetSkillData(FSkillData NewSkillData);
@@ -138,17 +130,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> SlotImage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UButton> SlotButton;
-
 
 	/*
 		슬롯 이미지
 	*/
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> DefaultSlotImage = nullptr;
-
 	UTexture2D*				GetDefaultSlotImage();
 
 

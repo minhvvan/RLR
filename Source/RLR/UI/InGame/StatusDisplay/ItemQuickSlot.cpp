@@ -22,6 +22,7 @@ void UItemQuickSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
 	SetSlotType(ESlotType::ITEM_QUICK_SLOT);
+	Clear();
 }
 
 void UItemQuickSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
