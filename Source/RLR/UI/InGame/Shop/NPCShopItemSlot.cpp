@@ -107,9 +107,9 @@ void UNPCShopItemSlot::RefreshUI()
 	}
 }
 
-void UNPCShopItemSlot::SetParent(TObjectPtr<UBaseUI> Parent)
+void UNPCShopItemSlot::SetParent(TObjectPtr<UBaseUI> parent)
 {
-	ParentUI = Parent;
+	ParentUI = parent;
 }
 
 void UNPCShopItemSlot::SetItemAmountShow(bool bVisible)

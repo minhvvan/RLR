@@ -102,7 +102,7 @@ void UDialogueUI::OnShopClicked()
 		if (NPCShopUI)
 		{
 			FVector2D panelPos(100.f, 100.f);
-			NPCShopUI->SetItemData(npcData.Shop.Items);
+			NPCShopUI->SetItemData(npcData.Shop[0].Items);
 			NPCShopUI->SetPosition(panelPos);
 			NPCShopUI->OpenUI();
 		}
