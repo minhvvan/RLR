@@ -12,31 +12,27 @@ void UQuestManager::SetUserQuests(const TArray<FQuest>& Quests)
 {
 	CurrentQuests = Quests;
 
-	UpdateQuestUI();
-}
-
-UQuestListUI* UQuestManager::GetQuestListUI() const
-{
 	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (!GM) return nullptr;
+	if (!GM) return;
 
 	UUIManager* UIManager = GM->GetUIManager();
-	if (!UIManager) return nullptr;
+	if (!UIManager) return;
 
 	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if (!InGameMainUI) return nullptr;
+	if (!InGameMainUI) return;
 
-	return InGameMainUI->GetQuestListUI();
+	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();
+	/* TODO : 일단 변수에 저장하는 것으로 바꿨는데, 서버연결 해서 확인해야함 */
+	QuestListUIVariable = QuestListUI;
+
+	UpdateQuestUI();
 }
 
 void UQuestManager::UpdateQuestUI()
 {
-	/*TODO : QuestListUI->UpdateQuestList(CurrentQuests);*/
-
-	UQuestListUI* QuestListUI = GetQuestListUI();
-	if (QuestListUI)
+	if (QuestListUIVariable)
 	{
-		QuestListUI->UpdateQuestList(CurrentQuests);
+		QuestListUIVariable->UpdateQuestList(CurrentQuests);
 	}
 }
 
@@ -44,10 +40,9 @@ void UQuestManager::OnQuestCompleteResponse(int32 Success)
 {
 	if (Success)
 	{
-		UQuestListUI* QuestListUI = GetQuestListUI();
-		if (QuestListUI)
+		if (QuestListUIVariable)
 		{
-			QuestListUI->RemoveCompletedQuest(SelectedQuestInfo);
+			QuestListUIVariable->RemoveCompletedQuest(SelectedQuestInfo);
 		}
 	}
 }

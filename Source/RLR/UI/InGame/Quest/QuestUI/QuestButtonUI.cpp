@@ -17,11 +17,9 @@ void UQuestButtonUI::SetQuestInfo(const FQuest& InQuest)
 /* TODO : 색상 전환 원하는대로 안됨 */
 void UQuestButtonUI::SetButtonState(bool isPressed)
 {
-	bIsPressed = isPressed;
-
 	FSlateBrush PressedBrush;
 	FSlateBrush NormalBrush;
-	if (bIsPressed)
+	if (isPressed)
 	{
 		PressedBrush.TintColor = FSlateColor(FLinearColor(0.f, 0.f, 0.f));
 		QuestButton->SetStyle(QuestButton->WidgetStyle);
@@ -48,7 +46,7 @@ void UQuestButtonUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	bIsPressed = false;
+	SetButtonState(false);
 
 	if (QuestButton)
 	{

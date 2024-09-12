@@ -23,7 +23,7 @@ public:
 
 private:
 	TArray<FQuest> CurrentQuests;
-	UQuestListUI* GetQuestListUI() const;
+	UQuestListUI* QuestListUIVariable;
 
 private:
 	void UpdateQuestUI();
