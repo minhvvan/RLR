@@ -74,21 +74,18 @@ const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
     {
         if (!IsValid(monster))
         {
-            UE_LOG(LogTemp, Warning, TEXT("Invalid monster instance found in MonsterInstances"));
             continue;
         }
 
         UActionSystemComponent* actionSystem = monster->GetActionSystemComponent();
         if (!actionSystem)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Monster %s has no ActionSystemComponent"), *monster->GetName());
             continue;
         }
 
         UStatSetMonster* monsterStatSet = actionSystem->GetStatSet<UStatSetMonster>();
         if (!monsterStatSet)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Monster %s has no StatSetMonster"), *monster->GetName());
             continue;
         }
 
@@ -110,8 +107,6 @@ const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
             //return monster->GetActorLocation(); // 또는 monster->MonsterTransform 사용
         }
     }
-
-    UE_LOG(LogTemp, Warning, TEXT("No monster found with ID %d"), MonsterId);
     return FVector::ZeroVector;
 }
 

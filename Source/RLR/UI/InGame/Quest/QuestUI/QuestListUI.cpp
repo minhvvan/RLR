@@ -109,12 +109,6 @@ void UQuestListUI::ClearQuestList()
 
 	// 버튼 배열 비우기
 	QuestButtons.Empty();
-
-	//if (QuestListContainer->GetChildrenCount() > 0)
-	//{
-	//	QuestListContainer->ClearChildren();
-	//}
-	//QuestButtons.Empty();
 }
 
 void UQuestListUI::AddQuestButton(const FQuest& Quest)
@@ -161,7 +155,6 @@ bool UQuestListUI::IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMo
 
 void UQuestListUI::UpdateQuestDetails(const FQuest& Quest)
 {
-	UE_LOG(LogTemp, Log, TEXT("UpdateQuestDetails called with quest: %s"), *Quest.QuestTitle);
 	SelectedQuest = Quest;
 	if (SelectedQuestTitle)
 	{
@@ -202,10 +195,8 @@ void UQuestListUI::OnDeclineButtonClicked()
 	{
 		if (UQuestButtonUI* QuestButton = Cast<UQuestButtonUI>(ChildWidget))
 		{
-			UE_LOG(LogTemp, Log, TEXT("Checking QuestButton: %s"), *QuestButton->GetQuestTitle());
 			if (QuestButton->GetQuestTitle() == SelectedQuest.QuestTitle)
 			{
-				UE_LOG(LogTemp, Log, TEXT("Decline button clicked. SelectedQuest: %s"), *SelectedQuest.QuestTitle);
 				QuestListContainer->RemoveChild(QuestButton);
 				QuestButton->SetButtonState(false);
 				break;
