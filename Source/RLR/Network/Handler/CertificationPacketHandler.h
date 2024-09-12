@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ClientPacketHandler.h"
+#include "UI/Lobby/LobbyMainUI.h"
 
 /*
 	Title

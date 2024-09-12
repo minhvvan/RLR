@@ -19,7 +19,10 @@ void ULobbyMainUI::NativeConstruct()
 void ULobbyMainUI::RefreshUI()
 {
 	Super::RefreshUI();
-	CharacterListUI->RefreshUI();
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			CharacterListUI->RefreshUI();
+		});
 }
 
 void ULobbyMainUI::Clear()

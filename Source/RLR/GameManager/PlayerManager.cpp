@@ -136,18 +136,23 @@ void UPlayerManager::UpdatePlayerSetStatus(const FSetStatus& NewSetStatus)
 
 void UPlayerManager::UpdatePlayerExp(int32 NewExp)
 {
-	UStatSetPlayer* statSet = GetStatSet();
-	if (!statSet) return;
+	AsyncTask(ENamedThreads::GameThread, [this, NewExp]()
+		{
+			UStatSetPlayer* statSet = GetStatSet();
+			if (!statSet) return;
 
-	FStatChangeSpec<int32> spec;
-	spec.ChangedStat = statSet->GetExpStat();
-	spec.NewValue = NewExp;
+			FStatChangeSpec<int32> spec;
+			spec.ChangedStat = statSet->GetExpStat();
+			spec.NewValue = NewExp;
 
-	statSet->ApplyChangeStat(spec);
+			statSet->ApplyChangeStat(spec);
+		});
 }
 
 void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
 {
+	AsyncTask(ENamedThreads::GameThread, [this, NewLevel]()
+		{
 	UStatSetPlayer* statSet = GetStatSet();
 	if (!statSet) return;
 
@@ -156,6 +161,7 @@ void UPlayerManager::UpdatePlayerLevel(int32 NewLevel)
 	spec.NewValue = NewLevel;
 
 	statSet->ApplyChangeStat(spec);
+		});
 }
 
 void UPlayerManager::UpdateTalent(const FTalent& NewTalent)

@@ -73,7 +73,7 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
         LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
         SetPlayerSeq(playerSeq);
-        SendPlayerPacket();
+        
     }
 }
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)
@@ -182,7 +182,7 @@ bool UNetworkManager::SendPlayerPacket()
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Character Request 패킷 송신 성공"));
     }
     return bSuccess;
 
@@ -234,7 +234,7 @@ bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
     Protocol::CS_AttackRequestPacket packet;
     packet.mutable_skill()->set_skillseq(attackResult.SkillSeq);
     packet.mutable_skill()->set_level(attackResult.Level);
-    packet.mutable_skill()->set_userseq(attackResult.UserSeq);
+    packet.mutable_skill()->set_userseq(UserSeq);
     packet.mutable_skill()->set_timestamp(attackResult.Timestamp);
     for (int i = 0; i < attackResult.TargetSeq.Num(); i++) {
         packet.mutable_skill()->add_targetseq(attackResult.TargetSeq[i]);
