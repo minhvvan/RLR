@@ -10,13 +10,11 @@ void UNPCCartSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 	SetItemData(Cast<UNPCCartSlot>(ListItemObject)->GetItemData());
-	RefreshUI();
 }
 
 FReply UNPCCartSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-	//TODO:카트 비우기
 	if (GetItemData() == FItemData::EmptyItemData) return result;
 	GetListItem<UNPCCartSlot>()->OnCartClicked.Broadcast(GetItemData());
 	return result;
@@ -25,6 +23,6 @@ FReply UNPCCartSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 void UNPCCartSlot::RefreshUI()
 {
 	auto itemData = GetItemData();
-	SlotImage->SetBrushFromTexture(itemData.ItemImage);
+	SetSlotImage(itemData.ItemImage);
 	TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
 }

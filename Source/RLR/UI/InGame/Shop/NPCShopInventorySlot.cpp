@@ -8,16 +8,6 @@
 #include "Components/Button.h"
 #include "RLR.h"
 
-//void UNPCShopInventorySlot::NativeOnDragEnter(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-//{
-//	UUserWidget::NativeOnDragEnter(InGeometry, InDragDropEvent, InOperation);
-//}
-//
-//void UNPCShopInventorySlot::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-//{
-//	UUserWidget::NativeOnDragLeave(InDragDropEvent, InOperation);
-//}
-
 FReply UNPCShopInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply result = UUserWidget::NativeOnMouseButtonDown(InGeometry, InMouseEvent);

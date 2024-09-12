@@ -134,10 +134,6 @@ public:
 	/*
 		슬롯 이미지
 	*/
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> DefaultSlotImage = nullptr;
-
 	UTexture2D*				GetDefaultSlotImage();
 
 

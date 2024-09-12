@@ -101,7 +101,7 @@ void USkillSettingQuickSlot::RefreshUI()
 
 	if (SkillData == FSkillData::EmptySkillData)
 	{
-		SetSlotImage(DefaultSlotImage);
+		SetSlotImage(GetDefaultSlotImage());
 		return;
 	}
 

@@ -106,6 +106,7 @@ void USlotUI::SetSlotImage(UTexture2D* NewImage)
 	if (IsValid(NewImage) == false)
 	{
 		SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
+		return;
 	}
 
 	SlotImage->SetBrushFromTexture(NewImage);
@@ -249,9 +250,5 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 
 UTexture2D* USlotUI::GetDefaultSlotImage()
 {
-	if(IsValid(DefaultSlotImage) == true)
-		return DefaultSlotImage;
-
-
 	return GetGameManager()->GetDataManager()->GetResource("DefaultSlotImage").Texture;
 }

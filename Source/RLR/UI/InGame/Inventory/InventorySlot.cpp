@@ -29,7 +29,6 @@ void UInventorySlot::NativeConstruct()
 	Super::NativeConstruct();
 	SetSlotType(ESlotType::INVENTORY_SLOT);
 	Clear();
-
 }
 
 void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -155,7 +154,6 @@ void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
 	Super::NativeOnMouseLeave(InMouseEvent);
 	
-
 	if (IsEmpty() == true)
 		return;
 
