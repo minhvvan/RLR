@@ -42,7 +42,7 @@ void ULobbyMainUI::AddUserCharacter(FUserCharacter NewCharacter)
 void ULobbyMainUI::OpenCreateCharacterUI()
 {
 	FUserCharacter character;
-	character.UserSeq = 1;
+	character.UserSeq = 2;
 	character.MapId = 1;
 	
 	GameInstance->GetLevelManager()->LoadLevel("Main");
