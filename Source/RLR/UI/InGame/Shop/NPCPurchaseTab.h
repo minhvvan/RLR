@@ -65,6 +65,10 @@ public:
 
 	UFUNCTION()
 	void AddToCart(const FItemData& item);
+
+	UFUNCTION()
+	void RemoveFromCart(const FItemData& item);
+
 	void OpenBundlePurchase(const FItemData& item);
 
 protected:
@@ -90,6 +94,7 @@ protected:
 	void UpdateCurrentPageText();
 	void UpdateLastPageText();
 	void UpdatePrice();
+	void UpdateCart();
 
 	UNPCCartSlot* GetCartSlotWidget(int idx);
 

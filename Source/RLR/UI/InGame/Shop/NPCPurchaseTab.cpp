@@ -40,18 +40,7 @@ void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData)
 {
 	Items = *ItemData;
 	UpdatePage();
-
-	auto dataManager = GameInstance->GetDataManager();
-	if (!dataManager) return;
-
-	auto cartSlotClass = dataManager->GetWidgetClass<UNPCCartSlot>(TEXT("WBP_NPCCartSlot"));
-	if (!cartSlotClass) return;
-
-	for (int i = 0; i < 10; i++)
-	{
-		auto newItem = CreateWidget<UNPCCartSlot>(GetWorld(), cartSlotClass);
-		TVCart->AddItem(newItem);
-	}
+	UpdateCart();
 
 	LastPage = Items.Num() / ItemNumPerPage + (Items.Num() % ItemNumPerPage ? 1 : 0);
 	UpdateLastPageText();
@@ -84,6 +73,14 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
 	UpdatePrice();
 	entry->SetItemData(item);
+}
+
+void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
+{
+	Cart.Remove(item);
+	PurchasePrice -= item.SALE_PRICE * item.ITEM_VALUE;
+	UpdatePrice();
+	UpdateCart();
 }
 
 void UNPCPurchaseTab::OnBuyClicked()
@@ -187,6 +184,31 @@ void UNPCPurchaseTab::UpdatePrice()
 {
 	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
 	//TODO: 잔액 update
+}
+
+void UNPCPurchaseTab::UpdateCart()
+{
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	auto cartSlotClass = dataManager->GetWidgetClass<UNPCCartSlot>(TEXT("WBP_NPCCartSlot"));
+	if (!cartSlotClass) return;
+
+	TVCart->ClearListItems();
+	for (int i = 0; i < MaxCartNum; i++)
+	{
+		auto newItem = CreateWidget<UNPCCartSlot>(GetWorld(), cartSlotClass);
+		if (Cart.IsValidIndex(i))
+		{
+			newItem->SetItemData(Cart[i]);
+		}
+		else
+		{
+			newItem->SetItemData(FItemData::EmptyItemData);
+		}
+		newItem->OnCartClicked.AddDynamic(this, &UNPCPurchaseTab::RemoveFromCart);
+		TVCart->AddItem(newItem);
+	}
 }
 
 UNPCCartSlot* UNPCPurchaseTab::GetCartSlotWidget(int idx)

@@ -7,6 +7,8 @@
 #include "Blueprint/IUserObjectListEntry.h"
 #include "NPCCartSlot.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCartClicked, const FItemData&, item);
+
 class UTextBlock;
 
 UCLASS()
@@ -22,6 +24,7 @@ public:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
-
 	virtual void RefreshUI() override;
+
+	FOnCartClicked OnCartClicked;
 };
