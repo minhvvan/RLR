@@ -22,8 +22,7 @@ class RLR_API UQuestListUI : public USubUI
 protected:
 	virtual void NativeConstruct();
 	void UpdateQuestDetails(const FQuest& Quest);
-	void SetBackgroundHitTestVisible(bool bIsHitTestVisible);
-	void OnQuestButtonClicked(const FQuest& ClickedQuest);
+	void OnQuestButtonClicked(const FQuest& ClickedQuest, UQuestButtonUI* QuestButtonUI);
 
 	UFUNCTION()
 	void OnCompleteButtonClicked();
@@ -52,10 +51,13 @@ protected:
 private:
 	void ClearQuestList();
 	void AddQuestButton(const FQuest& Quest);
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	bool IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	FQuest SelectedQuest;
+	TMap<FString, UQuestButtonUI*> QuestButtons;
 
 public:
 	void UpdateQuestList(const TArray<FQuest>& Quests);
-
+	void RemoveCompletedQuest(FQuest CompletedQuest);
 };

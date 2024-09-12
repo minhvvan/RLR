@@ -10,7 +10,7 @@
 class UButton;
 class UTextBlock;
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnQuestButtonClick, const FQuest&);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnQuestButtonClick, const FQuest&, UQuestButtonUI*);
 
 UCLASS()
 class RLR_API UQuestButtonUI : public UUserWidget
@@ -19,8 +19,11 @@ class RLR_API UQuestButtonUI : public UUserWidget
 	
 public:
 	void SetQuestInfo(const FQuest& InQuest);
+	void SetButtonState(bool isPressed);
+	FString GetQuestTitle();
 
 	FOnQuestButtonClick OnQuestButtonClick;
+	bool bIsPressed;
 
 protected:
 	virtual void NativeConstruct() override;
