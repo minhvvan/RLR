@@ -65,6 +65,7 @@ void FNPCData::MakeNPCData(const Protocol::NPC npc)
         quest.MakeQuestData(npcQuest);
         NPCQuests.Add(quest);
     }
+    
 
 }
 

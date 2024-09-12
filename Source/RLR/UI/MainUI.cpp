@@ -41,16 +41,20 @@ void UMainUI::BindSubUI()
 
 void UMainUI::RefreshUI()
 {
-	Super::RefreshUI();
-	TArray<UWidget*> Array;
-	WidgetTree->GetAllWidgets(Array);
-	for (auto Widget : Array)
-	{
-		if (UBaseUI* ChildUI = Cast<UBaseUI>(Widget))
+	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			ChildUI->RefreshUI();
-		}
-	}
+			Super::RefreshUI();
+			TArray<UWidget*> Array;
+			WidgetTree->GetAllWidgets(Array);
+			for (auto Widget : Array)
+			{
+				if (UBaseUI* ChildUI = Cast<UBaseUI>(Widget))
+				{
+					ChildUI->RefreshUI();
+				}
+			}
+		});
+	
 }
 
 void UMainUI::CloseUI()

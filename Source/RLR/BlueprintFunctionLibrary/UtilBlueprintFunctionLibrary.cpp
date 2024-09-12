@@ -118,19 +118,7 @@ void UUtilBlueprintFunctionLibrary::TestAddPartyPlayer()
 void UUtilBlueprintFunctionLibrary::TestCharacterList()
 {
 
-	ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GameInstance->GetUIManager()->GetMainUI());
-	if (IsValid(LobbyMainUI) == false)
-		return;
-
-	for(int32 i = 0 ; i < 5; i++)
-	{ 
-		FUserCharacter NewCharaceter;
-		NewCharaceter.UserSeq = i;
-		NewCharaceter.NickName = "Test_" + i;
-		LobbyMainUI->AddUserCharacter(NewCharaceter);
-	}
-	
-	LobbyMainUI->RefreshUI();
+	GameInstance->GetNetworkManager()->SendPlayerPacket();
 }
 
 /*
