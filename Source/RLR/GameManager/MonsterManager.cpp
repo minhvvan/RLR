@@ -91,20 +91,7 @@ const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
 
         if (monsterStatSet->GetMonsterId() == MonsterId)
         {
-            FVector monsterLocation = monster->GetActorLocation();
-
-            // 비동기적으로 몬스터 제거 예약
-            AsyncTask(ENamedThreads::GameThread, [this, monster]()
-                {
-                    if (IsValid(monster))
-                    {
-                        monster->SetLifeSpan(0.1f); // 0.1초 후에 제거
-                        MonsterInstances.Remove(monster);
-                    }
-                });
-
-            return monsterLocation;
-            //return monster->GetActorLocation(); // 또는 monster->MonsterTransform 사용
+            return monster->GetActorLocation();; // 또는 monster->MonsterTransform 사용
         }
     }
     return FVector::ZeroVector;
