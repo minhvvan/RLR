@@ -158,7 +158,7 @@ struct FNPCShop
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int ShopSeq;
+	int32 ShopSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString ShopName;
@@ -166,7 +166,7 @@ struct FNPCShop
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TArray<FItemData> Items;
 
-	void MakeNPCShopData(/*param*/);
+	void MakeNPCShopData(const Protocol::Shop shop);
 };
 
 
@@ -205,7 +205,7 @@ struct FNPCData
 	TArray<FQuest> NPCQuests;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FNPCShop Shop;
+	TArray<FNPCShop> Shop;
 
 	FString ToString() const
 	{

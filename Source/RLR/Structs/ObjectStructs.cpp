@@ -68,6 +68,11 @@ void FNPCData::MakeNPCData(const Protocol::NPC npc)
         NPCQuests.Add(quest);
     }
 
+    FNPCShop shop;
+    for (auto&& npcShop : npc.shops()) {
+        shop.MakeNPCShopData(npcShop);
+        Shop.Add(shop);
+    }
 }
 
 int FInteractData::testID = 0;
@@ -88,7 +93,9 @@ void FDropItem::MakeDropItemData(int64 objectId, int32 value, int64 monsterId)
     ObjectTransform = monsterManager->GetMonsterTransformById(monsterId);
 }
 
-void FNPCShop::MakeNPCShopData()
+void FNPCShop::MakeNPCShopData(const Protocol::Shop shop)
 {
-    //TODO: Data채우기
+    ShopSeq = shop.shopseq();
+    ShopName = FString::Printf(shop.shopname());
+    //TODO: Item 정보 채우기
 }
