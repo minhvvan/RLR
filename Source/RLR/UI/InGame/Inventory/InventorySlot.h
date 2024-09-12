@@ -38,9 +38,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void			DisplayEquippedItems(bool IsEquiped = false);
 
-	virtual void	OnClickedSlotButton() override;
-	virtual void	OnHoveredSlotButton() override;
-	virtual void	OnUnHoveredSlotButton() override;
+	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+
 	virtual void	Clear();
 
 public:
@@ -57,7 +58,6 @@ public:
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> ItemNameText;
-
 
 public:
 

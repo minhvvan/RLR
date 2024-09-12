@@ -48,26 +48,9 @@ void UEquipmentSlot::RefreshUI()
 	SlotImage->SetBrushFromTexture(Texture, true);
 }
 
-void UEquipmentSlot::OnClickedSlotButton()
+void UEquipmentSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	Super::OnClickedSlotButton();
-
-	//비어 있다면 아무것도 하지 않는다.
-	if(IsEmpty() == true)
-		return;
-
-	/*
-		서버에 착용 해제 요청을 보낸다.
-	*/
-
-	GetNetworkManager()->SendUnEquipChangePacket(GetItemData());
-}
-
-void UEquipmentSlot::OnHoveredSlotButton()
-{
-	Super::OnHoveredSlotButton();
-
-	if(IsEmpty() == true)
+	if (IsEmpty() == true)
 		return;
 
 	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
@@ -79,10 +62,8 @@ void UEquipmentSlot::OnHoveredSlotButton()
 	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
 }
 
-void UEquipmentSlot::OnUnHoveredSlotButton()
+void UEquipmentSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
-	Super::OnUnHoveredSlotButton();
-
 	if (IsEmpty() == true)
 		return;
 
@@ -93,4 +74,21 @@ void UEquipmentSlot::OnUnHoveredSlotButton()
 	if (UIManager == nullptr) return;
 
 	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
+}
+
+FReply UEquipmentSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+
+	//비어 있다면 아무것도 하지 않는다.
+	if (IsEmpty() == true)
+		return result;
+
+	/*
+		서버에 착용 해제 요청을 보낸다.
+	*/
+
+	GetNetworkManager()->SendUnEquipChangePacket(GetItemData());
+
+	return result;
 }

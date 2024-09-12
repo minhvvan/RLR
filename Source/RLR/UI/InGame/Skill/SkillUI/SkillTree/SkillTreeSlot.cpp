@@ -17,35 +17,34 @@ void USkillTreeSlot::NativeConstruct()
 
 }
 
-void USkillTreeSlot::OnClickedSlotButton()
+void USkillTreeSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	Super::OnClickedSlotButton();
+	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+}
+
+void USkillTreeSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseLeave(InMouseEvent);
+}
+
+FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
 	/*
-		스킬 디테일 창에 정보를 넘긴다.
+	스킬 디테일 창에 정보를 넘긴다.
 	*/
-	
+
 	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
-	if(IsValid(InGameMainUI) == false)
-		return;
+	if (IsValid(InGameMainUI) == false)
+		return result;
 
 	USkillUI* SkillUI = InGameMainUI->SkillUI;
-	if(IsValid(SkillUI) == false)
-		return;
+	if (IsValid(SkillUI) == false)
+		return result;
 
 	SkillUI->UpdateSkillDetailInfo(GetSkillData());
-}
-
-void USkillTreeSlot::OnHoveredSlotButton()
-{
-	Super::OnHoveredSlotButton();
-
-}
-
-void USkillTreeSlot::OnUnHoveredSlotButton()
-{
-	Super::OnUnHoveredSlotButton();
-
+	return result;
 }
 
 void USkillTreeSlot::RefreshUI()

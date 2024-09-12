@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
-//#include "Structs/PlayerStructs.h"
 #include "RLRStruct.h"
 
 #include "GameManager/GameplayTagManager.h"
@@ -57,6 +56,9 @@ public:
 	
 	void						OpenLoadingScreen_Internal();
 	void						CloseLoadingScreen_Internal();
+
+	void AddSaleItem(const FItemData& Item);
+	void RemoveSaleItem(const FItemData& Item);
 
 protected:
 	UFUNCTION()

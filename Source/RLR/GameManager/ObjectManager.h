@@ -23,6 +23,8 @@ public:
     UFUNCTION()
     void SetNPCData(TArray<FNPCData> Data);
 
+    const FNPCData& GetNPCDataBySeq(int NPCSeq);
+
     //Object
     UFUNCTION()
     void SetObjectData(TArray<FInteractData> Data);

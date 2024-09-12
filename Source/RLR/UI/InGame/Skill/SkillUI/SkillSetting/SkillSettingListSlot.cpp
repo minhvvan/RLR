@@ -24,6 +24,25 @@ void USkillSettingListSlot::NativeOnDragDetected(const FGeometry& InGeometry, co
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 }
 
+FReply USkillSettingListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	if (GetSkillData() == FSkillData::EmptySkillData)
+		return result;
+
+	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
+	if (IsValid(InGameMainUI) == false)
+		return result;
+
+	USkillUI* SkillUI = InGameMainUI->SkillUI;
+	if (IsValid(SkillUI) == false)
+		return result;
+
+	SkillUI->UpdateSkillDetailInfo(GetSkillData());
+
+	return result;
+}
+
 
 void USkillSettingListSlot::RefreshUI()
 {
@@ -56,22 +75,4 @@ void USkillSettingListSlot::SetEquipped(bool Value)
 {
 	IsEquipped = Value;
 	RefreshUI();
-}
-
-void USkillSettingListSlot::OnClickedSlotButton()
-{
-	Super::OnClickedSlotButton();
-
-	if(GetSkillData() == FSkillData::EmptySkillData)
-		return;
-
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
-	if (IsValid(InGameMainUI) == false)
-		return;
-
-	USkillUI* SkillUI = InGameMainUI->SkillUI;
-	if (IsValid(SkillUI) == false)
-		return;
-
-	SkillUI->UpdateSkillDetailInfo(GetSkillData());
-}
+}\

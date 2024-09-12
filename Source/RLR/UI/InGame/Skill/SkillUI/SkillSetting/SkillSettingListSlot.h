@@ -23,11 +23,11 @@ public:
 
 	//드래그 드랍
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	virtual void RefreshUI() override;
 	virtual void SetEquipped(bool Value);
 
-	virtual void OnClickedSlotButton() override;
 public:
 
 	/*

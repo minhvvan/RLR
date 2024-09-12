@@ -70,22 +70,38 @@ void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 		3. 상태(아이템 정보, 위치) 업데이트
 	*/
 
-	if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
-		return;
+	//TODO: Swither가 생기면 현재 켜진 곳에서 받아와야 함
+	//현재는 임시로 test
+	if (DialogueUI)
+	{
+		DialogueUI->OpenItemInfo(Target);
+	}
+	else
+	{
+		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+			return;
 
-	USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
-	SetZOrderToTop(SubUI);
-	SubUI->OpenUI();
-	SubUI->UpdateSlotState(Target);
+		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+		SetZOrderToTop(SubUI);
+		SubUI->OpenUI();
+		SubUI->UpdateSlotState(Target);
+	}
 }
 
 void UUIManager::CloseSubUI(EUIType SubUIType)
 {
-	if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
-		return;
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+			return;
 
-	USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
-	SubUI->CloseUI();
+		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+		SubUI->CloseUI();
+	}
 }
 
 void UUIManager::SetZOrderToTop(USubUI* Target)
@@ -205,6 +221,18 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 	};
 
 	return DialogueUI;
+}
+
+void UUIManager::AddSaleItem(const FItemData& Item)
+{
+	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
+	DialogueUI->AddSaleItem(Item);
+}
+
+void UUIManager::RemoveSaleItem(const FItemData& Item)
+{
+	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
+	DialogueUI->RemoveSaleItem(Item);
 }
 
 void UUIManager::OpenLoadingScreen()

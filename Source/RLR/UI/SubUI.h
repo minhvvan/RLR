@@ -55,6 +55,9 @@ public:
     UFUNCTION()
     void OnDragEnded();
 
+    UFUNCTION()
+	void SetPosition(FVector2D pos);
+
 	UFUNCTION(BlueprintCallable)
 	UMainUI*					GetMainUI() {return MainUI;}
 	UFUNCTION(BlueprintCallable)

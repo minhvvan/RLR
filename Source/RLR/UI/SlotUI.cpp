@@ -21,14 +21,6 @@
 void USlotUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if (IsValid(SlotButton) == true)
-	{
-		SlotButton->OnClicked.AddUniqueDynamic(this, &USlotUI::OnClickedSlotButton);
-		SlotButton->OnHovered.AddUniqueDynamic(this, &USlotUI::OnHoveredSlotButton);
-		SlotButton->OnUnhovered.AddUniqueDynamic(this, &USlotUI::OnUnHoveredSlotButton);
-	}
-
 }
 
 void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
@@ -109,24 +101,12 @@ FReply USlotUI::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, cons
 	return ReplyResult.NativeReply;
 }
 
-void USlotUI::OnClickedSlotButton()
-{
-
-}
-
-void USlotUI::OnHoveredSlotButton()
-{
-}
-
-void USlotUI::OnUnHoveredSlotButton()
-{
-}
-
 void USlotUI::SetSlotImage(UTexture2D* NewImage)
 {
 	if (IsValid(NewImage) == false)
 	{
 		SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
+		return;
 	}
 
 	SlotImage->SetBrushFromTexture(NewImage);
@@ -169,7 +149,7 @@ UBaseDragDropOperation* USlotUI::GetSlotData()
 	return DragDropOperation;
 }
 
-void USlotUI::SetItemData(FItemData& NewItemData)
+void USlotUI::SetItemData(const FItemData& NewItemData)
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
 	if (IsValid(SlotData) == true)
@@ -270,9 +250,5 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 
 UTexture2D* USlotUI::GetDefaultSlotImage()
 {
-	if(IsValid(DefaultSlotImage) == true)
-		return DefaultSlotImage;
-
-
 	return GetGameManager()->GetDataManager()->GetResource("DefaultSlotImage").Texture;
 }

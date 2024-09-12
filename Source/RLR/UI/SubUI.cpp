@@ -6,6 +6,7 @@
 #include "GameManager/UIManager.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
+#include "Components/CanvasPanelSlot.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 
 void USubUI::NativeConstruct()
@@ -73,4 +74,12 @@ void USubUI::UpdateLocationStop()
 void USubUI::OnDragEnded()
 {
 	UpdateLocationStop();
+}
+
+void USubUI::SetPosition(FVector2D pos)
+{
+	if (auto slot = Cast<UCanvasPanelSlot>(Slot))
+	{
+		slot->SetPosition(pos);
+	}
 }
