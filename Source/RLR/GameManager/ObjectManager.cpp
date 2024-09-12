@@ -6,6 +6,7 @@
 #include "RLRObjects/Actors/RLRInteractableActor.h"
 #include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
@@ -179,7 +180,7 @@ TObjectPtr<ARLRDropItem> UObjectManager::GetObjectInstanceById(int ObjectId)
 void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
 {
     //TODO: 아이템 획득 pkt보내기
-
+    GameInstance->GetNetworkManager()->SendAddItemPacket(Dropitem.ObjectId, Dropitem.Num);
     //클라 -> 서버(아이템 요청)
     RLR_LOG(LogRLR, Log, TEXT("Called RequestPickUpItem"));
     ResponePickUpItem(Dropitem.ObjectId, true);
@@ -188,13 +189,13 @@ void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
 void UObjectManager::ResponePickUpItem(int ObjectId, bool bSuccess)
 {
     if (!bSuccess) return;
-    auto dropItemInstance = GetObjectInstanceById(ObjectId);
-    if (!dropItemInstance) return;
 
-    DropItemInstances.Remove(dropItemInstance);
-
-    AsyncTask(ENamedThreads::GameThread, [&dropItemInstance]()
+    AsyncTask(ENamedThreads::GameThread, [ObjectId, this]()
         {
+            auto dropItemInstance = GetObjectInstanceById(ObjectId);
+            if (!dropItemInstance) return;
+            // 유효성 검사 후 Destroy 호출
+            DropItemInstances.Remove(dropItemInstance);
             dropItemInstance->Destroy();
         });
 }

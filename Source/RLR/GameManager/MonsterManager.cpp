@@ -70,22 +70,50 @@ void UMonsterManager::SpawnMonsters()
 
 const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
 {
-    FVector result = FVector::ZeroVector;
-
-    for (auto monster : MonsterInstances)
+    for (auto* monster : MonsterInstances)
     {
-        UStatSetMonster* monsterStatSet = monster->GetActionSystemComponent()->GetStatSet<UStatSetMonster>();
-        if (!monsterStatSet) continue;
+        if (!IsValid(monster))
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Invalid monster instance found in MonsterInstances"));
+            continue;
+        }
+
+        UActionSystemComponent* actionSystem = monster->GetActionSystemComponent();
+        if (!actionSystem)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Monster %s has no ActionSystemComponent"), *monster->GetName());
+            continue;
+        }
+
+        UStatSetMonster* monsterStatSet = actionSystem->GetStatSet<UStatSetMonster>();
+        if (!monsterStatSet)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Monster %s has no StatSetMonster"), *monster->GetName());
+            continue;
+        }
 
         if (monsterStatSet->GetMonsterId() == MonsterId)
         {
-            result = monsterStatSet->GetMonsterTransform();
+            FVector monsterLocation = monster->GetActorLocation();
+
+            // 비동기적으로 몬스터 제거 예약
+            AsyncTask(ENamedThreads::GameThread, [this, monster]()
+                {
+                    if (IsValid(monster))
+                    {
+                        monster->SetLifeSpan(0.1f); // 0.1초 후에 제거
+                        MonsterInstances.Remove(monster);
+                    }
+                });
+
+            return monsterLocation;
+            //return monster->GetActorLocation(); // 또는 monster->MonsterTransform 사용
         }
     }
 
-    return result;
+    UE_LOG(LogTemp, Warning, TEXT("No monster found with ID %d"), MonsterId);
+    return FVector::ZeroVector;
 }
-
 
 ARLRMonster* UMonsterManager::GetMonsterByMonsterId(int64 monsterId)
 {
