@@ -90,13 +90,15 @@ void UInventorySlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	SetSlotImage(GetItemData().ItemImage);
-	ItemNameText->SetText(GetItemData().NAME);
 	if (GetItemData() == FItemData::EmptyItemData)
 	{
 		DisplayEquippedItems(false);
+		
 		return;
 	}
+	
+	SetSlotImage(ItemTestImage);
+	ItemNameText->SetText(GetItemData().NAME);
 
 	DisplayEquippedItems(GetItemData().IsEquiped);
 }
@@ -129,7 +131,7 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 	//	MainUI->CharacterStatusUI->EquipmentUI->EquipItem(GetItemData());
 	//	MainUI->InventoryUI->RefreshUI();
 	//}
-
+	FItemData  itemData = GetItemData();
 	GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
 	return result;
 }

@@ -53,6 +53,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetSilver(int32 NewSilver);
 
+	void SetItemList(TArray<FItemData>& ItemArray);
+
 	UFUNCTION(BlueprintCallable)
 	int32 GetGold(){return Gold;}
 	UFUNCTION(BlueprintCallable)

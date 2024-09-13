@@ -48,7 +48,7 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         itemDatas.Add(itemData);
     }
 
-    GameInstance->GetInventoryManager()->GetItemList(itemDatas);
+    GameInstance->GetInventoryManager()->SetItemList(itemDatas);
 
 
     return true;
@@ -79,7 +79,7 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
     GameInstance->GetNetworkManager()->SetUserSeq(pkt.usercharacter().userseq());
-    //GameInstance->GetNetworkManager()->SendGetSkillPacket();
+    GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
 
     // item 이미지 없어서 로드 안됌 로드 완료시 연결예정
