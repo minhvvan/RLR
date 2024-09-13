@@ -9,8 +9,10 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/SkillManager.h"
+#include "AIController.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
@@ -19,7 +21,7 @@
 #include "RLR.h"
 
 // Sets default values
-ARLRPlayerCharacter::ARLRPlayerCharacter():
+ARLRPlayerCharacter::ARLRPlayerCharacter() :
 	bShouldRotate(false),
 	RotationSpeed(0.f)
 {
@@ -69,7 +71,8 @@ void ARLRPlayerCharacter::PostInitializeComponents()
 void ARLRPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	AIController = Cast<AAIController>(GetController());
 }
 
 void ARLRPlayerCharacter::SetMoveMode(EMovementMode mode)
@@ -93,6 +96,7 @@ void ARLRPlayerCharacter::Tick(float DeltaSeconds)
 			bShouldRotate = false;
 		}
 	}
+	
 }
 
 void ARLRPlayerCharacter::SetTargetRotation(FVector TargetLoc, float Speed)
@@ -116,10 +120,10 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 	}
 
 	AsyncTask(ENamedThreads::GameThread, [statSet, Stat]()
-	{
-		statSet->SetStatData(Stat);
-		statSet->UpdateStat();
-	});
+		{
+			statSet->SetStatData(Stat);
+	statSet->UpdateStat();
+		});
 }
 
 const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
@@ -129,11 +133,15 @@ const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
 
 void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 {
-	//플레이어 위치 설정
-	AsyncTask(ENamedThreads::GameThread, [this,NewTransform]()
-		{
-	SetActorLocation(NewTransform);
-		});
+	if (AIController)
+	{
+		UAIBlueprintHelperLibrary::SimpleMoveToLocation(AIController, NewTransform);
+	}
+	else
+	{
+		AAIController* controller = Cast<AAIController>(GetController());
+	}
+	
 }
 
 void ARLRPlayerCharacter::SetDead()

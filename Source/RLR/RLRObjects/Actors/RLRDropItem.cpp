@@ -8,6 +8,7 @@
 #include "GameManager/MonsterManager.h"
 #include "Structs/ObjectStructs.h"
 #include "Engine/AssetManager.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 
 ARLRDropItem::ARLRDropItem()
 {
@@ -39,7 +40,10 @@ void ARLRDropItem::BeginPlay()
 void ARLRDropItem::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!ItemData.IsValid()) return;
-	GameInstance->GetObjectManager()->RequestPickUpItem(*ItemData);
+	if (ARLRPlayerCharacter* PlayerCharacter = Cast<ARLRPlayerCharacter>(OtherActor))
+	{
+		GameInstance->GetObjectManager()->RequestPickUpItem(*ItemData);
+	}
 }
 
 void ARLRDropItem::ItemMeshLoadCompleted()

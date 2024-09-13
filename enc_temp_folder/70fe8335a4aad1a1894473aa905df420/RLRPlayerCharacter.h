@@ -11,7 +11,6 @@ class UAction;
 class UCameraComponent;
 class USpringArmComponent;
 class UStatSetPlayer;
-class AAIController;
 
 UCLASS()
 class RLR_API ARLRPlayerCharacter : public ARLRCharacter
@@ -33,7 +32,6 @@ public:
 
 	virtual void SetDead() override;
 
-
 private:
 	
 	FORCEINLINE class UCameraComponent* GetTopDown() const { return camera; };
@@ -54,7 +52,6 @@ private:
 	FRotator TargetRotation;
 	bool bShouldRotate;
 	float RotationSpeed;
-	AAIController* AIController;
 
 public:
 	//-------------------------------------
