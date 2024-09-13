@@ -144,6 +144,16 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 	
 }
 
+void ARLRPlayerCharacter::SpawnTransform(FVector NewTransform)
+{
+	//플레이어 위치 설정
+	AsyncTask(ENamedThreads::GameThread, [this, NewTransform]()
+		{
+			SetActorLocation(NewTransform);
+		});
+
+}
+
 void ARLRPlayerCharacter::SetDead()
 {
 	Super::SetDead();

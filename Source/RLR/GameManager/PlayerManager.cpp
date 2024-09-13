@@ -202,6 +202,19 @@ void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)
 
 	PlayerCharacter->UpdateTransform(NewTransform);
 }
+void UPlayerManager::SpawnPlayerTransform(const FVector& NewTransform)
+{
+	if (!PlayerCharacter)
+	{
+		ARLRPlayerCharacter* player = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+		if (player)
+		{
+			PlayerCharacter = player;
+		}
+	}
+
+	PlayerCharacter->SpawnTransform(NewTransform);
+}
 
 bool UPlayerManager::RequestTalent(int TalentOrder)
 {

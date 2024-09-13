@@ -31,6 +31,8 @@ public:
 
 	void UpdateTransform(FVector NewTransform);
 
+	void SpawnTransform(FVector NewTransform);
+
 	virtual void SetDead() override;
 
 
