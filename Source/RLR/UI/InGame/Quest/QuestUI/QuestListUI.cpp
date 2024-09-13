@@ -84,10 +84,30 @@ void UQuestListUI::RemoveCompletedQuest(FQuest CompletedQuest)
 
 void UQuestListUI::ClearQuestList()
 {
+	// 메인 게임 스레드에서 실행되도록 보장
+	if (!IsInGameThread())
+	{
+		AsyncTask(ENamedThreads::GameThread, [this]()
+			{
+				ClearQuestList();
+			});
+		return;
+	}
+
+	// 안전하게 자식 위젯 제거
 	if (QuestListContainer)
 	{
-		QuestListContainer->ClearChildren();
+		TArray<UWidget*> ChildrenToRemove = QuestListContainer->GetAllChildren();
+		for (UWidget* Child : ChildrenToRemove)
+		{
+			if (Child)
+			{
+				QuestListContainer->RemoveChild(Child);
+			}
+		}
 	}
+
+	// 버튼 배열 비우기
 	QuestButtons.Empty();
 }
 
@@ -135,7 +155,6 @@ bool UQuestListUI::IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMo
 
 void UQuestListUI::UpdateQuestDetails(const FQuest& Quest)
 {
-	UE_LOG(LogTemp, Log, TEXT("UpdateQuestDetails called with quest: %s"), *Quest.QuestTitle);
 	SelectedQuest = Quest;
 	if (SelectedQuestTitle)
 	{
@@ -176,10 +195,8 @@ void UQuestListUI::OnDeclineButtonClicked()
 	{
 		if (UQuestButtonUI* QuestButton = Cast<UQuestButtonUI>(ChildWidget))
 		{
-			UE_LOG(LogTemp, Log, TEXT("Checking QuestButton: %s"), *QuestButton->GetQuestTitle());
 			if (QuestButton->GetQuestTitle() == SelectedQuest.QuestTitle)
 			{
-				UE_LOG(LogTemp, Log, TEXT("Decline button clicked. SelectedQuest: %s"), *SelectedQuest.QuestTitle);
 				QuestListContainer->RemoveChild(QuestButton);
 				QuestButton->SetButtonState(false);
 				break;

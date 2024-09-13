@@ -32,6 +32,7 @@ bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_DropRe
     FDropItem DropData;
     DropData.MakeDropItemData(objectId,value ,monsterId);
     DropDatas.Add(DropData);
+    RLR_LOG(LogRLR, Warning, TEXT("DropDatas.Num() : %d"), DropDatas.Num());
     GameInstance->GetObjectManager()->SetDropItemData(DropDatas);
 
     return true;

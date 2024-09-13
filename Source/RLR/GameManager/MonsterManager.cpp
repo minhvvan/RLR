@@ -70,22 +70,32 @@ void UMonsterManager::SpawnMonsters()
 
 const FVector UMonsterManager::GetMonsterTransformById(int MonsterId)
 {
-    FVector result = FVector::ZeroVector;
-
-    for (auto monster : MonsterInstances)
+    for (auto* monster : MonsterInstances)
     {
-        UStatSetMonster* monsterStatSet = monster->GetActionSystemComponent()->GetStatSet<UStatSetMonster>();
-        if (!monsterStatSet) continue;
+        if (!IsValid(monster))
+        {
+            continue;
+        }
+
+        UActionSystemComponent* actionSystem = monster->GetActionSystemComponent();
+        if (!actionSystem)
+        {
+            continue;
+        }
+
+        UStatSetMonster* monsterStatSet = actionSystem->GetStatSet<UStatSetMonster>();
+        if (!monsterStatSet)
+        {
+            continue;
+        }
 
         if (monsterStatSet->GetMonsterId() == MonsterId)
         {
-            result = monsterStatSet->GetMonsterTransform();
+            return monster->GetActorLocation();; // 또는 monster->MonsterTransform 사용
         }
     }
-
-    return result;
+    return FVector::ZeroVector;
 }
-
 
 ARLRMonster* UMonsterManager::GetMonsterByMonsterId(int64 monsterId)
 {

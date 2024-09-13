@@ -6,6 +6,7 @@
 #include "RLRObjects/Actors/RLRInteractableActor.h"
 #include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
@@ -145,8 +146,11 @@ void UObjectManager::SpawnDropItem()
     
     AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
         {
+
             for (auto& data : DropItemData)
             {
+                RLR_LOG(LogRLR, Warning, TEXT("DropItemData Size: %d"), DropItemData.Num());
+                RLR_LOG(LogRLR, Warning, TEXT("DropItemInstances Size: %d"), DropItemInstances.Num());
                 TSubclassOf<ARLRDropItem> itemClass = dataManager->GetObjectClass<ARLRDropItem>(TEXT("BP_DropItem"));
                 if (!itemClass) continue;
 
@@ -161,12 +165,16 @@ void UObjectManager::SpawnDropItem()
                 }
 
                 object->SetDropItemData(data);
-                object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
-                {
-                    object->FinishSpawning(SpawnTransform);
-                    DropItemInstances.Add(object);
-                });
+                object->FinishSpawning(SpawnTransform);
+                DropItemInstances.Add(object);
+
+                //object->OnLoadComplete.AddLambda([object, SpawnTransform, this]()
+                //{
+                //    object->FinishSpawning(SpawnTransform);
+                //    DropItemInstances.Add(object);
+                //});
             }
+            DropItemData.Empty();
         });
 }
 
@@ -189,7 +197,7 @@ TObjectPtr<ARLRDropItem> UObjectManager::GetObjectInstanceById(int ObjectId)
 void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
 {
     //TODO: 아이템 획득 pkt보내기
-
+    GameInstance->GetNetworkManager()->SendAddItemPacket(Dropitem.ObjectId, Dropitem.Num);
     //클라 -> 서버(아이템 요청)
     RLR_LOG(LogRLR, Log, TEXT("Called RequestPickUpItem"));
     ResponePickUpItem(Dropitem.ObjectId, true);
@@ -198,13 +206,19 @@ void UObjectManager::RequestPickUpItem(const FDropItem& Dropitem)
 void UObjectManager::ResponePickUpItem(int ObjectId, bool bSuccess)
 {
     if (!bSuccess) return;
-    auto dropItemInstance = GetObjectInstanceById(ObjectId);
-    if (!dropItemInstance) return;
 
-    DropItemInstances.Remove(dropItemInstance);
-
-    AsyncTask(ENamedThreads::GameThread, [&dropItemInstance]()
+    AsyncTask(ENamedThreads::GameThread, [ObjectId, this]()
         {
-            dropItemInstance->Destroy();
+            auto dropItemInstance = GetObjectInstanceById(ObjectId);
+            if (!dropItemInstance) return;
+            
+            float DelayTime = 1.0f;
+            FTimerHandle TimerHandle;
+
+            GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this, dropItemInstance]()
+                {
+		            DropItemInstances.Remove(dropItemInstance);
+		            dropItemInstance->Destroy();
+                }, DelayTime, false);
         });
 }
