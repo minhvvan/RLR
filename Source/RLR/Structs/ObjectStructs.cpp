@@ -97,6 +97,11 @@ void FDropItem::MakeDropItemData(int64 objectId, int32 value, int64 monsterId)
 void FNPCShop::MakeNPCShopData(const Protocol::Shop shop)
 {
     ShopSeq = shop.shopseq();
-    //ShopName = FString::Printf(shop.shopname());
-    //TODO: Item 정보 채우기
+    ShopName = UTF8_TO_TCHAR(shop.shopname().c_str());
+    for (auto& shopItem : shop.items()) {
+        FItemData item;
+        item.MakeItemData(shopItem);
+        Items.Add(item);
+    }
+    
 }
