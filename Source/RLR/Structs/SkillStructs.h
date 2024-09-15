@@ -237,6 +237,7 @@ public:
 	FORCEINLINE auto begin() const { return SkillDict.begin(); }
 	FORCEINLINE auto end() { return SkillDict.end(); }
 	FORCEINLINE auto end() const { return SkillDict.end(); }
+	FORCEINLINE void Empty(){SkillDict.Empty(); }
 
 	bool Contains(T key)
 	{

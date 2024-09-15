@@ -26,7 +26,10 @@ public:
 	void Update();
 
 	UFUNCTION(BlueprintCallable)
-	void AddItem(FItemData NewItem);
+	void AddItem(const FItemData& NewItem);
+	UFUNCTION(BlueprintCallable)
+	void AddItemList(const TArray<FItemData>& NewItemList);
+
 	UFUNCTION(BlueprintCallable)
 	FItemData GetItem(int32 ItemSeq);
 	UFUNCTION(BlueprintCallable)
@@ -71,12 +74,15 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FUpdateInventoryManager OnUpdateInventoryDelegate;
+	void OnUpdateInventoryDelegateBroadcast();
 
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FUpdateInventoryManager OnUpdateGoldAndCashDelegate;
+	void OnUpdateGoldAndCashDelegateBroadcast();
 
 	UPROPERTY()
 	FUpdateEquip			OnUpdateEquipDelegate;
+	void OnUpdateEquipDelegateBroadcast(FItemData EquipItem);
 
 private:
 

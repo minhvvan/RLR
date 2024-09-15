@@ -32,7 +32,6 @@ void UStatusDisplay::NativeConstruct()
 void UStatusDisplay::Init()
 {
 	Super::Init();
-	SkillQuickSlotContainer->Init();
 }
 
 void UStatusDisplay::RefreshUI()

@@ -131,6 +131,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
 	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
+	//OwnSkills.Empty();
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
@@ -141,8 +142,9 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			return;
 		}
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
+		//스킬 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> Skill.{퀵 슬롯 인덱스 번호}
+		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
@@ -200,8 +202,8 @@ bool USkillManager::RequestGetSelectedSkills()
 			return false;
 		}
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
+		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 

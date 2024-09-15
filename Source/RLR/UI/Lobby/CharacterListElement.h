@@ -26,6 +26,7 @@ public:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
+	virtual void Clear() override;
 
 	UFUNCTION()
 	void		OnClickedConnectButton();
@@ -55,4 +56,7 @@ public:
 	
 	UPROPERTY()
 	FUserCharacter UserCharacterData;
+
+	UPROPERTY()
+	int32 CharacterSlotIndex = -1;
 };

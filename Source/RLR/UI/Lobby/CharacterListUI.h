@@ -23,6 +23,7 @@ class RLR_API UCharacterListUI : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void Init();
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
 
@@ -66,16 +67,21 @@ public:
 	FRotator SpawnRotation;
 
 private:
+
 	UPROPERTY()
 	TObjectPtr<ARLRCharacter> SelectedCharacter;
 
 	UPROPERTY()
 	TObjectPtr<UCharacterListElement> SelectedElement;
 
+public:
+
+	UPROPERTY()
+	TMap<int32, UCharacterListElement*> CharacterListElementMap;
+
 	UPROPERTY()
 	TMap<int32, FUserCharacter> UserCharacterList;
 
-	UPROPERTY()
-	TSubclassOf<UCharacterListElement> ListElementClass;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CharacterElementMaxCount = 12;
 };

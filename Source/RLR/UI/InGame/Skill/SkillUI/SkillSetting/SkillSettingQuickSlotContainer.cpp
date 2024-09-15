@@ -27,13 +27,13 @@ void USkillSettingQuickSlotContainer::Init()
 	{
 		USkillSettingQuickSlot* QuickSlot = CreateWidget<USkillSettingQuickSlot>(this, SlotClass);
 		AddChildToUniformGrid(QuickSlot, SlotCount / 4, SlotCount % 4);
-		SlotCount++;
 
 		FGameplayTag ActionTag = Element.Key;
 		int32		 SkillID = Element.Value;
 
 		QuickSlot->SetActionTag(ActionTag);
 		QuickSlot->Clear();
+		QuickSlot->SetSlotIndex(SlotCount++);
 		QuickSlotMap.Add(ActionTag, QuickSlot);
 	}
 }

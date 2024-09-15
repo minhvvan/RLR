@@ -28,9 +28,13 @@ void UCharacterListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 		DEBUG_MESSAGE;
 	}
 
-	const FUserCharacter Data = ListItem->GetUserCharacterData();
-	SetUserCharacterData(Data);
-	RefreshUI();
+	CharacterSlotIndex = ListItem->CharacterSlotIndex;
+	UCharacterListUI* CharacterListUI = Cast<UCharacterListUI>(ListItem->GetParent());
+	if(IsValid(CharacterListUI) == false)
+		return;
+
+	CharacterListUI->CharacterListElementMap.Add(CharacterSlotIndex, this);
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UCharacterListElement::NativeConstruct()
@@ -43,7 +47,21 @@ void UCharacterListElement::NativeConstruct()
 void UCharacterListElement::RefreshUI()
 {
 	Super::RefreshUI();
+
+	if (UserCharacterData.UserSeq == -1)
+	{
+		Clear();
+		return;
+	}
+
+	SetVisibility(ESlateVisibility::Visible);
 	CharacterNameText->SetText(FText::FromString(UserCharacterData.NickName));
+}
+
+void UCharacterListElement::Clear()
+{
+	Super::Clear();
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UCharacterListElement::OnClickedConnectButton()

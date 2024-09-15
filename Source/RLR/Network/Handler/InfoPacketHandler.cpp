@@ -46,9 +46,9 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         itemDatas.Add(itemData);
     }
 
-    GameInstance->GetInventoryManager()->GetItemList(itemDatas);
-
-
+    //누가 왜 GetItemList를...?
+    //GameInstance->GetInventoryManager()->GetItemList(itemDatas);
+    GameInstance->GetInventoryManager()->AddItemList(itemDatas);
     return true;
 }
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_StatusResponsePacket& pkt) {

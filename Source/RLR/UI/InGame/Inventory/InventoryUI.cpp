@@ -32,7 +32,6 @@ void UInventoryUI::NativeConstruct()
 	if(IsValid(InventoryManager) == false)
 		return;
 
-	Init();
 	InventoryManager->OnUpdateInventoryDelegate.AddDynamic(this, &UInventoryUI::RefreshUI);
 	InventoryManager->OnUpdateGoldAndCashDelegate.AddDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
 

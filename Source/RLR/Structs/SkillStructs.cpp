@@ -72,6 +72,8 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
     SkillId = skill.skillid();
 
+    SkillIdx = skill.skillidx();
+
     SkillRange.X = skill.skilldistance() * 20;
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
