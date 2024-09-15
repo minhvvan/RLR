@@ -23,6 +23,7 @@ void UBaseUI::NativeOnInitialized()
 void UBaseUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	Init();
 }
 
 void UBaseUI::OpenUI()

@@ -17,7 +17,9 @@ class UWidgetSwitcher;
 class USkillTree;
 class USkillSetting;
 class USkillSettingQuickSlot;
+class USkillSettingQuickSlotContainer;
 class USkillSettingListSlot;
+class USkillSettingListSlotContainer;
 class UWrapBox;
 class UUniformGridPanel;
 
@@ -39,6 +41,7 @@ class RLR_API USkillSetting : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void Init() override;
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
 	void		 ClearSkillList();
@@ -94,23 +97,23 @@ public:
 	TObjectPtr<UWidgetSwitcher> SkillTabSwitcher;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox> NormalSkillWrapBox;
+	TObjectPtr<USkillSettingListSlotContainer>	NormalSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox>	UniqueSkillWrapBox;
+	TObjectPtr<USkillSettingListSlotContainer>	UniqueSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox>	UltimateSkillWrapBox;
+	TObjectPtr<USkillSettingListSlotContainer>	UltimateSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UUniformGridPanel>	SkillQuickSlotGridPanel;
+	TObjectPtr<USkillSettingQuickSlotContainer>	SkillQuickSlotGridPanel;
 
 
 public:
 
-	UPROPERTY()
-	TMap<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> SkillQuickSlotMap;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 QuickSlotMaxColunm = 4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 MaxColunm = 4;
+	int32 SkillListMaxColunm = 30;
 };

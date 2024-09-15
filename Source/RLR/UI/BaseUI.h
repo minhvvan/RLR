@@ -17,6 +17,7 @@
  class UActionSystemComponent;
  class UPlayerManager;
  class USkillManager;
+ class UDataManager;
  class UInventoryManager;
 
 UCLASS()
@@ -27,6 +28,7 @@ class RLR_API UBaseUI : public UUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
+	virtual void Init(){};
 	virtual void RefreshUI(){};
 	virtual void OpenUI();
 	virtual void Clear(){};

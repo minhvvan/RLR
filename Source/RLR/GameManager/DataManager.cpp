@@ -74,7 +74,10 @@ void UDataManager::MakeSkillDictionary()
 		if (SkillData)
 		{
 			//TODO: ECharacterMainJobType 분리 후 변경 필요
-			ECharacterMainJobType MainJob = ECharacterMainJobType::NONE;
+			//분리 후 변경이 필요하다는게 무슨 의미일까? 나중에 민환님한테 물어보기.
+			//ECharacterMainJobType MainJob = ECharacterMainJobType::NONE;
+
+			ECharacterMainJobType MainJob = SkillData->MainJobType;
 
 			if (SkillDictionary.Contains(MainJob) == false)
 			{

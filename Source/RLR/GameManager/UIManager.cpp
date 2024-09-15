@@ -39,16 +39,9 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		MainUI = NewMainUI;
 		MainUI->SetInputMode();
 
-		/*
-			TODO
-			Title, Lobby 에서 이게 필요한 경우가 있을까?
-			없으면 이야기해서 InGameMainUI에 옮기기기.
-		*/
-		RLR_LOG(LogRLR, Warning, TEXT("몇 번들어 오는지 테스트"));
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-		if (!playerCharacter) return;
-
-		MainUI->SetActionSystemComponent(playerCharacter);
+		if (playerCharacter)
+			MainUI->SetActionSystemComponent(playerCharacter);
 
 		FString CurrentLevelName = GetWorld()->GetMapName();
 		if (CurrentLevelName.Contains(TEXT("Main")))
@@ -278,8 +271,6 @@ TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
 
 void UUIManager::OpenLoadingScreen_Internal()
 {
-	
-
 	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
 	LoadingScreen->AddToViewport();
 }

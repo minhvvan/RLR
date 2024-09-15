@@ -8,10 +8,8 @@ const FString UGameOptionData::SlotName =  FString(TEXT("GameOptionData"));
 
 void UGameOptionData::Init()
 {
-
 	ChatOption.Init();
 	SkillQuickSlotOption.Init();
-
 }
 
 FSkillQuickSlotOption& UGameOptionData::GetSkillQuickSlotOption()
@@ -38,15 +36,15 @@ void FChatOption::Init()
 
 void FSkillQuickSlotOption::Init()
 {
-
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_1_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_2_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_3_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_4_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_5_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_6_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_7_Anim, -1);
-	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_8_Anim, -1);
+	SkillQuickSlotList.Empty();
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_1, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_2, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_3, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_4, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_5, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_6, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_7, -1);
+	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_8, -1);
 }
 
 bool FSkillQuickSlotOption::IsEquippedSkill(int32 Id)

@@ -12,6 +12,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
+#include "GameManager/SkillManager.h"
 
 #include "Structs/SkillStructs.h"
 #include "Structs/ItemStructs.h"
@@ -119,6 +120,20 @@ void UUtilBlueprintFunctionLibrary::TestCharacterList()
 {
 
 	GameInstance->GetNetworkManager()->SendPlayerPacket();
+}
+
+void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
+{
+	TArray<FSkillData> TestArray;
+
+	for (int32 i = 1; i <= 3; i++)
+	{
+		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(i);
+		TestArray.Add(Data);
+	}
+
+
+	GameInstance->GetSkillManager()->SetSelectedSkills(TestArray);
 }
 
 /*

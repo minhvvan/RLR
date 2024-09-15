@@ -45,7 +45,7 @@ struct FSkillQuickSlotOption
     /*
       옵션 정보에 스킬 퀵 슬롯을 저장하기 위한 구조체.
 
-      <Skill Action Tag, Skill ID> 
+      <Skill Action Tag, Skill Seq> 
       만약 Skill ID가 -1이면 없는 걸로 친다.
 
   

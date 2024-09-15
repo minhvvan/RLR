@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Delegates/DelegateCombinations.h"
 #include "GameFramework/PlayerController.h"
+#include "Player/RLRBasePlayerController.h"
 #include "GameplayTagContainer.h"
 #include "RLRPlayerController.generated.h"
 
@@ -14,7 +15,7 @@ class APlayerCommands;
 class UInputMappingContext;
 
 UCLASS()
-class RLR_API ARLRPlayerController : public APlayerController
+class RLR_API ARLRPlayerController : public ARLRBasePlayerController
 {
 	GENERATED_BODY()
 
