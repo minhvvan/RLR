@@ -182,3 +182,15 @@ UInventoryManager* UBaseUI::GetInventoryManager()
 
 	return nullptr;
 }
+
+UDataManager* UBaseUI::GetDataManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM->GetDataManager();
+	}
+
+	return nullptr;
+}

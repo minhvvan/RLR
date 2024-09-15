@@ -18,6 +18,7 @@ void USkillSettingQuickSlotContainer::Init()
 	if (CHECK_VALID(GameOption) == false)
 		return;
 
+	ClearChildren();
 	GameOption->GetSkillQuickSlotOption().Init();
 	const TMap<FGameplayTag, int32>& QucikSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
 

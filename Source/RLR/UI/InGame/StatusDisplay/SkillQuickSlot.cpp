@@ -24,7 +24,6 @@ void USkillQuickSlot::RefreshUI()
 	URLRInputConfig* Config = GameInstance->GetDataManager()->GetInputConfig();
 	if(Config)
 	{ 
-
 		FString InputString = Config->FindInputTagByActionTag(ActionTag).GetTagName().ToString();
 		FString Prefix = TEXT("Input.");
 
@@ -34,7 +33,6 @@ void USkillQuickSlot::RefreshUI()
 	
 
 		KeyBindingText->SetText(FText::FromString(AfterPrefix));
-
 	}
 
 	const FSkillData& SkillData = GetSkillData();

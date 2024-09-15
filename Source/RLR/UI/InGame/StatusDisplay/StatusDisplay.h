@@ -27,13 +27,12 @@ class RLR_API UStatusDisplay : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void Init();
 	virtual void RefreshUI() override;
 
 	USkillQuickSlot*	GetSkillQuickSlot(FGameplayTag ActionTag);
 
 	void LoadSkillQuickSlotData();
-
-	void ClearSkillQuickSlot();
 
 public:
 	void UpdateTotalStat(const FTotalStatus& NewTotalStatus);

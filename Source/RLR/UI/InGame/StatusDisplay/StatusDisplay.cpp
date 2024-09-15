@@ -24,10 +24,15 @@ void UStatusDisplay::NativeConstruct()
 {
 	Super::NativeConstruct();
 	SetUIType(EUIType::STATUSDISPLAY);
-	ClearSkillQuickSlot();
 
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillAttack);
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillAttack);
+}
+
+void UStatusDisplay::Init()
+{
+	Super::Init();
+	SkillQuickSlotContainer->Init();
 }
 
 void UStatusDisplay::RefreshUI()
@@ -42,54 +47,7 @@ USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 
 void UStatusDisplay::LoadSkillQuickSlotData()
 {
-	//GameOption에 저장되어 있는 Skill Quick Slot Data를 불러온다.
-	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
-	if(IsValid(GameOption) == false)
-		return;
-
-	FSkillQuickSlotOption QuickOption = GameOption->GetSkillQuickSlotOption();
-
-
-	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass = GetWidgetClass<USkillQuickSlot>(TEXT("WBP_SkillQuickSlot"));
-	if (IsValid(SkillQuickSlotClass) == false)
-	{
-		DEBUG_LOG("LoadSkillQuickSlotData Error. SkillQuickSlotClass is Null.");
-		return;
-	}
-
-	//그리드 채우기용
-	int32 cnt = 0;
-	for (TTuple<FGameplayTag, int32> Element : QuickOption.SkillQuickSlotList)
-	{
-		FGameplayTag ActionTag = Element.Key;
-		int32 SkillID = Element.Value;
-
-		if (SkillQuickSlotMap.Contains(ActionTag) == false)
-		{
-			USkillQuickSlot* NewSkillQuickSlot = CreateWidget<USkillQuickSlot>(this,SkillQuickSlotClass);
-			SkillQuickSlotMap.Add(ActionTag, NewSkillQuickSlot);
-			SkillQuickSlotContainer->AddChild(NewSkillQuickSlot, cnt++);
-		}
-
-		USkillQuickSlot* FindSkillQuickSlot = SkillQuickSlotMap[ActionTag];
-
-		if (IsValid(FindSkillQuickSlot) == false)
-		{
-			Util::Checkf(FindSkillQuickSlot, "LoadSkillQuickSlotData Error");
-			continue;
-		}
-
-		FSkillData SlotSkill = GameInstance->GetDataManager()->GetSkillData(SkillID);
-		FindSkillQuickSlot->SetSkillData(SlotSkill);
-		FindSkillQuickSlot->SetActionTag(ActionTag);
-		FindSkillQuickSlot->RefreshUI();
-	}
-}
-
-void UStatusDisplay::ClearSkillQuickSlot()
-{
-	SkillQuickSlotContainer->Clear();
-	SkillQuickSlotMap.Empty();
+	SkillQuickSlotContainer->RefreshUI();
 }
 
 void UStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)

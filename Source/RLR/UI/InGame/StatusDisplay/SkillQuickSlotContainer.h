@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "GameplayTagsManager.h"
 #include "SkillQuickSlotContainer.generated.h"
 
 /**
@@ -22,8 +23,8 @@ class RLR_API USkillQuickSlotContainer : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void Init() override;
 	virtual void RefreshUI() override;
-	void AddChild(USkillQuickSlot* NewSlot, int32 Index);
 	virtual void Clear() override;
 
 public:
@@ -35,7 +36,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UGridPanel> SkillQuickSlotGridPanel;
 
+public:
+
+	UPROPERTY()
+	TMap<FGameplayTag, USkillQuickSlot*> QuickSlotMap;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32	MaxColunm = 8;
+	int32	MaxColunm = 4;
 
 };

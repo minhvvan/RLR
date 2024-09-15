@@ -54,6 +54,7 @@ public:
 	UPlayerManager*		GetPlayerManager();
 	USkillManager*		GetSkillManager();
 	UInventoryManager*	GetInventoryManager();
+	UDataManager*		GetDataManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
