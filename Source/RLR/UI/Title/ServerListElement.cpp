@@ -19,12 +19,23 @@ void UServerListElement::RefreshUI()
 {
 	Super::RefreshUI();
 
+	if (ServerData.ServerSeq == -1)
+	{
+		Clear();
+		return;
+	}
+
+	SetVisibility(ESlateVisibility::Visible);
+
+	FText ServerName = FText::FromString(ServerData.ServerName);
+	ServerNameText->SetText(ServerName);
 }
 
 void UServerListElement::Clear()
 {
 	Super::Clear();
-
+	ServerData.ServerSeq = -1;
+	SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UServerListElement::SetServerData(FServerData NewServerData)

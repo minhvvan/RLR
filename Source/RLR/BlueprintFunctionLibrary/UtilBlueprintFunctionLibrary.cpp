@@ -24,7 +24,8 @@
 #include "Network/Handler/CertificationPacketHandler.h"
 
 #include "UI/Lobby/LobbyMainUI.h"
-
+#include "UI/Title/TitleMainUI.h"
+#include "UI/Title/ServerListElement.h"
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
@@ -148,6 +149,23 @@ void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
 	}
 
 	GameInstance->GetSkillManager()->SetSelectedItems(TestArray);
+}
+
+void UUtilBlueprintFunctionLibrary::TestServerList()
+{
+	TArray<FString> TestString = {TEXT("서버1"), TEXT("서버2"), TEXT("서버3"), TEXT("서버4"), "글자 깨짐 테스트 서버 5"};
+
+	UTitleMainUI* Title = Cast<UTitleMainUI>(GameInstance->GetUIManager()->GetUI(EUIType::TITLE_MAIN_UI));
+	if (IsValid(Title) == false)
+		return;
+
+	for(int32 i = 0 ; i < 5; i++)
+	{ 
+		FServerData Data;
+		Data.ServerSeq = i;
+		Data.ServerName = TestString[i];
+		Title->AddServerListElement(Data);
+	};	
 }
 
 /*

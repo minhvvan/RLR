@@ -21,6 +21,7 @@ class RLR_API UServerList : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void Init() override;
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
 
@@ -47,4 +48,10 @@ private:
 
 	UPROPERTY()
 	TMap<int32, UServerListElement*> ServerListElementMap;
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 ServerListMaxCount = 8;
+
 };

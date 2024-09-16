@@ -64,6 +64,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void TestItemQuickSlot();
 
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void TestServerList();
+
 	/*
 		Cheat Code
 	*/

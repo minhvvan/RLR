@@ -11,12 +11,13 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 
+#include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 void UTitleMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	SetUIType(EUIType::TITLE_MAIN_UI);
 
 	ConnectServerButton->OnClicked.AddUniqueDynamic(this, &UTitleMainUI::OnClickedConnectServerButton);
 }
@@ -35,12 +36,15 @@ void UTitleMainUI::Clear()
 
 void UTitleMainUI::SetInputMode()
 {
-	ChangeInputModeUIOnly();
+	ChangeInputModeGameAndUI();
 }
 
 void UTitleMainUI::AddServerListElement(FServerData NewServerData)
 {
-	ServerList->AddServerListElement(NewServerData);
+	AsyncTask(ENamedThreads::GameThread, [this, NewServerData]()
+		{
+			ServerList->AddServerListElement(NewServerData);
+		});
 }
 
 void UTitleMainUI::OnClickedConnectServerButton()
@@ -51,19 +55,19 @@ void UTitleMainUI::OnClickedConnectServerButton()
 
 	FText ID = IDEditableTextBox->GetText();
 	FText PW = PWEditableTextBox->GetText();
-	//UServerListElement* Element = ServerList->GetSelectedServer();
+	UServerListElement* Element = ServerList->GetSelectedServer();
 
-	/*if (IsValid(Element) == false)
+	if (IsValid(Element) == false)
 	{
+		GameInstance->GetNetworkManager()->SendLoginRequest(1, ID, PW);
 		DEBUG_LOG("선택된 서버가 없습니다.");
 		return;
-	}*/
-
-	//FServerData Data = Element->GetServerData();
+	}
 
 	/*
 		뭐가 필요한지 몰라서 일단 ServerSeq만 담아서 보내봄..
 	*/
 
-	GameInstance->GetNetworkManager()->SendLoginRequest(1, ID, PW);
+	int32 ServerSeq = Element->GetServerData().ServerSeq;
+	GameInstance->GetNetworkManager()->SendLoginRequest(ServerSeq, ID, PW);
 }
