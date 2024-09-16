@@ -30,11 +30,11 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
 
     Protocol::CS_EquipChangeRequest packet;
 
-    int32 OjbectId = ItemData.ITEM_SEQ;
-    //int32 UserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 OjbectId = ItemData.ITEM_ID;
+    int32 EquipUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
     packet.set_objectid(OjbectId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(EquipUserSeq);
     Protocol::Equip* EquipItem = packet.mutable_item();
 
     FItemData temp = ItemData;
@@ -58,10 +58,11 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
 
     Protocol::CS_EquipChangeRequest packet;
 
-    int32 OjbectId = ItemData.ITEM_SEQ;
+    int32 OjbectId = ItemData.ITEM_ID;
+    int32 UnEquipUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
     packet.set_objectid(OjbectId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(UnEquipUserSeq);
     Protocol::Equip* EquipItem = packet.mutable_item();
 
     FItemData temp = ItemData;
@@ -73,3 +74,24 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
 
     return false;
 }
+
+//bool UNetworkManager::SendUsingItemPacket(const FItemData& ItemData)
+//{
+//    if (!MainServerSocket) return false;
+//
+//    /*
+//        아이템 사용
+//        TODO 현석님한테 이야기하기.
+//    */
+//
+//    Protocol::CS_ItemUseRequestPacket packet;
+//
+//    int32 ItemSeq = ItemData.ITEM_SEQ;
+//    int32 UsingUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+//
+//    packet.set_itemseq(ItemSeq);
+//    packet.set_userseq(UsingUserSeq);
+//
+//    SEND_PACKET(packet);
+//    return false;
+//}

@@ -14,10 +14,19 @@ void UGameOptionData::Init()
 
 FSkillQuickSlotOption& UGameOptionData::GetSkillQuickSlotOption()
 {
-	if(SkillQuickSlotOption.SkillQuickSlotList.Num() == 0)
+	if (SkillQuickSlotOption.SkillQuickSlotList.Num() == 0)
 		SkillQuickSlotOption.Init();
 
 	return SkillQuickSlotOption;
+}
+
+FItemQuickSlotOption& UGameOptionData::GetItemQuickSlotOption()
+{
+	if (ItemQuickSlotOption.ItemQuickSlotList.Num() == 0)
+		ItemQuickSlotOption.Init();
+
+	return ItemQuickSlotOption;
+
 }
 
 void FChatOption::Init()
@@ -47,17 +56,43 @@ void FSkillQuickSlotOption::Init()
 	SkillQuickSlotList.Add(FGameplayTagManager::Get().Action_Skill_8, -1);
 }
 
-bool FSkillQuickSlotOption::IsEquippedSkill(int32 Id)
+bool FSkillQuickSlotOption::IsEquippedSkill(int32 SkillSeq)
 {
 
-	for (TTuple<FGameplayTag, int32> Element : SkillQuickSlotList)
+	for (TTuple<FGameplayTag, int32> Iter : SkillQuickSlotList)
 	{
-		int32 Skill_ID = Element.Value;
+		int32 SlotSkillSeq = Iter.Value;
 
-		if(Skill_ID == Id)
+		if(SlotSkillSeq == SkillSeq)
 			return true;
 	}
 
 	return false;
 }
 
+void FItemQuickSlotOption::Init()
+{
+	ItemQuickSlotList.Empty();
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_1, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_2, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_3, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_4, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_5, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_6, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_7, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_8, -1);
+	ItemQuickSlotList.Add(FGameplayTagManager::Get().Action_ItemQuickSlot_9, -1);
+}
+
+bool FItemQuickSlotOption::IsEquippedItem(int32 ItemSeq)
+{
+	for (TTuple<FGameplayTag, int32> Iter : ItemQuickSlotList)
+	{
+		int32 SlotItemSeq = Iter.Value;
+
+		if (SlotItemSeq == ItemSeq)
+			return true;
+	}
+
+	return false;
+}

@@ -3,15 +3,21 @@
 
 #include "UI/InGame/Option/KeyOption/KeyOption.h"
 #include "UI/InGame/Option/KeyOption/KeyOptionElement.h"
+#include "UI/InGame/StatusDisplay/StatusDisplay.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "UI/MainUI.h"
 
-#include "Player/RLRPlayerController.h"
-#include "Kismet/GameplayStatics.h"
 #include "GameManager/GameplayTagManager.h"
-#include "Blueprint/WidgetTree.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 
 #include "Components/InputKeySelector.h"
 #include "Components/Button.h"
 
+#include "Player/RLRPlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Blueprint/WidgetTree.h"
 #include "Structs/UtilStructs.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
@@ -74,7 +80,7 @@ void UKeyOption::LoadKeyOption()
 			continue;
 
 		//Action Tag에 맞는 input Tag를 찾아야 한다.
-		FGameplayTag InputTag = InputConfig->FindInputTagByActionTag(Element->ActionTag);
+		FGameplayTag InputTag = GameInstance->GetDataManager()->GetInputConfig()->FindInputTagByActionTag(Element->ActionTag);
 
 		if (InputTag == FGameplayTag::EmptyTag)
 		{
@@ -93,6 +99,13 @@ void UKeyOption::ApplyKeyOption()
 	/*
 		Key Option Element 정보들을 가져와서 적용한다.
 	*/
+
+	URLRInputConfig* InputConfig = GameInstance->GetDataManager()->GetInputConfig();
+	if (IsValid(InputConfig) == false)
+	{
+		DEBUG_MESSAGE;
+		return;
+	}
 
 
 	for (TTuple<FGameplayTag, UKeyOptionElement*> Find : KeyOptionList)
@@ -134,7 +147,6 @@ void UKeyOption::ApplyKeyOption()
 					-> 방법 1. 일단 가른 값이 있으면 비워주는 방향으로.
 
 		*/
-
 
 		FRLRInput& RLRInput = InputConfig->FindRLRInputByInputTag(NewInputTag);
 		if(RLRInput.InputAction == nullptr)
@@ -211,8 +223,15 @@ void UKeyOption::ApplyKeyOption()
 	RefreshUI();
 
 	/*
-		옵션 저장은 어떻게?
+		퀵 슬롯도 업데이트
 	*/
+
+	 UStatusDisplay* StatusDisplay = Cast<UInGameMainUI>(GetUIManager()->GetMainUI())->GetStatusDisplayUI();
+	 if(IsValid(StatusDisplay) == false)
+		return;
+
+	 StatusDisplay->LoadSkillQuickSlotData();
+	 StatusDisplay->LoadItemQuickSlotData();
 }
 
 void UKeyOption::CreateDataAsset()

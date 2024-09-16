@@ -18,7 +18,8 @@
 void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	UpdatedTryActivateAction.Clear();
-	UpdatedSkillManager.Clear();
+	UpdatedSkillSettingDelegate.Clear();
+	UpdatedItemSettingDelegate.Clear();
 
 	UpdateTest.AddDynamic(this, &USkillManager::SetSelectedSkills);
 }
@@ -131,7 +132,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
 	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
-	//OwnSkills.Empty();
+	OwnSkills.Empty();
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
 	{
@@ -163,16 +164,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 	}
 
 	// Safely broadcast in game thread
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			// 유효성 검사 추가
-			if (!IsValid(this))
-			{
-				RLR_LOG(LogRLR, Warning, TEXT("SkillManager is invalid during broadcast."));
-				return;
-			}
-			UpdatedSkillManager.Broadcast();
-		});
+	UpdatedSkillSettingBroadcast();
 }
 
 bool USkillManager::RequestGetSelectedSkills()
@@ -256,4 +248,132 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 	//TODO: Send To Server(Skill Result) Using NetworkManager
 	GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
 	return false;
+}
+
+void USkillManager::UsingItem(FGameplayTag TriggerTag)
+{
+	if (!HasSkillTag(TriggerTag)) Init();
+
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return;
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return;
+
+	{
+		//TODO. 서버에 아이템 사용 패킷을 보낸다.
+		//이 부분은 여기서 바로 패킷을 보낼 건지, ActionComponent에서 처리할 건지 민환님이랑 이야기해볼 것.
+		//const FItemData* ItemData = GetItemData(TriggerTag);
+		//GameInstance->GetNetworkManager()->SendUsingItemPacket(*ItemData);
+	}
+
+	UpdatedTryUsingItemAction.Broadcast(TriggerTag);
+}
+
+const FItemData* USkillManager::GetItemData(FGameplayTag TriggerTag)
+{
+	for (auto& [Tag, Data] : OwnItems)
+	{
+		if (TriggerTag.MatchesTag(Tag))
+		{
+			return &Data;
+		}
+	}
+	return nullptr;
+}
+
+const FSkillDictionary<FGameplayTag, FItemData>& USkillManager::GetOwnItems()
+{
+	return OwnItems;
+}
+
+bool USkillManager::HasItemTag(FGameplayTag TriggerTag)
+{
+	bool bResult = false;
+	for (auto& [Tag, Data] : OwnItems)
+	{
+		if (TriggerTag.MatchesTag(Tag))
+		{
+			bResult = true;
+			break;
+		}
+	}
+
+	return bResult;
+}
+
+void USkillManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
+{
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller || !Controller->GetPawn())
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("PlayerController or Pawn is invalid."));
+		return;
+	}
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character)
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("PlayerCharacter is invalid."));
+		return;
+	}
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC)
+	{
+		RLR_LOG(LogRLR, Warning, TEXT("ActionSystemComponent is invalid."));
+		return;
+	}
+
+	// GameplayTagManager
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	const FGameplayTagContainer* ItemTags = TagManager.GetItemTags();
+	OwnItems.Empty();
+
+	for (int i = 0; i < SelectedItems.Num(); i++)
+	{
+		const FItemData& Data = SelectedItems[i];
+		if (Data == FItemData::EmptyItemData)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
+			return;
+		}
+
+		//아이템 태는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> ItemQuickSlot.{퀵 슬롯 인덱스 번호}
+		FGameplayTag ItemTag = ItemTags->GetByIndex(Data.ITEM_SLOT_IDX);
+		OwnItems.Add(ItemTag, SelectedItems[i]);
+	}
+
+	UpdatedItemSettingBroadcast();
+}
+
+void USkillManager::UpdatedSkillSettingBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				RLR_LOG(LogRLR, Warning, TEXT("SkillManager is invalid during broadcast."));
+				return;
+			}
+			UpdatedSkillSettingDelegate.Broadcast();
+		});
+}
+
+void USkillManager::UpdatedItemSettingBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				RLR_LOG(LogRLR, Warning, TEXT("SkillManager is invalid during broadcast."));
+				return;
+			}
+			UpdatedItemSettingDelegate.Broadcast();
+		});
 }

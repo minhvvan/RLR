@@ -47,7 +47,7 @@ void USkillSetting::NativeConstruct()
 	USkillManager* SkillManager = GetSkillManager();
 	if (IsValid(SkillManager))
 	{
-		SkillManager->UpdatedSkillManager.AddUniqueDynamic(this, &USkillSetting::UpdatedSkillManager);
+		SkillManager->UpdatedSkillSettingDelegate.AddUniqueDynamic(this, &USkillSetting::UpdatedSkillManager);
 	}
 }
 
@@ -202,7 +202,7 @@ void USkillSetting::ReqeustSkillQuickSlotChange()
 	}
 }
 
-void USkillSetting::SaveQuickSlotData()
+void USkillSetting::SaveSkillQuickSlotData()
 {
 	/*
 		현재 세팅 되어 있는 퀵 슬롯 저장
@@ -214,7 +214,7 @@ void USkillSetting::SaveQuickSlotData()
 
 	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
-	FSkillDictionary OwnSkills = GetSkillManager()->GetOwnSkills();
+	const FSkillDictionary<FGameplayTag, FSkillData>& OwnSkills = GetSkillManager()->GetOwnSkills();
 
 	for (auto& [Tag, Data] : OwnSkills)
 	{
@@ -224,10 +224,10 @@ void USkillSetting::SaveQuickSlotData()
 		}
 	}
 	GameInstance->SaveGameOption();
-	ApplyQuickSlotSetting();
+	ApplySkillQuickSlotSetting();
 }
 
-void USkillSetting::ApplyQuickSlotSetting()
+void USkillSetting::ApplySkillQuickSlotSetting()
 {
 	/*
 		스킬 퀵 슬롯에 세팅해놓은 걸 Status Display의 스킬 세팅으로 옮겨준다.
@@ -250,7 +250,7 @@ void USkillSetting::UpdatedSkillManager()
 		스킬 퀵 슬롯 세팅이 바뀌거나,
 		스킬 정보가 바뀐다거나, 할 때 Skill Manager에서 이벤트를 준다.
 	*/
-	SaveQuickSlotData();
+	SaveSkillQuickSlotData();
 	RefreshUI();
 }
 

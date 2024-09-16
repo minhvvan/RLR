@@ -23,7 +23,7 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
-	void UpdatedSkillAttack();
+	void UpdatedSkillQuickSlot();
 
 	void SetActionTag(FGameplayTag NewActionTag);
 	

@@ -51,8 +51,8 @@ public:
 	void LoadSkillList();
 
 	void ReqeustSkillQuickSlotChange();
-	void SaveQuickSlotData();
-	void ApplyQuickSlotSetting();
+	void SaveSkillQuickSlotData();
+	void ApplySkillQuickSlotSetting();
 
 	UFUNCTION()
 	void UpdatedSkillManager();

@@ -216,7 +216,10 @@ void ARLRPlayerController::OnConsumeItem(int inputID)
 
 void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 {
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
+	if (SkillManager == nullptr) return;
 
+	SkillManager->UsingItem(InputTag);	
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)

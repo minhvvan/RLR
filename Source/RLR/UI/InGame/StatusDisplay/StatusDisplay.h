@@ -18,6 +18,7 @@
  class UItemQuickSlotContainer;
  class UExpProgressBar;
  class USkillQuickSlot;
+ class UItemQuickSlot;
 
 UCLASS()
 class RLR_API UStatusDisplay : public UBaseUI
@@ -30,9 +31,10 @@ public:
 	virtual void Init();
 	virtual void RefreshUI() override;
 
-	USkillQuickSlot*	GetSkillQuickSlot(FGameplayTag ActionTag);
-
+	UFUNCTION()
+	void SaveItemQuickSlotData();
 	void LoadSkillQuickSlotData();
+	void LoadItemQuickSlotData();
 
 public:
 	void UpdateTotalStat(const FTotalStatus& NewTotalStatus);
@@ -43,7 +45,13 @@ public:
 	void UpdateExp(int32 NewExp);
 
 	UFUNCTION()
-	void UpdateSkillAttack(FGameplayTag ActionTag);
+	void UpdateSkillQuickSlot(FGameplayTag ActionTag);
+	UFUNCTION()
+	void UpdateItemQuickSlot(FGameplayTag ActionTag);
+
+
+	USkillQuickSlot*	GetSkillQuickSlot(FGameplayTag ActionTag);
+	UItemQuickSlot*		GetItemQuickSlot(FGameplayTag ActionTag);
 
 public:
 
@@ -63,8 +71,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
 	TObjectPtr<UExpProgressBar> ExpProgressBar;
-
-public:
-	UPROPERTY()
-	TMap<FGameplayTag, USkillQuickSlot*> SkillQuickSlotMap;
 };

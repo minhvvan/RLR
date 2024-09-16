@@ -49,9 +49,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FGameplayTag, UKeyOptionElement*> KeyOptionList;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TObjectPtr<URLRInputConfig> InputConfig;
-
 	/*
 		Bind
 	*/

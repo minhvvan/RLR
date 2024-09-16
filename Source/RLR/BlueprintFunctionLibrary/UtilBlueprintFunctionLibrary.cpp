@@ -136,6 +136,20 @@ void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
 	GameInstance->GetSkillManager()->SetSelectedSkills(TestArray);
 }
 
+void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
+{
+	TArray<FItemData> TestArray;
+
+	for (int32 i = 1; i <= 3; i++)
+	{
+		FItemData Data = GameInstance->GetDataManager()->GetItemData(i);
+		Data.ITEM_SLOT_IDX = i-1;
+		TestArray.Add(Data);
+	}
+
+	GameInstance->GetSkillManager()->SetSelectedItems(TestArray);
+}
+
 /*
 	치트
 */

@@ -230,6 +230,7 @@ struct FSkillList
 template<typename T = FGameplayTag, typename U = FSkillData>
 struct FSkillDictionary
 {
+	UPROPERTY()
 	TMap<T, U> SkillDict;
 
 public:

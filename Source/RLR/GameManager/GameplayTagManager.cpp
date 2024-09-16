@@ -212,3 +212,23 @@ FGameplayTag FGameplayTagManager::GetAbnormalTag(int AbnormalType)
 
 	return AbnormalTags.GetByIndex(AbnormalType);
 }
+
+const FGameplayTagContainer* FGameplayTagManager::GetItemTags()
+{
+	if (ItemTags.Num() != 9)
+	{
+		ItemTags.Reset(9);
+
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_1);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_2);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_3);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_4);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_5);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_6);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_7);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_8);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_9);
+	}
+
+	return &ItemTags;
+}
