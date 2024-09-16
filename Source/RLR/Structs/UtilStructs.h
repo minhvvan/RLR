@@ -8,17 +8,36 @@
 UENUM(BlueprintType)
 enum class EUIType : uint8
 {
-	INVENTORY,
-	CHARACTERSTAT,
-	CHATOPTION,
-	ITEMINFOMATION,
+	//Title
+	TITLE_MAIN_UI,
+	SERVER_LIST,
+
+	//Lobby
+	LOBBY_MAIN_UI,
+	CHARACTER_LIST_UI,
+	CREATE_CHARACTER_UI,
+
+	//InGame
+	INGAME_MAIN_UI,
+	ABNORMAL_DISPLAY,
+	INVENTORY_UI,
+	CHARACTER_STATUS_UI,
+	CHAT_OPTION_UI,
+	CHAT_UI,
+	ITEM_INFOMATION,
 	MINIMAP,
-	STATUSDISPLAY,
-	INGAMEMENU,
+	STATUS_DISPLAY,
+	INGAME_MENU,
 	PARTY,
-	KEYOPTION,
-	SKILL,
+	QUEST_DIALOGUE,
+	KEY_OPTION,
+	SKILL_UI,
+	SKILL_SETTING,
+	SKILL_TREE,
 	SKILL_UPGRADE,
+	TIME_PROGRESS_BAR,
+	EXP_PROGRESS_BAR,
+	BADGE_UI,
 	QUEST,
 	NONE,
 };
@@ -101,7 +120,19 @@ struct FExpTable : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 MaxExp;
+	int64 MaxExp = -1;
+
+	static const FExpTable EmptyExpData;
+
+	/** Operators */
+
+	FORCEINLINE bool operator==(FExpTable const& Other) const
+	{
+		if (MaxExp != Other.MaxExp)
+			return false;
+
+		return true;
+	}
 };
 
 USTRUCT(Atomic, BlueprintType)

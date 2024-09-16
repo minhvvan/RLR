@@ -2,17 +2,18 @@
 
 
 #include "UI/InGame/StatusDisplay/BadgeUI.h"
+#include "UI/InGame/StatusDisplay/ExpProgressBar.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
-#include "UI/InGame/StatusDisplay/ExpProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/PlayerManager.h"
+#include "Structs/UtilStructs.h"
 #include <Kismet\GameplayStatics.h>
 
 void UBadgeUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	SetUIType(EUIType::BADGE_UI);
 	SetUserLevel();
 	// Test Code
 	ExpProgressBar->UpdateMaxExp(userLevel);

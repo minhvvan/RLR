@@ -3,6 +3,8 @@
 
 #include "Structs/UtilStructs.h"
 
+const FExpTable FExpTable::EmptyExpData;
+
 void FAttackResult::MakeAttackData()
 {
 }

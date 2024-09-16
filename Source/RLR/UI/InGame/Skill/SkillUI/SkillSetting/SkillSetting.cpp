@@ -36,6 +36,7 @@
 void USkillSetting::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::SKILL_SETTING);
 
 	NormalSkillTabButton->OnClicked.AddUniqueDynamic(this, &USkillSetting::OnClickedNormalSkillTab);
 	UniqueSkillTabButton->OnClicked.AddUniqueDynamic(this, &USkillSetting::OnClickedUniqueSkillTab);

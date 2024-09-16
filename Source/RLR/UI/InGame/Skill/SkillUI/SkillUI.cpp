@@ -17,7 +17,7 @@ void USkillUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::SKILL);
+	SetUIType(EUIType::SKILL_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Skill);
 
 

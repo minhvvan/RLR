@@ -24,7 +24,7 @@ void UInventoryUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::INVENTORY);
+	SetUIType(EUIType::INVENTORY_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Inventory);
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();

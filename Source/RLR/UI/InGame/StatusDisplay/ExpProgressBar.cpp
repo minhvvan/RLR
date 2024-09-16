@@ -2,33 +2,33 @@
 
 
 #include "UI/InGame/StatusDisplay/ExpProgressBar.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 #include "Components/ProgressBar.h"
 #include "Structs/UtilStructs.h"
 #include "RLR.h"
 
 UExpProgressBar::UExpProgressBar(const FObjectInitializer& ObjectInitializer)
 {
-	ConstructorHelpers::FObjectFinder<UDataTable> ExpDataTable(TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ExpTable.DT_ExpTable'"));
-	if (ExpDataTable.Succeeded())
-	{
-		MaxExpTable = ExpDataTable.Object;
-	}
-	else
-	{
-		RLR_LOG(LogRLR, Log, TEXT("ExpTable Can't Load"));
-	}
+
+}
+
+void UExpProgressBar::NativeConstruct()
+{
+	Super::NativeConstruct();
+	SetUIType(EUIType::EXP_PROGRESS_BAR);
 }
 
 void UExpProgressBar::UpdateMaxExp(int32 CurrentLevel)
 {
-	FExpTable* Data = MaxExpTable->FindRow<FExpTable>(*FString::FromInt(CurrentLevel), TEXT(""));
-	if (Data == nullptr)
+	const FExpTable& Data = GetDataManager()->GetExpData(CurrentLevel);
+	if (Data == FExpTable::EmptyExpData)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Not Found Exp Data"));
 		return;
 	}
 
-	maxExp = Data->MaxExp;
+	maxExp = Data.MaxExp;
 }
 
 void UExpProgressBar::UpdateExp(int32 UpdatedExp)

@@ -78,7 +78,7 @@ public:
 	virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	UFUNCTION()
-	virtual void SetSlotImage(UTexture2D* NewImage);
+	virtual void	SetSlotImage(UTexture2D* NewImage);
 
 
 	UFUNCTION(BlueprintCallable)

@@ -34,8 +34,13 @@ void UBaseUI::OpenUI()
 
 void UBaseUI::CloseUI()
 {
-
 	SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UBaseUI::SetUIType(EUIType Type)
+{
+	UIType = Type;
+	GetUIManager()->AddUI(this);
 }
 
 UBaseUI* UBaseUI::GetParent()

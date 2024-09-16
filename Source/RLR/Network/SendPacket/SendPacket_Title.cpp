@@ -23,6 +23,9 @@
 
 bool UNetworkManager::SendServerListRequest()
 {
+    /*
+        서버 리스트 요청 패킷 보내기
+    */
 
 
     DEBUG_INCOMPLETE;

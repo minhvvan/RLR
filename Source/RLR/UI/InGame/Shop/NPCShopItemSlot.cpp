@@ -66,13 +66,13 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	auto UIMananger = GetUIManager();
-	UIMananger->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
+	UIMananger->OpenSubUINearTargetSlot(this, EUIType::ITEM_INFOMATION);
 }
 
 void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
 	auto UIMananger = GetUIManager();
-	UIMananger->CloseSubUI(EUIType::ITEMINFOMATION);
+	UIMananger->CloseSubUI(EUIType::ITEM_INFOMATION);
 }
 
 void UNPCShopItemSlot::RefreshUI()

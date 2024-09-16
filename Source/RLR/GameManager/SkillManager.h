@@ -34,10 +34,13 @@ public:
 	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
 	const FSkillDictionary<FGameplayTag, FSkillData>& GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
+	bool HasLearnedSkill(int32 SkillSeq);
 
 	//Response
 	UFUNCTION()
 	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
+	UFUNCTION()
+	void SetLearnedSkills(const TArray<FSkillData>& LearnedSkillsList);
 
 	//Request to Server
 	bool RequestGetSelectedSkills();
@@ -57,6 +60,8 @@ private:
 	FSkillDictionary<FGameplayTag, FSkillData> OwnSkills;
 	FSkillDictionary<FGameplayTag, FItemData> OwnItems;
 
+	UPROPERTY()
+	TMap<int32, FSkillData> LearnedSkills;
 
 public:
 
@@ -78,3 +83,5 @@ public:
 
 	FUpdatedTest		UpdateTest;
 };
+
+

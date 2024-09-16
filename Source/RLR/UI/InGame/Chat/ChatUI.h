@@ -13,6 +13,7 @@
 #include "ChatTabWidget.h"
 #include "GameOptionData/GameOptionData.h"
 #include "UI/SubUI.h"
+#include "UI/BaseUI.h"
 #include "ChatUI.generated.h"
 
 
@@ -21,6 +22,7 @@ class AChatClient;
 class UChatTabWidget;
 class UScrollBox;
 class UChatOptionUI;
+class UWidgetSwitcher;
 
 
 //헤더 파일 관리를 위해 GameOptionData로 보내줌.
@@ -51,37 +53,15 @@ struct FChatMessage
 };
 
 UCLASS()
-class RLR_API UChatUI : public UUserWidget
+class RLR_API UChatUI : public UBaseUI
 {
     GENERATED_BODY()
 
 public:
-    UPROPERTY(meta = (BindWidget))
-    UScrollBox* ChatOutputBox;
-
-    UPROPERTY(meta = (BindWidget))
-    UEditableTextBox* ChatInput;
-
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* UserNameBox;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* SendButton;
-
-    UButton* LastClickedButton = nullptr;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* ChatOptionButton;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-    UScrollBox* TabContainer;
-
-    UPROPERTY(meta = (BindWidget))
-    class UWidgetSwitcher* TabContentSwitcher;
 
     UPROPERTY()
     EChatType       CurrentChatTypeTab = EChatType::General;
-    void                    SetCurrentChatTypeTab(EChatType SelectedChatType);
+    void            SetCurrentChatTypeTab(EChatType SelectedChatType);
     EChatType       GetCurrentChatTypeTab();
 
     UFUNCTION(BlueprintCallable)
@@ -118,6 +98,31 @@ protected:
     virtual void NativeConstruct() override;
     void InitButton();
     void InitChatBox();
+
+public:
+
+    UPROPERTY(meta = (BindWidget))
+    UScrollBox* ChatOutputBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UEditableTextBox* ChatInput;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* UserNameBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* SendButton;
+
+    UButton* LastClickedButton = nullptr;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* ChatOptionButton;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+    UScrollBox* TabContainer;
+
+    UPROPERTY(meta = (BindWidget))
+    UWidgetSwitcher* TabContentSwitcher;
 
 private:
     TMap<FString, TArray<EChatType>> TabFilters;

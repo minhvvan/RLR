@@ -12,6 +12,7 @@
 #include "UI/DialogueUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Blueprint/WidgetTree.h"
 #include "GameManager/RLRStruct.h"
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
@@ -31,6 +32,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
+	UIMap.Empty();
 	
 	UMainUI* NewMainUI = CreateWidget<UMainUI>(GetWorld(), UIClass);
 	if (NewMainUI)
@@ -141,6 +143,31 @@ UMainUI* UUIManager::GetMainUI()
 	return MainUI;
 }
 
+UBaseUI* UUIManager::GetUI(EUIType UIType)
+{
+	if (UIMap.Contains(UIType) == false)
+	{
+		DEBUG_MESSAGE;
+		return nullptr;
+	}
+
+	return UIMap[UIType];
+}
+
+void UUIManager::AddUI(UBaseUI* BaseUI)
+{
+	if(BaseUI->GetUIType() == EUIType::NONE)
+		return;
+
+	EUIType Type = BaseUI->GetUIType();
+	if (UIMap.Contains(Type) == true)
+	{
+		//중복된 UI가 추가되고 있다.
+		DEBUG_MESSAGE;
+	}
+	UIMap.Add(Type, BaseUI);
+}
+
 void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
 	//UI Toggle
@@ -187,7 +214,7 @@ TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
 	if(IsValid(NewUI) == false)
 		return nullptr;
 	NewUI->AddToViewport();
-
+	
 	return NewUI;
 }
 

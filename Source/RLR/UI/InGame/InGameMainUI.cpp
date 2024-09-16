@@ -21,6 +21,7 @@
 void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::INGAME_MAIN_UI);
 }
 
 void UInGameMainUI::SetActionSystemComponent(AActor* Owner)

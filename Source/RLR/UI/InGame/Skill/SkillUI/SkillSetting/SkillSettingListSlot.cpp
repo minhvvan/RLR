@@ -8,6 +8,7 @@
 
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
 
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
@@ -69,10 +70,24 @@ void USkillSettingListSlot::RefreshUI()
 		EquipStateText->SetVisibility(ESlateVisibility::Hidden);
 	}
 
+	if (IsLearned == true)
+	{
+		FLinearColor DefaultColor = FLinearColor::White;
+		SlotImage->SetColorAndOpacity(DefaultColor);
+	}
+	else if (IsLearned == false)
+	{
+		FLinearColor DarkColor = FLinearColor(1, 1, 1, 0.5f); // 반투명한 검정색
+		SlotImage->SetColorAndOpacity(DarkColor);
+	}
 }
 
 void USkillSettingListSlot::SetEquipped(bool Value)
 {
 	IsEquipped = Value;
-	RefreshUI();
-}\
+}
+
+void USkillSettingListSlot::SetLearned(bool Value)
+{
+	IsLearned = Value;
+}

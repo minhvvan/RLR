@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	const FLevelData&		GetLevelData(int32 Seq);
 
+	UFUNCTION(BlueprintCallable)
+	const FExpTable&		GetExpData(int32 Seq);
+
 	/*
 	
 		Etc
@@ -109,6 +112,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> MonsterClassTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> ExpDataTable;
 
 private:
 

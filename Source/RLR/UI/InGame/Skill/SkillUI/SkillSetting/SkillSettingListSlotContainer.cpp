@@ -7,6 +7,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/SkillManager.h"
 #include "GameOptionData/GameOptionData.h"
 
 void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
@@ -35,12 +36,12 @@ void USkillSettingListSlotContainer::RefreshUI()
 		DEBUG_MESSAGE;
 		return;
 	}
+	USkillManager* SkillManager = GameInstance->GetSkillManager();
 
 	for (TTuple<int32, USkillSettingListSlot*> Element : SlotMap)
 	{
 		int32 SlotIndex = Element.Key;
 		USkillSettingListSlot* QuickSlot = Element.Value;
-		QuickSlot->RefreshUI();
 		QuickSlot->SetVisibility(ESlateVisibility::Visible);
 
 		FSkillData SkillData = QuickSlot->GetSkillData();
@@ -54,10 +55,20 @@ void USkillSettingListSlotContainer::RefreshUI()
 		/*
 			옵션 정보에서 퀵 슬롯 데이터를 가져와 스킬이 장착 중인지 확인한다.
 			장착이 되어 있으면 -장착됨- UI가 뜬다.
+			float? 
+			int
+			double
 		*/
 
 		bool IsEquipped = GameOption->GetSkillQuickSlotOption().IsEquippedSkill(SkillData.SkillId);
 		QuickSlot->SetEquipped(IsEquipped);
+
+		/*
+			아직 배우지 않은 스킬이면, 배우지 않은 스킬이라고 표시해준다.
+		*/
+		bool HasLearned = SkillManager->HasLearnedSkill(SkillData.SkillSeq);
+		QuickSlot->SetLearned(HasLearned);
+		QuickSlot->RefreshUI();
 	}
 }
 

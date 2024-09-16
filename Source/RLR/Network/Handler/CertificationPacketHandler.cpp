@@ -121,9 +121,8 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         FUserCharacter UserChracter;
         UserChracter.MakeUserCharacter(user);
         users.Add(UserChracter);
-        LobbyMainUI->AddUserCharacter(UserChracter);
+      
     }
-    LobbyMainUI->RefreshUI();
-
+    LobbyMainUI->AddUserCharacter(users);
     return true;
 }

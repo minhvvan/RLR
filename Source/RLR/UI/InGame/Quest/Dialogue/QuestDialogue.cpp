@@ -6,10 +6,12 @@
 #include "Components/TextBlock.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "Structs/UtilStructs.h"
 
 void UQuestDialogue::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::QUEST_DIALOGUE);
 
 	BtnDeny->OnClicked.AddDynamic(this, &UQuestDialogue::OnQuestDialogueEnded);
 	BtnAccept->OnClicked.AddDynamic(this, &UQuestDialogue::OnQuestAccepted);
