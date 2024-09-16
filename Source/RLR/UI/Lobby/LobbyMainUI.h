@@ -25,7 +25,7 @@ public:
 	virtual void Clear() override;
 	virtual void SetInputMode() override;
 
-	void AddUserCharacter(FUserCharacter NewCharacter);
+	void AddUserCharacter(TArray<FUserCharacter> UserCharacterList);
 
 	void OpenCreateCharacterUI();
 

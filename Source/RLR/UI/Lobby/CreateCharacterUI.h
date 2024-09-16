@@ -14,5 +14,17 @@ UCLASS()
 class RLR_API UCreateCharacterUI : public UBaseUI
 {
 	GENERATED_BODY()
+public:
+
+	virtual void NativeConstruct() override;
+	virtual void Init();
+	virtual void RefreshUI() override;
+	virtual void Clear() override;
+
+public:
+
+	/*
+		Bind
+	*/
 
 };
