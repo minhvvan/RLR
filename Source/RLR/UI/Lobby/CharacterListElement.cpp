@@ -68,8 +68,7 @@ void UCharacterListElement::OnClickedConnectButton()
 {
 	if(UserCharacterData.UserSeq == -1)
 		return;
-	GameInstance->GetLevelManager()->LoadLevel("Main");
-	GetNetworkManager()->SendEnterGameFromLobbyReqeust(UserCharacterData);
+	GameInstance->GetNetworkManager()->SendEnterGameFromLobbyReqeust(UserCharacterData);
 }
 
 void UCharacterListElement::OnClickedElementButton()

@@ -45,18 +45,6 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (playerCharacter)
 			MainUI->SetActionSystemComponent(playerCharacter);
-
-		FString CurrentLevelName = GetWorld()->GetMapName();
-		if (CurrentLevelName.Contains(TEXT("Main")))
-		{
-			// UI가 완전히 로드된 후에만 네트워크 패킷 처리
-			if (GameInstance)
-			{
-				GameInstance->GetNetworkManager()->SendServerRequest();
-				GameInstance->GetNetworkManager()->SendUserQuestPacket();
-				GameInstance->GetNetworkManager()->SendGetSkillPacket();
-			}
-		}
 	};
 }
 
@@ -263,58 +251,6 @@ void UUIManager::RemoveSaleItem(const FItemData& Item)
 {
 	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
 	DialogueUI->RemoveSaleItem(Item);
-}
-
-void UUIManager::OpenLoadingScreen()
-{
-	if (GEngine && GEngine->GameViewport)
-	{
-		UWorld* World = GEngine->GameViewport->GetWorld();
-		if (World)
-		{
-			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
-			AsyncTask(ENamedThreads::GameThread, [this, World]()
-				{
-					OpenLoadingScreen_Internal();
-				});
-		}
-	}
-}
-
-void UUIManager::CloseLoadingScreen()
-{
-	if (GEngine && GEngine->GameViewport)
-	{
-		UWorld* World = GEngine->GameViewport->GetWorld();
-		if (World)
-		{
-			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
-			AsyncTask(ENamedThreads::GameThread, [this, World]()
-				{
-					CloseLoadingScreen_Internal();
-				});
-		}
-	}
-}
-
-TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
-{	
-	if(IsValid(LoadingScreen) == true)
-		return LoadingScreen;
-
-	OpenLoadingScreen_Internal();
-	return LoadingScreen;
-}
-
-void UUIManager::OpenLoadingScreen_Internal()
-{
-	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
-	LoadingScreen->AddToViewport();
-}
-
-void UUIManager::CloseLoadingScreen_Internal()
-{
-	
 }
 
 void UUIManager::OnDialogueEnded()

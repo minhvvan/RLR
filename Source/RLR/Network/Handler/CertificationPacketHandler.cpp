@@ -86,7 +86,7 @@ bool Handle_ENTER_GAME_FROM_LOBBY_RESPONSE(TSharedPtr<PacketSession>& session, P
     int32 MainPort = pkt.mainserverport();
     int32 MonsterPort = pkt.monsterserverport();
 
-    GameInstance->GetLevelManager()->EnterLevel("InGame", MainServerAddress, MainPort, MonsterServerAddress, MonsterPort);
+    GameInstance->GetLevelManager()->EnterLevel("Main", MainServerAddress, MainPort, MonsterServerAddress, MonsterPort);
     return true;
 }
 
@@ -95,12 +95,12 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     UE_LOG(LogTemp, Log, TEXT("Enter Game RESPONSE 전송 받음"));
     if (pkt.success())
     {
+        //레벨 이름은 Main을 사용하지 말것. 왠지 모르지만 로딩이 안됨.
         FString MainServerAddress = UTF8_TO_TCHAR(pkt.mainserveraddress().c_str());
         FString MonsterServerAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
-        
-        GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, pkt.monsterserverport());
-        GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, pkt.mainserverport());
- 
+        int32 MainServerPort = pkt.mainserverport();
+        int32 MonsterServerPort = pkt.monsterserverport();     
+        GameInstance->GetLevelManager()->EnterLevel("TestMap2", MainServerAddress, MainServerPort, MonsterServerAddress, MonsterServerPort);
     }
     else
     {

@@ -16,45 +16,47 @@
 
 bool ULevelManager::LoadLevel(FName LevelName)
 {
-    GameInstance->GetUIManager()->OpenLoadingScreen();
+	AsyncTask(ENamedThreads::GameThread, [this, LevelName]()
+	{
 
-    FText LevelText;
-    if (LevelName == FName("Lobby"))
-    {
-        LevelText = FText::Format(FText::FromString("/Game/Map/Lobby/{0}"), FText::FromString(LevelName.ToString()));
-    }
-    else if (LevelName == FName("Title"))
-    {
-        LevelText = FText::Format(FText::FromString("/Game/Map/Title/{0}"), FText::FromString(LevelName.ToString()));
-    }
-    else if (LevelName == FName("Main"))
-    {
-        LevelText = FText::Format(FText::FromString("/Game/StylizedProvencal/Maps/{0}"), FText::FromString(LevelName.ToString()));
-    };
+			//TODO 깔끔하게 분류되게 해주기
+			FText LevelText;
+			if (LevelName == FName("Lobby"))
+			{
+				LevelText = FText::Format(FText::FromString("/Game/Map/Lobby/{0}"), FText::FromString(LevelName.ToString()));
+			}
+			else if (LevelName == FName("Title"))
+			{
+				LevelText = FText::Format(FText::FromString("/Game/Map/Title/{0}"), FText::FromString(LevelName.ToString()));
+			}
+			else if (LevelName == FName("InGame"))
+			{
+				LevelText = FText::Format(FText::FromString("/Game/Map/InGame/{0}"), FText::FromString(LevelName.ToString()));
+			}
+			else
+			{
+				LevelText = FText::FromString("/Game/StylizedProvencal/Maps/TestMap2");
+			}
 
+			FString LevelString = LevelText.ToString();
 
-    FString LevelString = LevelText.ToString();
+			LoadPackageAsync(LevelString,
+				FLoadPackageAsyncDelegate::CreateLambda([=](const FName& PackageName, UPackage* LoadedPackage, EAsyncLoadingResult::Type Result)
+					{
+						if (Result == EAsyncLoadingResult::Failed)
+						{
+							//여기에 들어왔다는 건 패키징된 맵이 아니라는 소리니, 패키징 해줄 것.
+							GameInstance->GetLevelManager()->LoadLevelCompleteDelegate.Unbind();
+							UGameplayStatics::OpenLevel(GameInstance->GetWorld(), "Title");
+							DEBUG_MESSAGE;
+							return;
+						}
 
-    LoadPackageAsync(LevelString,
-        FLoadPackageAsyncDelegate::CreateLambda([=](const FName& PackageName, UPackage* LoadedPackage, EAsyncLoadingResult::Type Result)
-            {
-                ULoadingScreen* LoadingScreen = GameInstance->GetUIManager()->GetLoadingScreen();
-
-                LoadingScreen->SetLoadingResult(Result);
-                if (Result == EAsyncLoadingResult::Succeeded)
-                {
-                    GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(LevelName);
-                    DEBUG_LOG("Load Level Success");
-                }
-                else if (Result == EAsyncLoadingResult::Failed)
-                {
-                    GameInstance->GetUIManager()->GetLoadingScreen()->SetNextLevel(TEXT("Title"));
-                    DEBUG_LOG("Load Level Fail");
-                }
-            }),
-        0,
-        PKG_ContainsMap);
-
+						UGameplayStatics::OpenLevel(GameInstance->GetWorld(), LevelName);
+					}),
+				0,PKG_ContainsMap);
+	});
+			
     return true;
 }
 
@@ -68,33 +70,29 @@ bool ULevelManager::LoadLevel(int32 LevelSeq)
 		return false;
 	}
 
-	UGameplayStatics::OpenLevel(this, FName(*Data.LevelName));
+	LoadLevel(FName(*Data.LevelName));
 	return true;
 }
 
 bool ULevelManager::EnterLevel(FName LevelName, FString MainServerAddress, int32 MainPort, FString MonsterServerAddress, int32 MonsterPort)
 {
-	//GameInstance->GetLevelManager()->LoadLevelCompleteDelegate.CreateLambda([&]()
-	//	{
-	//		GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, MonsterPort);
-	//		GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, MainPort);
-	//		GameInstance->GetNetworkManager()->SendServerRequest();
-	//		GameInstance->GetNetworkManager()->SendGetSkillPacket();
-	//		GameInstance->GetNetworkManager()->SendUserQuestPacket();
-	//	});
-
-	//LoadLevel(LevelName);
+	LoadLevelCompleteDelegate.BindLambda([MainServerAddress, MainPort, MonsterServerAddress, MonsterPort]()
+		{
+			GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, MonsterPort);
+			GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, MainPort);
+			GameInstance->GetNetworkManager()->SendServerRequest();
+			GameInstance->GetNetworkManager()->SendUserQuestPacket();
+			GameInstance->GetNetworkManager()->SendGetSkillPacket();
+		});
+	LoadLevel(LevelName);
 	return true;
 }
 
 void ULevelManager::LoadComplete(const float LoadTime, const FString& MapName)
 {
-    
-
-	GameInstance->GetUIManager()->CloseLoadingScreen();
-	LoadLevelCompleteDelegate.ExecuteIfBound();
-	LoadLevelCompleteDelegate.Unbind();
-
-  
+	if(LoadLevelCompleteDelegate.ExecuteIfBound())
+	{
+		LoadLevelCompleteDelegate.Unbind();
+	}
 }
 

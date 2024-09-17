@@ -51,14 +51,9 @@ public:
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
-	void						OpenLoadingScreen();
-	void						CloseLoadingScreen();
-	TObjectPtr<ULoadingScreen>	GetLoadingScreen();
+
 
 public:
-	
-	void						OpenLoadingScreen_Internal();
-	void						CloseLoadingScreen_Internal();
 
 	void AddSaleItem(const FItemData& Item);
 	void RemoveSaleItem(const FItemData& Item);
