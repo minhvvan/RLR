@@ -119,6 +119,7 @@ public:
 	FGameplayTag UI_Party;
 	
 	FGameplayTag UI_SkillUpgrade;
+	FGameplayTag UI_Close;
 
 	/*
 	

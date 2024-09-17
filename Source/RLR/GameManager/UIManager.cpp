@@ -3,6 +3,11 @@
 
 
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "GameManager/RLRStruct.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/PanelWidget.h"
 #include "Components/SizeBox.h"
@@ -10,17 +15,13 @@
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
 #include "UI/DialogueUI.h"
+#include "UI/LoadingScreen/LoadingScreen.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
-#include "GameManager/RLRStruct.h"
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
-#include "GameManager/NetworkManager.h"
-#include "GameManager/DataManager.h"
-#include "GameManager/GameManager.h"
-#include "UI/LoadingScreen/LoadingScreen.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -53,6 +54,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 			{
 				GameInstance->GetNetworkManager()->SendServerRequest();
 				GameInstance->GetNetworkManager()->SendUserQuestPacket();
+				GameInstance->GetNetworkManager()->SendGetSkillPacket();
 			}
 		}
 	};
@@ -124,7 +126,8 @@ void UUIManager::CloseFrontSubUI()
 	if(SubUIStack.Num() <= 0)
 		return;
 
-	SubUIStack.Last()->CloseUI();
+	FGameplayTag UITag = SubUIStack.Last()->GetUITag();
+	ToggleSubUI(UITag);
 }
 
 void UUIManager::CloseAllSubUI()
@@ -170,6 +173,13 @@ void UUIManager::AddUI(UBaseUI* BaseUI)
 
 void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
+	//ESC 누르면 제일 앞에 있는 UI 닫기. 단, 에디터에서는 ESC누르면 게임이 꺼지니 '0'번 키로 설정.
+	if (UITag == FGameplayTagManager::Get().UI_Close)
+	{
+		CloseFrontSubUI();
+		return;
+	}
+
 	//UI Toggle
 	bool bOpen = MainUI->ToggleSubUI(UITag);
 
