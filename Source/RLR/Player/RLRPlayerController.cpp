@@ -10,7 +10,7 @@
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
-
+#include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
 #include "ActionSystem/ActionSystemComponent.h"

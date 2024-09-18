@@ -32,6 +32,7 @@ bool Handle_DROP_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_DropRe
     FDropItem DropData;
     DropData.MakeDropItemData(objectId,value ,monsterId);
     DropDatas.Add(DropData);
+    RLR_LOG(LogRLR, Warning, TEXT("DropDatas.Num() : %d"), DropDatas.Num());
     GameInstance->GetObjectManager()->SetDropItemData(DropDatas);
 
     return true;
@@ -48,11 +49,7 @@ bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
         ItemDataList.Add(itemData);
 	}
 
-    /*
-        인벤토리 업데이트 && 장비창 업데이트
-
-        플레이어 본래 스탯은 어디서 끌고와야 하지?
-    */
+   
 
     for (const FItemData& ItemData : ItemDataList)
     {

@@ -37,7 +37,9 @@ bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_M
 }
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_InventoryResponsePacket& pkt)
 {
-
+    if (pkt.userseq() == 0) {
+        return false;
+    }
     TArray<FItemData> itemDatas;
     for (int32 i = 0; i < pkt.items_size(); i++) {
         FItemData itemData;
@@ -46,7 +48,6 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         itemDatas.Add(itemData);
     }
 
-    //누가 왜 GetItemList를...?
     //GameInstance->GetInventoryManager()->GetItemList(itemDatas);
     GameInstance->GetInventoryManager()->AddItemList(itemDatas);
     return true;
@@ -74,13 +75,14 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     FUserCharacter UserCharacter;
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
-    GameInstance->GetPlayerManager()->UpdatePlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
+    GameInstance->GetPlayerManager()->SpawnPlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
     GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
     GameInstance->GetNetworkManager()->SetUserSeq(pkt.usercharacter().userseq());
-    //GameInstance->GetNetworkManager()->SendGetSkillPacket();
+    GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
+
     // item 이미지 없어서 로드 안됌 로드 완료시 연결예정
-    GameInstance->GetNetworkManager()->SendInventoryPacket();
+   
     return true;
 }
 bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GetSkillResponsePacket& pkt) {

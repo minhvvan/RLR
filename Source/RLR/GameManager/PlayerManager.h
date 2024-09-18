@@ -34,6 +34,8 @@ public:
     bool RequestMove(const FMoveResult& MoveResult);
     void UpdatePlayerTransform(const FVector& NewTransform);
 
+    void SpawnPlayerTransform(const FVector& NewTransform);
+
     //재능
     bool RequestTalent(int TalentOrder);
 

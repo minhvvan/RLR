@@ -10,6 +10,9 @@
 void UInventoryManager::Update()
 {
 	OnUpdateInventoryDelegateBroadcast();
+	AsyncTask(ENamedThreads::GameThread, [this] {
+	OnUpdateInventoryDelegate.Broadcast();
+		});
 }
 
 void UInventoryManager::AddItem(const FItemData& NewItem)
@@ -164,4 +167,15 @@ void UInventoryManager::SetSilver(int32 NewSilver)
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
 {
 	ItemData.GenerateValueArray(ItemArray);
+}
+void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
+	ItemData.Empty();
+
+	for (const FItemData& Item : ItemArray)
+	{
+		ItemData.Add(Item.ITEM_SEQ, Item);
+	}
+	
+	Update();
+	
 }

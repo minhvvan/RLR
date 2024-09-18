@@ -11,6 +11,7 @@ class UAction;
 class UCameraComponent;
 class USpringArmComponent;
 class UStatSetPlayer;
+class AAIController;
 
 UCLASS()
 class RLR_API ARLRPlayerCharacter : public ARLRCharacter
@@ -30,7 +31,10 @@ public:
 
 	void UpdateTransform(FVector NewTransform);
 
+	void SpawnTransform(FVector NewTransform);
+
 	virtual void SetDead() override;
+
 
 private:
 	
@@ -52,6 +56,7 @@ private:
 	FRotator TargetRotation;
 	bool bShouldRotate;
 	float RotationSpeed;
+	AAIController* AIController;
 
 public:
 	//-------------------------------------

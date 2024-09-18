@@ -6,6 +6,7 @@
 #include "GameManager/MonsterManager.h"
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/NetworkManager.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Structs/PlayerStructs.h"
 #include "ClientPacketHandler.h"
@@ -23,7 +24,7 @@ bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MoveR
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_MoveBroadcastPacket& pkt) {
    
     UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
-    if (GameInstance->GetPlayerManager()->GetUserSeq() != pkt.userseq()) {
+    if (GameInstance->GetNetworkManager()->GetUserSeq() != pkt.userseq()) {
         if (OtherManager->GetPlayer(pkt.userseq())) {
             OtherManager->GetPlayer(pkt.userseq())->UpdateTransform(FVector(pkt.transx(), pkt.transy(), pkt.transz()));
         }
