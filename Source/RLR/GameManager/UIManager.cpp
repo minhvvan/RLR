@@ -3,6 +3,11 @@
 
 
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "GameManager/RLRStruct.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/PanelWidget.h"
 #include "Components/SizeBox.h"
@@ -10,16 +15,13 @@
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
 #include "UI/DialogueUI.h"
+#include "UI/LoadingScreen/LoadingScreen.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
-#include "GameManager/RLRStruct.h"
+#include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
-#include "GameManager/NetworkManager.h"
-#include "GameManager/DataManager.h"
-#include "GameManager/GameManager.h"
-#include "UI/LoadingScreen/LoadingScreen.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 {
@@ -31,6 +33,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
+	UIMap.Empty();
 	
 	UMainUI* NewMainUI = CreateWidget<UMainUI>(GetWorld(), UIClass);
 	if (NewMainUI)
@@ -39,16 +42,9 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 		MainUI = NewMainUI;
 		MainUI->SetInputMode();
 
-		/*
-			TODO
-			Title, Lobby 에서 이게 필요한 경우가 있을까?
-			없으면 이야기해서 InGameMainUI에 옮기기기.
-		*/
-		RLR_LOG(LogRLR, Warning, TEXT("몇 번들어 오는지 테스트"));
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-		if (!playerCharacter) return;
-
-		MainUI->SetActionSystemComponent(playerCharacter);
+		if (playerCharacter)
+			MainUI->SetActionSystemComponent(playerCharacter);
 
 		FString CurrentLevelName = GetWorld()->GetMapName();
 		if (CurrentLevelName.Contains(TEXT("Main")))
@@ -130,7 +126,8 @@ void UUIManager::CloseFrontSubUI()
 	if(SubUIStack.Num() <= 0)
 		return;
 
-	SubUIStack.Last()->CloseUI();
+	FGameplayTag UITag = SubUIStack.Last()->GetUITag();
+	ToggleSubUI(UITag);
 }
 
 void UUIManager::CloseAllSubUI()
@@ -149,8 +146,40 @@ UMainUI* UUIManager::GetMainUI()
 	return MainUI;
 }
 
+UBaseUI* UUIManager::GetUI(EUIType UIType)
+{
+	if (UIMap.Contains(UIType) == false)
+	{
+		DEBUG_MESSAGE;
+		return nullptr;
+	}
+
+	return UIMap[UIType];
+}
+
+void UUIManager::AddUI(UBaseUI* BaseUI)
+{
+	if(BaseUI->GetUIType() == EUIType::NONE)
+		return;
+
+	EUIType Type = BaseUI->GetUIType();
+	if (UIMap.Contains(Type) == true)
+	{
+		//중복된 UI가 추가되고 있다.
+		DEBUG_MESSAGE;
+	}
+	UIMap.Add(Type, BaseUI);
+}
+
 void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
+	//ESC 누르면 제일 앞에 있는 UI 닫기. 단, 에디터에서는 ESC누르면 게임이 꺼지니 '0'번 키로 설정.
+	if (UITag == FGameplayTagManager::Get().UI_Close)
+	{
+		CloseFrontSubUI();
+		return;
+	}
+
 	//UI Toggle
 	bool bOpen = MainUI->ToggleSubUI(UITag);
 
@@ -195,7 +224,7 @@ TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
 	if(IsValid(NewUI) == false)
 		return nullptr;
 	NewUI->AddToViewport();
-
+	
 	return NewUI;
 }
 
@@ -234,60 +263,6 @@ void UUIManager::RemoveSaleItem(const FItemData& Item)
 {
 	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
 	DialogueUI->RemoveSaleItem(Item);
-}
-
-void UUIManager::OpenLoadingScreen()
-{
-	if (GEngine && GEngine->GameViewport)
-	{
-		UWorld* World = GEngine->GameViewport->GetWorld();
-		if (World)
-		{
-			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
-			AsyncTask(ENamedThreads::GameThread, [this, World]()
-				{
-					OpenLoadingScreen_Internal();
-				});
-		}
-	}
-}
-
-void UUIManager::CloseLoadingScreen()
-{
-	if (GEngine && GEngine->GameViewport)
-	{
-		UWorld* World = GEngine->GameViewport->GetWorld();
-		if (World)
-		{
-			// 타이머 설정을 게임 스레드에서 실행하도록 람다 사용
-			AsyncTask(ENamedThreads::GameThread, [this, World]()
-				{
-					CloseLoadingScreen_Internal();
-				});
-		}
-	}
-}
-
-TObjectPtr<ULoadingScreen> UUIManager::GetLoadingScreen()
-{	
-	if(IsValid(LoadingScreen) == true)
-		return LoadingScreen;
-
-	OpenLoadingScreen_Internal();
-	return LoadingScreen;
-}
-
-void UUIManager::OpenLoadingScreen_Internal()
-{
-	
-
-	LoadingScreen = Cast<ULoadingScreen>(CreateUI("WBP_LoadingScreen"));;
-	LoadingScreen->AddToViewport();
-}
-
-void UUIManager::CloseLoadingScreen_Internal()
-{
-	
 }
 
 void UUIManager::OnDialogueEnded()

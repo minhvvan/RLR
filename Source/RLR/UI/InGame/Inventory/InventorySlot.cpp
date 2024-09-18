@@ -149,7 +149,7 @@ void UInventorySlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPoin
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEMINFOMATION);
+	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEM_INFOMATION);
 }
 
 void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
@@ -165,7 +165,7 @@ void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUI(EUIType::ITEMINFOMATION);
+	UIManager->CloseSubUI(EUIType::ITEM_INFOMATION);
 }
 
 

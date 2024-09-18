@@ -42,20 +42,18 @@ public:
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();
+	UBaseUI* GetUI(EUIType UIType);
+	void AddUI(UBaseUI* BaseUI);
+
 	void ToggleSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
-	void						OpenLoadingScreen();
-	void						CloseLoadingScreen();
-	TObjectPtr<ULoadingScreen>	GetLoadingScreen();
+
 
 public:
-	
-	void						OpenLoadingScreen_Internal();
-	void						CloseLoadingScreen_Internal();
 
 	void AddSaleItem(const FItemData& Item);
 	void RemoveSaleItem(const FItemData& Item);
@@ -66,11 +64,18 @@ protected:
 
 private:
 
+	UPROPERTY()
 	TObjectPtr<UMainUI>			MainUI;	
+	UPROPERTY()
 	TObjectPtr<UDialogueUI>		DialogueUI;
+	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
+	UPROPERTY()
 	TArray<USubUI*>				SubUIStack;
 	int32						ZOrder = 0;
+
+	UPROPERTY()
+	TMap<EUIType, UBaseUI*>		UIMap;
 
 public:
 
@@ -86,7 +91,10 @@ public:
 		InGame Delegate
 	*/
   
-	FUpdatedPlayerInfo	UpdatedPlayerInfo;
+	FUpdatedPlayerInfo		UpdatedPlayerInfo;
 	FUpdatedPartyPlayerInfo	UpdatedPartyPlayerInfo;
+
+public:
+
 	FTimerHandle				TimerHandle;
 };

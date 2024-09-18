@@ -24,7 +24,6 @@ void USkillQuickSlot::RefreshUI()
 	URLRInputConfig* Config = GameInstance->GetDataManager()->GetInputConfig();
 	if(Config)
 	{ 
-
 		FString InputString = Config->FindInputTagByActionTag(ActionTag).GetTagName().ToString();
 		FString Prefix = TEXT("Input.");
 
@@ -32,9 +31,7 @@ void USkillQuickSlot::RefreshUI()
 		int32 PrefixLength = Prefix.Len();
 		FString AfterPrefix = InputString.Mid(PrefixLength);
 	
-
 		KeyBindingText->SetText(FText::FromString(AfterPrefix));
-
 	}
 
 	const FSkillData& SkillData = GetSkillData();
@@ -50,9 +47,6 @@ void USkillQuickSlot::RefreshUI()
 	/*
 		연동된 단축키를 찾아주자.
 	*/
-
-	
-	//KeyBindingText->SetText()
 }
 
 void USkillQuickSlot::Clear()
@@ -60,12 +54,11 @@ void USkillQuickSlot::Clear()
 	Super::Clear();
 }
 
-void USkillQuickSlot::UpdatedSkillAttack()
+void USkillQuickSlot::UpdatedSkillQuickSlot()
 {
 	if(IsEmpty() == true)
 		return;
 	
-
 	FText DebugText = FText::Format(FText::FromString("Update Skill Attack {0}"), GetSkillData().Name);
 	Util::DebugLog(DebugText.ToString());
 }

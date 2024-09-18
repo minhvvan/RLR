@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameManager/NetworkManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/PlayerManager.h"
+
 #include "Network/LoadBalancerClient.h"
 #include <Networking.h>
 #include "Network/FNetworkReceiver.h"
@@ -24,8 +27,9 @@ bool UNetworkManager::SendChangeSkillPacket(const FSkillData* SkillData, int ski
 
     Protocol::CS_SkillChangeRequestPacket packet;
 
+    int32 SkillUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
     packet.set_skillidx(skillIdx);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(SkillUserSeq);
     packet.set_skillseq(SkillData->SkillSeq);
 
     SEND_PACKET(packet);
@@ -36,8 +40,8 @@ bool UNetworkManager::SendAddSkillPacket(int skillSeq) {
 
     Protocol::CS_SkillAddRequestPacket packet;
 
- 
-    packet.set_userseq(UserSeq);
+    int32 SkillUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    packet.set_userseq(SkillUserSeq);
     packet.set_skillseq(skillSeq);
 
     SEND_PACKET(packet);

@@ -174,6 +174,7 @@ void UObjectManager::SpawnDropItem()
                 //    DropItemInstances.Add(object);
                 //});
             }
+          
             DropItemData.Empty();
         });
 }

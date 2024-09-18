@@ -12,6 +12,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
+#include "GameManager/SkillManager.h"
 
 #include "Structs/SkillStructs.h"
 #include "Structs/ItemStructs.h"
@@ -23,7 +24,8 @@
 #include "Network/Handler/CertificationPacketHandler.h"
 
 #include "UI/Lobby/LobbyMainUI.h"
-
+#include "UI/Title/TitleMainUI.h"
+#include "UI/Title/ServerListElement.h"
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
@@ -119,6 +121,51 @@ void UUtilBlueprintFunctionLibrary::TestCharacterList()
 {
 
 	GameInstance->GetNetworkManager()->SendPlayerPacket();
+}
+
+void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
+{
+	TArray<FSkillData> TestArray;
+
+	for (int32 i = 1; i <= 3; i++)
+	{
+		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(i);
+		TestArray.Add(Data);
+	}
+
+
+	GameInstance->GetSkillManager()->SetSelectedSkills(TestArray);
+}
+
+void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
+{
+	TArray<FItemData> TestArray;
+
+	for (int32 i = 1; i <= 3; i++)
+	{
+		FItemData Data = GameInstance->GetDataManager()->GetItemData(i);
+		Data.ITEM_SLOT_IDX = i-1;
+		TestArray.Add(Data);
+	}
+
+	GameInstance->GetSkillManager()->SetSelectedItems(TestArray);
+}
+
+void UUtilBlueprintFunctionLibrary::TestServerList()
+{
+	TArray<FString> TestString = {TEXT("서버1"), TEXT("서버2"), TEXT("서버3"), TEXT("서버4"), "글자 깨짐 테스트 서버 5"};
+
+	UTitleMainUI* Title = Cast<UTitleMainUI>(GameInstance->GetUIManager()->GetUI(EUIType::TITLE_MAIN_UI));
+	if (IsValid(Title) == false)
+		return;
+
+	for(int32 i = 0 ; i < 5; i++)
+	{ 
+		FServerData Data;
+		Data.ServerSeq = i;
+		Data.ServerName = TestString[i];
+		Title->AddServerListElement(Data);
+	};	
 }
 
 /*

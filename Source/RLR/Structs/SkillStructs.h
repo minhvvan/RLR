@@ -230,6 +230,7 @@ struct FSkillList
 template<typename T = FGameplayTag, typename U = FSkillData>
 struct FSkillDictionary
 {
+	UPROPERTY()
 	TMap<T, U> SkillDict;
 
 public:
@@ -237,6 +238,7 @@ public:
 	FORCEINLINE auto begin() const { return SkillDict.begin(); }
 	FORCEINLINE auto end() { return SkillDict.end(); }
 	FORCEINLINE auto end() const { return SkillDict.end(); }
+	FORCEINLINE void Empty(){SkillDict.Empty(); }
 
 	bool Contains(T key)
 	{

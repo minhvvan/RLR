@@ -27,6 +27,7 @@ public:
 
 	virtual void RefreshUI() override;
 	virtual void SetEquipped(bool Value);
+	virtual void SetLearned(bool Value);
 
 public:
 
@@ -49,5 +50,8 @@ private:
 
 	UPROPERTY()
 	bool IsEquipped = false;
+
+	UPROPERTY()
+	bool IsLearned = false;
 
 };

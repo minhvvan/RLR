@@ -45,7 +45,7 @@ struct FSkillQuickSlotOption
     /*
       옵션 정보에 스킬 퀵 슬롯을 저장하기 위한 구조체.
 
-      <Skill Action Tag, Skill ID> 
+      <Skill Action Tag, Skill Seq> 
       만약 Skill ID가 -1이면 없는 걸로 친다.
 
   
@@ -59,8 +59,27 @@ struct FSkillQuickSlotOption
 
     void Init();
 
-    bool IsEquippedSkill(int32 Id);
+    bool IsEquippedSkill(int32 SkillSeq);
 
+};
+
+USTRUCT(BlueprintType)
+struct FItemQuickSlotOption
+{
+    GENERATED_BODY()
+    /*
+      옵션 정보에 아이템 퀵 슬롯을 저장하기 위한 구조체.
+
+      <Item Action Tag, Item Seq> 
+      만약 Skill ID가 -1이면 없는 걸로 친다.
+    */
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TMap<FGameplayTag, int32> ItemQuickSlotList;
+
+    void Init();
+
+    bool IsEquippedItem(int32 ItemSeq);
 };
 
 UCLASS()
@@ -73,7 +92,8 @@ public:
     UFUNCTION(BlueprintCallable)
     void Init();
 
-    FSkillQuickSlotOption& GetSkillQuickSlotOption();
+    FSkillQuickSlotOption&  GetSkillQuickSlotOption();
+    FItemQuickSlotOption&   GetItemQuickSlotOption();
 
 public:
 
@@ -84,6 +104,10 @@ public:
     //스킬 퀵 슬롯
     UPROPERTY()
     FSkillQuickSlotOption SkillQuickSlotOption;
+
+    //아이템 퀵 슬롯
+    UPROPERTY()
+    FItemQuickSlotOption ItemQuickSlotOption;
 
     static const FString SlotName; 
 };

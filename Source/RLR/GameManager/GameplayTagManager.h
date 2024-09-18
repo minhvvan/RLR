@@ -18,6 +18,7 @@ public:
 	const FGameplayTagContainer* GetSkillTags();
 	const FGameplayTagContainer* GetSkillAnimTags();
 	FGameplayTag GetAbnormalTag(int AbnormalType);
+	const FGameplayTagContainer* GetItemTags();
 
 	FGameplayTag Attributes_MainStat_Health;
 	FGameplayTag Attributes_MainStat_MaxHealth;
@@ -103,7 +104,7 @@ public:
 	FGameplayTag Action_ItemQuickSlot_8;
 	FGameplayTag Action_ItemQuickSlot_9;
 
-
+	FGameplayTagContainer ItemTags;
 
 	/*
 		Action UI
@@ -114,8 +115,11 @@ public:
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;
 	FGameplayTag UI_Quest;
+	FGameplayTag UI_ChatOption;
+	FGameplayTag UI_Party;
 	
 	FGameplayTag UI_SkillUpgrade;
+	FGameplayTag UI_Close;
 
 	/*
 	

@@ -2,13 +2,14 @@
 
 
 #include "UI/InGame/Inventory/InventoryUI.h"
-#include "Components/GridPanel.h"
 #include "UI/InGame/Inventory/InventorySlot.h"
 #include "UI/InGame/Shop/NPCShopInventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Components/GridPanel.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/GameManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
@@ -23,7 +24,7 @@ void UInventoryUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::INVENTORY);
+	SetUIType(EUIType::INVENTORY_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Inventory);
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
@@ -31,7 +32,6 @@ void UInventoryUI::NativeConstruct()
 	if(IsValid(InventoryManager) == false)
 		return;
 
-	Init();
 	InventoryManager->OnUpdateInventoryDelegate.AddDynamic(this, &UInventoryUI::RefreshUI);
 	InventoryManager->OnUpdateGoldAndCashDelegate.AddDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
 
@@ -48,6 +48,13 @@ void UInventoryUI::Init()
 
 	//슬롯 생성
 	InventorySlotList.Init(nullptr, MaxInventorySlotCount);
+	TSubclassOf<UInventorySlot> InventorySlotClass = GetWidgetClass<UInventorySlot>("WBP_InventorySlot");
+	if(IsValid(InventorySlotClass) == false)
+	{ 
+		DEBUG_MESSAGE;
+		return;
+	}
+
 	for (int32 Count = 0; Count < MaxInventorySlotCount; Count++)
 	{
 		UInventorySlot* NewSlot = CreateWidget<UInventorySlot>(this, InventorySlotClass);
@@ -70,15 +77,11 @@ void UInventoryUI::RefreshUI()
 	}
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-	if(CHECK_VALID(InventoryManager) == false)
-		return;
-
 
 	for (UInventorySlot* ItemSlot : InventorySlotList)
 	{
 		ItemSlot->Clear();
 	}
-
 
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
 	TArray<FItemData> ItemList;

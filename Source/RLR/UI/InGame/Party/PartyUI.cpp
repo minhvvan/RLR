@@ -19,6 +19,7 @@ void UPartyUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 	SetUIType(EUIType::PARTY);
+	SetUITag(FGameplayTagManager::Get().UI_Party);
 
 	UUIManager* UI  = GameInstance->GetUIManager();
 	if(IsValid(UI) == false)

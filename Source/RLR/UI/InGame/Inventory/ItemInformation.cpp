@@ -20,7 +20,7 @@
 void UItemInformation::NativeConstruct()
 {
 	Super::NativeConstruct();	
-	SetUIType(EUIType::ITEMINFOMATION);
+	SetUIType(EUIType::ITEM_INFOMATION);
 }
 
 void UItemInformation::SetItemData(const FItemData& NewData)

@@ -58,6 +58,10 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassTable.DT_MonsterClassTable'")));
 	if (IsValid(MonsterClassTable) == false)
 		DEBUG_LOG("몬스터 클래스 테이블 로드 실패");
+
+	ExpDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ExpTable.DT_ExpTable'")));
+	if(IsValid(ExpDataTable))
+		DEBUG_LOG("경험치 데이터 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()
@@ -74,7 +78,10 @@ void UDataManager::MakeSkillDictionary()
 		if (SkillData)
 		{
 			//TODO: ECharacterMainJobType 분리 후 변경 필요
-			ECharacterMainJobType MainJob = ECharacterMainJobType::NONE;
+			//분리 후 변경이 필요하다는게 무슨 의미일까? 나중에 민환님한테 물어보기.
+			//ECharacterMainJobType MainJob = ECharacterMainJobType::NONE;
+
+			ECharacterMainJobType MainJob = SkillData->MainJobType;
 
 			if (SkillDictionary.Contains(MainJob) == false)
 			{
@@ -143,6 +150,20 @@ const FLevelData& UDataManager::GetLevelData(int32 Seq)
 	}
 
 	return FLevelData::EmptyData;
+}
+
+const FExpTable& UDataManager::GetExpData(int32 Seq)
+{
+	if (IsValid(ExpDataTable))
+	{
+		FExpTable* Data = ExpDataTable->FindRow<FExpTable>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FExpTable::EmptyExpData;
+
+		return *Data;
+	}
+
+	return FExpTable::EmptyExpData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

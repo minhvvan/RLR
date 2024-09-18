@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameManager/NetworkManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/PlayerManager.h"
+
 #include "Network/LoadBalancerClient.h"
 #include <Networking.h>
 #include "Network/FNetworkReceiver.h"
@@ -24,9 +27,11 @@
 bool UNetworkManager::SendCreateItemCheatPacket(int32 Seq)
 {
 	Protocol::CS_CreateItemCheatPacket packet;
+
+    int32 CheatUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    packet.set_userseq(CheatUserSeq);      //임시로 하드 코딩.
 	packet.set_itemseq(Seq);
 	SEND_PACKET(packet);
-    DEBUG_INCOMPLETE;
     return false;
 }
 

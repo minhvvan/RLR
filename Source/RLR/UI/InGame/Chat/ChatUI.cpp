@@ -12,12 +12,13 @@
 #include "GameManager/UIManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-
+#include "Structs/UtilStructs.h"
 #include <Kismet/GameplayStatics.h>
 
 void UChatUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::CHAT_UI);
 
 	if (ChatInput)
 	{

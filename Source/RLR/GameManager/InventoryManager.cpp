@@ -9,12 +9,13 @@
 
 void UInventoryManager::Update()
 {
+	OnUpdateInventoryDelegateBroadcast();
 	AsyncTask(ENamedThreads::GameThread, [this] {
 	OnUpdateInventoryDelegate.Broadcast();
 		});
 }
 
-void UInventoryManager::AddItem(FItemData NewItem)
+void UInventoryManager::AddItem(const FItemData& NewItem)
 {
 	if (NewItem == FItemData::EmptyItemData)
 	{
@@ -23,8 +24,22 @@ void UInventoryManager::AddItem(FItemData NewItem)
 	}
 	
 
-	ItemData.Add(NewItem.ITEM_SEQ, NewItem);
-	OnUpdateInventoryDelegate.Broadcast();
+	ItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+	OnUpdateInventoryDelegateBroadcast();
+}
+
+void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList)
+{
+	for (const FItemData& NewItem : NewItemList)
+	{
+		if (NewItem == FItemData::EmptyItemData)
+		{
+			DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
+			return;
+		}
+		ItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+	}
+	OnUpdateInventoryDelegateBroadcast();
 }
 
 FItemData UInventoryManager::GetItem(int32 Id)
@@ -43,7 +58,7 @@ void UInventoryManager::RemoveItem(int32 Id)
 	{
 		FItemData RemoveItem;
 		ItemData.RemoveAndCopyValue(Id, RemoveItem);
-		OnUpdateInventoryDelegate.Broadcast();
+		OnUpdateInventoryDelegateBroadcast();
 	}
 }
 
@@ -57,7 +72,7 @@ bool UInventoryManager::EquipItem(int32 ItemSeq)
 	
 	FItemData& EquipedItem = ItemData[ItemSeq];
 	EquipedItem.IsEquiped = true;
-	OnUpdateEquipDelegate.Broadcast(EquipedItem);
+	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
@@ -71,7 +86,7 @@ bool UInventoryManager::UnEquipItem(int32 ItemSeq)
 
 	FItemData& EquipedItem = ItemData[ItemSeq];
 	EquipedItem.IsEquiped = false;
-	OnUpdateEquipDelegate.Broadcast(EquipedItem);
+	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
@@ -86,31 +101,72 @@ void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
 void UInventoryManager::SetGold(int32 NewGold)
 {
 	Gold = NewGold;
-	OnUpdateGoldAndCashDelegate.Broadcast();
+	OnUpdateGoldAndCashDelegateBroadcast();
 }
 
 void UInventoryManager::SetPlatinum(int32 NewPlatinum)
 {
 	Platinum = NewPlatinum;
-	OnUpdateGoldAndCashDelegate.Broadcast();
+	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::OnUpdateInventoryDelegateBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+			OnUpdateInventoryDelegate.Broadcast();
+		});
+}
+
+void UInventoryManager::OnUpdateGoldAndCashDelegateBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+			OnUpdateGoldAndCashDelegate.Broadcast();
+		});
+}
+
+void UInventoryManager::OnUpdateEquipDelegateBroadcast(FItemData EquipItem)
+{
+	AsyncTask(ENamedThreads::GameThread, [this, EquipItem]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+			OnUpdateEquipDelegate.Broadcast(EquipItem);
+		});
 }
 
 void UInventoryManager::SetCopper(int32 NewCopper)
 {
 	Copper = NewCopper;
-	OnUpdateGoldAndCashDelegate.Broadcast();
+	OnUpdateGoldAndCashDelegateBroadcast();
 }
 
 void UInventoryManager::SetSilver(int32 NewSilver)
 {
 	Silver = NewSilver;
-	OnUpdateGoldAndCashDelegate.Broadcast();
+	OnUpdateGoldAndCashDelegateBroadcast();
 }
 
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
 {
 	ItemData.GenerateValueArray(ItemArray);
-
 }
 void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
 	ItemData.Empty();

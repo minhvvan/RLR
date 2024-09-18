@@ -14,10 +14,6 @@
  class UButton;
  class UEditableTextBox;
 
-  /*
-	민환님이 지금 정리 중이니 임시 배치. 나중에 머지되면 RLRStruct 어딘가에 옮겨줄 예정. 
- */
-
  USTRUCT(Atomic, BlueprintType)
 struct FServerData
 {
@@ -27,8 +23,10 @@ struct FServerData
 		나중에 현석님한테 서버 리스트에서 채울 데이터 어떻게 구성할지 물어보기.
 	*/
 
+
+	//Seq 값이 -1이면 비어 잆는 값으로 판단.
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 ServerSeq;
+	int32 ServerSeq = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString ServerName;

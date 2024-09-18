@@ -18,6 +18,8 @@ UAbnormalDisplay::UAbnormalDisplay(const FObjectInitializer& ObjectInitializer)
 
 void UAbnormalDisplay::NativeConstruct()
 {
+	Super::NativeConstruct();
+	SetUIType(EUIType::ABNORMAL_DISPLAY);
 }
 
 void UAbnormalDisplay::SetActionSystemComponent(AActor* Owner)

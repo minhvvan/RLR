@@ -13,10 +13,6 @@
 AGameClient::AGameClient() {
     PrimaryActorTick.bCanEverTick = true;
     clientSocket = INVALID_SOCKET;
-    static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Game/Player/BP/BP_Player"));
-    if (PlayerCharacterBPClass.Class != NULL) {
-        playerCharacterClass = PlayerCharacterBPClass.Class;
-    }
     networkReceiver = nullptr;
 }
 

@@ -8,21 +8,20 @@
 #include "GameManager/LevelManager.h"
 #include "GameManager/NetworkManager.h"
 
+#include "Structs/UtilStructs.h"
 #include "Structs/PlayerStructs.h"
 
 void ULobbyMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::LOBBY_MAIN_UI);
 
 }
 
 void ULobbyMainUI::RefreshUI()
 {
 	Super::RefreshUI();
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			CharacterListUI->RefreshUI();
-		});
+	CharacterListUI->RefreshUI();
 }
 
 void ULobbyMainUI::Clear()
@@ -37,9 +36,16 @@ void ULobbyMainUI::SetInputMode()
 	ChangeInputModeGameAndUI();
 }
 
-void ULobbyMainUI::AddUserCharacter(FUserCharacter NewCharacter)
+void ULobbyMainUI::AddUserCharacter(TArray<FUserCharacter> UserCharacterList)
 {
-	CharacterListUI->AddUserCharacter(NewCharacter);
+	AsyncTask(ENamedThreads::GameThread, [this, UserCharacterList]()
+		{
+			for (FUserCharacter NewCharacter : UserCharacterList)
+			{
+				CharacterListUI->AddUserCharacter(NewCharacter);
+			}
+			CharacterListUI->RefreshUI();
+		});
 }
 
 void ULobbyMainUI::OpenCreateCharacterUI()

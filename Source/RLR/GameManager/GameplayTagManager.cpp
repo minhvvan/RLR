@@ -94,7 +94,10 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
 	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill"), FString(TEXT("스킬창")));
 	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest"), FString(TEXT("퀘스트 정보창")));
+	GameplayTags.UI_ChatOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ChatOption"), FString(TEXT("채팅 옵션창")));
+	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Party"), FString(TEXT("파티창")));
 
+	GameplayTags.UI_Close = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Close"), FString(TEXT("특정 키 누르면 제일 앞에 있는 UI 닫기")));
 	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
 
 
@@ -211,4 +214,24 @@ FGameplayTag FGameplayTagManager::GetAbnormalTag(int AbnormalType)
 	}
 
 	return AbnormalTags.GetByIndex(AbnormalType);
+}
+
+const FGameplayTagContainer* FGameplayTagManager::GetItemTags()
+{
+	if (ItemTags.Num() != 9)
+	{
+		ItemTags.Reset(9);
+
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_1);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_2);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_3);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_4);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_5);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_6);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_7);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_8);
+		ItemTags.AddTag(GameplayTags.Action_ItemQuickSlot_9);
+	}
+
+	return &ItemTags;
 }

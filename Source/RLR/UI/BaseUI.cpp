@@ -23,6 +23,7 @@ void UBaseUI::NativeOnInitialized()
 void UBaseUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	Init();
 }
 
 void UBaseUI::OpenUI()
@@ -33,8 +34,13 @@ void UBaseUI::OpenUI()
 
 void UBaseUI::CloseUI()
 {
-
 	SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UBaseUI::SetUIType(EUIType Type)
+{
+	UIType = Type;
+	GetUIManager()->AddUI(this);
 }
 
 UBaseUI* UBaseUI::GetParent()
@@ -177,6 +183,18 @@ UInventoryManager* UBaseUI::GetInventoryManager()
 	if (GM)
 	{
 		return GM->GetInventoryManager();
+	}
+
+	return nullptr;
+}
+
+UDataManager* UBaseUI::GetDataManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM->GetDataManager();
 	}
 
 	return nullptr;

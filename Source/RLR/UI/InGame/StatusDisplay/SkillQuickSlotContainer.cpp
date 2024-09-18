@@ -4,6 +4,9 @@
 #include "UI/InGame/StatusDisplay/SkillQuickSlotContainer.h"
 #include "UI/InGame/StatusDisplay/SkillQuickSlot.h"
 
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "GameOptionData/GameOptionData.h"
 
 #include "Components/GridPanel.h"
 
@@ -13,19 +16,71 @@ void USkillQuickSlotContainer::NativeConstruct()
 
 }
 
+void USkillQuickSlotContainer::Init()
+{
+	Super::Init();
+	
+	TSubclassOf<USkillQuickSlot> SlotClass = GetWidgetClass<USkillQuickSlot>("WBP_SkillQuickSlot");
+	if (CHECK_VALID(SlotClass) == false)
+		return;
+
+	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
+	if (CHECK_VALID(GameOption) == false)
+		return;
+
+	SkillQuickSlotGridPanel->ClearChildren();
+	const TMap<FGameplayTag, int32>& QucikSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
+
+	int32 SlotCount = 0;
+	for (TTuple<FGameplayTag, int32> Element : QucikSlotList)
+	{
+		USkillQuickSlot* QuickSlot = CreateWidget<USkillQuickSlot>(this, SlotClass);
+		SkillQuickSlotGridPanel->AddChildToGrid(QuickSlot, SlotCount / MaxColunm, SlotCount % MaxColunm);
+
+		FGameplayTag ActionTag = Element.Key;
+		QuickSlot->SetActionTag(ActionTag);
+		QuickSlot->Clear();
+
+		QuickSlot->SetSlotIndex(SlotCount++);
+		QuickSlotMap.Add(ActionTag, QuickSlot);
+	}
+}
+
 void USkillQuickSlotContainer::RefreshUI()
 {
 	Super::RefreshUI();
-}
+	Clear();
 
-void USkillQuickSlotContainer::AddChild(USkillQuickSlot* NewSlot, int32 Index)
-{
-	SkillQuickSlotGridPanel->AddChildToGrid(NewSlot, Index / MaxColunm, Index % MaxColunm);
+	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
+	const TMap<FGameplayTag, int32>& QucikSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
+
+	for (TTuple<FGameplayTag, int32> Element : QucikSlotList)
+	{
+		FGameplayTag ActionTag = Element.Key;
+		int32		 SkillSeq  = Element.Value;
+
+		if(QuickSlotMap.Contains(ActionTag) == false)
+			continue;
+
+		USkillQuickSlot* QuickSlot = QuickSlotMap[ActionTag];
+
+		FSkillData SkillData = GetDataManager()->GetSkillData(SkillSeq);
+		if (SkillData == FSkillData::EmptySkillData)
+		{
+			QuickSlot->RefreshUI();
+			continue;
+		}
+		QuickSlot->SetSkillData(SkillData);		
+	}
 }
 
 void USkillQuickSlotContainer::Clear()
 {
 	Super::Clear();
 
-	SkillQuickSlotGridPanel->ClearChildren();
+	for (TTuple<FGameplayTag, USkillQuickSlot*> Element : QuickSlotMap)
+	{
+		USkillQuickSlot* QuickSlot = Element.Value;
+		QuickSlot->Clear();
+	}
 }

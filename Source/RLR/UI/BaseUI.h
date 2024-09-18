@@ -17,6 +17,7 @@
  class UActionSystemComponent;
  class UPlayerManager;
  class USkillManager;
+ class UDataManager;
  class UInventoryManager;
 
 UCLASS()
@@ -27,12 +28,13 @@ class RLR_API UBaseUI : public UUserWidget
 public:
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
+	virtual void Init(){};
 	virtual void RefreshUI(){};
 	virtual void OpenUI();
 	virtual void Clear(){};
 	virtual void CloseUI();
 
-	void		SetUIType(EUIType Type) {UIType = Type;}
+	void		SetUIType(EUIType Type);
 	EUIType		GetUIType() {return UIType;}
 	void		SetParent(UBaseUI* UI){Parent = UI;}
 	UBaseUI*	GetParent();
@@ -43,6 +45,12 @@ public:
 	void ChangeInputModeGameOnly();
 	void ChangeInputModeUIOnly();
 
+	//하이라이트 효과. 필요한 UI에 그때그때 구현해주기
+	UFUNCTION(BlueprintImplementableEvent)
+	void Highlight();
+	UFUNCTION(BlueprintImplementableEvent)
+	void UnHighlight();
+
 public:
 	EUIType	UIType;
 
@@ -52,6 +60,7 @@ public:
 	UPlayerManager*		GetPlayerManager();
 	USkillManager*		GetSkillManager();
 	UInventoryManager*	GetInventoryManager();
+	UDataManager*		GetDataManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)

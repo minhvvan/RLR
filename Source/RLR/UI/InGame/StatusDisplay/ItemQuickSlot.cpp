@@ -3,18 +3,24 @@
 
 #include "UI/InGame/StatusDisplay/ItemQuickSlot.h"
 #include "UI/BaseDragDropOperation.h"
-#include "Components/Image.h"
+
 #include "Blueprint/UserWidget.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+
 #include "GameManager/InventoryManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
+
 #include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/BaseDragDropOperation.h"
 #include "UI/DraggableWidget.h"
+
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "Player/PlayerCommands.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 
@@ -91,14 +97,58 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	/*
 		TODO
 		퀵 슬롯 설정 정보를 저장할 수 있게 해주기
-
 		퀵슬롯은 딱히 서버에 보내줄 패킷이 없다. 다만 필요한 건 키 입력과 연결을 해줘야 한다.
 	*/
+	{
+		//GetNetworkManager()->SendChangeItemQuickSlotPacket(GetItemData(), GetSlotIndex());
+	}
 
 	return true;
+}
+
+void UItemQuickSlot::RefreshUI()
+{
+	Super::RefreshUI();
+
+	URLRInputConfig* Config = GameInstance->GetDataManager()->GetInputConfig();
+	if (Config)
+	{
+		FString InputString = Config->FindInputTagByActionTag(ActionTag).GetTagName().ToString();
+		FString Prefix = TEXT("Input.");
+
+		// 'Input.' 이후의 문자열을 추출
+		int32 PrefixLength = Prefix.Len();
+		FString AfterPrefix = InputString.Mid(PrefixLength);
+
+		KeyBindingText->SetText(FText::FromString(AfterPrefix));
+	}
+
+	const FItemData& ItemData = GetItemData();
+
+	if (ItemData == FItemData::EmptyItemData)
+	{
+		SetSlotImage(GetDefaultSlotImage());
+		return;
+	}
+
+	SetSlotImage(ItemData.ItemImage);
 }
 
 void UItemQuickSlot::Clear()
 {
 	Super::Clear();
+}
+
+void UItemQuickSlot::UpdatedItemQuickSlot()
+{
+	if (IsEmpty() == true)
+		return;
+
+	FText DebugText = FText::Format(FText::FromString("Update Item Quick Slot {0}"), GetItemData().NAME);
+	Util::DebugLog(DebugText.ToString());
+}
+
+void UItemQuickSlot::SetActionTag(FGameplayTag NewActionTag)
+{
+	ActionTag = NewActionTag;
 }

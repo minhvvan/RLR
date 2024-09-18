@@ -16,6 +16,7 @@ class RLR_API UExpProgressBar : public UBaseUI
 public:
 
 	UExpProgressBar(const FObjectInitializer& ObjectInitializer);
+	virtual void NativeConstruct() override;
 
 	void UpdateMaxExp(int32 CurrentLevel);
 
@@ -31,7 +32,7 @@ public:
 	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-		TObjectPtr<UProgressBar> ExpProgressBar;
+	TObjectPtr<UProgressBar> ExpProgressBar;
 
 
 protected:

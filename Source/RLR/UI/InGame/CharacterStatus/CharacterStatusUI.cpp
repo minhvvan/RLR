@@ -13,7 +13,7 @@
 void UCharacterStatusUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::CHARACTERSTAT);
+	SetUIType(EUIType::CHARACTER_STATUS_UI);
 	SetUITag(FGameplayTagManager::Get().UI_CharacterStatus);
 
 

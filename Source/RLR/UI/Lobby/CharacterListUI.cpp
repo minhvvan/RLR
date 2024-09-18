@@ -19,9 +19,31 @@
 void UCharacterListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	SetUIType(EUIType::CHARACTER_LIST_UI);
 
 	CharacterCreateButton->OnClicked.AddUniqueDynamic(this, &UCharacterListUI::OnClickedCreateCharacterButton);
 	CharacterDeleteButton->OnClicked.AddUniqueDynamic(this, &UCharacterListUI::OnClickedDeleteCharacterButton);
+}
+
+void UCharacterListUI::Init()
+{
+	Super::Init();
+
+	TSubclassOf<UCharacterListElement> ListElementClass = GetWidgetClass<UCharacterListElement>("WBP_CharacterListElement");
+	if (IsValid(ListElementClass) == false)
+	{
+		DEBUG_MESSAGE;
+		return;
+	}
+
+	for (int32 i = 0 ; i < CharacterElementMaxCount; i++)
+	{
+		UCharacterListElement* NewElement = Cast<UCharacterListElement>(CreateWidget(this, ListElementClass));
+		NewElement->Clear();
+		NewElement->CharacterSlotIndex = i;
+		NewElement->SetParent(this);
+		CharacterListView->AddItem(NewElement);
+	}
 }
 
 void UCharacterListUI::RefreshUI()
@@ -29,30 +51,39 @@ void UCharacterListUI::RefreshUI()
 	Super::RefreshUI();
 	Clear();
 
-	if (IsValid(ListElementClass) == false)
+	for (const TTuple<int32, FUserCharacter>& Iter : UserCharacterList)
 	{
-		ListElementClass = GetWidgetClass<UCharacterListElement>("WBP_CharacterListElement");
-		if (IsValid(ListElementClass) == false)
+		FUserCharacter Data = Iter.Value;
+		
+		/*
+			캐릭터 슬롯 인덱스 번호가 필요하다.
+			하지만 지금은 받고 있지 않으므로, 일단 임시로 구현.
+		*/
+		int32 CharacterSlotIndex = Data.UserSeq;
+		if (CharacterListElementMap.Contains(CharacterSlotIndex) == false)
 		{
+			//플레이어가 가질 수 있는 캐릭터 슬롯 최대 갯수 초과.
 			DEBUG_MESSAGE;
-			return;
+			continue;
 		}
-	}
 
-	for (const TTuple<int32, FUserCharacter>& ListElement : UserCharacterList)
-	{
-		FUserCharacter Data = ListElement.Value;
-		UCharacterListElement* newElement = Cast<UCharacterListElement>(CreateWidget(this, ListElementClass));
-		newElement->SetParent(this); 
-		newElement->SetUserCharacterData(Data);
-		CharacterListView->AddItem(newElement);
+		UCharacterListElement* Element = CharacterListElementMap[CharacterSlotIndex];
+		Element->SetUserCharacterData(Data);
+		Element->RefreshUI();
 	}
 }
 
 void UCharacterListUI::Clear()
 {
 	Super::Clear();
-	CharacterListView->ClearListItems();
+	
+	for (TTuple<int32, UCharacterListElement*> Iter : CharacterListElementMap)
+	{
+		int32 CharacterSlotIndex = Iter.Key;
+		UCharacterListElement* CharacterListElement = Iter.Value;
+
+		CharacterListElement->Clear();
+	}
 }
 
 void UCharacterListUI::SetSelectedElement(UCharacterListElement* Element)

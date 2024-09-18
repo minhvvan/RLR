@@ -6,6 +6,8 @@
 #include "UI/InGame/StatusDisplay/ExpProgressBar.h"
 #include "UI/InGame/StatusDisplay/SkillQuickSlot.h"
 #include "UI/InGame/StatusDisplay/SkillQuickSlotContainer.h"
+#include "UI/InGame/StatusDisplay/ItemQuickSlotContainer.h"
+#include "UI/InGame/StatusDisplay/ItemQuickSlot.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
@@ -23,73 +25,63 @@
 void UStatusDisplay::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::STATUSDISPLAY);
-	ClearSkillQuickSlot();
+	SetUIType(EUIType::STATUS_DISPLAY);
 
-	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillAttack);
-	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillAttack);
+	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
+	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
+
+	GameInstance->GetSkillManager()->UpdatedTryUsingItemAction.RemoveDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
+	GameInstance->GetSkillManager()->UpdatedTryUsingItemAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
+
+	GameInstance->GetSkillManager()->UpdatedItemSettingDelegate.RemoveDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
+	GameInstance->GetSkillManager()->UpdatedItemSettingDelegate.AddUniqueDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
+}
+
+void UStatusDisplay::Init()
+{
+	Super::Init();
 }
 
 void UStatusDisplay::RefreshUI()
 {
 	LoadSkillQuickSlotData();
+	LoadItemQuickSlotData();
 }
 
-USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
+void UStatusDisplay::SaveItemQuickSlotData()
 {
-	return  nullptr; //SkillQuickSlotMap[ActionTag];
+	/*
+		현재 세팅 되어 있는 아이템 퀵 슬롯 저장
+	*/
+
+	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
+	if (CHECK_VALID(GameOption) == false)
+		return;
+
+	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetItemQuickSlotOption().ItemQuickSlotList;
+	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetSkillManager()->GetOwnItems();
+
+	for (auto& [Tag, Data] : OwnItems)
+	{
+		if (QuickSlotList.Contains(Tag) == true)
+		{
+			QuickSlotList[Tag] = Data.ITEM_SEQ;
+		}
+	}
+
+	GameInstance->SaveGameOption();
+	LoadItemQuickSlotData();
 }
 
 void UStatusDisplay::LoadSkillQuickSlotData()
 {
-	//GameOption에 저장되어 있는 Skill Quick Slot Data를 불러온다.
-	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
-	if(IsValid(GameOption) == false)
-		return;
-
-	FSkillQuickSlotOption QuickOption = GameOption->GetSkillQuickSlotOption();
-
-
-	TSubclassOf<USkillQuickSlot> SkillQuickSlotClass = GetWidgetClass<USkillQuickSlot>(TEXT("WBP_SkillQuickSlot"));
-	if (IsValid(SkillQuickSlotClass) == false)
-	{
-		DEBUG_LOG("LoadSkillQuickSlotData Error. SkillQuickSlotClass is Null.");
-		return;
-	}
-
-	//그리드 채우기용
-	int32 cnt = 0;
-	for (TTuple<FGameplayTag, int32> Element : QuickOption.SkillQuickSlotList)
-	{
-		FGameplayTag ActionTag = Element.Key;
-		int32 SkillID = Element.Value;
-
-		if (SkillQuickSlotMap.Contains(ActionTag) == false)
-		{
-			USkillQuickSlot* NewSkillQuickSlot = CreateWidget<USkillQuickSlot>(this,SkillQuickSlotClass);
-			SkillQuickSlotMap.Add(ActionTag, NewSkillQuickSlot);
-			SkillQuickSlotContainer->AddChild(NewSkillQuickSlot, cnt++);
-		}
-
-		USkillQuickSlot* FindSkillQuickSlot = SkillQuickSlotMap[ActionTag];
-
-		if (IsValid(FindSkillQuickSlot) == false)
-		{
-			Util::Checkf(FindSkillQuickSlot, "LoadSkillQuickSlotData Error");
-			continue;
-		}
-
-		FSkillData SlotSkill = GameInstance->GetDataManager()->GetSkillData(SkillID);
-		FindSkillQuickSlot->SetSkillData(SlotSkill);
-		FindSkillQuickSlot->SetActionTag(ActionTag);
-		FindSkillQuickSlot->RefreshUI();
-	}
+	SkillQuickSlotContainer->RefreshUI();
 }
 
-void UStatusDisplay::ClearSkillQuickSlot()
+void UStatusDisplay::LoadItemQuickSlotData()
 {
-	SkillQuickSlotContainer->Clear();
-	SkillQuickSlotMap.Empty();
+	ItemQuickSlotContainer->RefreshUI();
 }
 
 void UStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)
@@ -121,10 +113,37 @@ void UStatusDisplay::UpdateExp(int32 NewExp)
 	ExpProgressBar->UpdateExp(NewExp);
 }
 
-void UStatusDisplay::UpdateSkillAttack(FGameplayTag ActionTag)
+void UStatusDisplay::UpdateSkillQuickSlot(FGameplayTag ActionTag)
 {
+	/*
+		TODO. 스킬 쿨타임 돌려주자.
+	*/
 	USkillQuickSlot* UpdatedSlot = GetSkillQuickSlot(ActionTag);
 	if(IsValid(UpdatedSlot) == false)
 		return;
-	UpdatedSlot->UpdatedSkillAttack();
+	UpdatedSlot->UpdatedSkillQuickSlot();
+}
+
+void UStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
+{
+	/*
+		TODO. 
+		포션, 기타 소모 아이템... 
+		이런 아이템들을 사용하면 퀵 슬롯에 남은 갯수나 쿨타임 업데이트가 되어야 한다.
+	*/
+
+	UItemQuickSlot* UpdatedSlot = GetItemQuickSlot(ActionTag);
+	if (IsValid(UpdatedSlot) == false)
+		return;
+	UpdatedSlot->UpdatedItemQuickSlot();
+}
+
+USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
+{
+	return  SkillQuickSlotContainer->QuickSlotMap[ActionTag];
+}
+
+UItemQuickSlot* UStatusDisplay::GetItemQuickSlot(FGameplayTag ActionTag)
+{
+	return ItemQuickSlotContainer->QuickSlotMap[ActionTag];
 }

@@ -8,15 +8,20 @@
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/StatusDisplay/StatusDisplay.h"
+
 #include "Blueprint/WidgetTree.h"
+#include <Kismet/GameplayStatics.h>
+
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "Player/RLRPlayerController.h"
 #include "RLR.h"
+
 
 void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	RefreshUI();
+	SetUIType(EUIType::INGAME_MAIN_UI);
 }
 
 void UInGameMainUI::SetActionSystemComponent(AActor* Owner)

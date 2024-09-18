@@ -48,9 +48,8 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         itemDatas.Add(itemData);
     }
 
-    GameInstance->GetInventoryManager()->SetItemList(itemDatas);
-
-
+    //GameInstance->GetInventoryManager()->GetItemList(itemDatas);
+    GameInstance->GetInventoryManager()->AddItemList(itemDatas);
     return true;
 }
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_StatusResponsePacket& pkt) {
@@ -95,6 +94,7 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         skillDatas.Add(skillData);
     }
     GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
+    GameInstance->GetSkillManager()->SetLearnedSkills(skillDatas);
     return true;
 }
 

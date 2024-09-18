@@ -27,9 +27,7 @@ public:
 	UInventoryUI(const FObjectInitializer& ObjectInitializer);
 
 	virtual void NativeConstruct() override;
-
-	UFUNCTION(BlueprintCallable)
-	void Init();
+	virtual void Init();
 
 	UFUNCTION(BlueprintCallable)
 	void RefreshUI();
@@ -108,9 +106,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32	GetMaxSlotCount(){return MaxInventorySlotCount;};
 public:
-	//인벤토리 클래스 정보는 BP에서 설정.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UInventorySlot> InventorySlotClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (AllowPrivateAccess = "true"))
 	TArray<TObjectPtr<UInventorySlot>> InventorySlotList;
