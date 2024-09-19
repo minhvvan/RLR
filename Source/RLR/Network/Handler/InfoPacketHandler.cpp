@@ -91,6 +91,8 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         FSkillData skillData;
         skillData.MakeSkillData(skill);
 
+        FSkillClass skillClass;
+        skillClass.MakeSkillData(skill);
         skillDatas.Add(skillData);
     }
     GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);

@@ -7,6 +7,7 @@
 #include "GameManager/RLRStruct.h"
 
 const FSkillData FSkillData::EmptySkillData;
+const FSkillClass FSkillClass::EmptySkillClass = FSkillClass();
 
 FString FSkillData::ToString() const
 {
@@ -78,8 +79,19 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 
-    const FSkillData& OriginData = GameInstance->GetDataManager()->GetSkillData(SkillSeq);
-    if (OriginData == FSkillData::EmptySkillData)
+    const FSkillClass& OriginData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
+    if (OriginData == FSkillClass::EmptySkillClass)
+        return;
+
+    //SkillAnimClass = OriginData.SkillAnimClass;
+    //SkillClass = OriginData.SkillClass;
+    SkillImage = OriginData.SkillImage;
+}
+
+void FSkillClass::MakeSkillData(Protocol::SkillInfo skill)
+{
+    const FSkillClass& OriginData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
+    if (OriginData == FSkillClass::EmptySkillClass)
         return;
 
     SkillAnimClass = OriginData.SkillAnimClass;
