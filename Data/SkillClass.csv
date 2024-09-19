@@ -1,0 +1,4 @@
+---,SkillSeq,SkillAnimClass,SkillClass
+0,"1","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_SkillAnim_SwordAura.BP_SkillAnim_SwordAura_C'","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_Skill_SwordAura.BP_Skill_SwordAura_C'"
+1,"2","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_SkillAnim_Meteor.BP_SkillAnim_Meteor_C'","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_Skill_Meteor.BP_Skill_Meteor_C'"
+2,"3","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_SkillAnim_Holding.BP_SkillAnim_Holding_C'","/Script/Engine.BlueprintGeneratedClass'/Game/Blueprints/Action/Skills/BP_Action_Skill_Holding.BP_Action_Skill_Holding_C'"
