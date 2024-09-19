@@ -83,8 +83,6 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
     if (OriginData == FSkillClass::EmptySkillClass)
         return;
 
-    //SkillAnimClass = OriginData.SkillAnimClass;
-    //SkillClass = OriginData.SkillClass;
     SkillImage = OriginData.SkillImage;
 }
 

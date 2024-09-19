@@ -191,12 +191,6 @@ struct FSkillData : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TObjectPtr<UTexture2D> SkillImage;
 
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//TSubclassOf<UAction> SkillAnimClass;
-
-	//UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	//TSubclassOf<UAction> SkillClass;
-
 	/*
 		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 		스킬 미리보기
