@@ -97,7 +97,7 @@ void UInventorySlot::RefreshUI()
 		return;
 	}
 	
-	SetSlotImage(ItemTestImage);
+	SetSlotImage(GetItemResourceData().ItemImage);
 	ItemNameText->SetText(GetItemData().NAME);
 
 	DisplayEquippedItems(GetItemData().IsEquiped);
@@ -172,4 +172,9 @@ void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 void UInventorySlot::Clear()
 {
 	Super::Clear();
+}
+
+void UInventorySlot::CancelSale()
+{
+	SetIsEnabled(true);
 }
