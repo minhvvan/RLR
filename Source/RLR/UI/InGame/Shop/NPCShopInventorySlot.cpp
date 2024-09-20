@@ -17,7 +17,7 @@ FReply UNPCShopInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 		auto UIManager = GameInstance->GetUIManager();
 		if (!UIManager) return result;
 
-		UIManager->AddSaleItem(GetItemData());
+		UIManager->AddSaleItem(GetItemData(), GetItemResourceData());
 		SetIsEnabled(false);
 	}
 

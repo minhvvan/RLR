@@ -70,7 +70,7 @@ public:
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
 
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
 protected:

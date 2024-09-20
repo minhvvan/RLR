@@ -10,10 +10,12 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/InventoryManager.h"
 #include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Structs/ObjectStructs.h"
+#include "Structs/ItemStructs.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 
@@ -53,9 +55,9 @@ void UDialogueUI::CloseItemInfo()
 	ItemInformationUI->CloseUI();
 }
 
-void UDialogueUI::AddSaleItem(const FItemData& Item)
+void UDialogueUI::AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource)
 {
-	NPCShopUI->AddSaleItem(Item);
+	NPCShopUI->AddSaleItem(Item, NewItemResource);
 }
 
 void UDialogueUI::RemoveSaleItem(const FItemData& Item)
@@ -102,7 +104,18 @@ void UDialogueUI::OnShopClicked()
 		if (NPCShopUI)
 		{
 			FVector2D panelPos(100.f, 100.f);
-			NPCShopUI->SetItemData(npcData.Shop[0].Items);
+
+			TArray<FItemResource> ItemResources;
+			for (const FItemData& item : npcData.Shop[0].Items)
+			{
+				FItemResource itemResource;
+				if (GameInstance->GetInventoryManager()->TryGetItemResource(item.ITEM_SEQ, itemResource))
+				{
+					ItemResources.Add(itemResource);
+				}
+			}
+
+			NPCShopUI->SetItemData(npcData.Shop[0].Items, ItemResources);
 			NPCShopUI->SetPosition(panelPos);
 			NPCShopUI->OpenUI();
 		}

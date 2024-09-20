@@ -6,7 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
 #include "RLRStruct.h"
-
+#include "Structs/ItemStructs.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
@@ -55,7 +55,7 @@ public:
 
 public:
 
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
 protected:

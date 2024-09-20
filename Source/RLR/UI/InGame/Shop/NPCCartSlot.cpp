@@ -10,19 +10,21 @@ void UNPCCartSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 	SetItemData(Cast<UNPCCartSlot>(ListItemObject)->GetItemData());
+	SetSlotItemResourceData(Cast<UNPCCartSlot>(ListItemObject)->GetItemResourceData());
 }
 
 FReply UNPCCartSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 	if (GetItemData() == FItemData::EmptyItemData) return result;
-	GetListItem<UNPCCartSlot>()->OnCartClicked.Broadcast(GetItemData());
+	GetListItem<UNPCCartSlot>()->OnCartClicked.Broadcast(GetItemData(), GetItemResourceData());
 	return result;
 }
 
 void UNPCCartSlot::RefreshUI()
 {
 	auto itemData = GetItemData();
-	SetSlotImage(itemData.ItemImage);
+	FItemResource itemResourceData = GetItemResourceData();
+	SetSlotImage(itemResourceData.ItemImage);
 	TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
 }

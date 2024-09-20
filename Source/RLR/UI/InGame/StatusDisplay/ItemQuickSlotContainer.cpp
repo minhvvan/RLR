@@ -72,6 +72,14 @@ void UItemQuickSlotContainer::RefreshUI()
 			continue;
 		}
 		QuickSlot->SetItemData(ItemData);
+		
+		FItemResource ItemResourceData = GetDataManager()->GetItemResource(ItemSeq);
+		if (ItemResourceData == FItemResource::EmptyItemResource)
+		{
+			QuickSlot->RefreshUI();
+			continue;
+		}
+		QuickSlot->SetSlotItemResourceData(ItemResourceData);
 	}
 }
 

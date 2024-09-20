@@ -53,7 +53,7 @@ void UItemQuickSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 
 	DraggedWidget = CreateWidget<UDraggableWidget>(this, DraggableWidgetClass);
 
-	DraggedWidget->SlotImage->SetBrushFromTexture(GetItemData().ItemImage);
+	DraggedWidget->SlotImage->SetBrushFromTexture(GetItemResourceData().ItemImage);
 
 	DragDropOperation = Cast<UBaseDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(DragDropOperationClass));
 	DragDropOperation->DefaultDragVisual = DraggedWidget;
@@ -86,12 +86,14 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if(Operation->DragedSlotType == ESlotType::INVENTORY_SLOT)
 	{ 
 		SetItemData(Operation->ItemData);
+		SetSlotItemResourceData(Operation->ItemResourceData);
 	}
 	//다른 퀙 슬롯에서 가져온 거면, 가져왔던 퀵 슬롯을 비워준다.
 	else if(Operation->DragedSlotType == ESlotType::ITEM_QUICK_SLOT)
 	{
 		Operation->Master->Clear();
 		SetItemData(Operation->ItemData);
+		SetSlotItemResourceData(Operation->ItemResourceData);
 	}
 
 	/*
@@ -124,6 +126,7 @@ void UItemQuickSlot::RefreshUI()
 	}
 
 	const FItemData& ItemData = GetItemData();
+	const FItemResource& ItemResourceData = GetItemResourceData();
 
 	if (ItemData == FItemData::EmptyItemData)
 	{
@@ -131,7 +134,7 @@ void UItemQuickSlot::RefreshUI()
 		return;
 	}
 
-	SetSlotImage(ItemData.ItemImage);
+	SetSlotImage(ItemResourceData.ItemImage);
 }
 
 void UItemQuickSlot::Clear()

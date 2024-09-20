@@ -23,6 +23,7 @@ void UNPCShopItemSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 	{
 		SetParent(itemSlot->GetParentUI());
 		SetItemData(const_cast<FItemData&>(itemSlot->GetItemData()));
+		SetSlotItemResourceData(const_cast<FItemResource&>(itemSlot->GetItemResourceData()));
 		RefreshUI();
 	}
 }
@@ -37,7 +38,7 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 		{
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
-				Cast<UNPCPurchaseTab>(ParentUI)->OpenBundlePurchase(GetItemData());
+				Cast<UNPCPurchaseTab>(ParentUI)->OpenBundlePurchase(GetItemData(), GetItemResourceData());
 			}
 		}
 		else
@@ -45,16 +46,18 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
 				FItemData item(GetItemData());
+				FItemResource itemResource(GetItemResourceData());
 				item.ITEM_VALUE = 1;
-				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item);
+				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item, itemResource);
 			}
 			else if (ParentUI->IsA(UNPCSaleTab::StaticClass()))
 			{
-				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData());
+				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData(), GetItemResourceData());
 				auto UIManager = GetUIManager();
 				if (!UIManager) return result;
 				UIManager->RemoveSaleItem(GetItemData());
 				SetItemData(FItemData::EmptyItemData);
+				SetSlotItemResourceData(FItemResource::EmptyItemResource);
 				RefreshUI();
 			}
 		}
@@ -78,6 +81,7 @@ void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 void UNPCShopItemSlot::RefreshUI()
 {
 	auto itemData = GetItemData();
+	FItemResource itemResourceData = GetItemResourceData();
 	if (itemData == FItemData::EmptyItemData)
 	{
 		SetIsEnabled(false);
@@ -98,7 +102,7 @@ void UNPCShopItemSlot::RefreshUI()
 		TxtItemName->SetText(itemData.NAME);
 		TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
 		TxtPrice->SetText(FText::AsNumber(itemData.SALE_PRICE));
-		SlotImage->SetBrushFromTexture(itemData.ItemImage);
+		SlotImage->SetBrushFromTexture(itemResourceData.ItemImage);
 
 		//아이템 수량 표시
 		if (!ParentUI) return;

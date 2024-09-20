@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/ItemStructs.h"
 #include "BaseUI.generated.h"
 
 /**

@@ -88,8 +88,12 @@ public:
 	virtual bool IsEmpty();
 
 	virtual UBaseDragDropOperation* GetSlotData();
+
 	virtual void					SetItemData(const FItemData& NewItemData);
 	virtual	const FItemData&		GetItemData();
+
+	virtual void					SetSlotItemResourceData(const FItemResource& NewResourceData);
+	virtual const FItemResource&	GetItemResourceData();
 
 	virtual void					SetSkillData(FSkillData NewSkillData);
 	virtual const FSkillData&		GetSkillData();

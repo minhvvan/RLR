@@ -204,6 +204,34 @@ struct FItemStatus
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FItemResource : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	FItemResource()
+	{
+		ITEM_SEQ = -1;
+		ItemImage = nullptr;
+	}
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ITEM_SEQ;
+	//아이템 리소스 정보
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AActor> Model;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* ItemImage;
+	static const FItemResource EmptyItemResource;
+	void MakeItemResource(const Protocol::Item itemData);
+	/** Operators */
+	FORCEINLINE bool operator==(FItemResource const& Other) const
+	{
+		if (ITEM_SEQ != Other.ITEM_SEQ)
+			return false;
+		return true;
+	}
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY()
@@ -213,7 +241,6 @@ struct FItemData : public FTableRowBase
 	{
 		ITEM_SEQ = -1;
 		ITEM_ID = -1;
-		ItemImage = nullptr;
 		TYPE = EItemType::NONE;
 		EQUIPMENT_TYPE = EEquipmentType::NONE;
 		IsEquiped = false;
@@ -285,12 +312,6 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<EETCType> ETC_TYPE;
-
-	//아이템 리소스 정보
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AActor> Model;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UTexture2D* ItemImage;
 
 	//DB에 저장되어야할 정보
 	int32 ITEM_SLOT_IDX;

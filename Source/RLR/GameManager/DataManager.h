@@ -35,6 +35,9 @@ public:
 	FItemData				GetItemData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
+	FItemResource			GetItemResource(int32 Seq);
+
+	UFUNCTION(BlueprintCallable)
 	const FMonsterStatus&	GetMonsterData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
@@ -88,6 +91,9 @@ public:
 private:
 	UPROPERTY()
 	TObjectPtr<UDataTable> ItemDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> ItemResourceTable;
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> SkillDataTable;

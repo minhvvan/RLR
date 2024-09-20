@@ -39,7 +39,7 @@ void UEquipmentSlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	UTexture2D* Texture = GetItemData().ItemImage;
+	UTexture2D* Texture = GetItemResourceData().ItemImage;
 	if (IsValid(Texture) == false)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));

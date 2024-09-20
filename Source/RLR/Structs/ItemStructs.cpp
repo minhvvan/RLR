@@ -3,9 +3,12 @@
 
 #include "Structs/ItemStructs.h"
 #include "Network/Proto/Packet.pb.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 #include "GameManager/RLRStruct.h"
 
 const FItemData     FItemData::EmptyItemData;
+const FItemResource FItemResource::EmptyItemResource;
 
 void FItemData::MakeItemData(const Protocol::Item itemData)
 {
@@ -190,4 +193,13 @@ void FUserGoods::MakeUserGoods(const Protocol::UserGood userGood)
     //TODO: UserGoods 생성
     Reputation = userGood.reputation();
     Contribution = userGood.contribution();
+}
+
+void FItemResource::MakeItemResource(const Protocol::Item itemData)
+{
+    ITEM_SEQ = itemData.itemseq();
+    const FItemResource& OriginData = GameInstance->GetDataManager()->GetItemResource(ITEM_SEQ);
+
+    ItemImage = OriginData.ItemImage;
+    Model = OriginData.Model;
 }

@@ -54,7 +54,7 @@ void UEquipmentUI::NativeConstruct()
 	GetInventoryManager()->OnUpdateEquipDelegate.AddUniqueDynamic(this, &UEquipmentUI::EquipItem);
 }
 
-void UEquipmentUI::EquipItem(FItemData ItemData)
+void UEquipmentUI::EquipItem(FItemData ItemData, FItemResource ItemResourceData)
 {
 
 	//장비 아이템이 아니면 리턴한다.
@@ -70,16 +70,19 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 		if (EarringSlot_1->IsEmpty())
 		{
 			EarringSlot_1->SetItemData(ItemData);
+			EarringSlot_1->SetSlotItemResourceData(ItemResourceData);
 			return;
 		}
 
 		if (EarringSlot_2->IsEmpty())
 		{
 			EarringSlot_2->SetItemData(ItemData);
+			EarringSlot_2->SetSlotItemResourceData(ItemResourceData);
 			return;
 		}
 		//둘다 비어 있지 않다면, 
 		EarringSlot_1->SetItemData(ItemData);
+		EarringSlot_1->SetSlotItemResourceData(ItemResourceData);
 		return;
 	}
 
@@ -89,16 +92,19 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 		if (RingSlot_1->IsEmpty())
 		{
 			RingSlot_1->SetItemData(ItemData);
+			RingSlot_1->SetSlotItemResourceData(ItemResourceData);
 			return;
 		}
 
 		if (RingSlot_2->IsEmpty())
 		{
 			RingSlot_2->SetItemData(ItemData);
+			RingSlot_2->SetSlotItemResourceData(ItemResourceData);
 			return;
 		}
 		//둘다 비어 있지 않다면, 
 		RingSlot_2->SetItemData(ItemData);
+		RingSlot_2->SetSlotItemResourceData(ItemResourceData);
 		return;
 	}
 
@@ -107,6 +113,7 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 		if (EquipSlot->EquipmentSlotType == ItemData.EQUIPMENT_TYPE)
 		{
 			EquipSlot->SetItemData(ItemData);
+			EquipSlot->SetSlotItemResourceData(ItemResourceData);
 		}
 	}
 }
