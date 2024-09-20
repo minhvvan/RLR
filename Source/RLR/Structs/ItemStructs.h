@@ -222,6 +222,7 @@ struct FItemResource : public FTableRowBase
 	UTexture2D* ItemImage;
 	static const FItemResource EmptyItemResource;
 	void MakeItemResource(const Protocol::Item itemData);
+	void MakeShopItemResource(const FItemData itemData);
 	/** Operators */
 	FORCEINLINE bool operator==(FItemResource const& Other) const
 	{

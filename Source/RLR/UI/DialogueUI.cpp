@@ -109,10 +109,8 @@ void UDialogueUI::OnShopClicked()
 			for (const FItemData& item : npcData.Shop[0].Items)
 			{
 				FItemResource itemResource;
-				if (GameInstance->GetInventoryManager()->TryGetItemResource(item.ITEM_SEQ, itemResource))
-				{
-					ItemResources.Add(itemResource);
-				}
+				itemResource.MakeShopItemResource(item);
+				ItemResources.Add(itemResource);
 			}
 
 			NPCShopUI->SetItemData(npcData.Shop[0].Items, ItemResources);

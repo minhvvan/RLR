@@ -203,3 +203,12 @@ void FItemResource::MakeItemResource(const Protocol::Item itemData)
     ItemImage = OriginData.ItemImage;
     Model = OriginData.Model;
 }
+
+void FItemResource::MakeShopItemResource(const FItemData itemData)
+{
+    ITEM_SEQ = itemData.ITEM_SEQ;
+    const FItemResource& OriginData = GameInstance->GetDataManager()->GetItemResource(ITEM_SEQ);
+
+    ItemImage = OriginData.ItemImage;
+    Model = OriginData.Model;
+}
