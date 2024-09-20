@@ -22,6 +22,9 @@ void USkillSettingListSlot::NativeConstruct()
 
 void USkillSettingListSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
+	if(IsLearned == false)
+		return;
+
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 }
 
