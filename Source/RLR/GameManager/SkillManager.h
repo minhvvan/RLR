@@ -46,19 +46,8 @@ public:
 	bool RequestGetSelectedSkills();
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
-	//아이템 사용
-	void UsingItem(FGameplayTag TriggerTag);
-
-	const FItemData* GetItemData(FGameplayTag TriggerTag);
-	const FSkillDictionary<FGameplayTag, FItemData>& GetOwnItems();
-	bool HasItemTag(FGameplayTag TriggerTag);
-
-	UFUNCTION()
-	void SetSelectedItems(TArray<FItemData>& SelectedItems);
-
 private:
 	FSkillDictionary<FGameplayTag, FSkillData> OwnSkills;
-	FSkillDictionary<FGameplayTag, FItemData> OwnItems;
 
 	UPROPERTY()
 	TMap<int32, FSkillData> LearnedSkills;
@@ -67,19 +56,12 @@ public:
 
 	//현재는 StatusDisplay에서 스킬 사용시, 쿨타임 효과를 재생하기 위해 호출하는 중이다.
 	FUpdatedActionTag UpdatedTryActivateAction;
-	FUpdatedActionTag UpdatedTryUsingItemAction;
 
 	/*
 			1.스킬 퀵 슬롯 위치가 바뀌면 업데이트
 	*/
 	FUpdatedSkillManager UpdatedSkillSettingDelegate;
 	void UpdatedSkillSettingBroadcast();
-
-	/*
-			1.아이템 퀵 슬롯 위치 바뀌면 업데이트
-	*/
-	FUpdatedSkillManager UpdatedItemSettingDelegate;
-	void UpdatedItemSettingBroadcast();
 
 	FUpdatedTest		UpdateTest;
 };

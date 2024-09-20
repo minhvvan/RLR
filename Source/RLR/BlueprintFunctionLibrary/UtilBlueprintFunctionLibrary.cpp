@@ -148,7 +148,7 @@ void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
 		TestArray.Add(Data);
 	}
 
-	GameInstance->GetSkillManager()->SetSelectedItems(TestArray);
+	GameInstance->GetInventoryManager()->SetSelectedItems(TestArray);
 }
 
 void UUtilBlueprintFunctionLibrary::TestServerList()
