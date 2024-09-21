@@ -33,6 +33,7 @@ public:
 	virtual void OpenUI();
 	virtual void Clear(){};
 	virtual void CloseUI();
+	virtual void BindWidget();
 
 	void		SetUIType(EUIType Type);
 	EUIType		GetUIType() {return UIType;}
