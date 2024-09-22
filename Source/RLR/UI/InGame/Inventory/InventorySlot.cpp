@@ -97,7 +97,6 @@ void UInventorySlot::RefreshUI()
 		return;
 	}
 	
-	SetSlotImage(ItemTestImage);
 	ItemNameText->SetText(GetItemData().NAME);
 
 	DisplayEquippedItems(GetItemData().IsEquiped);
@@ -113,26 +112,30 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		return result;
 	}
 
-	/*
-		임시코드. 패킷 연결 확인되면 주석 처리한거 지울 예정.
-	*/
 
-	//FString ItemName = GetItemData().NAME;
-	//UUtilBlueprintFunctionLibrary::DebugLog(ItemName);
 
-	//UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetUIManager()->GetMainUI());
-	//if (MainUI)
-	//{
-	//	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	//	if (GM)
-	//	{
-	//		GM->GetInventoryManager()->ItemData[GetItemData().ITEM_ID].IsEquiped = true;
-	//	}
-	//	MainUI->CharacterStatusUI->EquipmentUI->EquipItem(GetItemData());
-	//	MainUI->InventoryUI->RefreshUI();
-	//}
-	FItemData  itemData = GetItemData();
-	GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
+
+	const FItemData&  itemData = GetItemData();
+	UInventoryManager* InventoryManger = GetInventoryManager();
+	bool HasCustomEvent = InventoryManger->OnInventorySlotClickedDelegate.IsBound(); 
+
+	if (HasCustomEvent == true)
+	{	
+		/*
+			인벤토리 슬롯을 클릭 했을 때 다른 곳에서 클릭 이벤트를 요구하고 있는가?
+			ex) 개인 거래창이 열렸을 때는, 인벤토리 슬롯을 누르면 개인 거래창에 아이템이 올라가야 한다.
+			ex) 아이템을 강화하는 UI 같은 곳에서, 인벤토리 슬롯을 누르면 강화 슬롯 위에 아이템이 올라가야 한다.
+		*/
+		InventoryManger->OnInventorySlotClickedDelegateBroadcast(itemData);
+	}
+	else if (HasCustomEvent == false)
+	{
+		/*
+			아무런 이벤트가 없으면 아이템 장착.
+		*/
+		GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
+	}
+
 	return result;
 }
 

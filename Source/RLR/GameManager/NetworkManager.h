@@ -145,6 +145,17 @@ public:
 
     bool SendLeaveParty(int partyId);
 
+    /*
+            Trade
+                        */
+    bool SendTradeReqeust(int32 TargetUserSeq); //거래 요청 보내기
+    bool SendAddTradeItem(const FItemData& NewTradeItemm, int32 Quantity = 1); //개인 거래에 새로운 아이템 추가하기 패킷
+    bool SendAddTradeCurrency(int32 Amount);    //개인 거래에 재화 추가하기
+    bool SendRemoveTradeItem(const FItemData& NewTradeItem, int32 Quantity = 1); //개인 거래에서 아이템 제거
+    bool SendLockTrade();   //거래 잠금
+    bool SendUnLockTrade(); //거래 잠금 해제
+    bool SendConfirmTrade();//거래 확인
+    bool SendCancelTrade(); //거래 취소
 
     /*
             Cheat

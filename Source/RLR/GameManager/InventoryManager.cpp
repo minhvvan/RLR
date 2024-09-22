@@ -275,3 +275,17 @@ void UInventoryManager::OnUpdateEquipDelegateBroadcast(FItemData EquipItem)
 			OnUpdateEquipDelegate.Broadcast(EquipItem);
 		});
 }
+
+void UInventoryManager::OnInventorySlotClickedDelegateBroadcast(FItemData SlotItemData)
+{
+	AsyncTask(ENamedThreads::GameThread, [this, SlotItemData]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+			OnInventorySlotClickedDelegate.ExecuteIfBound(SlotItemData);
+		});
+}

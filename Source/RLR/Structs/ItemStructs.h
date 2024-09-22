@@ -213,6 +213,7 @@ struct FItemData : public FTableRowBase
 	{
 		ITEM_SEQ = -1;
 		ITEM_ID = -1;
+		QUANTITY = 1;
 		ItemImage = nullptr;
 		TYPE = EItemType::NONE;
 		EQUIPMENT_TYPE = EEquipmentType::NONE;
@@ -260,6 +261,10 @@ struct FItemData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ITEM_MAX;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 QUANTITY; 
+
 	/*
 		Consumption
 	*/

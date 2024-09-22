@@ -97,7 +97,10 @@ void UUIManager::CloseSubUI(EUIType SubUIType)
 			return;
 
 		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
-		SubUI->CloseUI();
+		SubUI->SetVisibility(ESlateVisibility::Hidden);
+		SubUIStack.Remove(SubUI);
+		AdjustZOrder();
+		MainUI->InvalidateLayoutAndVolatility();
 	}
 }
 

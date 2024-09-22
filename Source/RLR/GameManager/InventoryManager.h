@@ -16,6 +16,7 @@
  DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateInventoryManager);
  DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateEquip, FItemData, NewEquipItem);
  DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateItemActionTag, FGameplayTag, ActionTag);
+ DECLARE_DYNAMIC_DELEGATE_OneParam(FOnInventorySlotClicked, FItemData, SlotItemData);
 
 
 UCLASS()
@@ -116,4 +117,8 @@ public:
 	UPROPERTY()
 	FUpdateEquip OnUpdateEquipDelegate;
 	void OnUpdateEquipDelegateBroadcast(FItemData EquipItem);
+
+	UPROPERTY()
+	FOnInventorySlotClicked OnInventorySlotClickedDelegate;
+	void OnInventorySlotClickedDelegateBroadcast(FItemData SlotItemData);
 };
