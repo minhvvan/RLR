@@ -39,8 +39,8 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	}
 	DraggedWidget = CreateWidget<UDraggableWidget>(this, DefaultDraggableWidgetClass);
 
-	if(IsValid(GetItemData().ItemImage) == true)
-		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemData().ItemImage);
+	if(IsValid(GetItemResourceData().ItemImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemResourceData().ItemImage);
 	else if(IsValid(GetSkillData().SkillImage) == true)
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillData().SkillImage);
 	else
@@ -61,6 +61,7 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	CopyOperation->Pivot = EDragPivot::MouseDown;
 	CopyOperation->DragOffset = DragOffset;
 	CopyOperation->SetItemData(GetItemData());
+	CopyOperation->SetItemResourceData(GetItemResourceData());
 	CopyOperation->SetSkillData(GetSkillData());
 	CopyOperation->SetMaster(this);
 	CopyOperation->DragedSlotType = GetSlotType();
@@ -169,6 +170,27 @@ const FItemData& USlotUI::GetItemData()
 	}
 
 	return FItemData::EmptyItemData;
+}
+
+void USlotUI::SetSlotItemResourceData(const FItemResource& NewResourceData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetItemResourceData(NewResourceData);
+	}
+	RefreshUI();
+}
+
+const FItemResource& USlotUI::GetItemResourceData()
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetItemResource();
+	}
+	return FItemResource::EmptyItemResource;
 }
 
 void USlotUI::SetSkillData(FSkillData NewSkillData)

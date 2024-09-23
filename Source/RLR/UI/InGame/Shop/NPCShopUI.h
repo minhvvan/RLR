@@ -38,14 +38,14 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 
-	void SetItemData(const TArray<FItemData>& Items);
+	void SetItemData(const TArray<FItemData>& Items, const TArray<FItemResource>& ItemResources);
 	void SetShopData(FNPCShop& Data);
 
 	TWeakPtr<FNPCShop> GetShopData();
 
 	UPanelSlot* AddChild(UUserWidget* Child);
 
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 
 protected:
 	UFUNCTION()
@@ -56,5 +56,6 @@ protected:
 
 protected:
 	TSharedPtr<TArray<FItemData>> ItemData;
+	TSharedPtr<TArray<FItemResource>> ItemResourceData;
 	TSharedPtr<FNPCShop> NPCShopData;
 };

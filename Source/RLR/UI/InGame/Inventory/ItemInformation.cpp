@@ -23,13 +23,13 @@ void UItemInformation::NativeConstruct()
 	SetUIType(EUIType::ITEM_INFOMATION);
 }
 
-void UItemInformation::SetItemData(const FItemData& NewData)
+void UItemInformation::SetItemData(const FItemData& NewData, const FItemResource& NewItemResourceData)
 {
 	ItemInformationText->SetText(NewData.TEXT);
 	ItemNameText->SetText(NewData.NAME);
 	SetItemNameText(NewData);
 	SetItemStatusText(NewData);
-	ItemImage->SetBrushFromTexture(NewData.ItemImage);
+	ItemImage->SetBrushFromTexture(NewItemResourceData.ItemImage);
 }
 
 void UItemInformation::SetItemStatusText(const FItemData& NewData)
@@ -58,7 +58,7 @@ void UItemInformation::OpenItemInformation(UBaseUI* From)
 
 void UItemInformation::UpdateSlotState(USlotUI* Target)
 {
-	SetItemData(Target->GetItemData());
+	SetItemData(Target->GetItemData(), Target->GetItemResourceData());
 
 	auto viewportGeo = UWidgetLayoutLibrary::GetViewportWidgetGeometry(GetWorld());
 	auto targetGeo = Target->GetCachedGeometry();

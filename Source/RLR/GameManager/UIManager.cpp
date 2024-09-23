@@ -20,6 +20,7 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"
+#include "Structs/ItemStructs.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
@@ -253,10 +254,10 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 	return DialogueUI;
 }
 
-void UUIManager::AddSaleItem(const FItemData& Item)
+void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemResource)
 {
 	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
-	DialogueUI->AddSaleItem(Item);
+	DialogueUI->AddSaleItem(Item, ItemResource);
 }
 
 void UUIManager::RemoveSaleItem(const FItemData& Item)

@@ -30,10 +30,12 @@ public:
 	UBaseDragDropOperation();
 
 	void			SetItemData(const FItemData& NewItemData);
+	void			SetItemResourceData(const FItemResource& NewItemResourceData);
 	void			SetSkillData(const FSkillData& NewSkillData);
 
 	const FItemData&		GetItemData();
 	const FSkillData&		GetSkillData();
+	const FItemResource&	GetItemResource();
 
 	void			SetMaster(USlotUI* From) {Master = From;}
 	USlotUI*		GetMaster(){return Master;}
@@ -48,6 +50,9 @@ public:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FItemData ItemData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FItemResource ItemResourceData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FSkillData SkillData;

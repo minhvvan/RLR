@@ -17,6 +17,11 @@ void UBaseDragDropOperation::SetItemData(const FItemData& NewItemData)
     ItemData = NewItemData;
 }
 
+void UBaseDragDropOperation::SetItemResourceData(const FItemResource& NewItemResourceData)
+{
+    ItemResourceData = NewItemResourceData;
+}
+
 void UBaseDragDropOperation::SetSkillData(const FSkillData& NewSkillData)
 {
     SkillData = NewSkillData;
@@ -30,6 +35,11 @@ const FItemData& UBaseDragDropOperation::GetItemData()
 const FSkillData& UBaseDragDropOperation::GetSkillData()
 {
     return SkillData;
+}
+
+const FItemResource& UBaseDragDropOperation::GetItemResource()
+{
+   return ItemResourceData;
 }
 
 void UBaseDragDropOperation::Clear()

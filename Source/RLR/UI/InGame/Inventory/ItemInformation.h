@@ -30,7 +30,7 @@ public:
 	//FItemData GetItemData(){return *ItemData.Pin().Get();}
 
 	UFUNCTION(BlueprintCallable)
-	void SetItemData(const FItemData& NewData);
+	void SetItemData(const FItemData& NewData, const FItemResource& NewItemResourceData);
 
 	//	Rich Text 때문에 블루프린트에서 함수 구현.
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)

@@ -11,7 +11,7 @@ class UButton;
 class UEditableText;
 class UImage;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FConfirmPurchase, const FItemData&, itemData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FConfirmPurchase, const FItemData&, itemData, const FItemResource&, itemResource);
 
 UCLASS()
 class RLR_API UNPCShopBundlePurchase : public USubUI
@@ -55,10 +55,11 @@ protected:
 	void UpdateAmountText();
 
 public:
-	void SetItemData(const FItemData& item);
+	void SetItemData(const FItemData& item, const FItemResource& itemResource);
 
 	FConfirmPurchase OnConfirmPurchase;
 
 protected:
 	FItemData Item;
+	FItemResource ItemResource;
 };

@@ -17,6 +17,11 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	if(IsValid(ItemDataTable) == false)
 		DEBUG_LOG("아이템 테이블 로드 실패");
 
+	ItemResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemResourceTable.DT_ItemResourceTable'")));
+
+	if (IsValid(ItemResourceTable) == false)
+		DEBUG_LOG("아이템 리소스 테이블 로드 실패");
+
 	MonsterDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterDataTable.DT_MonsterDataTable'")));
 
 	if (IsValid(MonsterDataTable) == false)
@@ -29,6 +34,11 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 
 
 	MakeSkillDictionary();
+
+	SkillResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
+
+	if (IsValid(SkillResourceTable) == false)
+		DEBUG_LOG("스킬 리소스 테이블 로드 실패");
 
 	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, TEXT("/Script/RLR.RLRInputConfig'/Game/Blueprints/Player/Input/RLRInputConfig.RLRInputConfig'")));
 	if (IsValid(InputConfig) == false)
@@ -116,6 +126,20 @@ FItemData UDataManager::GetItemData(int32 Seq)
 	return FItemData();
 }
 
+FItemResource UDataManager::GetItemResource(int32 Seq)
+{
+	if (ItemResourceTable)
+	{
+		FItemResource* Data = ItemResourceTable->FindRow<FItemResource>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FItemResource();  
+
+		return *Data;  
+	}
+
+	return FItemResource(); 
+}
+
 const FSkillData& UDataManager::GetSkillData(int32 Seq)
 {
 	if (SkillDataTable)
@@ -128,6 +152,18 @@ const FSkillData& UDataManager::GetSkillData(int32 Seq)
 	}
 
 	return FSkillData::EmptySkillData;
+}
+
+const FSkillClass& UDataManager::GetSkillResource(int32 Seq)
+{
+	if (SkillResourceTable)
+	{
+		FSkillClass* Data = SkillResourceTable->FindRow<FSkillClass>(*FString::FromInt(Seq), TEXT(""));
+		if(Data == nullptr)
+			return FSkillClass::EmptySkillClass;
+		return *Data;
+	}
+	return FSkillClass::EmptySkillClass;
 }
 
 void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray)

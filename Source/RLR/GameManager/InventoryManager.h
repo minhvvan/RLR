@@ -13,7 +13,7 @@
  */
 
  DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateInventoryManager);
- DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateEquip, FItemData, NewEquipItem);
+ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUpdateEquip, FItemData, NewEquipItem, FItemResource, NewEquipItemResource);
 
 
 UCLASS()
@@ -28,7 +28,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddItem(const FItemData& NewItem);
 	UFUNCTION(BlueprintCallable)
-	void AddItemList(const TArray<FItemData>& NewItemList);
+	void AddItemList(const TArray<FItemData>& NewItemList, const TArray<FItemResource>& NewItemResourceList);
+	UFUNCTION(BlueprintCallable)
+	void AddItemResourceList(const TArray<FItemResource>& NewItemResourceList);
 
 	UFUNCTION(BlueprintCallable)
 	FItemData GetItem(int32 ItemSeq);
@@ -43,7 +45,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void GetItemList(UPARAM(ref) TArray<FItemData>& ItemArray);
+	UFUNCTION(BlueprintCallable)
+	void GetItemResourceList(UPARAM(ref) TArray<FItemResource>& ItemResourceArray);
 
+    UFUNCTION(BlueprintCallable)
+    const FItemResource GetItemResource(int32 ItemSeq) const;
+    UFUNCTION(BlueprintCallable)
+    bool TryGetItemResource(int32 ItemSeq, FItemResource& OutItemResource) const;
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetCopper() {return Copper;}
@@ -84,7 +92,7 @@ public:
 
 	UPROPERTY()
 	FUpdateEquip			OnUpdateEquipDelegate;
-	void OnUpdateEquipDelegateBroadcast(FItemData EquipItem);
+	void OnUpdateEquipDelegateBroadcast(FItemData EquipItem, FItemResource EquipItemResource);
 
 private:
 
@@ -105,4 +113,6 @@ public:
 	//<DB Key , FItemData>
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TMap<int32, FItemData> ItemData;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	TMap<int32, FItemResource> ItemResourceData;
 };
