@@ -12,7 +12,7 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	//데이터 파일들을 읽어온다.
 
-	ItemDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemDataTable.DT_ItemDataTable'")));
+	ItemDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemData.DT_ItemData'")));
 
 	if(IsValid(ItemDataTable) == false)
 		DEBUG_LOG("아이템 테이블 로드 실패");
@@ -22,7 +22,7 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	if (IsValid(MonsterDataTable) == false)
 		DEBUG_LOG("몬스터 테이블 로드 실패");
 
-	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillDataTable.DT_SkillDataTable'")));
+	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillData.DT_SkillData'")));
 	
 	if (IsValid(SkillDataTable) == false)
 		DEBUG_LOG("스킬 테이블 로드 실패");
@@ -35,27 +35,27 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 		DEBUG_LOG("키 입력 정보 로드 실패");
 
 
-	ResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ResourceTable.DT_ResourceTable'")));
+	ResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ResourceData.DT_ResourceData'")));
 	if (IsValid(ResourceTable) == false)
 		DEBUG_LOG("텍스쳐 테이블 로드 실패");
 
-	WidgetClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_WidgetClassTable.DT_WidgetClassTable'")));
+	WidgetClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_WidgetClassData.DT_WidgetClassData'")));
 	if (IsValid(WidgetClassTable) == false)
 		DEBUG_LOG("위젯 클래스 테이블 로드 실패");
 
-	CharacterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_CharacterClassTable.DT_CharacterClassTable'")));
+	CharacterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_CharacterClassData.DT_CharacterClassData'")));
 	if (IsValid(CharacterClassTable) == false)
 		DEBUG_LOG("캐릭터 클래스 테이블 로드 실패");	
 	
-	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassTable.DT_ObjectClassTable'")));
+	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassData.DT_ObjectClassData'")));
 	if (IsValid(ObjectClassTable) == false)
 		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");
 
-	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_LevelDataTable.DT_LevelDataTable'")));
+	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_LevelData.DT_LevelData'")));
 	if (IsValid(LevelDataTable) == false)
 		DEBUG_LOG("레벨 테이블 로드 실패");
 	
-	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassTable.DT_MonsterClassTable'")));
+	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassData.DT_MonsterClassData'")));
 	if (IsValid(MonsterClassTable) == false)
 		DEBUG_LOG("몬스터 클래스 테이블 로드 실패");
 }
