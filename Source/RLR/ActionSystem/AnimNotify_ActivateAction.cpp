@@ -15,12 +15,6 @@ void UAnimNotify_ActivateAction::Notify(USkeletalMeshComponent* MeshComp , UAnim
 {
 	Super::Notify(MeshComp , Animation , EventReference);
 
-	IActionSystemInterface* Owner = Cast<IActionSystemInterface>(MeshComp->GetOwner());
-	if ( !Owner ) return;
-
-	UActionSystemComponent* ASC=Owner->GetActionSystemComponent();;
-	if ( !ASC ) return;
-
 	OnTriggered.Broadcast();
 	GameInstance->GetSkillManager()->SkillAttack(TriggerActionTag);
 }

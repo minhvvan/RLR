@@ -171,8 +171,8 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		//스킬 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> Skill.{퀵 슬롯 인덱스 번호}
 		//퀵 슬롯 세팅 리스트를 따로 빧는게 아니라 지금은 배운 스킬 목록을 받아서, 세팅을 하고 있다. 
 		//그래서 일단 배운 스킬 목록 중에서 SkillIdx 값의 유무에 따라 예외처리. 
-		//if(Data.SkillIdx < 0 || Data.SkillIdx > 8)
-			//continue;
+		if(Data.SkillIdx < 0 || Data.SkillIdx > 8)
+			continue;
 
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
