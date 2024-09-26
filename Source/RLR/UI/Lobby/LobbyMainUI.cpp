@@ -3,7 +3,6 @@
 
 #include "UI/Lobby/LobbyMainUI.h"
 #include "UI/Lobby/CharacterListUI.h"
-#include "UI/InGame/Post/PostOverlayUI.h"
 
 #include "GameManager/GameManager.h"
 #include "GameManager/LevelManager.h"
