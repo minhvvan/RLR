@@ -337,6 +337,15 @@ struct FItemData : public FTableRowBase
 	}
 };
 
+USTRUCT(BlueprintType)
+struct FItemArray
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FItemData> Items;  // FItemData 배열을 감쌈
+};
+
 USTRUCT(Atomic, BlueprintType)
 struct FPlayerGoods
 {

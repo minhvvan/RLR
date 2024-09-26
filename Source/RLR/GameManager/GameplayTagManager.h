@@ -121,6 +121,8 @@ public:
 	FGameplayTag UI_SkillUpgrade;
 	FGameplayTag UI_Close;
 
+
+	FGameplayTag UI_Post;
 	/*
 	
 			키 입력 바인딩에 사용되는 태그

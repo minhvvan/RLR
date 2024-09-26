@@ -101,6 +101,9 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
 
 
+	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
+
+
 
 
 

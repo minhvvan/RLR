@@ -52,6 +52,7 @@ class UPlayerManager;
 class UObjectManager;
 class ULevelManager;
 class ULobbyManager;
+class UPostalManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -97,8 +98,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ULevelManager*		GetLevelManager();
 
+	UFUNCTION(BlueprintCallable)
 	UQuestManager*		GetQuestManager();
-	
+
+	UFUNCTION(BlueprintCallable)
+	UPostalManager*		GetPostalManager();
+
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();
 

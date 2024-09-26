@@ -39,6 +39,7 @@ enum class EUIType : uint8
 	EXP_PROGRESS_BAR,
 	BADGE_UI,
 	QUEST,
+	POST_UI,
 	NONE,
 };
 
