@@ -88,6 +88,6 @@ private:
 		Input Binding
 	*/
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category="Tag")
 	FGameplayTag UITag = FGameplayTag();
 };

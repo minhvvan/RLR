@@ -21,6 +21,7 @@
 #include "Physics/RLRCollision.h"
 #include "Structs/UtilStructs.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 
 ARLRPlayerController::ARLRPlayerController():
 	movePacketInterval(1.f),
@@ -153,6 +154,20 @@ void ARLRPlayerController::OnMoveCompleted(FGameplayTag TriggerTag)
 	ASC->AddActionData(TriggerTag, actionData);
 
 	ASC->TryActivateAction(TriggerTag);
+}
+
+void ARLRPlayerController::OnUserClick()
+{
+	FHitResult Hit;
+	GetHitResultUnderCursor(CCHANNEL_RLRUSERCLICK, true, Hit);
+
+	if (auto otherUser = Cast<ARLRPlayerCharacter>(Hit.GetActor()))
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Name: %s"), *otherUser->GetName());
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		GameInstance->GetUIManager()->SetSubUIPos(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		OnOpenUI(TagManager.UI_OtherPlayerMenu);
+	}
 }
 
 FVector ARLRPlayerController::GetClickPosition()

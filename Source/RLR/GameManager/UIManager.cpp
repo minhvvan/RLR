@@ -215,6 +215,17 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
+void UUIManager::SetSubUIPos(FGameplayTag UITag, FVector2D NewPos)
+{
+	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
+	if (!subUI) return;
+
+	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);
+	if (!panel) return;
+
+	panel->SetPosition(NewPos);
+}
+
 TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
 {
 	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);

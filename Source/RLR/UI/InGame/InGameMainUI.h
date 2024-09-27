@@ -29,6 +29,7 @@
  class USkillUpgrade;
  class UQuestListUI;
  class UPostOverlayUI;
+ class UOtherPlayerMenu;
  class UCanvasPanel;
 
 UCLASS()
@@ -57,6 +58,7 @@ public:
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
 	UPostOverlayUI*		GetPostOverlayUI() {return PostOverlayUI;}
+	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	
 public:
 	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
@@ -102,6 +104,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostOverlayUI> PostOverlayUI;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
 	
 public:
 

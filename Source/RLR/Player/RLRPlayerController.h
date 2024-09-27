@@ -43,6 +43,8 @@ private:
 	void OnMove(FGameplayTag TriggerTag);
 	void OnMoveCompleted(FGameplayTag TriggerTag);
 
+	void OnUserClick();
+
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
 	void OnSkillStarted(FGameplayTag TriggerTag);
