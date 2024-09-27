@@ -6,6 +6,7 @@
 
 #include "RLRStruct.h"
 
+#include "Structs/UtilStructs.h"
 #include <mutex>
 #include <queue>
 
@@ -157,6 +158,30 @@ public:
     bool SendCreateMonsterCheatPacket(int32 Seq);
 
 
+    /*
+            Post
+                        */
+
+    bool SendPostRequest(FPostResult post);
+
+    bool SendPostReadRequest(FPostResult post);
+
+    bool SendPostReceivedRequest(FPostResult post);
+
+    /*
+           Trade
+                       */
+    bool SendTradeUserRequest(int userSeq2);
+
+    bool SendTradeStartRequest(int userSeq2);
+
+    bool SendTradeAddItemRequest(int64 itemId, int64 itemValue);
+
+    bool SendTradeAddGoodRequest(int64 totalMoney);
+
+    bool SendTradeLockRequest();
+
+    bool SendTradeCancelRequest();
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
@@ -190,6 +215,8 @@ private:
   
 
  
+
+  
 
 };
 

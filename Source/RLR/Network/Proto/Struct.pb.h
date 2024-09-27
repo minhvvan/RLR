@@ -1082,6 +1082,7 @@ class Consumption final :
     kDurationFieldNumber = 4,
     kStatusTypeFieldNumber = 5,
     kConTypeFieldNumber = 6,
+    kConIndexFieldNumber = 7,
   };
   // .Protocol.Item base = 1;
   bool has_base() const;
@@ -1146,6 +1147,15 @@ class Consumption final :
   void _internal_set_contype(int32_t value);
   public:
 
+  // int32 conIndex = 7;
+  void clear_conindex();
+  int32_t conindex() const;
+  void set_conindex(int32_t value);
+  private:
+  int32_t _internal_conindex() const;
+  void _internal_set_conindex(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.Consumption)
  private:
   class _Internal;
@@ -1160,6 +1170,7 @@ class Consumption final :
     int32_t duration_;
     int32_t statustype_;
     int32_t contype_;
+    int32_t conindex_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4809,6 +4820,26 @@ inline void Consumption::_internal_set_contype(int32_t value) {
 inline void Consumption::set_contype(int32_t value) {
   _internal_set_contype(value);
   // @@protoc_insertion_point(field_set:Protocol.Consumption.conType)
+}
+
+// int32 conIndex = 7;
+inline void Consumption::clear_conindex() {
+  _impl_.conindex_ = 0;
+}
+inline int32_t Consumption::_internal_conindex() const {
+  return _impl_.conindex_;
+}
+inline int32_t Consumption::conindex() const {
+  // @@protoc_insertion_point(field_get:Protocol.Consumption.conIndex)
+  return _internal_conindex();
+}
+inline void Consumption::_internal_set_conindex(int32_t value) {
+  
+  _impl_.conindex_ = value;
+}
+inline void Consumption::set_conindex(int32_t value) {
+  _internal_set_conindex(value);
+  // @@protoc_insertion_point(field_set:Protocol.Consumption.conIndex)
 }
 
 // -------------------------------------------------------------------
