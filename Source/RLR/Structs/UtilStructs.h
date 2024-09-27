@@ -98,6 +98,44 @@ struct FAttackResult
 
 
 USTRUCT(Atomic, BlueprintType)
+struct FPostResult
+{
+	GENERATED_BODY()
+
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 reseiverSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString title;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 senderSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString content;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<int64> itemId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 totalMoney;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool isRead = 7;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool isReceived = 8;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 postId = 9;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString senderName;
+
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FMoveResult
 {
 	GENERATED_BODY()

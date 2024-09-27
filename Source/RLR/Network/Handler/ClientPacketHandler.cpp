@@ -18,6 +18,7 @@
 #include "ActionPacketHandler.h"
 #include "PartyPacketHandler.h"
 
+
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 bool Handle_INVALID(TSharedPtr<PacketSession>& session, BYTE* buffer, int32 len)

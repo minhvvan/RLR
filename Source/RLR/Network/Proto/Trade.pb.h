@@ -30,6 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "Struct.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_Trade_2eproto
@@ -45,63 +46,67 @@ struct TableStruct_Trade_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Trade_2eproto;
 namespace Protocol {
-class CS_AddTradeCurrency;
-struct CS_AddTradeCurrencyDefaultTypeInternal;
-extern CS_AddTradeCurrencyDefaultTypeInternal _CS_AddTradeCurrency_default_instance_;
-class CS_AddTradeItem;
-struct CS_AddTradeItemDefaultTypeInternal;
-extern CS_AddTradeItemDefaultTypeInternal _CS_AddTradeItem_default_instance_;
-class CS_CancelTrade;
-struct CS_CancelTradeDefaultTypeInternal;
-extern CS_CancelTradeDefaultTypeInternal _CS_CancelTrade_default_instance_;
-class CS_LockTrade;
-struct CS_LockTradeDefaultTypeInternal;
-extern CS_LockTradeDefaultTypeInternal _CS_LockTrade_default_instance_;
-class CS_TradeRequest;
-struct CS_TradeRequestDefaultTypeInternal;
-extern CS_TradeRequestDefaultTypeInternal _CS_TradeRequest_default_instance_;
-class SC_AddTradeCurrencyResponse;
-struct SC_AddTradeCurrencyResponseDefaultTypeInternal;
-extern SC_AddTradeCurrencyResponseDefaultTypeInternal _SC_AddTradeCurrencyResponse_default_instance_;
-class SC_AddTradeItemResponse;
-struct SC_AddTradeItemResponseDefaultTypeInternal;
-extern SC_AddTradeItemResponseDefaultTypeInternal _SC_AddTradeItemResponse_default_instance_;
-class SC_TradeResponse;
-struct SC_TradeResponseDefaultTypeInternal;
-extern SC_TradeResponseDefaultTypeInternal _SC_TradeResponse_default_instance_;
+class CS_TradeAddGoodRequest;
+struct CS_TradeAddGoodRequestDefaultTypeInternal;
+extern CS_TradeAddGoodRequestDefaultTypeInternal _CS_TradeAddGoodRequest_default_instance_;
+class CS_TradeAddItemRequest;
+struct CS_TradeAddItemRequestDefaultTypeInternal;
+extern CS_TradeAddItemRequestDefaultTypeInternal _CS_TradeAddItemRequest_default_instance_;
+class CS_TradeCancelRequest;
+struct CS_TradeCancelRequestDefaultTypeInternal;
+extern CS_TradeCancelRequestDefaultTypeInternal _CS_TradeCancelRequest_default_instance_;
+class CS_TradeLockRequest;
+struct CS_TradeLockRequestDefaultTypeInternal;
+extern CS_TradeLockRequestDefaultTypeInternal _CS_TradeLockRequest_default_instance_;
+class CS_TradeStartRequest;
+struct CS_TradeStartRequestDefaultTypeInternal;
+extern CS_TradeStartRequestDefaultTypeInternal _CS_TradeStartRequest_default_instance_;
+class CS_TradeUserRequest;
+struct CS_TradeUserRequestDefaultTypeInternal;
+extern CS_TradeUserRequestDefaultTypeInternal _CS_TradeUserRequest_default_instance_;
+class SC_TradeCompleteResponse;
+struct SC_TradeCompleteResponseDefaultTypeInternal;
+extern SC_TradeCompleteResponseDefaultTypeInternal _SC_TradeCompleteResponse_default_instance_;
+class SC_TradeUserResponse;
+struct SC_TradeUserResponseDefaultTypeInternal;
+extern SC_TradeUserResponseDefaultTypeInternal _SC_TradeUserResponse_default_instance_;
+class TradeResponse;
+struct TradeResponseDefaultTypeInternal;
+extern TradeResponseDefaultTypeInternal _TradeResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::CS_AddTradeCurrency* Arena::CreateMaybeMessage<::Protocol::CS_AddTradeCurrency>(Arena*);
-template<> ::Protocol::CS_AddTradeItem* Arena::CreateMaybeMessage<::Protocol::CS_AddTradeItem>(Arena*);
-template<> ::Protocol::CS_CancelTrade* Arena::CreateMaybeMessage<::Protocol::CS_CancelTrade>(Arena*);
-template<> ::Protocol::CS_LockTrade* Arena::CreateMaybeMessage<::Protocol::CS_LockTrade>(Arena*);
-template<> ::Protocol::CS_TradeRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeRequest>(Arena*);
-template<> ::Protocol::SC_AddTradeCurrencyResponse* Arena::CreateMaybeMessage<::Protocol::SC_AddTradeCurrencyResponse>(Arena*);
-template<> ::Protocol::SC_AddTradeItemResponse* Arena::CreateMaybeMessage<::Protocol::SC_AddTradeItemResponse>(Arena*);
-template<> ::Protocol::SC_TradeResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeResponse>(Arena*);
+template<> ::Protocol::CS_TradeAddGoodRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeAddGoodRequest>(Arena*);
+template<> ::Protocol::CS_TradeAddItemRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeAddItemRequest>(Arena*);
+template<> ::Protocol::CS_TradeCancelRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeCancelRequest>(Arena*);
+template<> ::Protocol::CS_TradeLockRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeLockRequest>(Arena*);
+template<> ::Protocol::CS_TradeStartRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeStartRequest>(Arena*);
+template<> ::Protocol::CS_TradeUserRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeUserRequest>(Arena*);
+template<> ::Protocol::SC_TradeCompleteResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeCompleteResponse>(Arena*);
+template<> ::Protocol::SC_TradeUserResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeUserResponse>(Arena*);
+template<> ::Protocol::TradeResponse* Arena::CreateMaybeMessage<::Protocol::TradeResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
 
-class CS_TradeRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeRequest) */ {
+class TradeResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.TradeResponse) */ {
  public:
-  inline CS_TradeRequest() : CS_TradeRequest(nullptr) {}
-  ~CS_TradeRequest() override;
-  explicit PROTOBUF_CONSTEXPR CS_TradeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline TradeResponse() : TradeResponse(nullptr) {}
+  ~TradeResponse() override;
+  explicit PROTOBUF_CONSTEXPR TradeResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  CS_TradeRequest(const CS_TradeRequest& from);
-  CS_TradeRequest(CS_TradeRequest&& from) noexcept
-    : CS_TradeRequest() {
+  TradeResponse(const TradeResponse& from);
+  TradeResponse(TradeResponse&& from) noexcept
+    : TradeResponse() {
     *this = ::std::move(from);
   }
 
-  inline CS_TradeRequest& operator=(const CS_TradeRequest& from) {
+  inline TradeResponse& operator=(const TradeResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline CS_TradeRequest& operator=(CS_TradeRequest&& from) noexcept {
+  inline TradeResponse& operator=(TradeResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -124,20 +129,20 @@ class CS_TradeRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const CS_TradeRequest& default_instance() {
+  static const TradeResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const CS_TradeRequest* internal_default_instance() {
-    return reinterpret_cast<const CS_TradeRequest*>(
-               &_CS_TradeRequest_default_instance_);
+  static inline const TradeResponse* internal_default_instance() {
+    return reinterpret_cast<const TradeResponse*>(
+               &_TradeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(CS_TradeRequest& a, CS_TradeRequest& b) {
+  friend void swap(TradeResponse& a, TradeResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(CS_TradeRequest* other) {
+  inline void Swap(TradeResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -150,7 +155,7 @@ class CS_TradeRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(CS_TradeRequest* other) {
+  void UnsafeArenaSwap(TradeResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -158,14 +163,14 @@ class CS_TradeRequest final :
 
   // implements Message ----------------------------------------------
 
-  CS_TradeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CS_TradeRequest>(arena);
+  TradeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<TradeResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CS_TradeRequest& from);
+  void CopyFrom(const TradeResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CS_TradeRequest& from) {
-    CS_TradeRequest::MergeImpl(*this, from);
+  void MergeFrom( const TradeResponse& from) {
+    TradeResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -183,15 +188,179 @@ class CS_TradeRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(CS_TradeRequest* other);
+  void InternalSwap(TradeResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CS_TradeRequest";
+    return "Protocol.TradeResponse";
   }
   protected:
-  explicit CS_TradeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit TradeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string message = 2;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // int32 success = 1;
+  void clear_success();
+  int32_t success() const;
+  void set_success(int32_t value);
+  private:
+  int32_t _internal_success() const;
+  void _internal_set_success(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.TradeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    int32_t success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CS_TradeUserRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeUserRequest) */ {
+ public:
+  inline CS_TradeUserRequest() : CS_TradeUserRequest(nullptr) {}
+  ~CS_TradeUserRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeUserRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_TradeUserRequest(const CS_TradeUserRequest& from);
+  CS_TradeUserRequest(CS_TradeUserRequest&& from) noexcept
+    : CS_TradeUserRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_TradeUserRequest& operator=(const CS_TradeUserRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_TradeUserRequest& operator=(CS_TradeUserRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_TradeUserRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_TradeUserRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeUserRequest*>(
+               &_CS_TradeUserRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(CS_TradeUserRequest& a, CS_TradeUserRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_TradeUserRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_TradeUserRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_TradeUserRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeUserRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_TradeUserRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_TradeUserRequest& from) {
+    CS_TradeUserRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_TradeUserRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_TradeUserRequest";
+  }
+  protected:
+  explicit CS_TradeUserRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -226,7 +395,7 @@ class CS_TradeRequest final :
   void _internal_set_userseq2(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeRequest)
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeUserRequest)
  private:
   class _Internal;
 
@@ -243,24 +412,24 @@ class CS_TradeRequest final :
 };
 // -------------------------------------------------------------------
 
-class SC_TradeResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeResponse) */ {
+class SC_TradeUserResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeUserResponse) */ {
  public:
-  inline SC_TradeResponse() : SC_TradeResponse(nullptr) {}
-  ~SC_TradeResponse() override;
-  explicit PROTOBUF_CONSTEXPR SC_TradeResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SC_TradeUserResponse() : SC_TradeUserResponse(nullptr) {}
+  ~SC_TradeUserResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_TradeUserResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SC_TradeResponse(const SC_TradeResponse& from);
-  SC_TradeResponse(SC_TradeResponse&& from) noexcept
-    : SC_TradeResponse() {
+  SC_TradeUserResponse(const SC_TradeUserResponse& from);
+  SC_TradeUserResponse(SC_TradeUserResponse&& from) noexcept
+    : SC_TradeUserResponse() {
     *this = ::std::move(from);
   }
 
-  inline SC_TradeResponse& operator=(const SC_TradeResponse& from) {
+  inline SC_TradeUserResponse& operator=(const SC_TradeUserResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SC_TradeResponse& operator=(SC_TradeResponse&& from) noexcept {
+  inline SC_TradeUserResponse& operator=(SC_TradeUserResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -283,20 +452,20 @@ class SC_TradeResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const SC_TradeResponse& default_instance() {
+  static const SC_TradeUserResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SC_TradeResponse* internal_default_instance() {
-    return reinterpret_cast<const SC_TradeResponse*>(
-               &_SC_TradeResponse_default_instance_);
+  static inline const SC_TradeUserResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_TradeUserResponse*>(
+               &_SC_TradeUserResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
-  friend void swap(SC_TradeResponse& a, SC_TradeResponse& b) {
+  friend void swap(SC_TradeUserResponse& a, SC_TradeUserResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SC_TradeResponse* other) {
+  inline void Swap(SC_TradeUserResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -309,7 +478,7 @@ class SC_TradeResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SC_TradeResponse* other) {
+  void UnsafeArenaSwap(SC_TradeUserResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -317,14 +486,14 @@ class SC_TradeResponse final :
 
   // implements Message ----------------------------------------------
 
-  SC_TradeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_TradeResponse>(arena);
+  SC_TradeUserResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_TradeUserResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_TradeResponse& from);
+  void CopyFrom(const SC_TradeUserResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_TradeResponse& from) {
-    SC_TradeResponse::MergeImpl(*this, from);
+  void MergeFrom( const SC_TradeUserResponse& from) {
+    SC_TradeUserResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -342,15 +511,15 @@ class SC_TradeResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SC_TradeResponse* other);
+  void InternalSwap(SC_TradeUserResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_TradeResponse";
+    return "Protocol.SC_TradeUserResponse";
   }
   protected:
-  explicit SC_TradeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SC_TradeUserResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -364,38 +533,28 @@ class SC_TradeResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAcceptedFieldNumber = 1,
-    kUserSeq1FieldNumber = 2,
-    kUserSeq2FieldNumber = 3,
+    kUserSeqFieldNumber = 1,
+    kSendUserNameFieldNumber = 2,
   };
-  // int32 accepted = 1;
-  void clear_accepted();
-  int32_t accepted() const;
-  void set_accepted(int32_t value);
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
   private:
-  int32_t _internal_accepted() const;
-  void _internal_set_accepted(int32_t value);
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
   public:
 
-  // int32 userSeq1 = 2;
-  void clear_userseq1();
-  int32_t userseq1() const;
-  void set_userseq1(int32_t value);
+  // int32 sendUserName = 2;
+  void clear_sendusername();
+  int32_t sendusername() const;
+  void set_sendusername(int32_t value);
   private:
-  int32_t _internal_userseq1() const;
-  void _internal_set_userseq1(int32_t value);
+  int32_t _internal_sendusername() const;
+  void _internal_set_sendusername(int32_t value);
   public:
 
-  // int32 userSeq2 = 3;
-  void clear_userseq2();
-  int32_t userseq2() const;
-  void set_userseq2(int32_t value);
-  private:
-  int32_t _internal_userseq2() const;
-  void _internal_set_userseq2(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeResponse)
+  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeUserResponse)
  private:
   class _Internal;
 
@@ -403,9 +562,8 @@ class SC_TradeResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int32_t accepted_;
-    int32_t userseq1_;
-    int32_t userseq2_;
+    int32_t userseq_;
+    int32_t sendusername_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -413,24 +571,24 @@ class SC_TradeResponse final :
 };
 // -------------------------------------------------------------------
 
-class CS_AddTradeItem final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_AddTradeItem) */ {
+class CS_TradeStartRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeStartRequest) */ {
  public:
-  inline CS_AddTradeItem() : CS_AddTradeItem(nullptr) {}
-  ~CS_AddTradeItem() override;
-  explicit PROTOBUF_CONSTEXPR CS_AddTradeItem(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_TradeStartRequest() : CS_TradeStartRequest(nullptr) {}
+  ~CS_TradeStartRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeStartRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  CS_AddTradeItem(const CS_AddTradeItem& from);
-  CS_AddTradeItem(CS_AddTradeItem&& from) noexcept
-    : CS_AddTradeItem() {
+  CS_TradeStartRequest(const CS_TradeStartRequest& from);
+  CS_TradeStartRequest(CS_TradeStartRequest&& from) noexcept
+    : CS_TradeStartRequest() {
     *this = ::std::move(from);
   }
 
-  inline CS_AddTradeItem& operator=(const CS_AddTradeItem& from) {
+  inline CS_TradeStartRequest& operator=(const CS_TradeStartRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline CS_AddTradeItem& operator=(CS_AddTradeItem&& from) noexcept {
+  inline CS_TradeStartRequest& operator=(CS_TradeStartRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -453,20 +611,20 @@ class CS_AddTradeItem final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const CS_AddTradeItem& default_instance() {
+  static const CS_TradeStartRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const CS_AddTradeItem* internal_default_instance() {
-    return reinterpret_cast<const CS_AddTradeItem*>(
-               &_CS_AddTradeItem_default_instance_);
+  static inline const CS_TradeStartRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeStartRequest*>(
+               &_CS_TradeStartRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
-  friend void swap(CS_AddTradeItem& a, CS_AddTradeItem& b) {
+  friend void swap(CS_TradeStartRequest& a, CS_TradeStartRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(CS_AddTradeItem* other) {
+  inline void Swap(CS_TradeStartRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -479,7 +637,7 @@ class CS_AddTradeItem final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(CS_AddTradeItem* other) {
+  void UnsafeArenaSwap(CS_TradeStartRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -487,14 +645,14 @@ class CS_AddTradeItem final :
 
   // implements Message ----------------------------------------------
 
-  CS_AddTradeItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CS_AddTradeItem>(arena);
+  CS_TradeStartRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeStartRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CS_AddTradeItem& from);
+  void CopyFrom(const CS_TradeStartRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CS_AddTradeItem& from) {
-    CS_AddTradeItem::MergeImpl(*this, from);
+  void MergeFrom( const CS_TradeStartRequest& from) {
+    CS_TradeStartRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -512,15 +670,174 @@ class CS_AddTradeItem final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(CS_AddTradeItem* other);
+  void InternalSwap(CS_TradeStartRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CS_AddTradeItem";
+    return "Protocol.CS_TradeStartRequest";
   }
   protected:
-  explicit CS_AddTradeItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_TradeStartRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserSeq1FieldNumber = 1,
+    kUserSeq2FieldNumber = 2,
+  };
+  // int32 userSeq1 = 1;
+  void clear_userseq1();
+  int32_t userseq1() const;
+  void set_userseq1(int32_t value);
+  private:
+  int32_t _internal_userseq1() const;
+  void _internal_set_userseq1(int32_t value);
+  public:
+
+  // int32 userSeq2 = 2;
+  void clear_userseq2();
+  int32_t userseq2() const;
+  void set_userseq2(int32_t value);
+  private:
+  int32_t _internal_userseq2() const;
+  void _internal_set_userseq2(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeStartRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t userseq1_;
+    int32_t userseq2_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CS_TradeAddItemRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeAddItemRequest) */ {
+ public:
+  inline CS_TradeAddItemRequest() : CS_TradeAddItemRequest(nullptr) {}
+  ~CS_TradeAddItemRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeAddItemRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_TradeAddItemRequest(const CS_TradeAddItemRequest& from);
+  CS_TradeAddItemRequest(CS_TradeAddItemRequest&& from) noexcept
+    : CS_TradeAddItemRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_TradeAddItemRequest& operator=(const CS_TradeAddItemRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_TradeAddItemRequest& operator=(CS_TradeAddItemRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_TradeAddItemRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_TradeAddItemRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeAddItemRequest*>(
+               &_CS_TradeAddItemRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(CS_TradeAddItemRequest& a, CS_TradeAddItemRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_TradeAddItemRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_TradeAddItemRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_TradeAddItemRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeAddItemRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_TradeAddItemRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_TradeAddItemRequest& from) {
+    CS_TradeAddItemRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_TradeAddItemRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_TradeAddItemRequest";
+  }
+  protected:
+  explicit CS_TradeAddItemRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -535,8 +852,8 @@ class CS_AddTradeItem final :
 
   enum : int {
     kItemIdFieldNumber = 2,
+    kItemValueFieldNumber = 3,
     kUserSeqFieldNumber = 1,
-    kQuantityFieldNumber = 3,
   };
   // int64 itemId = 2;
   void clear_itemid();
@@ -547,354 +864,13 @@ class CS_AddTradeItem final :
   void _internal_set_itemid(int64_t value);
   public:
 
-  // int32 userSeq = 1;
-  void clear_userseq();
-  int32_t userseq() const;
-  void set_userseq(int32_t value);
+  // int64 itemValue = 3;
+  void clear_itemvalue();
+  int64_t itemvalue() const;
+  void set_itemvalue(int64_t value);
   private:
-  int32_t _internal_userseq() const;
-  void _internal_set_userseq(int32_t value);
-  public:
-
-  // int32 quantity = 3;
-  void clear_quantity();
-  int32_t quantity() const;
-  void set_quantity(int32_t value);
-  private:
-  int32_t _internal_quantity() const;
-  void _internal_set_quantity(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.CS_AddTradeItem)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int64_t itemid_;
-    int32_t userseq_;
-    int32_t quantity_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
-class SC_AddTradeItemResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_AddTradeItemResponse) */ {
- public:
-  inline SC_AddTradeItemResponse() : SC_AddTradeItemResponse(nullptr) {}
-  ~SC_AddTradeItemResponse() override;
-  explicit PROTOBUF_CONSTEXPR SC_AddTradeItemResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  SC_AddTradeItemResponse(const SC_AddTradeItemResponse& from);
-  SC_AddTradeItemResponse(SC_AddTradeItemResponse&& from) noexcept
-    : SC_AddTradeItemResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline SC_AddTradeItemResponse& operator=(const SC_AddTradeItemResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline SC_AddTradeItemResponse& operator=(SC_AddTradeItemResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const SC_AddTradeItemResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const SC_AddTradeItemResponse* internal_default_instance() {
-    return reinterpret_cast<const SC_AddTradeItemResponse*>(
-               &_SC_AddTradeItemResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  friend void swap(SC_AddTradeItemResponse& a, SC_AddTradeItemResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(SC_AddTradeItemResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(SC_AddTradeItemResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  SC_AddTradeItemResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_AddTradeItemResponse>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_AddTradeItemResponse& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_AddTradeItemResponse& from) {
-    SC_AddTradeItemResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(SC_AddTradeItemResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_AddTradeItemResponse";
-  }
-  protected:
-  explicit SC_AddTradeItemResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kSuccessFieldNumber = 1,
-    kUserSeqFieldNumber = 2,
-    kItemIdFieldNumber = 3,
-    kQuantityFieldNumber = 4,
-  };
-  // int32 success = 1;
-  void clear_success();
-  int32_t success() const;
-  void set_success(int32_t value);
-  private:
-  int32_t _internal_success() const;
-  void _internal_set_success(int32_t value);
-  public:
-
-  // int32 userSeq = 2;
-  void clear_userseq();
-  int32_t userseq() const;
-  void set_userseq(int32_t value);
-  private:
-  int32_t _internal_userseq() const;
-  void _internal_set_userseq(int32_t value);
-  public:
-
-  // int64 itemId = 3;
-  void clear_itemid();
-  int64_t itemid() const;
-  void set_itemid(int64_t value);
-  private:
-  int64_t _internal_itemid() const;
-  void _internal_set_itemid(int64_t value);
-  public:
-
-  // int32 quantity = 4;
-  void clear_quantity();
-  int32_t quantity() const;
-  void set_quantity(int32_t value);
-  private:
-  int32_t _internal_quantity() const;
-  void _internal_set_quantity(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.SC_AddTradeItemResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t success_;
-    int32_t userseq_;
-    int64_t itemid_;
-    int32_t quantity_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
-class CS_AddTradeCurrency final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_AddTradeCurrency) */ {
- public:
-  inline CS_AddTradeCurrency() : CS_AddTradeCurrency(nullptr) {}
-  ~CS_AddTradeCurrency() override;
-  explicit PROTOBUF_CONSTEXPR CS_AddTradeCurrency(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CS_AddTradeCurrency(const CS_AddTradeCurrency& from);
-  CS_AddTradeCurrency(CS_AddTradeCurrency&& from) noexcept
-    : CS_AddTradeCurrency() {
-    *this = ::std::move(from);
-  }
-
-  inline CS_AddTradeCurrency& operator=(const CS_AddTradeCurrency& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CS_AddTradeCurrency& operator=(CS_AddTradeCurrency&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const CS_AddTradeCurrency& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CS_AddTradeCurrency* internal_default_instance() {
-    return reinterpret_cast<const CS_AddTradeCurrency*>(
-               &_CS_AddTradeCurrency_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  friend void swap(CS_AddTradeCurrency& a, CS_AddTradeCurrency& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CS_AddTradeCurrency* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CS_AddTradeCurrency* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CS_AddTradeCurrency* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CS_AddTradeCurrency>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CS_AddTradeCurrency& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CS_AddTradeCurrency& from) {
-    CS_AddTradeCurrency::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CS_AddTradeCurrency* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CS_AddTradeCurrency";
-  }
-  protected:
-  explicit CS_AddTradeCurrency(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAmountFieldNumber = 2,
-    kUserSeqFieldNumber = 1,
-  };
-  // int64 amount = 2;
-  void clear_amount();
-  int64_t amount() const;
-  void set_amount(int64_t value);
-  private:
-  int64_t _internal_amount() const;
-  void _internal_set_amount(int64_t value);
+  int64_t _internal_itemvalue() const;
+  void _internal_set_itemvalue(int64_t value);
   public:
 
   // int32 userSeq = 1;
@@ -906,7 +882,7 @@ class CS_AddTradeCurrency final :
   void _internal_set_userseq(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.CS_AddTradeCurrency)
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeAddItemRequest)
  private:
   class _Internal;
 
@@ -914,7 +890,8 @@ class CS_AddTradeCurrency final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int64_t amount_;
+    int64_t itemid_;
+    int64_t itemvalue_;
     int32_t userseq_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -923,24 +900,24 @@ class CS_AddTradeCurrency final :
 };
 // -------------------------------------------------------------------
 
-class SC_AddTradeCurrencyResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_AddTradeCurrencyResponse) */ {
+class CS_TradeAddGoodRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeAddGoodRequest) */ {
  public:
-  inline SC_AddTradeCurrencyResponse() : SC_AddTradeCurrencyResponse(nullptr) {}
-  ~SC_AddTradeCurrencyResponse() override;
-  explicit PROTOBUF_CONSTEXPR SC_AddTradeCurrencyResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_TradeAddGoodRequest() : CS_TradeAddGoodRequest(nullptr) {}
+  ~CS_TradeAddGoodRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeAddGoodRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SC_AddTradeCurrencyResponse(const SC_AddTradeCurrencyResponse& from);
-  SC_AddTradeCurrencyResponse(SC_AddTradeCurrencyResponse&& from) noexcept
-    : SC_AddTradeCurrencyResponse() {
+  CS_TradeAddGoodRequest(const CS_TradeAddGoodRequest& from);
+  CS_TradeAddGoodRequest(CS_TradeAddGoodRequest&& from) noexcept
+    : CS_TradeAddGoodRequest() {
     *this = ::std::move(from);
   }
 
-  inline SC_AddTradeCurrencyResponse& operator=(const SC_AddTradeCurrencyResponse& from) {
+  inline CS_TradeAddGoodRequest& operator=(const CS_TradeAddGoodRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SC_AddTradeCurrencyResponse& operator=(SC_AddTradeCurrencyResponse&& from) noexcept {
+  inline CS_TradeAddGoodRequest& operator=(CS_TradeAddGoodRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -963,20 +940,20 @@ class SC_AddTradeCurrencyResponse final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const SC_AddTradeCurrencyResponse& default_instance() {
+  static const CS_TradeAddGoodRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SC_AddTradeCurrencyResponse* internal_default_instance() {
-    return reinterpret_cast<const SC_AddTradeCurrencyResponse*>(
-               &_SC_AddTradeCurrencyResponse_default_instance_);
+  static inline const CS_TradeAddGoodRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeAddGoodRequest*>(
+               &_CS_TradeAddGoodRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     5;
 
-  friend void swap(SC_AddTradeCurrencyResponse& a, SC_AddTradeCurrencyResponse& b) {
+  friend void swap(CS_TradeAddGoodRequest& a, CS_TradeAddGoodRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SC_AddTradeCurrencyResponse* other) {
+  inline void Swap(CS_TradeAddGoodRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -989,7 +966,7 @@ class SC_AddTradeCurrencyResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SC_AddTradeCurrencyResponse* other) {
+  void UnsafeArenaSwap(CS_TradeAddGoodRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -997,14 +974,14 @@ class SC_AddTradeCurrencyResponse final :
 
   // implements Message ----------------------------------------------
 
-  SC_AddTradeCurrencyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_AddTradeCurrencyResponse>(arena);
+  CS_TradeAddGoodRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeAddGoodRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_AddTradeCurrencyResponse& from);
+  void CopyFrom(const CS_TradeAddGoodRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_AddTradeCurrencyResponse& from) {
-    SC_AddTradeCurrencyResponse::MergeImpl(*this, from);
+  void MergeFrom( const CS_TradeAddGoodRequest& from) {
+    CS_TradeAddGoodRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1022,15 +999,15 @@ class SC_AddTradeCurrencyResponse final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SC_AddTradeCurrencyResponse* other);
+  void InternalSwap(CS_TradeAddGoodRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_AddTradeCurrencyResponse";
+    return "Protocol.CS_TradeAddGoodRequest";
   }
   protected:
-  explicit SC_AddTradeCurrencyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_TradeAddGoodRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1044,11 +1021,493 @@ class SC_AddTradeCurrencyResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSuccessFieldNumber = 1,
-    kUserSeqFieldNumber = 2,
-    kAmountFieldNumber = 3,
+    kTotalMoneyFieldNumber = 2,
+    kUserSeqFieldNumber = 1,
   };
-  // int32 success = 1;
+  // int64 totalMoney = 2;
+  void clear_totalmoney();
+  int64_t totalmoney() const;
+  void set_totalmoney(int64_t value);
+  private:
+  int64_t _internal_totalmoney() const;
+  void _internal_set_totalmoney(int64_t value);
+  public:
+
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeAddGoodRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t totalmoney_;
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CS_TradeLockRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeLockRequest) */ {
+ public:
+  inline CS_TradeLockRequest() : CS_TradeLockRequest(nullptr) {}
+  ~CS_TradeLockRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeLockRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_TradeLockRequest(const CS_TradeLockRequest& from);
+  CS_TradeLockRequest(CS_TradeLockRequest&& from) noexcept
+    : CS_TradeLockRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_TradeLockRequest& operator=(const CS_TradeLockRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_TradeLockRequest& operator=(CS_TradeLockRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_TradeLockRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_TradeLockRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeLockRequest*>(
+               &_CS_TradeLockRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(CS_TradeLockRequest& a, CS_TradeLockRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_TradeLockRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_TradeLockRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_TradeLockRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeLockRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_TradeLockRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_TradeLockRequest& from) {
+    CS_TradeLockRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_TradeLockRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_TradeLockRequest";
+  }
+  protected:
+  explicit CS_TradeLockRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserSeqFieldNumber = 1,
+  };
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeLockRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CS_TradeCancelRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeCancelRequest) */ {
+ public:
+  inline CS_TradeCancelRequest() : CS_TradeCancelRequest(nullptr) {}
+  ~CS_TradeCancelRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_TradeCancelRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_TradeCancelRequest(const CS_TradeCancelRequest& from);
+  CS_TradeCancelRequest(CS_TradeCancelRequest&& from) noexcept
+    : CS_TradeCancelRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_TradeCancelRequest& operator=(const CS_TradeCancelRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_TradeCancelRequest& operator=(CS_TradeCancelRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_TradeCancelRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_TradeCancelRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_TradeCancelRequest*>(
+               &_CS_TradeCancelRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(CS_TradeCancelRequest& a, CS_TradeCancelRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_TradeCancelRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_TradeCancelRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_TradeCancelRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_TradeCancelRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_TradeCancelRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_TradeCancelRequest& from) {
+    CS_TradeCancelRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_TradeCancelRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_TradeCancelRequest";
+  }
+  protected:
+  explicit CS_TradeCancelRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserSeqFieldNumber = 1,
+  };
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_TradeCancelRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_TradeCompleteResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeCompleteResponse) */ {
+ public:
+  inline SC_TradeCompleteResponse() : SC_TradeCompleteResponse(nullptr) {}
+  ~SC_TradeCompleteResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_TradeCompleteResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_TradeCompleteResponse(const SC_TradeCompleteResponse& from);
+  SC_TradeCompleteResponse(SC_TradeCompleteResponse&& from) noexcept
+    : SC_TradeCompleteResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_TradeCompleteResponse& operator=(const SC_TradeCompleteResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_TradeCompleteResponse& operator=(SC_TradeCompleteResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_TradeCompleteResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_TradeCompleteResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_TradeCompleteResponse*>(
+               &_SC_TradeCompleteResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(SC_TradeCompleteResponse& a, SC_TradeCompleteResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_TradeCompleteResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_TradeCompleteResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_TradeCompleteResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_TradeCompleteResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_TradeCompleteResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_TradeCompleteResponse& from) {
+    SC_TradeCompleteResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_TradeCompleteResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_TradeCompleteResponse";
+  }
+  protected:
+  explicit SC_TradeCompleteResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kItemListFieldNumber = 1,
+    kTotalMoneyFieldNumber = 2,
+    kSuccessFieldNumber = 3,
+  };
+  // repeated .Protocol.Item itemList = 1;
+  int itemlist_size() const;
+  private:
+  int _internal_itemlist_size() const;
+  public:
+  void clear_itemlist();
+  ::Protocol::Item* mutable_itemlist(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+      mutable_itemlist();
+  private:
+  const ::Protocol::Item& _internal_itemlist(int index) const;
+  ::Protocol::Item* _internal_add_itemlist();
+  public:
+  const ::Protocol::Item& itemlist(int index) const;
+  ::Protocol::Item* add_itemlist();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+      itemlist() const;
+
+  // int32 totalMoney = 2;
+  void clear_totalmoney();
+  int32_t totalmoney() const;
+  void set_totalmoney(int32_t value);
+  private:
+  int32_t _internal_totalmoney() const;
+  void _internal_set_totalmoney(int32_t value);
+  public:
+
+  // int32 success = 3;
   void clear_success();
   int32_t success() const;
   void set_success(int32_t value);
@@ -1057,25 +1516,7 @@ class SC_AddTradeCurrencyResponse final :
   void _internal_set_success(int32_t value);
   public:
 
-  // int32 userSeq = 2;
-  void clear_userseq();
-  int32_t userseq() const;
-  void set_userseq(int32_t value);
-  private:
-  int32_t _internal_userseq() const;
-  void _internal_set_userseq(int32_t value);
-  public:
-
-  // int64 amount = 3;
-  void clear_amount();
-  int64_t amount() const;
-  void set_amount(int64_t value);
-  private:
-  int64_t _internal_amount() const;
-  void _internal_set_amount(int64_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.SC_AddTradeCurrencyResponse)
+  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeCompleteResponse)
  private:
   class _Internal;
 
@@ -1083,305 +1524,9 @@ class SC_AddTradeCurrencyResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > itemlist_;
+    int32_t totalmoney_;
     int32_t success_;
-    int32_t userseq_;
-    int64_t amount_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
-class CS_LockTrade final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_LockTrade) */ {
- public:
-  inline CS_LockTrade() : CS_LockTrade(nullptr) {}
-  ~CS_LockTrade() override;
-  explicit PROTOBUF_CONSTEXPR CS_LockTrade(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CS_LockTrade(const CS_LockTrade& from);
-  CS_LockTrade(CS_LockTrade&& from) noexcept
-    : CS_LockTrade() {
-    *this = ::std::move(from);
-  }
-
-  inline CS_LockTrade& operator=(const CS_LockTrade& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CS_LockTrade& operator=(CS_LockTrade&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const CS_LockTrade& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CS_LockTrade* internal_default_instance() {
-    return reinterpret_cast<const CS_LockTrade*>(
-               &_CS_LockTrade_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  friend void swap(CS_LockTrade& a, CS_LockTrade& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CS_LockTrade* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CS_LockTrade* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CS_LockTrade* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CS_LockTrade>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CS_LockTrade& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CS_LockTrade& from) {
-    CS_LockTrade::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CS_LockTrade* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CS_LockTrade";
-  }
-  protected:
-  explicit CS_LockTrade(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUserSeqFieldNumber = 1,
-  };
-  // int32 userSeq = 1;
-  void clear_userseq();
-  int32_t userseq() const;
-  void set_userseq(int32_t value);
-  private:
-  int32_t _internal_userseq() const;
-  void _internal_set_userseq(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.CS_LockTrade)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t userseq_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
-class CS_CancelTrade final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_CancelTrade) */ {
- public:
-  inline CS_CancelTrade() : CS_CancelTrade(nullptr) {}
-  ~CS_CancelTrade() override;
-  explicit PROTOBUF_CONSTEXPR CS_CancelTrade(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CS_CancelTrade(const CS_CancelTrade& from);
-  CS_CancelTrade(CS_CancelTrade&& from) noexcept
-    : CS_CancelTrade() {
-    *this = ::std::move(from);
-  }
-
-  inline CS_CancelTrade& operator=(const CS_CancelTrade& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CS_CancelTrade& operator=(CS_CancelTrade&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const CS_CancelTrade& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CS_CancelTrade* internal_default_instance() {
-    return reinterpret_cast<const CS_CancelTrade*>(
-               &_CS_CancelTrade_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(CS_CancelTrade& a, CS_CancelTrade& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CS_CancelTrade* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CS_CancelTrade* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CS_CancelTrade* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CS_CancelTrade>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CS_CancelTrade& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CS_CancelTrade& from) {
-    CS_CancelTrade::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CS_CancelTrade* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CS_CancelTrade";
-  }
-  protected:
-  explicit CS_CancelTrade(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUserSeqFieldNumber = 1,
-  };
-  // int32 userSeq = 1;
-  void clear_userseq();
-  int32_t userseq() const;
-  void set_userseq(int32_t value);
-  private:
-  int32_t _internal_userseq() const;
-  void _internal_set_userseq(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.CS_CancelTrade)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int32_t userseq_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1396,419 +1541,452 @@ class CS_CancelTrade final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// CS_TradeRequest
+// TradeResponse
+
+// int32 success = 1;
+inline void TradeResponse::clear_success() {
+  _impl_.success_ = 0;
+}
+inline int32_t TradeResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline int32_t TradeResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.TradeResponse.success)
+  return _internal_success();
+}
+inline void TradeResponse::_internal_set_success(int32_t value) {
+  
+  _impl_.success_ = value;
+}
+inline void TradeResponse::set_success(int32_t value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:Protocol.TradeResponse.success)
+}
+
+// string message = 2;
+inline void TradeResponse::clear_message() {
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& TradeResponse::message() const {
+  // @@protoc_insertion_point(field_get:Protocol.TradeResponse.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TradeResponse::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.TradeResponse.message)
+}
+inline std::string* TradeResponse::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:Protocol.TradeResponse.message)
+  return _s;
+}
+inline const std::string& TradeResponse::_internal_message() const {
+  return _impl_.message_.Get();
+}
+inline void TradeResponse::_internal_set_message(const std::string& value) {
+  
+  _impl_.message_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TradeResponse::_internal_mutable_message() {
+  
+  return _impl_.message_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TradeResponse::release_message() {
+  // @@protoc_insertion_point(field_release:Protocol.TradeResponse.message)
+  return _impl_.message_.Release();
+}
+inline void TradeResponse::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.message_.IsDefault()) {
+    _impl_.message_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.TradeResponse.message)
+}
+
+// -------------------------------------------------------------------
+
+// CS_TradeUserRequest
 
 // int32 userSeq1 = 1;
-inline void CS_TradeRequest::clear_userseq1() {
+inline void CS_TradeUserRequest::clear_userseq1() {
   _impl_.userseq1_ = 0;
 }
-inline int32_t CS_TradeRequest::_internal_userseq1() const {
+inline int32_t CS_TradeUserRequest::_internal_userseq1() const {
   return _impl_.userseq1_;
 }
-inline int32_t CS_TradeRequest::userseq1() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_TradeRequest.userSeq1)
+inline int32_t CS_TradeUserRequest::userseq1() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeUserRequest.userSeq1)
   return _internal_userseq1();
 }
-inline void CS_TradeRequest::_internal_set_userseq1(int32_t value) {
+inline void CS_TradeUserRequest::_internal_set_userseq1(int32_t value) {
   
   _impl_.userseq1_ = value;
 }
-inline void CS_TradeRequest::set_userseq1(int32_t value) {
+inline void CS_TradeUserRequest::set_userseq1(int32_t value) {
   _internal_set_userseq1(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_TradeRequest.userSeq1)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeUserRequest.userSeq1)
 }
 
 // int32 userSeq2 = 2;
-inline void CS_TradeRequest::clear_userseq2() {
+inline void CS_TradeUserRequest::clear_userseq2() {
   _impl_.userseq2_ = 0;
 }
-inline int32_t CS_TradeRequest::_internal_userseq2() const {
+inline int32_t CS_TradeUserRequest::_internal_userseq2() const {
   return _impl_.userseq2_;
 }
-inline int32_t CS_TradeRequest::userseq2() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_TradeRequest.userSeq2)
+inline int32_t CS_TradeUserRequest::userseq2() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeUserRequest.userSeq2)
   return _internal_userseq2();
 }
-inline void CS_TradeRequest::_internal_set_userseq2(int32_t value) {
+inline void CS_TradeUserRequest::_internal_set_userseq2(int32_t value) {
   
   _impl_.userseq2_ = value;
 }
-inline void CS_TradeRequest::set_userseq2(int32_t value) {
+inline void CS_TradeUserRequest::set_userseq2(int32_t value) {
   _internal_set_userseq2(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_TradeRequest.userSeq2)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeUserRequest.userSeq2)
 }
 
 // -------------------------------------------------------------------
 
-// SC_TradeResponse
+// SC_TradeUserResponse
 
-// int32 accepted = 1;
-inline void SC_TradeResponse::clear_accepted() {
-  _impl_.accepted_ = 0;
+// int32 userSeq = 1;
+inline void SC_TradeUserResponse::clear_userseq() {
+  _impl_.userseq_ = 0;
 }
-inline int32_t SC_TradeResponse::_internal_accepted() const {
-  return _impl_.accepted_;
+inline int32_t SC_TradeUserResponse::_internal_userseq() const {
+  return _impl_.userseq_;
 }
-inline int32_t SC_TradeResponse::accepted() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeResponse.accepted)
-  return _internal_accepted();
+inline int32_t SC_TradeUserResponse::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeUserResponse.userSeq)
+  return _internal_userseq();
 }
-inline void SC_TradeResponse::_internal_set_accepted(int32_t value) {
+inline void SC_TradeUserResponse::_internal_set_userseq(int32_t value) {
   
-  _impl_.accepted_ = value;
+  _impl_.userseq_ = value;
 }
-inline void SC_TradeResponse::set_accepted(int32_t value) {
-  _internal_set_accepted(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeResponse.accepted)
+inline void SC_TradeUserResponse::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeUserResponse.userSeq)
 }
 
-// int32 userSeq1 = 2;
-inline void SC_TradeResponse::clear_userseq1() {
+// int32 sendUserName = 2;
+inline void SC_TradeUserResponse::clear_sendusername() {
+  _impl_.sendusername_ = 0;
+}
+inline int32_t SC_TradeUserResponse::_internal_sendusername() const {
+  return _impl_.sendusername_;
+}
+inline int32_t SC_TradeUserResponse::sendusername() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeUserResponse.sendUserName)
+  return _internal_sendusername();
+}
+inline void SC_TradeUserResponse::_internal_set_sendusername(int32_t value) {
+  
+  _impl_.sendusername_ = value;
+}
+inline void SC_TradeUserResponse::set_sendusername(int32_t value) {
+  _internal_set_sendusername(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeUserResponse.sendUserName)
+}
+
+// -------------------------------------------------------------------
+
+// CS_TradeStartRequest
+
+// int32 userSeq1 = 1;
+inline void CS_TradeStartRequest::clear_userseq1() {
   _impl_.userseq1_ = 0;
 }
-inline int32_t SC_TradeResponse::_internal_userseq1() const {
+inline int32_t CS_TradeStartRequest::_internal_userseq1() const {
   return _impl_.userseq1_;
 }
-inline int32_t SC_TradeResponse::userseq1() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeResponse.userSeq1)
+inline int32_t CS_TradeStartRequest::userseq1() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeStartRequest.userSeq1)
   return _internal_userseq1();
 }
-inline void SC_TradeResponse::_internal_set_userseq1(int32_t value) {
+inline void CS_TradeStartRequest::_internal_set_userseq1(int32_t value) {
   
   _impl_.userseq1_ = value;
 }
-inline void SC_TradeResponse::set_userseq1(int32_t value) {
+inline void CS_TradeStartRequest::set_userseq1(int32_t value) {
   _internal_set_userseq1(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeResponse.userSeq1)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeStartRequest.userSeq1)
 }
 
-// int32 userSeq2 = 3;
-inline void SC_TradeResponse::clear_userseq2() {
+// int32 userSeq2 = 2;
+inline void CS_TradeStartRequest::clear_userseq2() {
   _impl_.userseq2_ = 0;
 }
-inline int32_t SC_TradeResponse::_internal_userseq2() const {
+inline int32_t CS_TradeStartRequest::_internal_userseq2() const {
   return _impl_.userseq2_;
 }
-inline int32_t SC_TradeResponse::userseq2() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeResponse.userSeq2)
+inline int32_t CS_TradeStartRequest::userseq2() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeStartRequest.userSeq2)
   return _internal_userseq2();
 }
-inline void SC_TradeResponse::_internal_set_userseq2(int32_t value) {
+inline void CS_TradeStartRequest::_internal_set_userseq2(int32_t value) {
   
   _impl_.userseq2_ = value;
 }
-inline void SC_TradeResponse::set_userseq2(int32_t value) {
+inline void CS_TradeStartRequest::set_userseq2(int32_t value) {
   _internal_set_userseq2(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeResponse.userSeq2)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeStartRequest.userSeq2)
 }
 
 // -------------------------------------------------------------------
 
-// CS_AddTradeItem
+// CS_TradeAddItemRequest
 
 // int32 userSeq = 1;
-inline void CS_AddTradeItem::clear_userseq() {
+inline void CS_TradeAddItemRequest::clear_userseq() {
   _impl_.userseq_ = 0;
 }
-inline int32_t CS_AddTradeItem::_internal_userseq() const {
+inline int32_t CS_TradeAddItemRequest::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline int32_t CS_AddTradeItem::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_AddTradeItem.userSeq)
+inline int32_t CS_TradeAddItemRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeAddItemRequest.userSeq)
   return _internal_userseq();
 }
-inline void CS_AddTradeItem::_internal_set_userseq(int32_t value) {
+inline void CS_TradeAddItemRequest::_internal_set_userseq(int32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void CS_AddTradeItem::set_userseq(int32_t value) {
+inline void CS_TradeAddItemRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_AddTradeItem.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeAddItemRequest.userSeq)
 }
 
 // int64 itemId = 2;
-inline void CS_AddTradeItem::clear_itemid() {
+inline void CS_TradeAddItemRequest::clear_itemid() {
   _impl_.itemid_ = int64_t{0};
 }
-inline int64_t CS_AddTradeItem::_internal_itemid() const {
+inline int64_t CS_TradeAddItemRequest::_internal_itemid() const {
   return _impl_.itemid_;
 }
-inline int64_t CS_AddTradeItem::itemid() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_AddTradeItem.itemId)
+inline int64_t CS_TradeAddItemRequest::itemid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeAddItemRequest.itemId)
   return _internal_itemid();
 }
-inline void CS_AddTradeItem::_internal_set_itemid(int64_t value) {
+inline void CS_TradeAddItemRequest::_internal_set_itemid(int64_t value) {
   
   _impl_.itemid_ = value;
 }
-inline void CS_AddTradeItem::set_itemid(int64_t value) {
+inline void CS_TradeAddItemRequest::set_itemid(int64_t value) {
   _internal_set_itemid(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_AddTradeItem.itemId)
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeAddItemRequest.itemId)
 }
 
-// int32 quantity = 3;
-inline void CS_AddTradeItem::clear_quantity() {
-  _impl_.quantity_ = 0;
+// int64 itemValue = 3;
+inline void CS_TradeAddItemRequest::clear_itemvalue() {
+  _impl_.itemvalue_ = int64_t{0};
 }
-inline int32_t CS_AddTradeItem::_internal_quantity() const {
-  return _impl_.quantity_;
+inline int64_t CS_TradeAddItemRequest::_internal_itemvalue() const {
+  return _impl_.itemvalue_;
 }
-inline int32_t CS_AddTradeItem::quantity() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_AddTradeItem.quantity)
-  return _internal_quantity();
+inline int64_t CS_TradeAddItemRequest::itemvalue() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeAddItemRequest.itemValue)
+  return _internal_itemvalue();
 }
-inline void CS_AddTradeItem::_internal_set_quantity(int32_t value) {
+inline void CS_TradeAddItemRequest::_internal_set_itemvalue(int64_t value) {
   
-  _impl_.quantity_ = value;
+  _impl_.itemvalue_ = value;
 }
-inline void CS_AddTradeItem::set_quantity(int32_t value) {
-  _internal_set_quantity(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_AddTradeItem.quantity)
+inline void CS_TradeAddItemRequest::set_itemvalue(int64_t value) {
+  _internal_set_itemvalue(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeAddItemRequest.itemValue)
 }
 
 // -------------------------------------------------------------------
 
-// SC_AddTradeItemResponse
+// CS_TradeAddGoodRequest
 
-// int32 success = 1;
-inline void SC_AddTradeItemResponse::clear_success() {
+// int32 userSeq = 1;
+inline void CS_TradeAddGoodRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_TradeAddGoodRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_TradeAddGoodRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeAddGoodRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_TradeAddGoodRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_TradeAddGoodRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeAddGoodRequest.userSeq)
+}
+
+// int64 totalMoney = 2;
+inline void CS_TradeAddGoodRequest::clear_totalmoney() {
+  _impl_.totalmoney_ = int64_t{0};
+}
+inline int64_t CS_TradeAddGoodRequest::_internal_totalmoney() const {
+  return _impl_.totalmoney_;
+}
+inline int64_t CS_TradeAddGoodRequest::totalmoney() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeAddGoodRequest.totalMoney)
+  return _internal_totalmoney();
+}
+inline void CS_TradeAddGoodRequest::_internal_set_totalmoney(int64_t value) {
+  
+  _impl_.totalmoney_ = value;
+}
+inline void CS_TradeAddGoodRequest::set_totalmoney(int64_t value) {
+  _internal_set_totalmoney(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeAddGoodRequest.totalMoney)
+}
+
+// -------------------------------------------------------------------
+
+// CS_TradeLockRequest
+
+// int32 userSeq = 1;
+inline void CS_TradeLockRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_TradeLockRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_TradeLockRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeLockRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_TradeLockRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_TradeLockRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeLockRequest.userSeq)
+}
+
+// -------------------------------------------------------------------
+
+// CS_TradeCancelRequest
+
+// int32 userSeq = 1;
+inline void CS_TradeCancelRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_TradeCancelRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_TradeCancelRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_TradeCancelRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_TradeCancelRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_TradeCancelRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_TradeCancelRequest.userSeq)
+}
+
+// -------------------------------------------------------------------
+
+// SC_TradeCompleteResponse
+
+// repeated .Protocol.Item itemList = 1;
+inline int SC_TradeCompleteResponse::_internal_itemlist_size() const {
+  return _impl_.itemlist_.size();
+}
+inline int SC_TradeCompleteResponse::itemlist_size() const {
+  return _internal_itemlist_size();
+}
+inline ::Protocol::Item* SC_TradeCompleteResponse::mutable_itemlist(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeCompleteResponse.itemList)
+  return _impl_.itemlist_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+SC_TradeCompleteResponse::mutable_itemlist() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_TradeCompleteResponse.itemList)
+  return &_impl_.itemlist_;
+}
+inline const ::Protocol::Item& SC_TradeCompleteResponse::_internal_itemlist(int index) const {
+  return _impl_.itemlist_.Get(index);
+}
+inline const ::Protocol::Item& SC_TradeCompleteResponse::itemlist(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeCompleteResponse.itemList)
+  return _internal_itemlist(index);
+}
+inline ::Protocol::Item* SC_TradeCompleteResponse::_internal_add_itemlist() {
+  return _impl_.itemlist_.Add();
+}
+inline ::Protocol::Item* SC_TradeCompleteResponse::add_itemlist() {
+  ::Protocol::Item* _add = _internal_add_itemlist();
+  // @@protoc_insertion_point(field_add:Protocol.SC_TradeCompleteResponse.itemList)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+SC_TradeCompleteResponse::itemlist() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_TradeCompleteResponse.itemList)
+  return _impl_.itemlist_;
+}
+
+// int32 totalMoney = 2;
+inline void SC_TradeCompleteResponse::clear_totalmoney() {
+  _impl_.totalmoney_ = 0;
+}
+inline int32_t SC_TradeCompleteResponse::_internal_totalmoney() const {
+  return _impl_.totalmoney_;
+}
+inline int32_t SC_TradeCompleteResponse::totalmoney() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeCompleteResponse.totalMoney)
+  return _internal_totalmoney();
+}
+inline void SC_TradeCompleteResponse::_internal_set_totalmoney(int32_t value) {
+  
+  _impl_.totalmoney_ = value;
+}
+inline void SC_TradeCompleteResponse::set_totalmoney(int32_t value) {
+  _internal_set_totalmoney(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeCompleteResponse.totalMoney)
+}
+
+// int32 success = 3;
+inline void SC_TradeCompleteResponse::clear_success() {
   _impl_.success_ = 0;
 }
-inline int32_t SC_AddTradeItemResponse::_internal_success() const {
+inline int32_t SC_TradeCompleteResponse::_internal_success() const {
   return _impl_.success_;
 }
-inline int32_t SC_AddTradeItemResponse::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeItemResponse.success)
+inline int32_t SC_TradeCompleteResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeCompleteResponse.success)
   return _internal_success();
 }
-inline void SC_AddTradeItemResponse::_internal_set_success(int32_t value) {
+inline void SC_TradeCompleteResponse::_internal_set_success(int32_t value) {
   
   _impl_.success_ = value;
 }
-inline void SC_AddTradeItemResponse::set_success(int32_t value) {
+inline void SC_TradeCompleteResponse::set_success(int32_t value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeItemResponse.success)
-}
-
-// int32 userSeq = 2;
-inline void SC_AddTradeItemResponse::clear_userseq() {
-  _impl_.userseq_ = 0;
-}
-inline int32_t SC_AddTradeItemResponse::_internal_userseq() const {
-  return _impl_.userseq_;
-}
-inline int32_t SC_AddTradeItemResponse::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeItemResponse.userSeq)
-  return _internal_userseq();
-}
-inline void SC_AddTradeItemResponse::_internal_set_userseq(int32_t value) {
-  
-  _impl_.userseq_ = value;
-}
-inline void SC_AddTradeItemResponse::set_userseq(int32_t value) {
-  _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeItemResponse.userSeq)
-}
-
-// int64 itemId = 3;
-inline void SC_AddTradeItemResponse::clear_itemid() {
-  _impl_.itemid_ = int64_t{0};
-}
-inline int64_t SC_AddTradeItemResponse::_internal_itemid() const {
-  return _impl_.itemid_;
-}
-inline int64_t SC_AddTradeItemResponse::itemid() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeItemResponse.itemId)
-  return _internal_itemid();
-}
-inline void SC_AddTradeItemResponse::_internal_set_itemid(int64_t value) {
-  
-  _impl_.itemid_ = value;
-}
-inline void SC_AddTradeItemResponse::set_itemid(int64_t value) {
-  _internal_set_itemid(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeItemResponse.itemId)
-}
-
-// int32 quantity = 4;
-inline void SC_AddTradeItemResponse::clear_quantity() {
-  _impl_.quantity_ = 0;
-}
-inline int32_t SC_AddTradeItemResponse::_internal_quantity() const {
-  return _impl_.quantity_;
-}
-inline int32_t SC_AddTradeItemResponse::quantity() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeItemResponse.quantity)
-  return _internal_quantity();
-}
-inline void SC_AddTradeItemResponse::_internal_set_quantity(int32_t value) {
-  
-  _impl_.quantity_ = value;
-}
-inline void SC_AddTradeItemResponse::set_quantity(int32_t value) {
-  _internal_set_quantity(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeItemResponse.quantity)
-}
-
-// -------------------------------------------------------------------
-
-// CS_AddTradeCurrency
-
-// int32 userSeq = 1;
-inline void CS_AddTradeCurrency::clear_userseq() {
-  _impl_.userseq_ = 0;
-}
-inline int32_t CS_AddTradeCurrency::_internal_userseq() const {
-  return _impl_.userseq_;
-}
-inline int32_t CS_AddTradeCurrency::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_AddTradeCurrency.userSeq)
-  return _internal_userseq();
-}
-inline void CS_AddTradeCurrency::_internal_set_userseq(int32_t value) {
-  
-  _impl_.userseq_ = value;
-}
-inline void CS_AddTradeCurrency::set_userseq(int32_t value) {
-  _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_AddTradeCurrency.userSeq)
-}
-
-// int64 amount = 2;
-inline void CS_AddTradeCurrency::clear_amount() {
-  _impl_.amount_ = int64_t{0};
-}
-inline int64_t CS_AddTradeCurrency::_internal_amount() const {
-  return _impl_.amount_;
-}
-inline int64_t CS_AddTradeCurrency::amount() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_AddTradeCurrency.amount)
-  return _internal_amount();
-}
-inline void CS_AddTradeCurrency::_internal_set_amount(int64_t value) {
-  
-  _impl_.amount_ = value;
-}
-inline void CS_AddTradeCurrency::set_amount(int64_t value) {
-  _internal_set_amount(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_AddTradeCurrency.amount)
-}
-
-// -------------------------------------------------------------------
-
-// SC_AddTradeCurrencyResponse
-
-// int32 success = 1;
-inline void SC_AddTradeCurrencyResponse::clear_success() {
-  _impl_.success_ = 0;
-}
-inline int32_t SC_AddTradeCurrencyResponse::_internal_success() const {
-  return _impl_.success_;
-}
-inline int32_t SC_AddTradeCurrencyResponse::success() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeCurrencyResponse.success)
-  return _internal_success();
-}
-inline void SC_AddTradeCurrencyResponse::_internal_set_success(int32_t value) {
-  
-  _impl_.success_ = value;
-}
-inline void SC_AddTradeCurrencyResponse::set_success(int32_t value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeCurrencyResponse.success)
-}
-
-// int32 userSeq = 2;
-inline void SC_AddTradeCurrencyResponse::clear_userseq() {
-  _impl_.userseq_ = 0;
-}
-inline int32_t SC_AddTradeCurrencyResponse::_internal_userseq() const {
-  return _impl_.userseq_;
-}
-inline int32_t SC_AddTradeCurrencyResponse::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeCurrencyResponse.userSeq)
-  return _internal_userseq();
-}
-inline void SC_AddTradeCurrencyResponse::_internal_set_userseq(int32_t value) {
-  
-  _impl_.userseq_ = value;
-}
-inline void SC_AddTradeCurrencyResponse::set_userseq(int32_t value) {
-  _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeCurrencyResponse.userSeq)
-}
-
-// int64 amount = 3;
-inline void SC_AddTradeCurrencyResponse::clear_amount() {
-  _impl_.amount_ = int64_t{0};
-}
-inline int64_t SC_AddTradeCurrencyResponse::_internal_amount() const {
-  return _impl_.amount_;
-}
-inline int64_t SC_AddTradeCurrencyResponse::amount() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_AddTradeCurrencyResponse.amount)
-  return _internal_amount();
-}
-inline void SC_AddTradeCurrencyResponse::_internal_set_amount(int64_t value) {
-  
-  _impl_.amount_ = value;
-}
-inline void SC_AddTradeCurrencyResponse::set_amount(int64_t value) {
-  _internal_set_amount(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_AddTradeCurrencyResponse.amount)
-}
-
-// -------------------------------------------------------------------
-
-// CS_LockTrade
-
-// int32 userSeq = 1;
-inline void CS_LockTrade::clear_userseq() {
-  _impl_.userseq_ = 0;
-}
-inline int32_t CS_LockTrade::_internal_userseq() const {
-  return _impl_.userseq_;
-}
-inline int32_t CS_LockTrade::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_LockTrade.userSeq)
-  return _internal_userseq();
-}
-inline void CS_LockTrade::_internal_set_userseq(int32_t value) {
-  
-  _impl_.userseq_ = value;
-}
-inline void CS_LockTrade::set_userseq(int32_t value) {
-  _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_LockTrade.userSeq)
-}
-
-// -------------------------------------------------------------------
-
-// CS_CancelTrade
-
-// int32 userSeq = 1;
-inline void CS_CancelTrade::clear_userseq() {
-  _impl_.userseq_ = 0;
-}
-inline int32_t CS_CancelTrade::_internal_userseq() const {
-  return _impl_.userseq_;
-}
-inline int32_t CS_CancelTrade::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_CancelTrade.userSeq)
-  return _internal_userseq();
-}
-inline void CS_CancelTrade::_internal_set_userseq(int32_t value) {
-  
-  _impl_.userseq_ = value;
-}
-inline void CS_CancelTrade::set_userseq(int32_t value) {
-  _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_CancelTrade.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeCompleteResponse.success)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -97,6 +97,7 @@ PROTOBUF_CONSTEXPR Consumption::Consumption(
   , /*decltype(_impl_.duration_)*/0
   , /*decltype(_impl_.statustype_)*/0
   , /*decltype(_impl_.contype_)*/0
+  , /*decltype(_impl_.conindex_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConsumptionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ConsumptionDefaultTypeInternal()
@@ -387,6 +388,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.duration_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.statustype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.contype_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.conindex_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -542,16 +544,16 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 7, -1, -1, sizeof(::Protocol::Item)},
   { 29, -1, -1, sizeof(::Protocol::Equip)},
   { 52, -1, -1, sizeof(::Protocol::Consumption)},
-  { 64, -1, -1, sizeof(::Protocol::EtcItem)},
-  { 72, -1, -1, sizeof(::Protocol::UserSetStatus)},
-  { 83, -1, -1, sizeof(::Protocol::UserTotalStatus)},
-  { 106, -1, -1, sizeof(::Protocol::UserCharacter)},
-  { 128, -1, -1, sizeof(::Protocol::UserPosition)},
-  { 138, -1, -1, sizeof(::Protocol::Skill)},
-  { 151, -1, -1, sizeof(::Protocol::SkillInfo)},
-  { 170, -1, -1, sizeof(::Protocol::SkillActive)},
-  { 182, -1, -1, sizeof(::Protocol::Monster)},
-  { 201, -1, -1, sizeof(::Protocol::Talent)},
+  { 65, -1, -1, sizeof(::Protocol::EtcItem)},
+  { 73, -1, -1, sizeof(::Protocol::UserSetStatus)},
+  { 84, -1, -1, sizeof(::Protocol::UserTotalStatus)},
+  { 107, -1, -1, sizeof(::Protocol::UserCharacter)},
+  { 129, -1, -1, sizeof(::Protocol::UserPosition)},
+  { 139, -1, -1, sizeof(::Protocol::Skill)},
+  { 152, -1, -1, sizeof(::Protocol::SkillInfo)},
+  { 171, -1, -1, sizeof(::Protocol::SkillActive)},
+  { 183, -1, -1, sizeof(::Protocol::Monster)},
+  { 202, -1, -1, sizeof(::Protocol::Talent)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -590,69 +592,69 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "ttackSpeed\030\013 \001(\002\022\021\n\tmoveSpeed\030\014 \001(\002\022\026\n\016c"
   "riticalChance\030\r \001(\002\022\026\n\016criticalDamage\030\016 "
   "\001(\002\022\r\n\005avoid\030\017 \001(\002\022\031\n\021cooldownReduction\030"
-  "\020 \001(\002\022\021\n\tequipPart\030\021 \001(\005\"\203\001\n\013Consumption"
+  "\020 \001(\002\022\021\n\tequipPart\030\021 \001(\005\"\225\001\n\013Consumption"
   "\022\034\n\004base\030\001 \001(\0132\016.Protocol.Item\022\020\n\010cooldo"
   "wn\030\002 \001(\005\022\r\n\005value\030\003 \001(\005\022\020\n\010duration\030\004 \001("
-  "\005\022\022\n\nstatusType\030\005 \001(\005\022\017\n\007conType\030\006 \001(\005\"8"
-  "\n\007EtcItem\022\034\n\004base\030\001 \001(\0132\016.Protocol.Item\022"
-  "\017\n\007etcType\030\002 \001(\005\"b\n\rUserSetStatus\022\016\n\006use"
-  "rHp\030\001 \001(\005\022\016\n\006userMp\030\002 \001(\005\022\017\n\007userStr\030\003 \001"
-  "(\005\022\017\n\007userAgi\030\004 \001(\005\022\017\n\007userInt\030\005 \001(\005\"\213\003\n"
-  "\017UserTotalStatus\022\016\n\006userHp\030\001 \001(\002\022\024\n\014user"
-  "HpAbsorb\030\002 \001(\002\022\016\n\006userMp\030\003 \001(\002\022\024\n\014userMp"
-  "Absorb\030\004 \001(\002\022\024\n\014userStrength\030\005 \001(\005\022\023\n\013us"
-  "erAgility\030\006 \001(\005\022\030\n\020userIntelligence\030\007 \001("
-  "\005\022\021\n\tuserMaxHp\030\010 \001(\002\022\021\n\tuserMaxMp\030\t \001(\002\022"
-  "\022\n\nuserAttack\030\n \001(\002\022\023\n\013userDefence\030\013 \001(\002"
-  "\022\027\n\017userAttackSpeed\030\014 \001(\002\022\025\n\ruserMoveSpe"
-  "ed\030\r \001(\002\022\032\n\022userCriticalChance\030\016 \001(\002\022\032\n\022"
-  "userCriticalDamage\030\017 \001(\002\022\021\n\tuserAvoid\030\020 "
-  "\001(\002\022\035\n\025userCooldownReduction\030\021 \001(\002\"\351\002\n\rU"
-  "serCharacter\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerS"
-  "eq\030\002 \001(\005\022\014\n\004name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n"
-  "\014nobilityRank\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006"
-  "subJob\030\007 \001(\005\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerR"
-  "ank\030\t \001(\005\022\016\n\006transX\030\n \001(\002\022\016\n\006transY\030\013 \001("
-  "\002\022\016\n\006transZ\030\014 \001(\002\022\r\n\005mapId\030\r \001(\003\022*\n\tsetS"
-  "tatus\030\016 \001(\0132\027.Protocol.UserSetStatus\022.\n\013"
-  "totalStatus\030\017 \001(\0132\031.Protocol.UserTotalSt"
-  "atus\022 \n\006talent\030\020 \001(\0132\020.Protocol.Talent\"I"
-  "\n\014UserPosition\022\017\n\007userSeq\030\001 \001(\r\022\014\n\004posX\030"
-  "\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n\004posZ\030\004 \001(\002\"\205\001\n\005Sk"
-  "ill\022\020\n\010skillSeq\030\001 \001(\005\022\r\n\005level\030\002 \001(\005\022\021\n\t"
-  "timestamp\030\003 \001(\004\022\017\n\007userSeq\030\004 \001(\r\022\021\n\ttarg"
-  "etSeq\030\005 \003(\r\022\022\n\ntargetType\030\006 \001(\t\022\020\n\010skill"
-  "Idx\030\007 \001(\005\"\302\002\n\tSkillInfo\022\020\n\010skillSeq\030\001 \001("
-  "\005\022\017\n\007skillId\030\002 \001(\005\022\021\n\tskillName\030\003 \001(\t\022\022\n"
-  "\nskillLevel\030\004 \001(\005\022\020\n\010skillIdx\030\005 \001(\005\022\014\n\004C"
-  "ost\030\006 \001(\005\022\020\n\010CoolTime\030\007 \001(\002\022\021\n\tskillText"
-  "\030\010 \001(\t\022\025\n\rskillDistance\030\t \001(\005\022\021\n\tskillKi"
-  "nd\030\n \001(\005\022\025\n\rskillAbnormal\030\013 \001(\005\0223\n\020skilP"
-  "asiveStatus\030\014 \001(\0132\031.Protocol.UserTotalSt"
-  "atus\0220\n\021skillActiveStatus\030\r \001(\0132\025.Protoc"
-  "ol.SkillActive\"\237\001\n\013SkillActive\022\023\n\013skillD"
-  "amage\030\001 \001(\005\022\017\n\007skillMp\030\002 \001(\005\022\024\n\014skillCas"
-  "ting\030\003 \001(\002\022\025\n\rskillDuration\030\004 \001(\002\022\025\n\rski"
-  "llCoolDown\030\005 \001(\002\022&\n\tskillType\030\006 \001(\0162\023.Pr"
-  "otocol.SkillType\"\242\002\n\007Monster\022\022\n\nmonsterS"
-  "eq\030\001 \001(\005\022\023\n\013monsterName\030\002 \001(\t\022\024\n\014monster"
-  "Level\030\003 \001(\005\022\022\n\nmonsterExp\030\004 \001(\005\022\025\n\rmonst"
-  "erDamage\030\005 \001(\005\022\026\n\016monsterDefence\030\006 \001(\005\022\021"
-  "\n\tmonsterHp\030\007 \001(\002\022\024\n\014monsterMaxHp\030\010 \001(\002\022"
-  "\025\n\rmonsterTransX\030\t \001(\002\022\025\n\rmonsterTransY\030"
-  "\n \001(\002\022\025\n\rmonsterTransZ\030\013 \001(\002\022\024\n\014monsterM"
-  "apId\030\014 \001(\003\022\021\n\tmonsterId\030\r \001(\003\"\205\001\n\006Talent"
-  "\022\023\n\013firstTalent\030\001 \001(\005\022\022\n\nfirstLevel\030\002 \001("
-  "\005\022\024\n\014secondTalent\030\003 \001(\005\022\023\n\013secondLevel\030\004"
-  " \001(\005\022\023\n\013thirdTalent\030\005 \001(\005\022\022\n\nthirdLevel\030"
-  "\006 \001(\005b\006proto3"
+  "\005\022\022\n\nstatusType\030\005 \001(\005\022\017\n\007conType\030\006 \001(\005\022\020"
+  "\n\010conIndex\030\007 \001(\005\"8\n\007EtcItem\022\034\n\004base\030\001 \001("
+  "\0132\016.Protocol.Item\022\017\n\007etcType\030\002 \001(\005\"b\n\rUs"
+  "erSetStatus\022\016\n\006userHp\030\001 \001(\005\022\016\n\006userMp\030\002 "
+  "\001(\005\022\017\n\007userStr\030\003 \001(\005\022\017\n\007userAgi\030\004 \001(\005\022\017\n"
+  "\007userInt\030\005 \001(\005\"\213\003\n\017UserTotalStatus\022\016\n\006us"
+  "erHp\030\001 \001(\002\022\024\n\014userHpAbsorb\030\002 \001(\002\022\016\n\006user"
+  "Mp\030\003 \001(\002\022\024\n\014userMpAbsorb\030\004 \001(\002\022\024\n\014userSt"
+  "rength\030\005 \001(\005\022\023\n\013userAgility\030\006 \001(\005\022\030\n\020use"
+  "rIntelligence\030\007 \001(\005\022\021\n\tuserMaxHp\030\010 \001(\002\022\021"
+  "\n\tuserMaxMp\030\t \001(\002\022\022\n\nuserAttack\030\n \001(\002\022\023\n"
+  "\013userDefence\030\013 \001(\002\022\027\n\017userAttackSpeed\030\014 "
+  "\001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022userCritic"
+  "alChance\030\016 \001(\002\022\032\n\022userCriticalDamage\030\017 \001"
+  "(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userCooldownRed"
+  "uction\030\021 \001(\002\"\351\002\n\rUserCharacter\022\017\n\007userSe"
+  "q\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004name\030\003 \001(\t"
+  "\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRank\030\005 \001(\005\022\017\n"
+  "\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005\022\013\n\003exp\030\010 "
+  "\001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\016\n\006transX\030\n "
+  "\001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006transZ\030\014 \001(\002\022\r\n\005m"
+  "apId\030\r \001(\003\022*\n\tsetStatus\030\016 \001(\0132\027.Protocol"
+  ".UserSetStatus\022.\n\013totalStatus\030\017 \001(\0132\031.Pr"
+  "otocol.UserTotalStatus\022 \n\006talent\030\020 \001(\0132\020"
+  ".Protocol.Talent\"I\n\014UserPosition\022\017\n\007user"
+  "Seq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n"
+  "\004posZ\030\004 \001(\002\"\205\001\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022"
+  "\r\n\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007use"
+  "rSeq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \003(\r\022\022\n\ntargetT"
+  "ype\030\006 \001(\t\022\020\n\010skillIdx\030\007 \001(\005\"\302\002\n\tSkillInf"
+  "o\022\020\n\010skillSeq\030\001 \001(\005\022\017\n\007skillId\030\002 \001(\005\022\021\n\t"
+  "skillName\030\003 \001(\t\022\022\n\nskillLevel\030\004 \001(\005\022\020\n\010s"
+  "killIdx\030\005 \001(\005\022\014\n\004Cost\030\006 \001(\005\022\020\n\010CoolTime\030"
+  "\007 \001(\002\022\021\n\tskillText\030\010 \001(\t\022\025\n\rskillDistanc"
+  "e\030\t \001(\005\022\021\n\tskillKind\030\n \001(\005\022\025\n\rskillAbnor"
+  "mal\030\013 \001(\005\0223\n\020skilPasiveStatus\030\014 \001(\0132\031.Pr"
+  "otocol.UserTotalStatus\0220\n\021skillActiveSta"
+  "tus\030\r \001(\0132\025.Protocol.SkillActive\"\237\001\n\013Ski"
+  "llActive\022\023\n\013skillDamage\030\001 \001(\005\022\017\n\007skillMp"
+  "\030\002 \001(\005\022\024\n\014skillCasting\030\003 \001(\002\022\025\n\rskillDur"
+  "ation\030\004 \001(\002\022\025\n\rskillCoolDown\030\005 \001(\002\022&\n\tsk"
+  "illType\030\006 \001(\0162\023.Protocol.SkillType\"\242\002\n\007M"
+  "onster\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013monsterNam"
+  "e\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001(\005\022\022\n\nmonster"
+  "Exp\030\004 \001(\005\022\025\n\rmonsterDamage\030\005 \001(\005\022\026\n\016mons"
+  "terDefence\030\006 \001(\005\022\021\n\tmonsterHp\030\007 \001(\002\022\024\n\014m"
+  "onsterMaxHp\030\010 \001(\002\022\025\n\rmonsterTransX\030\t \001(\002"
+  "\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\rmonsterTransZ"
+  "\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001(\003\022\021\n\tmonsterI"
+  "d\030\r \001(\003\"\205\001\n\006Talent\022\023\n\013firstTalent\030\001 \001(\005\022"
+  "\022\n\nfirstLevel\030\002 \001(\005\022\024\n\014secondTalent\030\003 \001("
+  "\005\022\023\n\013secondLevel\030\004 \001(\005\022\023\n\013thirdTalent\030\005 "
+  "\001(\005\022\022\n\nthirdLevel\030\006 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 2933, descriptor_table_protodef_Struct_2eproto,
+    false, false, 2951, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 14,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -2349,6 +2351,7 @@ Consumption::Consumption(const Consumption& from)
     , decltype(_impl_.duration_){}
     , decltype(_impl_.statustype_){}
     , decltype(_impl_.contype_){}
+    , decltype(_impl_.conindex_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -2356,8 +2359,8 @@ Consumption::Consumption(const Consumption& from)
     _this->_impl_.base_ = new ::Protocol::Item(*from._impl_.base_);
   }
   ::memcpy(&_impl_.cooldown_, &from._impl_.cooldown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.contype_) -
-    reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.contype_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.conindex_) -
+    reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.conindex_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Consumption)
 }
 
@@ -2372,6 +2375,7 @@ inline void Consumption::SharedCtor(
     , decltype(_impl_.duration_){0}
     , decltype(_impl_.statustype_){0}
     , decltype(_impl_.contype_){0}
+    , decltype(_impl_.conindex_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2405,8 +2409,8 @@ void Consumption::Clear() {
   }
   _impl_.base_ = nullptr;
   ::memset(&_impl_.cooldown_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.contype_) -
-      reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.contype_));
+      reinterpret_cast<char*>(&_impl_.conindex_) -
+      reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.conindex_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2460,6 +2464,14 @@ const char* Consumption::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _impl_.contype_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 conIndex = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.conindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2530,6 +2542,12 @@ uint8_t* Consumption::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_contype(), target);
   }
 
+  // int32 conIndex = 7;
+  if (this->_internal_conindex() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_conindex(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2578,6 +2596,11 @@ size_t Consumption::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_contype());
   }
 
+  // int32 conIndex = 7;
+  if (this->_internal_conindex() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_conindex());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2615,6 +2638,9 @@ void Consumption::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_contype() != 0) {
     _this->_internal_set_contype(from._internal_contype());
   }
+  if (from._internal_conindex() != 0) {
+    _this->_internal_set_conindex(from._internal_conindex());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2633,8 +2659,8 @@ void Consumption::InternalSwap(Consumption* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Consumption, _impl_.contype_)
-      + sizeof(Consumption::_impl_.contype_)
+      PROTOBUF_FIELD_OFFSET(Consumption, _impl_.conindex_)
+      + sizeof(Consumption::_impl_.conindex_)
       - PROTOBUF_FIELD_OFFSET(Consumption, _impl_.base_)>(
           reinterpret_cast<char*>(&_impl_.base_),
           reinterpret_cast<char*>(&other->_impl_.base_));

@@ -16,6 +16,7 @@
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
 #include "Network/Proto/Dungeon.pb.h"
+#include "Network/Proto/Post.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -127,7 +128,38 @@ enum : uint16
     PKT_CHEAT_SKILL_REQUEST = 1902,
     PKT_CHEAT_MONSTER_REQUEST = 1903,
 
-    PKT_MATCH_MAKING_REQUEST = 2001
+    PKT_MATCH_MAKING_REQUEST = 2001,
+    // Add Post Packet types
+    PKT_POST_SEND_REQUEST = 3001,
+    PKT_POST_SEND_RESPONSE = 3002,
+
+    PKT_POST_READ_REQUEST = 3003,
+    PKT_POST_READ_RESPONSE = 3004,
+
+    PKT_POST_RECEIVED_REQUEST = 3005,
+    PKT_POST_RECEIVED_RESPONSE = 3006,
+    // Add Trade Packet types
+    PKT_TRADE_USER_REQUEST = 3011,
+    PKT_TRADE_USER_RESPONSE = 3012,
+
+    PKT_TRADE_START_REQUEST = 3013,
+    PKT_TRADE_START_RESPONSE = 3014,
+
+    PKT_TRADE_ADD_ITEM_REQUEST = 3015,
+    PKT_TRADE_ADD_ITEM_RESPONSE = 3016,
+
+    PKT_TRADE_ADD_GOOD_REQUEST = 3017,
+    PKT_TRADE_ADD_GOOD_RESPONSE = 3018,
+
+    PKT_TRADE_LOCK_REQUEST = 3021,
+    PKT_TRADE_LOCK_RESPONSE = 3022,
+
+    PKT_TRADE_SUCCESS_REQUEST = 3023,
+    PKT_TRADE_SUCCESS_RESPONSE = 3024,
+
+    PKT_TRADE_CANCEL_REQUEST = 3025,
+    PKT_TRADE_CANCEL_RESPONSE = 3026,
+
 };
 
 // Custom Handlers
@@ -190,7 +222,9 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
-
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
     
 
 
@@ -222,3 +256,4 @@ public:
         return sendBuffer;
     }
 };
+

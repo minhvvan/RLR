@@ -6,6 +6,7 @@
 
 #include "RLRStruct.h"
 
+#include "Structs/UtilStructs.h"
 #include <mutex>
 #include <queue>
 
@@ -157,6 +158,15 @@ public:
     bool SendCreateMonsterCheatPacket(int32 Seq);
 
 
+    /*
+            Post
+                        */
+
+    bool SendPostRequest(FPostResult post);
+
+    bool SendPostReadRequest(FPostResult post);
+
+    bool SendPostReceivedRequest(FPostResult post);
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
@@ -190,6 +200,8 @@ private:
   
 
  
+
+  
 
 };
 
