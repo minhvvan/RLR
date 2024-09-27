@@ -27,12 +27,14 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     Protocol::CS_PostRequest packet;
 
     auto* packetPost = packet.mutable_posts();
-    packetPost->set_title(post.title);
+    std::string title(TCHAR_TO_UTF8(*post.title));
+    std::string content(TCHAR_TO_UTF8(*post.content));
+    packetPost->set_title(title);
     packetPost->set_postid(post.postId);
     packetPost->set_senderseq(UserSeq);
     packetPost->set_reseiverseq(post.reseiverSeq);
     packetPost->set_totalmoney(post.totalMoney);
-    packetPost->set_content(post.content);
+    packetPost->set_content(content);
     SEND_PACKET(packet);
 }
 

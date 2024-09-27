@@ -17,6 +17,7 @@
 #include "Network/Proto/Shop.pb.h"
 #include "Network/Proto/Dungeon.pb.h"
 #include "Network/Proto/Post.pb.h"
+#include "Network/Proto/Trade.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -225,8 +226,12 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
-    
-
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeStartRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_START_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeUserRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_USER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeLockRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_LOCK_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_CANCEL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_GOOD_REQUEST); }
 
 
 public:

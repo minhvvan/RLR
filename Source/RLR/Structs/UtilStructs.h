@@ -122,13 +122,13 @@ struct FPostResult
 	int64 totalMoney;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	bool isRead = 7;
+	bool isRead;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	bool isReceived = 8;
+	bool isReceived;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 postId = 9;
+	int64 postId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString senderName;
