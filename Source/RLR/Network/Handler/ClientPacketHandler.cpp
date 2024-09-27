@@ -17,7 +17,8 @@
 #include "CommunityPacketHandler.h"
 #include "ActionPacketHandler.h"
 #include "PartyPacketHandler.h"
-
+#include "TradePacketHandler.h"
+#include "PostPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -183,6 +184,23 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_JoinPartyResponse>(&Handle_JOIN_PARTY_RESP0NSE, session, buffer, len);
         };
+    GPacketHandler[PKT_POST_SEND_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PostResponse>(&Handle_POST_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_USER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeUserResponse>(&Handle_TRADE_USER_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_STATE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeStateResponse>(&Handle_TRADE_STATE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_COMPLETE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeCompleteResponse>(&Handle_TRADE_COMPLETE_RESPONSE, session, buffer, len);
+        };
+
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

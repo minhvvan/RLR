@@ -29,10 +29,11 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     auto* packetPost = packet.mutable_posts();
     std::string title(TCHAR_TO_UTF8(*post.Title));
     std::string content(TCHAR_TO_UTF8(*post.Content));
+    std::string receiverName(TCHAR_TO_UTF8(*post.ReceiverName));
     packetPost->set_title(title);
     packetPost->set_postid(post.PostId);
     packetPost->set_senderseq(UserSeq);
-    packetPost->set_receivername(post.ReceiverName);
+    packetPost->set_receivername(receiverName);
     packetPost->set_totalmoney(post.TotalMoney);
     packetPost->set_content(content);
     SEND_PACKET(packet);
