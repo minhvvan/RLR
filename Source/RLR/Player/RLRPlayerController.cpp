@@ -84,9 +84,6 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
         timeSinceLastMovePacket = 0.0f;
     }
-
-	
-
 }
 
 void ARLRPlayerController::SetupInputComponent()
@@ -189,7 +186,7 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
 
-	SkillManager->SkillAttack(TriggerTag);
+	SkillManager->SkillStart(TriggerTag);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)

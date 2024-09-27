@@ -33,6 +33,20 @@ void USkillManager::Init()
 	}
 }
 
+void USkillManager::SkillStart(FGameplayTag TriggerTag)
+{
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return;
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->TryActivateAction(TriggerTag);
+}
+
 void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 {
 	if (!HasSkillTag(TriggerTag)) Init();
@@ -160,8 +174,8 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		if(Data.SkillIdx < 0 || Data.SkillIdx > 8)
 			continue;
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
+		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
