@@ -40,6 +40,7 @@ enum class EUIType : uint8
 	BADGE_UI,
 	QUEST,
 	POST_UI,
+	OTHER_PLAYER_MENU,
 	NONE,
 };
 
