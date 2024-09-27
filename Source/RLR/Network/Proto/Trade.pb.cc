@@ -135,7 +135,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR SC_TradeCompleteResponse::SC_TradeCompleteResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.itemlist_)*/{}
-  , /*decltype(_impl_.totalmoney_)*/0
+  , /*decltype(_impl_.totalmoney_)*/int64_t{0}
   , /*decltype(_impl_.success_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_TradeCompleteResponseDefaultTypeInternal {
@@ -147,8 +147,26 @@ struct SC_TradeCompleteResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_TradeCompleteResponseDefaultTypeInternal _SC_TradeCompleteResponse_default_instance_;
+PROTOBUF_CONSTEXPR SC_TradeStateResponse::SC_TradeStateResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.useritemlist1_)*/{}
+  , /*decltype(_impl_.useritemlist2_)*/{}
+  , /*decltype(_impl_.totalmoney1_)*/int64_t{0}
+  , /*decltype(_impl_.totalmoney2_)*/int64_t{0}
+  , /*decltype(_impl_.lockstate1_)*/0
+  , /*decltype(_impl_.lockstate2_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_TradeStateResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_TradeStateResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_TradeStateResponseDefaultTypeInternal() {}
+  union {
+    SC_TradeStateResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_TradeStateResponseDefaultTypeInternal _SC_TradeStateResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Trade_2eproto[9];
+static ::_pb::Metadata file_level_metadata_Trade_2eproto[10];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Trade_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Trade_2eproto = nullptr;
 
@@ -225,6 +243,18 @@ const uint32_t TableStruct_Trade_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCompleteResponse, _impl_.itemlist_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCompleteResponse, _impl_.totalmoney_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCompleteResponse, _impl_.success_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.useritemlist1_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.useritemlist2_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.totalmoney1_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.totalmoney2_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.lockstate1_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStateResponse, _impl_.lockstate2_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::TradeResponse)},
@@ -236,6 +266,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 49, -1, -1, sizeof(::Protocol::CS_TradeLockRequest)},
   { 56, -1, -1, sizeof(::Protocol::CS_TradeCancelRequest)},
   { 63, -1, -1, sizeof(::Protocol::SC_TradeCompleteResponse)},
+  { 72, -1, -1, sizeof(::Protocol::SC_TradeStateResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -248,6 +279,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CS_TradeLockRequest_default_instance_._instance,
   &::Protocol::_CS_TradeCancelRequest_default_instance_._instance,
   &::Protocol::_SC_TradeCompleteResponse_default_instance_._instance,
+  &::Protocol::_SC_TradeStateResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Trade_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -265,16 +297,21 @@ const char descriptor_table_protodef_Trade_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "erSeq\030\001 \001(\005\"(\n\025CS_TradeCancelRequest\022\017\n\007"
   "userSeq\030\001 \001(\005\"a\n\030SC_TradeCompleteRespons"
   "e\022 \n\010itemList\030\001 \003(\0132\016.Protocol.Item\022\022\n\nt"
-  "otalMoney\030\002 \001(\005\022\017\n\007success\030\003 \001(\005b\006proto3"
+  "otalMoney\030\002 \001(\003\022\017\n\007success\030\003 \001(\005\"\267\001\n\025SC_"
+  "TradeStateResponse\022%\n\ruserItemList1\030\001 \003("
+  "\0132\016.Protocol.Item\022%\n\ruserItemList2\030\002 \003(\013"
+  "2\016.Protocol.Item\022\023\n\013totalMoney1\030\003 \001(\003\022\023\n"
+  "\013totalMoney2\030\004 \001(\003\022\022\n\nLockState1\030\005 \001(\005\022\022"
+  "\n\nLockState2\030\006 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Trade_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Trade_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Trade_2eproto = {
-    false, false, 600, descriptor_table_protodef_Trade_2eproto,
+    false, false, 786, descriptor_table_protodef_Trade_2eproto,
     "Trade.proto",
-    &descriptor_table_Trade_2eproto_once, descriptor_table_Trade_2eproto_deps, 1, 9,
+    &descriptor_table_Trade_2eproto_once, descriptor_table_Trade_2eproto_deps, 1, 10,
     schemas, file_default_instances, TableStruct_Trade_2eproto::offsets,
     file_level_metadata_Trade_2eproto, file_level_enum_descriptors_Trade_2eproto,
     file_level_service_descriptors_Trade_2eproto,
@@ -1989,7 +2026,7 @@ inline void SC_TradeCompleteResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.itemlist_){arena}
-    , decltype(_impl_.totalmoney_){0}
+    , decltype(_impl_.totalmoney_){int64_t{0}}
     , decltype(_impl_.success_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -2045,10 +2082,10 @@ const char* SC_TradeCompleteResponse::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
-      // int32 totalMoney = 2;
+      // int64 totalMoney = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.totalmoney_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.totalmoney_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2098,10 +2135,10 @@ uint8_t* SC_TradeCompleteResponse::_InternalSerialize(
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // int32 totalMoney = 2;
+  // int64 totalMoney = 2;
   if (this->_internal_totalmoney() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_totalmoney(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_totalmoney(), target);
   }
 
   // int32 success = 3;
@@ -2133,9 +2170,9 @@ size_t SC_TradeCompleteResponse::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // int32 totalMoney = 2;
+  // int64 totalMoney = 2;
   if (this->_internal_totalmoney() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_totalmoney());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_totalmoney());
   }
 
   // int32 success = 3;
@@ -2200,6 +2237,339 @@ void SC_TradeCompleteResponse::InternalSwap(SC_TradeCompleteResponse* other) {
       file_level_metadata_Trade_2eproto[8]);
 }
 
+// ===================================================================
+
+class SC_TradeStateResponse::_Internal {
+ public:
+};
+
+void SC_TradeStateResponse::clear_useritemlist1() {
+  _impl_.useritemlist1_.Clear();
+}
+void SC_TradeStateResponse::clear_useritemlist2() {
+  _impl_.useritemlist2_.Clear();
+}
+SC_TradeStateResponse::SC_TradeStateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_TradeStateResponse)
+}
+SC_TradeStateResponse::SC_TradeStateResponse(const SC_TradeStateResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SC_TradeStateResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.useritemlist1_){from._impl_.useritemlist1_}
+    , decltype(_impl_.useritemlist2_){from._impl_.useritemlist2_}
+    , decltype(_impl_.totalmoney1_){}
+    , decltype(_impl_.totalmoney2_){}
+    , decltype(_impl_.lockstate1_){}
+    , decltype(_impl_.lockstate2_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.totalmoney1_, &from._impl_.totalmoney1_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.lockstate2_) -
+    reinterpret_cast<char*>(&_impl_.totalmoney1_)) + sizeof(_impl_.lockstate2_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_TradeStateResponse)
+}
+
+inline void SC_TradeStateResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.useritemlist1_){arena}
+    , decltype(_impl_.useritemlist2_){arena}
+    , decltype(_impl_.totalmoney1_){int64_t{0}}
+    , decltype(_impl_.totalmoney2_){int64_t{0}}
+    , decltype(_impl_.lockstate1_){0}
+    , decltype(_impl_.lockstate2_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_TradeStateResponse::~SC_TradeStateResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_TradeStateResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_TradeStateResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.useritemlist1_.~RepeatedPtrField();
+  _impl_.useritemlist2_.~RepeatedPtrField();
+}
+
+void SC_TradeStateResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_TradeStateResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_TradeStateResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.useritemlist1_.Clear();
+  _impl_.useritemlist2_.Clear();
+  ::memset(&_impl_.totalmoney1_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.lockstate2_) -
+      reinterpret_cast<char*>(&_impl_.totalmoney1_)) + sizeof(_impl_.lockstate2_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_TradeStateResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .Protocol.Item userItemList1 = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_useritemlist1(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .Protocol.Item userItemList2 = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_useritemlist2(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 totalMoney1 = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.totalmoney1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 totalMoney2 = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.totalmoney2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 LockState1 = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.lockstate1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 LockState2 = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.lockstate2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_TradeStateResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_TradeStateResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Item userItemList1 = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_useritemlist1_size()); i < n; i++) {
+    const auto& repfield = this->_internal_useritemlist1(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .Protocol.Item userItemList2 = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_useritemlist2_size()); i < n; i++) {
+    const auto& repfield = this->_internal_useritemlist2(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // int64 totalMoney1 = 3;
+  if (this->_internal_totalmoney1() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_totalmoney1(), target);
+  }
+
+  // int64 totalMoney2 = 4;
+  if (this->_internal_totalmoney2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_totalmoney2(), target);
+  }
+
+  // int32 LockState1 = 5;
+  if (this->_internal_lockstate1() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_lockstate1(), target);
+  }
+
+  // int32 LockState2 = 6;
+  if (this->_internal_lockstate2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_lockstate2(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_TradeStateResponse)
+  return target;
+}
+
+size_t SC_TradeStateResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_TradeStateResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Item userItemList1 = 1;
+  total_size += 1UL * this->_internal_useritemlist1_size();
+  for (const auto& msg : this->_impl_.useritemlist1_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .Protocol.Item userItemList2 = 2;
+  total_size += 1UL * this->_internal_useritemlist2_size();
+  for (const auto& msg : this->_impl_.useritemlist2_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // int64 totalMoney1 = 3;
+  if (this->_internal_totalmoney1() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_totalmoney1());
+  }
+
+  // int64 totalMoney2 = 4;
+  if (this->_internal_totalmoney2() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_totalmoney2());
+  }
+
+  // int32 LockState1 = 5;
+  if (this->_internal_lockstate1() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lockstate1());
+  }
+
+  // int32 LockState2 = 6;
+  if (this->_internal_lockstate2() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lockstate2());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_TradeStateResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_TradeStateResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_TradeStateResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_TradeStateResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_TradeStateResponse*>(&to_msg);
+  auto& from = static_cast<const SC_TradeStateResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_TradeStateResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.useritemlist1_.MergeFrom(from._impl_.useritemlist1_);
+  _this->_impl_.useritemlist2_.MergeFrom(from._impl_.useritemlist2_);
+  if (from._internal_totalmoney1() != 0) {
+    _this->_internal_set_totalmoney1(from._internal_totalmoney1());
+  }
+  if (from._internal_totalmoney2() != 0) {
+    _this->_internal_set_totalmoney2(from._internal_totalmoney2());
+  }
+  if (from._internal_lockstate1() != 0) {
+    _this->_internal_set_lockstate1(from._internal_lockstate1());
+  }
+  if (from._internal_lockstate2() != 0) {
+    _this->_internal_set_lockstate2(from._internal_lockstate2());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_TradeStateResponse::CopyFrom(const SC_TradeStateResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_TradeStateResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_TradeStateResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_TradeStateResponse::InternalSwap(SC_TradeStateResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.useritemlist1_.InternalSwap(&other->_impl_.useritemlist1_);
+  _impl_.useritemlist2_.InternalSwap(&other->_impl_.useritemlist2_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_TradeStateResponse, _impl_.lockstate2_)
+      + sizeof(SC_TradeStateResponse::_impl_.lockstate2_)
+      - PROTOBUF_FIELD_OFFSET(SC_TradeStateResponse, _impl_.totalmoney1_)>(
+          reinterpret_cast<char*>(&_impl_.totalmoney1_),
+          reinterpret_cast<char*>(&other->_impl_.totalmoney1_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeStateResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
+      file_level_metadata_Trade_2eproto[9]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -2238,6 +2608,10 @@ Arena::CreateMaybeMessage< ::Protocol::CS_TradeCancelRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::SC_TradeCompleteResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_TradeCompleteResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::SC_TradeCompleteResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_TradeStateResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_TradeStateResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_TradeStateResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

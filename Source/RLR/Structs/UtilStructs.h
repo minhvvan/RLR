@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Network/Proto/Post.pb.h"
 #include "UtilStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -104,35 +105,39 @@ struct FPostResult
 
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 reseiverSeq;
+	int32 ReceiverSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString title;
+	FString ReceiverName;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 senderSeq;
+	FString Title;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString content;
+	int32 SenderSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TArray<int64> itemId;
+	FString Content;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 totalMoney;
+	TArray<int64> ItemId;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	bool isRead;
+	int64 TotalMoney;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	bool isReceived;
+	bool IsRead;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 postId;
+	bool IsReceived;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	FString senderName;
+	int64 PostId;
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString SenderName;
+
+	void MakePostData(const Protocol::Post post);
 };
 
 USTRUCT(Atomic, BlueprintType)

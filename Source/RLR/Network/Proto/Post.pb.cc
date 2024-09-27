@@ -28,7 +28,8 @@ PROTOBUF_CONSTEXPR Post::Post(
   , /*decltype(_impl_.title_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.sendername_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.reseiverseq_)*/0
+  , /*decltype(_impl_.receivername_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.receiverseq_)*/0
   , /*decltype(_impl_.senderseq_)*/0
   , /*decltype(_impl_.totalmoney_)*/int64_t{0}
   , /*decltype(_impl_.postid_)*/int64_t{0}
@@ -136,7 +137,7 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.reseiverseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.receiverseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.title_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.senderseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.content_),
@@ -146,6 +147,7 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.isreceived_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.postid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.sendername_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.receivername_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::ItemList, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -198,12 +200,12 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::Post)},
-  { 16, -1, -1, sizeof(::Protocol::ItemList)},
-  { 23, -1, -1, sizeof(::Protocol::CS_PostRequest)},
-  { 30, 38, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
-  { 40, -1, -1, sizeof(::Protocol::SC_PostResponse)},
-  { 48, -1, -1, sizeof(::Protocol::CS_PostRead)},
-  { 56, -1, -1, sizeof(::Protocol::CS_PostReceived)},
+  { 17, -1, -1, sizeof(::Protocol::ItemList)},
+  { 24, -1, -1, sizeof(::Protocol::CS_PostRequest)},
+  { 31, 39, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
+  { 41, -1, -1, sizeof(::Protocol::SC_PostResponse)},
+  { 49, -1, -1, sizeof(::Protocol::CS_PostRead)},
+  { 57, -1, -1, sizeof(::Protocol::CS_PostReceived)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -217,29 +219,30 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Post_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nPost.proto\022\010Protocol\032\014Struct.proto\"\272\001\n"
-  "\004Post\022\023\n\013reseiverSeq\030\001 \001(\005\022\r\n\005title\030\002 \001("
+  "\n\nPost.proto\022\010Protocol\032\014Struct.proto\"\320\001\n"
+  "\004Post\022\023\n\013receiverSeq\030\001 \001(\005\022\r\n\005title\030\002 \001("
   "\t\022\021\n\tsenderSeq\030\003 \001(\005\022\017\n\007content\030\004 \001(\t\022\016\n"
   "\006itemId\030\005 \003(\003\022\022\n\ntotalMoney\030\006 \001(\003\022\016\n\006isR"
   "ead\030\007 \001(\010\022\022\n\nisReceived\030\010 \001(\010\022\016\n\006postId\030"
-  "\t \001(\003\022\022\n\nsenderName\030\n \001(\t\")\n\010ItemList\022\035\n"
-  "\005items\030\001 \003(\0132\016.Protocol.Item\"/\n\016CS_PostR"
-  "equest\022\035\n\005posts\030\001 \001(\0132\016.Protocol.Post\"\263\001"
-  "\n\017SC_PostResponse\022\035\n\005posts\030\002 \003(\0132\016.Proto"
-  "col.Post\022;\n\titemLists\030\003 \003(\0132(.Protocol.S"
-  "C_PostResponse.ItemListsEntry\032D\n\016ItemLis"
-  "tsEntry\022\013\n\003key\030\001 \001(\003\022!\n\005value\030\002 \001(\0132\022.Pr"
-  "otocol.ItemList:\0028\001\".\n\013CS_PostRead\022\016\n\006po"
-  "stId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\"B\n\017CS_PostRe"
-  "ceived\022\016\n\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\022"
-  "\016\n\006itemId\030\003 \001(\003b\006proto3"
+  "\t \001(\003\022\022\n\nsenderName\030\n \001(\t\022\024\n\014receiverNam"
+  "e\030\013 \001(\t\")\n\010ItemList\022\035\n\005items\030\001 \003(\0132\016.Pro"
+  "tocol.Item\"/\n\016CS_PostRequest\022\035\n\005posts\030\001 "
+  "\001(\0132\016.Protocol.Post\"\263\001\n\017SC_PostResponse\022"
+  "\035\n\005posts\030\002 \003(\0132\016.Protocol.Post\022;\n\titemLi"
+  "sts\030\003 \003(\0132(.Protocol.SC_PostResponse.Ite"
+  "mListsEntry\032D\n\016ItemListsEntry\022\013\n\003key\030\001 \001"
+  "(\003\022!\n\005value\030\002 \001(\0132\022.Protocol.ItemList:\0028"
+  "\001\".\n\013CS_PostRead\022\016\n\006postId\030\001 \001(\003\022\017\n\007user"
+  "Seq\030\002 \001(\005\"B\n\017CS_PostReceived\022\016\n\006postId\030\001"
+  " \001(\003\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006itemId\030\003 \001(\003b\006p"
+  "roto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Post_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Post_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Post_2eproto = {
-    false, false, 623, descriptor_table_protodef_Post_2eproto,
+    false, false, 645, descriptor_table_protodef_Post_2eproto,
     "Post.proto",
     &descriptor_table_Post_2eproto_once, descriptor_table_Post_2eproto_deps, 1, 7,
     schemas, file_default_instances, TableStruct_Post_2eproto::offsets,
@@ -275,7 +278,8 @@ Post::Post(const Post& from)
     , decltype(_impl_.title_){}
     , decltype(_impl_.content_){}
     , decltype(_impl_.sendername_){}
-    , decltype(_impl_.reseiverseq_){}
+    , decltype(_impl_.receivername_){}
+    , decltype(_impl_.receiverseq_){}
     , decltype(_impl_.senderseq_){}
     , decltype(_impl_.totalmoney_){}
     , decltype(_impl_.postid_){}
@@ -308,9 +312,17 @@ Post::Post(const Post& from)
     _this->_impl_.sendername_.Set(from._internal_sendername(), 
       _this->GetArenaForAllocation());
   }
-  ::memcpy(&_impl_.reseiverseq_, &from._impl_.reseiverseq_,
+  _impl_.receivername_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.receivername_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_receivername().empty()) {
+    _this->_impl_.receivername_.Set(from._internal_receivername(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.receiverseq_, &from._impl_.receiverseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.isreceived_) -
-    reinterpret_cast<char*>(&_impl_.reseiverseq_)) + sizeof(_impl_.isreceived_));
+    reinterpret_cast<char*>(&_impl_.receiverseq_)) + sizeof(_impl_.isreceived_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Post)
 }
 
@@ -324,7 +336,8 @@ inline void Post::SharedCtor(
     , decltype(_impl_.title_){}
     , decltype(_impl_.content_){}
     , decltype(_impl_.sendername_){}
-    , decltype(_impl_.reseiverseq_){0}
+    , decltype(_impl_.receivername_){}
+    , decltype(_impl_.receiverseq_){0}
     , decltype(_impl_.senderseq_){0}
     , decltype(_impl_.totalmoney_){int64_t{0}}
     , decltype(_impl_.postid_){int64_t{0}}
@@ -344,6 +357,10 @@ inline void Post::SharedCtor(
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.sendername_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.receivername_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.receivername_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Post::~Post() {
@@ -361,6 +378,7 @@ inline void Post::SharedDtor() {
   _impl_.title_.Destroy();
   _impl_.content_.Destroy();
   _impl_.sendername_.Destroy();
+  _impl_.receivername_.Destroy();
 }
 
 void Post::SetCachedSize(int size) const {
@@ -377,9 +395,10 @@ void Post::Clear() {
   _impl_.title_.ClearToEmpty();
   _impl_.content_.ClearToEmpty();
   _impl_.sendername_.ClearToEmpty();
-  ::memset(&_impl_.reseiverseq_, 0, static_cast<size_t>(
+  _impl_.receivername_.ClearToEmpty();
+  ::memset(&_impl_.receiverseq_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.isreceived_) -
-      reinterpret_cast<char*>(&_impl_.reseiverseq_)) + sizeof(_impl_.isreceived_));
+      reinterpret_cast<char*>(&_impl_.receiverseq_)) + sizeof(_impl_.isreceived_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -389,10 +408,10 @@ const char* Post::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 reseiverSeq = 1;
+      // int32 receiverSeq = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.reseiverseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.receiverseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -478,6 +497,16 @@ const char* Post::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
+      // string receiverName = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          auto str = _internal_mutable_receivername();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.Post.receiverName"));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -507,10 +536,10 @@ uint8_t* Post::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 reseiverSeq = 1;
-  if (this->_internal_reseiverseq() != 0) {
+  // int32 receiverSeq = 1;
+  if (this->_internal_receiverseq() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_reseiverseq(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_receiverseq(), target);
   }
 
   // string title = 2;
@@ -582,6 +611,16 @@ uint8_t* Post::_InternalSerialize(
         10, this->_internal_sendername(), target);
   }
 
+  // string receiverName = 11;
+  if (!this->_internal_receivername().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_receivername().data(), static_cast<int>(this->_internal_receivername().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.Post.receiverName");
+    target = stream->WriteStringMaybeAliased(
+        11, this->_internal_receivername(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -633,9 +672,16 @@ size_t Post::ByteSizeLong() const {
         this->_internal_sendername());
   }
 
-  // int32 reseiverSeq = 1;
-  if (this->_internal_reseiverseq() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_reseiverseq());
+  // string receiverName = 11;
+  if (!this->_internal_receivername().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_receivername());
+  }
+
+  // int32 receiverSeq = 1;
+  if (this->_internal_receiverseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_receiverseq());
   }
 
   // int32 senderSeq = 3;
@@ -691,8 +737,11 @@ void Post::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   if (!from._internal_sendername().empty()) {
     _this->_internal_set_sendername(from._internal_sendername());
   }
-  if (from._internal_reseiverseq() != 0) {
-    _this->_internal_set_reseiverseq(from._internal_reseiverseq());
+  if (!from._internal_receivername().empty()) {
+    _this->_internal_set_receivername(from._internal_receivername());
+  }
+  if (from._internal_receiverseq() != 0) {
+    _this->_internal_set_receiverseq(from._internal_receiverseq());
   }
   if (from._internal_senderseq() != 0) {
     _this->_internal_set_senderseq(from._internal_senderseq());
@@ -741,12 +790,16 @@ void Post::InternalSwap(Post* other) {
       &_impl_.sendername_, lhs_arena,
       &other->_impl_.sendername_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.receivername_, lhs_arena,
+      &other->_impl_.receivername_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Post, _impl_.isreceived_)
       + sizeof(Post::_impl_.isreceived_)
-      - PROTOBUF_FIELD_OFFSET(Post, _impl_.reseiverseq_)>(
-          reinterpret_cast<char*>(&_impl_.reseiverseq_),
-          reinterpret_cast<char*>(&other->_impl_.reseiverseq_));
+      - PROTOBUF_FIELD_OFFSET(Post, _impl_.receiverseq_)>(
+          reinterpret_cast<char*>(&_impl_.receiverseq_),
+          reinterpret_cast<char*>(&other->_impl_.receiverseq_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Post::GetMetadata() const {

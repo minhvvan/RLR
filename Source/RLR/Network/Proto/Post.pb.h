@@ -209,7 +209,8 @@ class Post final :
     kTitleFieldNumber = 2,
     kContentFieldNumber = 4,
     kSenderNameFieldNumber = 10,
-    kReseiverSeqFieldNumber = 1,
+    kReceiverNameFieldNumber = 11,
+    kReceiverSeqFieldNumber = 1,
     kSenderSeqFieldNumber = 3,
     kTotalMoneyFieldNumber = 6,
     kPostIdFieldNumber = 9,
@@ -280,13 +281,27 @@ class Post final :
   std::string* _internal_mutable_sendername();
   public:
 
-  // int32 reseiverSeq = 1;
-  void clear_reseiverseq();
-  int32_t reseiverseq() const;
-  void set_reseiverseq(int32_t value);
+  // string receiverName = 11;
+  void clear_receivername();
+  const std::string& receivername() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_receivername(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_receivername();
+  PROTOBUF_NODISCARD std::string* release_receivername();
+  void set_allocated_receivername(std::string* receivername);
   private:
-  int32_t _internal_reseiverseq() const;
-  void _internal_set_reseiverseq(int32_t value);
+  const std::string& _internal_receivername() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_receivername(const std::string& value);
+  std::string* _internal_mutable_receivername();
+  public:
+
+  // int32 receiverSeq = 1;
+  void clear_receiverseq();
+  int32_t receiverseq() const;
+  void set_receiverseq(int32_t value);
+  private:
+  int32_t _internal_receiverseq() const;
+  void _internal_set_receiverseq(int32_t value);
   public:
 
   // int32 senderSeq = 3;
@@ -347,7 +362,8 @@ class Post final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr title_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sendername_;
-    int32_t reseiverseq_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr receivername_;
+    int32_t receiverseq_;
     int32_t senderseq_;
     int64_t totalmoney_;
     int64_t postid_;
@@ -1219,24 +1235,24 @@ class CS_PostReceived final :
 #endif  // __GNUC__
 // Post
 
-// int32 reseiverSeq = 1;
-inline void Post::clear_reseiverseq() {
-  _impl_.reseiverseq_ = 0;
+// int32 receiverSeq = 1;
+inline void Post::clear_receiverseq() {
+  _impl_.receiverseq_ = 0;
 }
-inline int32_t Post::_internal_reseiverseq() const {
-  return _impl_.reseiverseq_;
+inline int32_t Post::_internal_receiverseq() const {
+  return _impl_.receiverseq_;
 }
-inline int32_t Post::reseiverseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.Post.reseiverSeq)
-  return _internal_reseiverseq();
+inline int32_t Post::receiverseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.Post.receiverSeq)
+  return _internal_receiverseq();
 }
-inline void Post::_internal_set_reseiverseq(int32_t value) {
+inline void Post::_internal_set_receiverseq(int32_t value) {
   
-  _impl_.reseiverseq_ = value;
+  _impl_.receiverseq_ = value;
 }
-inline void Post::set_reseiverseq(int32_t value) {
-  _internal_set_reseiverseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.Post.reseiverSeq)
+inline void Post::set_receiverseq(int32_t value) {
+  _internal_set_receiverseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.Post.receiverSeq)
 }
 
 // string title = 2;
@@ -1534,6 +1550,56 @@ inline void Post::set_allocated_sendername(std::string* sendername) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:Protocol.Post.senderName)
+}
+
+// string receiverName = 11;
+inline void Post::clear_receivername() {
+  _impl_.receivername_.ClearToEmpty();
+}
+inline const std::string& Post::receivername() const {
+  // @@protoc_insertion_point(field_get:Protocol.Post.receiverName)
+  return _internal_receivername();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Post::set_receivername(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.receivername_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.Post.receiverName)
+}
+inline std::string* Post::mutable_receivername() {
+  std::string* _s = _internal_mutable_receivername();
+  // @@protoc_insertion_point(field_mutable:Protocol.Post.receiverName)
+  return _s;
+}
+inline const std::string& Post::_internal_receivername() const {
+  return _impl_.receivername_.Get();
+}
+inline void Post::_internal_set_receivername(const std::string& value) {
+  
+  _impl_.receivername_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Post::_internal_mutable_receivername() {
+  
+  return _impl_.receivername_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Post::release_receivername() {
+  // @@protoc_insertion_point(field_release:Protocol.Post.receiverName)
+  return _impl_.receivername_.Release();
+}
+inline void Post::set_allocated_receivername(std::string* receivername) {
+  if (receivername != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.receivername_.SetAllocated(receivername, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.receivername_.IsDefault()) {
+    _impl_.receivername_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.Post.receiverName)
 }
 
 // -------------------------------------------------------------------

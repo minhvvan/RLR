@@ -27,13 +27,13 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     Protocol::CS_PostRequest packet;
 
     auto* packetPost = packet.mutable_posts();
-    std::string title(TCHAR_TO_UTF8(*post.title));
-    std::string content(TCHAR_TO_UTF8(*post.content));
+    std::string title(TCHAR_TO_UTF8(*post.Title));
+    std::string content(TCHAR_TO_UTF8(*post.Content));
     packetPost->set_title(title);
-    packetPost->set_postid(post.postId);
+    packetPost->set_postid(post.PostId);
     packetPost->set_senderseq(UserSeq);
-    packetPost->set_reseiverseq(post.reseiverSeq);
-    packetPost->set_totalmoney(post.totalMoney);
+    packetPost->set_receivername(post.ReceiverName);
+    packetPost->set_totalmoney(post.TotalMoney);
     packetPost->set_content(content);
     SEND_PACKET(packet);
 }
@@ -44,7 +44,7 @@ bool UNetworkManager::SendPostReadRequest(FPostResult post) {
     if (!MainServerSocket) return false;
 
     Protocol::CS_PostRead packet;
-    packet.set_postid(post.postId);
+    packet.set_postid(post.PostId);
     packet.set_userseq(UserSeq);
 
     SEND_PACKET(packet);
@@ -54,7 +54,7 @@ bool UNetworkManager::SendPostReceivedRequest(FPostResult post) {
     if (!MainServerSocket) return false;
 
     Protocol::CS_PostReceived packet;
-    packet.set_postid(post.postId);
+    packet.set_postid(post.PostId);
     packet.set_userseq(UserSeq);
 
     SEND_PACKET(packet);

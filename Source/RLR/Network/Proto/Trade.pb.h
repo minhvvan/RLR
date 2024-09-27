@@ -67,6 +67,9 @@ extern CS_TradeUserRequestDefaultTypeInternal _CS_TradeUserRequest_default_insta
 class SC_TradeCompleteResponse;
 struct SC_TradeCompleteResponseDefaultTypeInternal;
 extern SC_TradeCompleteResponseDefaultTypeInternal _SC_TradeCompleteResponse_default_instance_;
+class SC_TradeStateResponse;
+struct SC_TradeStateResponseDefaultTypeInternal;
+extern SC_TradeStateResponseDefaultTypeInternal _SC_TradeStateResponse_default_instance_;
 class SC_TradeUserResponse;
 struct SC_TradeUserResponseDefaultTypeInternal;
 extern SC_TradeUserResponseDefaultTypeInternal _SC_TradeUserResponse_default_instance_;
@@ -82,6 +85,7 @@ template<> ::Protocol::CS_TradeLockRequest* Arena::CreateMaybeMessage<::Protocol
 template<> ::Protocol::CS_TradeStartRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeStartRequest>(Arena*);
 template<> ::Protocol::CS_TradeUserRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeUserRequest>(Arena*);
 template<> ::Protocol::SC_TradeCompleteResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeCompleteResponse>(Arena*);
+template<> ::Protocol::SC_TradeStateResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeStateResponse>(Arena*);
 template<> ::Protocol::SC_TradeUserResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeUserResponse>(Arena*);
 template<> ::Protocol::TradeResponse* Arena::CreateMaybeMessage<::Protocol::TradeResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -1498,13 +1502,13 @@ class SC_TradeCompleteResponse final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
       itemlist() const;
 
-  // int32 totalMoney = 2;
+  // int64 totalMoney = 2;
   void clear_totalmoney();
-  int32_t totalmoney() const;
-  void set_totalmoney(int32_t value);
+  int64_t totalmoney() const;
+  void set_totalmoney(int64_t value);
   private:
-  int32_t _internal_totalmoney() const;
-  void _internal_set_totalmoney(int32_t value);
+  int64_t _internal_totalmoney() const;
+  void _internal_set_totalmoney(int64_t value);
   public:
 
   // int32 success = 3;
@@ -1525,8 +1529,229 @@ class SC_TradeCompleteResponse final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > itemlist_;
-    int32_t totalmoney_;
+    int64_t totalmoney_;
     int32_t success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Trade_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_TradeStateResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeStateResponse) */ {
+ public:
+  inline SC_TradeStateResponse() : SC_TradeStateResponse(nullptr) {}
+  ~SC_TradeStateResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_TradeStateResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_TradeStateResponse(const SC_TradeStateResponse& from);
+  SC_TradeStateResponse(SC_TradeStateResponse&& from) noexcept
+    : SC_TradeStateResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_TradeStateResponse& operator=(const SC_TradeStateResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_TradeStateResponse& operator=(SC_TradeStateResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_TradeStateResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_TradeStateResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_TradeStateResponse*>(
+               &_SC_TradeStateResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(SC_TradeStateResponse& a, SC_TradeStateResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_TradeStateResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_TradeStateResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_TradeStateResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_TradeStateResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_TradeStateResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_TradeStateResponse& from) {
+    SC_TradeStateResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_TradeStateResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_TradeStateResponse";
+  }
+  protected:
+  explicit SC_TradeStateResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserItemList1FieldNumber = 1,
+    kUserItemList2FieldNumber = 2,
+    kTotalMoney1FieldNumber = 3,
+    kTotalMoney2FieldNumber = 4,
+    kLockState1FieldNumber = 5,
+    kLockState2FieldNumber = 6,
+  };
+  // repeated .Protocol.Item userItemList1 = 1;
+  int useritemlist1_size() const;
+  private:
+  int _internal_useritemlist1_size() const;
+  public:
+  void clear_useritemlist1();
+  ::Protocol::Item* mutable_useritemlist1(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+      mutable_useritemlist1();
+  private:
+  const ::Protocol::Item& _internal_useritemlist1(int index) const;
+  ::Protocol::Item* _internal_add_useritemlist1();
+  public:
+  const ::Protocol::Item& useritemlist1(int index) const;
+  ::Protocol::Item* add_useritemlist1();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+      useritemlist1() const;
+
+  // repeated .Protocol.Item userItemList2 = 2;
+  int useritemlist2_size() const;
+  private:
+  int _internal_useritemlist2_size() const;
+  public:
+  void clear_useritemlist2();
+  ::Protocol::Item* mutable_useritemlist2(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+      mutable_useritemlist2();
+  private:
+  const ::Protocol::Item& _internal_useritemlist2(int index) const;
+  ::Protocol::Item* _internal_add_useritemlist2();
+  public:
+  const ::Protocol::Item& useritemlist2(int index) const;
+  ::Protocol::Item* add_useritemlist2();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+      useritemlist2() const;
+
+  // int64 totalMoney1 = 3;
+  void clear_totalmoney1();
+  int64_t totalmoney1() const;
+  void set_totalmoney1(int64_t value);
+  private:
+  int64_t _internal_totalmoney1() const;
+  void _internal_set_totalmoney1(int64_t value);
+  public:
+
+  // int64 totalMoney2 = 4;
+  void clear_totalmoney2();
+  int64_t totalmoney2() const;
+  void set_totalmoney2(int64_t value);
+  private:
+  int64_t _internal_totalmoney2() const;
+  void _internal_set_totalmoney2(int64_t value);
+  public:
+
+  // int32 LockState1 = 5;
+  void clear_lockstate1();
+  int32_t lockstate1() const;
+  void set_lockstate1(int32_t value);
+  private:
+  int32_t _internal_lockstate1() const;
+  void _internal_set_lockstate1(int32_t value);
+  public:
+
+  // int32 LockState2 = 6;
+  void clear_lockstate2();
+  int32_t lockstate2() const;
+  void set_lockstate2(int32_t value);
+  private:
+  int32_t _internal_lockstate2() const;
+  void _internal_set_lockstate2(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeStateResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > useritemlist1_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > useritemlist2_;
+    int64_t totalmoney1_;
+    int64_t totalmoney2_;
+    int32_t lockstate1_;
+    int32_t lockstate2_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1942,22 +2167,22 @@ SC_TradeCompleteResponse::itemlist() const {
   return _impl_.itemlist_;
 }
 
-// int32 totalMoney = 2;
+// int64 totalMoney = 2;
 inline void SC_TradeCompleteResponse::clear_totalmoney() {
-  _impl_.totalmoney_ = 0;
+  _impl_.totalmoney_ = int64_t{0};
 }
-inline int32_t SC_TradeCompleteResponse::_internal_totalmoney() const {
+inline int64_t SC_TradeCompleteResponse::_internal_totalmoney() const {
   return _impl_.totalmoney_;
 }
-inline int32_t SC_TradeCompleteResponse::totalmoney() const {
+inline int64_t SC_TradeCompleteResponse::totalmoney() const {
   // @@protoc_insertion_point(field_get:Protocol.SC_TradeCompleteResponse.totalMoney)
   return _internal_totalmoney();
 }
-inline void SC_TradeCompleteResponse::_internal_set_totalmoney(int32_t value) {
+inline void SC_TradeCompleteResponse::_internal_set_totalmoney(int64_t value) {
   
   _impl_.totalmoney_ = value;
 }
-inline void SC_TradeCompleteResponse::set_totalmoney(int32_t value) {
+inline void SC_TradeCompleteResponse::set_totalmoney(int64_t value) {
   _internal_set_totalmoney(value);
   // @@protoc_insertion_point(field_set:Protocol.SC_TradeCompleteResponse.totalMoney)
 }
@@ -1982,9 +2207,169 @@ inline void SC_TradeCompleteResponse::set_success(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_TradeCompleteResponse.success)
 }
 
+// -------------------------------------------------------------------
+
+// SC_TradeStateResponse
+
+// repeated .Protocol.Item userItemList1 = 1;
+inline int SC_TradeStateResponse::_internal_useritemlist1_size() const {
+  return _impl_.useritemlist1_.size();
+}
+inline int SC_TradeStateResponse::useritemlist1_size() const {
+  return _internal_useritemlist1_size();
+}
+inline ::Protocol::Item* SC_TradeStateResponse::mutable_useritemlist1(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeStateResponse.userItemList1)
+  return _impl_.useritemlist1_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+SC_TradeStateResponse::mutable_useritemlist1() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_TradeStateResponse.userItemList1)
+  return &_impl_.useritemlist1_;
+}
+inline const ::Protocol::Item& SC_TradeStateResponse::_internal_useritemlist1(int index) const {
+  return _impl_.useritemlist1_.Get(index);
+}
+inline const ::Protocol::Item& SC_TradeStateResponse::useritemlist1(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.userItemList1)
+  return _internal_useritemlist1(index);
+}
+inline ::Protocol::Item* SC_TradeStateResponse::_internal_add_useritemlist1() {
+  return _impl_.useritemlist1_.Add();
+}
+inline ::Protocol::Item* SC_TradeStateResponse::add_useritemlist1() {
+  ::Protocol::Item* _add = _internal_add_useritemlist1();
+  // @@protoc_insertion_point(field_add:Protocol.SC_TradeStateResponse.userItemList1)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+SC_TradeStateResponse::useritemlist1() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_TradeStateResponse.userItemList1)
+  return _impl_.useritemlist1_;
+}
+
+// repeated .Protocol.Item userItemList2 = 2;
+inline int SC_TradeStateResponse::_internal_useritemlist2_size() const {
+  return _impl_.useritemlist2_.size();
+}
+inline int SC_TradeStateResponse::useritemlist2_size() const {
+  return _internal_useritemlist2_size();
+}
+inline ::Protocol::Item* SC_TradeStateResponse::mutable_useritemlist2(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeStateResponse.userItemList2)
+  return _impl_.useritemlist2_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
+SC_TradeStateResponse::mutable_useritemlist2() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_TradeStateResponse.userItemList2)
+  return &_impl_.useritemlist2_;
+}
+inline const ::Protocol::Item& SC_TradeStateResponse::_internal_useritemlist2(int index) const {
+  return _impl_.useritemlist2_.Get(index);
+}
+inline const ::Protocol::Item& SC_TradeStateResponse::useritemlist2(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.userItemList2)
+  return _internal_useritemlist2(index);
+}
+inline ::Protocol::Item* SC_TradeStateResponse::_internal_add_useritemlist2() {
+  return _impl_.useritemlist2_.Add();
+}
+inline ::Protocol::Item* SC_TradeStateResponse::add_useritemlist2() {
+  ::Protocol::Item* _add = _internal_add_useritemlist2();
+  // @@protoc_insertion_point(field_add:Protocol.SC_TradeStateResponse.userItemList2)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
+SC_TradeStateResponse::useritemlist2() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_TradeStateResponse.userItemList2)
+  return _impl_.useritemlist2_;
+}
+
+// int64 totalMoney1 = 3;
+inline void SC_TradeStateResponse::clear_totalmoney1() {
+  _impl_.totalmoney1_ = int64_t{0};
+}
+inline int64_t SC_TradeStateResponse::_internal_totalmoney1() const {
+  return _impl_.totalmoney1_;
+}
+inline int64_t SC_TradeStateResponse::totalmoney1() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.totalMoney1)
+  return _internal_totalmoney1();
+}
+inline void SC_TradeStateResponse::_internal_set_totalmoney1(int64_t value) {
+  
+  _impl_.totalmoney1_ = value;
+}
+inline void SC_TradeStateResponse::set_totalmoney1(int64_t value) {
+  _internal_set_totalmoney1(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStateResponse.totalMoney1)
+}
+
+// int64 totalMoney2 = 4;
+inline void SC_TradeStateResponse::clear_totalmoney2() {
+  _impl_.totalmoney2_ = int64_t{0};
+}
+inline int64_t SC_TradeStateResponse::_internal_totalmoney2() const {
+  return _impl_.totalmoney2_;
+}
+inline int64_t SC_TradeStateResponse::totalmoney2() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.totalMoney2)
+  return _internal_totalmoney2();
+}
+inline void SC_TradeStateResponse::_internal_set_totalmoney2(int64_t value) {
+  
+  _impl_.totalmoney2_ = value;
+}
+inline void SC_TradeStateResponse::set_totalmoney2(int64_t value) {
+  _internal_set_totalmoney2(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStateResponse.totalMoney2)
+}
+
+// int32 LockState1 = 5;
+inline void SC_TradeStateResponse::clear_lockstate1() {
+  _impl_.lockstate1_ = 0;
+}
+inline int32_t SC_TradeStateResponse::_internal_lockstate1() const {
+  return _impl_.lockstate1_;
+}
+inline int32_t SC_TradeStateResponse::lockstate1() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.LockState1)
+  return _internal_lockstate1();
+}
+inline void SC_TradeStateResponse::_internal_set_lockstate1(int32_t value) {
+  
+  _impl_.lockstate1_ = value;
+}
+inline void SC_TradeStateResponse::set_lockstate1(int32_t value) {
+  _internal_set_lockstate1(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStateResponse.LockState1)
+}
+
+// int32 LockState2 = 6;
+inline void SC_TradeStateResponse::clear_lockstate2() {
+  _impl_.lockstate2_ = 0;
+}
+inline int32_t SC_TradeStateResponse::_internal_lockstate2() const {
+  return _impl_.lockstate2_;
+}
+inline int32_t SC_TradeStateResponse::lockstate2() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStateResponse.LockState2)
+  return _internal_lockstate2();
+}
+inline void SC_TradeStateResponse::_internal_set_lockstate2(int32_t value) {
+  
+  _impl_.lockstate2_ = value;
+}
+inline void SC_TradeStateResponse::set_lockstate2(int32_t value) {
+  _internal_set_lockstate2(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStateResponse.LockState2)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
