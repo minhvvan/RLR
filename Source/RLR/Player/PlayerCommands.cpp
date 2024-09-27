@@ -75,6 +75,8 @@ void APlayerCommands::BindDefaultAction(TObjectPtr<ARLRPlayerController> Control
 	
 	component->BindAction(SPACE, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Jump);
 	component->BindAction(Attack, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnDefaultAction, TagManager.Action_Default_Attack);
+	
+	component->BindAction(UserClick, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnUserClick);
 }
 
 void APlayerCommands::BindInput(TObjectPtr<ARLRPlayerController> Controller)
