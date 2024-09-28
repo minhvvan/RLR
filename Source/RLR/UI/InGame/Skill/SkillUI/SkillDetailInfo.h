@@ -64,4 +64,7 @@ public:
 
 	UPROPERTY()
 	FSkillData SkillData = FSkillData::EmptySkillData;
+
+	UPROPERTY()
+	FSkillClass SkillClassData = FSkillClass::EmptySkillClass;
 };
