@@ -21,10 +21,22 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
+PROTOBUF_CONSTEXPR Post_ItemValuesEntry_DoNotUse::Post_ItemValuesEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct Post_ItemValuesEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Post_ItemValuesEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Post_ItemValuesEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Post_ItemValuesEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Post_ItemValuesEntry_DoNotUseDefaultTypeInternal _Post_ItemValuesEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Post::Post(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.itemid_)*/{}
   , /*decltype(_impl_._itemid_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.itemvalues_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_.title_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.content_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.sendername_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -71,6 +83,59 @@ struct CS_PostRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_PostRequestDefaultTypeInternal _CS_PostRequest_default_instance_;
+PROTOBUF_CONSTEXPR CS_PostGetRequest::CS_PostGetRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CS_PostGetRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_PostGetRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CS_PostGetRequestDefaultTypeInternal() {}
+  union {
+    CS_PostGetRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_PostGetRequestDefaultTypeInternal _CS_PostGetRequest_default_instance_;
+PROTOBUF_CONSTEXPR SC_PostGetResponse_ItemListsEntry_DoNotUse::SC_PostGetResponse_ItemListsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    SC_PostGetResponse_ItemListsEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal _SC_PostGetResponse_ItemListsEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR SC_PostGetResponse::SC_PostGetResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.sendposts_)*/{}
+  , /*decltype(_impl_.recvposts_)*/{}
+  , /*decltype(_impl_.itemlists_)*/{::_pbi::ConstantInitialized()}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_PostGetResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_PostGetResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_PostGetResponseDefaultTypeInternal() {}
+  union {
+    SC_PostGetResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_PostGetResponseDefaultTypeInternal _SC_PostGetResponse_default_instance_;
+PROTOBUF_CONSTEXPR SC_PostSendResponse::SC_PostSendResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.posts_)*/nullptr
+  , /*decltype(_impl_.itemlist1_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SC_PostSendResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_PostSendResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SC_PostSendResponseDefaultTypeInternal() {}
+  union {
+    SC_PostSendResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_PostSendResponseDefaultTypeInternal _SC_PostSendResponse_default_instance_;
 PROTOBUF_CONSTEXPR SC_PostResponse_ItemListsEntry_DoNotUse::SC_PostResponse_ItemListsEntry_DoNotUse(
     ::_pbi::ConstantInitialized) {}
 struct SC_PostResponse_ItemListsEntry_DoNotUseDefaultTypeInternal {
@@ -126,11 +191,21 @@ struct CS_PostReceivedDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_PostReceivedDefaultTypeInternal _CS_PostReceived_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Post_2eproto[7];
+static ::_pb::Metadata file_level_metadata_Post_2eproto[12];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Post_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Post_2eproto = nullptr;
 
 const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post_ItemValuesEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post_ItemValuesEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post_ItemValuesEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post_ItemValuesEntry_DoNotUse, value_),
+  0,
+  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -148,6 +223,7 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.postid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.sendername_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.receivername_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Post, _impl_.itemvalues_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::ItemList, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -162,6 +238,40 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_PostRequest, _impl_.posts_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_PostGetRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_PostGetRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _impl_.sendposts_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _impl_.recvposts_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _impl_.itemlists_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostSendResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostSendResponse, _impl_.posts_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostSendResponse, _impl_.itemlist1_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -199,19 +309,29 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_PostReceived, _impl_.itemid_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::Post)},
-  { 17, -1, -1, sizeof(::Protocol::ItemList)},
-  { 24, -1, -1, sizeof(::Protocol::CS_PostRequest)},
-  { 31, 39, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
-  { 41, -1, -1, sizeof(::Protocol::SC_PostResponse)},
-  { 49, -1, -1, sizeof(::Protocol::CS_PostRead)},
-  { 57, -1, -1, sizeof(::Protocol::CS_PostReceived)},
+  { 0, 8, -1, sizeof(::Protocol::Post_ItemValuesEntry_DoNotUse)},
+  { 10, -1, -1, sizeof(::Protocol::Post)},
+  { 28, -1, -1, sizeof(::Protocol::ItemList)},
+  { 35, -1, -1, sizeof(::Protocol::CS_PostRequest)},
+  { 42, -1, -1, sizeof(::Protocol::CS_PostGetRequest)},
+  { 49, 57, -1, sizeof(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse)},
+  { 59, -1, -1, sizeof(::Protocol::SC_PostGetResponse)},
+  { 68, -1, -1, sizeof(::Protocol::SC_PostSendResponse)},
+  { 76, 84, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
+  { 86, -1, -1, sizeof(::Protocol::SC_PostResponse)},
+  { 94, -1, -1, sizeof(::Protocol::CS_PostRead)},
+  { 102, -1, -1, sizeof(::Protocol::CS_PostReceived)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
+  &::Protocol::_Post_ItemValuesEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Post_default_instance_._instance,
   &::Protocol::_ItemList_default_instance_._instance,
   &::Protocol::_CS_PostRequest_default_instance_._instance,
+  &::Protocol::_CS_PostGetRequest_default_instance_._instance,
+  &::Protocol::_SC_PostGetResponse_ItemListsEntry_DoNotUse_default_instance_._instance,
+  &::Protocol::_SC_PostGetResponse_default_instance_._instance,
+  &::Protocol::_SC_PostSendResponse_default_instance_._instance,
   &::Protocol::_SC_PostResponse_ItemListsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_SC_PostResponse_default_instance_._instance,
   &::Protocol::_CS_PostRead_default_instance_._instance,
@@ -219,32 +339,43 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Post_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nPost.proto\022\010Protocol\032\014Struct.proto\"\320\001\n"
+  "\n\nPost.proto\022\010Protocol\032\014Struct.proto\"\267\002\n"
   "\004Post\022\023\n\013receiverSeq\030\001 \001(\005\022\r\n\005title\030\002 \001("
   "\t\022\021\n\tsenderSeq\030\003 \001(\005\022\017\n\007content\030\004 \001(\t\022\016\n"
   "\006itemId\030\005 \003(\003\022\022\n\ntotalMoney\030\006 \001(\003\022\016\n\006isR"
   "ead\030\007 \001(\010\022\022\n\nisReceived\030\010 \001(\010\022\016\n\006postId\030"
   "\t \001(\003\022\022\n\nsenderName\030\n \001(\t\022\024\n\014receiverNam"
-  "e\030\013 \001(\t\")\n\010ItemList\022\035\n\005items\030\001 \003(\0132\016.Pro"
-  "tocol.Item\"/\n\016CS_PostRequest\022\035\n\005posts\030\001 "
-  "\001(\0132\016.Protocol.Post\"\263\001\n\017SC_PostResponse\022"
-  "\035\n\005posts\030\002 \003(\0132\016.Protocol.Post\022;\n\titemLi"
-  "sts\030\003 \003(\0132(.Protocol.SC_PostResponse.Ite"
-  "mListsEntry\032D\n\016ItemListsEntry\022\013\n\003key\030\001 \001"
-  "(\003\022!\n\005value\030\002 \001(\0132\022.Protocol.ItemList:\0028"
-  "\001\".\n\013CS_PostRead\022\016\n\006postId\030\001 \001(\003\022\017\n\007user"
-  "Seq\030\002 \001(\005\"B\n\017CS_PostReceived\022\016\n\006postId\030\001"
-  " \001(\003\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006itemId\030\003 \001(\003b\006p"
-  "roto3"
+  "e\030\013 \001(\t\0222\n\nitemValues\030\014 \003(\0132\036.Protocol.P"
+  "ost.ItemValuesEntry\0321\n\017ItemValuesEntry\022\013"
+  "\n\003key\030\001 \001(\003\022\r\n\005value\030\002 \001(\003:\0028\001\")\n\010ItemLi"
+  "st\022\035\n\005items\030\001 \003(\0132\016.Protocol.Item\"/\n\016CS_"
+  "PostRequest\022\035\n\005posts\030\001 \001(\0132\016.Protocol.Po"
+  "st\"$\n\021CS_PostGetRequest\022\017\n\007userSeq\030\001 \001(\005"
+  "\"\340\001\n\022SC_PostGetResponse\022!\n\tsendPosts\030\001 \003"
+  "(\0132\016.Protocol.Post\022!\n\trecvPosts\030\002 \003(\0132\016."
+  "Protocol.Post\022>\n\titemLists\030\003 \003(\0132+.Proto"
+  "col.SC_PostGetResponse.ItemListsEntry\032D\n"
+  "\016ItemListsEntry\022\013\n\003key\030\001 \001(\003\022!\n\005value\030\002 "
+  "\001(\0132\022.Protocol.ItemList:\0028\001\"[\n\023SC_PostSe"
+  "ndResponse\022\035\n\005posts\030\001 \001(\0132\016.Protocol.Pos"
+  "t\022%\n\titemList1\030\002 \001(\0132\022.Protocol.ItemList"
+  "\"\263\001\n\017SC_PostResponse\022\035\n\005posts\030\002 \003(\0132\016.Pr"
+  "otocol.Post\022;\n\titemLists\030\003 \003(\0132(.Protoco"
+  "l.SC_PostResponse.ItemListsEntry\032D\n\016Item"
+  "ListsEntry\022\013\n\003key\030\001 \001(\003\022!\n\005value\030\002 \001(\0132\022"
+  ".Protocol.ItemList:\0028\001\".\n\013CS_PostRead\022\016\n"
+  "\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\"B\n\017CS_Pos"
+  "tReceived\022\016\n\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001"
+  "(\005\022\016\n\006itemId\030\003 \001(\003b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Post_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Post_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Post_2eproto = {
-    false, false, 645, descriptor_table_protodef_Post_2eproto,
+    false, false, 1106, descriptor_table_protodef_Post_2eproto,
     "Post.proto",
-    &descriptor_table_Post_2eproto_once, descriptor_table_Post_2eproto_deps, 1, 7,
+    &descriptor_table_Post_2eproto_once, descriptor_table_Post_2eproto_deps, 1, 12,
     schemas, file_default_instances, TableStruct_Post_2eproto::offsets,
     file_level_metadata_Post_2eproto, file_level_enum_descriptors_Post_2eproto,
     file_level_service_descriptors_Post_2eproto,
@@ -259,6 +390,20 @@ namespace Protocol {
 
 // ===================================================================
 
+Post_ItemValuesEntry_DoNotUse::Post_ItemValuesEntry_DoNotUse() {}
+Post_ItemValuesEntry_DoNotUse::Post_ItemValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Post_ItemValuesEntry_DoNotUse::MergeFrom(const Post_ItemValuesEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Post_ItemValuesEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[0]);
+}
+
+// ===================================================================
+
 class Post::_Internal {
  public:
 };
@@ -267,6 +412,9 @@ Post::Post(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &Post::ArenaDtor);
+  }
   // @@protoc_insertion_point(arena_constructor:Protocol.Post)
 }
 Post::Post(const Post& from)
@@ -275,6 +423,7 @@ Post::Post(const Post& from)
   new (&_impl_) Impl_{
       decltype(_impl_.itemid_){from._impl_.itemid_}
     , /*decltype(_impl_._itemid_cached_byte_size_)*/{0}
+    , /*decltype(_impl_.itemvalues_)*/{}
     , decltype(_impl_.title_){}
     , decltype(_impl_.content_){}
     , decltype(_impl_.sendername_){}
@@ -288,6 +437,7 @@ Post::Post(const Post& from)
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.itemvalues_.MergeFrom(from._impl_.itemvalues_);
   _impl_.title_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.title_.Set("", GetArenaForAllocation());
@@ -333,6 +483,7 @@ inline void Post::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.itemid_){arena}
     , /*decltype(_impl_._itemid_cached_byte_size_)*/{0}
+    , /*decltype(_impl_.itemvalues_)*/{::_pbi::ArenaInitialized(), arena}
     , decltype(_impl_.title_){}
     , decltype(_impl_.content_){}
     , decltype(_impl_.sendername_){}
@@ -367,6 +518,7 @@ Post::~Post() {
   // @@protoc_insertion_point(destructor:Protocol.Post)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
+    ArenaDtor(this);
     return;
   }
   SharedDtor();
@@ -375,12 +527,18 @@ Post::~Post() {
 inline void Post::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.itemid_.~RepeatedField();
+  _impl_.itemvalues_.Destruct();
+  _impl_.itemvalues_.~MapField();
   _impl_.title_.Destroy();
   _impl_.content_.Destroy();
   _impl_.sendername_.Destroy();
   _impl_.receivername_.Destroy();
 }
 
+void Post::ArenaDtor(void* object) {
+  Post* _this = reinterpret_cast< Post* >(object);
+  _this->_impl_.itemvalues_.Destruct();
+}
 void Post::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
@@ -392,6 +550,7 @@ void Post::Clear() {
   (void) cached_has_bits;
 
   _impl_.itemid_.Clear();
+  _impl_.itemvalues_.Clear();
   _impl_.title_.ClearToEmpty();
   _impl_.content_.ClearToEmpty();
   _impl_.sendername_.ClearToEmpty();
@@ -504,6 +663,19 @@ const char* Post::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "Protocol.Post.receiverName"));
+        } else
+          goto handle_unusual;
+        continue;
+      // map<int64, int64> itemValues = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.itemvalues_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -621,6 +793,23 @@ uint8_t* Post::_InternalSerialize(
         11, this->_internal_receivername(), target);
   }
 
+  // map<int64, int64> itemValues = 12;
+  if (!this->_internal_itemvalues().empty()) {
+    using MapType = ::_pb::Map<int64_t, int64_t>;
+    using WireHelper = Post_ItemValuesEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_itemvalues();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(12, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(12, entry.first, entry.second, target, stream);
+      }
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -649,6 +838,15 @@ size_t Post::ByteSizeLong() const {
     _impl_._itemid_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
+  }
+
+  // map<int64, int64> itemValues = 12;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_itemvalues_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >::const_iterator
+      it = this->_internal_itemvalues().begin();
+      it != this->_internal_itemvalues().end(); ++it) {
+    total_size += Post_ItemValuesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   // string title = 2;
@@ -728,6 +926,7 @@ void Post::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   (void) cached_has_bits;
 
   _this->_impl_.itemid_.MergeFrom(from._impl_.itemid_);
+  _this->_impl_.itemvalues_.MergeFrom(from._impl_.itemvalues_);
   if (!from._internal_title().empty()) {
     _this->_internal_set_title(from._internal_title());
   }
@@ -778,6 +977,7 @@ void Post::InternalSwap(Post* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.itemid_.InternalSwap(&other->_impl_.itemid_);
+  _impl_.itemvalues_.InternalSwap(&other->_impl_.itemvalues_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.title_, lhs_arena,
       &other->_impl_.title_, rhs_arena
@@ -805,7 +1005,7 @@ void Post::InternalSwap(Post* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Post::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[0]);
+      file_level_metadata_Post_2eproto[1]);
 }
 
 // ===================================================================
@@ -993,7 +1193,7 @@ void ItemList::InternalSwap(ItemList* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ItemList::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[1]);
+      file_level_metadata_Post_2eproto[2]);
 }
 
 // ===================================================================
@@ -1186,7 +1386,712 @@ void CS_PostRequest::InternalSwap(CS_PostRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_PostRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[2]);
+      file_level_metadata_Post_2eproto[3]);
+}
+
+// ===================================================================
+
+class CS_PostGetRequest::_Internal {
+ public:
+};
+
+CS_PostGetRequest::CS_PostGetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_PostGetRequest)
+}
+CS_PostGetRequest::CS_PostGetRequest(const CS_PostGetRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CS_PostGetRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.userseq_ = from._impl_.userseq_;
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_PostGetRequest)
+}
+
+inline void CS_PostGetRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.userseq_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CS_PostGetRequest::~CS_PostGetRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_PostGetRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CS_PostGetRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CS_PostGetRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CS_PostGetRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_PostGetRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.userseq_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CS_PostGetRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CS_PostGetRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_PostGetRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_PostGetRequest)
+  return target;
+}
+
+size_t CS_PostGetRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_PostGetRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_PostGetRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CS_PostGetRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_PostGetRequest::GetClassData() const { return &_class_data_; }
+
+
+void CS_PostGetRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_PostGetRequest*>(&to_msg);
+  auto& from = static_cast<const CS_PostGetRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_PostGetRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CS_PostGetRequest::CopyFrom(const CS_PostGetRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_PostGetRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CS_PostGetRequest::IsInitialized() const {
+  return true;
+}
+
+void CS_PostGetRequest::InternalSwap(CS_PostGetRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.userseq_, other->_impl_.userseq_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CS_PostGetRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[4]);
+}
+
+// ===================================================================
+
+SC_PostGetResponse_ItemListsEntry_DoNotUse::SC_PostGetResponse_ItemListsEntry_DoNotUse() {}
+SC_PostGetResponse_ItemListsEntry_DoNotUse::SC_PostGetResponse_ItemListsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void SC_PostGetResponse_ItemListsEntry_DoNotUse::MergeFrom(const SC_PostGetResponse_ItemListsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata SC_PostGetResponse_ItemListsEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[5]);
+}
+
+// ===================================================================
+
+class SC_PostGetResponse::_Internal {
+ public:
+};
+
+SC_PostGetResponse::SC_PostGetResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &SC_PostGetResponse::ArenaDtor);
+  }
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_PostGetResponse)
+}
+SC_PostGetResponse::SC_PostGetResponse(const SC_PostGetResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SC_PostGetResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.sendposts_){from._impl_.sendposts_}
+    , decltype(_impl_.recvposts_){from._impl_.recvposts_}
+    , /*decltype(_impl_.itemlists_)*/{}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.itemlists_.MergeFrom(from._impl_.itemlists_);
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_PostGetResponse)
+}
+
+inline void SC_PostGetResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.sendposts_){arena}
+    , decltype(_impl_.recvposts_){arena}
+    , /*decltype(_impl_.itemlists_)*/{::_pbi::ArenaInitialized(), arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_PostGetResponse::~SC_PostGetResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_PostGetResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    ArenaDtor(this);
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_PostGetResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.sendposts_.~RepeatedPtrField();
+  _impl_.recvposts_.~RepeatedPtrField();
+  _impl_.itemlists_.Destruct();
+  _impl_.itemlists_.~MapField();
+}
+
+void SC_PostGetResponse::ArenaDtor(void* object) {
+  SC_PostGetResponse* _this = reinterpret_cast< SC_PostGetResponse* >(object);
+  _this->_impl_.itemlists_.Destruct();
+}
+void SC_PostGetResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_PostGetResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_PostGetResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.sendposts_.Clear();
+  _impl_.recvposts_.Clear();
+  _impl_.itemlists_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_PostGetResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .Protocol.Post sendPosts = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_sendposts(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .Protocol.Post recvPosts = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_recvposts(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // map<int64, .Protocol.ItemList> itemLists = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.itemlists_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_PostGetResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_PostGetResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Post sendPosts = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_sendposts_size()); i < n; i++) {
+    const auto& repfield = this->_internal_sendposts(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .Protocol.Post recvPosts = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_recvposts_size()); i < n; i++) {
+    const auto& repfield = this->_internal_recvposts(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // map<int64, .Protocol.ItemList> itemLists = 3;
+  if (!this->_internal_itemlists().empty()) {
+    using MapType = ::_pb::Map<int64_t, ::Protocol::ItemList>;
+    using WireHelper = SC_PostGetResponse_ItemListsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_itemlists();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(3, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(3, entry.first, entry.second, target, stream);
+      }
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_PostGetResponse)
+  return target;
+}
+
+size_t SC_PostGetResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_PostGetResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .Protocol.Post sendPosts = 1;
+  total_size += 1UL * this->_internal_sendposts_size();
+  for (const auto& msg : this->_impl_.sendposts_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .Protocol.Post recvPosts = 2;
+  total_size += 1UL * this->_internal_recvposts_size();
+  for (const auto& msg : this->_impl_.recvposts_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // map<int64, .Protocol.ItemList> itemLists = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_itemlists_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >::const_iterator
+      it = this->_internal_itemlists().begin();
+      it != this->_internal_itemlists().end(); ++it) {
+    total_size += SC_PostGetResponse_ItemListsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_PostGetResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_PostGetResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_PostGetResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_PostGetResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_PostGetResponse*>(&to_msg);
+  auto& from = static_cast<const SC_PostGetResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_PostGetResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.sendposts_.MergeFrom(from._impl_.sendposts_);
+  _this->_impl_.recvposts_.MergeFrom(from._impl_.recvposts_);
+  _this->_impl_.itemlists_.MergeFrom(from._impl_.itemlists_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_PostGetResponse::CopyFrom(const SC_PostGetResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_PostGetResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_PostGetResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_PostGetResponse::InternalSwap(SC_PostGetResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.sendposts_.InternalSwap(&other->_impl_.sendposts_);
+  _impl_.recvposts_.InternalSwap(&other->_impl_.recvposts_);
+  _impl_.itemlists_.InternalSwap(&other->_impl_.itemlists_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_PostGetResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[6]);
+}
+
+// ===================================================================
+
+class SC_PostSendResponse::_Internal {
+ public:
+  static const ::Protocol::Post& posts(const SC_PostSendResponse* msg);
+  static const ::Protocol::ItemList& itemlist1(const SC_PostSendResponse* msg);
+};
+
+const ::Protocol::Post&
+SC_PostSendResponse::_Internal::posts(const SC_PostSendResponse* msg) {
+  return *msg->_impl_.posts_;
+}
+const ::Protocol::ItemList&
+SC_PostSendResponse::_Internal::itemlist1(const SC_PostSendResponse* msg) {
+  return *msg->_impl_.itemlist1_;
+}
+SC_PostSendResponse::SC_PostSendResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_PostSendResponse)
+}
+SC_PostSendResponse::SC_PostSendResponse(const SC_PostSendResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SC_PostSendResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.posts_){nullptr}
+    , decltype(_impl_.itemlist1_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_posts()) {
+    _this->_impl_.posts_ = new ::Protocol::Post(*from._impl_.posts_);
+  }
+  if (from._internal_has_itemlist1()) {
+    _this->_impl_.itemlist1_ = new ::Protocol::ItemList(*from._impl_.itemlist1_);
+  }
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_PostSendResponse)
+}
+
+inline void SC_PostSendResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.posts_){nullptr}
+    , decltype(_impl_.itemlist1_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+SC_PostSendResponse::~SC_PostSendResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_PostSendResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SC_PostSendResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.posts_;
+  if (this != internal_default_instance()) delete _impl_.itemlist1_;
+}
+
+void SC_PostSendResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SC_PostSendResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_PostSendResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.posts_ != nullptr) {
+    delete _impl_.posts_;
+  }
+  _impl_.posts_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.itemlist1_ != nullptr) {
+    delete _impl_.itemlist1_;
+  }
+  _impl_.itemlist1_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SC_PostSendResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .Protocol.Post posts = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_posts(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.ItemList itemList1 = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_itemlist1(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SC_PostSendResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_PostSendResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .Protocol.Post posts = 1;
+  if (this->_internal_has_posts()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::posts(this),
+        _Internal::posts(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.ItemList itemList1 = 2;
+  if (this->_internal_has_itemlist1()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::itemlist1(this),
+        _Internal::itemlist1(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_PostSendResponse)
+  return target;
+}
+
+size_t SC_PostSendResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_PostSendResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .Protocol.Post posts = 1;
+  if (this->_internal_has_posts()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.posts_);
+  }
+
+  // .Protocol.ItemList itemList1 = 2;
+  if (this->_internal_has_itemlist1()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.itemlist1_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_PostSendResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SC_PostSendResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_PostSendResponse::GetClassData() const { return &_class_data_; }
+
+
+void SC_PostSendResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_PostSendResponse*>(&to_msg);
+  auto& from = static_cast<const SC_PostSendResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_PostSendResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_posts()) {
+    _this->_internal_mutable_posts()->::Protocol::Post::MergeFrom(
+        from._internal_posts());
+  }
+  if (from._internal_has_itemlist1()) {
+    _this->_internal_mutable_itemlist1()->::Protocol::ItemList::MergeFrom(
+        from._internal_itemlist1());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SC_PostSendResponse::CopyFrom(const SC_PostSendResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_PostSendResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SC_PostSendResponse::IsInitialized() const {
+  return true;
+}
+
+void SC_PostSendResponse::InternalSwap(SC_PostSendResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_PostSendResponse, _impl_.itemlist1_)
+      + sizeof(SC_PostSendResponse::_impl_.itemlist1_)
+      - PROTOBUF_FIELD_OFFSET(SC_PostSendResponse, _impl_.posts_)>(
+          reinterpret_cast<char*>(&_impl_.posts_),
+          reinterpret_cast<char*>(&other->_impl_.posts_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SC_PostSendResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[7]);
 }
 
 // ===================================================================
@@ -1200,7 +2105,7 @@ void SC_PostResponse_ItemListsEntry_DoNotUse::MergeFrom(const SC_PostResponse_It
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_PostResponse_ItemListsEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[3]);
+      file_level_metadata_Post_2eproto[8]);
 }
 
 // ===================================================================
@@ -1440,7 +2345,7 @@ void SC_PostResponse::InternalSwap(SC_PostResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_PostResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[4]);
+      file_level_metadata_Post_2eproto[9]);
 }
 
 // ===================================================================
@@ -1651,7 +2556,7 @@ void CS_PostRead::InternalSwap(CS_PostRead* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_PostRead::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[5]);
+      file_level_metadata_Post_2eproto[10]);
 }
 
 // ===================================================================
@@ -1886,12 +2791,16 @@ void CS_PostReceived::InternalSwap(CS_PostReceived* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_PostReceived::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[6]);
+      file_level_metadata_Post_2eproto[11]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::Protocol::Post_ItemValuesEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::Protocol::Post_ItemValuesEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Post_ItemValuesEntry_DoNotUse >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Protocol::Post*
 Arena::CreateMaybeMessage< ::Protocol::Post >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::Post >(arena);
@@ -1903,6 +2812,22 @@ Arena::CreateMaybeMessage< ::Protocol::ItemList >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::CS_PostRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_PostRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_PostRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::CS_PostGetRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_PostGetRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_PostGetRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_PostGetResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_PostGetResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_PostGetResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::SC_PostSendResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_PostSendResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_PostSendResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse*
 Arena::CreateMaybeMessage< ::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse >(Arena* arena) {

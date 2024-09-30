@@ -72,7 +72,8 @@ enum : uint16
     PKT_ITEM_ADD_RESPONSE = 1402,
     PKT_ITEM_USE_REQUEST = 1403,
     PKT_ITEM_USE_RESPONSE = 1404,
-
+    PKT_ITEM_QUICK_CHANGE_REQUEST = 1405,
+    PKT_ITEM_QUICK_CHANGE_RESPONSE = 1406,
     PKT_ADD_ITEM_REQUEST = 1411,
     PKT_ADD_ITEM_RESPONSE = 1412,
     PKT_SHOP_BUY_REQUEST = 1421,
@@ -114,10 +115,15 @@ enum : uint16
     PKT_CREATE_PARTY_RESPONSE = 1702,
     PKT_JOIN_PARTY_REQUEST = 1711,
     PKT_JOIN_PARTY_RESPONSE = 1712,
+    PKT_REQUEST_PARTY_REQUEST = 1713,
+    PKT_REQUEST_PARTY_RESPONSE = 1714,
     PKT_LEAVE_PARTY_REQUEST = 1721,
     PKT_LEAVE_PARTY_RESPONSE = 1722,
+    PKT_EXILE_PARTY_REQUEST = 1723,
+    PKT_EXILE_PARTY_RESPONSE = 1724,
     PKT_PARTY_STATUS_UPDATE = 1731,
     PKT_PARTY_MAP_INFO_REQUEST = 1741,
+
     // Add Good packet types
     PKT_GOOD_USER_REQUEST = 1801,
     PKT_GOOD_PLAYER_REQUEST = 1811,
@@ -139,6 +145,8 @@ enum : uint16
 
     PKT_POST_RECEIVED_REQUEST = 3005,
     PKT_POST_RECEIVED_RESPONSE = 3006,
+    PKT_POST_GET_REQUEST = 3007,
+    PKT_POST_GET_RESPONSE = 3008,
     // Add Trade Packet types
     PKT_TRADE_USER_REQUEST = 3011,
     PKT_TRADE_USER_RESPONSE = 3012,
@@ -148,8 +156,10 @@ enum : uint16
 
     PKT_TRADE_ADD_ITEM_REQUEST = 3015,
     PKT_TRADE_ADD_GOOD_REQUEST = 3016,
+
     PKT_TRADE_STATE_RESPONSE = 3017,
     PKT_TRADE_COMPLETE_RESPONSE = 3018,
+
     PKT_TRADE_LOCK_REQUEST = 3021,
     PKT_TRADE_LOCK_RESPONSE = 3022,
 
@@ -225,6 +235,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeStartRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_START_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeUserRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_USER_REQUEST); }
@@ -233,6 +244,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_ITEM_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_GOOD_REQUEST); }
 
+    
 
 public:
     template<typename PacketType>

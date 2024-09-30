@@ -38,7 +38,16 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     packetPost->set_content(content);
     SEND_PACKET(packet);
 }
+bool UNetworkManager::SendPostGetRequest() {
 
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_PostGetRequest packet;
+
+  
+    packet.set_userseq(UserSeq);
+    SEND_PACKET(packet);
+}
 
 bool UNetworkManager::SendPostReadRequest(FPostResult post) {
 

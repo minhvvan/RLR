@@ -6,14 +6,28 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/PostalManager.h"
 
-bool Handle_POST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PostResponse& pkt)
+bool Handle_POST_SEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PostSendResponse& pkt)
 {
-	TArray<FPostResult> PostDataList;
-	for (int32 i = 0; i < pkt.posts_size(); i++) {
-		FPostResult postData;
-		postData.MakePostData(pkt.posts().at(i));
-		PostDataList.Add(postData);
-	}
-	// 우편 매니저에 우편 을 받는 것 구현 필요
+	FPostResult postData;
+	postData.MakePostData(pkt.posts());
+	// 우편 매니저에 우편 받는 것 구현 필요
 	return false;
+}
+bool Handle_POST_GET_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PostGetResponse& pkt) {
+
+
+	TArray<FPostResult> sendPostDataList;
+	TArray<FPostResult> recvPostDataList;
+	for (int32 i = 0; i < pkt.sendposts_size(); i++) {
+		FPostResult postData;
+		postData.MakePostData(pkt.sendposts().at(i));
+		sendPostDataList.Add(postData);
+	}
+	for (int32 i = 0; i < pkt.recvposts_size(); i++) {
+		FPostResult postData;
+		postData.MakePostData(pkt.recvposts().at(i));
+		recvPostDataList.Add(postData);
+	}
+	// 우편 매니저에 우편 메시지 조회 구현 필요
+	return true;
 }

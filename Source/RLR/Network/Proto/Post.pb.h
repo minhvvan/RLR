@@ -49,6 +49,9 @@ struct TableStruct_Post_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Post_2eproto;
 namespace Protocol {
+class CS_PostGetRequest;
+struct CS_PostGetRequestDefaultTypeInternal;
+extern CS_PostGetRequestDefaultTypeInternal _CS_PostGetRequest_default_instance_;
 class CS_PostRead;
 struct CS_PostReadDefaultTypeInternal;
 extern CS_PostReadDefaultTypeInternal _CS_PostRead_default_instance_;
@@ -64,25 +67,66 @@ extern ItemListDefaultTypeInternal _ItemList_default_instance_;
 class Post;
 struct PostDefaultTypeInternal;
 extern PostDefaultTypeInternal _Post_default_instance_;
+class Post_ItemValuesEntry_DoNotUse;
+struct Post_ItemValuesEntry_DoNotUseDefaultTypeInternal;
+extern Post_ItemValuesEntry_DoNotUseDefaultTypeInternal _Post_ItemValuesEntry_DoNotUse_default_instance_;
+class SC_PostGetResponse;
+struct SC_PostGetResponseDefaultTypeInternal;
+extern SC_PostGetResponseDefaultTypeInternal _SC_PostGetResponse_default_instance_;
+class SC_PostGetResponse_ItemListsEntry_DoNotUse;
+struct SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal;
+extern SC_PostGetResponse_ItemListsEntry_DoNotUseDefaultTypeInternal _SC_PostGetResponse_ItemListsEntry_DoNotUse_default_instance_;
 class SC_PostResponse;
 struct SC_PostResponseDefaultTypeInternal;
 extern SC_PostResponseDefaultTypeInternal _SC_PostResponse_default_instance_;
 class SC_PostResponse_ItemListsEntry_DoNotUse;
 struct SC_PostResponse_ItemListsEntry_DoNotUseDefaultTypeInternal;
 extern SC_PostResponse_ItemListsEntry_DoNotUseDefaultTypeInternal _SC_PostResponse_ItemListsEntry_DoNotUse_default_instance_;
+class SC_PostSendResponse;
+struct SC_PostSendResponseDefaultTypeInternal;
+extern SC_PostSendResponseDefaultTypeInternal _SC_PostSendResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Protocol::CS_PostGetRequest* Arena::CreateMaybeMessage<::Protocol::CS_PostGetRequest>(Arena*);
 template<> ::Protocol::CS_PostRead* Arena::CreateMaybeMessage<::Protocol::CS_PostRead>(Arena*);
 template<> ::Protocol::CS_PostReceived* Arena::CreateMaybeMessage<::Protocol::CS_PostReceived>(Arena*);
 template<> ::Protocol::CS_PostRequest* Arena::CreateMaybeMessage<::Protocol::CS_PostRequest>(Arena*);
 template<> ::Protocol::ItemList* Arena::CreateMaybeMessage<::Protocol::ItemList>(Arena*);
 template<> ::Protocol::Post* Arena::CreateMaybeMessage<::Protocol::Post>(Arena*);
+template<> ::Protocol::Post_ItemValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Post_ItemValuesEntry_DoNotUse>(Arena*);
+template<> ::Protocol::SC_PostGetResponse* Arena::CreateMaybeMessage<::Protocol::SC_PostGetResponse>(Arena*);
+template<> ::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::SC_PostResponse* Arena::CreateMaybeMessage<::Protocol::SC_PostResponse>(Arena*);
 template<> ::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse>(Arena*);
+template<> ::Protocol::SC_PostSendResponse* Arena::CreateMaybeMessage<::Protocol::SC_PostSendResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
+
+class Post_ItemValuesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Post_ItemValuesEntry_DoNotUse, 
+    int64_t, int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Post_ItemValuesEntry_DoNotUse, 
+    int64_t, int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> SuperType;
+  Post_ItemValuesEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR Post_ItemValuesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Post_ItemValuesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Post_ItemValuesEntry_DoNotUse& other);
+  static const Post_ItemValuesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Post_ItemValuesEntry_DoNotUse*>(&_Post_ItemValuesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  friend struct ::TableStruct_Post_2eproto;
+};
+
+// -------------------------------------------------------------------
 
 class Post final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Post) */ {
@@ -132,7 +176,7 @@ class Post final :
                &_Post_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(Post& a, Post& b) {
     a.Swap(&b);
@@ -193,6 +237,8 @@ class Post final :
   protected:
   explicit Post(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
   public:
 
   static const ClassData _class_data_;
@@ -202,10 +248,12 @@ class Post final :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kItemIdFieldNumber = 5,
+    kItemValuesFieldNumber = 12,
     kTitleFieldNumber = 2,
     kContentFieldNumber = 4,
     kSenderNameFieldNumber = 10,
@@ -238,6 +286,23 @@ class Post final :
       itemid() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t >*
       mutable_itemid();
+
+  // map<int64, int64> itemValues = 12;
+  int itemvalues_size() const;
+  private:
+  int _internal_itemvalues_size() const;
+  public:
+  void clear_itemvalues();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >&
+      _internal_itemvalues() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >*
+      _internal_mutable_itemvalues();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >&
+      itemvalues() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >*
+      mutable_itemvalues();
 
   // string title = 2;
   void clear_title();
@@ -359,6 +424,11 @@ class Post final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedField< int64_t > itemid_;
     mutable std::atomic<int> _itemid_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+        Post_ItemValuesEntry_DoNotUse,
+        int64_t, int64_t,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> itemvalues_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr title_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sendername_;
@@ -424,7 +494,7 @@ class ItemList final :
                &_ItemList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(ItemList& a, ItemList& b) {
     a.Swap(&b);
@@ -581,7 +651,7 @@ class CS_PostRequest final :
                &_CS_PostRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(CS_PostRequest& a, CS_PostRequest& b) {
     a.Swap(&b);
@@ -690,6 +760,558 @@ class CS_PostRequest final :
 };
 // -------------------------------------------------------------------
 
+class CS_PostGetRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_PostGetRequest) */ {
+ public:
+  inline CS_PostGetRequest() : CS_PostGetRequest(nullptr) {}
+  ~CS_PostGetRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_PostGetRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_PostGetRequest(const CS_PostGetRequest& from);
+  CS_PostGetRequest(CS_PostGetRequest&& from) noexcept
+    : CS_PostGetRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_PostGetRequest& operator=(const CS_PostGetRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_PostGetRequest& operator=(CS_PostGetRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_PostGetRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_PostGetRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_PostGetRequest*>(
+               &_CS_PostGetRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(CS_PostGetRequest& a, CS_PostGetRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_PostGetRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_PostGetRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_PostGetRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_PostGetRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_PostGetRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_PostGetRequest& from) {
+    CS_PostGetRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_PostGetRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_PostGetRequest";
+  }
+  protected:
+  explicit CS_PostGetRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserSeqFieldNumber = 1,
+  };
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_PostGetRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Post_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_PostGetResponse_ItemListsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<SC_PostGetResponse_ItemListsEntry_DoNotUse, 
+    int64_t, ::Protocol::ItemList,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<SC_PostGetResponse_ItemListsEntry_DoNotUse, 
+    int64_t, ::Protocol::ItemList,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
+  SC_PostGetResponse_ItemListsEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR SC_PostGetResponse_ItemListsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit SC_PostGetResponse_ItemListsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const SC_PostGetResponse_ItemListsEntry_DoNotUse& other);
+  static const SC_PostGetResponse_ItemListsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const SC_PostGetResponse_ItemListsEntry_DoNotUse*>(&_SC_PostGetResponse_ItemListsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  friend struct ::TableStruct_Post_2eproto;
+};
+
+// -------------------------------------------------------------------
+
+class SC_PostGetResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_PostGetResponse) */ {
+ public:
+  inline SC_PostGetResponse() : SC_PostGetResponse(nullptr) {}
+  ~SC_PostGetResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_PostGetResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_PostGetResponse(const SC_PostGetResponse& from);
+  SC_PostGetResponse(SC_PostGetResponse&& from) noexcept
+    : SC_PostGetResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_PostGetResponse& operator=(const SC_PostGetResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_PostGetResponse& operator=(SC_PostGetResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_PostGetResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_PostGetResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_PostGetResponse*>(
+               &_SC_PostGetResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(SC_PostGetResponse& a, SC_PostGetResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_PostGetResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_PostGetResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_PostGetResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_PostGetResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_PostGetResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_PostGetResponse& from) {
+    SC_PostGetResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_PostGetResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_PostGetResponse";
+  }
+  protected:
+  explicit SC_PostGetResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSendPostsFieldNumber = 1,
+    kRecvPostsFieldNumber = 2,
+    kItemListsFieldNumber = 3,
+  };
+  // repeated .Protocol.Post sendPosts = 1;
+  int sendposts_size() const;
+  private:
+  int _internal_sendposts_size() const;
+  public:
+  void clear_sendposts();
+  ::Protocol::Post* mutable_sendposts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >*
+      mutable_sendposts();
+  private:
+  const ::Protocol::Post& _internal_sendposts(int index) const;
+  ::Protocol::Post* _internal_add_sendposts();
+  public:
+  const ::Protocol::Post& sendposts(int index) const;
+  ::Protocol::Post* add_sendposts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >&
+      sendposts() const;
+
+  // repeated .Protocol.Post recvPosts = 2;
+  int recvposts_size() const;
+  private:
+  int _internal_recvposts_size() const;
+  public:
+  void clear_recvposts();
+  ::Protocol::Post* mutable_recvposts(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >*
+      mutable_recvposts();
+  private:
+  const ::Protocol::Post& _internal_recvposts(int index) const;
+  ::Protocol::Post* _internal_add_recvposts();
+  public:
+  const ::Protocol::Post& recvposts(int index) const;
+  ::Protocol::Post* add_recvposts();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >&
+      recvposts() const;
+
+  // map<int64, .Protocol.ItemList> itemLists = 3;
+  int itemlists_size() const;
+  private:
+  int _internal_itemlists_size() const;
+  public:
+  void clear_itemlists();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >&
+      _internal_itemlists() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >*
+      _internal_mutable_itemlists();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >&
+      itemlists() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >*
+      mutable_itemlists();
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_PostGetResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post > sendposts_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post > recvposts_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+        SC_PostGetResponse_ItemListsEntry_DoNotUse,
+        int64_t, ::Protocol::ItemList,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> itemlists_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Post_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_PostSendResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_PostSendResponse) */ {
+ public:
+  inline SC_PostSendResponse() : SC_PostSendResponse(nullptr) {}
+  ~SC_PostSendResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_PostSendResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_PostSendResponse(const SC_PostSendResponse& from);
+  SC_PostSendResponse(SC_PostSendResponse&& from) noexcept
+    : SC_PostSendResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_PostSendResponse& operator=(const SC_PostSendResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_PostSendResponse& operator=(SC_PostSendResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_PostSendResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_PostSendResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_PostSendResponse*>(
+               &_SC_PostSendResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(SC_PostSendResponse& a, SC_PostSendResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_PostSendResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_PostSendResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_PostSendResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_PostSendResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_PostSendResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_PostSendResponse& from) {
+    SC_PostSendResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_PostSendResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_PostSendResponse";
+  }
+  protected:
+  explicit SC_PostSendResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPostsFieldNumber = 1,
+    kItemList1FieldNumber = 2,
+  };
+  // .Protocol.Post posts = 1;
+  bool has_posts() const;
+  private:
+  bool _internal_has_posts() const;
+  public:
+  void clear_posts();
+  const ::Protocol::Post& posts() const;
+  PROTOBUF_NODISCARD ::Protocol::Post* release_posts();
+  ::Protocol::Post* mutable_posts();
+  void set_allocated_posts(::Protocol::Post* posts);
+  private:
+  const ::Protocol::Post& _internal_posts() const;
+  ::Protocol::Post* _internal_mutable_posts();
+  public:
+  void unsafe_arena_set_allocated_posts(
+      ::Protocol::Post* posts);
+  ::Protocol::Post* unsafe_arena_release_posts();
+
+  // .Protocol.ItemList itemList1 = 2;
+  bool has_itemlist1() const;
+  private:
+  bool _internal_has_itemlist1() const;
+  public:
+  void clear_itemlist1();
+  const ::Protocol::ItemList& itemlist1() const;
+  PROTOBUF_NODISCARD ::Protocol::ItemList* release_itemlist1();
+  ::Protocol::ItemList* mutable_itemlist1();
+  void set_allocated_itemlist1(::Protocol::ItemList* itemlist1);
+  private:
+  const ::Protocol::ItemList& _internal_itemlist1() const;
+  ::Protocol::ItemList* _internal_mutable_itemlist1();
+  public:
+  void unsafe_arena_set_allocated_itemlist1(
+      ::Protocol::ItemList* itemlist1);
+  ::Protocol::ItemList* unsafe_arena_release_itemlist1();
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_PostSendResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::Protocol::Post* posts_;
+    ::Protocol::ItemList* itemlist1_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Post_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SC_PostResponse_ItemListsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<SC_PostResponse_ItemListsEntry_DoNotUse, 
     int64_t, ::Protocol::ItemList,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64,
@@ -762,7 +1384,7 @@ class SC_PostResponse final :
                &_SC_PostResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    9;
 
   friend void swap(SC_PostResponse& a, SC_PostResponse& b) {
     a.Swap(&b);
@@ -945,7 +1567,7 @@ class CS_PostRead final :
                &_CS_PostRead_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    10;
 
   friend void swap(CS_PostRead& a, CS_PostRead& b) {
     a.Swap(&b);
@@ -1104,7 +1726,7 @@ class CS_PostReceived final :
                &_CS_PostReceived_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    11;
 
   friend void swap(CS_PostReceived& a, CS_PostReceived& b) {
     a.Swap(&b);
@@ -1233,6 +1855,8 @@ class CS_PostReceived final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // Post
 
 // int32 receiverSeq = 1;
@@ -1602,6 +2226,35 @@ inline void Post::set_allocated_receivername(std::string* receivername) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Post.receiverName)
 }
 
+// map<int64, int64> itemValues = 12;
+inline int Post::_internal_itemvalues_size() const {
+  return _impl_.itemvalues_.size();
+}
+inline int Post::itemvalues_size() const {
+  return _internal_itemvalues_size();
+}
+inline void Post::clear_itemvalues() {
+  _impl_.itemvalues_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >&
+Post::_internal_itemvalues() const {
+  return _impl_.itemvalues_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >&
+Post::itemvalues() const {
+  // @@protoc_insertion_point(field_map:Protocol.Post.itemValues)
+  return _internal_itemvalues();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >*
+Post::_internal_mutable_itemvalues() {
+  return _impl_.itemvalues_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >*
+Post::mutable_itemvalues() {
+  // @@protoc_insertion_point(field_mutable_map:Protocol.Post.itemValues)
+  return _internal_mutable_itemvalues();
+}
+
 // -------------------------------------------------------------------
 
 // ItemList
@@ -1735,6 +2388,329 @@ inline void CS_PostRequest::set_allocated_posts(::Protocol::Post* posts) {
   }
   _impl_.posts_ = posts;
   // @@protoc_insertion_point(field_set_allocated:Protocol.CS_PostRequest.posts)
+}
+
+// -------------------------------------------------------------------
+
+// CS_PostGetRequest
+
+// int32 userSeq = 1;
+inline void CS_PostGetRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_PostGetRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_PostGetRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_PostGetRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_PostGetRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_PostGetRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_PostGetRequest.userSeq)
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// SC_PostGetResponse
+
+// repeated .Protocol.Post sendPosts = 1;
+inline int SC_PostGetResponse::_internal_sendposts_size() const {
+  return _impl_.sendposts_.size();
+}
+inline int SC_PostGetResponse::sendposts_size() const {
+  return _internal_sendposts_size();
+}
+inline void SC_PostGetResponse::clear_sendposts() {
+  _impl_.sendposts_.Clear();
+}
+inline ::Protocol::Post* SC_PostGetResponse::mutable_sendposts(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_PostGetResponse.sendPosts)
+  return _impl_.sendposts_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >*
+SC_PostGetResponse::mutable_sendposts() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_PostGetResponse.sendPosts)
+  return &_impl_.sendposts_;
+}
+inline const ::Protocol::Post& SC_PostGetResponse::_internal_sendposts(int index) const {
+  return _impl_.sendposts_.Get(index);
+}
+inline const ::Protocol::Post& SC_PostGetResponse::sendposts(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_PostGetResponse.sendPosts)
+  return _internal_sendposts(index);
+}
+inline ::Protocol::Post* SC_PostGetResponse::_internal_add_sendposts() {
+  return _impl_.sendposts_.Add();
+}
+inline ::Protocol::Post* SC_PostGetResponse::add_sendposts() {
+  ::Protocol::Post* _add = _internal_add_sendposts();
+  // @@protoc_insertion_point(field_add:Protocol.SC_PostGetResponse.sendPosts)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >&
+SC_PostGetResponse::sendposts() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_PostGetResponse.sendPosts)
+  return _impl_.sendposts_;
+}
+
+// repeated .Protocol.Post recvPosts = 2;
+inline int SC_PostGetResponse::_internal_recvposts_size() const {
+  return _impl_.recvposts_.size();
+}
+inline int SC_PostGetResponse::recvposts_size() const {
+  return _internal_recvposts_size();
+}
+inline void SC_PostGetResponse::clear_recvposts() {
+  _impl_.recvposts_.Clear();
+}
+inline ::Protocol::Post* SC_PostGetResponse::mutable_recvposts(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_PostGetResponse.recvPosts)
+  return _impl_.recvposts_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >*
+SC_PostGetResponse::mutable_recvposts() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_PostGetResponse.recvPosts)
+  return &_impl_.recvposts_;
+}
+inline const ::Protocol::Post& SC_PostGetResponse::_internal_recvposts(int index) const {
+  return _impl_.recvposts_.Get(index);
+}
+inline const ::Protocol::Post& SC_PostGetResponse::recvposts(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_PostGetResponse.recvPosts)
+  return _internal_recvposts(index);
+}
+inline ::Protocol::Post* SC_PostGetResponse::_internal_add_recvposts() {
+  return _impl_.recvposts_.Add();
+}
+inline ::Protocol::Post* SC_PostGetResponse::add_recvposts() {
+  ::Protocol::Post* _add = _internal_add_recvposts();
+  // @@protoc_insertion_point(field_add:Protocol.SC_PostGetResponse.recvPosts)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Post >&
+SC_PostGetResponse::recvposts() const {
+  // @@protoc_insertion_point(field_list:Protocol.SC_PostGetResponse.recvPosts)
+  return _impl_.recvposts_;
+}
+
+// map<int64, .Protocol.ItemList> itemLists = 3;
+inline int SC_PostGetResponse::_internal_itemlists_size() const {
+  return _impl_.itemlists_.size();
+}
+inline int SC_PostGetResponse::itemlists_size() const {
+  return _internal_itemlists_size();
+}
+inline void SC_PostGetResponse::clear_itemlists() {
+  _impl_.itemlists_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >&
+SC_PostGetResponse::_internal_itemlists() const {
+  return _impl_.itemlists_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >&
+SC_PostGetResponse::itemlists() const {
+  // @@protoc_insertion_point(field_map:Protocol.SC_PostGetResponse.itemLists)
+  return _internal_itemlists();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >*
+SC_PostGetResponse::_internal_mutable_itemlists() {
+  return _impl_.itemlists_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int64_t, ::Protocol::ItemList >*
+SC_PostGetResponse::mutable_itemlists() {
+  // @@protoc_insertion_point(field_mutable_map:Protocol.SC_PostGetResponse.itemLists)
+  return _internal_mutable_itemlists();
+}
+
+// -------------------------------------------------------------------
+
+// SC_PostSendResponse
+
+// .Protocol.Post posts = 1;
+inline bool SC_PostSendResponse::_internal_has_posts() const {
+  return this != internal_default_instance() && _impl_.posts_ != nullptr;
+}
+inline bool SC_PostSendResponse::has_posts() const {
+  return _internal_has_posts();
+}
+inline void SC_PostSendResponse::clear_posts() {
+  if (GetArenaForAllocation() == nullptr && _impl_.posts_ != nullptr) {
+    delete _impl_.posts_;
+  }
+  _impl_.posts_ = nullptr;
+}
+inline const ::Protocol::Post& SC_PostSendResponse::_internal_posts() const {
+  const ::Protocol::Post* p = _impl_.posts_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Post&>(
+      ::Protocol::_Post_default_instance_);
+}
+inline const ::Protocol::Post& SC_PostSendResponse::posts() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_PostSendResponse.posts)
+  return _internal_posts();
+}
+inline void SC_PostSendResponse::unsafe_arena_set_allocated_posts(
+    ::Protocol::Post* posts) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.posts_);
+  }
+  _impl_.posts_ = posts;
+  if (posts) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SC_PostSendResponse.posts)
+}
+inline ::Protocol::Post* SC_PostSendResponse::release_posts() {
+  
+  ::Protocol::Post* temp = _impl_.posts_;
+  _impl_.posts_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Post* SC_PostSendResponse::unsafe_arena_release_posts() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_PostSendResponse.posts)
+  
+  ::Protocol::Post* temp = _impl_.posts_;
+  _impl_.posts_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Post* SC_PostSendResponse::_internal_mutable_posts() {
+  
+  if (_impl_.posts_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Post>(GetArenaForAllocation());
+    _impl_.posts_ = p;
+  }
+  return _impl_.posts_;
+}
+inline ::Protocol::Post* SC_PostSendResponse::mutable_posts() {
+  ::Protocol::Post* _msg = _internal_mutable_posts();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_PostSendResponse.posts)
+  return _msg;
+}
+inline void SC_PostSendResponse::set_allocated_posts(::Protocol::Post* posts) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.posts_;
+  }
+  if (posts) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(posts);
+    if (message_arena != submessage_arena) {
+      posts = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, posts, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.posts_ = posts;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_PostSendResponse.posts)
+}
+
+// .Protocol.ItemList itemList1 = 2;
+inline bool SC_PostSendResponse::_internal_has_itemlist1() const {
+  return this != internal_default_instance() && _impl_.itemlist1_ != nullptr;
+}
+inline bool SC_PostSendResponse::has_itemlist1() const {
+  return _internal_has_itemlist1();
+}
+inline void SC_PostSendResponse::clear_itemlist1() {
+  if (GetArenaForAllocation() == nullptr && _impl_.itemlist1_ != nullptr) {
+    delete _impl_.itemlist1_;
+  }
+  _impl_.itemlist1_ = nullptr;
+}
+inline const ::Protocol::ItemList& SC_PostSendResponse::_internal_itemlist1() const {
+  const ::Protocol::ItemList* p = _impl_.itemlist1_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::ItemList&>(
+      ::Protocol::_ItemList_default_instance_);
+}
+inline const ::Protocol::ItemList& SC_PostSendResponse::itemlist1() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_PostSendResponse.itemList1)
+  return _internal_itemlist1();
+}
+inline void SC_PostSendResponse::unsafe_arena_set_allocated_itemlist1(
+    ::Protocol::ItemList* itemlist1) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.itemlist1_);
+  }
+  _impl_.itemlist1_ = itemlist1;
+  if (itemlist1) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SC_PostSendResponse.itemList1)
+}
+inline ::Protocol::ItemList* SC_PostSendResponse::release_itemlist1() {
+  
+  ::Protocol::ItemList* temp = _impl_.itemlist1_;
+  _impl_.itemlist1_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::ItemList* SC_PostSendResponse::unsafe_arena_release_itemlist1() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_PostSendResponse.itemList1)
+  
+  ::Protocol::ItemList* temp = _impl_.itemlist1_;
+  _impl_.itemlist1_ = nullptr;
+  return temp;
+}
+inline ::Protocol::ItemList* SC_PostSendResponse::_internal_mutable_itemlist1() {
+  
+  if (_impl_.itemlist1_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::ItemList>(GetArenaForAllocation());
+    _impl_.itemlist1_ = p;
+  }
+  return _impl_.itemlist1_;
+}
+inline ::Protocol::ItemList* SC_PostSendResponse::mutable_itemlist1() {
+  ::Protocol::ItemList* _msg = _internal_mutable_itemlist1();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_PostSendResponse.itemList1)
+  return _msg;
+}
+inline void SC_PostSendResponse::set_allocated_itemlist1(::Protocol::ItemList* itemlist1) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.itemlist1_;
+  }
+  if (itemlist1) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(itemlist1);
+    if (message_arena != submessage_arena) {
+      itemlist1 = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, itemlist1, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.itemlist1_ = itemlist1;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_PostSendResponse.itemList1)
 }
 
 // -------------------------------------------------------------------
@@ -1923,6 +2899,16 @@ inline void CS_PostReceived::set_itemid(int64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

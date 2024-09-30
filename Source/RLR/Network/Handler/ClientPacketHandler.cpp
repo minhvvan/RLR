@@ -186,7 +186,11 @@ void ClientPacketHandler::Init()
         };
     GPacketHandler[PKT_POST_SEND_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-            return instance.HandlePacket<Protocol::SC_PostResponse>(&Handle_POST_RESPONSE, session, buffer, len);
+            return instance.HandlePacket<Protocol::SC_PostSendResponse>(&Handle_POST_SEND_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_POST_GET_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PostGetResponse>(&Handle_POST_GET_RESPONSE, session, buffer, len);
         };
     GPacketHandler[PKT_TRADE_USER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
