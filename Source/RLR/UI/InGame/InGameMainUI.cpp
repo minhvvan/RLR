@@ -65,6 +65,22 @@ bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
 	return bOpen;
 }
 
+void UInGameMainUI::CloseSubUI(FGameplayTag InputTag)
+{
+	USubUI* subUI = GetSubUI(InputTag);
+	if (!subUI) return;
+
+	subUI->CloseUI();
+}
+
+bool UInGameMainUI::IsOpenSubUI(FGameplayTag InputTag)
+{
+	USubUI* subUI = GetSubUI(InputTag);
+	if (!subUI) return false;
+
+	return subUI->GetVisibility() == ESlateVisibility::Visible;
+}
+
 USubUI* UInGameMainUI::GetSubUI(FGameplayTag InputTag)
 {
 	if (!UserActionSubUI.Contains(InputTag)) return nullptr;

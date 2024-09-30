@@ -68,7 +68,8 @@ void USkillDetailInfo::OnClickedUpgradeSkillButton()
 {
 	if (SkillData == FSkillData::EmptySkillData)
 	{
-		GameInstance->GetUIManager()->CloseSubUI(EUIType::SKILL_UPGRADE);
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_SkillUpgrade);
 		return;
 	}
 

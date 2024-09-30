@@ -111,6 +111,7 @@ public:
 	*/
 
 	FGameplayTag UI_Inventory;
+	FGameplayTag UI_ItemInfomation;
 	FGameplayTag UI_CharacterStatus;
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;

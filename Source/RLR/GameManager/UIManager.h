@@ -35,7 +35,6 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 public:
 	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
 	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
-	void CloseSubUI(EUIType SubUIType);
 	void SetZOrderToTop(USubUI* Target);
 
 	void CloseFrontSubUI ();
@@ -46,6 +45,7 @@ public:
 	void AddUI(UBaseUI* BaseUI);
 
 	void ToggleSubUI(FGameplayTag UITag);
+	void CloseSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
 	void SetSubUIPos(FGameplayTag UITag, FVector2D NewPos);
