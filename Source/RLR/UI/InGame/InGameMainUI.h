@@ -108,6 +108,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
 	
+	
+	
+
 public:
 
 
