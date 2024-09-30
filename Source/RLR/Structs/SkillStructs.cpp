@@ -79,19 +79,17 @@ void FSkillData::MakeSkillData(Protocol::SkillInfo skill) {
 
     SkillType = static_cast<ESkillType>(skill.skillactivestatus().skilltype());
 
-    const FSkillClass& OriginData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
-    if (OriginData == FSkillClass::EmptySkillClass)
-        return;
-
-    SkillImage = OriginData.SkillImage;
 }
 
 void FSkillClass::MakeSkillData(Protocol::SkillInfo skill)
 {
+    SkillSeq = skill.skillseq();
+
     const FSkillClass& OriginData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
     if (OriginData == FSkillClass::EmptySkillClass)
         return;
 
     SkillAnimClass = OriginData.SkillAnimClass;
     SkillClass = OriginData.SkillClass;
+    SkillImage = OriginData.SkillImage;
 }

@@ -11,6 +11,7 @@
 #include "Components/Image.h"
 
 #include "GameManager/GameManager.h"
+#include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
 
 
@@ -51,11 +52,15 @@ void USkillSettingListSlot::RefreshUI()
 
 	if(GetSkillData() ==FSkillData::EmptySkillData)
 		return;
+	int32 SkillSeq = GetSkillData().SkillSeq;
 
+	FSkillClass SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
+	if(SkillClassData == FSkillClass::EmptySkillClass)
+		return;
 
-	if (IsValid(GetSkillData().SkillImage) == true)
+	if (IsValid(SkillClassData.SkillImage) == true)
 	{
-		SetSlotImage(GetSkillData().SkillImage);
+		SetSlotImage(SkillClassData.SkillImage);
 	}
 
 	SkillLevelText->SetText(FText::AsNumber(GetSkillData().Level));

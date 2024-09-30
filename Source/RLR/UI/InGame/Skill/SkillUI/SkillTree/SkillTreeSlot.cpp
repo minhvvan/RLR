@@ -50,5 +50,5 @@ FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 void USkillTreeSlot::RefreshUI()
 {
 	Super::RefreshUI();
-	SetSlotImage(GetSkillData().SkillImage);
+	SetSlotImage(GetSkillClassData().SkillImage);
 }
