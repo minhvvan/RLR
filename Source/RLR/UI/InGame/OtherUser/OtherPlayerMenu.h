@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "Structs/PlayerStructs.h"
 #include "OtherPlayerMenu.generated.h"
 
 class UTextBlock;
@@ -41,4 +42,32 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 
+	void SetOtherUserData(TSharedPtr<FUserData> Otheruser);
+
+protected:
+	UFUNCTION()
+	void OnUserInfoClicked();
+
+	UFUNCTION()
+	void OnAddFriendClicked();
+
+	UFUNCTION()
+	void OnAddPartyClicked();
+
+	UFUNCTION()
+	void OnTradeClicked();
+
+	UFUNCTION()
+	void OnWhisperClicked();
+
+	UFUNCTION()
+	void OnReportClicked();
+
+	UFUNCTION()
+	void OnCancelClicked();
+
+	void CloseUIByManager();
+
+private:
+	TSharedPtr<FUserData> OtherUserData;
 };
