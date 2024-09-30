@@ -30,6 +30,12 @@
 		Stat = NewStruct; \
 	}
 
+#define ALL_STAT_GETTER(StructType) \
+	FORCEINLINE StructType* GetStatData() \
+	{ \
+		return &Stat; \
+	}
+
 #define STAT_PROPERTY_GETTER(StructType, PropertyName) \
 	static FStat Get##PropertyName##Stat() \
 	{ \

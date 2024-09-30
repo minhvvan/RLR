@@ -86,22 +86,6 @@ void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 	}
 }
 
-void UUIManager::CloseSubUI(EUIType SubUIType)
-{
-	if (DialogueUI)
-	{
-		DialogueUI->CloseItemInfo();
-	}
-	else
-	{
-		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
-			return;
-
-		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
-		SubUI->CloseUI();
-	}
-}
-
 void UUIManager::SetZOrderToTop(USubUI* Target)
 {
 	if(SubUIStack.Num() == 0)
@@ -201,6 +185,23 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	MainUI->InvalidateLayoutAndVolatility();
 }
 
+void UUIManager::CloseSubUI(FGameplayTag UITag)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (MainUI->IsOpenSubUI(UITag))
+		{
+			MainUI->CloseSubUI(UITag);
+			SubUIStack.Remove(MainUI->GetSubUI(UITag));
+			AdjustZOrder();
+		}
+	}
+}
+
 void UUIManager::AdjustZOrder()
 {
 	for (int32 OrderNum = 0; OrderNum < SubUIStack.Num(); OrderNum++)
@@ -213,6 +214,17 @@ void UUIManager::AdjustZOrder()
 			CanvasSlot->SetZOrder(OrderNum);
 		}
 	}
+}
+
+void UUIManager::SetSubUIPos(FGameplayTag UITag, FVector2D NewPos)
+{
+	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
+	if (!subUI) return;
+
+	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);
+	if (!panel) return;
+
+	panel->SetPosition(NewPos);
 }
 
 TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)

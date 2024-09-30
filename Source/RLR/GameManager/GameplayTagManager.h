@@ -111,6 +111,7 @@ public:
 	*/
 
 	FGameplayTag UI_Inventory;
+	FGameplayTag UI_ItemInfomation;
 	FGameplayTag UI_CharacterStatus;
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;
@@ -123,6 +124,7 @@ public:
 
 
 	FGameplayTag UI_Post;
+	FGameplayTag UI_OtherPlayerMenu;
 	/*
 	
 			키 입력 바인딩에 사용되는 태그

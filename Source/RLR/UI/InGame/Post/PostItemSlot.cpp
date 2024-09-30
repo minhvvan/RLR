@@ -132,7 +132,8 @@ void UPostItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUI(EUIType::ITEM_INFOMATION);
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
 }
 
 FReply UPostItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

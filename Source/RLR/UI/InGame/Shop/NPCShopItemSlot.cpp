@@ -75,7 +75,9 @@ void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPo
 void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
 	auto UIMananger = GetUIManager();
-	UIMananger->CloseSubUI(EUIType::ITEM_INFOMATION);
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	UIMananger->CloseSubUI(TagManager.UI_ItemInfomation);
 }
 
 void UNPCShopItemSlot::RefreshUI()

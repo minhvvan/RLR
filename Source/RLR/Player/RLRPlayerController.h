@@ -39,9 +39,12 @@ public:
 	void InitBinding();
 
 private:
+	void OnInput();
 	void OnMoveStarted(FGameplayTag TriggerTag);
 	void OnMove(FGameplayTag TriggerTag);
 	void OnMoveCompleted(FGameplayTag TriggerTag);
+
+	void OnUserClick();
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);
