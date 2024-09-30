@@ -13,6 +13,7 @@
 #include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
+#include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
@@ -20,6 +21,7 @@
 #include "Player/RLREnhancedInputComponent.h"
 #include "Physics/RLRCollision.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/PlayerStructs.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 
@@ -119,7 +121,6 @@ void ARLRPlayerController::InitBinding()
 
 void ARLRPlayerController::OnInput()
 {
-	RLR_LOG(LogRLR, Log, TEXT("Input"));
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
 }
@@ -172,7 +173,16 @@ void ARLRPlayerController::OnUserClick()
 	{
 		FGameplayTagManager TagManager = FGameplayTagManager::Get();
 		auto UIManger = GameInstance->GetUIManager();
-		//UIManger->GetSubUI
+		auto otherUserMenu = Cast<UOtherPlayerMenu>(UIManger->GetUI(EUIType::OTHER_PLAYER_MENU));
+		if (otherUserMenu)
+		{
+			auto asc = otherUser->GetActionSystemComponent();
+			auto statSet = asc->GetStatSet<UStatSetPlayer>();
+			if (!statSet) return;
+
+			FUserCharacter* otherUserData = statSet->GetStatData();
+			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
+		}
 
 		UIManger->SetSubUIPos(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
 		OnOpenUI(TagManager.UI_OtherPlayerMenu);

@@ -42,7 +42,7 @@ protected:
 public:
 	virtual void NativeConstruct() override;
 
-	void SetOtherUserData(TSharedPtr<FUserData> Otheruser);
+	void SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser);
 
 protected:
 	UFUNCTION()
@@ -69,5 +69,5 @@ protected:
 	void CloseUIByManager();
 
 private:
-	TSharedPtr<FUserData> OtherUserData;
+	TSharedPtr<FUserCharacter> OtherUserData;
 };

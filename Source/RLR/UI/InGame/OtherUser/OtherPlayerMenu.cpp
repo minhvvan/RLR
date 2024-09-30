@@ -7,6 +7,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "RLR.h"
 
 void UOtherPlayerMenu::NativeConstruct()
 {
@@ -23,7 +24,7 @@ void UOtherPlayerMenu::NativeConstruct()
 	BtnCancel->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnCancelClicked);
 }
 
-void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserData> Otheruser)
+void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 {
 	OtherUserData = Otheruser;
 }
