@@ -4,6 +4,10 @@
 #include "GameManager/PostalManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Post/PostOverlayUI.h"
+#include "Structs/SkillStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 void UPostalManager::Update()
@@ -11,107 +15,41 @@ void UPostalManager::Update()
 	OnUpdatePostalDelegateBroadcast();
 }
 
-void UPostalManager::AddItem(const FItemData& NewItem)
+void UPostalManager::SetPostData(const TArray<FPostResult>& NewPostResult)
 {
-	if (NewItem == FItemData::EmptyItemData)
+	PostResultData = NewPostResult;
+	// 확인
+	ClassifyPostData();
+
+	UUIManager* UIManager = GameInstance->GetUIManager();
+	if (!UIManager) return;
+
+	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	if (!InGameMainUI) return;
+
+	UPostOverlayUI* PostUI = InGameMainUI->GetPostOverlayUI();
+
+	PostUIClass = PostUI;
+
+	if (PostUIClass)
 	{
-		return;
+		PostUIClass->SetPostResults(NewPostResult);
 	}
-	ItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
-	OnUpdatePostalDelegateBroadcast();
+
+}
+const TArray<FPostResult>& UPostalManager::GetPostData() const
+{
+	return PostResultData;
 }
 
-void UPostalManager::AddItemList(const TArray<FItemData>& NewItemList, const TArray<FItemResource>& NewItemResourceList)
+const TArray<FPostResult>& UPostalManager::GetSentPosts() const
 {
-	for (const FItemData& newItem : NewItemList)
-	{
-		if (newItem == FItemData::EmptyItemData)
-		{
-			continue;
-		}
-		ItemData.Add(newItem.ITEM_SLOT_IDX, newItem);
-	}
-	AddItemResourceList(NewItemResourceList);
+	return SentPostList;
 }
 
-void UPostalManager::AddItemResourceList(const TArray<FItemResource>& NewItemResourceList)
+const TArray<FPostResult>& UPostalManager::GetReceivedPosts() const
 {
-	for (const FItemResource& newItemResource : NewItemResourceList)
-	{
-		if (newItemResource.ITEM_SEQ == -1)
-		{
-			continue;
-		}
-		ItemResourceData.Add(newItemResource.ITEM_SEQ, newItemResource);
-	}
-}
-
-FItemData UPostalManager::GetItem(int32 ItemSeq)
-{
-	if (ItemData.Contains(ItemSeq))
-	{
-		return ItemData[ItemSeq];
-	}
-	return FItemData::EmptyItemData;
-}
-
-void UPostalManager::RemoveItem(int32 ItemSeq)
-{
-	if(ItemData.Contains(ItemSeq))
-	{ 
-		FItemData RemoveItem;
-		ItemData.RemoveAndCopyValue(ItemSeq, RemoveItem);
-		OnUpdatePostalDelegateBroadcast();
-	}
-}
-
-void UPostalManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
-{
-	if (ItemData.Contains(Item_Seq))
-	{
-		ItemData[Item_Seq].ITEM_SLOT_IDX = NewSlotIndex;
-	}
-}
-
-void UPostalManager::GetItemList(UPARAM(ref)TArray<FItemData>& ItemArray)
-{
-	ItemData.GenerateValueArray(ItemArray);
-}
-
-void UPostalManager::GetItemResourceList(UPARAM(ref)TArray<FItemResource>& ItemResourceArray)
-{
-	ItemResourceData.GenerateValueArray(ItemResourceArray);
-}
-
-const FItemResource UPostalManager::GetItemResource(int32 ItemSeq) const
-{
-	if (ItemResourceData.Contains(ItemSeq))
-	{
-		return ItemResourceData[ItemSeq];
-	}
-	return FItemResource::EmptyItemResource;
-}
-
-bool UPostalManager::TryGetItemResource(int32 ItemSeq, FItemResource& OutItemResource) const
-{
-	if (ItemResourceData.Contains(ItemSeq))
-	{
-		OutItemResource = ItemResourceData[ItemSeq];
-		return true;
-	}
-	OutItemResource = FItemResource::EmptyItemResource;
-	return false;
-}
-
-void UPostalManager::SetItemList(TArray<FItemData>& ItemArray)
-{
-	ItemData.Empty();
-
-	for (const FItemData& item : ItemArray)
-	{
-		ItemData.Add(item.ITEM_SEQ, item);
-	}
-	Update();
+	return ReceivedPostList;
 }
 
 void UPostalManager::OnUpdatePostalDelegateBroadcast()
@@ -126,4 +64,30 @@ void UPostalManager::OnUpdatePostalDelegateBroadcast()
 			}
 			OnUpdatePostalDelegate.Broadcast();
 		});
+}
+
+void UPostalManager::SetItemData(int32 itemId, FItemData Item)
+{
+	ItemData[itemId] = Item;
+}
+
+void UPostalManager::ClassifyPostData()
+{
+    SentPostList.Empty();
+    ReceivedPostList.Empty();
+
+    // 사용자 시퀀스 얻기
+    int64 UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+
+    for (const FPostResult& PostData : PostResultData)
+    {
+        if (PostData.SenderSeq == UserSeq)
+        {
+            SentPostList.Add(PostData);
+        }
+        else if (PostData.ReceiverSeq == UserSeq)
+        {
+            ReceivedPostList.Add(PostData);
+        }
+    }
 }
