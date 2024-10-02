@@ -33,6 +33,7 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     packetPost->set_title(title);
     packetPost->set_postid(post.PostId);
     packetPost->set_senderseq(UserSeq);
+    packetPost->set_receiverseq(post.ReceiverSeq);
     packetPost->set_receivername(receiverName);
     packetPost->set_totalmoney(post.TotalMoney);
     packetPost->set_content(content);
