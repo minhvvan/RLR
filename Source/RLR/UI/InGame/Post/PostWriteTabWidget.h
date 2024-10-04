@@ -79,7 +79,7 @@ public:
     UFUNCTION()
     void OnClearPostButtonClicked();
 
-    TArray<FItemData> GetAttachedItemsFromSlots();
+    TArray<int64> GetAttachedItemsFromSlots();
 
     //UFUNCTION()
     //void UpdatePostCost();

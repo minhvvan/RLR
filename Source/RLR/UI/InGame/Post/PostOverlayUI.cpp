@@ -3,9 +3,14 @@
 
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
+#include "UI/InGame/Post/PostTabWidget.h"
+#include "UI/InGame/Post/PostWriteTabWidget.h"
+#include "UI/InGame/Post/PostSentTabWidget.h"
+#include "UI/InGame/Post/PostReceivedTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "Structs/UtilStructs.h"
@@ -61,49 +66,10 @@ void UPostOverlayUI::Init()
 
 void UPostOverlayUI::RefreshUI()
 {
-	UPostalManager* PostalManager = GameInstance->GetPostalManager();
-
-	for (UPostItemSlot* ItemSlot : PostWriteTabWidget->PostSlotList)
-	{
-		ItemSlot->Clear();
-	}
-
-	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
-	TArray<FItemData> ItemList;
-	PostalManager->GetItemList(ItemList);
-	TArray<FItemResource> ItemResourceList;
-	PostalManager->GetItemResourceList(ItemResourceList);
-
-	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
-	TMap<int32, FItemResource> ItemResourceMap;
-	for (const FItemResource& ItemResource : ItemResourceList)
-	{
-		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
-	}
-
-	int32 ItemCount = 0;
-	for (FItemData& ItemData : ItemList)
-	{
-		//설정된 값보다 아이템 수가 많으면 에러
-		if (MaxPostSlotCount <= ItemCount)
-		{
-			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
-			break;
-		}
-
-		ItemCount++;
-
-		int32 ItemSlotIndex = ItemData.ITEM_SLOT_IDX;
-		if (ItemSlotIndex >= MaxPostSlotCount || ItemSlotIndex < 0)
-			continue;
-		PostWriteTabWidget->PostSlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
-
-		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
-		if (FoundItemResource)
-		{
-			PostWriteTabWidget->PostSlotList[ItemData.ITEM_SLOT_IDX]->SetSlotItemResourceData(*FoundItemResource);
-		}
-	}
+	// 서버나 캐시에서 새 우편 데이터 가져오기
+	TArray<FPostResult> NewPostData = GameInstance->GetPostalManager()->GetPostData();
+	SetPostResults(NewPostData);
+	UpdatePostWidget();
 }
 
 void UPostOverlayUI::OnReceivedPostButtonClicked()
@@ -111,6 +77,11 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 	if (PostWidgetSwitcher)
 	{
 		PostWidgetSwitcher->SetActiveWidgetIndex(0);
+
+		AsyncTask(ENamedThreads::GameThread, [this]()
+			{
+				UpdatePostWidget();
+			});
 	}
 }
 
@@ -119,6 +90,11 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 	if (PostWidgetSwitcher)
 	{
 		PostWidgetSwitcher->SetActiveWidgetIndex(1);
+
+		AsyncTask(ENamedThreads::GameThread, [this]()
+			{
+				UpdatePostWidget();
+			});
 	}
 }
 
@@ -135,4 +111,34 @@ void UPostOverlayUI::SetMaxSlotCount(int32 Count)
 	MaxPostSlotCount = Count;
 	Init();
 	RefreshUI();
+}
+
+void UPostOverlayUI::UpdatePostWidget()
+{
+	int64 UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+	TArray<FPostResult> PostResultData = GameInstance->GetPostalManager()->GetPostData();
+	TArray<FPostResult> ReceivedPostList; 
+	TArray<FPostResult> SentPostList; 
+	
+	for (FPostResult PostData : PostResultData)
+	{
+		if (PostData.SenderSeq == UserSeq)
+		{
+			SentPostList.Add(PostData);
+		}
+		if (PostData.ReceiverSeq == UserSeq)
+		{
+			ReceivedPostList.Add(PostData);
+		}
+	}
+	if(ReceivedPostList.Num() > 0 && PostReceivedTabWidget)
+		PostReceivedTabWidget->UpdatePostList(ReceivedPostList, false);
+	if(SentPostList.Num() > 0 && PostSentTabWidget)
+		PostSentTabWidget->UpdatePostList(SentPostList, true);
+}
+
+void UPostOverlayUI::SetPostResults(const TArray<FPostResult>& NewPostResult)
+{
+	FScopeLock Lock(&PostDataMutex);
+	PostResults = NewPostResult;
 }

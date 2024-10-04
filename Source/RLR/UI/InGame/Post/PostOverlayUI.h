@@ -4,13 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
-#include "PostItemSlot.h"
-#include "PostWriteTabWidget.h"
-#include "Structs/CommunicationStructs.h"
+#include "Structs/UtilStructs.h"
 #include "PostOverlayUI.generated.h"
 
 class UButton;
 class UWidgetSwitcher;
+class UPostReceivedTabWidget;
+class UPostWriteTabWidget;
+class UPostSentTabWidget;
+class UPostItemSlot;
+class UPostTabWidget;
 
 
 UCLASS()
@@ -39,14 +42,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32	GetMaxSlotCount(){return MaxPostSlotCount;};
 
-    //void UpdateReceivedPostList(const TArray<FPost>& ReceivedPosts);
-    //void UpdateSentPostList(const TArray<FPost>& SentPosts);
+    void UpdatePostWidget();
+
+    void SetPostResults(const TArray<FPostResult>& NewPostResult);
 
 public:
 
 	/* Bind Widget */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostWriteTabWidget> PostWriteTabWidget;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UPostTabWidget> PostReceivedTabWidget;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UPostTabWidget> PostSentTabWidget;
 
     UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PostWidgetSwitcher;
@@ -62,4 +72,12 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MaxPostSlotCount;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<TObjectPtr<UPostItemSlot>> PostSlots;    
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FPostResult> PostResults;
+
+    FCriticalSection PostDataMutex;
 };
