@@ -18,7 +18,7 @@
 #include "Network/Proto/Dungeon.pb.h"
 #include "Network/Proto/Post.pb.h"
 #include "Network/Proto/Trade.pb.h"
-
+#include "Network/Proto/Friend.pb.h"
 class PacketMessage;
 class PacketSession;
 

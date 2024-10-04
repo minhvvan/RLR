@@ -8,3 +8,8 @@ bool Handle_INFO_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 {
     return false;
 }
+
+bool Handle_FRIEND_CONNECT_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_StatusResponsePacket& pkt)
+{
+    return false;
+}

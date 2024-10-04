@@ -19,6 +19,7 @@
 #include "PartyPacketHandler.h"
 #include "TradePacketHandler.h"
 #include "PostPacketHandler.h"
+#include "FriendPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
