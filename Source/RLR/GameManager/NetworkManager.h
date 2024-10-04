@@ -173,6 +173,7 @@ public:
     /*
            Trade
                        */
+
     bool SendTradeUserRequest(int userSeq2);
 
     bool SendTradeStartRequest(int userSeq2);
@@ -184,6 +185,22 @@ public:
     bool SendTradeLockRequest();
 
     bool SendTradeCancelRequest();
+
+    /*
+          Friend
+                      */
+
+    bool SendAddFriend(int userSeq);
+
+    bool SendRemoveFriend(int userSeq);
+
+    bool SendCreateFriendGroup(string& groupName);
+
+    bool SendRemoveFriendGroup(int groupSeq);
+
+    bool SendMoveFriendInGroup(int friendSeq, int groupSeq);
+
+    bool SendMoveFriendGroup(int groupSeq1, int groupSeq2);
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
@@ -217,6 +234,8 @@ private:
   
 
  
+
+  
 
   
 
