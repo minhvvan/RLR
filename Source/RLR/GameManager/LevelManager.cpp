@@ -33,6 +33,10 @@ bool ULevelManager::LoadLevel(FName LevelName)
 			{
 				LevelText = FText::Format(FText::FromString("/Game/Map/InGame/{0}"), FText::FromString(LevelName.ToString()));
 			}
+			else if (LevelName == FName("Dungeon"))
+			{
+				LevelText = FText::Format(FText::FromString("/Game/Map/Dungeon/{0}"), FText::FromString(LevelName.ToString()));
+			}
 			else
 			{
 				LevelText = FText::FromString("/Game/StylizedProvencal/Maps/TestMap2");
