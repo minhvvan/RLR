@@ -63,19 +63,24 @@ bool USkillSettingQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDr
 		if (IsEmpty() == true)
 		{
 			SetSkillData(DraggedSlot->GetSkillData());
+			SetSkillClassData(DraggedSlot->GetSkillClassData());
 			DraggedSlot->Clear();
 		}
 		else if(IsEmpty() == false)
 		{	
 			FSkillData Temp = DraggedSlot->GetSkillData();
+			FSkillClass TempResource = DraggedSlot->GetSkillClassData();
 			SetSkillData(DraggedSlot->GetSkillData());
+			SetSkillClassData(DraggedSlot->GetSkillClassData());
 			DraggedSlot->SetSkillData(Temp);
+			DraggedSlot->SetSkillClassData(TempResource);
 			DraggedSlot->Clear();
 		}
 	}
 	else if (DraggedSlot->GetSlotType() == ESlotType::SKILL_SETTING_LIST_SLOT)
 	{
 		SetSkillData(DraggedSlot->GetSkillData());
+		SetSkillClassData(DraggedSlot->GetSkillClassData());
 	}
 	return true;
 }
@@ -105,8 +110,15 @@ void USkillSettingQuickSlot::RefreshUI()
 		return;
 	}
 
+	const FSkillClass& SkillClass = GetSkillClassData();
 
-	SetSlotImage(SkillData.SkillImage);
+	if (SkillClass == FSkillClass::EmptySkillClass)
+	{
+		SetSlotImage(GetDefaultSlotImage());
+		return;
+	}
+
+	SetSlotImage(SkillClass.SkillImage);
 }
 
 void USkillSettingQuickSlot::SetActionTag(FGameplayTag NewActionTag)

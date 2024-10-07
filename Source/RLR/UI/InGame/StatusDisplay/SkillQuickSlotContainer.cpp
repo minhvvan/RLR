@@ -70,7 +70,14 @@ void USkillQuickSlotContainer::RefreshUI()
 			QuickSlot->RefreshUI();
 			continue;
 		}
+		FSkillClass SkillClassData = GetDataManager()->GetSkillResource(SkillSeq);
+		if (SkillClassData == FSkillClass::EmptySkillClass)
+		{
+			QuickSlot->RefreshUI();
+			continue;
+		}
 		QuickSlot->SetSkillData(SkillData);		
+		QuickSlot->SetSkillClassData(SkillClassData);
 	}
 }
 

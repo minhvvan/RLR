@@ -141,7 +141,9 @@ void USkillSetting::LoadQuickSlotData()
 			}
 
 			FSkillData QuickSlotSkill = GameInstance->GetDataManager()->GetSkillData(SkillSeq);
+			FSkillClass QuickSlotSkillClass = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
 			NewQuickSlot->SetSkillData(QuickSlotSkill);
+			NewQuickSlot->SetSkillClassData(QuickSlotSkillClass);
 			NewQuickSlot->RefreshUI();
 		}
 	}

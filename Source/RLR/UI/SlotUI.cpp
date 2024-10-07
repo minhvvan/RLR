@@ -41,8 +41,8 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 
 	if(IsValid(GetItemResourceData().ItemImage) == true)
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemResourceData().ItemImage);
-	else if(IsValid(GetSkillData().SkillImage) == true)
-		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillData().SkillImage);
+	else if(IsValid(GetSkillClassData().SkillImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillClassData().SkillImage);
 	else
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	/*
@@ -214,6 +214,27 @@ const FSkillData& USlotUI::GetSkillData()
 	}
 
 	return FSkillData::EmptySkillData;
+}
+
+void USlotUI::SetSkillClassData(FSkillClass NewSkillClassData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetSkillClassData(NewSkillClassData);
+	}
+	RefreshUI();
+}
+
+const FSkillClass& USlotUI::GetSkillClassData()
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetSkillClassData();
+	}
+	return FSkillClass::EmptySkillClass;
 }
 
 TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)

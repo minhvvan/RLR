@@ -94,10 +94,10 @@ public:
 	TObjectPtr<UKeyOption> KeyOptionUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUI> SkillUI;;
+	TObjectPtr<USkillUI> SkillUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUpgrade> SkillUpgrade;;
+	TObjectPtr<USkillUpgrade> SkillUpgrade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
@@ -107,9 +107,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
-	
-public:
-
 
 protected:
 	UFUNCTION()
