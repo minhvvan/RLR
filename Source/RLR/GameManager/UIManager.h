@@ -50,7 +50,7 @@ public:
 	USubUI* GetSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
-	void SetSubUIPos(FGameplayTag UITag, FVector2D NewPos);
+	void SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos);
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);

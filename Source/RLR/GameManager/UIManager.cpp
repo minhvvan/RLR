@@ -238,7 +238,7 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
-void UUIManager::SetSubUIPos(FGameplayTag UITag, FVector2D NewPos)
+void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
 {
 	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
 	if (!subUI) return;

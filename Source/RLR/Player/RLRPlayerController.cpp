@@ -184,7 +184,7 @@ void ARLRPlayerController::OnUserClick()
 			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
 		}
 
-		UIManger->SetSubUIPos(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
 		OnOpenUI(TagManager.UI_OtherPlayerMenu);
 	}
 }
