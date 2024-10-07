@@ -104,7 +104,7 @@ void FGameplayTagManager::Init()
 
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
 	GameplayTags.UI_OtherPlayerMenu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerMenu"), FString(TEXT("플레이어 메뉴")));
-
+	GameplayTags.UI_OtherPlayerStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerStatus"), FString(TEXT("타 플레이어 상태창")));
 
 
 
