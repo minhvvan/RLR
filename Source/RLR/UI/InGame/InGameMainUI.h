@@ -94,10 +94,10 @@ public:
 	TObjectPtr<UKeyOption> KeyOptionUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUI> SkillUI;
+	TObjectPtr<USkillUI> SkillUI;;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUpgrade> SkillUpgrade;
+	TObjectPtr<USkillUpgrade> SkillUpgrade;;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
@@ -107,6 +107,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UCharacterStatusUI> OtherPlayerStatusUI;
+
+public:
+
 
 protected:
 	UFUNCTION()
@@ -124,6 +130,7 @@ protected:
 	UFUNCTION()
 	void OnChangedLevel();
 	virtual bool ToggleSubUI(FGameplayTag InputTag);
+	virtual void OpenSubUI(FGameplayTag InputTag) override;
 	virtual void CloseSubUI(FGameplayTag InputTag) override;
 	virtual bool IsOpenSubUI(FGameplayTag InputTag) override;
 	virtual class USubUI* GetSubUI(FGameplayTag InputTag);

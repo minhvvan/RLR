@@ -5,8 +5,6 @@
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostTabWidget.h"
 #include "UI/InGame/Post/PostWriteTabWidget.h"
-#include "UI/InGame/Post/PostSentTabWidget.h"
-#include "UI/InGame/Post/PostReceivedTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/DataManager.h"

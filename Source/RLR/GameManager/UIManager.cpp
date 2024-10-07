@@ -185,6 +185,23 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	MainUI->InvalidateLayoutAndVolatility();
 }
 
+void UUIManager::OpenSubUI(FGameplayTag UITag)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (!MainUI->IsOpenSubUI(UITag))
+		{
+			MainUI->OpenSubUI(UITag);
+			SubUIStack.AddUnique(MainUI->GetSubUI(UITag));
+			AdjustZOrder();
+		}
+	}
+}
+
 void UUIManager::CloseSubUI(FGameplayTag UITag)
 {
 	if (DialogueUI)
@@ -200,6 +217,11 @@ void UUIManager::CloseSubUI(FGameplayTag UITag)
 			AdjustZOrder();
 		}
 	}
+}
+
+USubUI* UUIManager::GetSubUI(FGameplayTag UITag)
+{
+	return MainUI->GetSubUI(UITag);
 }
 
 void UUIManager::AdjustZOrder()

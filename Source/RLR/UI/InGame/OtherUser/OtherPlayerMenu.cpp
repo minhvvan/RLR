@@ -7,6 +7,8 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "RLR.h"
 
 void UOtherPlayerMenu::NativeConstruct()
@@ -31,7 +33,14 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
-	//TODO: Show CharacterInfo(OtherUser)
+	auto TagManager = FGameplayTagManager::Get();
+	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_OtherPlayerStatus);
+	auto otherPlayerStatus = Cast<UCharacterStatusUI>(subUI);
+
+	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
+
+	otherPlayerStatus->UpdateTotalStat(OtherUserData.Get()->TotalStatus);
+	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayerStatus);
 	CloseUIByManager();
 }
 
