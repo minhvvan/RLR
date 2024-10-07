@@ -51,6 +51,9 @@ extern CS_AddFriendRequestDefaultTypeInternal _CS_AddFriendRequest_default_insta
 class CS_CreateFriendGroupRequest;
 struct CS_CreateFriendGroupRequestDefaultTypeInternal;
 extern CS_CreateFriendGroupRequestDefaultTypeInternal _CS_CreateFriendGroupRequest_default_instance_;
+class CS_FriendInfoRequest;
+struct CS_FriendInfoRequestDefaultTypeInternal;
+extern CS_FriendInfoRequestDefaultTypeInternal _CS_FriendInfoRequest_default_instance_;
 class CS_MoveFriendGroupRequest;
 struct CS_MoveFriendGroupRequestDefaultTypeInternal;
 extern CS_MoveFriendGroupRequestDefaultTypeInternal _CS_MoveFriendGroupRequest_default_instance_;
@@ -72,9 +75,6 @@ extern GroupDefaultTypeInternal _Group_default_instance_;
 class SC_FriendConnectResponse;
 struct SC_FriendConnectResponseDefaultTypeInternal;
 extern SC_FriendConnectResponseDefaultTypeInternal _SC_FriendConnectResponse_default_instance_;
-class SC_FriendInfoRequest;
-struct SC_FriendInfoRequestDefaultTypeInternal;
-extern SC_FriendInfoRequestDefaultTypeInternal _SC_FriendInfoRequest_default_instance_;
 class SC_FriendInfoResponse;
 struct SC_FriendInfoResponseDefaultTypeInternal;
 extern SC_FriendInfoResponseDefaultTypeInternal _SC_FriendInfoResponse_default_instance_;
@@ -82,6 +82,7 @@ extern SC_FriendInfoResponseDefaultTypeInternal _SC_FriendInfoResponse_default_i
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::CS_AddFriendRequest* Arena::CreateMaybeMessage<::Protocol::CS_AddFriendRequest>(Arena*);
 template<> ::Protocol::CS_CreateFriendGroupRequest* Arena::CreateMaybeMessage<::Protocol::CS_CreateFriendGroupRequest>(Arena*);
+template<> ::Protocol::CS_FriendInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_FriendInfoRequest>(Arena*);
 template<> ::Protocol::CS_MoveFriendGroupRequest* Arena::CreateMaybeMessage<::Protocol::CS_MoveFriendGroupRequest>(Arena*);
 template<> ::Protocol::CS_MoveFriendInGroupRequest* Arena::CreateMaybeMessage<::Protocol::CS_MoveFriendInGroupRequest>(Arena*);
 template<> ::Protocol::CS_RemoveFriendGroupRequest* Arena::CreateMaybeMessage<::Protocol::CS_RemoveFriendGroupRequest>(Arena*);
@@ -89,31 +90,30 @@ template<> ::Protocol::CS_RemoveFriendRequest* Arena::CreateMaybeMessage<::Proto
 template<> ::Protocol::Friend* Arena::CreateMaybeMessage<::Protocol::Friend>(Arena*);
 template<> ::Protocol::Group* Arena::CreateMaybeMessage<::Protocol::Group>(Arena*);
 template<> ::Protocol::SC_FriendConnectResponse* Arena::CreateMaybeMessage<::Protocol::SC_FriendConnectResponse>(Arena*);
-template<> ::Protocol::SC_FriendInfoRequest* Arena::CreateMaybeMessage<::Protocol::SC_FriendInfoRequest>(Arena*);
 template<> ::Protocol::SC_FriendInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_FriendInfoResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 // ===================================================================
 
-class SC_FriendInfoRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_FriendInfoRequest) */ {
+class CS_FriendInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_FriendInfoRequest) */ {
  public:
-  inline SC_FriendInfoRequest() : SC_FriendInfoRequest(nullptr) {}
-  ~SC_FriendInfoRequest() override;
-  explicit PROTOBUF_CONSTEXPR SC_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline CS_FriendInfoRequest() : CS_FriendInfoRequest(nullptr) {}
+  ~CS_FriendInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SC_FriendInfoRequest(const SC_FriendInfoRequest& from);
-  SC_FriendInfoRequest(SC_FriendInfoRequest&& from) noexcept
-    : SC_FriendInfoRequest() {
+  CS_FriendInfoRequest(const CS_FriendInfoRequest& from);
+  CS_FriendInfoRequest(CS_FriendInfoRequest&& from) noexcept
+    : CS_FriendInfoRequest() {
     *this = ::std::move(from);
   }
 
-  inline SC_FriendInfoRequest& operator=(const SC_FriendInfoRequest& from) {
+  inline CS_FriendInfoRequest& operator=(const CS_FriendInfoRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SC_FriendInfoRequest& operator=(SC_FriendInfoRequest&& from) noexcept {
+  inline CS_FriendInfoRequest& operator=(CS_FriendInfoRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -136,20 +136,20 @@ class SC_FriendInfoRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const SC_FriendInfoRequest& default_instance() {
+  static const CS_FriendInfoRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SC_FriendInfoRequest* internal_default_instance() {
-    return reinterpret_cast<const SC_FriendInfoRequest*>(
-               &_SC_FriendInfoRequest_default_instance_);
+  static inline const CS_FriendInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_FriendInfoRequest*>(
+               &_CS_FriendInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(SC_FriendInfoRequest& a, SC_FriendInfoRequest& b) {
+  friend void swap(CS_FriendInfoRequest& a, CS_FriendInfoRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SC_FriendInfoRequest* other) {
+  inline void Swap(CS_FriendInfoRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -162,7 +162,7 @@ class SC_FriendInfoRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SC_FriendInfoRequest* other) {
+  void UnsafeArenaSwap(CS_FriendInfoRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -170,14 +170,14 @@ class SC_FriendInfoRequest final :
 
   // implements Message ----------------------------------------------
 
-  SC_FriendInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_FriendInfoRequest>(arena);
+  CS_FriendInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_FriendInfoRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_FriendInfoRequest& from);
+  void CopyFrom(const CS_FriendInfoRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_FriendInfoRequest& from) {
-    SC_FriendInfoRequest::MergeImpl(*this, from);
+  void MergeFrom( const CS_FriendInfoRequest& from) {
+    CS_FriendInfoRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -195,15 +195,15 @@ class SC_FriendInfoRequest final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SC_FriendInfoRequest* other);
+  void InternalSwap(CS_FriendInfoRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_FriendInfoRequest";
+    return "Protocol.CS_FriendInfoRequest";
   }
   protected:
-  explicit SC_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit CS_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -228,7 +228,7 @@ class SC_FriendInfoRequest final :
   void _internal_set_userseq(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.SC_FriendInfoRequest)
+  // @@protoc_insertion_point(class_scope:Protocol.CS_FriendInfoRequest)
  private:
   class _Internal;
 
@@ -680,8 +680,8 @@ class Group final :
 
   enum : int {
     kFriendsFieldNumber = 3,
-    kGroupSeqFieldNumber = 1,
     kGroupNameFieldNumber = 2,
+    kGroupSeqFieldNumber = 1,
   };
   // repeated .Protocol.Friend friends = 3;
   int friends_size() const;
@@ -701,6 +701,20 @@ class Group final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Friend >&
       friends() const;
 
+  // string groupName = 2;
+  void clear_groupname();
+  const std::string& groupname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_groupname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_groupname();
+  PROTOBUF_NODISCARD std::string* release_groupname();
+  void set_allocated_groupname(std::string* groupname);
+  private:
+  const std::string& _internal_groupname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_groupname(const std::string& value);
+  std::string* _internal_mutable_groupname();
+  public:
+
   // int32 groupSeq = 1;
   void clear_groupseq();
   int32_t groupseq() const;
@@ -708,15 +722,6 @@ class Group final :
   private:
   int32_t _internal_groupseq() const;
   void _internal_set_groupseq(int32_t value);
-  public:
-
-  // int32 groupName = 2;
-  void clear_groupname();
-  int32_t groupname() const;
-  void set_groupname(int32_t value);
-  private:
-  int32_t _internal_groupname() const;
-  void _internal_set_groupname(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.Group)
@@ -728,8 +733,8 @@ class Group final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Friend > friends_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr groupname_;
     int32_t groupseq_;
-    int32_t groupname_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1889,26 +1894,26 @@ class CS_MoveFriendGroupRequest final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// SC_FriendInfoRequest
+// CS_FriendInfoRequest
 
 // int32 userSeq = 1;
-inline void SC_FriendInfoRequest::clear_userseq() {
+inline void CS_FriendInfoRequest::clear_userseq() {
   _impl_.userseq_ = 0;
 }
-inline int32_t SC_FriendInfoRequest::_internal_userseq() const {
+inline int32_t CS_FriendInfoRequest::_internal_userseq() const {
   return _impl_.userseq_;
 }
-inline int32_t SC_FriendInfoRequest::userseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_FriendInfoRequest.userSeq)
+inline int32_t CS_FriendInfoRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_FriendInfoRequest.userSeq)
   return _internal_userseq();
 }
-inline void SC_FriendInfoRequest::_internal_set_userseq(int32_t value) {
+inline void CS_FriendInfoRequest::_internal_set_userseq(int32_t value) {
   
   _impl_.userseq_ = value;
 }
-inline void SC_FriendInfoRequest::set_userseq(int32_t value) {
+inline void CS_FriendInfoRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_FriendInfoRequest.userSeq)
+  // @@protoc_insertion_point(field_set:Protocol.CS_FriendInfoRequest.userSeq)
 }
 
 // -------------------------------------------------------------------
@@ -2073,24 +2078,54 @@ inline void Group::set_groupseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Group.groupSeq)
 }
 
-// int32 groupName = 2;
+// string groupName = 2;
 inline void Group::clear_groupname() {
-  _impl_.groupname_ = 0;
+  _impl_.groupname_.ClearToEmpty();
 }
-inline int32_t Group::_internal_groupname() const {
-  return _impl_.groupname_;
-}
-inline int32_t Group::groupname() const {
+inline const std::string& Group::groupname() const {
   // @@protoc_insertion_point(field_get:Protocol.Group.groupName)
   return _internal_groupname();
 }
-inline void Group::_internal_set_groupname(int32_t value) {
-  
-  _impl_.groupname_ = value;
-}
-inline void Group::set_groupname(int32_t value) {
-  _internal_set_groupname(value);
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Group::set_groupname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.groupname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:Protocol.Group.groupName)
+}
+inline std::string* Group::mutable_groupname() {
+  std::string* _s = _internal_mutable_groupname();
+  // @@protoc_insertion_point(field_mutable:Protocol.Group.groupName)
+  return _s;
+}
+inline const std::string& Group::_internal_groupname() const {
+  return _impl_.groupname_.Get();
+}
+inline void Group::_internal_set_groupname(const std::string& value) {
+  
+  _impl_.groupname_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Group::_internal_mutable_groupname() {
+  
+  return _impl_.groupname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Group::release_groupname() {
+  // @@protoc_insertion_point(field_release:Protocol.Group.groupName)
+  return _impl_.groupname_.Release();
+}
+inline void Group::set_allocated_groupname(std::string* groupname) {
+  if (groupname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.groupname_.SetAllocated(groupname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.groupname_.IsDefault()) {
+    _impl_.groupname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.Group.groupName)
 }
 
 // repeated .Protocol.Friend friends = 3;

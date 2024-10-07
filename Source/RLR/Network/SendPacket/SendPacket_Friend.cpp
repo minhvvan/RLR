@@ -12,8 +12,7 @@
 #include <Network/Buffer.h>
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Network/Proto/Packet.pb.h"
-#include "Network/Proto/Skill.pb.h"
-#include "Network/Proto/Trade.pb.h"
+#include "Network/Proto/Friend.pb.h"
 
 /*
 
@@ -21,32 +20,77 @@
 
 */
 
-bool UNetworkManager::SendAddFriend(int userSeq) {
+bool UNetworkManager::SendAddFriend(int friendSeq) {
 
-    return false;
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_AddFriendRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_friendseq(friendSeq);
+
+    SEND_PACKET(packet);
 }
 
-bool UNetworkManager::SendRemoveFriend(int userSeq)
+bool UNetworkManager::SendRemoveFriend(int friendSeq)
 {
-    return false;
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_RemoveFriendRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_friendseq(friendSeq);
+
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendCreateFriendGroup(string& groupName)
 {
-    return false;
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_CreateFriendGroupRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_groupname(groupName);
+
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendRemoveFriendGroup(int groupSeq)
 {
-    return false;
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_RemoveFriendGroupRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_groupseq(groupSeq);
+
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendMoveFriendInGroup(int friendSeq, int groupSeq)
 {
-    return false;
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_MoveFriendInGroupRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_groupseq(groupSeq);
+    packet.set_friendseq(friendSeq);
+
+    SEND_PACKET(packet);
 }
 
 bool UNetworkManager::SendMoveFriendGroup(int groupSeq1, int groupSeq2)
 {
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_MoveFriendGroupRequest packet;
+
+    packet.set_userseq(UserSeq);
+    packet.set_groupseq1(groupSeq1);
+    packet.set_groupseq2(groupSeq2);
+
+    SEND_PACKET(packet);
     return false;
 }

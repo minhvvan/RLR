@@ -123,7 +123,23 @@ enum : uint16
     PKT_EXILE_PARTY_RESPONSE = 1724,
     PKT_PARTY_STATUS_UPDATE = 1731,
     PKT_PARTY_MAP_INFO_REQUEST = 1741,
-
+    // Add friend packet types
+    PKT_FRIEND_INFO_REQUEST = 1751,
+    PKT_FRIEND_INFO_RESPONSE = 1752,
+    PKT_FRIEND_CONNECT_REQUEST = 1753,
+    PKT_FRIEND_CONNECT_RESPONSE = 1754,
+    PKT_ADD_FRIEND_REQUEST = 1761,
+    PKT_ADD_FRIEND_RESPONSE = 1762,
+    PKT_REMOVE_FRIEND_REQUEST = 1763,
+    PKT_REMOVE_FRIEND_RESPONSE = 1764,
+    PKT_CREATE_FRIEND_GROUP_REQUEST = 1771,
+    PKT_CREATE_FRIEND_GROUP_RESPONSE = 1772,
+    PKT_REMOVE_FRIEND_GROUP_REQUEST = 1773,
+    PKT_REMOVE_FRIEND_GROUP_RESPONSE = 1774,
+    PKT_MOVE_FRIEND_IN_GROUP_REQUEST = 1781,
+    PKT_MOVE_FRIEND_IN_GROUP_RESPONSE = 1782,
+    PKT_MOVE_FRIEND_GROUP_REQUEST = 1783,
+    PKT_MOVE_FRIEND_GROUP_RESPONSE = 1784,
     // Add Good packet types
     PKT_GOOD_USER_REQUEST = 1801,
     PKT_GOOD_PLAYER_REQUEST = 1811,
@@ -243,9 +259,13 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_CANCEL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_ITEM_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_GOOD_REQUEST); }
-
-    
-
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_FriendInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_FRIEND_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_FRIEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendInGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_IN_GROUP_REQUEST); }
 public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
