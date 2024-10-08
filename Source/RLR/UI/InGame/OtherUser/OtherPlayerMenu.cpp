@@ -48,7 +48,6 @@ void UOtherPlayerMenu::OnUserInfoClicked()
 
 void UOtherPlayerMenu::OnAddFriendClicked()
 {
-	//TODO: Send Pkt
 	if (!OtherUserData.IsValid()) return;
 	GetNetworkManager()->SendAddFriend(OtherUserData->UserSeq);
 	CloseUIByManager();
@@ -64,6 +63,8 @@ void UOtherPlayerMenu::OnAddPartyClicked()
 void UOtherPlayerMenu::OnTradeClicked()
 {
 	//TODO: Show Trade UI & Send Pkt
+	if (!OtherUserData.IsValid()) return;
+	GetNetworkManager()->SendTradeStartRequest(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 
