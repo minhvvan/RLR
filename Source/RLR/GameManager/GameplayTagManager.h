@@ -126,6 +126,7 @@ public:
 	FGameplayTag UI_Post;
 	FGameplayTag UI_OtherPlayerMenu;
 	FGameplayTag UI_OtherPlayerStatus;
+	FGameplayTag UI_Report;
 	/*
 	
 			키 입력 바인딩에 사용되는 태그
