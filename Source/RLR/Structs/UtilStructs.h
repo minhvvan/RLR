@@ -104,6 +104,17 @@ struct FPostResult
 {
 	GENERATED_BODY()
 
+	FPostResult() :
+	ReceiverSeq(0),
+	SenderSeq(0),
+	TotalMoney(0),
+	PostId(-1),
+	ReceiverName(""),
+	SenderName(""),
+	Title(""),
+	Content(""),
+	IsRead(false)
+	{}
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 ReceiverSeq;
