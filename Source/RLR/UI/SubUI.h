@@ -68,6 +68,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FGameplayTag		GetUITag(){return UITag;}
 
+	UFUNCTION()
+	void CloseUIByManager();
+
 public:
 
 	FVector2D ClickedFirstPoint;

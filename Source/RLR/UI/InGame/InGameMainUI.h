@@ -30,6 +30,7 @@
  class UQuestListUI;
  class UPostOverlayUI;
  class UOtherPlayerMenu;
+ class UReportUI;
  class UCanvasPanel;
 
 UCLASS()
@@ -110,6 +111,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UCharacterStatusUI> OtherPlayerStatusUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UReportUI> ReportUI;
 
 public:
 

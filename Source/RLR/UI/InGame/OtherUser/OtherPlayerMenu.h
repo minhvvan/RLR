@@ -66,8 +66,6 @@ protected:
 	UFUNCTION()
 	void OnCancelClicked();
 
-	void CloseUIByManager();
-
 private:
 	TSharedPtr<FUserCharacter> OtherUserData;
 };

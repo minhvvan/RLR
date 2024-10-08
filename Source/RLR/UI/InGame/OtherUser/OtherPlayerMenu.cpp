@@ -6,9 +6,11 @@
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/OtherUser/ReportUI.h"
 #include "RLR.h"
 
 void UOtherPlayerMenu::NativeConstruct()
@@ -47,6 +49,8 @@ void UOtherPlayerMenu::OnUserInfoClicked()
 void UOtherPlayerMenu::OnAddFriendClicked()
 {
 	//TODO: Send Pkt
+	if (!OtherUserData.IsValid()) return;
+	GetNetworkManager()->SendAddFriend(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 
@@ -71,17 +75,21 @@ void UOtherPlayerMenu::OnWhisperClicked()
 
 void UOtherPlayerMenu::OnReportClicked()
 {
-	//TODO: Show Report UI
+	auto TagManager = FGameplayTagManager::Get();
+	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_Report);
+	auto reportUI = Cast<UReportUI>(subUI);
+
+	if (!reportUI || !OtherUserData.IsValid()) return;
+
+	reportUI->SetUserName(OtherUserData->NickName);
+	reportUI->SetUserSeq(OtherUserData->UserSeq);
+
+	GetUIManager()->OpenSubUI(TagManager.UI_Report);
+
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnCancelClicked()
 {
 	CloseUIByManager();
-}
-
-void UOtherPlayerMenu::CloseUIByManager()
-{
-	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
 }
