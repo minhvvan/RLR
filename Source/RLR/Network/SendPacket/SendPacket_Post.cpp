@@ -49,6 +49,16 @@ bool UNetworkManager::SendPostGetRequest() {
     packet.set_userseq(UserSeq);
     SEND_PACKET(packet);
 }
+bool UNetworkManager::SendPostRemoveRequest(FPostResult post) {
+
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_RemovePostRequest packet;
+    packet.set_postid(post.PostId);
+    packet.set_userseq(UserSeq);
+
+    SEND_PACKET(packet);
+}
 
 bool UNetworkManager::SendPostReadRequest(FPostResult post) {
 

@@ -163,6 +163,7 @@ enum : uint16
     PKT_POST_RECEIVED_RESPONSE = 3006,
     PKT_POST_GET_REQUEST = 3007,
     PKT_POST_GET_RESPONSE = 3008,
+    PKT_POST_REMOVE_REQUEST = 3009,
     // Add Trade Packet types
     PKT_TRADE_USER_REQUEST = 3011,
     PKT_TRADE_USER_RESPONSE = 3012,
@@ -253,6 +254,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemovePostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_REMOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeStartRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_START_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeUserRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_USER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeLockRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_LOCK_REQUEST); }

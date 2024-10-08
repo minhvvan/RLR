@@ -61,6 +61,9 @@ extern CS_PostReceivedDefaultTypeInternal _CS_PostReceived_default_instance_;
 class CS_PostRequest;
 struct CS_PostRequestDefaultTypeInternal;
 extern CS_PostRequestDefaultTypeInternal _CS_PostRequest_default_instance_;
+class CS_RemovePostRequest;
+struct CS_RemovePostRequestDefaultTypeInternal;
+extern CS_RemovePostRequestDefaultTypeInternal _CS_RemovePostRequest_default_instance_;
 class ItemList;
 struct ItemListDefaultTypeInternal;
 extern ItemListDefaultTypeInternal _ItemList_default_instance_;
@@ -91,6 +94,7 @@ template<> ::Protocol::CS_PostGetRequest* Arena::CreateMaybeMessage<::Protocol::
 template<> ::Protocol::CS_PostRead* Arena::CreateMaybeMessage<::Protocol::CS_PostRead>(Arena*);
 template<> ::Protocol::CS_PostReceived* Arena::CreateMaybeMessage<::Protocol::CS_PostReceived>(Arena*);
 template<> ::Protocol::CS_PostRequest* Arena::CreateMaybeMessage<::Protocol::CS_PostRequest>(Arena*);
+template<> ::Protocol::CS_RemovePostRequest* Arena::CreateMaybeMessage<::Protocol::CS_RemovePostRequest>(Arena*);
 template<> ::Protocol::ItemList* Arena::CreateMaybeMessage<::Protocol::ItemList>(Arena*);
 template<> ::Protocol::Post* Arena::CreateMaybeMessage<::Protocol::Post>(Arena*);
 template<> ::Protocol::Post_ItemValuesEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Post_ItemValuesEntry_DoNotUse>(Arena*);
@@ -1135,6 +1139,165 @@ class SC_PostGetResponse final :
 };
 // -------------------------------------------------------------------
 
+class CS_RemovePostRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_RemovePostRequest) */ {
+ public:
+  inline CS_RemovePostRequest() : CS_RemovePostRequest(nullptr) {}
+  ~CS_RemovePostRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_RemovePostRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_RemovePostRequest(const CS_RemovePostRequest& from);
+  CS_RemovePostRequest(CS_RemovePostRequest&& from) noexcept
+    : CS_RemovePostRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_RemovePostRequest& operator=(const CS_RemovePostRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_RemovePostRequest& operator=(CS_RemovePostRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_RemovePostRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_RemovePostRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_RemovePostRequest*>(
+               &_CS_RemovePostRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(CS_RemovePostRequest& a, CS_RemovePostRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_RemovePostRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_RemovePostRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_RemovePostRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_RemovePostRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_RemovePostRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_RemovePostRequest& from) {
+    CS_RemovePostRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_RemovePostRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_RemovePostRequest";
+  }
+  protected:
+  explicit CS_RemovePostRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPostIdFieldNumber = 1,
+    kUserSeqFieldNumber = 2,
+  };
+  // int64 postId = 1;
+  void clear_postid();
+  int64_t postid() const;
+  void set_postid(int64_t value);
+  private:
+  int64_t _internal_postid() const;
+  void _internal_set_postid(int64_t value);
+  public:
+
+  // int32 userSeq = 2;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_RemovePostRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t postid_;
+    int32_t userseq_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Post_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SC_PostSendResponse final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_PostSendResponse) */ {
  public:
@@ -1183,7 +1346,7 @@ class SC_PostSendResponse final :
                &_SC_PostSendResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(SC_PostSendResponse& a, SC_PostSendResponse& b) {
     a.Swap(&b);
@@ -1384,7 +1547,7 @@ class SC_PostResponse final :
                &_SC_PostResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(SC_PostResponse& a, SC_PostResponse& b) {
     a.Swap(&b);
@@ -1567,7 +1730,7 @@ class CS_PostRead final :
                &_CS_PostRead_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(CS_PostRead& a, CS_PostRead& b) {
     a.Swap(&b);
@@ -1726,7 +1889,7 @@ class CS_PostReceived final :
                &_CS_PostReceived_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(CS_PostReceived& a, CS_PostReceived& b) {
     a.Swap(&b);
@@ -2531,6 +2694,50 @@ SC_PostGetResponse::mutable_itemlists() {
 
 // -------------------------------------------------------------------
 
+// CS_RemovePostRequest
+
+// int64 postId = 1;
+inline void CS_RemovePostRequest::clear_postid() {
+  _impl_.postid_ = int64_t{0};
+}
+inline int64_t CS_RemovePostRequest::_internal_postid() const {
+  return _impl_.postid_;
+}
+inline int64_t CS_RemovePostRequest::postid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_RemovePostRequest.postId)
+  return _internal_postid();
+}
+inline void CS_RemovePostRequest::_internal_set_postid(int64_t value) {
+  
+  _impl_.postid_ = value;
+}
+inline void CS_RemovePostRequest::set_postid(int64_t value) {
+  _internal_set_postid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_RemovePostRequest.postId)
+}
+
+// int32 userSeq = 2;
+inline void CS_RemovePostRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_RemovePostRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_RemovePostRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_RemovePostRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_RemovePostRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_RemovePostRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_RemovePostRequest.userSeq)
+}
+
+// -------------------------------------------------------------------
+
 // SC_PostSendResponse
 
 // .Protocol.Post posts = 1;
@@ -2899,6 +3106,8 @@ inline void CS_PostReceived::set_itemid(int64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
