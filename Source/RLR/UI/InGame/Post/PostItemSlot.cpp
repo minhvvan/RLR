@@ -90,16 +90,17 @@ bool UPostItemSlot::HandleInventoryItemDrop(UBaseDragDropOperation* Operation)
 	return true;
 }
 
+void UPostItemSlot::SetSlot(int64 NewitemId)
+{
+	UTexture2D* itemTexture = GameInstance->GetDataManager()->GetItemResource(NewitemId).ItemImage;
+	FText itemName = GameInstance->GetDataManager()->GetItemData(NewitemId).NAME;
+	SetSlotImage(itemTexture);
+	ItemNameText->SetText(itemName);
+}
+
 void UPostItemSlot::RefreshUI()
 {
 	Super::RefreshUI();
-
-	if (GetItemData() == FItemData::EmptyItemData)
-	{
-		return;
-	}
-	SetSlotImage(GetItemResourceData().ItemImage);
-	ItemNameText->SetText(GetItemData().NAME);
 }
 
 void UPostItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
