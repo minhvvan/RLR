@@ -31,6 +31,9 @@ public:
 	// 인벤토리에서 드래그된 아이템을 처리하는 함수
 	bool HandleInventoryItemDrop(UBaseDragDropOperation* Operation);
 
+	UFUNCTION()
+	void SetSlot(int64 NewitemId);
+
 public:
 
 	/*
@@ -41,6 +44,9 @@ public:
 	TObjectPtr<UImage> ItemRarityImage;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> ItemNameText;
+
+	UPROPERTY(EditAnywhere)
+	int64 itemId;
 
 public:
 	UPostOverlayUI* PostUI;

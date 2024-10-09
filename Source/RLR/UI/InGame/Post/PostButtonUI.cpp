@@ -2,9 +2,32 @@
 
 
 #include "UI/InGame/Post/PostButtonUI.h"
-#include "Components/Button.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/GameManager.h"
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 
+
+void UPostButtonUI::NativeConstruct()
+{
+    SetButtonState(false);
+    if (PostButton)
+    {
+        PostButton->OnClicked.AddDynamic(this, &UPostButtonUI::OnPostButtonClicked);
+    }
+}
+
+void UPostButtonUI::NativePreConstruct()
+{
+    SetDesiredSizeInViewport(FVector2D(200, 50));
+}
+
+void UPostButtonUI::OnPostButtonClicked()
+{
+    SetButtonState(true);
+    OnPostButtonClick.Broadcast(PostInfo, this);
+    GameInstance->GetNetworkManager()->SendPostReadRequest(PostInfo);
+}
 
 void UPostButtonUI::SetPostInfo(const FPostResult& InPost, bool bIsSentPost)
 {
@@ -83,24 +106,4 @@ void UPostButtonUI::SetButtonState(bool isPressed)
 FString UPostButtonUI::GetPostTitle()
 {
     return PostInfo.Title;
-}
-
-void UPostButtonUI::NativeConstruct()
-{
-    SetButtonState(false);
-    if (PostButton)
-    {
-        PostButton->OnClicked.AddDynamic(this, &UPostButtonUI::OnPostButtonClicked);
-    }
-}
-
-void UPostButtonUI::NativePreConstruct()
-{
-    SetDesiredSizeInViewport(FVector2D(200, 50));
-}
-
-void UPostButtonUI::OnPostButtonClicked()
-{
-    SetButtonState(true);
-    OnPostButtonClick.Broadcast(PostInfo, this);
 }

@@ -31,10 +31,13 @@ public:
     UFUNCTION(BlueprintCallable)
     void RemovePost(FPostResult Post);
 
+    UFUNCTION()
+    void OnAcceptButtonClicked();
+
     UFUNCTION(BlueprintCallable)
     void OnRemoveButtonClicked();
 
-protected:
+public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post")
     bool bIsSentTab;
 
@@ -48,13 +51,25 @@ protected:
     UEditableText* PostTitleText;
 
     UPROPERTY(meta = (BindWidget))
+    UEditableText* TotalMoney;
+
+    UPROPERTY(meta = (BindWidget))
     UMultiLineEditableText* PostContentText;
 
     UPROPERTY(meta = (BindWidget))
+    UEditableText* ReadStatus;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
     UGridPanel* PostSlotGridPanel;
 
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UPostButtonUI> PostButtonUIClass;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* AcceptAllButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* RemovePostButton;
 
     UPROPERTY()
     TMap<FString, UPostButtonUI*> PostButtons;

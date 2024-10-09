@@ -5,6 +5,7 @@
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/Post/InputTransactionCost.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/EditableText.h"
 #include "Components/EditableTextBox.h"
@@ -63,27 +64,22 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 	*/
 	FString RecipientIdString = RecipientIdText->Text.ToString();
 
-	//if (!RecipientIdString.IsNumeric())
-	//{
-	//	return;
-	//}
-
 	if(RecipientIdText == nullptr) return;	
 
 	FPostResult PostResult;
 	{	
-		// 확인
-		PostResult.ReceiverSeq = FCString::Atoi(*RecipientIdString);
 		/* 임시 값 */
-		PostResult.PostId = GameInstance->GetPostalManager()->SentPostList.Num() + 1;
-		/*PostResult.ReceiverSeq = 1;*/
+		PostResult.ReceiverSeq = FCString::Atoi(*RecipientIdString);
+		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
 		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();
 		PostResult.Title = PostTitleText->Text.ToString();
 		PostResult.Content = PostContentText->Text.ToString();
+		PostResult.TotalMoney = FCString::Atoi(*GrantCostInput->TransactionCostInput->Text.ToString());
 	}
 
 	GameInstance->GetNetworkManager()->SendPostRequest(PostResult);
+	GameInstance->GetNetworkManager()->SendPostGetRequest();
 }
 
 void UPostWriteTabWidget::OnClearPostButtonClicked()
@@ -105,8 +101,6 @@ void UPostWriteTabWidget::OnClearPostButtonClicked()
 
 	if(PostTitleText)
 		PostTitleText->SetText(FText::GetEmpty());
-
-	GameInstance->GetPostalManager()->SetPostData(TArray<FPostResult>());
 }
 
 TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()
@@ -119,7 +113,7 @@ TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()
 		if (IsValid(ItemSlot) && !ItemSlot->IsEmpty())
 		{
 			FItemData ItemData = ItemSlot->GetItemData();
-			GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID, ItemData);
+			GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
 			AttachedItems.Add(ItemData.ITEM_ID);
 		}
 	}
