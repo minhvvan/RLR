@@ -116,6 +116,7 @@ public:
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;
 	FGameplayTag UI_Quest;
+	FGameplayTag UI_Chat;
 	FGameplayTag UI_ChatOption;
 	FGameplayTag UI_Party;
 	
