@@ -16,5 +16,7 @@ void UAnimNotify_ActivateAction::Notify(USkeletalMeshComponent* MeshComp , UAnim
 	Super::Notify(MeshComp , Animation , EventReference);
 
 	OnTriggered.Broadcast();
+
+	if(IsValid(GameInstance) == false) return;
 	GameInstance->GetSkillManager()->SkillAttack(TriggerActionTag);
 }
