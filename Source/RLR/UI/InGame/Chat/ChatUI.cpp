@@ -5,6 +5,7 @@
 #include "Components/CheckBox.h"
 #include "Components/ScrollBox.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/ComboBoxString.h"
 #include "Chat/ChatClient.h"
 #include "ChatTabWidget.h"
 #include "ChatOptionUI.h"
@@ -13,7 +14,8 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Structs/UtilStructs.h"
-#include <Kismet/GameplayStatics.h>
+#include "Kismet/GameplayStatics.h"
+#include "RLR.h"
 
 void UChatUI::NativeConstruct()
 {
@@ -87,6 +89,18 @@ void UChatUI::InitChatBox()
 		OnTabClicked(0);
 	}
 }
+
+void UChatUI::AddPrefix(FString& Message)
+{
+	//TODO: 파티, 길드 prefix랑 정책 필요
+	// e.g) 파티가 없을때는 보내지 않음 
+
+	FString chatType = CbbChatType->GetSelectedOption();
+	if (!Prefix.Contains(chatType)) return;
+
+	Message = FString::Printf(TEXT("%s %s %s"), *Prefix[chatType], *Args[chatType], *Message);
+}
+
 void UChatUI::AddChatTabWidget(const FText& TabName, int32 TabIndex)
 {
 	if (!TabContainer || !TabContentSwitcher)
@@ -175,6 +189,15 @@ void UChatUI::UpdateTabFilters(const FString& TabName, const TArray<EChatType>& 
 	}
 }
 
+void UChatUI::AddWhisperChat(FString UserName)
+{
+	Prefix.Add({ UserName, TEXT("/w") });
+	Args.Add({ UserName, UserName });
+
+	CbbChatType->AddOption(UserName);
+	CbbChatType->SetSelectedOption(UserName);
+}
+
 void UChatUI::AddChatTab(FString TabName, TArray<EChatType> FilteredChatTypes)
 {
 	TabFilters.Add(TabName, FilteredChatTypes);
@@ -187,11 +210,6 @@ void UChatUI::CreateNewTab(const FString& TabName)
 	{
 		TabFilters.Add(TabName, {});
 	}
-}
-
-void UChatUI::SetUserNameText(FString PlayerID)
-{
-	UserNameBox->SetText(FText::FromString(PlayerID));
 }
 
 void UChatUI::SetChatClient(AChatClient* InChatClient)
@@ -216,6 +234,10 @@ void UChatUI::OnSendButtonClicked()
 
 		// 개행 문자 제거
 		Message.RemoveFromEnd(TEXT("\n"));
+
+		AddPrefix(Message);
+
+		RLR_LOG(LogRLR, Log, TEXT("Message: %s"), *Message);
 
 		// 서버로 메시지 전송
 		ChatClient->SendMessageToServer(Message);

@@ -9,6 +9,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Chat/ChatUI.h"
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/OtherUser/ReportUI.h"
 #include "RLR.h"
@@ -70,7 +71,12 @@ void UOtherPlayerMenu::OnTradeClicked()
 
 void UOtherPlayerMenu::OnWhisperClicked()
 {
-	//TODO: 채팅 대상 변경
+	auto TagManager = FGameplayTagManager::Get();
+	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI(TagManager.UI_Chat));
+
+	if (!chatUI || !OtherUserData.IsValid()) return;
+
+	chatUI->AddWhisperChat(OtherUserData->NickName);
 	CloseUIByManager();
 }
 
