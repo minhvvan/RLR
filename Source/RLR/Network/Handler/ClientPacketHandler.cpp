@@ -205,6 +205,14 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_TradeCompleteResponse>(&Handle_TRADE_COMPLETE_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_FRIEND_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_FriendInfoResponse>(&Handle_INFO_FRIEND_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_FRIEND_CONNECT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_FriendConnectResponse>(&Handle_FRIEND_CONNECT_RESPONSE, session, buffer, len);
+        };
 
 }
 
