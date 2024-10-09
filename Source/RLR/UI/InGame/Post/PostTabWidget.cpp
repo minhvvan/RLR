@@ -79,6 +79,7 @@ void UPostTabWidget::RemovePost(FPostResult Post)
             PostButtons.Remove(SelectedPost.Title);
             SelectedPost = FPostResult();
             UpdatePostDetails(SelectedPost);
+            GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
         });
 }
 
