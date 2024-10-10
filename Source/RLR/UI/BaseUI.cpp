@@ -10,6 +10,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/PartyManager.h"
 #include "Structs/UtilStructs.h"
 
 #include "ActionSystem/ActionSystemInterface.h"
@@ -195,6 +196,18 @@ UDataManager* UBaseUI::GetDataManager()
 	if (GM)
 	{
 		return GM->GetDataManager();
+	}
+
+	return nullptr;
+}
+
+UPartyManager* UBaseUI::GetPartyManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM->GetPartyManager();
 	}
 
 	return nullptr;

@@ -19,6 +19,7 @@
  class UPlayerManager;
  class USkillManager;
  class UDataManager;
+ class UPartyManager;
  class UInventoryManager;
 
 UCLASS()
@@ -62,6 +63,7 @@ public:
 	USkillManager*		GetSkillManager();
 	UInventoryManager*	GetInventoryManager();
 	UDataManager*		GetDataManager();
+	UPartyManager*		GetPartyManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
