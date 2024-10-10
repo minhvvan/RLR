@@ -115,9 +115,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UReportUI> ReportUI;
 
-public:
-
-
 protected:
 	UFUNCTION()
 	void OnChangedTotalStatus();
