@@ -21,19 +21,19 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
-PROTOBUF_CONSTEXPR SC_FriendInfoRequest::SC_FriendInfoRequest(
+PROTOBUF_CONSTEXPR CS_FriendInfoRequest::CS_FriendInfoRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct SC_FriendInfoRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SC_FriendInfoRequestDefaultTypeInternal()
+struct CS_FriendInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_FriendInfoRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SC_FriendInfoRequestDefaultTypeInternal() {}
+  ~CS_FriendInfoRequestDefaultTypeInternal() {}
   union {
-    SC_FriendInfoRequest _instance;
+    CS_FriendInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_FriendInfoRequestDefaultTypeInternal _SC_FriendInfoRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_FriendInfoRequestDefaultTypeInternal _CS_FriendInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR SC_FriendInfoResponse::SC_FriendInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.groups_)*/{}
@@ -63,8 +63,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR Group::Group(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.friends_)*/{}
+  , /*decltype(_impl_.groupname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.groupseq_)*/0
-  , /*decltype(_impl_.groupname_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GroupDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GroupDefaultTypeInternal()
@@ -182,12 +182,12 @@ static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors
 
 const uint32_t TableStruct_Friend_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_FriendInfoRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_FriendInfoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_FriendInfoRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_FriendInfoRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_FriendInfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -271,7 +271,7 @@ const uint32_t TableStruct_Friend_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_MoveFriendGroupRequest, _impl_.groupseq2_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::SC_FriendInfoRequest)},
+  { 0, -1, -1, sizeof(::Protocol::CS_FriendInfoRequest)},
   { 7, -1, -1, sizeof(::Protocol::SC_FriendInfoResponse)},
   { 14, -1, -1, sizeof(::Protocol::SC_FriendConnectResponse)},
   { 21, -1, -1, sizeof(::Protocol::Group)},
@@ -285,7 +285,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::Protocol::_SC_FriendInfoRequest_default_instance_._instance,
+  &::Protocol::_CS_FriendInfoRequest_default_instance_._instance,
   &::Protocol::_SC_FriendInfoResponse_default_instance_._instance,
   &::Protocol::_SC_FriendConnectResponse_default_instance_._instance,
   &::Protocol::_Group_default_instance_._instance,
@@ -299,12 +299,12 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Friend_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Friend.proto\022\010Protocol\"\'\n\024SC_FriendInf"
+  "\n\014Friend.proto\022\010Protocol\"\'\n\024CS_FriendInf"
   "oRequest\022\017\n\007userSeq\030\001 \001(\005\"8\n\025SC_FriendIn"
   "foResponse\022\037\n\006groups\030\001 \003(\0132\017.Protocol.Gr"
   "oup\"<\n\030SC_FriendConnectResponse\022 \n\006frien"
   "d\030\001 \001(\0132\020.Protocol.Friend\"O\n\005Group\022\020\n\010gr"
-  "oupSeq\030\001 \001(\005\022\021\n\tgroupName\030\002 \001(\005\022!\n\007frien"
+  "oupSeq\030\001 \001(\005\022\021\n\tgroupName\030\002 \001(\t\022!\n\007frien"
   "ds\030\003 \003(\0132\020.Protocol.Friend\"/\n\006Friend\022\021\n\t"
   "friendSeq\030\001 \001(\005\022\022\n\nfriendName\030\002 \001(\t\"9\n\023C"
   "S_AddFriendRequest\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tf"
@@ -338,29 +338,29 @@ namespace Protocol {
 
 // ===================================================================
 
-class SC_FriendInfoRequest::_Internal {
+class CS_FriendInfoRequest::_Internal {
  public:
 };
 
-SC_FriendInfoRequest::SC_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_FriendInfoRequest::CS_FriendInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.SC_FriendInfoRequest)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_FriendInfoRequest)
 }
-SC_FriendInfoRequest::SC_FriendInfoRequest(const SC_FriendInfoRequest& from)
+CS_FriendInfoRequest::CS_FriendInfoRequest(const CS_FriendInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SC_FriendInfoRequest* const _this = this; (void)_this;
+  CS_FriendInfoRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.userseq_ = from._impl_.userseq_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.SC_FriendInfoRequest)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_FriendInfoRequest)
 }
 
-inline void SC_FriendInfoRequest::SharedCtor(
+inline void CS_FriendInfoRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -370,8 +370,8 @@ inline void SC_FriendInfoRequest::SharedCtor(
   };
 }
 
-SC_FriendInfoRequest::~SC_FriendInfoRequest() {
-  // @@protoc_insertion_point(destructor:Protocol.SC_FriendInfoRequest)
+CS_FriendInfoRequest::~CS_FriendInfoRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_FriendInfoRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -379,16 +379,16 @@ SC_FriendInfoRequest::~SC_FriendInfoRequest() {
   SharedDtor();
 }
 
-inline void SC_FriendInfoRequest::SharedDtor() {
+inline void CS_FriendInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SC_FriendInfoRequest::SetCachedSize(int size) const {
+void CS_FriendInfoRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void SC_FriendInfoRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.SC_FriendInfoRequest)
+void CS_FriendInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_FriendInfoRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -397,7 +397,7 @@ void SC_FriendInfoRequest::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SC_FriendInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_FriendInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -434,9 +434,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SC_FriendInfoRequest::_InternalSerialize(
+uint8_t* CS_FriendInfoRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_FriendInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_FriendInfoRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -450,12 +450,12 @@ uint8_t* SC_FriendInfoRequest::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_FriendInfoRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_FriendInfoRequest)
   return target;
 }
 
-size_t SC_FriendInfoRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_FriendInfoRequest)
+size_t CS_FriendInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_FriendInfoRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -470,17 +470,17 @@ size_t SC_FriendInfoRequest::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_FriendInfoRequest::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_FriendInfoRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SC_FriendInfoRequest::MergeImpl
+    CS_FriendInfoRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_FriendInfoRequest::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_FriendInfoRequest::GetClassData() const { return &_class_data_; }
 
 
-void SC_FriendInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SC_FriendInfoRequest*>(&to_msg);
-  auto& from = static_cast<const SC_FriendInfoRequest&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_FriendInfoRequest)
+void CS_FriendInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_FriendInfoRequest*>(&to_msg);
+  auto& from = static_cast<const CS_FriendInfoRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_FriendInfoRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -491,24 +491,24 @@ void SC_FriendInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void SC_FriendInfoRequest::CopyFrom(const SC_FriendInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_FriendInfoRequest)
+void CS_FriendInfoRequest::CopyFrom(const CS_FriendInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_FriendInfoRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SC_FriendInfoRequest::IsInitialized() const {
+bool CS_FriendInfoRequest::IsInitialized() const {
   return true;
 }
 
-void SC_FriendInfoRequest::InternalSwap(SC_FriendInfoRequest* other) {
+void CS_FriendInfoRequest::InternalSwap(CS_FriendInfoRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.userseq_, other->_impl_.userseq_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SC_FriendInfoRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_FriendInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Friend_2eproto_getter, &descriptor_table_Friend_2eproto_once,
       file_level_metadata_Friend_2eproto[0]);
@@ -909,14 +909,20 @@ Group::Group(const Group& from)
   Group* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.friends_){from._impl_.friends_}
-    , decltype(_impl_.groupseq_){}
     , decltype(_impl_.groupname_){}
+    , decltype(_impl_.groupseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.groupseq_, &from._impl_.groupseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.groupname_) -
-    reinterpret_cast<char*>(&_impl_.groupseq_)) + sizeof(_impl_.groupname_));
+  _impl_.groupname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.groupname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_groupname().empty()) {
+    _this->_impl_.groupname_.Set(from._internal_groupname(), 
+      _this->GetArenaForAllocation());
+  }
+  _this->_impl_.groupseq_ = from._impl_.groupseq_;
   // @@protoc_insertion_point(copy_constructor:Protocol.Group)
 }
 
@@ -926,10 +932,14 @@ inline void Group::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.friends_){arena}
+    , decltype(_impl_.groupname_){}
     , decltype(_impl_.groupseq_){0}
-    , decltype(_impl_.groupname_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.groupname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.groupname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Group::~Group() {
@@ -944,6 +954,7 @@ Group::~Group() {
 inline void Group::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.friends_.~RepeatedPtrField();
+  _impl_.groupname_.Destroy();
 }
 
 void Group::SetCachedSize(int size) const {
@@ -957,9 +968,8 @@ void Group::Clear() {
   (void) cached_has_bits;
 
   _impl_.friends_.Clear();
-  ::memset(&_impl_.groupseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.groupname_) -
-      reinterpret_cast<char*>(&_impl_.groupseq_)) + sizeof(_impl_.groupname_));
+  _impl_.groupname_.ClearToEmpty();
+  _impl_.groupseq_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -977,11 +987,13 @@ const char* Group::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // int32 groupName = 2;
+      // string groupName = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.groupname_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_groupname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.Group.groupName"));
         } else
           goto handle_unusual;
         continue;
@@ -1033,10 +1045,14 @@ uint8_t* Group::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_groupseq(), target);
   }
 
-  // int32 groupName = 2;
-  if (this->_internal_groupname() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_groupname(), target);
+  // string groupName = 2;
+  if (!this->_internal_groupname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_groupname().data(), static_cast<int>(this->_internal_groupname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.Group.groupName");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_groupname(), target);
   }
 
   // repeated .Protocol.Friend friends = 3;
@@ -1070,14 +1086,16 @@ size_t Group::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // string groupName = 2;
+  if (!this->_internal_groupname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_groupname());
+  }
+
   // int32 groupSeq = 1;
   if (this->_internal_groupseq() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_groupseq());
-  }
-
-  // int32 groupName = 2;
-  if (this->_internal_groupname() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_groupname());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1099,11 +1117,11 @@ void Group::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF
   (void) cached_has_bits;
 
   _this->_impl_.friends_.MergeFrom(from._impl_.friends_);
+  if (!from._internal_groupname().empty()) {
+    _this->_internal_set_groupname(from._internal_groupname());
+  }
   if (from._internal_groupseq() != 0) {
     _this->_internal_set_groupseq(from._internal_groupseq());
-  }
-  if (from._internal_groupname() != 0) {
-    _this->_internal_set_groupname(from._internal_groupname());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1121,14 +1139,15 @@ bool Group::IsInitialized() const {
 
 void Group::InternalSwap(Group* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.friends_.InternalSwap(&other->_impl_.friends_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Group, _impl_.groupname_)
-      + sizeof(Group::_impl_.groupname_)
-      - PROTOBUF_FIELD_OFFSET(Group, _impl_.groupseq_)>(
-          reinterpret_cast<char*>(&_impl_.groupseq_),
-          reinterpret_cast<char*>(&other->_impl_.groupseq_));
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.groupname_, lhs_arena,
+      &other->_impl_.groupname_, rhs_arena
+  );
+  swap(_impl_.groupseq_, other->_impl_.groupseq_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Group::GetMetadata() const {
@@ -2703,9 +2722,9 @@ void CS_MoveFriendGroupRequest::InternalSwap(CS_MoveFriendGroupRequest* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Protocol::SC_FriendInfoRequest*
-Arena::CreateMaybeMessage< ::Protocol::SC_FriendInfoRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::SC_FriendInfoRequest >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_FriendInfoRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_FriendInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_FriendInfoRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::SC_FriendInfoResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_FriendInfoResponse >(Arena* arena) {

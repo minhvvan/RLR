@@ -166,6 +166,8 @@ public:
 
     bool SendPostGetRequest();
 
+    bool SendPostRemoveRequest(FPostResult post);
+
     bool SendPostReadRequest(FPostResult post);
 
     bool SendPostReceivedRequest(FPostResult post);

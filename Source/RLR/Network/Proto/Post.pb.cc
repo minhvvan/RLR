@@ -122,6 +122,20 @@ struct SC_PostGetResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_PostGetResponseDefaultTypeInternal _SC_PostGetResponse_default_instance_;
+PROTOBUF_CONSTEXPR CS_RemovePostRequest::CS_RemovePostRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.postid_)*/int64_t{0}
+  , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CS_RemovePostRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_RemovePostRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CS_RemovePostRequestDefaultTypeInternal() {}
+  union {
+    CS_RemovePostRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_RemovePostRequestDefaultTypeInternal _CS_RemovePostRequest_default_instance_;
 PROTOBUF_CONSTEXPR SC_PostSendResponse::SC_PostSendResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.posts_)*/nullptr
@@ -191,7 +205,7 @@ struct CS_PostReceivedDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_PostReceivedDefaultTypeInternal _CS_PostReceived_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Post_2eproto[12];
+static ::_pb::Metadata file_level_metadata_Post_2eproto[13];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Post_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Post_2eproto = nullptr;
 
@@ -265,6 +279,14 @@ const uint32_t TableStruct_Post_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _impl_.recvposts_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostGetResponse, _impl_.itemlists_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_RemovePostRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_RemovePostRequest, _impl_.postid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_RemovePostRequest, _impl_.userseq_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_PostSendResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -316,11 +338,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 42, -1, -1, sizeof(::Protocol::CS_PostGetRequest)},
   { 49, 57, -1, sizeof(::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUse)},
   { 59, -1, -1, sizeof(::Protocol::SC_PostGetResponse)},
-  { 68, -1, -1, sizeof(::Protocol::SC_PostSendResponse)},
-  { 76, 84, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
-  { 86, -1, -1, sizeof(::Protocol::SC_PostResponse)},
-  { 94, -1, -1, sizeof(::Protocol::CS_PostRead)},
-  { 102, -1, -1, sizeof(::Protocol::CS_PostReceived)},
+  { 68, -1, -1, sizeof(::Protocol::CS_RemovePostRequest)},
+  { 76, -1, -1, sizeof(::Protocol::SC_PostSendResponse)},
+  { 84, 92, -1, sizeof(::Protocol::SC_PostResponse_ItemListsEntry_DoNotUse)},
+  { 94, -1, -1, sizeof(::Protocol::SC_PostResponse)},
+  { 102, -1, -1, sizeof(::Protocol::CS_PostRead)},
+  { 110, -1, -1, sizeof(::Protocol::CS_PostReceived)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -331,6 +354,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CS_PostGetRequest_default_instance_._instance,
   &::Protocol::_SC_PostGetResponse_ItemListsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_SC_PostGetResponse_default_instance_._instance,
+  &::Protocol::_CS_RemovePostRequest_default_instance_._instance,
   &::Protocol::_SC_PostSendResponse_default_instance_._instance,
   &::Protocol::_SC_PostResponse_ItemListsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_SC_PostResponse_default_instance_._instance,
@@ -356,26 +380,28 @@ const char descriptor_table_protodef_Post_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "Protocol.Post\022>\n\titemLists\030\003 \003(\0132+.Proto"
   "col.SC_PostGetResponse.ItemListsEntry\032D\n"
   "\016ItemListsEntry\022\013\n\003key\030\001 \001(\003\022!\n\005value\030\002 "
-  "\001(\0132\022.Protocol.ItemList:\0028\001\"[\n\023SC_PostSe"
-  "ndResponse\022\035\n\005posts\030\001 \001(\0132\016.Protocol.Pos"
-  "t\022%\n\titemList1\030\002 \001(\0132\022.Protocol.ItemList"
-  "\"\263\001\n\017SC_PostResponse\022\035\n\005posts\030\002 \003(\0132\016.Pr"
-  "otocol.Post\022;\n\titemLists\030\003 \003(\0132(.Protoco"
-  "l.SC_PostResponse.ItemListsEntry\032D\n\016Item"
-  "ListsEntry\022\013\n\003key\030\001 \001(\003\022!\n\005value\030\002 \001(\0132\022"
-  ".Protocol.ItemList:\0028\001\".\n\013CS_PostRead\022\016\n"
-  "\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\"B\n\017CS_Pos"
-  "tReceived\022\016\n\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001"
-  "(\005\022\016\n\006itemId\030\003 \001(\003b\006proto3"
+  "\001(\0132\022.Protocol.ItemList:\0028\001\"7\n\024CS_Remove"
+  "PostRequest\022\016\n\006postId\030\001 \001(\003\022\017\n\007userSeq\030\002"
+  " \001(\005\"[\n\023SC_PostSendResponse\022\035\n\005posts\030\001 \001"
+  "(\0132\016.Protocol.Post\022%\n\titemList1\030\002 \001(\0132\022."
+  "Protocol.ItemList\"\263\001\n\017SC_PostResponse\022\035\n"
+  "\005posts\030\002 \003(\0132\016.Protocol.Post\022;\n\titemList"
+  "s\030\003 \003(\0132(.Protocol.SC_PostResponse.ItemL"
+  "istsEntry\032D\n\016ItemListsEntry\022\013\n\003key\030\001 \001(\003"
+  "\022!\n\005value\030\002 \001(\0132\022.Protocol.ItemList:\0028\001\""
+  ".\n\013CS_PostRead\022\016\n\006postId\030\001 \001(\003\022\017\n\007userSe"
+  "q\030\002 \001(\005\"B\n\017CS_PostReceived\022\016\n\006postId\030\001 \001"
+  "(\003\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006itemId\030\003 \001(\003b\006pro"
+  "to3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Post_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Post_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Post_2eproto = {
-    false, false, 1106, descriptor_table_protodef_Post_2eproto,
+    false, false, 1163, descriptor_table_protodef_Post_2eproto,
     "Post.proto",
-    &descriptor_table_Post_2eproto_once, descriptor_table_Post_2eproto_deps, 1, 12,
+    &descriptor_table_Post_2eproto_once, descriptor_table_Post_2eproto_deps, 1, 13,
     schemas, file_default_instances, TableStruct_Post_2eproto::offsets,
     file_level_metadata_Post_2eproto, file_level_enum_descriptors_Post_2eproto,
     file_level_service_descriptors_Post_2eproto,
@@ -1857,6 +1883,217 @@ void SC_PostGetResponse::InternalSwap(SC_PostGetResponse* other) {
 
 // ===================================================================
 
+class CS_RemovePostRequest::_Internal {
+ public:
+};
+
+CS_RemovePostRequest::CS_RemovePostRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_RemovePostRequest)
+}
+CS_RemovePostRequest::CS_RemovePostRequest(const CS_RemovePostRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CS_RemovePostRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.postid_){}
+    , decltype(_impl_.userseq_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&_impl_.postid_, &from._impl_.postid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
+    reinterpret_cast<char*>(&_impl_.postid_)) + sizeof(_impl_.userseq_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_RemovePostRequest)
+}
+
+inline void CS_RemovePostRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.postid_){int64_t{0}}
+    , decltype(_impl_.userseq_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CS_RemovePostRequest::~CS_RemovePostRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_RemovePostRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CS_RemovePostRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CS_RemovePostRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CS_RemovePostRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_RemovePostRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.postid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.userseq_) -
+      reinterpret_cast<char*>(&_impl_.postid_)) + sizeof(_impl_.userseq_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CS_RemovePostRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int64 postId = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.postid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 userSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CS_RemovePostRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_RemovePostRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int64 postId = 1;
+  if (this->_internal_postid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_postid(), target);
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_userseq(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_RemovePostRequest)
+  return target;
+}
+
+size_t CS_RemovePostRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_RemovePostRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 postId = 1;
+  if (this->_internal_postid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_postid());
+  }
+
+  // int32 userSeq = 2;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_RemovePostRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CS_RemovePostRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_RemovePostRequest::GetClassData() const { return &_class_data_; }
+
+
+void CS_RemovePostRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_RemovePostRequest*>(&to_msg);
+  auto& from = static_cast<const CS_RemovePostRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_RemovePostRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_postid() != 0) {
+    _this->_internal_set_postid(from._internal_postid());
+  }
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CS_RemovePostRequest::CopyFrom(const CS_RemovePostRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_RemovePostRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CS_RemovePostRequest::IsInitialized() const {
+  return true;
+}
+
+void CS_RemovePostRequest::InternalSwap(CS_RemovePostRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CS_RemovePostRequest, _impl_.userseq_)
+      + sizeof(CS_RemovePostRequest::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_RemovePostRequest, _impl_.postid_)>(
+          reinterpret_cast<char*>(&_impl_.postid_),
+          reinterpret_cast<char*>(&other->_impl_.postid_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CS_RemovePostRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
+      file_level_metadata_Post_2eproto[7]);
+}
+
+// ===================================================================
+
 class SC_PostSendResponse::_Internal {
  public:
   static const ::Protocol::Post& posts(const SC_PostSendResponse* msg);
@@ -2091,7 +2328,7 @@ void SC_PostSendResponse::InternalSwap(SC_PostSendResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_PostSendResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[7]);
+      file_level_metadata_Post_2eproto[8]);
 }
 
 // ===================================================================
@@ -2105,7 +2342,7 @@ void SC_PostResponse_ItemListsEntry_DoNotUse::MergeFrom(const SC_PostResponse_It
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_PostResponse_ItemListsEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[8]);
+      file_level_metadata_Post_2eproto[9]);
 }
 
 // ===================================================================
@@ -2345,7 +2582,7 @@ void SC_PostResponse::InternalSwap(SC_PostResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_PostResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[9]);
+      file_level_metadata_Post_2eproto[10]);
 }
 
 // ===================================================================
@@ -2556,7 +2793,7 @@ void CS_PostRead::InternalSwap(CS_PostRead* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_PostRead::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[10]);
+      file_level_metadata_Post_2eproto[11]);
 }
 
 // ===================================================================
@@ -2791,7 +3028,7 @@ void CS_PostReceived::InternalSwap(CS_PostReceived* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_PostReceived::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Post_2eproto_getter, &descriptor_table_Post_2eproto_once,
-      file_level_metadata_Post_2eproto[11]);
+      file_level_metadata_Post_2eproto[12]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2824,6 +3061,10 @@ Arena::CreateMaybeMessage< ::Protocol::SC_PostGetResponse_ItemListsEntry_DoNotUs
 template<> PROTOBUF_NOINLINE ::Protocol::SC_PostGetResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_PostGetResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::SC_PostGetResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::CS_RemovePostRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_RemovePostRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_RemovePostRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::SC_PostSendResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_PostSendResponse >(Arena* arena) {
