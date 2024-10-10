@@ -65,6 +65,14 @@ bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
 	return bOpen;
 }
 
+void UInGameMainUI::OpenSubUI(FGameplayTag InputTag)
+{
+	USubUI* subUI = GetSubUI(InputTag);
+	if (!subUI) return;
+
+	subUI->OpenUI();
+}
+
 void UInGameMainUI::CloseSubUI(FGameplayTag InputTag)
 {
 	USubUI* subUI = GetSubUI(InputTag);

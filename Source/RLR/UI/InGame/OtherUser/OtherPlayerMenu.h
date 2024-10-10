@@ -52,7 +52,7 @@ protected:
 	void OnAddFriendClicked();
 
 	UFUNCTION()
-	void OnAddPartyClicked();
+	void OnInvitePartyClicked();
 
 	UFUNCTION()
 	void OnTradeClicked();
@@ -64,9 +64,10 @@ protected:
 	void OnReportClicked();
 
 	UFUNCTION()
-	void OnCancelClicked();
-
-	void CloseUIByManager();
+	void OnCancelClicked();	
+	
+	UFUNCTION()
+	void SuccessCreateParty();
 
 private:
 	TSharedPtr<FUserCharacter> OtherUserData;
