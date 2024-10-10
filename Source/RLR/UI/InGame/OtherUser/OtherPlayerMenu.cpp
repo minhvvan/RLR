@@ -8,6 +8,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/PartyManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Chat/ChatUI.h"
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
@@ -22,7 +23,7 @@ void UOtherPlayerMenu::NativeConstruct()
 
 	BtnUserInfo->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
 	BtnAddFriend->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
-	BtnAddParty->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnAddPartyClicked);
+	BtnAddParty->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);
 	BtnTrade->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnTradeClicked);
 	BtnWhisper->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnWhisperClicked);
 	BtnReport->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnReportClicked);
@@ -54,16 +55,26 @@ void UOtherPlayerMenu::OnAddFriendClicked()
 	CloseUIByManager();
 }
 
-void UOtherPlayerMenu::OnAddPartyClicked()
+void UOtherPlayerMenu::OnInvitePartyClicked()
 {
-	//TODO: Send Pkt
-	//파티 시스템에따라 달라질듯
+	auto partyManager = GetPartyManager();
+	if (!partyManager) return;
+
+	if (!partyManager->GetHasParty())
+	{
+		//Single 유지
+		partyManager->SuccessCreate.Clear();
+		partyManager->SuccessCreate.AddDynamic(this, &UOtherPlayerMenu::SuccessCreateParty);
+
+		partyManager->CreateParty();
+	}
+
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnTradeClicked()
 {
-	//TODO: Show Trade UI & Send Pkt
+	//TODO: 구체적인 구현 내용이 나오면 처리
 	if (!OtherUserData.IsValid()) return;
 	GetNetworkManager()->SendTradeStartRequest(OtherUserData->UserSeq);
 	CloseUIByManager();
@@ -99,4 +110,12 @@ void UOtherPlayerMenu::OnReportClicked()
 void UOtherPlayerMenu::OnCancelClicked()
 {
 	CloseUIByManager();
+}
+
+void UOtherPlayerMenu::SuccessCreateParty()
+{
+	auto partyManager = GetPartyManager();
+	if (!partyManager || !OtherUserData.IsValid()) return;
+
+	partyManager->InviteParty(OtherUserData->UserSeq);
 }
