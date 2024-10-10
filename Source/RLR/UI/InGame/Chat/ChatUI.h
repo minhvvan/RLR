@@ -12,7 +12,7 @@ class UChatTabWidget;
 class UScrollBox;
 class UChatOptionUI;
 class UWidgetSwitcher;
-class UComboBoxString;
+class UComboBoxStringColor;
 class UEditableTextBox;
 class UCheckBox;
 
@@ -99,7 +99,7 @@ public:
     UEditableTextBox* ChatInput;
 
     UPROPERTY(meta = (BindWidget))
-    UComboBoxString* CbbChatType;
+    UComboBoxStringColor* CbbChatType;
 
     UPROPERTY(meta = (BindWidget))
     UButton* SendButton;
@@ -122,14 +122,26 @@ private:
     TMap<TObjectPtr<UButton>, int32> TabButtonToIndexMap;
     TObjectPtr<AChatClient> ChatClient;
 
-    TMap<FString, FString> Prefix;
-    TMap<FString, FString> Args;
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FString> Prefix;
+
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FString> Args;
+
+    UPROPERTY(EditAnywhere, Category=chatType)
+    TMap<FString, EChatType> ItemType;
+
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FSlateColor> TextColor;
 
 public:
     void UpdateChatDisplay(EChatType ChatType);
 
     UFUNCTION(BlueprintCallable)
     void OnChatInputCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
+    UFUNCTION()
+    void OnChatTypeChanged(FString Item, ESelectInfo::Type SelectionType);
 
     //버튼 이벤트
     UFUNCTION(BlueprintCallable)

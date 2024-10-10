@@ -6,6 +6,7 @@
 #include "Components/ScrollBox.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/ComboBoxString.h"
+#include "UI/Components/ComboBoxStringColor.h"
 #include "Chat/ChatClient.h"
 #include "ChatTabWidget.h"
 #include "ChatOptionUI.h"
@@ -43,6 +44,22 @@ void UChatUI::NativeConstruct()
 
 	AChatClient* client = Cast<AChatClient>(FoundActors[0]);
 	SetChatClient(client);
+
+	CbbChatType->OnSelectionChanged.AddDynamic(this, &UChatUI::OnChatTypeChanged);
+	CbbChatType->SetDefaultOptionColor(TextColor[EChatType::General]);
+
+	//TODO: 채팅타입 추가
+	ItemType.Add({ TEXT("전체"), EChatType::General });
+	ItemType.Add({ TEXT("길드"), EChatType::Guild });
+	ItemType.Add({ TEXT("파티"), EChatType::Party });
+
+	//TODO: Prefix 추가
+	Prefix.Add({ EChatType::General, TEXT("")});
+	Prefix.Add({ EChatType::Guild, TEXT("/chat")});
+	Prefix.Add({ EChatType::Whisper, TEXT("/w")});
+
+	//TODO: Args 추가(길드 이름, 파티 이름(?)...)
+	//Args.Add()
 }
 
 void UChatUI::InitButton()
@@ -92,13 +109,18 @@ void UChatUI::InitChatBox()
 
 void UChatUI::AddPrefix(FString& Message)
 {
-	//TODO: 파티, 길드 prefix랑 정책 필요
-	// e.g) 파티가 없을때는 보내지 않음 
+	FString selected = CbbChatType->GetSelectedOption();
+	if (!ItemType.Contains(selected)) return;
+	EChatType chatType = ItemType[selected];
 
-	FString chatType = CbbChatType->GetSelectedOption();
-	if (!Prefix.Contains(chatType)) return;
-
-	Message = FString::Printf(TEXT("%s %s %s"), *Prefix[chatType], *Args[chatType], *Message);
+	if (chatType == EChatType::Whisper)
+	{
+		Message = FString::Printf(TEXT("%s %s %s"), *Prefix[chatType], *selected, *Message);
+	}
+	else
+	{
+		Message = FString::Printf(TEXT("%s %s %s"), *Prefix[chatType], *Args[chatType], *Message);
+	}
 }
 
 void UChatUI::AddChatTabWidget(const FText& TabName, int32 TabIndex)
@@ -191,11 +213,11 @@ void UChatUI::UpdateTabFilters(const FString& TabName, const TArray<EChatType>& 
 
 void UChatUI::AddWhisperChat(FString UserName)
 {
-	Prefix.Add({ UserName, TEXT("/w") });
-	Args.Add({ UserName, UserName });
+	ItemType.Add({ UserName, EChatType::Whisper });
 
 	CbbChatType->AddOption(UserName);
 	CbbChatType->SetSelectedOption(UserName);
+	CbbChatType->OnSelectionChanged.Broadcast(UserName, ESelectInfo::Type::Direct);
 }
 
 void UChatUI::AddChatTab(FString TabName, TArray<EChatType> FilteredChatTypes)
@@ -225,8 +247,19 @@ void UChatUI::OnChatInputCommitted(const FText& Text, ETextCommit::Type CommitMe
 	}
 }
 
+void UChatUI::OnChatTypeChanged(FString Item, ESelectInfo::Type SelectionType)
+{
+	if (!ItemType.Contains(Item)) return;
+	EChatType chatType = ItemType[Item];
+
+	CbbChatType->SetDefaultOptionColor(TextColor[chatType]);
+}
+
 void UChatUI::OnSendButtonClicked()
 {
+	//TODO: 파티, 길드 채팅 정책 필요
+	// e.g) 파티가 없을때는 보내지 않음 
+
 	if (ChatClient && ChatInput)
 	{
 		// 입력된 텍스트 가져오기
@@ -236,8 +269,6 @@ void UChatUI::OnSendButtonClicked()
 		Message.RemoveFromEnd(TEXT("\n"));
 
 		AddPrefix(Message);
-
-		RLR_LOG(LogRLR, Log, TEXT("Message: %s"), *Message);
 
 		// 서버로 메시지 전송
 		ChatClient->SendMessageToServer(Message);
@@ -330,34 +361,7 @@ void UChatUI::UpdateChatDisplay(EChatType ChatType)
 			UTextBlock* NewTextBlock = NewObject<UTextBlock>(ChatOutputBox);
 			NewTextBlock->SetText(FText::FromString(ChatMessage.Message));
 
-			switch (ChatMessage.ChatType)
-			{
-			case EChatType::General:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::White));
-				break;
-			case EChatType::Whisper:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Green));
-				break;
-			case EChatType::Country:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Blue));
-				break;
-			case EChatType::World:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Yellow));
-				break;
-			case EChatType::Guild:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Black));
-				break;
-			case EChatType::Raid:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Red));
-				break;
-			case EChatType::Party:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Blue));
-				break;
-			case EChatType::Continent:
-				NewTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor::Gray));
-				break;
-			}
-
+			NewTextBlock->SetColorAndOpacity(TextColor[ChatMessage.ChatType]);
 			ChatOutputBox->AddChild(NewTextBlock);
 		}
 	}
