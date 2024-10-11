@@ -3,9 +3,12 @@
 
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
+#include "UI/InGame/Post/PostTabWidget.h"
+#include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "Structs/UtilStructs.h"
@@ -24,6 +27,7 @@ void UPostOverlayUI::NativeConstruct()
 	SetUIType(EUIType::POST_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Post);
 
+	GameInstance->GetPostalManager()->InitializePostalManager();
 	if (ReceivedPostButton)
 		ReceivedPostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
 	if (SentPostButton)
@@ -34,11 +38,32 @@ void UPostOverlayUI::NativeConstruct()
 
 void UPostOverlayUI::Init()
 {
+	CreatePostSlots();
+
+	PostWidgetSwitcher->SetActiveWidgetIndex(0);
+	GameInstance->GetNetworkManager()->SendPostGetRequest();
+	OnPostGetRequestComplete();
+}
+
+void UPostOverlayUI::RefreshUI()
+{
+	// 서버나 캐시에서 새 우편 데이터 가져오기
+	TArray<FPostResult> NewSentPostData = GameInstance->GetPostalManager()->GetSentPostData();
+	SetSentPostData(NewSentPostData);
+
+	TArray<FPostResult> NewRecvPostData = GameInstance->GetPostalManager()->GetReceivedPostData();
+	SetRecvPostData(NewRecvPostData);
+
+	UpdatePostWidget();
+}
+
+void UPostOverlayUI::CreatePostSlots()
+{
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
 	TSubclassOf<UPostItemSlot> PostItemSlotClass = dataManager->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
-	
+
 	PostWriteTabWidget->PostSlotList.Empty();
 	PostWriteTabWidget->PostSlotList.Init(nullptr, MaxPostSlotCount);
 
@@ -50,59 +75,24 @@ void UPostOverlayUI::Init()
 
 	for (int32 Count = 0; Count < MaxPostSlotCount; Count++)
 	{
-		UPostItemSlot* NewSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
-		PostWriteTabWidget->PostSlotList[Count] = NewSlot;
-		NewSlot->SlotIndex = Count;
-		NewSlot->PostUI = this;
+		// PostWriteTabWidget에 슬롯 추가
+		UPostItemSlot* WriteSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		PostWriteTabWidget->PostSlotList[Count] = WriteSlot;
+		WriteSlot->SlotIndex = Count;
+		WriteSlot->PostUI = this;
+		PostWriteTabWidget->PostSlotGridPanel->AddChildToGrid(WriteSlot, 0, Count);
 
-		PostWriteTabWidget->PostSlotGridPanel->AddChildToGrid(NewSlot, 0, Count);
-	}
-}
+		// PostReceivedTabWidget에 슬롯 추가
+		UPostItemSlot* ReceivedSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		ReceivedSlot->SlotIndex = Count;
+		ReceivedSlot->PostUI = this;
+		PostReceivedTabWidget->PostSlotGridPanel->AddChildToGrid(ReceivedSlot, 0, Count);
 
-void UPostOverlayUI::RefreshUI()
-{
-	UPostalManager* PostalManager = GameInstance->GetPostalManager();
-
-	for (UPostItemSlot* ItemSlot : PostWriteTabWidget->PostSlotList)
-	{
-		ItemSlot->Clear();
-	}
-
-	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
-	TArray<FItemData> ItemList;
-	PostalManager->GetItemList(ItemList);
-	TArray<FItemResource> ItemResourceList;
-	PostalManager->GetItemResourceList(ItemResourceList);
-
-	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
-	TMap<int32, FItemResource> ItemResourceMap;
-	for (const FItemResource& ItemResource : ItemResourceList)
-	{
-		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
-	}
-
-	int32 ItemCount = 0;
-	for (FItemData& ItemData : ItemList)
-	{
-		//설정된 값보다 아이템 수가 많으면 에러
-		if (MaxPostSlotCount <= ItemCount)
-		{
-			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
-			break;
-		}
-
-		ItemCount++;
-
-		int32 ItemSlotIndex = ItemData.ITEM_SLOT_IDX;
-		if (ItemSlotIndex >= MaxPostSlotCount || ItemSlotIndex < 0)
-			continue;
-		PostWriteTabWidget->PostSlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
-
-		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
-		if (FoundItemResource)
-		{
-			PostWriteTabWidget->PostSlotList[ItemData.ITEM_SLOT_IDX]->SetSlotItemResourceData(*FoundItemResource);
-		}
+		// PostSentTabWidget에 슬롯 추가
+		UPostItemSlot* SentSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		SentSlot->SlotIndex = Count;
+		SentSlot->PostUI = this;
+		PostSentTabWidget->PostSlotGridPanel->AddChildToGrid(SentSlot, 0, Count);
 	}
 }
 
@@ -111,15 +101,35 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 	if (PostWidgetSwitcher)
 	{
 		PostWidgetSwitcher->SetActiveWidgetIndex(0);
+		GameInstance->GetNetworkManager()->SendPostGetRequest();
+		OnPostGetRequestComplete();
 	}
+}
+
+void UPostOverlayUI::OnPostGetRequestComplete()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			UpdatePostWidget();
+		});
 }
 
 void UPostOverlayUI::OnSentPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
-		PostWidgetSwitcher->SetActiveWidgetIndex(1);
+		PostWidgetSwitcher->SetActiveWidgetIndex(1); // 발신함 위젯으로 전환
+		GameInstance->GetNetworkManager()->SendPostGetRequest();
+		OnPostSentRequestComplete();
 	}
+}
+
+void UPostOverlayUI::OnPostSentRequestComplete()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			UpdatePostWidget();
+		});
 }
 
 void UPostOverlayUI::OnWritePostButtonClicked()
@@ -127,6 +137,7 @@ void UPostOverlayUI::OnWritePostButtonClicked()
 	if (PostWidgetSwitcher)
 	{
 		PostWidgetSwitcher->SetActiveWidgetIndex(2);
+		GameInstance->GetNetworkManager()->SendPostGetRequest();
 	}
 }
 
@@ -135,4 +146,39 @@ void UPostOverlayUI::SetMaxSlotCount(int32 Count)
 	MaxPostSlotCount = Count;
 	Init();
 	RefreshUI();
+}
+
+void UPostOverlayUI::UpdatePostWidget()
+{
+	//int64 UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+	TArray<FPostResult> PostSentData = GameInstance->GetPostalManager()->GetSentPostData();
+	TArray<FPostResult> PostRecvData = GameInstance->GetPostalManager()->GetReceivedPostData();
+	TArray<FPostResult> ReceivedPostList; 
+	TArray<FPostResult> SentPostList; 
+	
+	for (FPostResult PostData : PostSentData)
+	{
+		SentPostList.Add(PostData);
+	}
+	for (FPostResult PostData : PostRecvData)
+	{
+		ReceivedPostList.Add(PostData);
+	}
+
+	if(ReceivedPostList.Num() > 0 && PostReceivedTabWidget)
+		PostReceivedTabWidget->UpdatePostList(ReceivedPostList, false);
+	if(SentPostList.Num() > 0 && PostSentTabWidget)
+		PostSentTabWidget->UpdatePostList(SentPostList, true);
+}
+
+void UPostOverlayUI::SetSentPostData(const TArray<FPostResult>& NewPostResult)
+{
+	FScopeLock Lock(&PostDataMutex);
+	SentPostData = NewPostResult;
+}
+
+void UPostOverlayUI::SetRecvPostData(const TArray<FPostResult>& NewPostResult)
+{
+	FScopeLock Lock(&PostDataMutex);
+	RecvPostData = NewPostResult;
 }

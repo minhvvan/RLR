@@ -68,15 +68,18 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FGameplayTag		GetUITag(){return UITag;}
 
+	UFUNCTION()
+	void CloseUIByManager();
+
 public:
 
 	FVector2D ClickedFirstPoint;
 	FVector2D ClickedCurrentPoint;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidgetOptional))
 	TObjectPtr<UButton> DragButton;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidgetOptional))
 	TObjectPtr<USizeBox> RootSizeBox;
 
 private:
@@ -88,6 +91,6 @@ private:
 		Input Binding
 	*/
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, Category="Tag")
 	FGameplayTag UITag = FGameplayTag();
 };

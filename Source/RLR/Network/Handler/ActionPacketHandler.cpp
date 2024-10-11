@@ -13,9 +13,9 @@
 
 
 bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_AttackResponsePacket& pkt) {
-	int skillSeq = pkt.skill().skillseq();
-
-	// 남에꺼 소환하는 거 만들어주세요
+    int skillSeq =  pkt.skill().skillseq();
+    int userSeq = pkt.skill().userseq();
+    // 남에꺼 소환하는 거 만들어주세요
 	return true;
 }
 

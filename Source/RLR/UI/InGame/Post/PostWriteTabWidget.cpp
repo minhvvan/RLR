@@ -5,6 +5,7 @@
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/Post/InputTransactionCost.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/EditableText.h"
 #include "Components/EditableTextBox.h"
@@ -12,8 +13,10 @@
 #include "Components/TextBlock.h"
 #include "Components/ListView.h"
 #include "Components/Button.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/GameManager.h"
+#include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 void UPostWriteTabWidget::NativeConstruct()
@@ -41,11 +44,42 @@ void UPostWriteTabWidget::AddItemToPostSlot(const FItemData& ItemData)
 
 void UPostWriteTabWidget::OnSendPostButtonClicked()
 {
-	TArray<FItemData> AttachedItems = GetAttachedItemsFromSlots();
+	/* userName을 통해 userSeq를 가져올 수 있는지 확인하고, 그렇게 변경하기 */
 	/*
-		TODO : 이런식으로 SendPacket보내기, 그런데 PostId를 어떻게 설정해야하는지 모르겠음
-		NetworkManager->SendPost(PostId, RecipientId, PostContentText.ToString(), AttachedItems, bIsSpecialPost);
+	*	ue5에서 사용자 이름 가져오는 방법 1. 
+		if (GEngine && GEngine->GetFirstLocalPlayerController(GetWorld()))
+		{
+			APlayerController* PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
+			if (PlayerController)
+			{
+				APlayerState* PlayerState = PlayerController->GetPlayerState<APlayerState>();
+				if (PlayerState)
+				{
+					FString PlayerName = PlayerState->GetPlayerName();
+					UE_LOG(LogTemp, Log, TEXT("Local Player Name: %s"), *PlayerName);
+				}
+			}
+		}
+	
 	*/
+	FString RecipientIdString = RecipientIdText->Text.ToString();
+
+	if(RecipientIdText == nullptr) return;	
+
+	FPostResult PostResult;
+	{	
+		/* 임시 값 */
+		PostResult.ReceiverSeq = FCString::Atoi(*RecipientIdString);
+		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
+		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+		PostResult.ItemId = GetAttachedItemsFromSlots();
+		PostResult.Title = PostTitleText->Text.ToString();
+		PostResult.Content = PostContentText->Text.ToString();
+		PostResult.TotalMoney = FCString::Atoi(*GrantCostInput->TransactionCostInput->Text.ToString());
+	}
+
+	GameInstance->GetNetworkManager()->SendPostRequest(PostResult);
+	GameInstance->GetNetworkManager()->SendPostGetRequest();
 }
 
 void UPostWriteTabWidget::OnClearPostButtonClicked()
@@ -64,13 +98,14 @@ void UPostWriteTabWidget::OnClearPostButtonClicked()
 
 	if(RecipientIdText)
 		RecipientIdText->SetText(FText::GetEmpty());
+
 	if(PostTitleText)
 		PostTitleText->SetText(FText::GetEmpty());
 }
 
-TArray<FItemData> UPostWriteTabWidget::GetAttachedItemsFromSlots()
+TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()
 {
-	TArray<FItemData> AttachedItems;
+	TArray<int64> AttachedItems;
 
 	// PostSlotList는 우편에 첨부된 아이템 슬롯 리스트
 	for (UPostItemSlot* ItemSlot : PostSlotList)
@@ -78,10 +113,10 @@ TArray<FItemData> UPostWriteTabWidget::GetAttachedItemsFromSlots()
 		if (IsValid(ItemSlot) && !ItemSlot->IsEmpty())
 		{
 			FItemData ItemData = ItemSlot->GetItemData();
-			AttachedItems.Add(ItemData);
+			GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
+			AttachedItems.Add(ItemData.ITEM_ID);
 		}
 	}
-
 	return AttachedItems;
 }
 

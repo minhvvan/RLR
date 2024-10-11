@@ -23,6 +23,7 @@ class RLR_API UStatSetPlayer : public UStatSet
 
 public:
 	ALL_STAT_SETTER(FUserCharacter);
+	ALL_STAT_GETTER(FUserCharacter);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MapId, int64);

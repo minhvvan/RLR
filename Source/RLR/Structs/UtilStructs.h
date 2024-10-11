@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Network/Proto/Post.pb.h"
 #include "UtilStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -40,6 +41,7 @@ enum class EUIType : uint8
 	BADGE_UI,
 	QUEST,
 	POST_UI,
+	OTHER_PLAYER_MENU,
 	NONE,
 };
 
@@ -96,6 +98,59 @@ struct FAttackResult
 	void MakeAttackData(/*const Protocol::Item itemData*/);
 };
 
+
+USTRUCT(Atomic, BlueprintType)
+struct FPostResult
+{
+	GENERATED_BODY()
+
+	FPostResult() :
+	ReceiverSeq(0),
+	SenderSeq(0),
+	TotalMoney(0),
+	PostId(-1),
+	ReceiverName(""),
+	SenderName(""),
+	Title(""),
+	Content(""),
+	IsRead(false)
+	{}
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ReceiverSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString ReceiverName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString Title;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 SenderSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString Content;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<int64> ItemId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 TotalMoney;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool IsRead;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool IsReceived;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 PostId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString SenderName;
+
+	void MakePostData(const Protocol::Post post);
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FMoveResult

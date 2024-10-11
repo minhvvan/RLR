@@ -67,13 +67,12 @@ void UEquipmentSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 	if (IsEmpty() == true)
 		return;
 
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (!GM) return;
-
-	UUIManager* UIManager = GM->GetUIManager();
+	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUI(EUIType::ITEM_INFOMATION);
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+
+	UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
 }
 
 FReply UEquipmentSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

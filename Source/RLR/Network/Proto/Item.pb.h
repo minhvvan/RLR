@@ -55,6 +55,9 @@ extern CS_EquipChangeRequestDefaultTypeInternal _CS_EquipChangeRequest_default_i
 class CS_EquipInfoRequest;
 struct CS_EquipInfoRequestDefaultTypeInternal;
 extern CS_EquipInfoRequestDefaultTypeInternal _CS_EquipInfoRequest_default_instance_;
+class CS_ItemQuickSlotChangeRequest;
+struct CS_ItemQuickSlotChangeRequestDefaultTypeInternal;
+extern CS_ItemQuickSlotChangeRequestDefaultTypeInternal _CS_ItemQuickSlotChangeRequest_default_instance_;
 class SC_ChangeInventoryResponse;
 struct SC_ChangeInventoryResponseDefaultTypeInternal;
 extern SC_ChangeInventoryResponseDefaultTypeInternal _SC_ChangeInventoryResponse_default_instance_;
@@ -64,14 +67,19 @@ extern SC_EquipChangeRespnseDefaultTypeInternal _SC_EquipChangeRespnse_default_i
 class SC_EquipInfoResponse;
 struct SC_EquipInfoResponseDefaultTypeInternal;
 extern SC_EquipInfoResponseDefaultTypeInternal _SC_EquipInfoResponse_default_instance_;
+class SC_ItemQuickSlotChangeResponse;
+struct SC_ItemQuickSlotChangeResponseDefaultTypeInternal;
+extern SC_ItemQuickSlotChangeResponseDefaultTypeInternal _SC_ItemQuickSlotChangeResponse_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::CS_ChangeInventoryRequest* Arena::CreateMaybeMessage<::Protocol::CS_ChangeInventoryRequest>(Arena*);
 template<> ::Protocol::CS_EquipChangeRequest* Arena::CreateMaybeMessage<::Protocol::CS_EquipChangeRequest>(Arena*);
 template<> ::Protocol::CS_EquipInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_EquipInfoRequest>(Arena*);
+template<> ::Protocol::CS_ItemQuickSlotChangeRequest* Arena::CreateMaybeMessage<::Protocol::CS_ItemQuickSlotChangeRequest>(Arena*);
 template<> ::Protocol::SC_ChangeInventoryResponse* Arena::CreateMaybeMessage<::Protocol::SC_ChangeInventoryResponse>(Arena*);
 template<> ::Protocol::SC_EquipChangeRespnse* Arena::CreateMaybeMessage<::Protocol::SC_EquipChangeRespnse>(Arena*);
 template<> ::Protocol::SC_EquipInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_EquipInfoResponse>(Arena*);
+template<> ::Protocol::SC_ItemQuickSlotChangeResponse* Arena::CreateMaybeMessage<::Protocol::SC_ItemQuickSlotChangeResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -1025,6 +1033,324 @@ class SC_ChangeInventoryResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Item_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CS_ItemQuickSlotChangeRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_ItemQuickSlotChangeRequest) */ {
+ public:
+  inline CS_ItemQuickSlotChangeRequest() : CS_ItemQuickSlotChangeRequest(nullptr) {}
+  ~CS_ItemQuickSlotChangeRequest() override;
+  explicit PROTOBUF_CONSTEXPR CS_ItemQuickSlotChangeRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CS_ItemQuickSlotChangeRequest(const CS_ItemQuickSlotChangeRequest& from);
+  CS_ItemQuickSlotChangeRequest(CS_ItemQuickSlotChangeRequest&& from) noexcept
+    : CS_ItemQuickSlotChangeRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CS_ItemQuickSlotChangeRequest& operator=(const CS_ItemQuickSlotChangeRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CS_ItemQuickSlotChangeRequest& operator=(CS_ItemQuickSlotChangeRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CS_ItemQuickSlotChangeRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CS_ItemQuickSlotChangeRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_ItemQuickSlotChangeRequest*>(
+               &_CS_ItemQuickSlotChangeRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(CS_ItemQuickSlotChangeRequest& a, CS_ItemQuickSlotChangeRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CS_ItemQuickSlotChangeRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CS_ItemQuickSlotChangeRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CS_ItemQuickSlotChangeRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CS_ItemQuickSlotChangeRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CS_ItemQuickSlotChangeRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CS_ItemQuickSlotChangeRequest& from) {
+    CS_ItemQuickSlotChangeRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CS_ItemQuickSlotChangeRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CS_ItemQuickSlotChangeRequest";
+  }
+  protected:
+  explicit CS_ItemQuickSlotChangeRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kItemIdFieldNumber = 2,
+    kUserSeqFieldNumber = 1,
+    kConIdxFieldNumber = 3,
+  };
+  // int64 itemId = 2;
+  void clear_itemid();
+  int64_t itemid() const;
+  void set_itemid(int64_t value);
+  private:
+  int64_t _internal_itemid() const;
+  void _internal_set_itemid(int64_t value);
+  public:
+
+  // int32 userSeq = 1;
+  void clear_userseq();
+  int32_t userseq() const;
+  void set_userseq(int32_t value);
+  private:
+  int32_t _internal_userseq() const;
+  void _internal_set_userseq(int32_t value);
+  public:
+
+  // int32 conIdx = 3;
+  void clear_conidx();
+  int32_t conidx() const;
+  void set_conidx(int32_t value);
+  private:
+  int32_t _internal_conidx() const;
+  void _internal_set_conidx(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CS_ItemQuickSlotChangeRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t itemid_;
+    int32_t userseq_;
+    int32_t conidx_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Item_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_ItemQuickSlotChangeResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_ItemQuickSlotChangeResponse) */ {
+ public:
+  inline SC_ItemQuickSlotChangeResponse() : SC_ItemQuickSlotChangeResponse(nullptr) {}
+  ~SC_ItemQuickSlotChangeResponse() override;
+  explicit PROTOBUF_CONSTEXPR SC_ItemQuickSlotChangeResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SC_ItemQuickSlotChangeResponse(const SC_ItemQuickSlotChangeResponse& from);
+  SC_ItemQuickSlotChangeResponse(SC_ItemQuickSlotChangeResponse&& from) noexcept
+    : SC_ItemQuickSlotChangeResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_ItemQuickSlotChangeResponse& operator=(const SC_ItemQuickSlotChangeResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_ItemQuickSlotChangeResponse& operator=(SC_ItemQuickSlotChangeResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SC_ItemQuickSlotChangeResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SC_ItemQuickSlotChangeResponse* internal_default_instance() {
+    return reinterpret_cast<const SC_ItemQuickSlotChangeResponse*>(
+               &_SC_ItemQuickSlotChangeResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(SC_ItemQuickSlotChangeResponse& a, SC_ItemQuickSlotChangeResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_ItemQuickSlotChangeResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_ItemQuickSlotChangeResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SC_ItemQuickSlotChangeResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SC_ItemQuickSlotChangeResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SC_ItemQuickSlotChangeResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SC_ItemQuickSlotChangeResponse& from) {
+    SC_ItemQuickSlotChangeResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_ItemQuickSlotChangeResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.SC_ItemQuickSlotChangeResponse";
+  }
+  protected:
+  explicit SC_ItemQuickSlotChangeResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+  };
+  // int32 success = 1;
+  void clear_success();
+  int32_t success() const;
+  void set_success(int32_t value);
+  private:
+  int32_t _internal_success() const;
+  void _internal_set_success(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.SC_ItemQuickSlotChangeResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Item_2eproto;
+};
 // ===================================================================
 
 
@@ -1338,9 +1664,101 @@ inline void SC_ChangeInventoryResponse::set_success(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_ChangeInventoryResponse.success)
 }
 
+// -------------------------------------------------------------------
+
+// CS_ItemQuickSlotChangeRequest
+
+// int32 userSeq = 1;
+inline void CS_ItemQuickSlotChangeRequest::clear_userseq() {
+  _impl_.userseq_ = 0;
+}
+inline int32_t CS_ItemQuickSlotChangeRequest::_internal_userseq() const {
+  return _impl_.userseq_;
+}
+inline int32_t CS_ItemQuickSlotChangeRequest::userseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ItemQuickSlotChangeRequest.userSeq)
+  return _internal_userseq();
+}
+inline void CS_ItemQuickSlotChangeRequest::_internal_set_userseq(int32_t value) {
+  
+  _impl_.userseq_ = value;
+}
+inline void CS_ItemQuickSlotChangeRequest::set_userseq(int32_t value) {
+  _internal_set_userseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ItemQuickSlotChangeRequest.userSeq)
+}
+
+// int64 itemId = 2;
+inline void CS_ItemQuickSlotChangeRequest::clear_itemid() {
+  _impl_.itemid_ = int64_t{0};
+}
+inline int64_t CS_ItemQuickSlotChangeRequest::_internal_itemid() const {
+  return _impl_.itemid_;
+}
+inline int64_t CS_ItemQuickSlotChangeRequest::itemid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ItemQuickSlotChangeRequest.itemId)
+  return _internal_itemid();
+}
+inline void CS_ItemQuickSlotChangeRequest::_internal_set_itemid(int64_t value) {
+  
+  _impl_.itemid_ = value;
+}
+inline void CS_ItemQuickSlotChangeRequest::set_itemid(int64_t value) {
+  _internal_set_itemid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ItemQuickSlotChangeRequest.itemId)
+}
+
+// int32 conIdx = 3;
+inline void CS_ItemQuickSlotChangeRequest::clear_conidx() {
+  _impl_.conidx_ = 0;
+}
+inline int32_t CS_ItemQuickSlotChangeRequest::_internal_conidx() const {
+  return _impl_.conidx_;
+}
+inline int32_t CS_ItemQuickSlotChangeRequest::conidx() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ItemQuickSlotChangeRequest.conIdx)
+  return _internal_conidx();
+}
+inline void CS_ItemQuickSlotChangeRequest::_internal_set_conidx(int32_t value) {
+  
+  _impl_.conidx_ = value;
+}
+inline void CS_ItemQuickSlotChangeRequest::set_conidx(int32_t value) {
+  _internal_set_conidx(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ItemQuickSlotChangeRequest.conIdx)
+}
+
+// -------------------------------------------------------------------
+
+// SC_ItemQuickSlotChangeResponse
+
+// int32 success = 1;
+inline void SC_ItemQuickSlotChangeResponse::clear_success() {
+  _impl_.success_ = 0;
+}
+inline int32_t SC_ItemQuickSlotChangeResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline int32_t SC_ItemQuickSlotChangeResponse::success() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ItemQuickSlotChangeResponse.success)
+  return _internal_success();
+}
+inline void SC_ItemQuickSlotChangeResponse::_internal_set_success(int32_t value) {
+  
+  _impl_.success_ = value;
+}
+inline void SC_ItemQuickSlotChangeResponse::set_success(int32_t value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ItemQuickSlotChangeResponse.success)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

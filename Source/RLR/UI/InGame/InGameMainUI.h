@@ -29,6 +29,8 @@
  class USkillUpgrade;
  class UQuestListUI;
  class UPostOverlayUI;
+ class UOtherPlayerMenu;
+ class UReportUI;
  class UCanvasPanel;
 
 UCLASS()
@@ -57,6 +59,7 @@ public:
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
 	UPostOverlayUI*		GetPostOverlayUI() {return PostOverlayUI;}
+	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	
 public:
 	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
@@ -92,19 +95,25 @@ public:
 	TObjectPtr<UKeyOption> KeyOptionUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUI> SkillUI;;
+	TObjectPtr<USkillUI> SkillUI;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUpgrade> SkillUpgrade;;
+	TObjectPtr<USkillUpgrade> SkillUpgrade;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostOverlayUI> PostOverlayUI;	
-	
-public:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UCharacterStatusUI> OtherPlayerStatusUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UReportUI> ReportUI;
 
 protected:
 	UFUNCTION()
@@ -122,5 +131,8 @@ protected:
 	UFUNCTION()
 	void OnChangedLevel();
 	virtual bool ToggleSubUI(FGameplayTag InputTag);
+	virtual void OpenSubUI(FGameplayTag InputTag) override;
+	virtual void CloseSubUI(FGameplayTag InputTag) override;
+	virtual bool IsOpenSubUI(FGameplayTag InputTag) override;
 	virtual class USubUI* GetSubUI(FGameplayTag InputTag);
 };

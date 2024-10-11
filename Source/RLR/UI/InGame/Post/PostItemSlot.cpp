@@ -29,37 +29,37 @@ void UPostItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPoi
 
 bool UPostItemSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
-	bool Ret = Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
-	if (Ret == false)
-		return false;
+	//bool Ret = Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+	//if (Ret == false)
+	//	return false;
 
-	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::POST_ITEM_SLOT);
-	if (IsValid(Operation) == false)
-		return false;
+	//UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::POST_ITEM_SLOT);
+	//if (IsValid(Operation) == false)
+	//	return false;
 
-	UPostItemSlot* DraggedSlot = Cast<UPostItemSlot>(Operation->Master);
-	if (IsValid(DraggedSlot) == false)
-		return false;
+	//UPostItemSlot* DraggedSlot = Cast<UPostItemSlot>(Operation->Master);
+	//if (IsValid(DraggedSlot) == false)
+	//	return false;
 
-	//만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
-	if (IsEmpty() == false)
-	{
-		/*
-			A->B
-			B->A
-		*/
-		GetGameManager()->GetPostalManager()->ChangeItemSlot(GetItemData().ITEM_SEQ, Operation->Master->SlotIndex);
-		GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
-	}
-	else
-	{
-		GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
-		//SetItemData(Operation->GetItemData());
-		DraggedSlot->Clear();
-	}
+	////만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
+	//if (IsEmpty() == false)
+	//{
+	//	/*
+	//		A->B
+	//		B->A
+	//	*/
+	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(GetItemData().ITEM_SEQ, Operation->Master->SlotIndex);
+	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+	//}
+	//else
+	//{
+	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+	//	//SetItemData(Operation->GetItemData());
+	//	DraggedSlot->Clear();
+	//}
 
-	//슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
-	PostUI->RefreshUI();
+	////슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
+	//PostUI->RefreshUI();
 
 	return true;
 }
@@ -75,7 +75,6 @@ bool UPostItemSlot::HandleInventoryItemDrop(UBaseDragDropOperation* Operation)
 	FItemData DroppedItem = Operation->GetItemData();
 	FItemResource DroppedItemResource = Operation->GetItemResource();
 	// 우편함에 아이템 추가
-	PostalManager->AddItem(DroppedItem);
 	SetItemData(DroppedItem);
 	SetSlotItemResourceData(DroppedItemResource);
 
@@ -91,16 +90,17 @@ bool UPostItemSlot::HandleInventoryItemDrop(UBaseDragDropOperation* Operation)
 	return true;
 }
 
+void UPostItemSlot::SetSlot(int64 NewitemId)
+{
+	UTexture2D* itemTexture = GameInstance->GetDataManager()->GetItemResource(NewitemId).ItemImage;
+	FText itemName = GameInstance->GetDataManager()->GetItemData(NewitemId).NAME;
+	SetSlotImage(itemTexture);
+	ItemNameText->SetText(itemName);
+}
+
 void UPostItemSlot::RefreshUI()
 {
 	Super::RefreshUI();
-
-	if (GetItemData() == FItemData::EmptyItemData)
-	{
-		return;
-	}
-	SetSlotImage(GetItemResourceData().ItemImage);
-	ItemNameText->SetText(GetItemData().NAME);
 }
 
 void UPostItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -132,7 +132,8 @@ void UPostItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 	UUIManager* UIManager = GM->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUI(EUIType::ITEM_INFOMATION);
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
 }
 
 FReply UPostItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

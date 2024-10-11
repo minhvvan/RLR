@@ -21,6 +21,9 @@ void UItemInformation::NativeConstruct()
 {
 	Super::NativeConstruct();	
 	SetUIType(EUIType::ITEM_INFOMATION);
+
+	auto TagManager = FGameplayTagManager::Get();
+	SetUITag(TagManager.UI_ItemInfomation);
 }
 
 void UItemInformation::SetItemData(const FItemData& NewData, const FItemResource& NewItemResourceData)

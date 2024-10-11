@@ -13,6 +13,7 @@
 #include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameHUD.h"
+#include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
@@ -20,7 +21,9 @@
 #include "Player/RLREnhancedInputComponent.h"
 #include "Physics/RLRCollision.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/PlayerStructs.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 
 ARLRPlayerController::ARLRPlayerController():
 	movePacketInterval(1.f),
@@ -116,6 +119,12 @@ void ARLRPlayerController::InitBinding()
 	}
 }
 
+void ARLRPlayerController::OnInput()
+{
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
+}
+
 void ARLRPlayerController::OnMoveStarted(FGameplayTag TriggerTag)
 {
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
@@ -153,6 +162,31 @@ void ARLRPlayerController::OnMoveCompleted(FGameplayTag TriggerTag)
 	ASC->AddActionData(TriggerTag, actionData);
 
 	ASC->TryActivateAction(TriggerTag);
+}
+
+void ARLRPlayerController::OnUserClick()
+{
+	FHitResult Hit;
+	GetHitResultUnderCursor(CCHANNEL_RLRUSERCLICK, true, Hit);
+
+	if (auto otherUser = Cast<ARLRPlayerCharacter>(Hit.GetActor()))
+	{
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		auto UIManger = GameInstance->GetUIManager();
+		auto otherUserMenu = Cast<UOtherPlayerMenu>(UIManger->GetUI(EUIType::OTHER_PLAYER_MENU));
+		if (otherUserMenu)
+		{
+			auto asc = otherUser->GetActionSystemComponent();
+			auto statSet = asc->GetStatSet<UStatSetPlayer>();
+			if (!statSet) return;
+
+			FUserCharacter* otherUserData = statSet->GetStatData();
+			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
+		}
+
+		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		OnOpenUI(TagManager.UI_OtherPlayerMenu);
+	}
 }
 
 FVector ARLRPlayerController::GetClickPosition()
