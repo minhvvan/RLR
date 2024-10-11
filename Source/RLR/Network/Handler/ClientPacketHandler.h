@@ -16,9 +16,11 @@
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
 #include "Network/Proto/Dungeon.pb.h"
+#include "Network/Proto/Action.pb.h"
 #include "Network/Proto/Post.pb.h"
 #include "Network/Proto/Trade.pb.h"
 #include "Network/Proto/Friend.pb.h"
+
 class PacketMessage;
 class PacketSession;
 
@@ -152,6 +154,10 @@ enum : uint16
     PKT_CHEAT_MONSTER_REQUEST = 1903,
 
     PKT_MATCH_MAKING_REQUEST = 2001,
+
+    // Action
+    PKT_ACTION_REQUEST = 2101,
+    PKT_ACTION_RESPONSE = 2102,
     // Add Post Packet types
     PKT_POST_SEND_REQUEST = 3001,
     PKT_POST_SEND_RESPONSE = 3002,
@@ -185,8 +191,6 @@ enum : uint16
 
     PKT_TRADE_CANCEL_REQUEST = 3025,
     PKT_TRADE_CANCEL_RESPONSE = 3026,
-
-    
 
 };
 
@@ -250,6 +254,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ActionRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ACTION_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
@@ -268,7 +273,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendInGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_IN_GROUP_REQUEST); }
-public:
+
+  public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
     {
