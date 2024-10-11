@@ -178,6 +178,8 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 		return;
 	}
 
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(), TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -185,8 +187,11 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
-
 	SkillManager->SkillStart(TriggerTag);
+	
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
