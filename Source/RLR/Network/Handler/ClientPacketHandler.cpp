@@ -182,6 +182,10 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_JoinPartyResponse>(&Handle_JOIN_PARTY_RESP0NSE, session, buffer, len);
         };
+    GPacketHandler[PKT_ACTION_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+    {
+        return instance.HandlePacket<Protocol::SC_ActionBroadcastPacket>(&Handle_ACTION_BROADCAST, session, buffer, len);
+    };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

@@ -96,7 +96,7 @@ public:
                         */
 
     bool SendAttackPacket(FAttackResult attackResult);
-
+    bool SendActionPacket(int32 userSeq, string tagName);
     bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
 
     /*

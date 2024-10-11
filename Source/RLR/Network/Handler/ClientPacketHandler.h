@@ -16,6 +16,7 @@
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
 #include "Network/Proto/Dungeon.pb.h"
+#include "Network/Proto/Action.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -127,7 +128,12 @@ enum : uint16
     PKT_CHEAT_SKILL_REQUEST = 1902,
     PKT_CHEAT_MONSTER_REQUEST = 1903,
 
-    PKT_MATCH_MAKING_REQUEST = 2001
+    PKT_MATCH_MAKING_REQUEST = 2001,
+
+    // Action
+    PKT_ACTION_REQUEST = 2101,
+    PKT_ACTION_RESPONSE = 2102,
+
 };
 
 // Custom Handlers
@@ -190,8 +196,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
-
-    
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ActionRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ACTION_REQUEST); }
 
 
 
