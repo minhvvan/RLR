@@ -7,6 +7,7 @@
 #include "GameManager/RLRStruct.h"
 #include "GameManager/GameplayTagManager.h"
 
+#include "Structs/UtilStructs.h"
 #include "MainUI.generated.h"
 
 /**
@@ -31,6 +32,7 @@ public:
 
 	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
 	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
+	virtual USubUI* GetSubUI(EUIType Type){return SubUIMap[Type]; }
 
 public:
 

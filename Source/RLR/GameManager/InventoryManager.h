@@ -101,9 +101,11 @@ public:
 	/*
 		1.아이템 퀵 슬롯 위치 바뀌면 업데이트
 	*/
+	UPROPERTY()
 	FUpdateInventoryManager UpdatedItemSettingDelegate;
 	void UpdatedItemSettingBroadcast();
 
+	UPROPERTY()
 	FUpdateItemActionTag UpdatedTryUsingItemAction;
 
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)

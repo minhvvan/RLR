@@ -60,6 +60,34 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 	};
 }
 
+UBaseUI* UUIManager::OpenUI(EUIType UIType)
+{
+	//UI Toggle
+	USubUI* SubUI = MainUI->GetSubUI(UIType);
+	if(IsValid(SubUI) == false)
+		return nullptr;
+	bool bOpen = SubUI->GetVisibility() == ESlateVisibility::Hidden;
+	SubUI->OpenUI();
+
+	if (bOpen)
+	{
+		SubUIStack.AddUnique(SubUI);
+		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+		CanvasSlot->SetZOrder(SubUIStack.Num());
+	}
+	else
+	{
+		SubUIStack.Remove(SubUI);
+		SubUIStack.AddUnique(SubUI);
+		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+		CanvasSlot->SetZOrder(SubUIStack.Num());
+	}
+\
+	MainUI->InvalidateLayoutAndVolatility();
+
+	return SubUI;
+}
+
 void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 {
 	/*

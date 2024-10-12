@@ -11,6 +11,7 @@
 #include "Structs/ItemStructs.h"
 
 #include "Components/TextBlock.h"
+#include "Components/RichTextBlock.h"
 
 void UTradeListElement::NativeConstruct()
 {
@@ -55,4 +56,10 @@ void UTradeListElement::SetItemData(const FItemData& ItemData)
 bool UTradeListElement::IsEmpty()
 {
 	return TradeListSlot->IsEmpty();
+}
+
+void UTradeListElement::SetCanDrag(bool Ret)
+{
+	IsMySlot = Ret;
+	TradeListSlot->SetCanDrag(Ret);
 }

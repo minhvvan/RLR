@@ -26,8 +26,11 @@ class UWidgetSwitcher;
 UENUM(BlueprintType)
 enum class ETradeState : uint8
 {
-	NORMAL,
-	LOCK,
+	BEFORE_OFFER = 0,
+	LOCK = 1,
+	WAIT_CONFIRM_TRADE = 2,
+	CANCEL,
+	SUCCESS,
 	NONE,
 };
 
@@ -59,21 +62,44 @@ public:
 	void HandleRemoveTradeItemByTarget(int32 ItemID);
 	void HandleRemoveTradeItemBySelf(int32 ItemID);
 
+	UFUNCTION()
+	void SendLockTrade();
+	UFUNCTION()
+	void SendUnLockTrade();
+
 	void HandleLockTradeBySelf();
 	void HandleUnLockTradeBySelf();
 	void HandleLockTradeByTarget();
 	void HandleUnLockTradeByTarget();
+	void HandleWaitConfirmTrade();
 
-	void SendLockTrade();
-	void SendUnLockTrade();
+	UFUNCTION()
 	void SendConfirmTrade();
+	UFUNCTION()
 	void SendCancelTradePacket();					//내가 거래 취소
-	void HandleTradeCanceledByTarget();//상대방이 취소했을 때 핸들.
+
+	void HandleTradeCanceledByTarget();				//상대방이 취소했을 때 핸들.
+	void HandleTradeSuccess();						//거래가 성공
+
+public:
+
+	void SetTradeLock(bool IsSelf);
+	void SetTradeUnLock(bool IsSelf);
 
 public:
 
 	UFUNCTION()
+	void		OnClickedInventorySlot(const FItemData& NewTradeItem);
+
+	UFUNCTION()
+	void		OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox);
+		UFUNCTION()
+	void		OnCancelItemCountMessageBox(UItemCountMessageBox* MessageBox);
+
+	UFUNCTION()
 	void		OnClickedAddGoldButton();
+
+public:
 
 	void		SetMyTradeState(ETradeState TradeType);
 	ETradeState GetMyTradeState(){return MyTradeState;}
@@ -102,10 +128,19 @@ public:
 	TObjectPtr<UTextBlock> TargetGoldText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWidgetSwitcher> OfferAndConfirmWidgetSwitcher;
+	TObjectPtr<UTextBlock> OfferStateText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UTextBlock> TradeStateText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UWidgetSwitcher> TradeStateWidgetSwitcher;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> OfferButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UButton> UnLockButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> ConfirmButton;
@@ -115,7 +150,7 @@ public:
 
 private:
 
-	ETradeState TargetTradeState = ETradeState::NORMAL;
-	ETradeState MyTradeState = ETradeState::NORMAL;
+	ETradeState TargetTradeState = ETradeState::BEFORE_OFFER;
+	ETradeState MyTradeState = ETradeState::BEFORE_OFFER;
 
 };

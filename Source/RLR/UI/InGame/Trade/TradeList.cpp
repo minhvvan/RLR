@@ -70,12 +70,13 @@ void UTradeList::AddTradeItem(const FItemData& NewItem)
 		int32 SlotIndex = Iter.Key;
 		UTradeListElement* Element = Iter.Value;
 	
-		if (Element->IsEmpty() == true)
+		if (Element->IsEmpty() == false)
 		{
 			continue;
 		}
 
 		Element->SetItemData(NewItem);
+		break;
 	}
 }
 
@@ -98,5 +99,15 @@ void UTradeList::RemoveTradeItem(int32 RemoveItemID)
 			Element->Clear();
 			break;
 		}
+	}
+}
+
+void UTradeList::SetCanDrag(bool Ret)
+{
+	for (TTuple<int32, UTradeListElement*> Iter : TradeListElementMap)
+	{
+		int32 SlotIndex = Iter.Key;
+		UTradeListElement* Element = Iter.Value;
+		Element->SetCanDrag(Ret);
 	}
 }

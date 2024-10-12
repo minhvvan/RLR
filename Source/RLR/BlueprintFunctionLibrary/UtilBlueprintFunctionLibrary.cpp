@@ -26,6 +26,7 @@
 #include "UI/Lobby/LobbyMainUI.h"
 #include "UI/Title/TitleMainUI.h"
 #include "UI/Title/ServerListElement.h"
+#include "UI/InGame/Trade/TradeUI.h"
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
@@ -166,6 +167,47 @@ void UUtilBlueprintFunctionLibrary::TestServerList()
 		Data.ServerName = TestString[i];
 		Title->AddServerListElement(Data);
 	};	
+}
+
+void UUtilBlueprintFunctionLibrary::TestTradeList()
+{
+
+	UTradeUI* TradeUI = Cast<UTradeUI>(GameInstance->GetUIManager()->GetUI(EUIType::TRADE_UI));
+	if (IsValid(TradeUI) == false)
+		return;
+
+	for (int32 i = 1; i <= 3; i++)
+	{
+		FItemData Data = GameInstance->GetDataManager()->GetItemData(i);
+		TradeUI->HandleAddTradeItemBySelf(Data);
+		TradeUI->HandleAddTradeItemByTarget(Data);
+	}
+}
+
+void UUtilBlueprintFunctionLibrary::TestTradeList2()
+{
+	UTradeUI* TradeUI = Cast<UTradeUI>(GameInstance->GetUIManager()->GetUI(EUIType::TRADE_UI));
+	if (IsValid(TradeUI) == false)
+		return;
+
+	bool Ret = TradeUI->GetMyTradeState() == ETradeState::BEFORE_OFFER;
+	if(Ret == true)
+		TradeUI->HandleLockTradeBySelf();
+	else
+		TradeUI->HandleUnLockTradeBySelf();
+}
+
+void UUtilBlueprintFunctionLibrary::TestTradeList3()
+{
+	UTradeUI* TradeUI = Cast<UTradeUI>(GameInstance->GetUIManager()->GetUI(EUIType::TRADE_UI));
+	if (IsValid(TradeUI) == false)
+		return;
+
+	bool Ret = TradeUI->GetTargetTradeState() == ETradeState::BEFORE_OFFER;
+	if (Ret == true)
+		TradeUI->HandleLockTradeByTarget();
+	else
+		TradeUI->HandleUnLockTradeByTarget();
 }
 
 /*

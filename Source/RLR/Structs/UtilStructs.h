@@ -39,6 +39,10 @@ enum class EUIType : uint8
 	EXP_PROGRESS_BAR,
 	BADGE_UI,
 	QUEST,
+	TRADE_UI,
+
+	//Popup
+	ITEM_COUNT_MESSAGE_BOX,
 	NONE,
 };
 

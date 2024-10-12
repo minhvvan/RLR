@@ -101,6 +101,9 @@ public:
 	void							SetSlotIndex(int32 NewIndex){SlotIndex = NewIndex;}
 	int32							GetSlotIndex(){return SlotIndex;}
 
+	void							SetCanDrag(bool Ret){bCanDrag = Ret;}
+	bool							GetCanDrag(){return bCanDrag;}
+
 	TSubclassOf<UDraggableWidget>	GetDraggableWidgetClass(FString Name = FString());
 	TSubclassOf<UBaseDragDropOperation> GetDragDropOperationClass(FString Name = FString());
 
@@ -166,4 +169,5 @@ public:
 	*/
 
 	int32 SlotIndex = 0;
+	bool bCanDrag = true;
 };

@@ -30,6 +30,7 @@ public:
 	
 	void AddTradeItem(const FItemData& NewItem);
 	void RemoveTradeItem(int32 RemoveItemID);
+	void SetCanDrag(bool Ret);
 
 public:
 

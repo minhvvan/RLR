@@ -42,6 +42,6 @@ public:
 	TMap<FGameplayTag, USkillQuickSlot*> QuickSlotMap;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32	MaxColunm = 4;
+	int32	MaxColunm = 8;
 
 };

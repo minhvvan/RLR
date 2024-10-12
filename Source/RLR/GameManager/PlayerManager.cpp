@@ -106,7 +106,7 @@ int32 UPlayerManager::GetUserSeq()
 		아직 미구현
 	*/
 
-	return 2;
+	return 1;
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)

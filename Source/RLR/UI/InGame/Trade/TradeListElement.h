@@ -12,6 +12,7 @@
 
  class UTextBlock;
  class UTradeListSlot;
+ class URichTextBlock;
 
 UCLASS()
 class RLR_API UTradeListElement : public UBaseUI
@@ -28,6 +29,7 @@ public:
 
 	void SetItemData(const FItemData& ItemData);
 	bool IsEmpty();
+	void SetCanDrag(bool Ret);
 
 public:
 
@@ -39,5 +41,7 @@ public:
 	TObjectPtr<UTradeListSlot> TradeListSlot;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> ItemNameText;
+	TObjectPtr<URichTextBlock> ItemNameText;
+
+	bool IsMySlot = false;
 };

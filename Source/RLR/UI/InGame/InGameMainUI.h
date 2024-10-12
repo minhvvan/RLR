@@ -29,6 +29,8 @@
  class USkillUpgrade;
  class UQuestListUI;
  class UCanvasPanel;
+ class UTradeUI;
+ class UItemCountMessageBox;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -55,6 +57,7 @@ public:
 	USkillUI*			GetSkillUI(){return SkillUI;}
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
+	UTradeUI*			GetTradeUI() {return TradeUI;}
 	
 public:
 	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
@@ -97,7 +100,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UTradeUI> TradeUI;
+
+public:
 	
+	//Popup
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UItemCountMessageBox> ItemCountMessageBox;
+
 public:
 
 

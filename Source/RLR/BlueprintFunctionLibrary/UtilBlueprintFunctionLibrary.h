@@ -67,6 +67,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void TestServerList();
 
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+
+	static void TestTradeList();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+
+	static void TestTradeList2();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+
+	static void TestTradeList3();
+
 	/*
 		Cheat Code
 	*/

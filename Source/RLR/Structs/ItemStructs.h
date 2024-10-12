@@ -17,6 +17,10 @@ enum class EItemType : uint8
 	EQUIPMENT,
 	CONSUMPTION,
 	ETC,
+	TotalMoney,
+	Diamond,
+	Reputation,
+	Contribution,
 	NONE,
 };
 
