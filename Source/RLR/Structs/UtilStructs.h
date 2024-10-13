@@ -43,6 +43,7 @@ enum class EUIType : uint8
 
 	//Popup
 	ITEM_COUNT_MESSAGE_BOX,
+	NOTIFICATION_MESSAGE_BOX,
 	NONE,
 };
 

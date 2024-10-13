@@ -31,6 +31,7 @@
  class UCanvasPanel;
  class UTradeUI;
  class UItemCountMessageBox;
+ class UNotificationMessageBox;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -101,14 +102,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UTradeUI> TradeUI;
 
 public:
 	
 	//Popup
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UItemCountMessageBox> ItemCountMessageBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UNotificationMessageBox> NotificationMessageBox;
 
 public:
 

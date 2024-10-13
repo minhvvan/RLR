@@ -60,7 +60,7 @@ FReply UTradeListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		UTradeUI* TradeUI = Cast<UTradeUI>(GetUIManager()->GetUI(EUIType::TRADE_UI));
 		if(IsValid(TradeUI) == false)
 			return result;
-		TradeUI->SendRemoveTradeItemBySelf(itemData, itemData.QUANTITY);
+		TradeUI->SendTradeRemoveItemBySelf(itemData, itemData.QUANTITY);
 	}
 	return result;
 }

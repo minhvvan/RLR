@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "../../../Network/Proto/Packet.pb.h"
+#include "../../../Network/Proto/Item.pb.h"
+#include "../../../Network/Proto/Trade.pb.h"
 #include "TradeUI.generated.h"
 
 /**
@@ -49,34 +52,36 @@ public:
 
 public:
 
-	UFUNCTION()
-	void SendAddTradeItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
-	void SendAddTradeCurrencyBySelf(int32 Amount);
-	void SendRemoveTradeItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
-
-	void HandleAddTradeItemByTarget(const FItemData& NewTradeItem);
-	void HandleAddTradeItemBySelf(const FItemData& NewTradeItem);
-	void HandleUpdateTradeCurrencyBySelf(int32 Amount);
-	void HandleUpdateCurrencyByTarget(int32 Amount);
-
-	void HandleRemoveTradeItemByTarget(int32 ItemID);
-	void HandleRemoveTradeItemBySelf(int32 ItemID);
+	void HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt);
 
 	UFUNCTION()
-	void SendLockTrade();
-	UFUNCTION()
-	void SendUnLockTrade();
+	void SendTradeAddItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
+	void SendTradeAddGoodBySelf(int32 Amount);
+	void SendTradeRemoveItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
 
-	void HandleLockTradeBySelf();
-	void HandleUnLockTradeBySelf();
-	void HandleLockTradeByTarget();
-	void HandleUnLockTradeByTarget();
-	void HandleWaitConfirmTrade();
+	void HandleTradeAddItemByTarget(const FItemData& NewTradeItem);
+	void HandleTradeAddItemBySelf(const FItemData& NewTradeItem);
+	void HandleTradeAddGoodBySelf(int32 Amount);
+	void HandleTradeAddGoodByTarget(int32 Amount);
+
+	void HandleTradeRemoveItemByTarget(int32 ItemID);
+	void HandleTradeRemoveItemBySelf(int32 ItemID);
 
 	UFUNCTION()
-	void SendConfirmTrade();
+	void SendTradeLock();
 	UFUNCTION()
-	void SendCancelTradePacket();					//내가 거래 취소
+	void SendTradeUnLock();
+
+	void HandleTradeLockBySelf();
+	void HandleTradeUnLockBySelf();
+	void HandleTradeLockByTarget();
+	void HandleTradeUnLockByTarget();
+	void HandleTradeWaitConfirm();					//서로 Lock이 되었으면 거래 버튼 활성화
+
+	UFUNCTION()
+	void SendTradeConfirm();						//서로 락이 되었을 때 거래 확인 요청
+	UFUNCTION()
+	void SendTradeCancelPacket();					//내가 거래 취소
 
 	void HandleTradeCanceledByTarget();				//상대방이 취소했을 때 핸들.
 	void HandleTradeSuccess();						//거래가 성공
@@ -90,12 +95,10 @@ public:
 
 	UFUNCTION()
 	void		OnClickedInventorySlot(const FItemData& NewTradeItem);
-
 	UFUNCTION()
 	void		OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox);
-		UFUNCTION()
+	UFUNCTION()
 	void		OnCancelItemCountMessageBox(UItemCountMessageBox* MessageBox);
-
 	UFUNCTION()
 	void		OnClickedAddGoldButton();
 
@@ -120,6 +123,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> AddGoldButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UTextBlock> MyNameText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UTextBlock> TargetPlayerNameText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> MyGoldText;

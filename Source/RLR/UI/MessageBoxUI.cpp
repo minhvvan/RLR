@@ -4,6 +4,7 @@
 #include "UI/MessageBoxUI.h"
 
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 
 void UMessageBoxUI::NativeConstruct()
 {
@@ -13,6 +14,11 @@ void UMessageBoxUI::NativeConstruct()
 void UMessageBoxUI::Init()
 {
 	Super::Init();
+
+	if(IsValid(ConfirmButton) == true)
+		ConfirmButton->OnClicked.AddUniqueDynamic(this, &UMessageBoxUI::OnClickedConfirmButton);
+	if (IsValid(CancelButton) == true)
+		CancelButton->OnClicked.AddUniqueDynamic(this, &UMessageBoxUI::OnClickedCancelButton);
 	OnConfirmButtonClickedDelegate.Unbind();
 	OnCancelButtonClickedDelegate.Unbind();
 }
@@ -50,4 +56,12 @@ void UMessageBoxUI::OnClickedConfirmButton()
 void UMessageBoxUI::OnClickedCancelButton()
 {
 	OnCancelButtonClickedDelegate.ExecuteIfBound(this);
+}
+
+void UMessageBoxUI::SetText(FString MessageString)
+{
+	//FText Text = STRING_TO_FTEXT(MessageString);
+	//FText MessageTextFormat = FText::Format(FText::FromString("[{0}] {1}"), ItemData.NAME, Text1);
+	FText Text = FText::FromString(MessageString);
+	MessageText->SetText(Text);
 }

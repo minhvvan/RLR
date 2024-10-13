@@ -6,6 +6,7 @@
 #include "UI/InGame/Trade/TradeListSlot.h"
 #include "UI/InGame/Trade/TradeListElement.h"
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
+#include "UI/InGame/Popup/NotificationMessageBox.h"
 #include "UI/BaseUI.h"
 
 #include "GameManager/GameManager.h"
@@ -38,9 +39,9 @@ void UTradeUI::Init()
 	MyTradeList->SetCanDrag(true);
 	TargetPlayerTradeList->Init();
 	TargetPlayerTradeList->SetCanDrag(false);
-	OfferButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendLockTrade);
-	UnLockButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendUnLockTrade);
-	ConfirmButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendConfirmTrade);
+	OfferButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeLock);
+	UnLockButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeUnLock);
+	ConfirmButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeConfirm);
 	AddGoldButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::OnClickedAddGoldButton);
 }
 
@@ -85,122 +86,173 @@ void UTradeUI::CloseUI()
 	/*
 	*	만약 거래 중인 상대가 존재한다면,
 		개인 거래 UI를 닫을 때, 상대방한테 거래가 취소되었다는 메시지를 줘야 한다.
+		
 	*/
-	SendCancelTradePacket();
+	SendTradeCancelPacket();
 	GetInventoryManager()->OnInventorySlotClickedDelegate.Clear();
 }
 
-void UTradeUI::SendAddTradeItemBySelf(const FItemData& NewTradeItem, int32 Quantity)
+void UTradeUI::HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt)
 {
-	GetNetworkManager()->SendAddTradeItem(NewTradeItem, Quantity);
+	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
+		{
+			int32 MyUserSeq = pkt.userseq1();
+			int32 TargetUserSeq = pkt.userseq2();
+
+			FString MyUserName = UTF8_TO_TCHAR(pkt.username1().c_str());
+			FString TargetUserName = UTF8_TO_TCHAR(pkt.username2().c_str());
+
+			MyNameText->SetText(FText::FromString(MyUserName));
+			TargetPlayerNameText->SetText(FText::FromString(TargetUserName));
+
+			GetUIManager()->OpenUI(EUIType::TRADE_UI);
+		});
 }
 
-void UTradeUI::SendAddTradeCurrencyBySelf(int32 Amount)
+void UTradeUI::SendTradeAddItemBySelf(const FItemData& NewTradeItem, int32 Quantity)
 {
-	GetNetworkManager()->SendAddTradeCurrency(Amount);
+	GetNetworkManager()->SendTradeAddItemReqeust(NewTradeItem, Quantity);
 }
 
-void UTradeUI::SendRemoveTradeItemBySelf(const FItemData& NewTradeItem, int32 Quantity)
+void UTradeUI::SendTradeAddGoodBySelf(int32 Amount)
+{
+	GetNetworkManager()->SendTradeAddGoodReqeust(Amount);
+}
+
+void UTradeUI::SendTradeRemoveItemBySelf(const FItemData& NewTradeItem, int32 Quantity)
 {
 	GetNetworkManager()->SendRemoveTradeItem(NewTradeItem, Quantity);
 }
 
-void UTradeUI::HandleAddTradeItemByTarget(const FItemData& NewTradeItem)
+void UTradeUI::HandleTradeAddItemByTarget(const FItemData& NewTradeItem)
 {
 	/*
 		상대방이 아이템을 추가했다는 패킷 받았을 때 핸들. 
 	*/
-	TargetPlayerTradeList->AddTradeItem(NewTradeItem);
+	AsyncTask(ENamedThreads::GameThread, [this, NewTradeItem]()
+		{
+			TargetPlayerTradeList->AddTradeItem(NewTradeItem);
+		});
 }
 
-void UTradeUI::HandleAddTradeItemBySelf(const FItemData& NewTradeItem)
+void UTradeUI::HandleTradeAddItemBySelf(const FItemData& NewTradeItem)
 {
 	/*
 		내가 아이템을 추가했다는 패킷 받았을 때 핸들.
 	*/
-	MyTradeList->AddTradeItem(NewTradeItem);
+	AsyncTask(ENamedThreads::GameThread, [this, NewTradeItem]()
+		{
+			MyTradeList->AddTradeItem(NewTradeItem);
+		});
 }
 
-void UTradeUI::HandleUpdateTradeCurrencyBySelf(int32 Amount)
+void UTradeUI::HandleTradeAddGoodBySelf(int32 Amount)
 {
-	MyGoldText->SetText(FText::FromString(FString::FromInt(Amount)));
+	AsyncTask(ENamedThreads::GameThread, [this, Amount]()
+		{
+			MyGoldText->SetText(FText::FromString(FString::FromInt(Amount)));
+		});
 }
 
-void UTradeUI::HandleUpdateCurrencyByTarget(int32 Amount)
+void UTradeUI::HandleTradeAddGoodByTarget(int32 Amount)
 {
-	TargetGoldText->SetText(FText::FromString(FString::FromInt(Amount)));
+	AsyncTask(ENamedThreads::GameThread, [this, Amount]()
+		{
+			TargetGoldText->SetText(FText::FromString(FString::FromInt(Amount)));
+		});
 }
 
-void UTradeUI::HandleRemoveTradeItemByTarget(int32 ItemID)
+void UTradeUI::HandleTradeRemoveItemByTarget(int32 ItemID)
 {
 	/*
 		상대방이 아이템을 제거했다는 패킷 받았을 때 핸들.
 	*/
-	TargetPlayerTradeList->RemoveTradeItem(ItemID);
+	AsyncTask(ENamedThreads::GameThread, [this, ItemID]()
+		{
+			TargetPlayerTradeList->RemoveTradeItem(ItemID);
+		});
 }
 
-void UTradeUI::HandleRemoveTradeItemBySelf(int32 ItemID)
+void UTradeUI::HandleTradeRemoveItemBySelf(int32 ItemID)
 {
 	/*
 		내가 아이템을 제거했다는 패킷 받았을 때 핸들.
 	*/
-	MyTradeList->RemoveTradeItem(ItemID);
+	AsyncTask(ENamedThreads::GameThread, [this, ItemID]()
+		{
+			MyTradeList->RemoveTradeItem(ItemID);
+		});
 }
 
-void UTradeUI::HandleLockTradeBySelf()
+void UTradeUI::HandleTradeLockBySelf()
 {
 	/*
 		내가 거래 잠금을 했을 때 핸들
 	*/
-	SetTradeLock(true);
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetTradeLock(true);
+		});
 }
 
-void UTradeUI::HandleUnLockTradeBySelf()
+void UTradeUI::HandleTradeUnLockBySelf()
 {
 	/*
 		내가 거래 잠금 해제 했을 때 핸들
 	*/
-	SetTradeUnLock(true);
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetTradeUnLock(true);
+		});
 }
 
-void UTradeUI::HandleLockTradeByTarget()
+void UTradeUI::HandleTradeLockByTarget()
 {
 	/*
 	*	상대방이 거래 잠금 했을 때 핸들
 	*/
-	SetTradeLock(false);
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetTradeLock(false);
+		});
 }
 
-void UTradeUI::HandleUnLockTradeByTarget()
+void UTradeUI::HandleTradeUnLockByTarget()
 {
 	/*
 		상대방이 거래 잠금 해제 했을 때 핸들
 	*/
-	SetTradeUnLock(false);
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetTradeUnLock(false);
+		});
 }
 
-void UTradeUI::HandleWaitConfirmTrade()
+void UTradeUI::HandleTradeWaitConfirm()
 {
-	SetMyTradeState(ETradeState::WAIT_CONFIRM_TRADE);
-	TradeStateWidgetSwitcher->SetActiveWidgetIndex((uint32)ETradeState::WAIT_CONFIRM_TRADE);
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetMyTradeState(ETradeState::WAIT_CONFIRM_TRADE);
+			TradeStateWidgetSwitcher->SetActiveWidgetIndex((uint32)ETradeState::WAIT_CONFIRM_TRADE);
+		});
 }
 
-void UTradeUI::SendLockTrade()
+void UTradeUI::SendTradeLock()
 {
-	GetNetworkManager()->SendLockTrade();
+	GetNetworkManager()->SendTradeLockRequest();
 }
 
-void UTradeUI::SendUnLockTrade()
+void UTradeUI::SendTradeUnLock()
 {
-	GetNetworkManager()->SendUnLockTrade();
+	GetNetworkManager()->SendTradeUnlockReqeust();
 }
 
-void UTradeUI::SendConfirmTrade()
+void UTradeUI::SendTradeConfirm()
 {
-	GetNetworkManager()->SendConfirmTrade();
+	GetNetworkManager()->SendTradeConfirmRequest();
 }
 
-void UTradeUI::SendCancelTradePacket()
+void UTradeUI::SendTradeCancelPacket()
 {
 	/*
 		상대방한테 거래가 취소되었다는 패킷을 보낸다.
@@ -210,7 +262,7 @@ void UTradeUI::SendCancelTradePacket()
 	if(MyTradeState == ETradeState::CANCEL || MyTradeState == ETradeState::SUCCESS)
 		return;
 
-	GetNetworkManager()->SendCancelTrade();
+	GetNetworkManager()->SendTradeCancelReqeust();
 }
 
 void UTradeUI::HandleTradeCanceledByTarget()
@@ -218,24 +270,38 @@ void UTradeUI::HandleTradeCanceledByTarget()
 	/*
 		상대방이 거래를 취소 했을 때 받는 패킷 핸들.
 	*/
-	{
-		//TODO
-		//거래가 취소 되었다는 알림 UI를 띄운다.
-		SetMyTradeState(ETradeState::CANCEL);
-		SetTargetTradeState(ETradeState::CANCEL);
-	}
-	CloseUI();
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			//거래가 취소 되었다는 알림 UI를 띄운다.
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(EUIType::NOTIFICATION_MESSAGE_BOX);
+			if (IsValid(NotificationMessageBox) == false)
+				return;
+
+			NotificationMessageBox->Clear();
+			NotificationMessageBox->SetText(TEXT("상대가 거래를 취소했습니다"));
+			SetMyTradeState(ETradeState::CANCEL);
+			SetTargetTradeState(ETradeState::CANCEL);
+
+			CloseUI();
+		});
 }
 
 void UTradeUI::HandleTradeSuccess()
 {
-	SetMyTradeState(ETradeState::SUCCESS);
-	SetTargetTradeState(ETradeState::SUCCESS);
-	{
-		//TODO
-		//거래가 성공했다는 알림을 띄운다.
-	}
-	CloseUI();
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetMyTradeState(ETradeState::SUCCESS);
+			SetTargetTradeState(ETradeState::SUCCESS);
+
+			//거래가 성공했다는 알림을 띄운다.
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(EUIType::NOTIFICATION_MESSAGE_BOX);
+			if (IsValid(NotificationMessageBox) == false)
+				return;
+			NotificationMessageBox->Clear();
+			NotificationMessageBox->SetText(TEXT("상대가 거개를 취소했습니다"));
+
+			CloseUI();
+		});
 }
 
 void UTradeUI::SetTradeLock(bool IsSelf)
@@ -282,23 +348,15 @@ void UTradeUI::OnClickedInventorySlot(const FItemData& NewTradeItem)
 	/*
 		아이템 갯수를 입력 받는 메시지 박스를 띄운다.
 	*/
-	UBaseUI* BaseUI = GetUIManager()->OpenUI(EUIType::ITEM_COUNT_MESSAGE_BOX);
-	if (IsValid(BaseUI) == false)
-	{
-		DEBUG_MESSAGE;
-		return;
-	}
-
-	UItemCountMessageBox* ItemCountMessageBox = Cast<UItemCountMessageBox>(BaseUI);
+	UItemCountMessageBox* ItemCountMessageBox = OpenOtherUI<UItemCountMessageBox>(EUIType::ITEM_COUNT_MESSAGE_BOX);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	ItemCountMessageBox->OnConfirmButtonClickedDelegate.Unbind();
+	ItemCountMessageBox->Clear();
 	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
-	ItemCountMessageBox->OnCancelButtonClickedDelegate.Unbind();
 	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnCancelItemCountMessageBox"));
 
 	ItemCountMessageBox->SetItemData(NewTradeItem);
@@ -328,11 +386,11 @@ void UTradeUI::OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox)
 		if (ItemCount < 1)
 			ItemCount = 1;
 
-		SendAddTradeItemBySelf(ItemData, ItemCount);
+		SendTradeAddItemBySelf(ItemData, ItemCount);
 	}
 	else if (ItemData.TYPE == EItemType::TotalMoney)
 	{
-		SendAddTradeCurrencyBySelf(ItemCount);
+		SendTradeAddGoodBySelf(ItemCount);
 	}
 }
 
@@ -348,23 +406,15 @@ void UTradeUI::OnClickedAddGoldButton()
 	/*
 		얼마나 입력할지 수량 입력 박스 띄우기
 	*/
-	UBaseUI* BaseUI = GetUIManager()->OpenUI(EUIType::ITEM_COUNT_MESSAGE_BOX);
-	if (IsValid(BaseUI) == false)
-	{
-		DEBUG_MESSAGE;
-		return;
-	}
-
-	UItemCountMessageBox* ItemCountMessageBox = Cast<UItemCountMessageBox>(BaseUI);
+	UItemCountMessageBox* ItemCountMessageBox = OpenOtherUI<UItemCountMessageBox>(EUIType::ITEM_COUNT_MESSAGE_BOX);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	ItemCountMessageBox->OnConfirmButtonClickedDelegate.Unbind();
+	ItemCountMessageBox->Clear();
 	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
-	ItemCountMessageBox->OnCancelButtonClickedDelegate.Unbind();
 	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnCancelItemCountMessageBox"));
 
 	FItemData DummyData = FItemData(); 

@@ -84,10 +84,10 @@ private:
 	UMainUI* MainUI;
 	FTimerHandle DragTimer;
 
+public:
 	/*
 		Input Binding
 	*/
-
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTag UITag = FGameplayTag();
 };

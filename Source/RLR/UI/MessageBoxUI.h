@@ -38,17 +38,21 @@ public:
 	virtual void OnClickedCancelButton();
 
 public:
+
+	virtual void SetText(FString MessageString);
+
+public:
 	/*
 		bind
 	*/
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UTextBlock> MessageText;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UButton> ConfirmButton;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UButton> CancelButton;
 
 public:

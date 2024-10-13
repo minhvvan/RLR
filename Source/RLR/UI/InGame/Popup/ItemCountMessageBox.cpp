@@ -23,8 +23,6 @@ void UItemCountMessageBox::Init()
 
 	SetUITag(FGameplayTagManager::Get().ItemCountMessageBox);
 	SetUIType(EUIType::ITEM_COUNT_MESSAGE_BOX);
-	ConfirmButton->OnClicked.AddUniqueDynamic(this, &UItemCountMessageBox::OnClickedConfirmButton);
-	CancelButton->OnClicked.AddUniqueDynamic(this, &UItemCountMessageBox::OnClickedCancelButton);
 }
 
 void UItemCountMessageBox::RefreshUI()

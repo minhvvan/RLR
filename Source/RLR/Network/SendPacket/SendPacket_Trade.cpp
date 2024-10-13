@@ -19,7 +19,7 @@
 /*
 	Trade 관련 패킷.
 */
-bool UNetworkManager::SendTradeReqeust(int32 TargetUserSeq)
+bool UNetworkManager::SendStartTradeReqeust(int32 TargetUserSeq)
 {
     if (!MainServerSocket) return false;
 
@@ -29,14 +29,14 @@ bool UNetworkManager::SendTradeReqeust(int32 TargetUserSeq)
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    Protocol::CS_TradeRequest packet;
+    Protocol::CS_TradeStartRequest packet;
     packet.set_userseq1(TradeUserSeq);
     packet.set_userseq2(TargetUserSeq);
     //SEND_PACKET(packet);
     return false;
 }
 
-bool UNetworkManager::SendAddTradeItem(const FItemData& NewTradeItem, int32 Quantity)
+bool UNetworkManager::SendTradeAddItemReqeust(const FItemData& NewTradeItem, int32 Quantity)
 {
     if (!MainServerSocket) return false;
 
@@ -46,15 +46,15 @@ bool UNetworkManager::SendAddTradeItem(const FItemData& NewTradeItem, int32 Quan
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    Protocol::CS_AddTradeItem packet;
+    Protocol::CS_TradeAddItemRequest packet;
     packet.set_userseq(TradeUserSeq);
-    packet.set_quantity(Quantity);
+    packet.set_itemvalue(Quantity);
     packet.set_itemid(NewTradeItem.ITEM_ID);
     //SEND_PACKET(packet);
     return false;
 }
 
-bool UNetworkManager::SendAddTradeCurrency(int32 Amount)
+bool UNetworkManager::SendTradeAddGoodReqeust(int32 Amount)
 {
     if (!MainServerSocket) return false;
 
@@ -64,9 +64,9 @@ bool UNetworkManager::SendAddTradeCurrency(int32 Amount)
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    Protocol::CS_AddTradeCurrency packet;
+    Protocol::CS_TradeAddGoodRequest packet;
     packet.set_userseq(TradeUserSeq);
-    packet.set_amount(Amount);
+    packet.set_totalmoney(Amount);
     //SEND_PACKET(packet);
     return false;
 }
@@ -94,7 +94,7 @@ bool UNetworkManager::SendRemoveTradeItem(const FItemData& NewTradeItem, int32 Q
     return false;
 }
 
-bool UNetworkManager::SendLockTrade()
+bool UNetworkManager::SendTradeLockRequest()
 {
     if (!MainServerSocket) return false;
 
@@ -104,13 +104,13 @@ bool UNetworkManager::SendLockTrade()
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    Protocol::CS_LockTrade packet;
+    Protocol::CS_TradeLockRequest packet;
     packet.set_userseq(TradeUserSeq);
     //SEND_PACKET(packet);
     return false;
 }
 
-bool UNetworkManager::SendUnLockTrade()
+bool UNetworkManager::SendTradeUnlockReqeust()
 {
     if (!MainServerSocket) return false;
 
@@ -125,13 +125,13 @@ bool UNetworkManager::SendUnLockTrade()
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-	//Protocol::CS_UnLockTrade packet;
+	//Protocol::CS_TradeUnLockRequest packet;
 	//packet.set_userseq(TradeUserSeq);
     //SEND_PACKET(packet);
     return false;
 }
 
-bool UNetworkManager::SendConfirmTrade()
+bool UNetworkManager::SendTradeConfirmRequest()
 {
     if (!MainServerSocket) return false;
 
@@ -147,14 +147,14 @@ bool UNetworkManager::SendConfirmTrade()
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
     {
-        //Protocol::CS_ConfirmTrade packet;
+        //Protocol::CS_TradeConfirmRequest packet;
         //packet.set_userseq(TradeUserSeq);
         //SEND_PACKET(packet);
     }
     return false;
 }
 
-bool UNetworkManager::SendCancelTrade()
+bool UNetworkManager::SendTradeCancelReqeust()
 {
     if (!MainServerSocket) return false;
 
@@ -164,7 +164,7 @@ bool UNetworkManager::SendCancelTrade()
 
     int32 TradeUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
 
-    Protocol::CS_CancelTrade packet;
+    Protocol::CS_TradeCancelRequest packet;
     packet.set_userseq(TradeUserSeq);
     //SEND_PACKET(packet);
     return false;
