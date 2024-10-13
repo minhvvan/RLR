@@ -17,7 +17,7 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	if(IsValid(ItemDataTable) == false)
 		DEBUG_LOG("아이템 테이블 로드 실패");
 
-	ItemResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemResourceTable.DT_ItemResourceTable'")));
+	ItemResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemResource.DT_ItemResource'")));
 
 	if (IsValid(ItemResourceTable) == false)
 		DEBUG_LOG("아이템 리소스 테이블 로드 실패");
@@ -130,11 +130,15 @@ FItemResource UDataManager::GetItemResource(int32 Seq)
 {
 	if (ItemResourceTable)
 	{
-		FItemResource* Data = ItemResourceTable->FindRow<FItemResource>(*FString::FromInt(Seq), TEXT(""));
-		if (Data == nullptr)
-			return FItemResource();  
-
-		return *Data;  
+		TArray<FName> RowNames = ItemResourceTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FItemResource* Data = ItemResourceTable->FindRow<FItemResource>(RowName, TEXT("Searching by ITEM_SEQ"));
+			if (Data && Data->ITEM_SEQ == Seq) 
+			{
+				return *Data;
+			}
+		}
 	}
 
 	return FItemResource(); 

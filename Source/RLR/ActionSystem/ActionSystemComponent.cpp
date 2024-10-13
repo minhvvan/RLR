@@ -141,6 +141,18 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 	}
 }
 
+void UActionSystemComponent::TryActivateActionByString(const std::string& TagName)
+{
+	// std::string -> FString로 변환
+	FString tagName = FString(TagName.c_str());
+
+	// FString -> FGameplayTag로 변환
+	FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*tagName));
+
+	// 기존 TryActivateAction 함수 호출
+	TryActivateAction(Tag);
+}
+
 void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 {
 	 //if (!GrantedActions.Contains(Tag)) return;

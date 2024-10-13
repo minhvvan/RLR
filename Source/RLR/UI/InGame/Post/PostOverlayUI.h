@@ -29,6 +29,9 @@ public:
 	void RefreshUI();
 
     UFUNCTION()
+    void CreatePostSlots();
+
+    UFUNCTION()
     void OnReceivedPostButtonClicked();
 
     UFUNCTION()
@@ -44,7 +47,11 @@ public:
 
     void UpdatePostWidget();
 
-    void SetPostResults(const TArray<FPostResult>& NewPostResult);
+    void SetSentPostData(const TArray<FPostResult>& NewPostResult);
+    void SetRecvPostData(const TArray<FPostResult>& NewPostResult);
+
+    void OnPostGetRequestComplete();
+    void OnPostSentRequestComplete();
 
 public:
 
@@ -77,7 +84,9 @@ public:
     TArray<TObjectPtr<UPostItemSlot>> PostSlots;    
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FPostResult> PostResults;
+	TArray<FPostResult> SentPostData;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FPostResult> RecvPostData;
 
     FCriticalSection PostDataMutex;
 };

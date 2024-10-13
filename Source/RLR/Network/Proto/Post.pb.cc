@@ -651,7 +651,7 @@ const char* Post::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isRead = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          _impl_.isread_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.isread_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -659,7 +659,7 @@ const char* Post::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isReceived = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          _impl_.isreceived_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.isreceived_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
           CHK_(ptr);
         } else
           goto handle_unusual;

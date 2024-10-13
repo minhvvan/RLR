@@ -30,6 +30,8 @@ void UActionAttack::ActivateAction()
 	AT->OnCompleted.AddDynamic(this, &UActionAttack::OnCompletePlayMontage);
 
 	AT->ReadyForActivation();
+	
+	Super::ActivateAction();
 }
 
 void UActionAttack::CancelAction()
