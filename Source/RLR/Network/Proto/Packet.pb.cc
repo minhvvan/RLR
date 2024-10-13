@@ -10187,7 +10187,7 @@ const char* CS_MonsterSpawnResponsePacket::_InternalParse(const char* ptr, ::_pb
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
           CHK_(ptr);
         } else
           goto handle_unusual;
