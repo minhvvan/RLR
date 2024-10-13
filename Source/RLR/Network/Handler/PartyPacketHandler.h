@@ -10,3 +10,5 @@ bool Handle_CREATE_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::
 bool Handle_PARTY_STATUS_UPDATE(TSharedPtr<PacketSession>& session, Protocol::SC_PartyStatusUpdate& pkt);
 bool Handle_JOIN_PARTY_RESP0NSE(TSharedPtr<PacketSession>& session, Protocol::SC_JoinPartyResponse& pkt);
 bool Handle_LEAVE_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LeavePartyResponse& pkt);
+bool Handle_EXILE_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExilePartyResponse& pkt);
+bool Handle_REQUEST_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_RequestPartyResponse& pkt);

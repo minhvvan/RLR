@@ -140,12 +140,22 @@ enum : uint16
     PKT_MOVE_FRIEND_IN_GROUP_RESPONSE = 1782,
     PKT_MOVE_FRIEND_GROUP_REQUEST = 1783,
     PKT_MOVE_FRIEND_GROUP_RESPONSE = 1784,
-    // Add Good packet types
-    PKT_GOOD_USER_REQUEST = 1801,
-    PKT_GOOD_PLAYER_REQUEST = 1811,
-
-    PKT_GOOD_USER_RESPONSE = 1802,
-    PKT_GOOD_PLAYER_RESPONSE = 1812,
+    // Add Guild packet types
+    PKT_GUILD_INFO_REQUEST = 1801,
+    PKT_GUILD_INFO_RESPONSE = 1802,
+    PKT_ADD_GUILD_REQUEST = 1803,
+    PKT_ADD_GUILD_RESPONSE = 1804,
+    PKT_REMOVE_GUILD_REQUEST = 1805,
+    PKT_REMOVE_GUILD_RESPONSE = 1806,
+    PKT_CREATE_GUILD_REQUEST = 1807,
+    PKT_CREATE_GUILD_RESPONSE = 1808,
+    PKT_DELETE_GUILD_REQUEST = 1809,
+    PKT_DELETE_GUILD_RESPONSE = 1810,
+    PKT_CHANGE_NAME_GUILD_REQUEST = 1811,
+    PKT_CHANGE_NAME_GUILD_RESPONSE = 1812,
+    PKT_CHANGE_RANK_GUILD_REQUEST = 1813,
+    PKT_CHANGE_RANK_GUILD_RESPONSE = 1814,
+    PKT_GUILD_CONNECT_RESPONSE = 1815,
     // Add Cheat Packet types
     PKT_CHEAT_ITEM_REQUEST = 1901,
     PKT_CHEAT_SKILL_REQUEST = 1902,
@@ -185,7 +195,11 @@ enum : uint16
 
     PKT_TRADE_CANCEL_REQUEST = 3025,
     PKT_TRADE_CANCEL_RESPONSE = 3026,
-
+    // Add Good packet types
+    PKT_GOOD_USER_REQUEST = 4001,
+    PKT_GOOD_USER_RESPONSE = 4002,
+    PKT_GOOD_PLAYER_REQUEST = 4003,
+    PKT_GOOD_PLAYER_RESPONSE = 4004,
     
 
 };
@@ -250,6 +264,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ExilePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_EXILE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RequestPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_REQUEST_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
