@@ -33,3 +33,13 @@ bool Handle_LEAVE_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 {
 	return false;
 }
+
+bool Handle_EXILE_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExilePartyResponse& pkt)
+{
+	return false;
+}
+
+bool Handle_REQUEST_PARTY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_RequestPartyResponse& pkt)
+{
+	return false;
+}

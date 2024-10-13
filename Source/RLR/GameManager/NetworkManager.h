@@ -146,6 +146,10 @@ public:
 
     bool SendLeaveParty(int partyId);
 
+    bool SendRequestParty(int otherSeq);
+
+    bool SendExileParty(int otherSeq);
+
 
     /*
             Cheat
