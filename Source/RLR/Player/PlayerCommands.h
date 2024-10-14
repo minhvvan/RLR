@@ -103,6 +103,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Action);
 	UInputAction* Attack;
 
+	UPROPERTY(EditAnywhere, Category = Action);
+	UInputAction* UserClick;
 
 public:
 

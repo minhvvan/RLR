@@ -31,6 +31,20 @@ void USkillManager::Init()
 	}
 }
 
+void USkillManager::SkillStart(FGameplayTag TriggerTag)
+{
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!Controller) return;
+
+	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
+	if (!Character) return;
+
+	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
+	if (!ASC) return;
+
+	ASC->TryActivateAction(TriggerTag);
+}
+
 void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 {
 	if (!HasSkillTag(TriggerTag)) Init();
@@ -145,6 +159,12 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
 			return;
 		}
+		const FSkillClass& SkillClassData = GameInstance->GetDataManager()->GetSkillResource(Data.SkillSeq);
+		if (SkillClassData == FSkillClass::EmptySkillClass)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
+			return;
+		}
 
 		//스킬 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> Skill.{퀵 슬롯 인덱스 번호}
 		//퀵 슬롯 세팅 리스트를 따로 빧는게 아니라 지금은 배운 스킬 목록을 받아서, 세팅을 하고 있다. 
@@ -152,21 +172,21 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		if(Data.SkillIdx < 0 || Data.SkillIdx > 8)
 			continue;
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
+		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
+		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
 		// TriggerAction
 		{
-			FActionSpec Spec(Data.SkillAnimClass, 1, 0);
+			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
 			Spec.FollowActionTag = SkillTag;
 			ASC->GiveAction(SkillAnimTag, Spec);
 		}
 
 		// CheckAction
 		{
-			FActionSpec Spec(Data.SkillClass, 1, 0);
+			FActionSpec Spec(SkillClassData.SkillClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}
@@ -210,6 +230,12 @@ bool USkillManager::RequestGetSelectedSkills()
 			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
 			return false;
 		}
+		const FSkillClass& SkillClassData = GameInstance->GetDataManager()->GetSkillResource(Data.SkillSeq);
+		if (SkillClassData == FSkillClass::EmptySkillClass)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
+			return false;
+		}
 
 		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
 		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
@@ -218,7 +244,7 @@ bool USkillManager::RequestGetSelectedSkills()
 
 		//TriggerAction
 		{
-			FActionSpec Spec(Data.SkillAnimClass, 1, 0);
+			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
 			//Chain HitCheck Class(for Transfer Data)
 			Spec.FollowActionTag = SkillTag;
 			ASC->GiveAction(SkillAnimTag, Spec);
@@ -226,7 +252,7 @@ bool USkillManager::RequestGetSelectedSkills()
 
 		//CheckAction 
 		{
-			FActionSpec Spec(Data.SkillClass, 1, 0);
+			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}

@@ -68,7 +68,10 @@ void USkillTree::LoadSkillList()
 		ESkillGroup SkillGroup = SkillData.SkillGroup;
 		if (SkillGroup == ESkillGroup::NONE)
 			continue;
-
+		FSkillClass SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SkillData.SkillSeq);
+		USkillTreeSlot* NewSlot = CreateWidget<USkillTreeSlot>(this, SkillTreeSlotClass);
+		NewSlot->SetSkillData(SkillData);
+		NewSlot->SetSkillClassData(SkillClassData);
 		switch (SkillGroup)
 		{
 		case ESkillGroup::NORMAL:

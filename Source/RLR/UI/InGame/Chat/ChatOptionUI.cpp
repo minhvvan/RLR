@@ -2,6 +2,8 @@
 
 
 #include "ChatOptionUI.h"
+#include "Components/CheckBox.h"
+#include "Components/Button.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager/GameManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"

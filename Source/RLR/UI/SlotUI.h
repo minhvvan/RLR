@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "Structs/SkillStructs.h"
 #include "SlotUI.generated.h"
 
 /**
@@ -57,6 +58,7 @@ enum class ESlotType : uint8
 	SKILL_SETTING_QUICK_SLOT,
 	SKILL_SETTING_LIST_SLOT,
 	TRADE_LIST_SLOT,
+	POST_ITEM_SLOT,
 	NONE,
 };
 
@@ -89,11 +91,18 @@ public:
 	virtual bool IsEmpty();
 
 	virtual UBaseDragDropOperation* GetSlotData();
+
 	virtual void					SetItemData(const FItemData& NewItemData);
 	virtual	const FItemData&		GetItemData();
 
+	virtual void					SetSlotItemResourceData(const FItemResource& NewResourceData);
+	virtual const FItemResource&	GetItemResourceData();
+
 	virtual void					SetSkillData(FSkillData NewSkillData);
 	virtual const FSkillData&		GetSkillData();
+
+	virtual void					SetSkillClassData(FSkillClass NewSkillClassData);
+	virtual const FSkillClass&		GetSkillClassData();
 
 	virtual void					SetSlotType(ESlotType Type){SlotType = Type;}
 	virtual const ESlotType			GetSlotType(){return SlotType;}

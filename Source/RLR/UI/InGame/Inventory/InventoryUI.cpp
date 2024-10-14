@@ -3,7 +3,6 @@
 
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Inventory/InventorySlot.h"
-#include "UI/InGame/Shop/NPCShopInventorySlot.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -86,6 +85,15 @@ void UInventoryUI::RefreshUI()
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
 	TArray<FItemData> ItemList;
 	InventoryManager->GetItemList(ItemList);
+	TArray<FItemResource> ItemResourceList;
+	InventoryManager->GetItemResourceList(ItemResourceList);
+
+	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
+	TMap<int32, FItemResource> ItemResourceMap;
+	for (const FItemResource& ItemResource : ItemResourceList)
+	{
+		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
+	}
 
 	int32 ItemCount = 0;
 	for (FItemData& ItemData : ItemList)
@@ -103,6 +111,12 @@ void UInventoryUI::RefreshUI()
 		if(ItemSlotIndex >= MaxInventorySlotCount || ItemSlotIndex < 0 )
 			continue;
 		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
+
+		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
+		if (FoundItemResource)
+		{
+			InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetSlotItemResourceData(*FoundItemResource);
+		}
 	}
 }
 
@@ -131,11 +145,20 @@ void UInventoryUI::ShowItemsByType(EItemType ItemType)
 	}
 
 	TArray<FItemData> ItemList;
-
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 	if (IsValid(InventoryManager) == false)
 		return;
 	InventoryManager->GetItemList(ItemList);
+	
+	TArray<FItemResource> ItemResourceList;
+	InventoryManager->GetItemResourceList(ItemResourceList);
+
+	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
+	TMap<int32, FItemResource> ItemResourceMap;
+	for (const FItemResource& ItemResource : ItemResourceList)
+	{
+		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
+	}
 
 	int32 ItemCount = 0;
 	for (FItemData ItemData : ItemList)
@@ -150,9 +173,14 @@ void UInventoryUI::ShowItemsByType(EItemType ItemType)
 			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
 			break;
 		}
-		InventorySlotList[ItemCount++]->SetItemData(ItemData);
-	}
+		InventorySlotList[ItemCount]->SetItemData(ItemData);
 
+		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
+		if (FoundItemResource)
+		{
+			InventorySlotList[ItemCount++]->SetSlotItemResourceData(*FoundItemResource);
+		}
+	}
 }
 
 void UInventoryUI::SortItem()
@@ -203,7 +231,7 @@ void UInventoryUI::SetMaxSlotCount(int32 Count)
 
 void UInventoryUI::RemoveSaleItem(const FItemData& Item)
 {
-	auto slot = Cast<UNPCShopInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
 	if (!slot) return;
 
 	slot->CancelSale();

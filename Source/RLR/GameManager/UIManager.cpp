@@ -20,6 +20,7 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"
+#include "Structs/ItemStructs.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
@@ -231,6 +232,45 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	MainUI->InvalidateLayoutAndVolatility();
 }
 
+void UUIManager::OpenSubUI(FGameplayTag UITag)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (!MainUI->IsOpenSubUI(UITag))
+		{
+			MainUI->OpenSubUI(UITag);
+			SubUIStack.AddUnique(MainUI->GetSubUI(UITag));
+			AdjustZOrder();
+		}
+	}
+}
+
+void UUIManager::CloseSubUI(FGameplayTag UITag)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (MainUI->IsOpenSubUI(UITag))
+		{
+			MainUI->CloseSubUI(UITag);
+			SubUIStack.Remove(MainUI->GetSubUI(UITag));
+			AdjustZOrder();
+		}
+	}
+}
+
+USubUI* UUIManager::GetSubUI(FGameplayTag UITag)
+{
+	return MainUI->GetSubUI(UITag);
+}
+
 void UUIManager::AdjustZOrder()
 {
 	for (int32 OrderNum = 0; OrderNum < SubUIStack.Num(); OrderNum++)
@@ -243,6 +283,17 @@ void UUIManager::AdjustZOrder()
 			CanvasSlot->SetZOrder(OrderNum);
 		}
 	}
+}
+
+void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
+{
+	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
+	if (!subUI) return;
+
+	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);
+	if (!panel) return;
+
+	panel->SetPosition(NewPos);
 }
 
 TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
@@ -284,10 +335,10 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 	return DialogueUI;
 }
 
-void UUIManager::AddSaleItem(const FItemData& Item)
+void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemResource)
 {
 	if (!DialogueUI || DialogueUI->GetVisibility() == ESlateVisibility::Hidden) return;
-	DialogueUI->AddSaleItem(Item);
+	DialogueUI->AddSaleItem(Item, ItemResource);
 }
 
 void UUIManager::RemoveSaleItem(const FItemData& Item)

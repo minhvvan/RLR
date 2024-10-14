@@ -7,6 +7,7 @@
 #include "GameManager/RLRStruct.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Structs/SkillStructs.h"
+#include "Structs/ItemStructs.h"
 #include "Structs/UtilStructs.h"
 #include "RLR.h"
 #include "Structs/LevelStruct.h"
@@ -34,10 +35,16 @@ public:
 	FItemData				GetItemData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
+	FItemResource			GetItemResource(int32 Seq);
+
+	UFUNCTION(BlueprintCallable)
 	const FMonsterStatus&	GetMonsterData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
 	const FSkillData&		GetSkillData(int32 Seq);
+
+	UFUNCTION(BlueprintCallable)
+	const FSkillClass&		GetSkillResource(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
@@ -86,8 +93,14 @@ private:
 	TObjectPtr<UDataTable> ItemDataTable;
 
 	UPROPERTY()
+	TObjectPtr<UDataTable> ItemResourceTable;
+
+	UPROPERTY()
 	TObjectPtr<UDataTable> SkillDataTable;
 
+	UPROPERTY()
+	TObjectPtr<UDataTable> SkillResourceTable;
+	
 	UPROPERTY()
 	TObjectPtr<UDataTable> MonsterDataTable;
 

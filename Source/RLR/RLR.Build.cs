@@ -18,7 +18,7 @@ public class RLR : ModuleRules
 
         if (Target.Type == TargetRules.TargetType.Editor)
         {
-            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "Blutility" });
+            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "Blutility", "LevelEditor", "CSVLoader" });
         }
 
         // 에디터 전용 모듈이 게임 타겟에 포함되지 않도록 보장
@@ -26,6 +26,8 @@ public class RLR : ModuleRules
         {
             PrivateDependencyModuleNames.Remove("UnrealEd");
             PrivateDependencyModuleNames.Remove("Blutility");
+            PrivateDependencyModuleNames.Remove("LevelEditor");
+            PrivateDependencyModuleNames.Remove("CSVLoader");
         }
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

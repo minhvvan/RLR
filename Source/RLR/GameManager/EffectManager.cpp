@@ -10,7 +10,7 @@
 UEffectManager::UEffectManager()
 {
 	// TODO :  This -> DataManager 
-	UDataTable* EffectDataTable = LoadObject<UDataTable>(nullptr, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectDataTable.DT_EffectDataTable'"));
+	UDataTable* EffectDataTable = LoadObject<UDataTable>(nullptr, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectData.DT_EffectData'"));
 
 	if (EffectDataTable)
 	{

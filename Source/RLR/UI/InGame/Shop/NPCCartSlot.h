@@ -7,7 +7,7 @@
 #include "Blueprint/IUserObjectListEntry.h"
 #include "NPCCartSlot.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCartClicked, const FItemData&, item);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCartClicked, const FItemData&, Item, const FItemResource&, ItemResource);
 
 class UTextBlock;
 

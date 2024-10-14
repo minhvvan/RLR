@@ -91,3 +91,8 @@ void USubUI::SetPosition(FVector2D pos)
 		slot->SetPosition(pos);
 	}
 }
+
+void USubUI::CloseUIByManager()
+{
+	GetUIManager()->CloseSubUI(UITag);
+}

@@ -51,8 +51,8 @@ struct CS_TradeUserRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_TradeUserRequestDefaultTypeInternal _CS_TradeUserRequest_default_instance_;
 PROTOBUF_CONSTEXPR SC_TradeUserResponse::SC_TradeUserResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.sendusername_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.userseq_)*/0
+    /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.sendusername_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_TradeUserResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SC_TradeUserResponseDefaultTypeInternal()
@@ -77,22 +77,6 @@ struct CS_TradeStartRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_TradeStartRequestDefaultTypeInternal _CS_TradeStartRequest_default_instance_;
-PROTOBUF_CONSTEXPR SC_TradeStartResponse::SC_TradeStartResponse(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.username1_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.username2_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.userseq1_)*/0
-  , /*decltype(_impl_.userseq2_)*/0
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct SC_TradeStartResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SC_TradeStartResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SC_TradeStartResponseDefaultTypeInternal() {}
-  union {
-    SC_TradeStartResponse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_TradeStartResponseDefaultTypeInternal _SC_TradeStartResponse_default_instance_;
 PROTOBUF_CONSTEXPR CS_TradeAddItemRequest::CS_TradeAddItemRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.itemid_)*/int64_t{0}
@@ -148,19 +132,6 @@ struct CS_TradeCancelRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_TradeCancelRequestDefaultTypeInternal _CS_TradeCancelRequest_default_instance_;
-PROTOBUF_CONSTEXPR SC_TradeCancelResponse::SC_TradeCancelResponse(
-    ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.cancelername_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
-struct SC_TradeCancelResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SC_TradeCancelResponseDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SC_TradeCancelResponseDefaultTypeInternal() {}
-  union {
-    SC_TradeCancelResponse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_TradeCancelResponseDefaultTypeInternal _SC_TradeCancelResponse_default_instance_;
 PROTOBUF_CONSTEXPR SC_TradeCompleteResponse::SC_TradeCompleteResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.itemlist_)*/{}
@@ -195,7 +166,7 @@ struct SC_TradeStateResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_TradeStateResponseDefaultTypeInternal _SC_TradeStateResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Trade_2eproto[12];
+static ::_pb::Metadata file_level_metadata_Trade_2eproto[10];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Trade_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Trade_2eproto = nullptr;
 
@@ -233,16 +204,6 @@ const uint32_t TableStruct_Trade_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_TradeStartRequest, _impl_.userseq1_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_TradeStartRequest, _impl_.userseq2_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStartResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStartResponse, _impl_.userseq1_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStartResponse, _impl_.userseq2_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStartResponse, _impl_.username1_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeStartResponse, _impl_.username2_),
-  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_TradeAddItemRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -274,13 +235,6 @@ const uint32_t TableStruct_Trade_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_TradeCancelRequest, _impl_.userseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCancelResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCancelResponse, _impl_.cancelername_),
-  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_TradeCompleteResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -307,14 +261,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 8, -1, -1, sizeof(::Protocol::CS_TradeUserRequest)},
   { 16, -1, -1, sizeof(::Protocol::SC_TradeUserResponse)},
   { 24, -1, -1, sizeof(::Protocol::CS_TradeStartRequest)},
-  { 32, -1, -1, sizeof(::Protocol::SC_TradeStartResponse)},
-  { 42, -1, -1, sizeof(::Protocol::CS_TradeAddItemRequest)},
-  { 51, -1, -1, sizeof(::Protocol::CS_TradeAddGoodRequest)},
-  { 59, -1, -1, sizeof(::Protocol::CS_TradeLockRequest)},
-  { 66, -1, -1, sizeof(::Protocol::CS_TradeCancelRequest)},
-  { 73, -1, -1, sizeof(::Protocol::SC_TradeCancelResponse)},
-  { 80, -1, -1, sizeof(::Protocol::SC_TradeCompleteResponse)},
-  { 89, -1, -1, sizeof(::Protocol::SC_TradeStateResponse)},
+  { 32, -1, -1, sizeof(::Protocol::CS_TradeAddItemRequest)},
+  { 41, -1, -1, sizeof(::Protocol::CS_TradeAddGoodRequest)},
+  { 49, -1, -1, sizeof(::Protocol::CS_TradeLockRequest)},
+  { 56, -1, -1, sizeof(::Protocol::CS_TradeCancelRequest)},
+  { 63, -1, -1, sizeof(::Protocol::SC_TradeCompleteResponse)},
+  { 72, -1, -1, sizeof(::Protocol::SC_TradeStateResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -322,12 +274,10 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CS_TradeUserRequest_default_instance_._instance,
   &::Protocol::_SC_TradeUserResponse_default_instance_._instance,
   &::Protocol::_CS_TradeStartRequest_default_instance_._instance,
-  &::Protocol::_SC_TradeStartResponse_default_instance_._instance,
   &::Protocol::_CS_TradeAddItemRequest_default_instance_._instance,
   &::Protocol::_CS_TradeAddGoodRequest_default_instance_._instance,
   &::Protocol::_CS_TradeLockRequest_default_instance_._instance,
   &::Protocol::_CS_TradeCancelRequest_default_instance_._instance,
-  &::Protocol::_SC_TradeCancelResponse_default_instance_._instance,
   &::Protocol::_SC_TradeCompleteResponse_default_instance_._instance,
   &::Protocol::_SC_TradeStateResponse_default_instance_._instance,
 };
@@ -338,34 +288,30 @@ const char descriptor_table_protodef_Trade_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "ge\030\002 \001(\t\"9\n\023CS_TradeUserRequest\022\020\n\010userS"
   "eq1\030\001 \001(\005\022\020\n\010userSeq2\030\002 \001(\005\"=\n\024SC_TradeU"
   "serResponse\022\017\n\007userSeq\030\001 \001(\005\022\024\n\014sendUser"
-  "Name\030\002 \001(\t\":\n\024CS_TradeStartRequest\022\020\n\010us"
-  "erSeq1\030\001 \001(\005\022\020\n\010userSeq2\030\002 \001(\005\"a\n\025SC_Tra"
-  "deStartResponse\022\020\n\010userSeq1\030\001 \001(\005\022\020\n\010use"
-  "rSeq2\030\002 \001(\005\022\021\n\tuserName1\030\003 \001(\t\022\021\n\tuserNa"
-  "me2\030\004 \001(\t\"L\n\026CS_TradeAddItemRequest\022\017\n\007u"
-  "serSeq\030\001 \001(\005\022\016\n\006itemId\030\002 \001(\003\022\021\n\titemValu"
-  "e\030\003 \001(\003\"=\n\026CS_TradeAddGoodRequest\022\017\n\007use"
-  "rSeq\030\001 \001(\005\022\022\n\ntotalMoney\030\002 \001(\003\"&\n\023CS_Tra"
-  "deLockRequest\022\017\n\007userSeq\030\001 \001(\005\"(\n\025CS_Tra"
-  "deCancelRequest\022\017\n\007userSeq\030\001 \001(\005\".\n\026SC_T"
-  "radeCancelResponse\022\024\n\014cancelerName\030\001 \001(\t"
-  "\"a\n\030SC_TradeCompleteResponse\022 \n\010itemList"
-  "\030\001 \003(\0132\016.Protocol.Item\022\022\n\ntotalMoney\030\002 \001"
-  "(\003\022\017\n\007success\030\003 \001(\005\"\267\001\n\025SC_TradeStateRes"
-  "ponse\022%\n\ruserItemList1\030\001 \003(\0132\016.Protocol."
-  "Item\022%\n\ruserItemList2\030\002 \003(\0132\016.Protocol.I"
-  "tem\022\023\n\013totalMoney1\030\003 \001(\003\022\023\n\013totalMoney2\030"
-  "\004 \001(\003\022\022\n\nLockState1\030\005 \001(\005\022\022\n\nLockState2\030"
-  "\006 \001(\005b\006proto3"
+  "Name\030\002 \001(\005\":\n\024CS_TradeStartRequest\022\020\n\010us"
+  "erSeq1\030\001 \001(\005\022\020\n\010userSeq2\030\002 \001(\005\"L\n\026CS_Tra"
+  "deAddItemRequest\022\017\n\007userSeq\030\001 \001(\005\022\016\n\006ite"
+  "mId\030\002 \001(\003\022\021\n\titemValue\030\003 \001(\003\"=\n\026CS_Trade"
+  "AddGoodRequest\022\017\n\007userSeq\030\001 \001(\005\022\022\n\ntotal"
+  "Money\030\002 \001(\003\"&\n\023CS_TradeLockRequest\022\017\n\007us"
+  "erSeq\030\001 \001(\005\"(\n\025CS_TradeCancelRequest\022\017\n\007"
+  "userSeq\030\001 \001(\005\"a\n\030SC_TradeCompleteRespons"
+  "e\022 \n\010itemList\030\001 \003(\0132\016.Protocol.Item\022\022\n\nt"
+  "otalMoney\030\002 \001(\003\022\017\n\007success\030\003 \001(\005\"\267\001\n\025SC_"
+  "TradeStateResponse\022%\n\ruserItemList1\030\001 \003("
+  "\0132\016.Protocol.Item\022%\n\ruserItemList2\030\002 \003(\013"
+  "2\016.Protocol.Item\022\023\n\013totalMoney1\030\003 \001(\003\022\023\n"
+  "\013totalMoney2\030\004 \001(\003\022\022\n\nLockState1\030\005 \001(\005\022\022"
+  "\n\nLockState2\030\006 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Trade_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Trade_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Trade_2eproto = {
-    false, false, 933, descriptor_table_protodef_Trade_2eproto,
+    false, false, 786, descriptor_table_protodef_Trade_2eproto,
     "Trade.proto",
-    &descriptor_table_Trade_2eproto_once, descriptor_table_Trade_2eproto_deps, 1, 12,
+    &descriptor_table_Trade_2eproto_once, descriptor_table_Trade_2eproto_deps, 1, 10,
     schemas, file_default_instances, TableStruct_Trade_2eproto::offsets,
     file_level_metadata_Trade_2eproto, file_level_enum_descriptors_Trade_2eproto,
     file_level_service_descriptors_Trade_2eproto,
@@ -835,20 +781,14 @@ SC_TradeUserResponse::SC_TradeUserResponse(const SC_TradeUserResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   SC_TradeUserResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.sendusername_){}
-    , decltype(_impl_.userseq_){}
+      decltype(_impl_.userseq_){}
+    , decltype(_impl_.sendusername_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.sendusername_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sendusername_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_sendusername().empty()) {
-    _this->_impl_.sendusername_.Set(from._internal_sendusername(), 
-      _this->GetArenaForAllocation());
-  }
-  _this->_impl_.userseq_ = from._impl_.userseq_;
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.sendusername_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.sendusername_));
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_TradeUserResponse)
 }
 
@@ -857,14 +797,10 @@ inline void SC_TradeUserResponse::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.sendusername_){}
-    , decltype(_impl_.userseq_){0}
+      decltype(_impl_.userseq_){0}
+    , decltype(_impl_.sendusername_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.sendusername_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.sendusername_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SC_TradeUserResponse::~SC_TradeUserResponse() {
@@ -878,7 +814,6 @@ SC_TradeUserResponse::~SC_TradeUserResponse() {
 
 inline void SC_TradeUserResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.sendusername_.Destroy();
 }
 
 void SC_TradeUserResponse::SetCachedSize(int size) const {
@@ -891,8 +826,9 @@ void SC_TradeUserResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.sendusername_.ClearToEmpty();
-  _impl_.userseq_ = 0;
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.sendusername_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.sendusername_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -910,13 +846,11 @@ const char* SC_TradeUserResponse::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // string sendUserName = 2;
+      // int32 sendUserName = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_sendusername();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.sendusername_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_TradeUserResponse.sendUserName"));
         } else
           goto handle_unusual;
         continue;
@@ -955,14 +889,10 @@ uint8_t* SC_TradeUserResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // string sendUserName = 2;
-  if (!this->_internal_sendusername().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_sendusername().data(), static_cast<int>(this->_internal_sendusername().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.SC_TradeUserResponse.sendUserName");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_sendusername(), target);
+  // int32 sendUserName = 2;
+  if (this->_internal_sendusername() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_sendusername(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -981,16 +911,14 @@ size_t SC_TradeUserResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string sendUserName = 2;
-  if (!this->_internal_sendusername().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_sendusername());
-  }
-
   // int32 userSeq = 1;
   if (this->_internal_userseq() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  // int32 sendUserName = 2;
+  if (this->_internal_sendusername() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sendusername());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1011,11 +939,11 @@ void SC_TradeUserResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_sendusername().empty()) {
-    _this->_internal_set_sendusername(from._internal_sendusername());
-  }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_sendusername() != 0) {
+    _this->_internal_set_sendusername(from._internal_sendusername());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1033,14 +961,13 @@ bool SC_TradeUserResponse::IsInitialized() const {
 
 void SC_TradeUserResponse::InternalSwap(SC_TradeUserResponse* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.sendusername_, lhs_arena,
-      &other->_impl_.sendusername_, rhs_arena
-  );
-  swap(_impl_.userseq_, other->_impl_.userseq_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_TradeUserResponse, _impl_.sendusername_)
+      + sizeof(SC_TradeUserResponse::_impl_.sendusername_)
+      - PROTOBUF_FIELD_OFFSET(SC_TradeUserResponse, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeUserResponse::GetMetadata() const {
@@ -1258,319 +1185,6 @@ void CS_TradeStartRequest::InternalSwap(CS_TradeStartRequest* other) {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
       file_level_metadata_Trade_2eproto[3]);
-}
-
-// ===================================================================
-
-class SC_TradeStartResponse::_Internal {
- public:
-};
-
-SC_TradeStartResponse::SC_TradeStartResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.SC_TradeStartResponse)
-}
-SC_TradeStartResponse::SC_TradeStartResponse(const SC_TradeStartResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SC_TradeStartResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.username1_){}
-    , decltype(_impl_.username2_){}
-    , decltype(_impl_.userseq1_){}
-    , decltype(_impl_.userseq2_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.username1_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username1_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_username1().empty()) {
-    _this->_impl_.username1_.Set(from._internal_username1(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.username2_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username2_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_username2().empty()) {
-    _this->_impl_.username2_.Set(from._internal_username2(), 
-      _this->GetArenaForAllocation());
-  }
-  ::memcpy(&_impl_.userseq1_, &from._impl_.userseq1_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq2_) -
-    reinterpret_cast<char*>(&_impl_.userseq1_)) + sizeof(_impl_.userseq2_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.SC_TradeStartResponse)
-}
-
-inline void SC_TradeStartResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.username1_){}
-    , decltype(_impl_.username2_){}
-    , decltype(_impl_.userseq1_){0}
-    , decltype(_impl_.userseq2_){0}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-  _impl_.username1_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username1_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.username2_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.username2_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-SC_TradeStartResponse::~SC_TradeStartResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.SC_TradeStartResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void SC_TradeStartResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.username1_.Destroy();
-  _impl_.username2_.Destroy();
-}
-
-void SC_TradeStartResponse::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void SC_TradeStartResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.SC_TradeStartResponse)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.username1_.ClearToEmpty();
-  _impl_.username2_.ClearToEmpty();
-  ::memset(&_impl_.userseq1_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.userseq2_) -
-      reinterpret_cast<char*>(&_impl_.userseq1_)) + sizeof(_impl_.userseq2_));
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* SC_TradeStartResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // int32 userSeq1 = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.userseq1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 userSeq2 = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.userseq2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // string userName1 = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_username1();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_TradeStartResponse.userName1"));
-        } else
-          goto handle_unusual;
-        continue;
-      // string userName2 = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          auto str = _internal_mutable_username2();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_TradeStartResponse.userName2"));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* SC_TradeStartResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_TradeStartResponse)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 userSeq1 = 1;
-  if (this->_internal_userseq1() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq1(), target);
-  }
-
-  // int32 userSeq2 = 2;
-  if (this->_internal_userseq2() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_userseq2(), target);
-  }
-
-  // string userName1 = 3;
-  if (!this->_internal_username1().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_username1().data(), static_cast<int>(this->_internal_username1().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.SC_TradeStartResponse.userName1");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_username1(), target);
-  }
-
-  // string userName2 = 4;
-  if (!this->_internal_username2().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_username2().data(), static_cast<int>(this->_internal_username2().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.SC_TradeStartResponse.userName2");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_username2(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_TradeStartResponse)
-  return target;
-}
-
-size_t SC_TradeStartResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_TradeStartResponse)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string userName1 = 3;
-  if (!this->_internal_username1().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_username1());
-  }
-
-  // string userName2 = 4;
-  if (!this->_internal_username2().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_username2());
-  }
-
-  // int32 userSeq1 = 1;
-  if (this->_internal_userseq1() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq1());
-  }
-
-  // int32 userSeq2 = 2;
-  if (this->_internal_userseq2() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq2());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_TradeStartResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SC_TradeStartResponse::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_TradeStartResponse::GetClassData() const { return &_class_data_; }
-
-
-void SC_TradeStartResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SC_TradeStartResponse*>(&to_msg);
-  auto& from = static_cast<const SC_TradeStartResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_TradeStartResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_username1().empty()) {
-    _this->_internal_set_username1(from._internal_username1());
-  }
-  if (!from._internal_username2().empty()) {
-    _this->_internal_set_username2(from._internal_username2());
-  }
-  if (from._internal_userseq1() != 0) {
-    _this->_internal_set_userseq1(from._internal_userseq1());
-  }
-  if (from._internal_userseq2() != 0) {
-    _this->_internal_set_userseq2(from._internal_userseq2());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void SC_TradeStartResponse::CopyFrom(const SC_TradeStartResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_TradeStartResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SC_TradeStartResponse::IsInitialized() const {
-  return true;
-}
-
-void SC_TradeStartResponse::InternalSwap(SC_TradeStartResponse* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.username1_, lhs_arena,
-      &other->_impl_.username1_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.username2_, lhs_arena,
-      &other->_impl_.username2_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SC_TradeStartResponse, _impl_.userseq2_)
-      + sizeof(SC_TradeStartResponse::_impl_.userseq2_)
-      - PROTOBUF_FIELD_OFFSET(SC_TradeStartResponse, _impl_.userseq1_)>(
-          reinterpret_cast<char*>(&_impl_.userseq1_),
-          reinterpret_cast<char*>(&other->_impl_.userseq1_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeStartResponse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[4]);
 }
 
 // ===================================================================
@@ -1805,7 +1419,7 @@ void CS_TradeAddItemRequest::InternalSwap(CS_TradeAddItemRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_TradeAddItemRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[5]);
+      file_level_metadata_Trade_2eproto[4]);
 }
 
 // ===================================================================
@@ -2016,7 +1630,7 @@ void CS_TradeAddGoodRequest::InternalSwap(CS_TradeAddGoodRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_TradeAddGoodRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[6]);
+      file_level_metadata_Trade_2eproto[5]);
 }
 
 // ===================================================================
@@ -2194,7 +1808,7 @@ void CS_TradeLockRequest::InternalSwap(CS_TradeLockRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_TradeLockRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[7]);
+      file_level_metadata_Trade_2eproto[6]);
 }
 
 // ===================================================================
@@ -2372,210 +1986,7 @@ void CS_TradeCancelRequest::InternalSwap(CS_TradeCancelRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_TradeCancelRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[8]);
-}
-
-// ===================================================================
-
-class SC_TradeCancelResponse::_Internal {
- public:
-};
-
-SC_TradeCancelResponse::SC_TradeCancelResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.SC_TradeCancelResponse)
-}
-SC_TradeCancelResponse::SC_TradeCancelResponse(const SC_TradeCancelResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  SC_TradeCancelResponse* const _this = this; (void)_this;
-  new (&_impl_) Impl_{
-      decltype(_impl_.cancelername_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
-
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.cancelername_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cancelername_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_cancelername().empty()) {
-    _this->_impl_.cancelername_.Set(from._internal_cancelername(), 
-      _this->GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:Protocol.SC_TradeCancelResponse)
-}
-
-inline void SC_TradeCancelResponse::SharedCtor(
-    ::_pb::Arena* arena, bool is_message_owned) {
-  (void)arena;
-  (void)is_message_owned;
-  new (&_impl_) Impl_{
-      decltype(_impl_.cancelername_){}
-    , /*decltype(_impl_._cached_size_)*/{}
-  };
-  _impl_.cancelername_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.cancelername_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-}
-
-SC_TradeCancelResponse::~SC_TradeCancelResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.SC_TradeCancelResponse)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void SC_TradeCancelResponse::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.cancelername_.Destroy();
-}
-
-void SC_TradeCancelResponse::SetCachedSize(int size) const {
-  _impl_._cached_size_.Set(size);
-}
-
-void SC_TradeCancelResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.SC_TradeCancelResponse)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.cancelername_.ClearToEmpty();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* SC_TradeCancelResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string cancelerName = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_cancelername();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_TradeCancelResponse.cancelerName"));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* SC_TradeCancelResponse::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_TradeCancelResponse)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string cancelerName = 1;
-  if (!this->_internal_cancelername().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_cancelername().data(), static_cast<int>(this->_internal_cancelername().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.SC_TradeCancelResponse.cancelerName");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_cancelername(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_TradeCancelResponse)
-  return target;
-}
-
-size_t SC_TradeCancelResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_TradeCancelResponse)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string cancelerName = 1;
-  if (!this->_internal_cancelername().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_cancelername());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_TradeCancelResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    SC_TradeCancelResponse::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_TradeCancelResponse::GetClassData() const { return &_class_data_; }
-
-
-void SC_TradeCancelResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<SC_TradeCancelResponse*>(&to_msg);
-  auto& from = static_cast<const SC_TradeCancelResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_TradeCancelResponse)
-  GOOGLE_DCHECK_NE(&from, _this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_cancelername().empty()) {
-    _this->_internal_set_cancelername(from._internal_cancelername());
-  }
-  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void SC_TradeCancelResponse::CopyFrom(const SC_TradeCancelResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_TradeCancelResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SC_TradeCancelResponse::IsInitialized() const {
-  return true;
-}
-
-void SC_TradeCancelResponse::InternalSwap(SC_TradeCancelResponse* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.cancelername_, lhs_arena,
-      &other->_impl_.cancelername_, rhs_arena
-  );
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeCancelResponse::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[9]);
+      file_level_metadata_Trade_2eproto[7]);
 }
 
 // ===================================================================
@@ -2823,7 +2234,7 @@ void SC_TradeCompleteResponse::InternalSwap(SC_TradeCompleteResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeCompleteResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[10]);
+      file_level_metadata_Trade_2eproto[8]);
 }
 
 // ===================================================================
@@ -3156,7 +2567,7 @@ void SC_TradeStateResponse::InternalSwap(SC_TradeStateResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_TradeStateResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Trade_2eproto_getter, &descriptor_table_Trade_2eproto_once,
-      file_level_metadata_Trade_2eproto[11]);
+      file_level_metadata_Trade_2eproto[9]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -3178,10 +2589,6 @@ template<> PROTOBUF_NOINLINE ::Protocol::CS_TradeStartRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_TradeStartRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_TradeStartRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::SC_TradeStartResponse*
-Arena::CreateMaybeMessage< ::Protocol::SC_TradeStartResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::SC_TradeStartResponse >(arena);
-}
 template<> PROTOBUF_NOINLINE ::Protocol::CS_TradeAddItemRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_TradeAddItemRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_TradeAddItemRequest >(arena);
@@ -3197,10 +2604,6 @@ Arena::CreateMaybeMessage< ::Protocol::CS_TradeLockRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::CS_TradeCancelRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_TradeCancelRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_TradeCancelRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::Protocol::SC_TradeCancelResponse*
-Arena::CreateMaybeMessage< ::Protocol::SC_TradeCancelResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::SC_TradeCancelResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::SC_TradeCompleteResponse*
 Arena::CreateMaybeMessage< ::Protocol::SC_TradeCompleteResponse >(Arena* arena) {

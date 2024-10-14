@@ -30,9 +30,12 @@ public:
 
 	virtual void SetInputMode();
 
+	virtual bool IsOpenSubUI(FGameplayTag InputTag) { return false; }
 	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
 	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
 	virtual USubUI* GetSubUI(EUIType Type){return SubUIMap[Type]; }
+	virtual void OpenSubUI(FGameplayTag InputTag) {};
+	virtual void CloseSubUI(FGameplayTag InputTag) {};
 
 public:
 

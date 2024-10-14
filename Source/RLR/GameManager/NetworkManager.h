@@ -6,6 +6,7 @@
 
 #include "RLRStruct.h"
 
+#include "Structs/UtilStructs.h"
 #include <mutex>
 #include <queue>
 
@@ -96,7 +97,7 @@ public:
                         */
 
     bool SendAttackPacket(FAttackResult attackResult);
-
+    bool SendActionPacket(int32 userSeq, string tagName);
     bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
 
     /*
@@ -140,9 +141,9 @@ public:
                         */
 
     bool SendCreateParty();
-
+    bool SendRequestParty(int otherSeq);
+    bool SendExileParty(int otherSeq);
     bool SendJoinParty(int partyId);
-
     bool SendLeaveParty(int partyId);
 
     /*
@@ -168,6 +169,51 @@ public:
     bool SendCreateMonsterCheatPacket(int32 Seq);
 
 
+    /*
+            Post
+                        */
+
+    bool SendPostRequest(FPostResult post);
+
+    bool SendPostGetRequest();
+
+    bool SendPostRemoveRequest(FPostResult post);
+
+    bool SendPostReadRequest(FPostResult post);
+
+    bool SendPostReceivedRequest(FPostResult post);
+
+    /*
+           Trade
+                       */
+
+    bool SendTradeUserRequest(int userSeq2);
+
+    bool SendTradeStartRequest(int userSeq2);
+
+    bool SendTradeAddItemRequest(int64 itemId, int64 itemValue);
+
+    bool SendTradeAddGoodRequest(int64 totalMoney);
+
+    bool SendTradeLockRequest();
+
+    bool SendTradeCancelRequest();
+
+    /*
+          Friend
+                      */
+
+    bool SendAddFriend(int userSeq);
+
+    bool SendRemoveFriend(int userSeq);
+
+    bool SendCreateFriendGroup(string& groupName);
+
+    bool SendRemoveFriendGroup(int groupSeq);
+
+    bool SendMoveFriendInGroup(int friendSeq, int groupSeq);
+
+    bool SendMoveFriendGroup(int groupSeq1, int groupSeq2);
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
@@ -197,10 +243,6 @@ private:
     int32 UserSeq;
     UPROPERTY()
     int64 MapId;
-
-  
-
- 
 
 };
 

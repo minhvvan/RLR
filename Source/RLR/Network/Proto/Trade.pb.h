@@ -64,15 +64,9 @@ extern CS_TradeStartRequestDefaultTypeInternal _CS_TradeStartRequest_default_ins
 class CS_TradeUserRequest;
 struct CS_TradeUserRequestDefaultTypeInternal;
 extern CS_TradeUserRequestDefaultTypeInternal _CS_TradeUserRequest_default_instance_;
-class SC_TradeCancelResponse;
-struct SC_TradeCancelResponseDefaultTypeInternal;
-extern SC_TradeCancelResponseDefaultTypeInternal _SC_TradeCancelResponse_default_instance_;
 class SC_TradeCompleteResponse;
 struct SC_TradeCompleteResponseDefaultTypeInternal;
 extern SC_TradeCompleteResponseDefaultTypeInternal _SC_TradeCompleteResponse_default_instance_;
-class SC_TradeStartResponse;
-struct SC_TradeStartResponseDefaultTypeInternal;
-extern SC_TradeStartResponseDefaultTypeInternal _SC_TradeStartResponse_default_instance_;
 class SC_TradeStateResponse;
 struct SC_TradeStateResponseDefaultTypeInternal;
 extern SC_TradeStateResponseDefaultTypeInternal _SC_TradeStateResponse_default_instance_;
@@ -90,9 +84,7 @@ template<> ::Protocol::CS_TradeCancelRequest* Arena::CreateMaybeMessage<::Protoc
 template<> ::Protocol::CS_TradeLockRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeLockRequest>(Arena*);
 template<> ::Protocol::CS_TradeStartRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeStartRequest>(Arena*);
 template<> ::Protocol::CS_TradeUserRequest* Arena::CreateMaybeMessage<::Protocol::CS_TradeUserRequest>(Arena*);
-template<> ::Protocol::SC_TradeCancelResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeCancelResponse>(Arena*);
 template<> ::Protocol::SC_TradeCompleteResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeCompleteResponse>(Arena*);
-template<> ::Protocol::SC_TradeStartResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeStartResponse>(Arena*);
 template<> ::Protocol::SC_TradeStateResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeStateResponse>(Arena*);
 template<> ::Protocol::SC_TradeUserResponse* Arena::CreateMaybeMessage<::Protocol::SC_TradeUserResponse>(Arena*);
 template<> ::Protocol::TradeResponse* Arena::CreateMaybeMessage<::Protocol::TradeResponse>(Arena*);
@@ -545,23 +537,9 @@ class SC_TradeUserResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSendUserNameFieldNumber = 2,
     kUserSeqFieldNumber = 1,
+    kSendUserNameFieldNumber = 2,
   };
-  // string sendUserName = 2;
-  void clear_sendusername();
-  const std::string& sendusername() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_sendusername(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_sendusername();
-  PROTOBUF_NODISCARD std::string* release_sendusername();
-  void set_allocated_sendusername(std::string* sendusername);
-  private:
-  const std::string& _internal_sendusername() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sendusername(const std::string& value);
-  std::string* _internal_mutable_sendusername();
-  public:
-
   // int32 userSeq = 1;
   void clear_userseq();
   int32_t userseq() const;
@@ -569,6 +547,15 @@ class SC_TradeUserResponse final :
   private:
   int32_t _internal_userseq() const;
   void _internal_set_userseq(int32_t value);
+  public:
+
+  // int32 sendUserName = 2;
+  void clear_sendusername();
+  int32_t sendusername() const;
+  void set_sendusername(int32_t value);
+  private:
+  int32_t _internal_sendusername() const;
+  void _internal_set_sendusername(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.SC_TradeUserResponse)
@@ -579,8 +566,8 @@ class SC_TradeUserResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sendusername_;
     int32_t userseq_;
+    int32_t sendusername_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -747,197 +734,6 @@ class CS_TradeStartRequest final :
 };
 // -------------------------------------------------------------------
 
-class SC_TradeStartResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeStartResponse) */ {
- public:
-  inline SC_TradeStartResponse() : SC_TradeStartResponse(nullptr) {}
-  ~SC_TradeStartResponse() override;
-  explicit PROTOBUF_CONSTEXPR SC_TradeStartResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  SC_TradeStartResponse(const SC_TradeStartResponse& from);
-  SC_TradeStartResponse(SC_TradeStartResponse&& from) noexcept
-    : SC_TradeStartResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline SC_TradeStartResponse& operator=(const SC_TradeStartResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline SC_TradeStartResponse& operator=(SC_TradeStartResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const SC_TradeStartResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const SC_TradeStartResponse* internal_default_instance() {
-    return reinterpret_cast<const SC_TradeStartResponse*>(
-               &_SC_TradeStartResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    4;
-
-  friend void swap(SC_TradeStartResponse& a, SC_TradeStartResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(SC_TradeStartResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(SC_TradeStartResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  SC_TradeStartResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_TradeStartResponse>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_TradeStartResponse& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_TradeStartResponse& from) {
-    SC_TradeStartResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(SC_TradeStartResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_TradeStartResponse";
-  }
-  protected:
-  explicit SC_TradeStartResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUserName1FieldNumber = 3,
-    kUserName2FieldNumber = 4,
-    kUserSeq1FieldNumber = 1,
-    kUserSeq2FieldNumber = 2,
-  };
-  // string userName1 = 3;
-  void clear_username1();
-  const std::string& username1() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_username1(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_username1();
-  PROTOBUF_NODISCARD std::string* release_username1();
-  void set_allocated_username1(std::string* username1);
-  private:
-  const std::string& _internal_username1() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username1(const std::string& value);
-  std::string* _internal_mutable_username1();
-  public:
-
-  // string userName2 = 4;
-  void clear_username2();
-  const std::string& username2() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_username2(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_username2();
-  PROTOBUF_NODISCARD std::string* release_username2();
-  void set_allocated_username2(std::string* username2);
-  private:
-  const std::string& _internal_username2() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username2(const std::string& value);
-  std::string* _internal_mutable_username2();
-  public:
-
-  // int32 userSeq1 = 1;
-  void clear_userseq1();
-  int32_t userseq1() const;
-  void set_userseq1(int32_t value);
-  private:
-  int32_t _internal_userseq1() const;
-  void _internal_set_userseq1(int32_t value);
-  public:
-
-  // int32 userSeq2 = 2;
-  void clear_userseq2();
-  int32_t userseq2() const;
-  void set_userseq2(int32_t value);
-  private:
-  int32_t _internal_userseq2() const;
-  void _internal_set_userseq2(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeStartResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username1_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username2_;
-    int32_t userseq1_;
-    int32_t userseq2_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
 class CS_TradeAddItemRequest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CS_TradeAddItemRequest) */ {
  public:
@@ -986,7 +782,7 @@ class CS_TradeAddItemRequest final :
                &_CS_TradeAddItemRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(CS_TradeAddItemRequest& a, CS_TradeAddItemRequest& b) {
     a.Swap(&b);
@@ -1156,7 +952,7 @@ class CS_TradeAddGoodRequest final :
                &_CS_TradeAddGoodRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(CS_TradeAddGoodRequest& a, CS_TradeAddGoodRequest& b) {
     a.Swap(&b);
@@ -1315,7 +1111,7 @@ class CS_TradeLockRequest final :
                &_CS_TradeLockRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(CS_TradeLockRequest& a, CS_TradeLockRequest& b) {
     a.Swap(&b);
@@ -1463,7 +1259,7 @@ class CS_TradeCancelRequest final :
                &_CS_TradeCancelRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(CS_TradeCancelRequest& a, CS_TradeCancelRequest& b) {
     a.Swap(&b);
@@ -1563,159 +1359,6 @@ class CS_TradeCancelRequest final :
 };
 // -------------------------------------------------------------------
 
-class SC_TradeCancelResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeCancelResponse) */ {
- public:
-  inline SC_TradeCancelResponse() : SC_TradeCancelResponse(nullptr) {}
-  ~SC_TradeCancelResponse() override;
-  explicit PROTOBUF_CONSTEXPR SC_TradeCancelResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  SC_TradeCancelResponse(const SC_TradeCancelResponse& from);
-  SC_TradeCancelResponse(SC_TradeCancelResponse&& from) noexcept
-    : SC_TradeCancelResponse() {
-    *this = ::std::move(from);
-  }
-
-  inline SC_TradeCancelResponse& operator=(const SC_TradeCancelResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline SC_TradeCancelResponse& operator=(SC_TradeCancelResponse&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const SC_TradeCancelResponse& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const SC_TradeCancelResponse* internal_default_instance() {
-    return reinterpret_cast<const SC_TradeCancelResponse*>(
-               &_SC_TradeCancelResponse_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    9;
-
-  friend void swap(SC_TradeCancelResponse& a, SC_TradeCancelResponse& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(SC_TradeCancelResponse* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(SC_TradeCancelResponse* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  SC_TradeCancelResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SC_TradeCancelResponse>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const SC_TradeCancelResponse& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const SC_TradeCancelResponse& from) {
-    SC_TradeCancelResponse::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(SC_TradeCancelResponse* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.SC_TradeCancelResponse";
-  }
-  protected:
-  explicit SC_TradeCancelResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kCancelerNameFieldNumber = 1,
-  };
-  // string cancelerName = 1;
-  void clear_cancelername();
-  const std::string& cancelername() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_cancelername(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_cancelername();
-  PROTOBUF_NODISCARD std::string* release_cancelername();
-  void set_allocated_cancelername(std::string* cancelername);
-  private:
-  const std::string& _internal_cancelername() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_cancelername(const std::string& value);
-  std::string* _internal_mutable_cancelername();
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.SC_TradeCancelResponse)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cancelername_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Trade_2eproto;
-};
-// -------------------------------------------------------------------
-
 class SC_TradeCompleteResponse final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.SC_TradeCompleteResponse) */ {
  public:
@@ -1764,7 +1407,7 @@ class SC_TradeCompleteResponse final :
                &_SC_TradeCompleteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    8;
 
   friend void swap(SC_TradeCompleteResponse& a, SC_TradeCompleteResponse& b) {
     a.Swap(&b);
@@ -1943,7 +1586,7 @@ class SC_TradeStateResponse final :
                &_SC_TradeStateResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    9;
 
   friend void swap(SC_TradeStateResponse& a, SC_TradeStateResponse& b) {
     a.Swap(&b);
@@ -2263,54 +1906,24 @@ inline void SC_TradeUserResponse::set_userseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_TradeUserResponse.userSeq)
 }
 
-// string sendUserName = 2;
+// int32 sendUserName = 2;
 inline void SC_TradeUserResponse::clear_sendusername() {
-  _impl_.sendusername_.ClearToEmpty();
+  _impl_.sendusername_ = 0;
 }
-inline const std::string& SC_TradeUserResponse::sendusername() const {
+inline int32_t SC_TradeUserResponse::_internal_sendusername() const {
+  return _impl_.sendusername_;
+}
+inline int32_t SC_TradeUserResponse::sendusername() const {
   // @@protoc_insertion_point(field_get:Protocol.SC_TradeUserResponse.sendUserName)
   return _internal_sendusername();
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SC_TradeUserResponse::set_sendusername(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.sendusername_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+inline void SC_TradeUserResponse::_internal_set_sendusername(int32_t value) {
+  
+  _impl_.sendusername_ = value;
+}
+inline void SC_TradeUserResponse::set_sendusername(int32_t value) {
+  _internal_set_sendusername(value);
   // @@protoc_insertion_point(field_set:Protocol.SC_TradeUserResponse.sendUserName)
-}
-inline std::string* SC_TradeUserResponse::mutable_sendusername() {
-  std::string* _s = _internal_mutable_sendusername();
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeUserResponse.sendUserName)
-  return _s;
-}
-inline const std::string& SC_TradeUserResponse::_internal_sendusername() const {
-  return _impl_.sendusername_.Get();
-}
-inline void SC_TradeUserResponse::_internal_set_sendusername(const std::string& value) {
-  
-  _impl_.sendusername_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SC_TradeUserResponse::_internal_mutable_sendusername() {
-  
-  return _impl_.sendusername_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SC_TradeUserResponse::release_sendusername() {
-  // @@protoc_insertion_point(field_release:Protocol.SC_TradeUserResponse.sendUserName)
-  return _impl_.sendusername_.Release();
-}
-inline void SC_TradeUserResponse::set_allocated_sendusername(std::string* sendusername) {
-  if (sendusername != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.sendusername_.SetAllocated(sendusername, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.sendusername_.IsDefault()) {
-    _impl_.sendusername_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_TradeUserResponse.sendUserName)
 }
 
 // -------------------------------------------------------------------
@@ -2355,150 +1968,6 @@ inline void CS_TradeStartRequest::_internal_set_userseq2(int32_t value) {
 inline void CS_TradeStartRequest::set_userseq2(int32_t value) {
   _internal_set_userseq2(value);
   // @@protoc_insertion_point(field_set:Protocol.CS_TradeStartRequest.userSeq2)
-}
-
-// -------------------------------------------------------------------
-
-// SC_TradeStartResponse
-
-// int32 userSeq1 = 1;
-inline void SC_TradeStartResponse::clear_userseq1() {
-  _impl_.userseq1_ = 0;
-}
-inline int32_t SC_TradeStartResponse::_internal_userseq1() const {
-  return _impl_.userseq1_;
-}
-inline int32_t SC_TradeStartResponse::userseq1() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStartResponse.userSeq1)
-  return _internal_userseq1();
-}
-inline void SC_TradeStartResponse::_internal_set_userseq1(int32_t value) {
-  
-  _impl_.userseq1_ = value;
-}
-inline void SC_TradeStartResponse::set_userseq1(int32_t value) {
-  _internal_set_userseq1(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStartResponse.userSeq1)
-}
-
-// int32 userSeq2 = 2;
-inline void SC_TradeStartResponse::clear_userseq2() {
-  _impl_.userseq2_ = 0;
-}
-inline int32_t SC_TradeStartResponse::_internal_userseq2() const {
-  return _impl_.userseq2_;
-}
-inline int32_t SC_TradeStartResponse::userseq2() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStartResponse.userSeq2)
-  return _internal_userseq2();
-}
-inline void SC_TradeStartResponse::_internal_set_userseq2(int32_t value) {
-  
-  _impl_.userseq2_ = value;
-}
-inline void SC_TradeStartResponse::set_userseq2(int32_t value) {
-  _internal_set_userseq2(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStartResponse.userSeq2)
-}
-
-// string userName1 = 3;
-inline void SC_TradeStartResponse::clear_username1() {
-  _impl_.username1_.ClearToEmpty();
-}
-inline const std::string& SC_TradeStartResponse::username1() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStartResponse.userName1)
-  return _internal_username1();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SC_TradeStartResponse::set_username1(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.username1_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStartResponse.userName1)
-}
-inline std::string* SC_TradeStartResponse::mutable_username1() {
-  std::string* _s = _internal_mutable_username1();
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeStartResponse.userName1)
-  return _s;
-}
-inline const std::string& SC_TradeStartResponse::_internal_username1() const {
-  return _impl_.username1_.Get();
-}
-inline void SC_TradeStartResponse::_internal_set_username1(const std::string& value) {
-  
-  _impl_.username1_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SC_TradeStartResponse::_internal_mutable_username1() {
-  
-  return _impl_.username1_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SC_TradeStartResponse::release_username1() {
-  // @@protoc_insertion_point(field_release:Protocol.SC_TradeStartResponse.userName1)
-  return _impl_.username1_.Release();
-}
-inline void SC_TradeStartResponse::set_allocated_username1(std::string* username1) {
-  if (username1 != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.username1_.SetAllocated(username1, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.username1_.IsDefault()) {
-    _impl_.username1_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_TradeStartResponse.userName1)
-}
-
-// string userName2 = 4;
-inline void SC_TradeStartResponse::clear_username2() {
-  _impl_.username2_.ClearToEmpty();
-}
-inline const std::string& SC_TradeStartResponse::username2() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeStartResponse.userName2)
-  return _internal_username2();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SC_TradeStartResponse::set_username2(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.username2_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeStartResponse.userName2)
-}
-inline std::string* SC_TradeStartResponse::mutable_username2() {
-  std::string* _s = _internal_mutable_username2();
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeStartResponse.userName2)
-  return _s;
-}
-inline const std::string& SC_TradeStartResponse::_internal_username2() const {
-  return _impl_.username2_.Get();
-}
-inline void SC_TradeStartResponse::_internal_set_username2(const std::string& value) {
-  
-  _impl_.username2_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SC_TradeStartResponse::_internal_mutable_username2() {
-  
-  return _impl_.username2_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SC_TradeStartResponse::release_username2() {
-  // @@protoc_insertion_point(field_release:Protocol.SC_TradeStartResponse.userName2)
-  return _impl_.username2_.Release();
-}
-inline void SC_TradeStartResponse::set_allocated_username2(std::string* username2) {
-  if (username2 != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.username2_.SetAllocated(username2, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.username2_.IsDefault()) {
-    _impl_.username2_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_TradeStartResponse.userName2)
 }
 
 // -------------------------------------------------------------------
@@ -2655,60 +2124,6 @@ inline void CS_TradeCancelRequest::_internal_set_userseq(int32_t value) {
 inline void CS_TradeCancelRequest::set_userseq(int32_t value) {
   _internal_set_userseq(value);
   // @@protoc_insertion_point(field_set:Protocol.CS_TradeCancelRequest.userSeq)
-}
-
-// -------------------------------------------------------------------
-
-// SC_TradeCancelResponse
-
-// string cancelerName = 1;
-inline void SC_TradeCancelResponse::clear_cancelername() {
-  _impl_.cancelername_.ClearToEmpty();
-}
-inline const std::string& SC_TradeCancelResponse::cancelername() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_TradeCancelResponse.cancelerName)
-  return _internal_cancelername();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SC_TradeCancelResponse::set_cancelername(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.cancelername_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.SC_TradeCancelResponse.cancelerName)
-}
-inline std::string* SC_TradeCancelResponse::mutable_cancelername() {
-  std::string* _s = _internal_mutable_cancelername();
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_TradeCancelResponse.cancelerName)
-  return _s;
-}
-inline const std::string& SC_TradeCancelResponse::_internal_cancelername() const {
-  return _impl_.cancelername_.Get();
-}
-inline void SC_TradeCancelResponse::_internal_set_cancelername(const std::string& value) {
-  
-  _impl_.cancelername_.Set(value, GetArenaForAllocation());
-}
-inline std::string* SC_TradeCancelResponse::_internal_mutable_cancelername() {
-  
-  return _impl_.cancelername_.Mutable(GetArenaForAllocation());
-}
-inline std::string* SC_TradeCancelResponse::release_cancelername() {
-  // @@protoc_insertion_point(field_release:Protocol.SC_TradeCancelResponse.cancelerName)
-  return _impl_.cancelername_.Release();
-}
-inline void SC_TradeCancelResponse::set_allocated_cancelername(std::string* cancelername) {
-  if (cancelername != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.cancelername_.SetAllocated(cancelername, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.cancelername_.IsDefault()) {
-    _impl_.cancelername_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_TradeCancelResponse.cancelerName)
 }
 
 // -------------------------------------------------------------------
@@ -2953,10 +2368,6 @@ inline void SC_TradeStateResponse::set_lockstate2(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

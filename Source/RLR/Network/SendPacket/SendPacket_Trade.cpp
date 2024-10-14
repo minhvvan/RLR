@@ -3,8 +3,9 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/GameManager.h"
-
 #include "Structs/ItemStructs.h"
+#include "GameManager/LevelManager.h"
+#include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 #include "Network/LoadBalancerClient.h"
 #include <Networking.h>
@@ -14,7 +15,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "Network/Proto/Item.pb.h"
 #include "Network/Proto/Trade.pb.h"
-
+#include "Network/Proto/Skill.pb.h"
 
 /*
 	Trade 관련 패킷.

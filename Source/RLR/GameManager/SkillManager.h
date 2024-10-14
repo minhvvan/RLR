@@ -28,6 +28,7 @@ public:
 
 public:
 	void Init();
+	void SkillStart(FGameplayTag TriggerTag);
 	void SkillAttack(FGameplayTag TriggerTag);
 	void SkillComplete(FGameplayTag TriggerTag);
 	

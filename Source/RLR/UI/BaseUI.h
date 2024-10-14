@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/ItemStructs.h"
 #include "BaseUI.generated.h"
 
 /**
@@ -18,6 +19,7 @@
  class UPlayerManager;
  class USkillManager;
  class UDataManager;
+ class UPartyManager;
  class UInventoryManager;
 
 UCLASS()
@@ -63,6 +65,7 @@ public:
 	USkillManager*		GetSkillManager();
 	UInventoryManager*	GetInventoryManager();
 	UDataManager*		GetDataManager();
+	UPartyManager*		GetPartyManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)

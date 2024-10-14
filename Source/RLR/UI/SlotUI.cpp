@@ -41,10 +41,10 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	}
 	DraggedWidget = CreateWidget<UDraggableWidget>(this, DefaultDraggableWidgetClass);
 
-	if(IsValid(GetItemData().ItemImage) == true)
-		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemData().ItemImage);
-	else if(IsValid(GetSkillData().SkillImage) == true)
-		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillData().SkillImage);
+	if(IsValid(GetItemResourceData().ItemImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemResourceData().ItemImage);
+	else if(IsValid(GetSkillClassData().SkillImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillClassData().SkillImage);
 	else
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	/*
@@ -63,6 +63,7 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	CopyOperation->Pivot = EDragPivot::MouseDown;
 	CopyOperation->DragOffset = DragOffset;
 	CopyOperation->SetItemData(GetItemData());
+	CopyOperation->SetItemResourceData(GetItemResourceData());
 	CopyOperation->SetSkillData(GetSkillData());
 	CopyOperation->SetMaster(this);
 	CopyOperation->DragedSlotType = GetSlotType();
@@ -176,6 +177,27 @@ const FItemData& USlotUI::GetItemData()
 	return FItemData::EmptyItemData;
 }
 
+void USlotUI::SetSlotItemResourceData(const FItemResource& NewResourceData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetItemResourceData(NewResourceData);
+	}
+	RefreshUI();
+}
+
+const FItemResource& USlotUI::GetItemResourceData()
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetItemResource();
+	}
+	return FItemResource::EmptyItemResource;
+}
+
 void USlotUI::SetSkillData(FSkillData NewSkillData)
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
@@ -197,6 +219,27 @@ const FSkillData& USlotUI::GetSkillData()
 	}
 
 	return FSkillData::EmptySkillData;
+}
+
+void USlotUI::SetSkillClassData(FSkillClass NewSkillClassData)
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+	if (IsValid(SlotData) == true)
+	{
+		SlotData->SetSkillClassData(NewSkillClassData);
+	}
+	RefreshUI();
+}
+
+const FSkillClass& USlotUI::GetSkillClassData()
+{
+	UBaseDragDropOperation* SlotData = GetSlotData();
+
+	if (IsValid(SlotData) == true)
+	{
+		return SlotData->GetSkillClassData();
+	}
+	return FSkillClass::EmptySkillClass;
 }
 
 TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)

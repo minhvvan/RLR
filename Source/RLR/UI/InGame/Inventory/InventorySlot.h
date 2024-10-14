@@ -43,7 +43,7 @@ public:
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	virtual void	Clear();
-
+	void CancelSale();
 public:
 
 	/*

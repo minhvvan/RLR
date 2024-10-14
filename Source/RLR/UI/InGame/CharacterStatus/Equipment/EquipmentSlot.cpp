@@ -39,7 +39,7 @@ void UEquipmentSlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	UTexture2D* Texture = GetItemData().ItemImage;
+	UTexture2D* Texture = GetItemResourceData().ItemImage;
 	if (IsValid(Texture) == false)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventorySlot::SetItemData Error. 텍스쳐 정보가 없습니다."));
@@ -67,13 +67,12 @@ void UEquipmentSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 	if (IsEmpty() == true)
 		return;
 
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (!GM) return;
-
-	UUIManager* UIManager = GM->GetUIManager();
+	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->CloseSubUI(EUIType::ITEM_INFOMATION);
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+
+	UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
 }
 
 FReply UEquipmentSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

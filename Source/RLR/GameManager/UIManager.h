@@ -6,7 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Network/Proto/Packet.pb.h"
 #include "RLRStruct.h"
-
+#include "Structs/ItemStructs.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
@@ -38,10 +38,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	UBaseUI* OpenUI(EUIType UIType);
 	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
-	void CloseSubUI(EUIType SubUIType);
 	void SetZOrderToTop(USubUI* Target);
 
-	void CloseFrontSubUI ();
+	void CloseFrontSubUI();
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();
@@ -49,8 +48,12 @@ public:
 	void AddUI(UBaseUI* BaseUI);
 
 	void ToggleSubUI(FGameplayTag UITag);
+	void OpenSubUI(FGameplayTag UITag);
+	void CloseSubUI(FGameplayTag UITag);
+	USubUI* GetSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
+	void SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos);
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
@@ -58,7 +61,7 @@ public:
 
 public:
 
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
 protected:

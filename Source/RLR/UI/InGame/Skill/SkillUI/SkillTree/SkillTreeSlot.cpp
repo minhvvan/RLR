@@ -80,4 +80,5 @@ void USkillTreeSlot::RefreshUI()
 void USkillTreeSlot::SetLearned(bool Value)
 {
 	IsLearned = Value;
+	SetSlotImage(GetSkillClassData().SkillImage);
 }

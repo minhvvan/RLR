@@ -13,6 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestDialogueBegin);
 class UButton;
 class UTextBlock;
 class UQuestDialogue;
+class UPostOverlayUI;
 class UNPCShopUI;
 class UCanvasPanel;
 class UNPCShopUI;
@@ -34,6 +35,8 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnQuest;
+	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
+	TObjectPtr<UButton> PostButton;
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UButton> BtnShop;	
@@ -53,9 +56,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UItemInformation> ItemInformationUI;
 
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	TObjectPtr<UPostOverlayUI> PostOverlayUI;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
-
 
 protected:
 	virtual void NativeConstruct();
@@ -70,7 +75,7 @@ public:
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
 
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
 protected:
@@ -83,10 +88,13 @@ protected:
 	UFUNCTION()
 	void OnShopClicked();
 
+	UFUNCTION()
+	void OnPostClicked();
 
 private:
 	int32 CurrentNPCSeq;
 	int32 CurrentQuestSeq;
 
 	bool bOpenShop;
+	bool bOpenPost;
 };

@@ -48,12 +48,13 @@ void UNPCSaleTab::OnSellClicked()
 void UNPCSaleTab::OnEmptyClicked()
 {
 	Cart.Empty();
+	CartResources.Empty();
 	SellPrice = 0;
 	UpdatePrice();
 	UpdatePage();
 }
 
-void UNPCSaleTab::AddToCart(const FItemData& item)
+void UNPCSaleTab::AddToCart(const FItemData& item, const FItemResource& itemResource)
 {
 	if (Cart.Num() == MaxCartNum) return;
 
@@ -67,6 +68,7 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
+			entry->SetSlotItemResourceData(CartResources[i]);
 			entry->SetItemAmountShow(true);
 			SellPrice += item.SALE_PRICE * item.ITEM_VALUE;
 			UpdatePage();
@@ -79,16 +81,19 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 	if (!entry) return;
 
 	Cart.Add(item);
+	CartResources.Add(itemResource);
 	SellPrice += item.SALE_PRICE * item.ITEM_VALUE;
 	UpdatePage();
 	UpdatePrice();
 	entry->SetItemData(item);
+	entry->SetSlotItemResourceData(itemResource);
 	entry->SetItemAmountShow(true);
 }
 
-void UNPCSaleTab::RemoveFromCart(const FItemData& item)
+void UNPCSaleTab::RemoveFromCart(const FItemData& item, const FItemResource& itemResource)
 {
 	Cart.Remove(item);
+	CartResources.Remove(itemResource);
 	SellPrice -= item.ITEM_VALUE * item.SALE_PRICE;
 	UpdatePrice();
 }
@@ -106,6 +111,7 @@ void UNPCSaleTab::UpdatePage()
 	{
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
 		itemWidget->SetItemData(Cart[i]);
+		itemWidget->SetSlotItemResourceData(CartResources[i]);
 		itemWidget->SetParent(this);
 		TVItem->AddItem(itemWidget);
 	}
@@ -114,6 +120,7 @@ void UNPCSaleTab::UpdatePage()
 	{
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
 		itemWidget->SetItemData(FItemData::EmptyItemData);
+		itemWidget->SetSlotItemResourceData(FItemResource::EmptyItemResource);
 		itemWidget->SetParent(this);
 		TVItem->AddItem(itemWidget);
 	}

@@ -16,6 +16,10 @@
 #include "Network/Proto/Lobby.pb.h"
 #include "Network/Proto/Shop.pb.h"
 #include "Network/Proto/Dungeon.pb.h"
+#include "Network/Proto/Action.pb.h"
+#include "Network/Proto/Post.pb.h"
+#include "Network/Proto/Trade.pb.h"
+#include "Network/Proto/Friend.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -70,7 +74,8 @@ enum : uint16
     PKT_ITEM_ADD_RESPONSE = 1402,
     PKT_ITEM_USE_REQUEST = 1403,
     PKT_ITEM_USE_RESPONSE = 1404,
-
+    PKT_ITEM_QUICK_CHANGE_REQUEST = 1405,
+    PKT_ITEM_QUICK_CHANGE_RESPONSE = 1406,
     PKT_ADD_ITEM_REQUEST = 1411,
     PKT_ADD_ITEM_RESPONSE = 1412,
     PKT_SHOP_BUY_REQUEST = 1421,
@@ -112,22 +117,97 @@ enum : uint16
     PKT_CREATE_PARTY_RESPONSE = 1702,
     PKT_JOIN_PARTY_REQUEST = 1711,
     PKT_JOIN_PARTY_RESPONSE = 1712,
+    PKT_REQUEST_PARTY_REQUEST = 1713,
+    PKT_REQUEST_PARTY_RESPONSE = 1714,
     PKT_LEAVE_PARTY_REQUEST = 1721,
     PKT_LEAVE_PARTY_RESPONSE = 1722,
+    PKT_EXILE_PARTY_REQUEST = 1723,
+    PKT_EXILE_PARTY_RESPONSE = 1724,
     PKT_PARTY_STATUS_UPDATE = 1731,
     PKT_PARTY_MAP_INFO_REQUEST = 1741,
-    // Add Good packet types
-    PKT_GOOD_USER_REQUEST = 1801,
-    PKT_GOOD_PLAYER_REQUEST = 1811,
-
-    PKT_GOOD_USER_RESPONSE = 1802,
-    PKT_GOOD_PLAYER_RESPONSE = 1812,
+    // Add friend packet types
+    PKT_FRIEND_INFO_REQUEST = 1751,
+    PKT_FRIEND_INFO_RESPONSE = 1752,
+    PKT_FRIEND_CONNECT_REQUEST = 1753,
+    PKT_FRIEND_CONNECT_RESPONSE = 1754,
+    PKT_ADD_FRIEND_REQUEST = 1761,
+    PKT_ADD_FRIEND_RESPONSE = 1762,
+    PKT_REMOVE_FRIEND_REQUEST = 1763,
+    PKT_REMOVE_FRIEND_RESPONSE = 1764,
+    PKT_CREATE_FRIEND_GROUP_REQUEST = 1771,
+    PKT_CREATE_FRIEND_GROUP_RESPONSE = 1772,
+    PKT_REMOVE_FRIEND_GROUP_REQUEST = 1773,
+    PKT_REMOVE_FRIEND_GROUP_RESPONSE = 1774,
+    PKT_MOVE_FRIEND_IN_GROUP_REQUEST = 1781,
+    PKT_MOVE_FRIEND_IN_GROUP_RESPONSE = 1782,
+    PKT_MOVE_FRIEND_GROUP_REQUEST = 1783,
+    PKT_MOVE_FRIEND_GROUP_RESPONSE = 1784,
+    // Add Guild packet types
+    PKT_GUILD_INFO_REQUEST = 1801,
+    PKT_GUILD_INFO_RESPONSE = 1802,
+    PKT_ADD_GUILD_REQUEST = 1803,
+    PKT_ADD_GUILD_RESPONSE = 1804,
+    PKT_REMOVE_GUILD_REQUEST = 1805,
+    PKT_REMOVE_GUILD_RESPONSE = 1806,
+    PKT_CREATE_GUILD_REQUEST = 1807,
+    PKT_CREATE_GUILD_RESPONSE = 1808,
+    PKT_DELETE_GUILD_REQUEST = 1809,
+    PKT_DELETE_GUILD_RESPONSE = 1810,
+    PKT_CHANGE_NAME_GUILD_REQUEST = 1811,
+    PKT_CHANGE_NAME_GUILD_RESPONSE = 1812,
+    PKT_CHANGE_RANK_GUILD_REQUEST = 1813,
+    PKT_CHANGE_RANK_GUILD_RESPONSE = 1814,
+    PKT_GUILD_CONNECT_RESPONSE = 1815,
     // Add Cheat Packet types
     PKT_CHEAT_ITEM_REQUEST = 1901,
     PKT_CHEAT_SKILL_REQUEST = 1902,
     PKT_CHEAT_MONSTER_REQUEST = 1903,
 
-    PKT_MATCH_MAKING_REQUEST = 2001
+    PKT_MATCH_MAKING_REQUEST = 2001,
+
+    // Action
+    PKT_ACTION_REQUEST = 2101,
+    PKT_ACTION_RESPONSE = 2102,
+    // Add Post Packet types
+    PKT_POST_SEND_REQUEST = 3001,
+    PKT_POST_SEND_RESPONSE = 3002,
+
+    PKT_POST_READ_REQUEST = 3003,
+    PKT_POST_READ_RESPONSE = 3004,
+
+    PKT_POST_RECEIVED_REQUEST = 3005,
+    PKT_POST_RECEIVED_RESPONSE = 3006,
+    PKT_POST_GET_REQUEST = 3007,
+    PKT_POST_GET_RESPONSE = 3008,
+    PKT_POST_REMOVE_REQUEST = 3009,
+    // Add Trade Packet types
+    PKT_TRADE_USER_REQUEST = 3011,
+    PKT_TRADE_USER_RESPONSE = 3012,
+
+    PKT_TRADE_START_REQUEST = 3013,
+    PKT_TRADE_START_RESPONSE = 3014,
+
+    PKT_TRADE_ADD_ITEM_REQUEST = 3015,
+    PKT_TRADE_ADD_GOOD_REQUEST = 3016,
+
+    PKT_TRADE_STATE_RESPONSE = 3017,
+    PKT_TRADE_COMPLETE_RESPONSE = 3018,
+
+    PKT_TRADE_LOCK_REQUEST = 3021,
+    PKT_TRADE_LOCK_RESPONSE = 3022,
+
+    PKT_TRADE_SUCCESS_REQUEST = 3023,
+    PKT_TRADE_SUCCESS_RESPONSE = 3024,
+
+    PKT_TRADE_CANCEL_REQUEST = 3025,
+    PKT_TRADE_CANCEL_RESPONSE = 3026,
+
+    // Add Good packet types
+    PKT_GOOD_USER_REQUEST = 4001,
+    PKT_GOOD_USER_RESPONSE = 4002,
+    PKT_GOOD_PLAYER_REQUEST = 4003,
+    PKT_GOOD_PLAYER_RESPONSE = 4004,
+
 };
 
 // Custom Handlers
@@ -190,12 +270,29 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ExilePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_EXILE_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RequestPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_REQUEST_PARTY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ActionRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ACTION_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemovePostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_REMOVE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeStartRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_START_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeUserRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_USER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeLockRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_LOCK_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_CANCEL_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_GOOD_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_FriendInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_FRIEND_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_FRIEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendInGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_IN_GROUP_REQUEST); }
 
-    
-
-
-
-public:
+  public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
     {
@@ -222,3 +319,4 @@ public:
         return sendBuffer;
     }
 };
+

@@ -17,6 +17,9 @@
 #include "CommunityPacketHandler.h"
 #include "ActionPacketHandler.h"
 #include "PartyPacketHandler.h"
+#include "TradePacketHandler.h"
+#include "PostPacketHandler.h"
+#include "FriendPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -182,6 +185,39 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_JoinPartyResponse>(&Handle_JOIN_PARTY_RESP0NSE, session, buffer, len);
         };
+    GPacketHandler[PKT_ACTION_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+    {
+        return instance.HandlePacket<Protocol::SC_ActionBroadcastPacket>(&Handle_ACTION_BROADCAST, session, buffer, len);
+    };
+    GPacketHandler[PKT_POST_SEND_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PostSendResponse>(&Handle_POST_SEND_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_POST_GET_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PostGetResponse>(&Handle_POST_GET_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_USER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeUserResponse>(&Handle_TRADE_USER_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_STATE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeStateResponse>(&Handle_TRADE_STATE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_TRADE_COMPLETE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeCompleteResponse>(&Handle_TRADE_COMPLETE_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_FRIEND_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_FriendInfoResponse>(&Handle_INFO_FRIEND_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_FRIEND_CONNECT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_FriendConnectResponse>(&Handle_FRIEND_CONNECT_RESPONSE, session, buffer, len);
+        };
+
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
