@@ -13,7 +13,10 @@
 #include "GameManager/PartyManager.h"
 #include "Structs/UtilStructs.h"
 
+#include "Components/Widget.h"
+#include "Components/PanelWidget.h"
 #include "ActionSystem/ActionSystemInterface.h"
+#include "Blueprint/WidgetTree.h"
 
 void UBaseUI::NativeOnInitialized()
 {
@@ -25,6 +28,7 @@ void UBaseUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 	Init();
+	BindWidget();
 }
 
 void UBaseUI::OpenUI()
@@ -38,6 +42,20 @@ void UBaseUI::CloseUI()
 	SetVisibility(ESlateVisibility::Hidden);
 }
 
+void UBaseUI::BindWidget()
+{
+	TArray<UWidget*> Array;
+	WidgetTree->GetAllWidgets(Array);
+
+	for (auto Widget : Array)
+	{
+		if (UBaseUI* Child = Cast<UBaseUI>(Widget))
+		{
+			Child->SetParent(this);
+		}
+	}
+}
+
 void UBaseUI::SetUIType(EUIType Type)
 {
 	UIType = Type;
@@ -48,13 +66,7 @@ UBaseUI* UBaseUI::GetParent()
 {
 	if (IsValid(Parent) == false)
 	{
-		UBaseUI* MainUI = GetUIManager()->GetMainUI();
-		if (IsValid(MainUI) == false)
-		{
-			DEBUG_LOG("UBaseUI::GetParent Error");
-			return nullptr;
-		}
-		Parent = MainUI;
+		Parent = GetUIManager()->GetMainUI();
 	}
 	return Parent;
 }

@@ -9,6 +9,7 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/InventoryManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
@@ -252,10 +253,10 @@ void ARLRPlayerController::OnConsumeItem(int inputID)
 
 void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 {
-	USkillManager* SkillManager = GameInstance->GetSkillManager();
-	if (SkillManager == nullptr) return;
+	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
+	if (InventoryManager == nullptr) return;
 
-	SkillManager->UsingItem(InputTag);	
+	InventoryManager->UsingItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)

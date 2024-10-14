@@ -26,6 +26,7 @@
 #include "UI/Lobby/LobbyMainUI.h"
 #include "UI/Title/TitleMainUI.h"
 #include "UI/Title/ServerListElement.h"
+#include "UI/InGame/Trade/TradeUI.h"
 
 void UUtilBlueprintFunctionLibrary::DebugLog(FString string)
 {
@@ -148,7 +149,7 @@ void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
 		TestArray.Add(Data);
 	}
 
-	GameInstance->GetSkillManager()->SetSelectedItems(TestArray);
+	GameInstance->GetInventoryManager()->SetSelectedItems(TestArray);
 }
 
 void UUtilBlueprintFunctionLibrary::TestServerList()

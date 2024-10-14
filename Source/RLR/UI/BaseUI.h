@@ -35,6 +35,7 @@ public:
 	virtual void OpenUI();
 	virtual void Clear(){};
 	virtual void CloseUI();
+	virtual void BindWidget();
 
 	void		SetUIType(EUIType Type);
 	EUIType		GetUIType() {return UIType;}
@@ -54,6 +55,7 @@ public:
 	void UnHighlight();
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EUIType	UIType;
 
 	UUIManager*			GetUIManager();
@@ -75,10 +77,20 @@ public:
 
 	template<typename T>
 	TSubclassOf<T> GetWidgetClass(FString Name);
+
+	template<typename T>
+	T* OpenOtherUI(EUIType Type);
+
 };
 
 template<typename T>
 inline TSubclassOf<T> UBaseUI::GetWidgetClass(FString Name)
 {
 	return GetGameManager()->GetDataManager()->GetWidgetClass<T>(Name);
+}
+
+template<typename T>
+inline T* UBaseUI::OpenOtherUI(EUIType Type)
+{
+	return Cast<T>(GetUIManager()->OpenUI(Type));
 }

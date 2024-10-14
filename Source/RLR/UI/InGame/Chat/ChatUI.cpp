@@ -41,6 +41,9 @@ void UChatUI::NativeConstruct()
 	}
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AChatClient::StaticClass(), FoundActors );
+	
+	if(FoundActors.Num() <= 0)
+		return;
 
 	AChatClient* client = Cast<AChatClient>(FoundActors[0]);
 	SetChatClient(client);

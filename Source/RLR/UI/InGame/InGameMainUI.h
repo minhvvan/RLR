@@ -32,6 +32,9 @@
  class UOtherPlayerMenu;
  class UReportUI;
  class UCanvasPanel;
+ class UTradeUI;
+ class UItemCountMessageBox;
+ class UNotificationMessageBox;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -58,6 +61,7 @@ public:
 	USkillUI*			GetSkillUI(){return SkillUI;}
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
+	UTradeUI*			GetTradeUI() {return TradeUI;}
 	UPostOverlayUI*		GetPostOverlayUI() {return PostOverlayUI;}
 	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	
@@ -102,6 +106,18 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UQuestListUI> QuestListUI;	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UTradeUI> TradeUI;
+
+public:
+	
+	//Popup
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UItemCountMessageBox> ItemCountMessageBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UNotificationMessageBox> NotificationMessageBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostOverlayUI> PostOverlayUI;	

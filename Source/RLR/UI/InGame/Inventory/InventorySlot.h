@@ -52,6 +52,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
+
+	/*
+		아이템 이미지 구하기 전까지 그냥 아이템 이름을 출력하려고 만든 녀석.
+	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> ItemNameText;
 

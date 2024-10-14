@@ -33,6 +33,7 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 
     ITEM_VALUE = itemData.itemvalue();
     ITEM_MAX = itemData.itemmax();
+    //QUANTITY = itemData.quantity();
 
     if (itemData.has_equip()) {
         auto equipData = itemData.equip();

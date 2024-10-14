@@ -30,6 +30,8 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	//비어있는 슬롯은 옮기지 않는다.
 	if (IsEmpty())
 		return;
+	if(bCanDrag == false)
+		return;
 
 	TSubclassOf<UDraggableWidget> DefaultDraggableWidgetClass = GetDraggableWidgetClass();
 	if (IsValid(DefaultDraggableWidgetClass) == false)
@@ -79,6 +81,9 @@ bool USlotUI::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& In
 		return false;
 
 	if (Operation->Master == this)
+		return false;
+
+	if(bCanDrag == false)
 		return false;
 
 	return true;
