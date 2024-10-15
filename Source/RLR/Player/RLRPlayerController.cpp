@@ -221,6 +221,15 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
+
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
+	ASC->AddActionData(TriggerTag, actionData);
+
 	SkillManager->SkillStart(TriggerTag);
 	
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
