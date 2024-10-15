@@ -41,19 +41,13 @@ bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         return false;
     }
     TArray<FItemData> itemDatas;
-    TArray<FItemResource> itemResources;
     for (int32 i = 0; i < pkt.items_size(); i++) {
         FItemData itemData;
         itemData.MakeItemData(pkt.items().at(i));
         itemDatas.Add(itemData);
-
-        FItemResource itemResource;
-        itemResource.MakeItemResource(pkt.items().at(i));
-        itemResources.Add(itemResource);
     }
 
-    //GameInstance->GetInventoryManager()->GetItemList(itemDatas);
-    GameInstance->GetInventoryManager()->AddItemList(itemDatas, itemResources);
+    GameInstance->GetInventoryManager()->AddItemList(itemDatas);
     return true;
 }
 bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_StatusResponsePacket& pkt) {

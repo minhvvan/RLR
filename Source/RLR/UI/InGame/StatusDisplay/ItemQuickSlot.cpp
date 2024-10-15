@@ -86,14 +86,12 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if(Operation->DragedSlotType == ESlotType::INVENTORY_SLOT)
 	{ 
 		SetItemData(Operation->ItemData);
-		SetSlotItemResourceData(Operation->ItemResourceData);
 	}
 	//다른 퀙 슬롯에서 가져온 거면, 가져왔던 퀵 슬롯을 비워준다.
 	else if(Operation->DragedSlotType == ESlotType::ITEM_QUICK_SLOT)
 	{
 		Operation->Master->Clear();
 		SetItemData(Operation->ItemData);
-		SetSlotItemResourceData(Operation->ItemResourceData);
 	}
 
 	/*

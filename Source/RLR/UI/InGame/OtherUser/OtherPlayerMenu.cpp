@@ -21,13 +21,13 @@ void UOtherPlayerMenu::NativeConstruct()
 
 	SetUIType(EUIType::OTHER_PLAYER_MENU);
 
-	BtnUserInfo->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
-	BtnAddFriend->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
-	BtnAddParty->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);
-	BtnTrade->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnTradeClicked);
-	BtnWhisper->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnWhisperClicked);
-	BtnReport->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnReportClicked);
-	BtnCancel->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnCancelClicked);
+	BtnUserInfo->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
+	BtnAddFriend->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
+	BtnAddParty->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);
+	BtnTrade->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnTradeClicked);
+	BtnWhisper->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnWhisperClicked);
+	BtnReport->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnReportClicked);
+	BtnCancel->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnCancelClicked);
 }
 
 void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
@@ -76,7 +76,7 @@ void UOtherPlayerMenu::OnTradeClicked()
 {
 	//TODO: 구체적인 구현 내용이 나오면 처리
 	if (!OtherUserData.IsValid()) return;
-	GetNetworkManager()->SendTradeStartRequest(OtherUserData->UserSeq);
+	GetNetworkManager()->SendTradeStartReqeust(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 

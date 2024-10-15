@@ -23,7 +23,6 @@ void UNPCShopItemSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 	{
 		SetParent(itemSlot->GetParentUI());
 		SetItemData(const_cast<FItemData&>(itemSlot->GetItemData()));
-		SetSlotItemResourceData(const_cast<FItemResource&>(itemSlot->GetItemResourceData()));
 		RefreshUI();
 	}
 }
@@ -38,7 +37,7 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 		{
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
-				Cast<UNPCPurchaseTab>(ParentUI)->OpenBundlePurchase(GetItemData(), GetItemResourceData());
+				Cast<UNPCPurchaseTab>(ParentUI)->OpenBundlePurchase(GetItemData());
 			}
 		}
 		else
@@ -46,18 +45,16 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
 				FItemData item(GetItemData());
-				FItemResource itemResource(GetItemResourceData());
 				item.ITEM_VALUE = 1;
-				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item, itemResource);
+				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item);
 			}
 			else if (ParentUI->IsA(UNPCSaleTab::StaticClass()))
 			{
-				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData(), GetItemResourceData());
+				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData());
 				auto UIManager = GetUIManager();
 				if (!UIManager) return result;
 				UIManager->RemoveSaleItem(GetItemData());
 				SetItemData(FItemData::EmptyItemData);
-				SetSlotItemResourceData(FItemResource::EmptyItemResource);
 				RefreshUI();
 			}
 		}

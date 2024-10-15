@@ -182,6 +182,11 @@ Protocol::Equip FItemData::MakeEquipPacket()
     return EquipData;
 }
 
+FItemResource FItemData::GetItemResource()
+{
+    return GameInstance->GetDataManager()->GetItemResource(ITEM_SEQ);
+}
+
 void FPlayerGoods::MakePlayerGoods(const Protocol::PlayerGood playerGood)
 {
     //TODO: PlayerGoods 생성

@@ -61,15 +61,15 @@ protected:
 
 public:
 	virtual void NativeConstruct() override;
-	void SetItemList(const TArray<FItemData>* ItemData, const TArray<FItemResource>* ItemResourceData);
+	void SetItemList(const TArray<FItemData>* ItemData);
 
 	UFUNCTION()
-	void AddToCart(const FItemData& item, const FItemResource& itemResource);
+	void AddToCart(const FItemData& item);
 
 	UFUNCTION()
-	void RemoveFromCart(const FItemData& item, const FItemResource& itemResource);
+	void RemoveFromCart(const FItemData& item);
 
-	void OpenBundlePurchase(const FItemData& item, const FItemResource& itemResource);
+	void OpenBundlePurchase(const FItemData& item);
 
 protected:
 	UFUNCTION()
@@ -106,8 +106,6 @@ protected:
 
 	TArray<FItemData> Items;
 	TArray<FItemData> Cart;
-	TArray<FItemResource> ItemResources;
-	TArray<FItemResource> CartResources;
 
 	int PurchasePrice = 0;
 };

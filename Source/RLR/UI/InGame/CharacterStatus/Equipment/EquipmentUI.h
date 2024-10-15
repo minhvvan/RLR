@@ -26,7 +26,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
-	void				EquipItem(FItemData ItemData, FItemResource ItemResourceData);
+	void EquipItem(FItemData ItemData);
 
 	UFUNCTION()
 	void ToggleShowDetailStatUI();

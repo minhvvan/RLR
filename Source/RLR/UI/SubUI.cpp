@@ -40,11 +40,15 @@ void USubUI::CloseUI()
 {
 	if (GetUIType() == EUIType::NONE)
 	{
-		SetVisibility(ESlateVisibility::Visible);
+		SetVisibility(ESlateVisibility::Hidden);
 	}
 	else
 	{
-		GetUIManager()->CloseSubUI(GetUIType());
+		UDialogueUI* Dialogue = GetUIManager()->GetDialogue();
+		if(Dialogue == nullptr)
+			GetUIManager()->CloseSubUI(GetUIType());
+		else
+			SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 

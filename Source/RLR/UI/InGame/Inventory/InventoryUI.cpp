@@ -85,15 +85,6 @@ void UInventoryUI::RefreshUI()
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
 	TArray<FItemData> ItemList;
 	InventoryManager->GetItemList(ItemList);
-	TArray<FItemResource> ItemResourceList;
-	InventoryManager->GetItemResourceList(ItemResourceList);
-
-	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
-	TMap<int32, FItemResource> ItemResourceMap;
-	for (const FItemResource& ItemResource : ItemResourceList)
-	{
-		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
-	}
 
 	int32 ItemCount = 0;
 	for (FItemData& ItemData : ItemList)
@@ -111,12 +102,6 @@ void UInventoryUI::RefreshUI()
 		if(ItemSlotIndex >= MaxInventorySlotCount || ItemSlotIndex < 0 )
 			continue;
 		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
-
-		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
-		if (FoundItemResource)
-		{
-			InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetSlotItemResourceData(*FoundItemResource);
-		}
 	}
 }
 
@@ -149,16 +134,6 @@ void UInventoryUI::ShowItemsByType(EItemType ItemType)
 	if (IsValid(InventoryManager) == false)
 		return;
 	InventoryManager->GetItemList(ItemList);
-	
-	TArray<FItemResource> ItemResourceList;
-	InventoryManager->GetItemResourceList(ItemResourceList);
-
-	// ItemResource를 ITEM_SEQ로 빠르게 찾기 위한 맵 생성
-	TMap<int32, FItemResource> ItemResourceMap;
-	for (const FItemResource& ItemResource : ItemResourceList)
-	{
-		ItemResourceMap.Add(ItemResource.ITEM_SEQ, ItemResource);
-	}
 
 	int32 ItemCount = 0;
 	for (FItemData ItemData : ItemList)
@@ -174,12 +149,6 @@ void UInventoryUI::ShowItemsByType(EItemType ItemType)
 			break;
 		}
 		InventorySlotList[ItemCount]->SetItemData(ItemData);
-
-		const FItemResource* FoundItemResource = ItemResourceMap.Find(ItemData.ITEM_SEQ);
-		if (FoundItemResource)
-		{
-			InventorySlotList[ItemCount++]->SetSlotItemResourceData(*FoundItemResource);
-		}
 	}
 }
 

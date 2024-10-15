@@ -20,14 +20,13 @@ void UNPCShopUI::NativeConstruct()
 	OnPurchaseClicked();
 }
 
-void UNPCShopUI::SetItemData(const TArray<FItemData>& Items, const TArray<FItemResource>& ItemResources)
+void UNPCShopUI::SetItemData(const TArray<FItemData>& Items)
 {
 	ItemData = MakeShared<TArray<FItemData>>(Items);
-	ItemResourceData = MakeShared<TArray<FItemResource>>(ItemResources);
 
 	auto purchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
 	if (!purchaseTab) return;
-	purchaseTab->SetItemList(ItemData.Get(), ItemResourceData.Get());
+	purchaseTab->SetItemList(ItemData.Get());
 }
 
 void UNPCShopUI::SetShopData(FNPCShop& Data)
@@ -51,7 +50,7 @@ void UNPCShopUI::AddSaleItem(const FItemData& Item, const FItemResource& ItemRes
 	auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
 	if(!saleTab) return;
 
-	saleTab->AddToCart(Item, ItemResource);
+	saleTab->AddToCart(Item);
 }
 
 void UNPCShopUI::OnPurchaseClicked()

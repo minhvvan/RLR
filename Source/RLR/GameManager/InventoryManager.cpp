@@ -36,11 +36,11 @@ void UInventoryManager::AddItem(const FItemData& NewItem)
 		return;
 	}
 	
-	ItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+	InventoryItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList, const TArray<FItemResource>& NewItemResourceList)
+void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList)
 {
 	for (const FItemData& NewItem : NewItemList)
 	{
@@ -49,118 +49,78 @@ void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList, const 
 			DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 			return;
 		}
-		ItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+		InventoryItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
 	}
-
-	AddItemResourceList(NewItemResourceList);
-
 	OnUpdateInventoryDelegateBroadcast();
-}
-
-void UInventoryManager::AddItemResourceList(const TArray<FItemResource>& NewItemResourceList)
-{
-	for (const FItemResource& NewItemResource : NewItemResourceList)
-	{
-		if (NewItemResource.ITEM_SEQ == -1)
-		{
-			DEBUG_LOG("Add Item Resource Warning Message. NewItemResource is invalid.");
-			continue;
-		}
-		ItemResourceData.Add(NewItemResource.ITEM_SEQ, NewItemResource);
-	}
-}
-
-
-const FItemResource UInventoryManager::GetItemResource(int32 ItemSeq) const
-{
-	if (ItemResourceData.Contains(ItemSeq))
-	{
-		return ItemResourceData[ItemSeq];
-	}
-	return FItemResource::EmptyItemResource;
-}
-
-bool UInventoryManager::TryGetItemResource(int32 ItemSeq, FItemResource& OutItemResource) const
-{
-	if (ItemResourceData.Contains(ItemSeq))
-	{
-		OutItemResource = ItemResourceData[ItemSeq];
-		return true;
-	}
-	OutItemResource = FItemResource::EmptyItemResource;
-	return false;
 }
 
 FItemData UInventoryManager::GetItem(int32 Id)
 {
-	if (ItemData.Contains(Id))
+	if (InventoryItemData.Contains(Id))
 	{
-		return ItemData[Id];
+		return InventoryItemData[Id];
 	}
 	return FItemData::EmptyItemData;
 }
 
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
 {
-	ItemData.GenerateValueArray(ItemArray);
+	InventoryItemData.GenerateValueArray(ItemArray);
 }
 void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
-	ItemData.Empty();
+	InventoryItemData.Empty();
 
 	for (const FItemData& Item : ItemArray)
 	{
-		ItemData.Add(Item.ITEM_SEQ, Item);
+		InventoryItemData.Add(Item.ITEM_SEQ, Item);
 	}
 
 	Update();
-
 }
 
 void UInventoryManager::RemoveItem(int32 Id)
 {
-	if (ItemData.Contains(Id))
+	if (InventoryItemData.Contains(Id))
 	{
 		FItemData RemoveItem;
-		ItemData.RemoveAndCopyValue(Id, RemoveItem);
+		InventoryItemData.RemoveAndCopyValue(Id, RemoveItem);
 		OnUpdateInventoryDelegateBroadcast();
 	}
 }
 
 bool UInventoryManager::EquipItem(int32 ItemSeq)
 {
-	if (ItemData.Contains(ItemSeq) == false)
+	if (InventoryItemData.Contains(ItemSeq) == false)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
 
-	FItemData& EquipedItem = ItemData[ItemSeq];
-	FItemResource& EquipedItemResource = ItemResourceData[ItemSeq];
+	FItemData& EquipedItem = InventoryItemData[ItemSeq];
 	EquipedItem.IsEquiped = true;
-	OnUpdateEquipDelegateBroadcast(EquipedItem, EquipedItemResource);
+	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
 bool UInventoryManager::UnEquipItem(int32 ItemSeq)
 {
-	if (ItemData.Contains(ItemSeq) == false)
+	if (InventoryItemData.Contains(ItemSeq) == false)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
 
-	FItemData& EquipedItem = ItemData[ItemSeq];
-	FItemResource& EquipedItemResource = ItemResourceData[ItemSeq];
+	FItemData& EquipedItem = InventoryItemData[ItemSeq];
 	EquipedItem.IsEquiped = false;
-	OnUpdateEquipDelegateBroadcast(EquipedItem, EquipedItemResource);
+	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
 void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
 {
-	if (ItemData.Contains(Item_Seq))
+	if (InventoryItemData.Contains(Item_Seq))
 	{
-		ItemData[Item_Seq].ITEM_SLOT_IDX = NewSlotIndex;
+		InventoryItemData[Item_Seq].ITEM_SLOT_IDX = NewSlotIndex;
 	}
 }
 
@@ -205,7 +165,7 @@ void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
 
 const FItemData* UInventoryManager::GetItemData(FGameplayTag TriggerTag)
 {
-	for (auto& [Tag, Data] : OwnItems)
+	for (auto& [Tag, Data] : ItemQuickSlots)
 	{
 		if (TriggerTag.MatchesTag(Tag))
 		{
@@ -217,13 +177,13 @@ const FItemData* UInventoryManager::GetItemData(FGameplayTag TriggerTag)
 
 const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetOwnItems()
 {
-	return OwnItems;
+	return ItemQuickSlots;
 }
 
 bool UInventoryManager::HasItemTag(FGameplayTag TriggerTag)
 {
 	bool bResult = false;
-	for (auto& [Tag, Data] : OwnItems)
+	for (auto& [Tag, Data] : ItemQuickSlots)
 	{
 		if (TriggerTag.MatchesTag(Tag))
 		{
@@ -240,7 +200,7 @@ void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
 	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* ItemTags = TagManager.GetItemTags();
-	OwnItems.Empty();
+	ItemQuickSlots.Empty();
 
 	for (int i = 0; i < SelectedItems.Num(); i++)
 	{
@@ -251,9 +211,9 @@ void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
 			return;
 		}
 
-		//아이템 태는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> ItemQuickSlot.{퀵 슬롯 인덱스 번호}
+		//아이템 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> ItemQuickSlot.{퀵 슬롯 인덱스 번호}
 		FGameplayTag ItemTag = ItemTags->GetByIndex(Data.ITEM_SLOT_IDX);
-		OwnItems.Add(ItemTag, SelectedItems[i]);
+		ItemQuickSlots.Add(ItemTag, SelectedItems[i]);
 	}
 
 	UpdatedItemSettingBroadcast();
@@ -301,9 +261,9 @@ void UInventoryManager::OnUpdateGoldAndCashDelegateBroadcast()
 		});
 }
 
-void UInventoryManager::OnUpdateEquipDelegateBroadcast(FItemData EquipItem, FItemResource EquipItemResource)
+void UInventoryManager::OnUpdateEquipDelegateBroadcast(FItemData EquipItem)
 {
-	AsyncTask(ENamedThreads::GameThread, [this, EquipItem, EquipItemResource]()
+	AsyncTask(ENamedThreads::GameThread, [this, EquipItem]()
 		{
 			// 유효성 검사 추가
 			if (!IsValid(this))
@@ -311,7 +271,7 @@ void UInventoryManager::OnUpdateEquipDelegateBroadcast(FItemData EquipItem, FIte
 				DEBUG_MESSAGE;
 				return;
 			}
-			OnUpdateEquipDelegate.Broadcast(EquipItem, EquipItemResource);
+			OnUpdateEquipDelegate.Broadcast(EquipItem);
 		});
 }
 
@@ -327,21 +287,4 @@ void UInventoryManager::OnInventorySlotClickedDelegateBroadcast(FItemData SlotIt
 			}
 			OnInventorySlotClickedDelegate.ExecuteIfBound(SlotItemData);
 		});
-}
-void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) 
-{
-	ItemData.Empty();
-
-	for (const FItemData& Item : ItemArray)
-	{
-		ItemData.Add(Item.ITEM_SEQ, Item);
-	}
-	
-	Update();
-	
-}
-
-void UInventoryManager::GetItemResourceList(UPARAM(ref)TArray<FItemResource>& ItemResourceArray)
-{
-	ItemResourceData.GenerateValueArray(ItemResourceArray);
 }

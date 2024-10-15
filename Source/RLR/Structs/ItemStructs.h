@@ -247,7 +247,6 @@ struct FItemData : public FTableRowBase
 		ITEM_SEQ = -1;
 		ITEM_ID = -1;
 		QUANTITY = 1;
-		ItemImage = nullptr;
 		TYPE = EItemType::NONE;
 		EQUIPMENT_TYPE = EEquipmentType::NONE;
 		IsEquiped = false;
@@ -335,6 +334,7 @@ struct FItemData : public FTableRowBase
 	Protocol::Item MakeItemPacket();
 	Protocol::Equip MakeEquipPacket();
 	static const FItemData EmptyItemData;
+	FItemResource GetItemResource();
 
 	void SetItemSlotIndex(int32 Id) { ITEM_SLOT_IDX = Id; }
 

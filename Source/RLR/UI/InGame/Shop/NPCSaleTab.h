@@ -41,8 +41,8 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
-	void AddToCart(const FItemData& item, const FItemResource& itemResource);
-	void RemoveFromCart(const FItemData& item, const FItemResource& itemResource);
+	void AddToCart(const FItemData& item);
+	void RemoveFromCart(const FItemData& item);
 
 protected:
 	UFUNCTION()
@@ -56,7 +56,6 @@ protected:
 	void UpdatePrice();
 
 	TArray<FItemData> Cart;
-	TArray<FItemResource> CartResources;
 	int SellPrice = 0;
 	const int MaxCartNum = 12;
 };
