@@ -27,7 +27,6 @@ public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection);
 
 public:
-	void Init();
 	void SkillStart(FGameplayTag TriggerTag);
 	void SkillAttack(FGameplayTag TriggerTag);
 	void SkillComplete(FGameplayTag TriggerTag);
@@ -39,12 +38,9 @@ public:
 
 	//Response
 	UFUNCTION()
-	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
-	UFUNCTION()
 	void SetLearnedSkills(const TArray<FSkillData>& LearnedSkillsList);
 
 	//Request to Server
-	bool RequestGetSelectedSkills();
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
 	//아이템 사용
@@ -56,6 +52,10 @@ public:
 
 	UFUNCTION()
 	void SetSelectedItems(TArray<FItemData>& SelectedItems);
+
+protected:
+	UFUNCTION()
+	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
 
 private:
 	FSkillDictionary<FGameplayTag, FSkillData> OwnSkills;

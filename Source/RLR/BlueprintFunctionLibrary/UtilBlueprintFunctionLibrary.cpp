@@ -133,8 +133,7 @@ void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
 		TestArray.Add(Data);
 	}
 
-
-	GameInstance->GetSkillManager()->SetSelectedSkills(TestArray);
+	GameInstance->GetSkillManager()->SetLearnedSkills(TestArray);
 }
 
 void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()

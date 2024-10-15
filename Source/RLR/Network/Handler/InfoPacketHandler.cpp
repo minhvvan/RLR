@@ -98,7 +98,7 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         skillClass.MakeSkillData(skill);
         skillDatas.Add(skillData);
     }
-    GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
+    //GameInstance->GetSkillManager()->SetSelectedSkills(skillDatas);
     GameInstance->GetSkillManager()->SetLearnedSkills(skillDatas);
     return true;
 }
