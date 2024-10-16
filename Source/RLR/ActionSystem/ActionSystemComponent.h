@@ -39,6 +39,8 @@ public:
 	void TryActivateActionByString(const std::string& TagName);
 	void TryCancelAction(FGameplayTag Tag);
 
+	TWeakObjectPtr<UAction> GetActionInstance(FGameplayTag Tag, int idx = 0);
+
 	void NotifyActionEnded(UAction* EndedAction);
 
 	UAction* CreateNewInstanceOfAction(FActionSpec& Spec);

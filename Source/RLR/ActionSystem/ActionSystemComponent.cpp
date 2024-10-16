@@ -177,6 +177,14 @@ void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 	}
 }
 
+TWeakObjectPtr<UAction> UActionSystemComponent::GetActionInstance(FGameplayTag Tag, int idx)
+{
+	auto spec = GrantedActions.Find(Tag);
+	if (spec == nullptr) return nullptr;
+
+	return MakeWeakObjectPtr<UAction>(spec->ActionInstances[idx]);
+}
+
 void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 {
 	FGameplayTag TriggerTag = EndedAction->GetTriggerTag();
