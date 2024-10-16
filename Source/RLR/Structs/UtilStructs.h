@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Network/Proto/Post.pb.h"
+#include "GameplayTagContainer.h"
 #include "UtilStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -230,4 +231,30 @@ struct FEffectData : public FTableRowBase
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
 	FString EffectPath;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FAnimData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	FAnimData() = default;
+
+	FAnimData(FGameplayTag tag, UAnimMontage* anim) :
+		Tag(tag),
+		Anim(anim)
+	{};
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FGameplayTag Tag;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	UAnimMontage* Anim;
+
+	static const FAnimData EmptyAnimData;
+
+	bool operator==(const FAnimData& rhs)
+	{
+		return Tag == rhs.Tag;
+	}
 };

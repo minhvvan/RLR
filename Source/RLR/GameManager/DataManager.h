@@ -55,6 +55,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	const FExpTable&		GetExpData(int32 Seq);
 
+	UFUNCTION(BlueprintCallable)
+	const FAnimData&		GetAnimData(FGameplayTag Tag);
+
+
 	/*
 	
 		Etc
@@ -128,6 +132,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> ExpDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> AnimDataTable;
 
 private:
 

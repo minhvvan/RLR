@@ -4,6 +4,7 @@
 #include "Structs/UtilStructs.h"
 
 const FExpTable FExpTable::EmptyExpData;
+const FAnimData FAnimData::EmptyAnimData = FAnimData(FGameplayTag::EmptyTag, nullptr);
 
 void FAttackResult::MakeAttackData()
 {

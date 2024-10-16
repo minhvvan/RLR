@@ -72,6 +72,10 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	ExpDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ExpTable.DT_ExpTable'")));
 	if(IsValid(ExpDataTable))
 		DEBUG_LOG("경험치 데이터 테이블 로드 실패");
+
+	AnimDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_AnimData.DT_AnimData'")));
+	if (IsValid(AnimDataTable))
+		DEBUG_LOG("애님 데이터 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()
@@ -204,6 +208,20 @@ const FExpTable& UDataManager::GetExpData(int32 Seq)
 	}
 
 	return FExpTable::EmptyExpData;
+}
+
+const FAnimData& UDataManager::GetAnimData(FGameplayTag Tag)
+{
+	if (AnimDataTable)
+	{
+		FAnimData* Data = AnimDataTable->FindRow<FAnimData>(*Tag.ToString(), TEXT(""));
+		if (Data == nullptr)
+			return FAnimData::EmptyAnimData;
+
+		return *Data;
+	}
+
+	return FAnimData::EmptyAnimData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)
