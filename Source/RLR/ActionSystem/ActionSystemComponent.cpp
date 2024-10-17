@@ -290,12 +290,15 @@ void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
 	}
 }
 
-void UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
+bool UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
 {
 	if (StoredActionData.Contains(Tag))
 	{
 		StoredActionData.RemoveAndCopyValue(Tag, Data);
+		return true;
 	}
+
+	return false;
 }
 
 bool UActionSystemComponent::ActivateWaitAction()
