@@ -9,6 +9,7 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/OtherUserManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
@@ -187,6 +188,12 @@ void ARLRPlayerController::OnUserClick()
 		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
 		OnOpenUI(TagManager.UI_OtherPlayerMenu);
 	}
+}
+
+void ARLRPlayerController::OnTest()
+{
+	//Test Code
+
 }
 
 FVector ARLRPlayerController::GetClickPosition()
