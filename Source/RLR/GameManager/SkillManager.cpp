@@ -143,18 +143,9 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		}
 
 		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
 
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
-		// TriggerAction
-		{
-			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
-			Spec.FollowActionTag = SkillTag;
-			ASC->GiveAction(SkillAnimTag, Spec);
-		}
-
-		// CheckAction
 		{
 			FActionSpec Spec(SkillClassData.SkillClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);

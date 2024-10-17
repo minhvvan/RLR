@@ -94,9 +94,6 @@ struct FSkillClass : public FTableRowBase
 	int32 SkillSeq;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillAnimClass;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TSubclassOf<UAction> SkillClass;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
