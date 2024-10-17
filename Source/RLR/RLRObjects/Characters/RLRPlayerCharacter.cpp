@@ -147,12 +147,15 @@ void ARLRPlayerCharacter::UpdateAction(std::string tagName)
 {
 	if (AIController)
 	{
-		if (!ASC)
-		{
-			return;
-		}
+		if (!ASC) return;
 
-		ASC->TryActivateActionByString(tagName);
+		auto TagManager = FGameplayTagManager::Get();
+		auto playMontageAction = ASC->GetActionInstance(TagManager.Action_Default_PlayMontage);
+
+		auto DataManager = GameInstance->GetDataManager();
+		FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*FString(tagName.c_str())));
+
+		ASC->TryActivateAction(Tag);
 	}
 }
 
