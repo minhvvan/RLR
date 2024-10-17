@@ -43,6 +43,7 @@ void USkillManager::SkillStart(FGameplayTag TriggerTag)
 	if (!ASC) return;
 
 	ASC->TryActivateAction(TriggerTag);
+	UpdatedTryActivateAction.Broadcast(TriggerTag);
 }
 
 void USkillManager::SkillAttack(FGameplayTag TriggerTag)
@@ -59,7 +60,6 @@ void USkillManager::SkillAttack(FGameplayTag TriggerTag)
 	if (!ASC) return;
 
 	ASC->TryActivateAction(TriggerTag);
-	UpdatedTryActivateAction.Broadcast(TriggerTag);
 }
 
 void USkillManager::SkillComplete(FGameplayTag TriggerTag)

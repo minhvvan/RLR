@@ -76,7 +76,6 @@ bool UPostItemSlot::HandleInventoryItemDrop(UBaseDragDropOperation* Operation)
 	FItemResource DroppedItemResource = Operation->GetItemResource();
 	// 우편함에 아이템 추가
 	SetItemData(DroppedItem);
-	SetSlotItemResourceData(DroppedItemResource);
 
 	// 인벤토리에서 아이템 제거
 	InventoryManager->RemoveItem(DroppedItem.ITEM_SEQ);

@@ -149,7 +149,7 @@ public:
     /*
             Trade
                         */
-    bool SendStartTradeReqeust(int32 TargetUserSeq); //거래 요청 보내기
+    bool SendTradeStartReqeust(int32 TargetUserSeq); //거래 요청 보내기
     bool SendTradeAddItemReqeust(const FItemData& NewTradeItemm, int32 Quantity = 1); //개인 거래에 새로운 아이템 추가하기 패킷
     bool SendTradeAddGoodReqeust(int32 Amount);    //개인 거래에 재화 추가하기
     bool SendRemoveTradeItem(const FItemData& NewTradeItem, int32 Quantity = 1); //개인 거래에서 아이템 제거
@@ -183,21 +183,6 @@ public:
 
     bool SendPostReceivedRequest(FPostResult post);
 
-    /*
-           Trade
-                       */
-
-    bool SendTradeUserRequest(int userSeq2);
-
-    bool SendTradeStartRequest(int userSeq2);
-
-    bool SendTradeAddItemRequest(int64 itemId, int64 itemValue);
-
-    bool SendTradeAddGoodRequest(int64 totalMoney);
-
-    bool SendTradeLockRequest();
-
-    bool SendTradeCancelRequest();
 
     /*
           Friend

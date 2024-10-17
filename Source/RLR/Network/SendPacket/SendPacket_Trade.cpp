@@ -20,7 +20,7 @@
 /*
 	Trade 관련 패킷.
 */
-bool UNetworkManager::SendStartTradeReqeust(int32 TargetUserSeq)
+bool UNetworkManager::SendTradeStartReqeust(int32 TargetUserSeq)
 {
     if (!MainServerSocket) return false;
 

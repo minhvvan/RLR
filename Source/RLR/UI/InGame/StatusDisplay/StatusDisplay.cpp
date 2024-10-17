@@ -142,10 +142,14 @@ void UStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
 
 USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 {
+	if(SkillQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
+		return nullptr;
 	return  SkillQuickSlotContainer->QuickSlotMap[ActionTag];
 }
 
 UItemQuickSlot* UStatusDisplay::GetItemQuickSlot(FGameplayTag ActionTag)
 {
+	if (ItemQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
+		return nullptr;
 	return ItemQuickSlotContainer->QuickSlotMap[ActionTag];
 }

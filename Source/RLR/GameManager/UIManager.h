@@ -50,6 +50,7 @@ public:
 	void ToggleSubUI(FGameplayTag UITag);
 	void OpenSubUI(FGameplayTag UITag);
 	void CloseSubUI(FGameplayTag UITag);
+	void CloseSubUI(EUIType UIType);
 	USubUI* GetSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
@@ -57,6 +58,7 @@ public:
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
+	TObjectPtr<UDialogueUI>		GetDialogue() {return DialogueUI;}
 
 
 public:

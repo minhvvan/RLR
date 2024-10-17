@@ -31,7 +31,7 @@ void UTradeListSlot::RefreshUI()
 		return;
 	}
 
-	SetSlotImage(GetItemData().ItemImage);
+	SetSlotImage(GetItemResourceData().ItemImage);
 }
 
 void UTradeListSlot::Clear()
