@@ -44,6 +44,9 @@ public:
 	const FSkillData&		GetSkillData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
+	const FSkillData&		GetSkillDataByTag(FGameplayTag Tag);
+
+	UFUNCTION(BlueprintCallable)
 	const FSkillClass&		GetSkillResource(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)

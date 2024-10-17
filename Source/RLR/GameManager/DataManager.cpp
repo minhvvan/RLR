@@ -162,6 +162,24 @@ const FSkillData& UDataManager::GetSkillData(int32 Seq)
 	return FSkillData::EmptySkillData;
 }
 
+const FSkillData& UDataManager::GetSkillDataByTag(FGameplayTag Tag)
+{
+	if (SkillDataTable)
+	{
+		TArray<FName> RowNames = SkillDataTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FSkillData* Data = SkillDataTable->FindRow<FSkillData>(RowName, TEXT("Searching by Tag"));
+			if (Data && Data->SkillTag == Tag)
+			{
+				return *Data;
+			}
+		}
+	}
+
+	return FSkillData::EmptySkillData;
+}
+
 const FSkillClass& UDataManager::GetSkillResource(int32 Seq)
 {
 	if (SkillResourceTable)

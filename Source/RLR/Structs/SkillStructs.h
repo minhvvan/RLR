@@ -125,6 +125,9 @@ struct FSkillData : public FTableRowBase
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 SkillSeq = -1; // 검기: 1
 
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FGameplayTag SkillTag;
+
 	//텍스트
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FText Name;
