@@ -126,6 +126,7 @@ public:
 
 
 	FGameplayTag UI_Post;
+	FGameplayTag UI_FriendList;
 	FGameplayTag UI_OtherPlayerMenu;
 	FGameplayTag UI_OtherPlayerStatus;
 	FGameplayTag UI_Report;
