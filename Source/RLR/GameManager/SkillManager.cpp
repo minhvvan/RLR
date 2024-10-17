@@ -38,21 +38,6 @@ void USkillManager::SkillStart(FGameplayTag TriggerTag)
 	ASC->TryActivateAction(TriggerTag);
 }
 
-void USkillManager::SkillAttack(FGameplayTag TriggerTag)
-{
-	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (!Controller) return;
-
-	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
-	if (!Character) return;
-
-	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
-	if (!ASC) return;
-
-	ASC->TryActivateAction(TriggerTag);
-	UpdatedTryActivateAction.Broadcast(TriggerTag);
-}
-
 void USkillManager::SkillComplete(FGameplayTag TriggerTag)
 {
 	if (!HasSkillTag(TriggerTag)) return;
