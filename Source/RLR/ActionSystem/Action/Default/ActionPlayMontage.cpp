@@ -29,7 +29,7 @@ void UActionPlayMontage::ActivateAction()
 
 	Controller->StopMovement();
 
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAnim"), MontageToPlay);
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAnim"), ActionMontage);
 	AT->OnCompleted.AddDynamic(this, &UActionPlayMontage::OnCompletePlayMontage);
 
 	AT->ReadyForActivation();

@@ -22,7 +22,7 @@ UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 
 void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 {
-	for (const auto& notify : SkillAnim->Notifies)
+	for (const auto& notify : ActionMontage->Notifies)
 	{
 		auto* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
 		if (!noti) continue;

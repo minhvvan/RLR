@@ -110,6 +110,9 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UAnimMontage> CurrentMontage;
 
+	UPROPERTY(EditAnywhere, Category = Anim)
+	TObjectPtr<class UAnimMontage> ActionMontage;
+
 	//Action Instance의 상태
 	UPROPERTY(VisibleAnywhere, Category = State)
 	EActionState ActionState;

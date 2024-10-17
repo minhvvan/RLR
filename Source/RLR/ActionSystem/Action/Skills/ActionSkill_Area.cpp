@@ -89,8 +89,8 @@ void UActionSkill_Area::ActivateAction()
 		if (TimerWidget)
 		{
 			//Notify가 하나일 때 가능 늘어나면 변경 필요
-			TimerWidget->SetTimerDuration(SkillAnim->Notifies[0].GetTriggerTime());
-			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
+			TimerWidget->SetTimerDuration(ActionMontage->Notifies[0].GetTriggerTime());
+			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(ActionMontage->Notifies[0].Notify);
 			if (AnimNotify)
 			{
 				AnimNotify->OnTriggered.Clear();

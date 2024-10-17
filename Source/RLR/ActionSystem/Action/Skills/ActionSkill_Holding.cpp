@@ -83,7 +83,7 @@ void UActionSkill_Holding::ActivateAction()
 				timerStartTime = GetWorld()->GetTimeSeconds();
 			}
 
-			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[0].Notify);
+			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(ActionMontage->Notifies[0].Notify);
 			if (AnimNotify)
 			{
 				AnimNotify->OnTriggered.Clear();
@@ -123,7 +123,7 @@ void UActionSkill_Holding::OnAnimNotified()
 	if (!Player) return;
 
 	UAnimInstance* AnimInstance = Player->GetMesh()->GetAnimInstance();
-	if (AnimInstance && SkillAnim)
+	if (AnimInstance && ActionMontage)
 	{
 		float CurrentTime = GetWorld()->GetTimeSeconds();
 
@@ -132,12 +132,12 @@ void UActionSkill_Holding::OnAnimNotified()
 		if (TimerWidget->GetRemainingTime() > 1)
 		{
 			// HoldingLoop 섹션을 다시 반복
-			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("HoldingLoop"), SkillAnim);
+			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("HoldingLoop"), ActionMontage);
 		}
 		else
 		{
 			// 남은 시간이 없으면 EndSection으로 이동
-			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("EndSection"), SkillAnim);
+			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("EndSection"), ActionMontage);
 		}
 	}
 }

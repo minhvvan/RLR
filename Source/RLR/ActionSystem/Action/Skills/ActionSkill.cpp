@@ -38,7 +38,7 @@ void UActionSkill::PlaySkillMontage()
 		ASC->AddActionData(FollowTriggerTag, Data);
 	}
 
-	for (const auto& notify : SkillAnim->Notifies)
+	for (const auto& notify : ActionMontage->Notifies)
 	{
 		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
 		if (!noti) continue;
@@ -47,7 +47,7 @@ void UActionSkill::PlaySkillMontage()
 	}
 
 	//Play Montage
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), SkillAnim);
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), ActionMontage);
 	AT->OnCompleted.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
 	AT->OnCancelled.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
 
