@@ -11,9 +11,10 @@
 #include "Physics/RLRCollision.h"
 #include "Structs/SkillStructs.h"
 
-
-void UActionSkill_Holding_Skill::ActivateAction()
+void UActionSkill_Holding_Skill::OnAnimNotifyTriggered()
 {
+	Super::OnAnimNotifyTriggered();
+
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
@@ -71,6 +72,7 @@ void UActionSkill_Holding_Skill::ActivateAction()
 			OverlappedActors.Add(Result.GetActor());
 		}
 	}
+
 	if (SkillManager->RequestSkillResult(SkillData, OverlappedActors))
 	{
 		/* IActionSystemInterface와 충돌 성공 */

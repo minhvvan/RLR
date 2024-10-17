@@ -74,15 +74,9 @@ void UActionAttack::OnCompletePlayMontage()
 }
 
 void UActionAttack::OnAnimNotifyTriggered()
-{
-	for (const auto& notify : ActionMontage->Notifies)
-	{
-		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
-		if (!noti) continue;
+{	
+	Super::OnAnimNotifyTriggered();
 
-		noti->OnTriggered.Clear();
-	}
-	
 	if (IsOtherUserAction()) return;
 
 	AActor* Owner = GetAvatarActorFromActorInfo();

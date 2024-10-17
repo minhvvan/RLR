@@ -13,7 +13,6 @@
 #include "RLR.h"
 #include "GameManager/RLRStruct.h"
 #include "Structs/SkillStructs.h"
-#include "ActionSystem/AnimNotify_ActivateAction.h"
 
 UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 {
@@ -22,14 +21,7 @@ UActionSkill_Normal_SwordAura::UActionSkill_Normal_SwordAura()
 
 void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 {
-	for (const auto& notify : ActionMontage->Notifies)
-	{
-		auto* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
-		if (!noti) continue;
-
-		//TODO: 모든 Callback을 없애지 말고 해당 Callback만 제거하도록 변경되어야 함
-		noti->OnTriggered.Clear();
-	}
+	Super::OnAnimNotifyTriggered();
 
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;

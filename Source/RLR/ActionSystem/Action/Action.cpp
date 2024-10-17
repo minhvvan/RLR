@@ -9,6 +9,7 @@
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
+#include "ActionSystem/AnimNotify_ActivateAction.h"
 
 UAction::UAction() :
 	bIsActive(false),
@@ -233,6 +234,18 @@ bool UAction::IsOtherUserAction()
 	if (statSet->GetUserSeq() != NetworkManager->GetUserSeq()) result = true;
 
 	return result;
+}
+
+void UAction::OnAnimNotifyTriggered()
+{
+	for (const auto& notify : ActionMontage->Notifies)
+	{
+		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
+		if (!noti) continue;
+
+		//TODO: 모든 Callback을 없애지 말고 해당 Callback만 제거하도록 변경되어야 함
+		noti->OnTriggered.Clear();
+	}
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()
