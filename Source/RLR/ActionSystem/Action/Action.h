@@ -68,6 +68,11 @@ protected:
 
 	void AddOwnedTag();
 
+	virtual bool IsOtherUserAction();
+
+	UFUNCTION()
+	virtual void OnAnimNotifyTriggered() {};
+
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
 

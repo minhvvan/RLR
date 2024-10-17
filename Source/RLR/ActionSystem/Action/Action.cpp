@@ -4,6 +4,10 @@
 #include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
 UAction::UAction() :
@@ -119,6 +123,10 @@ void UAction::EndAction()
 	{
 		ActionState = EActionState::STATE_INIT;
 	}
+	else if (InstancingPolicy == EActionInstancingPolicy::NonInstanced)
+	{
+		ActionState = EActionState::STATE_INIT;
+	}
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
@@ -204,6 +212,27 @@ void UAction::AddOwnedTag()
 			ASC->AddGameplayTag(AddTag);
 		}
 	}
+}
+
+bool UAction::IsOtherUserAction()
+{
+	bool result = false;
+
+	auto NetworkManager = GameInstance->GetNetworkManager();
+	if (!NetworkManager) return false;
+
+	ARLRPlayerCharacter* Owner = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Owner) return false;
+
+	auto ASC = Owner->GetActionSystemComponent();
+	if (!ASC) return false;
+
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return false;
+
+	if (statSet->GetUserSeq() != NetworkManager->GetUserSeq()) result = true;
+
+	return result;
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()
