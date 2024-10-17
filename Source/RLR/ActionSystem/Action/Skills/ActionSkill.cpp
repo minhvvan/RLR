@@ -9,7 +9,7 @@
 #include "Player/RLRPlayerController.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
-#include "GameManager/SkillManager.h"
+#include "GameManager/DataManager.h"
 #include "Structs/SkillStructs.h"
 
 UActionSkill::UActionSkill():
@@ -22,27 +22,28 @@ void UActionSkill::PlaySkillMontage()
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
-	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
-	if (!Controller) return;
-
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 
-	//Set Actor Orientation
-	Controller->StopMovement();
-	FVector MousePos = Controller->GetClickPosition();
-	Player->SetTargetRotation(MousePos, RotationSpeed);
+	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
+	if (Controller)
+	{
+		//Set Actor Orientation
+		Controller->StopMovement();
+		FVector MousePos = Controller->GetClickPosition();
+		Player->SetTargetRotation(MousePos, RotationSpeed);
 
-	FActionData Data;
-	Data.MousePos = MousePos;
-	ASC->AddActionData(FollowTriggerTag, Data);
+		FActionData Data;
+		Data.MousePos = MousePos;
+		ASC->AddActionData(FollowTriggerTag, Data);
+	}
 
 	for (const auto& notify : SkillAnim->Notifies)
 	{
 		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
 		if (!noti) continue;
 
-		noti->SetTriggerTag(FollowTriggerTag);
+		noti->OnTriggered.AddDynamic(this, &ThisClass::OnAnimNotifyTriggered);
 	}
 
 	//Play Montage
@@ -81,8 +82,8 @@ void UActionSkill::OnCompletePlayMontage()
 
 void UActionSkill::SetSkillData()
 {
-	USkillManager* SkillManager = GameInstance->GetSkillManager();
-	if (!SkillManager) return;
+	auto* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
 
-	SkillData = SkillManager->GetSkillData(TriggerTag);
+	SkillData = &DataManager->GetSkillDataByTag(TriggerTag);
 }

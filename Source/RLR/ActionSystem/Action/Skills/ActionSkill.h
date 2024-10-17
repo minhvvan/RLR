@@ -27,7 +27,10 @@ protected:
 	virtual void ActivateAction();
 
 	UFUNCTION()
-	virtual void OnCompletePlayMontage();
+	virtual void OnCompletePlayMontage();	
+	
+	UFUNCTION()
+	virtual void OnAnimNotifyTriggered() {};
 
 public:
 	FOnSkillExpired OnSkillExpired;
