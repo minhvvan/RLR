@@ -32,6 +32,7 @@ public:
 
 public:
 	bool TryActivateAction();
+	virtual void ActivateActionForce();
 	virtual void CancelAction();
 	virtual void EndAction();
 

@@ -70,6 +70,11 @@ bool UAction::TryActivateAction()
 	return bPossible;
 }
 
+void UAction::ActivateActionForce()
+{
+	ActivateAction();
+}
+
 bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())

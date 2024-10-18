@@ -20,6 +20,8 @@ class RLR_API UActionSkill : public UAction
 public:
 	UActionSkill();
 
+	virtual void ActivateActionForce() override;
+
 protected:
 	void PlaySkillMontage();
 

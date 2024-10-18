@@ -136,16 +136,36 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 	}
 }
 
-void UActionSystemComponent::TryActivateActionByString(const std::string& TagName)
+void UActionSystemComponent::ActivateActionForce(FGameplayTag Tag)
 {
-	// std::string -> FString로 변환
-	FString tagName = FString(TagName.c_str());
+	if (auto Spec = GrantedActions.Find(Tag))
+	{
+		UAction* Action = Spec->Action;
 
-	// FString -> FGameplayTag로 변환
-	FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*tagName));
+		//instancePolicy에 따라 달라짐
+		if (Action->GetInstancingPolicy() == EActionInstancingPolicy::NonInstanced)
+		{
+			//CDO를 통해 Activate
+			Action->InitCurrentActorInfoFromASC(this);
+			Action->SetTriggerTag(Tag);
+			Action->ActivateActionForce();
+		}
+		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerActor)
+		{
+			//Spec에 있는 Instance를 통해 Activate
+			Spec->ActionInstances[0]->ActivateActionForce();
+		}
+		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
+		{
+			//새로운 Instance 생성 -> Activate
+			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
+			if (!NewActionInstance) return;
+			NewActionInstance->SetTriggerTag(Tag);
 
-	// 기존 TryActivateAction 함수 호출
-	TryActivateAction(Tag);
+			NewActionInstance->ActivateActionForce();
+			Spec->ActionInstances.Remove(NewActionInstance);
+		}
+	}
 }
 
 void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)

@@ -157,7 +157,7 @@ void ARLRPlayerCharacter::UpdateAction(std::string tagName)
 		auto DataManager = GameInstance->GetDataManager();
 		FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*FString(tagName.c_str())));
 
-		ASC->TryActivateAction(Tag);
+		ASC->ActivateActionForce(Tag);
 	}
 }
 

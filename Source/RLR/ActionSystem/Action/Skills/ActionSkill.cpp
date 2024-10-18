@@ -17,6 +17,15 @@ UActionSkill::UActionSkill():
 {
 }
 
+void UActionSkill::ActivateActionForce()
+{
+	if (ActionState == EActionState::STATE_ACTIVATE) return;
+
+	UAction::PreActivateAction();
+	ActionState = EActionState::STATE_ACTIVATE;
+	PlaySkillMontage();
+}
+
 void UActionSkill::PlaySkillMontage()
 {
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
