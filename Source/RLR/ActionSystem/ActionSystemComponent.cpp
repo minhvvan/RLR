@@ -69,10 +69,6 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 	{
 		UAction* NewActionInstance = CreateNewInstanceOfAction(OwnedSpec);
 		NewActionInstance->SetTriggerTag(Tag);
-		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
-		{
-			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
-		}
 	}
 }
 
@@ -131,7 +127,6 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
-			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
 
 			if (!NewActionInstance->TryActivateAction())
 			{

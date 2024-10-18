@@ -42,9 +42,6 @@ public:
 	void SetTriggerTag(FGameplayTag Tag);
 	FGameplayTag GetTriggerTag() { return TriggerTag; }
 
-	void SetFollowTriggerTag(FGameplayTag Tag);
-	FGameplayTag GetFollowTriggerTag() { return FollowTriggerTag; }
-
 	EActionInstancingPolicy GetInstancingPolicy() const;
 
 	UActionSystemComponent* GetASCFromActorInfo();
@@ -91,9 +88,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTag TriggerTag;
-
-	UPROPERTY(EditAnywhere)
-	FGameplayTag FollowTriggerTag;
 
 	mutable const FActionActorInfo* CurrentActorInfo;
 

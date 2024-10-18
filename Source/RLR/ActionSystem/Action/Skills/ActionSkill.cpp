@@ -35,7 +35,7 @@ void UActionSkill::PlaySkillMontage()
 
 		FActionData Data;
 		Data.MousePos = MousePos;
-		ASC->AddActionData(FollowTriggerTag, Data);
+		ASC->AddActionData(TriggerTag, Data);
 	}
 
 	for (const auto& notify : ActionMontage->Notifies)
