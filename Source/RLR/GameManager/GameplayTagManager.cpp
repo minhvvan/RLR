@@ -102,7 +102,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
 
 
-	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
+	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
+	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.UI_OtherPlayerMenu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerMenu"), FString(TEXT("플레이어 메뉴")));
 
 

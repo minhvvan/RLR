@@ -53,6 +53,7 @@ class UObjectManager;
 class ULevelManager;
 class ULobbyManager;
 class UPostalManager;
+class UFriendManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -103,6 +104,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UPostalManager*		GetPostalManager();
+
+	UFUNCTION(BlueprintCallable)
+	UFriendManager*		GetFriendManager();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

@@ -191,6 +191,7 @@ public:
     /*
           Friend
                       */
+    bool SendInfoFriend();
 
     bool SendAddFriend(int userSeq);
 

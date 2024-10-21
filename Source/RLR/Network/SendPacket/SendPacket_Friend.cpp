@@ -20,6 +20,17 @@
 
 */
 
+bool UNetworkManager::SendInfoFriend() {
+
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_FriendInfoRequest packet;
+
+    packet.set_userseq(UserSeq);
+
+    SEND_PACKET(packet);
+}
+
 bool UNetworkManager::SendAddFriend(int friendSeq) {
 
     if (!MainServerSocket) return false;
