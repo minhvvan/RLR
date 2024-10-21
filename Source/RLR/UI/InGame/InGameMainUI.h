@@ -29,6 +29,7 @@
  class USkillUpgrade;
  class UQuestListUI;
  class UPostOverlayUI;
+ class UFriendListUI;
  class UOtherPlayerMenu;
  class UCanvasPanel;
 
@@ -58,6 +59,7 @@ public:
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
 	UPostOverlayUI*		GetPostOverlayUI() {return PostOverlayUI;}
+	UFriendListUI*		GetFriendListUI() {return FriendListUI;}
 	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	
 public:
@@ -107,6 +109,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UFriendListUI> FriendListUI;	
 
 protected:
 	UFUNCTION()
