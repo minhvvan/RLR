@@ -7,6 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "UtilStructs.generated.h"
 
+class UAction;
+
 UENUM(BlueprintType)
 enum class EUIType : uint8
 {
@@ -99,6 +101,31 @@ struct FAttackResult
 	void MakeAttackData(/*const Protocol::Item itemData*/);
 };
 
+USTRUCT(Atomic, BlueprintType)
+struct FActionResource : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ActionSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FGameplayTag ActionTag;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<UAction> ActionClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TObjectPtr<UTexture2D> ActionImage;
+
+	FORCEINLINE bool operator==(FActionResource const& Other) const
+	{
+		if (ActionSeq != Other.ActionSeq)
+			return false;
+		return true;
+	}
+	static const FActionResource EmptyActionResource;
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FPostResult

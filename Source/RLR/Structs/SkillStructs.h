@@ -86,30 +86,6 @@ struct FAbnormal
 };
 
 USTRUCT(Atomic, BlueprintType)
-struct FSkillClass : public FTableRowBase
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 SkillSeq;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TSubclassOf<UAction> SkillClass;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	TObjectPtr<UTexture2D> SkillImage;
-
-	void MakeSkillData(Protocol::SkillInfo skill);
-	FORCEINLINE bool operator==(FSkillClass const& Other) const
-	{
-		if (SkillSeq != Other.SkillSeq)
-			return false;
-		return true;
-	}
-	static const FSkillClass EmptySkillClass;
-};
-
-USTRUCT(Atomic, BlueprintType)
 struct FSkillData : public FTableRowBase
 {
 	GENERATED_BODY()

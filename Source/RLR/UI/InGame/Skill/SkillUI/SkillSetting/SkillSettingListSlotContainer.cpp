@@ -93,8 +93,8 @@ void USkillSettingListSlotContainer::AddChild(FSkillData SkillData)
 		if (SlotData == FSkillData::EmptySkillData)
 		{
 			Element.Value->SetSkillData(SkillData);
-			const FSkillClass& SlotResource = Element.Value->GetSkillClassData();
-			Element.Value->SetSkillClassData(SlotResource);
+			const FActionResource& SlotResource = Element.Value->GetActionResource();
+			Element.Value->SetActionResource(SlotResource);
 			return;
 		}
 	}

@@ -5,6 +5,7 @@
 
 const FExpTable FExpTable::EmptyExpData;
 const FAnimData FAnimData::EmptyAnimData = FAnimData(FGameplayTag::EmptyTag, nullptr);
+const FActionResource FActionResource::EmptyActionResource = FActionResource();
 
 void FAttackResult::MakeAttackData()
 {

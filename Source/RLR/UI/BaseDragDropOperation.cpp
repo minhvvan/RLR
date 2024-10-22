@@ -29,9 +29,9 @@ void UBaseDragDropOperation::SetSkillData(const FSkillData& NewSkillData)
     SkillData = NewSkillData;
 }
 
-void UBaseDragDropOperation::SetSkillClassData(const FSkillClass& NewSkillClassData)
+void UBaseDragDropOperation::SetActionResource(const FActionResource& NewActionResource)
 {
-    SkillClassData = NewSkillClassData;
+    ActionResource = NewActionResource;
 }
 
 const FItemData& UBaseDragDropOperation::GetItemData()
@@ -49,11 +49,11 @@ const FItemResource& UBaseDragDropOperation::GetItemResource()
    return ItemResourceData;
 }
 
-const FSkillClass& UBaseDragDropOperation::GetSkillClassData()
+const FActionResource& UBaseDragDropOperation::GetActionResource()
 {
     int32 SKillSeq = SkillData.SkillSeq;
-    SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SKillSeq);
-    return SkillClassData;
+    ActionResource = GameInstance->GetDataManager()->GetActionResource(SKillSeq);
+    return ActionResource;
 }
 
 void UBaseDragDropOperation::Clear()

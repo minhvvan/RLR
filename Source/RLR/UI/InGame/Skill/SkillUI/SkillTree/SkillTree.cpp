@@ -64,10 +64,10 @@ void USkillTree::RefreshUI()
 		ESkillGroup SkillGroup = SkillData.SkillGroup;
 		if(SkillGroup == ESkillGroup::NONE)
 			continue;
-		FSkillClass SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SkillData.SkillSeq);
+		FActionResource ActionResource = GameInstance->GetDataManager()->GetActionResource(SkillData.SkillSeq);
 		USkillTreeSlot* NewSlot = CreateWidget<USkillTreeSlot>(this, SkillTreeSlotClass);
 		NewSlot->SetSkillData(SkillData);
-		NewSlot->SetSkillClassData(SkillClassData);
+		NewSlot->SetActionResource(ActionResource);
 		switch (SkillGroup)
 		{
 		case ESkillGroup::NORMAL:

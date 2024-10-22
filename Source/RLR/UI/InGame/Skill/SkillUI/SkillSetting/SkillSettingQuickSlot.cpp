@@ -63,24 +63,24 @@ bool USkillSettingQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDr
 		if (IsEmpty() == true)
 		{
 			SetSkillData(DraggedSlot->GetSkillData());
-			SetSkillClassData(DraggedSlot->GetSkillClassData());
+			SetActionResource(DraggedSlot->GetActionResource());
 			DraggedSlot->Clear();
 		}
 		else if(IsEmpty() == false)
 		{	
 			FSkillData Temp = DraggedSlot->GetSkillData();
-			FSkillClass TempResource = DraggedSlot->GetSkillClassData();
+			FActionResource TempResource = DraggedSlot->GetActionResource();
 			SetSkillData(DraggedSlot->GetSkillData());
-			SetSkillClassData(DraggedSlot->GetSkillClassData());
+			SetActionResource(DraggedSlot->GetActionResource());
 			DraggedSlot->SetSkillData(Temp);
-			DraggedSlot->SetSkillClassData(TempResource);
+			DraggedSlot->SetActionResource(TempResource);
 			DraggedSlot->Clear();
 		}
 	}
 	else if (DraggedSlot->GetSlotType() == ESlotType::SKILL_SETTING_LIST_SLOT)
 	{
 		SetSkillData(DraggedSlot->GetSkillData());
-		SetSkillClassData(DraggedSlot->GetSkillClassData());
+		SetActionResource(DraggedSlot->GetActionResource());
 	}
 	return true;
 }
@@ -110,15 +110,15 @@ void USkillSettingQuickSlot::RefreshUI()
 		return;
 	}
 
-	const FSkillClass& SkillClass = GetSkillClassData();
+	const FActionResource& actionResource = GetActionResource();
 
-	if (SkillClass == FSkillClass::EmptySkillClass)
+	if (actionResource == FActionResource::EmptyActionResource)
 	{
 		SetSlotImage(GetDefaultSlotImage());
 		return;
 	}
 
-	SetSlotImage(SkillClass.SkillImage);
+	SetSlotImage(actionResource.ActionImage);
 }
 
 void USkillSettingQuickSlot::SetActionTag(FGameplayTag NewActionTag)

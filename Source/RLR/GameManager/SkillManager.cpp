@@ -124,7 +124,6 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
-	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
 	OwnSkills.Empty();
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
@@ -135,8 +134,8 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
 			return;
 		}
-		const FSkillClass& SkillClassData = GameInstance->GetDataManager()->GetSkillResource(Data.SkillSeq);
-		if (SkillClassData == FSkillClass::EmptySkillClass)
+		const FActionResource& ActionResource = GameInstance->GetDataManager()->GetActionResource(Data.SkillSeq);
+		if (ActionResource == FActionResource::EmptyActionResource)
 		{
 			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
 			return;
@@ -147,7 +146,7 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		OwnSkills.Add(SkillTag, SelectedSkills[i]);
 
 		{
-			FActionSpec Spec(SkillClassData.SkillClass, 1, 0);
+			FActionSpec Spec(ActionResource.ActionClass, 1, 0);
 			ASC->GiveAction(SkillTag, Spec);
 		}
 	}

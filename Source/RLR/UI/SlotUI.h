@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
 #include "Structs/SkillStructs.h"
+#include "Structs/UtilStructs.h"
 #include "SlotUI.generated.h"
 
 /**
@@ -100,8 +101,8 @@ public:
 	virtual void					SetSkillData(FSkillData NewSkillData);
 	virtual const FSkillData&		GetSkillData();
 
-	virtual void					SetSkillClassData(FSkillClass NewSkillClassData);
-	virtual const FSkillClass&		GetSkillClassData();
+	virtual void					SetActionResource(FActionResource NewActionResource);
+	virtual const FActionResource&	GetActionResource();
 
 	virtual void					SetSlotType(ESlotType Type){SlotType = Type;}
 	virtual const ESlotType			GetSlotType(){return SlotType;}
