@@ -11,6 +11,7 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/EffectManager.h"
 #include "GameManager/LevelManager.h"
 #include "GameManager/QuestManager.h"
 #include "GameManager/LobbyManager.h"
@@ -199,6 +200,18 @@ UGameOptionData* UGameManager::GetGameOptionData()
 	}
 
 	return GameOptionData;
+}
+
+UEffectManager* UGameManager::GetEffectManager()
+{
+    UEffectManager* EffectManager = GetSubsystem<UEffectManager>(this);
+    if (IsValid(EffectManager))
+    {
+        return EffectManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetEffectManager Error."));
+    return nullptr;
 }
 
 ULevelManager* UGameManager::GetLevelManager()

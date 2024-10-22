@@ -52,6 +52,7 @@ class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
+class UEffectManager;
 class ULevelManager;
 class ULobbyManager;
 class UPostalManager;
@@ -97,6 +98,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UGameOptionData*	GetGameOptionData();
+
+	UFUNCTION(BlueprintCallable)
+	UEffectManager*		GetEffectManager();
 
 	UFUNCTION(BlueprintCallable)
 	ULevelManager*		GetLevelManager();
