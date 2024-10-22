@@ -97,7 +97,7 @@ public:
                         */
 
     bool SendAttackPacket(FAttackResult attackResult);
-
+    bool SendActionPacket(int32 userSeq, string tagName);
     bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
 
     /*
@@ -141,11 +141,22 @@ public:
                         */
 
     bool SendCreateParty();
-
+    bool SendRequestParty(int otherSeq);
+    bool SendExileParty(int otherSeq);
     bool SendJoinParty(int partyId);
-
     bool SendLeaveParty(int partyId);
 
+    /*
+            Trade
+                        */
+    bool SendTradeStartReqeust(int32 TargetUserSeq); //거래 요청 보내기
+    bool SendTradeAddItemReqeust(const FItemData& NewTradeItemm, int32 Quantity = 1); //개인 거래에 새로운 아이템 추가하기 패킷
+    bool SendTradeAddGoodReqeust(int32 Amount);    //개인 거래에 재화 추가하기
+    bool SendRemoveTradeItem(const FItemData& NewTradeItem, int32 Quantity = 1); //개인 거래에서 아이템 제거
+    bool SendTradeLockRequest();   //거래 잠금
+    bool SendTradeUnlockReqeust(); //거래 잠금 해제
+    bool SendTradeConfirmRequest();//거래 확인
+    bool SendTradeCancelReqeust(); //거래 취소
 
     /*
             Cheat
@@ -172,21 +183,6 @@ public:
 
     bool SendPostReceivedRequest(FPostResult post);
 
-    /*
-           Trade
-                       */
-
-    bool SendTradeUserRequest(int userSeq2);
-
-    bool SendTradeStartRequest(int userSeq2);
-
-    bool SendTradeAddItemRequest(int64 itemId, int64 itemValue);
-
-    bool SendTradeAddGoodRequest(int64 totalMoney);
-
-    bool SendTradeLockRequest();
-
-    bool SendTradeCancelRequest();
 
     /*
           Friend
@@ -233,14 +229,6 @@ private:
     int32 UserSeq;
     UPROPERTY()
     int64 MapId;
-
-  
-
- 
-
-  
-
-  
 
 };
 

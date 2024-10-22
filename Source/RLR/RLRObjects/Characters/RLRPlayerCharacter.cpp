@@ -96,7 +96,6 @@ void ARLRPlayerCharacter::Tick(float DeltaSeconds)
 			bShouldRotate = false;
 		}
 	}
-	
 }
 
 void ARLRPlayerCharacter::SetTargetRotation(FVector TargetLoc, float Speed)
@@ -124,6 +123,7 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 			statSet->SetStatData(Stat);
 	statSet->UpdateStat();
 		});
+
 }
 
 const UStatSetPlayer* ARLRPlayerCharacter::GetStat()
@@ -141,7 +141,19 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 	{
 		AAIController* controller = Cast<AAIController>(GetController());
 	}
-	
+}
+
+void ARLRPlayerCharacter::UpdateAction(std::string tagName)
+{
+	if (AIController)
+	{
+		if (!ASC)
+		{
+			return;
+		}
+
+		ASC->TryActivateActionByString(tagName);
+	}
 }
 
 void ARLRPlayerCharacter::SpawnTransform(FVector NewTransform)

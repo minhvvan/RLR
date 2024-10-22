@@ -107,7 +107,7 @@ public:
 	FGameplayTagContainer ItemTags;
 
 	/*
-		Action UI
+		Action UI. Key Binding에 함께 사용되는 태그.
 	*/
 
 	FGameplayTag UI_Inventory;
@@ -116,16 +116,31 @@ public:
 	FGameplayTag UI_KeyOption;
 	FGameplayTag UI_Skill;
 	FGameplayTag UI_Quest;
+	FGameplayTag UI_Chat;
 	FGameplayTag UI_ChatOption;
 	FGameplayTag UI_Party;
 	
 	FGameplayTag UI_SkillUpgrade;
 	FGameplayTag UI_Close;
+	
+	/*
+		UI Tag. 단순히 종류 분류를 위해 사용.
+	*/
+
+	FGameplayTag TradeUI;
+
+	/*
+		Popup Tag. 단순히 종류 분류를 위해 사용.
+	*/
+
+	FGameplayTag ItemCountMessageBox;
 
 
 	FGameplayTag UI_Post;
 	FGameplayTag UI_FriendList;
 	FGameplayTag UI_OtherPlayerMenu;
+	FGameplayTag UI_OtherPlayerStatus;
+	FGameplayTag UI_Report;
 	/*
 	
 			키 입력 바인딩에 사용되는 태그

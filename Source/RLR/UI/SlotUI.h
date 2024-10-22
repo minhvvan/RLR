@@ -57,6 +57,7 @@ enum class ESlotType : uint8
 	SKILL_QUICK_SLOT,
 	SKILL_SETTING_QUICK_SLOT,
 	SKILL_SETTING_LIST_SLOT,
+	TRADE_LIST_SLOT,
 	POST_ITEM_SLOT,
 	NONE,
 };
@@ -94,8 +95,7 @@ public:
 	virtual void					SetItemData(const FItemData& NewItemData);
 	virtual	const FItemData&		GetItemData();
 
-	virtual void					SetSlotItemResourceData(const FItemResource& NewResourceData);
-	virtual const FItemResource&	GetItemResourceData();
+	virtual const FItemResource		GetItemResourceData();
 
 	virtual void					SetSkillData(FSkillData NewSkillData);
 	virtual const FSkillData&		GetSkillData();
@@ -108,6 +108,9 @@ public:
 
 	void							SetSlotIndex(int32 NewIndex){SlotIndex = NewIndex;}
 	int32							GetSlotIndex(){return SlotIndex;}
+
+	void							SetCanDrag(bool Ret){bCanDrag = Ret;}
+	bool							GetCanDrag(){return bCanDrag;}
 
 	TSubclassOf<UDraggableWidget>	GetDraggableWidgetClass(FString Name = FString());
 	TSubclassOf<UBaseDragDropOperation> GetDragDropOperationClass(FString Name = FString());
@@ -174,4 +177,5 @@ public:
 	*/
 
 	int32 SlotIndex = 0;
+	bool bCanDrag = true;
 };

@@ -5,6 +5,8 @@
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillTreeSlot.h"
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillPropertyContainer.h"
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillPropertySlot.h"
+#include "UI/InGame/Skill/SkillUI/SkillTree/SkillTreeSlotContainer.h"
+
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 
@@ -24,45 +26,47 @@ void USkillTree::NativeConstruct()
 	SetUIType(EUIType::SKILL_TREE);
 }
 
+void USkillTree::Init()
+{
+	Super::Init();
+
+	NormalSkillWrapBox->Init();
+	UniqueSkillWrapBox->Init();
+	UltimateSkillWrapBox->Init();
+}
+
 void USkillTree::RefreshUI()
 {
 	Super::RefreshUI();
+	LoadSkillList();
+}
 
+void USkillTree::Clear()
+{
+	Super::Clear();
+	ClearSkillList();
+}
 
-	/*
-		자기의 클래스 정보에 맞는 스킬 정보를 불러온다.
-	*/
+void USkillTree::LoadSkillList()
+{
 	UStatSetPlayer* MyPlayerStat = GameInstance->GetPlayerManager()->GetStatSet();
-	ECharacterMainJobType MyJob;
-
 	if (IsValid(MyPlayerStat) == false)
 	{
-		/*
-			임시 코드. 서버 연결이 안된 클라이언트 테스트 용
-			지금은 단순하게 전사로 판단한다.
-		*/
-		MyJob = ECharacterMainJobType::SWORDSMAN;
-
+		DEBUG_MESSAGE;
+		return;
 	}
-	else
-	{
-		MyJob = MyPlayerStat->GetMainJob();
-	}
+	ECharacterMainJobType MyJob = MyPlayerStat->GetMainJob();
 
-	TArray<FSkillData> SkillList; 
+	ClearSkillList();
+
+	TArray<FSkillData> SkillList;
 	GameInstance->GetDataManager()->GetSkillListByJob(MyJob, SkillList);
-	
-	NormalSkillWrapBox->ClearChildren();
-	UniqueSkillWrapBox->ClearChildren();
-	UltimateSkillWrapBox->ClearChildren();
-
-	Util::Checkf(SkillTreeSlotClass, TEXT("SkillTreeSlotClass is Null"));
 
 	//가져온 스킬 데이터를 UI로 띄워준다.
-	for (FSkillData SkillData : SkillList)
+	for (const FSkillData& SkillData : SkillList)
 	{
 		ESkillGroup SkillGroup = SkillData.SkillGroup;
-		if(SkillGroup == ESkillGroup::NONE)
+		if (SkillGroup == ESkillGroup::NONE)
 			continue;
 		FSkillClass SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SkillData.SkillSeq);
 		USkillTreeSlot* NewSlot = CreateWidget<USkillTreeSlot>(this, SkillTreeSlotClass);
@@ -71,39 +75,29 @@ void USkillTree::RefreshUI()
 		switch (SkillGroup)
 		{
 		case ESkillGroup::NORMAL:
-			NormalSkillWrapBox->AddChildToWrapBox(NewSlot);
+			NormalSkillWrapBox->AddChild(SkillData);
 			break;
 		case ESkillGroup::UNIQUE:
-			UniqueSkillWrapBox->AddChildToWrapBox(NewSlot);
+			UniqueSkillWrapBox->AddChild(SkillData);
 			break;
 		case ESkillGroup::ULTIMATE:
-			UltimateSkillWrapBox->AddChildToWrapBox(NewSlot);
+			UltimateSkillWrapBox->AddChild(SkillData);
 			break;
 		default:
 			break;
 		}
-
 	}
+
+	NormalSkillWrapBox->RefreshUI();
+	UniqueSkillWrapBox->RefreshUI();
+	UltimateSkillWrapBox->RefreshUI();
+
 }
 
-void USkillTree::UpdateNormalSkill()
+void USkillTree::ClearSkillList()
 {
-	/*
-		일반 스킬 리스트 업데이트
-	*/
-
+	NormalSkillWrapBox->Clear();
+	UniqueSkillWrapBox->Clear();
+	UltimateSkillWrapBox->Clear();
 }
 
-void USkillTree::UpdateUniqueSkill()
-{
-	/*
-		고유 스킬 리스트 업데이트
-	*/
-}
-
-void USkillTree::UpdateUltimateSkill()
-{
-	/*
-		궁극기 스킬 리스트 업데이트
-	*/
-}

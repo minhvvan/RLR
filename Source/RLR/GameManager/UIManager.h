@@ -22,6 +22,7 @@ class USubUI;
 class USlotUI;
 class UDialogueUI;
 class ULoadingScreen;
+class UPopupUI;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter&, NewPlayerInfo);
@@ -34,10 +35,12 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 	
 public:
 	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
+	UFUNCTION(BlueprintCallable)
+	UBaseUI* OpenUI(EUIType UIType);
 	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
 	void SetZOrderToTop(USubUI* Target);
 
-	void CloseFrontSubUI ();
+	void CloseFrontSubUI();
 	void CloseAllSubUI();
 
 	UMainUI* GetMainUI();
@@ -45,13 +48,17 @@ public:
 	void AddUI(UBaseUI* BaseUI);
 
 	void ToggleSubUI(FGameplayTag UITag);
+	void OpenSubUI(FGameplayTag UITag);
 	void CloseSubUI(FGameplayTag UITag);
+	void CloseSubUI(EUIType UIType);
+	USubUI* GetSubUI(FGameplayTag UITag);
 
 	void AdjustZOrder();
-	void SetSubUIPos(FGameplayTag UITag, FVector2D NewPos);
+	void SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos);
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
+	TObjectPtr<UDialogueUI>		GetDialogue() {return DialogueUI;}
 
 
 public:

@@ -24,4 +24,11 @@ public:
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 	virtual void RefreshUI() override;
+
+	virtual void SetLearned(bool Value);
+
+private:
+
+	UPROPERTY()
+	bool IsLearned = false;
 };

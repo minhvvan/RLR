@@ -1,19 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "Components/ScrollBox.h"
-#include "Components/TextBlock.h"
-#include "Components/CheckBox.h"
-#include "Components/HorizontalBox.h"
-#include "Components/WidgetSwitcher.h"
-#include "Components/CanvasPanel.h"
-#include <Components/EditableTextBox.h>
-#include <Components/Button.h>
-#include "ChatTabWidget.h"
 #include "GameOptionData/GameOptionData.h"
 #include "UI/SubUI.h"
-#include "UI/BaseUI.h"
 #include "ChatUI.generated.h"
 
 
@@ -23,6 +12,9 @@ class UChatTabWidget;
 class UScrollBox;
 class UChatOptionUI;
 class UWidgetSwitcher;
+class UComboBoxStringColor;
+class UEditableTextBox;
+class UCheckBox;
 
 
 //헤더 파일 관리를 위해 GameOptionData로 보내줌.
@@ -53,12 +45,11 @@ struct FChatMessage
 };
 
 UCLASS()
-class RLR_API UChatUI : public UBaseUI
+class RLR_API UChatUI : public USubUI
 {
     GENERATED_BODY()
 
 public:
-
     UPROPERTY()
     EChatType       CurrentChatTypeTab = EChatType::General;
     void            SetCurrentChatTypeTab(EChatType SelectedChatType);
@@ -81,10 +72,6 @@ public:
 
     void AddChatTab(FString TabName, TArray<EChatType> FilteredChatTypes);
    
-
-    UFUNCTION(BlueprintCallable)
-    void SetUserNameText(FString PlayerID);
-
     UFUNCTION(BlueprintCallable)
     void SetChatClient(AChatClient* InChatClient);
 
@@ -94,10 +81,14 @@ public:
     UFUNCTION(BlueprintCallable)
     void UpdateTabFilters(const FString& TabName, const TArray<EChatType>& FilteredChatTypes);
 
+    void AddWhisperChat(FString UserName);
+
 protected:
     virtual void NativeConstruct() override;
     void InitButton();
     void InitChatBox();
+
+    void AddPrefix(FString& Message);
 
 public:
 
@@ -108,7 +99,7 @@ public:
     UEditableTextBox* ChatInput;
 
     UPROPERTY(meta = (BindWidget))
-    UTextBlock* UserNameBox;
+    UComboBoxStringColor* CbbChatType;
 
     UPROPERTY(meta = (BindWidget))
     UButton* SendButton;
@@ -131,11 +122,26 @@ private:
     TMap<TObjectPtr<UButton>, int32> TabButtonToIndexMap;
     TObjectPtr<AChatClient> ChatClient;
 
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FString> Prefix;
+
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FString> Args;
+
+    UPROPERTY(EditAnywhere, Category=chatType)
+    TMap<FString, EChatType> ItemType;
+
+    UPROPERTY(EditAnywhere, Category = chatType)
+    TMap<EChatType, FSlateColor> TextColor;
+
 public:
     void UpdateChatDisplay(EChatType ChatType);
 
     UFUNCTION(BlueprintCallable)
     void OnChatInputCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
+    UFUNCTION()
+    void OnChatTypeChanged(FString Item, ESelectInfo::Type SelectionType);
 
     //버튼 이벤트
     UFUNCTION(BlueprintCallable)

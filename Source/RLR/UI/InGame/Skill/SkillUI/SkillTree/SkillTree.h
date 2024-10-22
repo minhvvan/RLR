@@ -13,6 +13,7 @@
  class UWrapBox;
  class UTextBlock;
  class USkillTreeSlot;
+ class USkillTreeSlotContainer;
  class USkillPropertyContainer;
 
 UCLASS()
@@ -23,13 +24,11 @@ public:
 
 
 	virtual void NativeConstruct() override;
+	virtual void Init() override;
 	virtual void RefreshUI() override;
-
-	void UpdateNormalSkill();
-	void UpdateUniqueSkill();
-	void UpdateUltimateSkill();
-
-
+	virtual void Clear() override;
+	void LoadSkillList();
+	void ClearSkillList();
 
 public:
 
@@ -38,13 +37,13 @@ public:
 	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox> NormalSkillWrapBox;
+	TObjectPtr<USkillTreeSlotContainer> NormalSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox>	UniqueSkillWrapBox;
+	TObjectPtr<USkillTreeSlotContainer>	UniqueSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UWrapBox>	UltimateSkillWrapBox;
+	TObjectPtr<USkillTreeSlotContainer>	UltimateSkillWrapBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> SkillPointText;

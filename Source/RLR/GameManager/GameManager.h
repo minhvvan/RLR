@@ -37,6 +37,8 @@
 			Quest 관리
 		LobbyManager
 			Lobby 관리
+		PartyManager
+			Party 관리(생성, 조회, 참가, 탈퇴)
  */
 
 class UDataManager;
@@ -54,6 +56,7 @@ class ULevelManager;
 class ULobbyManager;
 class UPostalManager;
 class UFriendManager;
+class UPartyManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -103,7 +106,10 @@ public:
 	UQuestManager*		GetQuestManager();
 
 	UFUNCTION(BlueprintCallable)
-	UPostalManager*		GetPostalManager();
+	UPostalManager*		GetPostalManager();	
+	
+	UFUNCTION(BlueprintCallable)
+	UPartyManager*		GetPartyManager();
 
 	UFUNCTION(BlueprintCallable)
 	UFriendManager*		GetFriendManager();

@@ -115,15 +115,6 @@ void UOtherUserManager::UpdateOtherPlayerTransform(int32 PlayerID, int32 X, int3
 	if(IsValid(OtherPlayer) == false)
 		return;
 
-	/*
-		패킷 안에는 다른 플레이어가 움직이는 방향, Velocity, 상태 값이 들어 있어야 한다?
-		다른 플레이어가 뛰고 있는지, 걷고 있는지,
-		얼마나 가속을 받았는지,
-		어떤 방향으로 움직이고 있는지,
-
-		일단은 위치값만 받아서 동기화를 해본다.
-	*/
-
 	OtherPlayer->UpdateTransform(FVector(X, Y , Z));
 }
 

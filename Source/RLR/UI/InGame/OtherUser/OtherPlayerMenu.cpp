@@ -6,7 +6,13 @@
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/PartyManager.h"
+#include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Chat/ChatUI.h"
+#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/OtherUser/ReportUI.h"
 #include "RLR.h"
 
 void UOtherPlayerMenu::NativeConstruct()
@@ -15,13 +21,13 @@ void UOtherPlayerMenu::NativeConstruct()
 
 	SetUIType(EUIType::OTHER_PLAYER_MENU);
 
-	BtnUserInfo->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
-	BtnAddFriend->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
-	BtnAddParty->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnAddPartyClicked);
-	BtnTrade->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnTradeClicked);
-	BtnWhisper->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnWhisperClicked);
-	BtnReport->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnReportClicked);
-	BtnCancel->OnClicked.AddDynamic(this, &UOtherPlayerMenu::OnCancelClicked);
+	BtnUserInfo->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
+	BtnAddFriend->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
+	BtnAddParty->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);
+	BtnTrade->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnTradeClicked);
+	BtnWhisper->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnWhisperClicked);
+	BtnReport->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnReportClicked);
+	BtnCancel->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnCancelClicked);
 }
 
 void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
@@ -31,38 +37,73 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
-	//TODO: Show CharacterInfo(OtherUser)
+	auto TagManager = FGameplayTagManager::Get();
+	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_OtherPlayerStatus);
+	auto otherPlayerStatus = Cast<UCharacterStatusUI>(subUI);
+
+	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
+
+	otherPlayerStatus->UpdateTotalStat(OtherUserData.Get()->TotalStatus);
+	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayerStatus);
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnAddFriendClicked()
 {
-	//TODO: Send Pkt
+	if (!OtherUserData.IsValid()) return;
+	GetNetworkManager()->SendAddFriend(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 
-void UOtherPlayerMenu::OnAddPartyClicked()
+void UOtherPlayerMenu::OnInvitePartyClicked()
 {
-	//TODO: Send Pkt
-	//파티 시스템에따라 달라질듯
+	auto partyManager = GetPartyManager();
+	if (!partyManager) return;
+
+	if (!partyManager->GetHasParty())
+	{
+		//Single 유지
+		partyManager->SuccessCreate.Clear();
+		partyManager->SuccessCreate.AddDynamic(this, &UOtherPlayerMenu::SuccessCreateParty);
+
+		partyManager->CreateParty();
+	}
+
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnTradeClicked()
 {
-	//TODO: Show Trade UI & Send Pkt
+	//TODO: 구체적인 구현 내용이 나오면 처리
+	if (!OtherUserData.IsValid()) return;
+	GetNetworkManager()->SendTradeStartReqeust(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnWhisperClicked()
 {
-	//TODO: 채팅 대상 변경
+	auto TagManager = FGameplayTagManager::Get();
+	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI(TagManager.UI_Chat));
+
+	if (!chatUI || !OtherUserData.IsValid()) return;
+
+	chatUI->AddWhisperChat(OtherUserData->NickName);
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnReportClicked()
 {
-	//TODO: Show Report UI
+	auto TagManager = FGameplayTagManager::Get();
+	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_Report);
+	auto reportUI = Cast<UReportUI>(subUI);
+
+	if (!reportUI || !OtherUserData.IsValid()) return;
+
+	reportUI->SetUserName(OtherUserData->NickName);
+	reportUI->SetUserSeq(OtherUserData->UserSeq);
+
+	GetUIManager()->OpenSubUI(TagManager.UI_Report);
+
 	CloseUIByManager();
 }
 
@@ -71,8 +112,10 @@ void UOtherPlayerMenu::OnCancelClicked()
 	CloseUIByManager();
 }
 
-void UOtherPlayerMenu::CloseUIByManager()
+void UOtherPlayerMenu::SuccessCreateParty()
 {
-	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
+	auto partyManager = GetPartyManager();
+	if (!partyManager || !OtherUserData.IsValid()) return;
+
+	partyManager->InviteParty(OtherUserData->UserSeq);
 }

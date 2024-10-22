@@ -7,5 +7,6 @@
 
 
 bool Handle_TRADE_USER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_TradeUserResponse& pkt);
+bool Handle_TRADE_START_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_TradeStartResponse& pkt);
 bool Handle_TRADE_STATE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_TradeStateResponse& pkt);
 bool Handle_TRADE_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_TradeCompleteResponse& pkt);

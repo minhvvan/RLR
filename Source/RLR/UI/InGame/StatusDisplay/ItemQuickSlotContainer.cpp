@@ -79,7 +79,6 @@ void UItemQuickSlotContainer::RefreshUI()
 			QuickSlot->RefreshUI();
 			continue;
 		}
-		QuickSlot->SetSlotItemResourceData(ItemResourceData);
 	}
 }
 

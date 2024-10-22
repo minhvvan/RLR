@@ -61,6 +61,34 @@ void UUIManager::OpenMainUI(TSubclassOf<UMainUI> UIClass)
 	};
 }
 
+UBaseUI* UUIManager::OpenUI(EUIType UIType)
+{
+	//UI Toggle
+	USubUI* SubUI = MainUI->GetSubUI(UIType);
+	if(IsValid(SubUI) == false)
+		return nullptr;
+	bool bOpen = SubUI->GetVisibility() == ESlateVisibility::Hidden;
+	SubUI->OpenUI();
+
+	if (bOpen)
+	{
+		SubUIStack.AddUnique(SubUI);
+		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+		CanvasSlot->SetZOrder(SubUIStack.Num());
+	}
+	else
+	{
+		SubUIStack.Remove(SubUI);
+		SubUIStack.AddUnique(SubUI);
+		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+		CanvasSlot->SetZOrder(SubUIStack.Num());
+	}
+\
+	MainUI->InvalidateLayoutAndVolatility();
+
+	return SubUI;
+}
+
 void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 {
 	/*
@@ -151,6 +179,9 @@ void UUIManager::AddUI(UBaseUI* BaseUI)
 	if (UIMap.Contains(Type) == true)
 	{
 		//중복된 UI가 추가되고 있다.
+		UBaseUI* DeplicatedUI = UIMap[Type];
+		DeplicatedUI->RemoveFromParent();
+		UIMap.Remove(Type);
 		DEBUG_MESSAGE;
 	}
 	UIMap.Add(Type, BaseUI);
@@ -185,6 +216,23 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	MainUI->InvalidateLayoutAndVolatility();
 }
 
+void UUIManager::OpenSubUI(FGameplayTag UITag)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (!MainUI->IsOpenSubUI(UITag))
+		{
+			MainUI->OpenSubUI(UITag);
+			SubUIStack.AddUnique(MainUI->GetSubUI(UITag));
+			AdjustZOrder();
+		}
+	}
+}
+
 void UUIManager::CloseSubUI(FGameplayTag UITag)
 {
 	if (DialogueUI)
@@ -202,6 +250,30 @@ void UUIManager::CloseSubUI(FGameplayTag UITag)
 	}
 }
 
+void UUIManager::CloseSubUI(EUIType SubUIType)
+{
+	if (DialogueUI)
+	{
+		DialogueUI->CloseItemInfo();
+	}
+	else
+	{
+		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+			return;
+
+		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+		SubUI->SetVisibility(ESlateVisibility::Hidden);
+		SubUIStack.Remove(SubUI);
+		AdjustZOrder();
+		MainUI->InvalidateLayoutAndVolatility();
+	}
+}
+
+USubUI* UUIManager::GetSubUI(FGameplayTag UITag)
+{
+	return MainUI->GetSubUI(UITag);
+}
+
 void UUIManager::AdjustZOrder()
 {
 	for (int32 OrderNum = 0; OrderNum < SubUIStack.Num(); OrderNum++)
@@ -216,7 +288,7 @@ void UUIManager::AdjustZOrder()
 	}
 }
 
-void UUIManager::SetSubUIPos(FGameplayTag UITag, FVector2D NewPos)
+void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
 {
 	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
 	if (!subUI) return;
@@ -291,6 +363,7 @@ void UUIManager::OnDialogueEnded()
 	}
 
 	DialogueUI->RemoveFromParent();
+	DialogueUI->Destruct();
 	if (MainUI)
 	{
 		MainUI->SetVisibility(ESlateVisibility::Visible);

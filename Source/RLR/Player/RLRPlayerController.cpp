@@ -9,6 +9,7 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/InventoryManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/MainUI.h"
@@ -184,7 +185,7 @@ void ARLRPlayerController::OnUserClick()
 			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
 		}
 
-		UIManger->SetSubUIPos(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
 		OnOpenUI(TagManager.UI_OtherPlayerMenu);
 	}
 }
@@ -212,6 +213,8 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 		return;
 	}
 
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(), TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -219,8 +222,11 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
-
 	SkillManager->SkillStart(TriggerTag);
+	
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
@@ -247,10 +253,10 @@ void ARLRPlayerController::OnConsumeItem(int inputID)
 
 void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 {
-	USkillManager* SkillManager = GameInstance->GetSkillManager();
-	if (SkillManager == nullptr) return;
+	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
+	if (InventoryManager == nullptr) return;
 
-	SkillManager->UsingItem(InputTag);	
+	InventoryManager->UsingItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
