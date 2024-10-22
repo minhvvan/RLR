@@ -47,7 +47,10 @@ public:
 	const FSkillData&		GetSkillDataByTag(FGameplayTag Tag);
 
 	UFUNCTION(BlueprintCallable)
-	const FActionResource&	GetActionResource(int32 Seq);
+	const FActionResource&	GetActionResource(int32 Seq);	
+	
+	UFUNCTION(BlueprintCallable)
+	const FActionResource&	GetActionResourceByTag(FGameplayTag Tag);
 
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);

@@ -192,6 +192,24 @@ const FActionResource& UDataManager::GetActionResource(int32 Seq)
 	return FActionResource::EmptyActionResource;
 }
 
+const FActionResource& UDataManager::GetActionResourceByTag(FGameplayTag Tag)
+{
+	if (ActionResourceTable)
+	{
+		TArray<FName> RowNames = ActionResourceTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(RowName, TEXT("Searching by Tag"));
+			if (Data && Data->ActionTag == Tag)
+			{
+				return *Data;
+			}
+		}
+	}
+
+	return FActionResource::EmptyActionResource;
+}
+
 void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray)
 {
 	if(SkillDictionary.Contains(JobType) == false)

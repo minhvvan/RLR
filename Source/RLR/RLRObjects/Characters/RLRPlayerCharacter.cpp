@@ -145,19 +145,22 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 	}
 }
 
-void ARLRPlayerCharacter::UpdateAction(std::string tagName)
+void ARLRPlayerCharacter::UpdateAction(int ActionSeq)
 {
 	if (AIController)
 	{
 		if (!ASC) return;
 
-		auto TagManager = FGameplayTagManager::Get();
-		auto playMontageAction = ASC->GetActionInstance(TagManager.Action_Default_PlayMontage);
-
 		auto DataManager = GameInstance->GetDataManager();
-		FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*FString(tagName.c_str())));
+		if (!DataManager) return;
 
-		ASC->ActivateActionForce(Tag);
+		auto actionResource = DataManager->GetActionResource(ActionSeq);
+		if (actionResource == FActionResource::EmptyActionResource) return;
+
+		FActionSpec spec(actionResource.ActionClass);
+		ASC->GiveAction(actionResource.ActionTag, spec);
+
+		ASC->ActivateActionForce(actionResource.ActionTag);
 	}
 }
 

@@ -194,10 +194,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Action")
 	int32 InputID;
 
-	/* Chain ActionTag (e.g. AttackCheck) */
-	UPROPERTY(EditDefaultsOnly, Category = "Action")
-	FGameplayTag FollowActionTag;
-
+	/** ActionInstances */
 	UPROPERTY(VisibleAnywhere, Category = "Action")
 	TArray<TObjectPtr<UAction>> ActionInstances;
 };

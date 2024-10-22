@@ -10,10 +10,8 @@
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/OtherUserManager.h"
-#include "Network/Handler/ClientPacketHandler.h"
+#include "GameManager/DataManager.h"
 #include "Structs/UtilStructs.h"
-#include "UI/MainUI.h"
-#include "UI/InGame/InGameHUD.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
@@ -232,16 +230,24 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	if (!NetworkManager) return;
+
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
+	if (actionResource == FActionResource::EmptyActionResource) return;
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
 	ASC->AddActionData(TriggerTag, actionData);
 
 	SkillManager->SkillStart(TriggerTag);
-	
-	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
-	
+
+	//TODO: tag -> string (X), ActionSeq로 전달( actionResource.ActionSeq 사용하면 됩니다)
+	//NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
