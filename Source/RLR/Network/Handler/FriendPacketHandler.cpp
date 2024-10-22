@@ -2,11 +2,22 @@
 
 
 #include "Network/Handler/FriendPacketHandler.h"
+#include "Structs/UtilStructs.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/FriendManager.h"
 
 
 bool Handle_INFO_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_FriendInfoResponse& pkt)
 {
-    // FriendManager 생성 시 추가
+	TArray<FFriendGroupResult> groupData;
+
+	for (int32 i = 0; i < pkt.groups_size(); i++) {
+		FFriendGroupResult groupDatum;
+		groupDatum.MakeGroupData(pkt.groups().at(i));
+		groupData.Add(groupDatum);
+	}
+
+    GameInstance->GetFriendManager()->SetFriendData(groupData);
     return false;
 }
 
