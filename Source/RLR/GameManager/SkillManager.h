@@ -33,6 +33,7 @@ public:
 	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
 	const FSkillDictionary<FGameplayTag, FSkillData>& GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
+	FGameplayTag GetSkillTag(FGameplayTag TriggerTag);
 	bool HasLearnedSkill(int32 SkillSeq);
 
 	//Response

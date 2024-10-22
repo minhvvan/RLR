@@ -191,7 +191,10 @@ void ARLRPlayerController::OnUserClick()
 void ARLRPlayerController::OnTest()
 {
 	//Test Code
+	auto* player = GameInstance->GetOtherUserManager()->GetPlayer(2);
+	if (!player) return;
 
+	player->UpdateAction(2);
 }
 
 FVector ARLRPlayerController::GetClickPosition()
@@ -236,15 +239,18 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	UDataManager* DataManager = GameInstance->GetDataManager();
 	if (!DataManager) return;
 
-	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
+	auto skillTag = SkillManager->GetSkillTag(TriggerTag);
+	if (skillTag == FGameplayTag::EmptyTag) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(skillTag);
 	if (actionResource == FActionResource::EmptyActionResource) return;
 
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
-	ASC->AddActionData(TriggerTag, actionData);
+	ASC->AddActionData(skillTag, actionData);
 
-	SkillManager->SkillStart(TriggerTag);
+	SkillManager->SkillStart(skillTag);
 
 	//TODO: tag -> string (X), ActionSeq로 전달( actionResource.ActionSeq 사용하면 됩니다)
 	//NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));

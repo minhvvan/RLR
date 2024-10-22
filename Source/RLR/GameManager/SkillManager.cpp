@@ -93,6 +93,12 @@ bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
 	return bResult;
 }
 
+FGameplayTag USkillManager::GetSkillTag(FGameplayTag TriggerTag)
+{
+	if (!OwnSkills.Contains(TriggerTag)) return FGameplayTag::EmptyTag;
+	return OwnSkills[TriggerTag].SkillTag;
+}
+
 bool USkillManager::HasLearnedSkill(int32 SkillSeq)
 {
 	return LearnedSkills.Contains(SkillSeq);
@@ -141,13 +147,12 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			return;
 		}
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-
-		OwnSkills.Add(SkillTag, SelectedSkills[i]);
+		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
+		OwnSkills.Add(SkillTag, Data);
 
 		{
 			FActionSpec Spec(ActionResource.ActionClass, 1, 0);
-			ASC->GiveAction(SkillTag, Spec);
+			ASC->GiveAction(Data.SkillTag, Spec);
 		}
 	}
 
@@ -167,9 +172,9 @@ void USkillManager::SetLearnedSkills(const TArray<FSkillData>& LearnedSkillsList
 		{
 			selectedSkills.Add(SkillData);
 		}
-
-		SetSelectedSkills(selectedSkills);
 	}
+
+	SetSelectedSkills(selectedSkills);
 }
 
 bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor)
