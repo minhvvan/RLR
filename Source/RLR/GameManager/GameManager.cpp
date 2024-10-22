@@ -184,6 +184,8 @@ UFriendManager* UGameManager::GetFriendManager()
         return FriendManager;
     }
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetFriendManager Error."));
+    return nullptr;
+
 }
 
 UPartyManager* UGameManager::GetPartyManager()
