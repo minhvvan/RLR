@@ -30,7 +30,6 @@ void UActionSkill_Holding_Skill::OnAnimNotifyTriggered()
 	FVector MousePos = ActionData.MousePos;
 
 	if (!SkillData) return;
-	float SkillRange = SkillData->SkillRange.X;
 
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
@@ -43,7 +42,7 @@ void UActionSkill_Holding_Skill::OnAnimNotifyTriggered()
 	PlayerRotation.Pitch = 0.f;
 
 	ARLRProjectile* HoldingProjectile = GetWorld()->SpawnActorDeferred<ARLRProjectile>(HoldingSkillProjectile, FTransform::Identity, Player);
-	HoldingProjectile->SetSkillRange(SkillRange);
+	HoldingProjectile->SetSkillData(MakeShared<FSkillData>(*SkillData));
 	/* TODO : 50은 나중에 데이터 처리 */
 	FTransform SpawnRange(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
 	SpawnRange.SetRotation(PlayerRotation.Quaternion());

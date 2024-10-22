@@ -31,7 +31,6 @@ void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 
 	if (!SkillData) return;
 
-	float SkillRange = SkillData->SkillDistance;
 	FVector StartPos = Player->GetActorLocation();
 	FVector MousePos = StartPos + Player->GetActorForwardVector() * 100;
 
@@ -46,7 +45,8 @@ void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 	Rotator.Pitch = 0.f;
 
 	ARLRProjectile* Aura = Player->GetWorld()->SpawnActorDeferred<ARLRProjectile>(SwordAuraProjectile, FTransform::Identity, Player);
-	Aura->SetSkillRange(SkillRange);
+	
+	Aura->SetSkillData(MakeShared<FSkillData>(*SkillData));
 	Aura->OnFinishSkill.AddDynamic(this, &UActionSkill_Normal_SwordAura::OnFinishSkill);
 
 	FTransform SpawnLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);

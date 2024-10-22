@@ -202,9 +202,7 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		
 	}
 
-	//TODO: Send To Server(Skill Result) Using NetworkManager
-	GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
-	return false;
+	return GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
 }
 
 void USkillManager::UsingItem(FGameplayTag TriggerTag)

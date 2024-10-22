@@ -8,6 +8,8 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFinishSkill, TArray<AActor*>, OverlappedActors);
 
+struct FSkillData;
+
 UCLASS()
 class RLR_API ARLRProjectile : public ARLRActor
 {
@@ -38,9 +40,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void SetFireDir();
-	void SetSkillRange(const float& Range);
-
+	void SetSkillData(TSharedPtr<FSkillData> Data);
 	FOnFinishSkill OnFinishSkill;
 
 protected:
@@ -48,10 +48,12 @@ protected:
 	virtual void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	void FinishSkill();
+	void SetSkillDistance(const float& Distance);
 
 protected:
-	float SkillRange;
+	float SkillDistance;
 	float MoveDistance;
 
+	TSharedPtr<FSkillData> SkillData;
 	TArray<AActor*> OverlappedActors;
 };
