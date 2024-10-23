@@ -62,7 +62,8 @@ struct CS_UserQuestInfoRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_UserQuestInfoRequestDefaultTypeInternal _CS_UserQuestInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.quests_)*/{}
+    /*decltype(_impl_.quests_)*/nullptr
+  , /*decltype(_impl_.questcount_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_UserQuestInfoResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SC_UserQuestInfoResponseDefaultTypeInternal()
@@ -189,6 +190,7 @@ const uint32_t TableStruct_NPC_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(prot
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserQuestInfoResponse, _impl_.questcount_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserQuestInfoResponse, _impl_.quests_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_QuestCheckRequest, _internal_metadata_),
@@ -243,12 +245,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 7, -1, -1, sizeof(::Protocol::SC_NPCInfoResponse)},
   { 14, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
   { 21, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
-  { 28, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
-  { 36, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
-  { 44, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
-  { 53, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
-  { 60, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
-  { 68, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
+  { 29, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
+  { 37, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
+  { 45, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
+  { 54, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
+  { 61, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
+  { 69, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -269,18 +271,18 @@ const char descriptor_table_protodef_NPC_2eproto[] PROTOBUF_SECTION_VARIABLE(pro
   "ruct.proto\"\"\n\021CS_NPCInfoRequest\022\r\n\005mapId"
   "\030\001 \001(\003\"0\n\022SC_NPCInfoResponse\022\032\n\003npc\030\001 \003("
   "\0132\r.Protocol.NPC\"*\n\027CS_UserQuestInfoRequ"
-  "est\022\017\n\007userSeq\030\001 \001(\005\";\n\030SC_UserQuestInfo"
-  "Response\022\037\n\006quests\030\001 \003(\0132\017.Protocol.Ques"
-  "t\"9\n\024CS_QuestCheckRequest\022\020\n\010questSeq\030\001 "
-  "\001(\005\022\017\n\007userSeq\030\002 \001(\005\"S\n\025SC_QuestCheckRes"
-  "ponse\022\020\n\010questSeq\030\001 \001(\005\022(\n\nqueststate\030\002 "
-  "\001(\0162\024.Protocol.QuestState\"G\n\022CS_QuestAdd"
-  "Request\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001"
-  "(\005\022\016\n\006npcSeq\030\003 \001(\005\"&\n\023SC_QuestAddRespons"
-  "e\022\017\n\007success\030\001 \001(\005\"<\n\027CS_QuestCompleteRe"
+  "est\022\017\n\007userSeq\030\001 \001(\005\"O\n\030SC_UserQuestInfo"
+  "Response\022\022\n\nquestCount\030\001 \001(\005\022\037\n\006quests\030\002"
+  " \001(\0132\017.Protocol.Quest\"9\n\024CS_QuestCheckRe"
   "quest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005"
-  "\"+\n\030SC_QuestCompleteResponse\022\017\n\007success\030"
-  "\001 \001(\005b\006proto3"
+  "\"S\n\025SC_QuestCheckResponse\022\020\n\010questSeq\030\001 "
+  "\001(\005\022(\n\nqueststate\030\002 \001(\0162\024.Protocol.Quest"
+  "State\"G\n\022CS_QuestAddRequest\022\020\n\010questSeq\030"
+  "\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006npcSeq\030\003 \001(\005\"&"
+  "\n\023SC_QuestAddResponse\022\017\n\007success\030\001 \001(\005\"<"
+  "\n\027CS_QuestCompleteRequest\022\020\n\010questSeq\030\001 "
+  "\001(\005\022\017\n\007userSeq\030\002 \001(\005\"+\n\030SC_QuestComplete"
+  "Response\022\017\n\007success\030\001 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -288,7 +290,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2]
 };
 static ::_pbi::once_flag descriptor_table_NPC_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPC_2eproto = {
-    false, false, 613, descriptor_table_protodef_NPC_2eproto,
+    false, false, 633, descriptor_table_protodef_NPC_2eproto,
     "NPC.proto",
     &descriptor_table_NPC_2eproto_once, descriptor_table_NPC_2eproto_deps, 2, 10,
     schemas, file_default_instances, TableStruct_NPC_2eproto::offsets,
@@ -851,10 +853,18 @@ void CS_UserQuestInfoRequest::InternalSwap(CS_UserQuestInfoRequest* other) {
 
 class SC_UserQuestInfoResponse::_Internal {
  public:
+  static const ::Protocol::Quest& quests(const SC_UserQuestInfoResponse* msg);
 };
 
+const ::Protocol::Quest&
+SC_UserQuestInfoResponse::_Internal::quests(const SC_UserQuestInfoResponse* msg) {
+  return *msg->_impl_.quests_;
+}
 void SC_UserQuestInfoResponse::clear_quests() {
-  _impl_.quests_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.quests_ != nullptr) {
+    delete _impl_.quests_;
+  }
+  _impl_.quests_ = nullptr;
 }
 SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -866,10 +876,15 @@ SC_UserQuestInfoResponse::SC_UserQuestInfoResponse(const SC_UserQuestInfoRespons
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   SC_UserQuestInfoResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.quests_){from._impl_.quests_}
+      decltype(_impl_.quests_){nullptr}
+    , decltype(_impl_.questcount_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_quests()) {
+    _this->_impl_.quests_ = new ::Protocol::Quest(*from._impl_.quests_);
+  }
+  _this->_impl_.questcount_ = from._impl_.questcount_;
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_UserQuestInfoResponse)
 }
 
@@ -878,7 +893,8 @@ inline void SC_UserQuestInfoResponse::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.quests_){arena}
+      decltype(_impl_.quests_){nullptr}
+    , decltype(_impl_.questcount_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -894,7 +910,7 @@ SC_UserQuestInfoResponse::~SC_UserQuestInfoResponse() {
 
 inline void SC_UserQuestInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.quests_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.quests_;
 }
 
 void SC_UserQuestInfoResponse::SetCachedSize(int size) const {
@@ -907,7 +923,11 @@ void SC_UserQuestInfoResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.quests_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.quests_ != nullptr) {
+    delete _impl_.quests_;
+  }
+  _impl_.quests_ = nullptr;
+  _impl_.questcount_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -917,16 +937,19 @@ const char* SC_UserQuestInfoResponse::_InternalParse(const char* ptr, ::_pbi::Pa
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .Protocol.Quest quests = 1;
+      // int32 questCount = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_quests(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.questcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Quest quests = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_quests(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -959,12 +982,17 @@ uint8_t* SC_UserQuestInfoResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Protocol.Quest quests = 1;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_quests_size()); i < n; i++) {
-    const auto& repfield = this->_internal_quests(i);
+  // int32 questCount = 1;
+  if (this->_internal_questcount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_questcount(), target);
+  }
+
+  // .Protocol.Quest quests = 2;
+  if (this->_internal_has_quests()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(2, _Internal::quests(this),
+        _Internal::quests(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -983,11 +1011,16 @@ size_t SC_UserQuestInfoResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.Quest quests = 1;
-  total_size += 1UL * this->_internal_quests_size();
-  for (const auto& msg : this->_impl_.quests_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // .Protocol.Quest quests = 2;
+  if (this->_internal_has_quests()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.quests_);
+  }
+
+  // int32 questCount = 1;
+  if (this->_internal_questcount() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_questcount());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1008,7 +1041,13 @@ void SC_UserQuestInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.quests_.MergeFrom(from._impl_.quests_);
+  if (from._internal_has_quests()) {
+    _this->_internal_mutable_quests()->::Protocol::Quest::MergeFrom(
+        from._internal_quests());
+  }
+  if (from._internal_questcount() != 0) {
+    _this->_internal_set_questcount(from._internal_questcount());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1026,7 +1065,12 @@ bool SC_UserQuestInfoResponse::IsInitialized() const {
 void SC_UserQuestInfoResponse::InternalSwap(SC_UserQuestInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.quests_.InternalSwap(&other->_impl_.quests_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_UserQuestInfoResponse, _impl_.questcount_)
+      + sizeof(SC_UserQuestInfoResponse::_impl_.questcount_)
+      - PROTOBUF_FIELD_OFFSET(SC_UserQuestInfoResponse, _impl_.quests_)>(
+          reinterpret_cast<char*>(&_impl_.quests_),
+          reinterpret_cast<char*>(&other->_impl_.quests_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_UserQuestInfoResponse::GetMetadata() const {
