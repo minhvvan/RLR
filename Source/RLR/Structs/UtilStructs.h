@@ -291,6 +291,7 @@ struct FFriendGroupResult
 	void MakeGroupData(const Protocol::Group group);	
 };
 
+USTRUCT(Atomic, BlueprintType)
 struct FAnimData : public FTableRowBase
 {
 	GENERATED_BODY()

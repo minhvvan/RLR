@@ -49,6 +49,9 @@ private:
 	UPROPERTY()
 	TMap<int32, FSkillData> LearnedSkills;
 
+	UFUNCTION()
+	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
+
 public:
 
 	//현재는 StatusDisplay에서 스킬 사용시, 쿨타임 효과를 재생하기 위해 호출하는 중이다.
