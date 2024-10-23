@@ -18,7 +18,9 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/SkillManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/InventoryManager.h"
 #include "GameOptionData/GameOptionData.h"
+
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
 
@@ -30,11 +32,11 @@ void UStatusDisplay::NativeConstruct()
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
 
-	GameInstance->GetSkillManager()->UpdatedTryUsingItemAction.RemoveDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
-	GameInstance->GetSkillManager()->UpdatedTryUsingItemAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
+	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.RemoveDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
+	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
 
-	GameInstance->GetSkillManager()->UpdatedItemSettingDelegate.RemoveDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
-	GameInstance->GetSkillManager()->UpdatedItemSettingDelegate.AddUniqueDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
+	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.RemoveDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
+	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.AddUniqueDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
 }
 
 void UStatusDisplay::Init()
@@ -60,7 +62,7 @@ void UStatusDisplay::SaveItemQuickSlotData()
 
 	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetItemQuickSlotOption().ItemQuickSlotList;
-	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetSkillManager()->GetOwnItems();
+	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetInventoryManager()->GetOwnItems();
 
 	for (auto& [Tag, Data] : OwnItems)
 	{
@@ -140,10 +142,14 @@ void UStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
 
 USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 {
+	if(SkillQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
+		return nullptr;
 	return  SkillQuickSlotContainer->QuickSlotMap[ActionTag];
 }
 
 UItemQuickSlot* UStatusDisplay::GetItemQuickSlot(FGameplayTag ActionTag)
 {
+	if (ItemQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
+		return nullptr;
 	return ItemQuickSlotContainer->QuickSlotMap[ActionTag];
 }

@@ -16,7 +16,9 @@
 #include "GameManager/QuestManager.h"
 #include "GameManager/LobbyManager.h"
 #include "GameManager/PostalManager.h"
+#include "GameManager/FriendManager.h"
 #include "GameManager/PartyManager.h"
+
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -173,6 +175,18 @@ UPostalManager* UGameManager::GetPostalManager()
     }
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetPostalManager Error."));
     return nullptr;
+}
+
+UFriendManager* UGameManager::GetFriendManager()
+{
+    UFriendManager* FriendManager = GetSubsystem<UFriendManager>(this);
+    if (IsValid(FriendManager))
+    {
+        return FriendManager;
+    }
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetFriendManager Error."));
+    return nullptr;
+
 }
 
 UPartyManager* UGameManager::GetPartyManager()

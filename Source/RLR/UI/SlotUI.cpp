@@ -30,6 +30,8 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	//비어있는 슬롯은 옮기지 않는다.
 	if (IsEmpty())
 		return;
+	if(bCanDrag == false)
+		return;
 
 	TSubclassOf<UDraggableWidget> DefaultDraggableWidgetClass = GetDraggableWidgetClass();
 	if (IsValid(DefaultDraggableWidgetClass) == false)
@@ -61,7 +63,6 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	CopyOperation->Pivot = EDragPivot::MouseDown;
 	CopyOperation->DragOffset = DragOffset;
 	CopyOperation->SetItemData(GetItemData());
-	CopyOperation->SetItemResourceData(GetItemResourceData());
 	CopyOperation->SetSkillData(GetSkillData());
 	CopyOperation->SetMaster(this);
 	CopyOperation->DragedSlotType = GetSlotType();
@@ -79,6 +80,9 @@ bool USlotUI::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& In
 		return false;
 
 	if (Operation->Master == this)
+		return false;
+
+	if(bCanDrag == false)
 		return false;
 
 	return true;
@@ -172,17 +176,7 @@ const FItemData& USlotUI::GetItemData()
 	return FItemData::EmptyItemData;
 }
 
-void USlotUI::SetSlotItemResourceData(const FItemResource& NewResourceData)
-{
-	UBaseDragDropOperation* SlotData = GetSlotData();
-	if (IsValid(SlotData) == true)
-	{
-		SlotData->SetItemResourceData(NewResourceData);
-	}
-	RefreshUI();
-}
-
-const FItemResource& USlotUI::GetItemResourceData()
+const FItemResource USlotUI::GetItemResourceData()
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
 

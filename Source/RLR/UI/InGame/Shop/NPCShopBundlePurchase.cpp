@@ -16,7 +16,7 @@ void UNPCShopBundlePurchase::NativeConstruct()
 
 void UNPCShopBundlePurchase::OnConfirmClicked()
 {
-	OnConfirmPurchase.Broadcast(Item, ItemResource);
+	OnConfirmPurchase.Broadcast(Item);
 	RemoveFromParent();
 }
 
@@ -43,10 +43,9 @@ void UNPCShopBundlePurchase::UpdateAmountText()
 	EdtAmount->SetText(FText::AsNumber(Item.ITEM_VALUE));
 }
 
-void UNPCShopBundlePurchase::SetItemData(const FItemData& item, const FItemResource& NewItemResource)
+void UNPCShopBundlePurchase::SetItemData(const FItemData& item)
 {
 	Item = item;
-	ItemResource = NewItemResource;
-	ImgItem->SetBrushFromTexture(ItemResource.ItemImage);
+	ImgItem->SetBrushFromTexture(Item.GetItemResource().ItemImage);
 	UpdateAmountText();
 }

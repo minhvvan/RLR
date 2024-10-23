@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Network/Proto/Post.pb.h"
 #include "GameplayTagContainer.h"
+#include "Network/Proto/Friend.pb.h"
 #include "UtilStructs.generated.h"
 
 class UAction;
@@ -43,8 +44,18 @@ enum class EUIType : uint8
 	EXP_PROGRESS_BAR,
 	BADGE_UI,
 	QUEST,
+	TRADE_UI,
+	//Popup
+	ITEM_COUNT_MESSAGE_BOX,
+	NOTIFICATION_MESSAGE_BOX,
 	POST_UI,
 	OTHER_PLAYER_MENU,
+	FRIEND_LIST_UI,
+	FRIEND_REQUEST_UI,
+	FRIEND_INFORMATION_UI,
+	FRIEND_MENU_UI,
+	GROUP_CREATION_UI,
+	GROUP_MENU_UI,
 	NONE,
 };
 
@@ -261,6 +272,25 @@ struct FEffectData : public FTableRowBase
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FFriendGroupResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> FriendSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<FString> FriendName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 GroupSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString GroupName;
+
+	void MakeGroupData(const Protocol::Group group);	
+};
+
 struct FAnimData : public FTableRowBase
 {
 	GENERATED_BODY()

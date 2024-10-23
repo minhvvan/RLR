@@ -114,7 +114,7 @@ void UDialogueUI::OnShopClicked()
 				ItemResources.Add(itemResource);
 			}
 
-			NPCShopUI->SetItemData(npcData.Shop[0].Items, ItemResources);
+			NPCShopUI->SetItemData(npcData.Shop[0].Items);
 			NPCShopUI->SetPosition(panelPos);
 			NPCShopUI->OpenUI();
 		}

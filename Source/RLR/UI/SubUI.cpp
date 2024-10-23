@@ -8,6 +8,7 @@
 #include "Components/Button.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Structs/UtilStructs.h"
 
 void USubUI::NativeConstruct()
 {
@@ -37,7 +38,18 @@ void USubUI::OpenUI()
 
 void USubUI::CloseUI()
 {
-	SetVisibility(ESlateVisibility::Hidden);
+	if (GetUIType() == EUIType::NONE)
+	{
+		SetVisibility(ESlateVisibility::Hidden);
+	}
+	else
+	{
+		UDialogueUI* Dialogue = GetUIManager()->GetDialogue();
+		if(Dialogue == nullptr)
+			GetUIManager()->CloseSubUI(GetUIType());
+		else
+			SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 void USubUI::OnDragStarted()

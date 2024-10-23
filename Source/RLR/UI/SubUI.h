@@ -87,6 +87,7 @@ private:
 	UMainUI* MainUI;
 	FTimerHandle DragTimer;
 
+public:
 	/*
 		Input Binding
 	*/

@@ -36,10 +36,9 @@ void UNPCPurchaseTab::NativeConstruct()
 	UpdateLastPageText();
 }
 
-void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData, const TArray<FItemResource>* ItemResourceData)
+void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData)
 {
 	Items = *ItemData;
-	ItemResources = *ItemResourceData;
 	UpdatePage();
 	UpdateCart();
 
@@ -47,7 +46,7 @@ void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData, const TArra
 	UpdateLastPageText();
 }
 
-void UNPCPurchaseTab::AddToCart(const FItemData& item, const FItemResource& itemResource)
+void UNPCPurchaseTab::AddToCart(const FItemData& item)
 {
 	if (Cart.Num() == MaxCartNum) return;
 
@@ -61,7 +60,6 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item, const FItemResource& item
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
-			entry->SetSlotItemResourceData(CartResources[i]);
 
 			PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
 			UpdatePrice();
@@ -73,17 +71,14 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item, const FItemResource& item
 	if (!entry) return;
 
 	Cart.Add(item);
-	CartResources.Add(itemResource);
 	PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
 	UpdatePrice();
 	entry->SetItemData(item);
-	entry->SetSlotItemResourceData(itemResource);
 }
 
-void UNPCPurchaseTab::RemoveFromCart(const FItemData& item, const FItemResource& itemResource)
+void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
 {
 	Cart.Remove(item);
-	CartResources.Remove(itemResource);
 	PurchasePrice -= item.SALE_PRICE * item.ITEM_VALUE;
 	UpdatePrice();
 	UpdateCart();
@@ -119,11 +114,9 @@ void UNPCPurchaseTab::OnEmptyClicked()
 		if (!entry) return;
 
 		entry->SetItemData(FItemData::EmptyItemData);
-		entry->SetSlotItemResourceData(FItemResource::EmptyItemResource);
 	}
 
 	Cart.Empty();
-	CartResources.Empty();
 	PurchasePrice = 0;
 	UpdatePrice();
 }
@@ -172,7 +165,6 @@ void UNPCPurchaseTab::UpdatePage()
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
 		itemWidget->SetParent(this);
 		itemWidget->SetItemData(Items[i]);
-		itemWidget->SetSlotItemResourceData(ItemResources[i]);
 		TVItem->AddItem(itemWidget);
 	}
 
@@ -210,12 +202,10 @@ void UNPCPurchaseTab::UpdateCart()
 		if (Cart.IsValidIndex(i))
 		{
 			newItem->SetItemData(Cart[i]);
-			newItem->SetSlotItemResourceData(CartResources[i]);
 		}
 		else
 		{
 			newItem->SetItemData(FItemData::EmptyItemData);
-			newItem->SetSlotItemResourceData(FItemResource::EmptyItemResource);
 		}
 		newItem->OnCartClicked.AddDynamic(this, &UNPCPurchaseTab::RemoveFromCart);
 		TVCart->AddItem(newItem);
@@ -231,7 +221,7 @@ UNPCCartSlot* UNPCPurchaseTab::GetCartSlotWidget(int idx)
 	return entry;
 }
 
-void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item, const FItemResource& itemResource)
+void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item)
 {
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
@@ -240,7 +230,7 @@ void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item, const FItemResou
 	if (!bundlePurchaseClass) return;
 
 	auto bundleUI = CreateWidget<UNPCShopBundlePurchase>(GetWorld(), bundlePurchaseClass);
-	bundleUI->SetItemData(item, itemResource);
+	bundleUI->SetItemData(item);
 	bundleUI->OnConfirmPurchase.AddDynamic(this, &UNPCPurchaseTab::AddToCart);
 
 	auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());

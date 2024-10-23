@@ -33,6 +33,7 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 
     ITEM_VALUE = itemData.itemvalue();
     ITEM_MAX = itemData.itemmax();
+    //QUANTITY = itemData.quantity();
 
     if (itemData.has_equip()) {
         auto equipData = itemData.equip();
@@ -179,6 +180,11 @@ Protocol::Equip FItemData::MakeEquipPacket()
         EquipData.set_equippart(EQUIPMENT_TYPE.GetIntValue());
     }
     return EquipData;
+}
+
+FItemResource FItemData::GetItemResource()
+{
+    return GameInstance->GetDataManager()->GetItemResource(ITEM_SEQ);
 }
 
 void FPlayerGoods::MakePlayerGoods(const Protocol::PlayerGood playerGood)

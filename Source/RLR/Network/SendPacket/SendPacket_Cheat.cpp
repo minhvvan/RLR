@@ -29,7 +29,7 @@ bool UNetworkManager::SendCreateItemCheatPacket(int32 Seq)
 	Protocol::CS_CreateItemCheatPacket packet;
 
     int32 CheatUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
-    packet.set_userseq(CheatUserSeq);      //임시로 하드 코딩.
+    packet.set_userseq(1);      //임시로 하드 코딩.
 	packet.set_itemseq(Seq);
 	SEND_PACKET(packet);
     return false;

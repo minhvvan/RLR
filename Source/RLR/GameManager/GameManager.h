@@ -56,6 +56,7 @@ class UEffectManager;
 class ULevelManager;
 class ULobbyManager;
 class UPostalManager;
+class UFriendManager;
 class UPartyManager;
 
 UCLASS()
@@ -113,6 +114,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	UPartyManager*		GetPartyManager();
+
+	UFUNCTION(BlueprintCallable)
+	UFriendManager*		GetFriendManager();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

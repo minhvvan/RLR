@@ -11,6 +11,8 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/InventoryManager.h"
+#include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "ActionSystem/ActionSystemComponent.h"
@@ -280,10 +282,10 @@ void ARLRPlayerController::OnConsumeItem(int inputID)
 
 void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 {
-	USkillManager* SkillManager = GameInstance->GetSkillManager();
-	if (SkillManager == nullptr) return;
+	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
+	if (InventoryManager == nullptr) return;
 
-	SkillManager->UsingItem(InputTag);	
+	InventoryManager->UsingItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
