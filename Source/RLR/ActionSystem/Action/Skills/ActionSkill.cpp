@@ -52,6 +52,7 @@ void UActionSkill::PlaySkillMontage()
 		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
 		if (!noti) continue;
 
+		noti->OnTriggered.Clear();
 		noti->OnTriggered.AddDynamic(this, &ThisClass::OnAnimNotifyTriggered);
 	}
 

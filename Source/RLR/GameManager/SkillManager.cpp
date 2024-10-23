@@ -55,7 +55,8 @@ void USkillManager::SkillComplete(FGameplayTag TriggerTag)
 			UActionSystemComponent* ASC = Character->GetActionSystemComponent();
 			if (!ASC) return;
 
-			ASC->TryCancelAction(TriggerTag);
+			auto skillTag = GetSkillTag(TriggerTag);
+			ASC->TryCancelAction(skillTag);
 		}
 	}
 }

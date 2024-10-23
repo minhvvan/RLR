@@ -57,9 +57,8 @@ bool UActionSkill_Holding::PreActivateAction()
 
 	if (TimerWidget)
 	{
-		TimerWidget->SetTimerDuration(SkillData->Casting);
+		TimerWidget->SetTimerDuration(SkillData->Duration);
 	}
-
 
 	return bPossible;
 }
@@ -68,9 +67,6 @@ void UActionSkill_Holding::ActivateAction()
 {
 	if (ActionState == EActionState::STATE_ACTIVATE)
 	{
-		//Play Montage
-		PlaySkillMontage();
-		
 		ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 		if (!Player) return;
 
@@ -79,7 +75,7 @@ void UActionSkill_Holding::ActivateAction()
 			if (TimerWidget->GetTimerDuration() <= 0)
 			{
 				/* 전체 시간을 4초로 설정 (로아 쏜살바람새 3초) */
-				TimerWidget->SetTimerDuration(SkillData->Casting);
+				TimerWidget->SetTimerDuration(SkillData->Duration);
 				timerStartTime = GetWorld()->GetTimeSeconds();
 			}
 
@@ -90,22 +86,17 @@ void UActionSkill_Holding::ActivateAction()
 				AnimNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnAnimNotified);
 			}
 
-			// 두 번째 Notify (애니메이션 끝에서 타이머 제거) -> 현재는 필요없는 이벤트여서 주석처리 했습니다
-			//UAnimNotify_ActivateAction* EndNotify = Cast<UAnimNotify_ActivateAction>(SkillAnim->Notifies[1].Notify);
-			//if (EndNotify)
-			//{
-			//	EndNotify->OnTriggered.Clear();
-			//	EndNotify->OnTriggered.AddDynamic(this, &UActionSkill_Holding::OnMontageEndNotified);
-			//}
+			//Play Montage
+			PlaySkillMontage();
 		}
 		ActionState = EActionState::STATE_WAIT_CANCEL;
 	}
+
 	Super::ActivateAction();
 }
 
 void UActionSkill_Holding::OnCompletePlayMontage()
 {
-	
 	if (ActionState != EActionState::STATE_WAIT_CANCEL)
 	{
 		EndAction();

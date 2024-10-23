@@ -173,11 +173,6 @@ void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 	 //if (!GrantedActions.Contains(Tag)) return;
 	for (auto& [triggerTag, spec] : GrantedActions)
 	{
-		//TODO : 홀딩 스킬에서는 입력 중단 시 스킬이 취소되어야 하기 때문에 넣어뒀습니다. 
-		if (triggerTag.MatchesTag(Tag))
-		{
-			Tag = spec.Action->ActionTag;
-		}
 		if (spec.Action->ActionTag.MatchesTag(Tag))
 		{
 			auto copied(spec.ActionInstances);

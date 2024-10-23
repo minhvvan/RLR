@@ -238,14 +238,6 @@ bool UAction::IsOtherUserAction()
 
 void UAction::OnAnimNotifyTriggered()
 {
-	for (const auto& notify : ActionMontage->Notifies)
-	{
-		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
-		if (!noti) continue;
-
-		//TODO: 모든 Callback을 없애지 말고 해당 Callback만 제거하도록 변경되어야 함
-		noti->OnTriggered.Clear();
-	}
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()
