@@ -27,6 +27,7 @@ public:
 	FGameplayTag Action_Default_Move;
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
+	FGameplayTag Action_Default_GuildOpen;
 
 	//Action.Attack
 	FGameplayTag Action_Attack_HitCheck;
@@ -190,7 +191,7 @@ public:
 	FGameplayTag InputTag_X;
 	FGameplayTag InputTag_Y;
 	FGameplayTag InputTag_Z;
-
+	FGameplayTag InputTag_Alt_U;
 
 	FGameplayTag None = FGameplayTag();
 

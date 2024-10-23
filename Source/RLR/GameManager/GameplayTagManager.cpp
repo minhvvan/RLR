@@ -14,7 +14,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Default_Move = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Move"), FString(TEXT("이동")));
 	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Attack"), FString(TEXT("기본공격")));
 	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Jump"), FString(TEXT("점프")));
-	
+	GameplayTags.Action_Default_GuildOpen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.GuildOpen"), FString(TEXT("길드창")));
+
 	GameplayTags.Action_Attack_HitCheck = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Attack.HitCheck"), FString(TEXT("공격판정")));
 	
 	//Skill
@@ -159,7 +160,7 @@ void FGameplayTagManager::Init()
 	GameplayTags.InputTag_X = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.X"), FString(TEXT("KeyBoard X")));
 	GameplayTags.InputTag_Y = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Y"), FString(TEXT("KeyBoard Y")));
 	GameplayTags.InputTag_Z = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Z"), FString(TEXT("KeyBoard Z")));
-
+	GameplayTags.InputTag_Alt_U = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Alt_U"), FString(TEXT("KeyBoard Alt + U")));
 
 }
 

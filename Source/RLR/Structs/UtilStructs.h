@@ -117,14 +117,14 @@ struct FPostResult
 
 	FPostResult() :
 	ReceiverSeq(0),
-	SenderSeq(0),
-	TotalMoney(0),
-	PostId(-1),
 	ReceiverName(""),
-	SenderName(""),
 	Title(""),
+	SenderSeq(0),
 	Content(""),
-	IsRead(false)
+	TotalMoney(0),
+	IsRead(false),
+	PostId(-1),
+	SenderName("")
 	{}
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
