@@ -128,3 +128,26 @@ bool UNetworkManager::SendContentCommunity(int communityKey, int communitySeq)
 
 	SEND_PACKET(packet);
 }
+bool UNetworkManager::SendCancelContent(int communitySeq)
+{
+	if (!MainServerSocket) return false;
+
+	Protocol::CS_ContentCancelRequest packet;
+
+	packet.set_userseq(UserSeq);
+	packet.set_communityseq(communitySeq);
+
+	SEND_PACKET(packet);
+}
+
+bool UNetworkManager::SendAcceptContent(int communitySeq)
+{
+	if (!MainServerSocket) return false;
+
+	Protocol::CS_ContentAcceptRequest packet;
+
+	packet.set_userseq(UserSeq);
+	packet.set_communityseq(communitySeq);
+
+	SEND_PACKET(packet);
+}

@@ -243,6 +243,8 @@ public:
     bool SendKickCommunity(int userSeq, int communitySeq);
 
     bool SendContentCommunity(int communityKey, int communitySeq);
+    bool SendCancelContent(int communitySeq);
+    bool SendAcceptContent(int communitySeq);
     /*
             Map
                      */

@@ -157,16 +157,17 @@ enum : uint16
     PKT_REMOVE_GUILD_RESPONSE = 1806,
     PKT_CREATE_GUILD_REQUEST = 1807,
     PKT_CREATE_GUILD_RESPONSE = 1808,
-    PKT_DELETE_GUILD_REQUEST = 1809,
-    PKT_DELETE_GUILD_RESPONSE = 1810,
-    PKT_CHANGE_NAME_GUILD_REQUEST = 1811,
-    PKT_CHANGE_NAME_GUILD_RESPONSE = 1812,
-    PKT_CHANGE_RANK_GUILD_REQUEST = 1813,
-    PKT_CHANGE_RANK_GUILD_RESPONSE = 1814,
-    PKT_GUILD_CONNECT_RESPONSE = 1815,
-    PKT_INVITE_GUILD_REQUEST = 1816,
-    PKT_INVITE_GUILD_RESPONSE = 1817,
-    PKT_ACCEPT_GUILD_REQUEST = 1818,
+    PKT_DELETE_GUILD_REQUEST = 1810,
+    PKT_DELETE_GUILD_RESPONSE = 1811,
+    PKT_CHANGE_NAME_GUILD_REQUEST = 1812,
+    PKT_CHANGE_NAME_GUILD_RESPONSE = 1813,
+    PKT_CHANGE_RANK_GUILD_REQUEST = 1814,
+    PKT_CHANGE_RANK_GUILD_RESPONSE = 1815,
+    PKT_GUILD_CONNECT_RESPONSE = 1816,
+    PKT_INVITE_GUILD_REQUEST = 1817,
+    PKT_INVITE_GUILD_RESPONSE = 1818,
+    PKT_ACCEPT_GUILD_REQUEST = 1819,
+    PKT_ACCEPT_GUILD_RESPONSE = 1820,
     // Add Cheat Packet types
     PKT_CHEAT_ITEM_REQUEST = 1901,
     PKT_CHEAT_SKILL_REQUEST = 1902,
@@ -232,14 +233,17 @@ enum : uint16
     PKT_COMMUNITY_CONTENT_RESPONSE = 3134,
     // Add Content packet types
     PKT_CONTENT_FAIL_RESPONSE = 3141,
-
+    PKT_CONTENT_ACCEPT_REQUEST = 3142,
+    PKT_CONTENT_ACCEPT_RESPONSE = 3143,
+    PKT_CONTENT_CANCEL_REQUEST = 3144,
+    PKT_CONTENT_CANCEL_RESPONSE = 3145,
     // Add Good packet types
     PKT_GOOD_USER_REQUEST = 4001,
     PKT_GOOD_USER_RESPONSE = 4002,
     PKT_GOOD_PLAYER_REQUEST = 4003,
     PKT_GOOD_PLAYER_RESPONSE = 4004,
 
-    //
+    // Add Map packet types
     PKT_MAP_MOVE_REQUEST = 5001,
     PKT_MAP_CONTENT_REQUEST = 5002,
     PKT_MAP_RESPONSE = 5003,
@@ -349,6 +353,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityExitRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_EXIT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityContentRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_CONTENT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityEnterRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_ENTER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ContentAcceptRequest& pkt) { return MakeSendBuffer(pkt, PKT_CONTENT_ACCEPT_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ContentCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_CONTENT_CANCEL_REQUEST); }
 
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapMoveRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_MOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapContentRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_CONTENT_REQUEST); }
