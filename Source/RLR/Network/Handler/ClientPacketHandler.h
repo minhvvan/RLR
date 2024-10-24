@@ -20,6 +20,7 @@
 #include "Network/Proto/Post.pb.h"
 #include "Network/Proto/Trade.pb.h"
 #include "Network/Proto/Friend.pb.h"
+#include "Network/Proto/Good.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -291,6 +292,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendInGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_IN_GROUP_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PlayerGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_GOOD_PLAYER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UserGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_GOOD_USER_REQUEST); }
 
   public:
     template<typename PacketType>

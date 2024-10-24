@@ -218,6 +218,15 @@ void ClientPacketHandler::Init()
             return instance.HandlePacket<Protocol::SC_FriendConnectResponse>(&Handle_FRIEND_CONNECT_RESPONSE, session, buffer, len);
         };
 
+    GPacketHandler[PKT_GOOD_USER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_UserGoodResponse>(&Handle_USER_GOOD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_GOOD_PLAYER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PlayerGoodResponse>(&Handle_PLAYER_GOOD_RESPONSE, session, buffer, len);
+        };
+
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

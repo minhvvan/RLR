@@ -21,3 +21,5 @@ bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_B
 bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt);
 bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt);
 
+bool Handle_USER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserGoodResponse& pkt);
+bool Handle_PLAYER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PlayerGoodResponse& pkt);

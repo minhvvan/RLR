@@ -63,3 +63,4 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
     Talent.MakeTalent(Data.talent());
     Transform = FVector(Data.transx(), Data.transy(), Data.transz());
 }
+
