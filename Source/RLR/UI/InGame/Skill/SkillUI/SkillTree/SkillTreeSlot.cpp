@@ -60,9 +60,9 @@ void USkillTreeSlot::RefreshUI()
 	}
 	SetVisibility(ESlateVisibility::Visible);
 
-	if (IsValid(GetSkillClassData().SkillImage) == true)
+	if (IsValid(GetActionResource().ActionImage) == true)
 	{
-		SetSlotImage(GetSkillClassData().SkillImage);
+		SetSlotImage(GetActionResource().ActionImage);
 	}
 
 	if (IsLearned == true)
@@ -80,5 +80,5 @@ void USkillTreeSlot::RefreshUI()
 void USkillTreeSlot::SetLearned(bool Value)
 {
 	IsLearned = Value;
-	SetSlotImage(GetSkillClassData().SkillImage);
+	SetSlotImage(GetActionResource().ActionImage);
 }

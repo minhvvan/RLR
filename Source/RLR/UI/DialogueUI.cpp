@@ -121,7 +121,7 @@ void UDialogueUI::OnShopClicked()
 
 		if (InventoryUI)
 		{
-			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->WidthOverride + 10.f, 100.f);
+			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
 			InventoryUI->SetPosition(panelPos);
 			InventoryUI->OpenUI();
 		}
@@ -151,7 +151,7 @@ void UDialogueUI::OnPostClicked()
 		*/
 		if (InventoryUI)
 		{
-			FVector2D panelPos(100.f + PostOverlayUI->RootSizeBox->WidthOverride + 10.f, 100.f);
+			FVector2D panelPos(100.f + PostOverlayUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
 			InventoryUI->SetPosition(panelPos);
 			InventoryUI->OpenUI();
 		}

@@ -52,7 +52,7 @@ void UActionInteract::CancelAction()
 
 void UActionInteract::EndAction()
 {
-	if (InteractTimerUI) InteractTimerUI->RemoveFromViewport();
+	if (InteractTimerUI) InteractTimerUI->RemoveFromParent();
 
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
@@ -98,6 +98,6 @@ void UActionInteract::PlayInteractMontage()
 void UActionInteract::OnCompletePlayMontage()
 {
 	//TODO: Request Reward
-	if (InteractTimerUI) InteractTimerUI->RemoveFromViewport();
+	if (InteractTimerUI) InteractTimerUI->RemoveFromParent();
 	EndAction();
 }

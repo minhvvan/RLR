@@ -32,6 +32,7 @@ public:
 
 public:
 	bool TryActivateAction();
+	virtual void ActivateActionForce();
 	virtual void CancelAction();
 	virtual void EndAction();
 
@@ -41,9 +42,6 @@ public:
 
 	void SetTriggerTag(FGameplayTag Tag);
 	FGameplayTag GetTriggerTag() { return TriggerTag; }
-
-	void SetFollowTriggerTag(FGameplayTag Tag);
-	FGameplayTag GetFollowTriggerTag() { return FollowTriggerTag; }
 
 	EActionInstancingPolicy GetInstancingPolicy() const;
 
@@ -68,6 +66,11 @@ protected:
 
 	void AddOwnedTag();
 
+	virtual bool IsOtherUserAction();
+
+	UFUNCTION()
+	virtual void OnAnimNotifyTriggered();
+
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
 
@@ -86,9 +89,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTag TriggerTag;
-
-	UPROPERTY(EditAnywhere)
-	FGameplayTag FollowTriggerTag;
 
 	mutable const FActionActorInfo* CurrentActorInfo;
 
@@ -109,6 +109,9 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<class UAnimMontage> CurrentMontage;
+
+	UPROPERTY(EditAnywhere, Category = Anim)
+	TObjectPtr<class UAnimMontage> ActionMontage;
 
 	//Action Instance의 상태
 	UPROPERTY(VisibleAnywhere, Category = State)

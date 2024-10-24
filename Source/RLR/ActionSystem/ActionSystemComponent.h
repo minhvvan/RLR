@@ -36,8 +36,10 @@ public:
 	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
 	void RemoveAction(FGameplayTag Tag);
 	void TryActivateAction(FGameplayTag Tag);
-	void TryActivateActionByString(const std::string& TagName);
+	void ActivateActionForce(FGameplayTag Tag);
 	void TryCancelAction(FGameplayTag Tag);
+
+	TWeakObjectPtr<UAction> GetActionInstance(FGameplayTag Tag, int idx = 0);
 
 	void NotifyActionEnded(UAction* EndedAction);
 
@@ -78,7 +80,7 @@ public:
 	}
 
 	void AddActionData(FGameplayTag Tag, FActionData& Data);
-	void GetActionData(FGameplayTag Tag, FActionData& Data);
+	bool GetActionData(FGameplayTag Tag, FActionData& Data);
 
 	bool ActivateWaitAction();
 

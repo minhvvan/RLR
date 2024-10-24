@@ -120,6 +120,9 @@ void APlayerCommands::BindInput(TObjectPtr<ARLRPlayerController> Controller)
 			case EInputType::Action:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnActionStart, Input.ActionTag);
 				break;
+			case EInputType::Test:
+				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnTest);
+				break;
 			default:
 				break;
 		}

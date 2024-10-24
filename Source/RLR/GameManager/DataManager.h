@@ -44,7 +44,13 @@ public:
 	const FSkillData&		GetSkillData(int32 Seq);
 
 	UFUNCTION(BlueprintCallable)
-	const FSkillClass&		GetSkillResource(int32 Seq);
+	const FSkillData&		GetSkillDataByTag(FGameplayTag Tag);
+
+	UFUNCTION(BlueprintCallable)
+	const FActionResource&	GetActionResource(int32 Seq);	
+	
+	UFUNCTION(BlueprintCallable)
+	const FActionResource&	GetActionResourceByTag(FGameplayTag Tag);
 
 	UFUNCTION(BlueprintCallable)
 	void					GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray);
@@ -54,6 +60,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	const FExpTable&		GetExpData(int32 Seq);
+
+	UFUNCTION(BlueprintCallable)
+	const FAnimData&		GetAnimData(FGameplayTag Tag);
+
 
 	/*
 	
@@ -99,7 +109,7 @@ private:
 	TObjectPtr<UDataTable> SkillDataTable;
 
 	UPROPERTY()
-	TObjectPtr<UDataTable> SkillResourceTable;
+	TObjectPtr<UDataTable> ActionResourceTable;
 	
 	UPROPERTY()
 	TObjectPtr<UDataTable> MonsterDataTable;
@@ -128,6 +138,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UDataTable> ExpDataTable;
+
+	UPROPERTY()
+	TObjectPtr<UDataTable> AnimDataTable;
 
 private:
 

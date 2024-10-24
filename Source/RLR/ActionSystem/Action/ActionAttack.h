@@ -18,6 +18,7 @@ public:
 	UActionAttack();
 
 protected:
+	virtual bool PreActivateAction() override;
 	virtual void ActivateAction() override;
 
 public:
@@ -26,6 +27,8 @@ public:
 
 	UFUNCTION()
 	void OnCompletePlayMontage();
+
+	virtual void OnAnimNotifyTriggered() override;
 
 protected:
 	UPROPERTY(EditAnywhere)

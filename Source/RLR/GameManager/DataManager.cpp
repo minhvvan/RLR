@@ -35,10 +35,10 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 
 	MakeSkillDictionary();
 
-	SkillResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillClass.DT_SkillClass'")));
+	ActionResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ActionResource.DT_ActionResource'")));
 
-	if (IsValid(SkillResourceTable) == false)
-		DEBUG_LOG("스킬 리소스 테이블 로드 실패");
+	if (IsValid(ActionResourceTable) == false)
+		DEBUG_LOG("액션 리소스 테이블 로드 실패");
 
 	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, TEXT("/Script/RLR.RLRInputConfig'/Game/Blueprints/Player/Input/RLRInputConfig.RLRInputConfig'")));
 	if (IsValid(InputConfig) == false)
@@ -72,6 +72,10 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 	ExpDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ExpTable.DT_ExpTable'")));
 	if(IsValid(ExpDataTable))
 		DEBUG_LOG("경험치 데이터 테이블 로드 실패");
+
+	AnimDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_AnimData.DT_AnimData'")));
+	if (IsValid(AnimDataTable))
+		DEBUG_LOG("애님 데이터 테이블 로드 실패");
 }
 
 void UDataManager::MakeSkillDictionary()
@@ -158,16 +162,52 @@ const FSkillData& UDataManager::GetSkillData(int32 Seq)
 	return FSkillData::EmptySkillData;
 }
 
-const FSkillClass& UDataManager::GetSkillResource(int32 Seq)
+const FSkillData& UDataManager::GetSkillDataByTag(FGameplayTag Tag)
 {
-	if (SkillResourceTable)
+	if (SkillDataTable)
 	{
-		FSkillClass* Data = SkillResourceTable->FindRow<FSkillClass>(*FString::FromInt(Seq), TEXT(""));
-		if(Data == nullptr)
-			return FSkillClass::EmptySkillClass;
+		TArray<FName> RowNames = SkillDataTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FSkillData* Data = SkillDataTable->FindRow<FSkillData>(RowName, TEXT("Searching by Tag"));
+			if (Data && Data->SkillTag == Tag)
+			{
+				return *Data;
+			}
+		}
+	}
+
+	return FSkillData::EmptySkillData;
+}
+
+const FActionResource& UDataManager::GetActionResource(int32 Seq)
+{
+	if (ActionResourceTable)
+	{
+		FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(*FString::FromInt(Seq), TEXT(""));
+		if (Data == nullptr)
+			return FActionResource::EmptyActionResource;
 		return *Data;
 	}
-	return FSkillClass::EmptySkillClass;
+	return FActionResource::EmptyActionResource;
+}
+
+const FActionResource& UDataManager::GetActionResourceByTag(FGameplayTag Tag)
+{
+	if (ActionResourceTable)
+	{
+		TArray<FName> RowNames = ActionResourceTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(RowName, TEXT("Searching by Tag"));
+			if (Data && Data->ActionTag == Tag)
+			{
+				return *Data;
+			}
+		}
+	}
+
+	return FActionResource::EmptyActionResource;
 }
 
 void UDataManager::GetSkillListByJob(ECharacterMainJobType JobType, TArray<FSkillData>& OutArray)
@@ -204,6 +244,20 @@ const FExpTable& UDataManager::GetExpData(int32 Seq)
 	}
 
 	return FExpTable::EmptyExpData;
+}
+
+const FAnimData& UDataManager::GetAnimData(FGameplayTag Tag)
+{
+	if (AnimDataTable)
+	{
+		FAnimData* Data = AnimDataTable->FindRow<FAnimData>(*Tag.ToString(), TEXT(""));
+		if (Data == nullptr)
+			return FAnimData::EmptyAnimData;
+
+		return *Data;
+	}
+
+	return FAnimData::EmptyAnimData;
 }
 
 const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)

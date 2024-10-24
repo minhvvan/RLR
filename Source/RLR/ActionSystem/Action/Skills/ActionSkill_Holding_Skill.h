@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ActionSystem/Action/Skills/ActionSkill.h"
+#include "ActionSystem/Action/Skills/ActionSkill_Holding.h"
 #include "ActionSkill_Holding_Skill.generated.h"
 
 UCLASS()
-class RLR_API UActionSkill_Holding_Skill : public UActionSkill
+class RLR_API UActionSkill_Holding_Skill : public UActionSkill_Holding
 {
 	GENERATED_BODY()
 	
@@ -16,5 +16,5 @@ protected:
 	TSubclassOf<class ARLRProjectile> HoldingSkillProjectile;
 	FTimerHandle ProjectileSpawnTimerHandle;
 
-	virtual void ActivateAction();
+	virtual void OnAnimNotifyTriggered();
 };
