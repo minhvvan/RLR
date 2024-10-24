@@ -125,17 +125,15 @@ bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_N
 
 bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserQuestInfoResponse& pkt)
 {
-    TArray<FQuest> questDatas;
-    for (auto& quest : pkt.quests()) {
-        FQuest questData;
-        questData.MakeQuestData(quest);
-        questDatas.Add(questData);
-    }
+    FQuest questData;
+    questData.MakeQuestData(pkt.quests());
 
     //TODO : Player Manager 에 User 퀘스트의 연결
     //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
-    GameInstance->GetQuestManager()->SetUserQuests(questDatas);
-
+    GameInstance->GetQuestManager()->AddUserQuests(questData);
+    if (pkt.questcount()) {
+        GameInstance->GetQuestManager()->SetUserQuests();
+    }
     return false;
 }
 

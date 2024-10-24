@@ -37,6 +37,7 @@ public:
 	const FSkillData&		GetSkillData();
 	const FItemResource		GetItemResource();
 	const FActionResource&	GetActionResource();
+	const FSkillClass&		GetSkillClassData();
 
 	void			SetMaster(USlotUI* From) {Master = From;}
 	USlotUI*		GetMaster(){return Master;}

@@ -16,7 +16,8 @@ class RLR_API UQuestManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	void SetUserQuests(const TArray<FQuest>& Quests);
+	void AddUserQuests(const FQuest& Quest);
+	void SetUserQuests();
 	const TArray<FQuest>& GetUserQuests() const { return CurrentQuests; }
 	void OnQuestCompleteResponse(int32 Success);
 	FQuest SelectedQuestInfo;
