@@ -189,7 +189,9 @@ public:
                       */
     bool SendInfoFriend();
 
-    bool SendAddFriend(int userSeq);
+    bool SendAddFriend(FString friendName);
+
+    bool SendRequestFriend(FString friendName);
 
     bool SendRemoveFriend(int userSeq);
 

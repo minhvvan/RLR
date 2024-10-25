@@ -41,7 +41,7 @@ void UFriendRequestUI::OnFriendNameTextChanged(const FText& Text)
 
 void UFriendRequestUI::OnSendRequestClicked()
 {
-	GameInstance->GetNetworkManager()->SendAddFriend(FriendSeq);
+	GameInstance->GetNetworkManager()->SendRequestFriend(FriendNameText->GetText().ToString());
 }
 
 void UFriendRequestUI::OnCancelClicked()

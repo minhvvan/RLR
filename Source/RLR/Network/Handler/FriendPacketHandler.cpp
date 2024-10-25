@@ -21,6 +21,12 @@ bool Handle_INFO_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
     return false;
 }
 
+bool Handle_REQUEST_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_RequestFriendResponse& pkt)
+{
+
+	return false;
+}
+
 bool Handle_FRIEND_CONNECT_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_FriendConnectResponse& pkt)
 {
     return false;

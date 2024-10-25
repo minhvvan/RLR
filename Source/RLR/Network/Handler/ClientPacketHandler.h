@@ -327,6 +327,7 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_FriendInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_FRIEND_INFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_FRIEND_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RequestFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_REQUEST_FRIEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }

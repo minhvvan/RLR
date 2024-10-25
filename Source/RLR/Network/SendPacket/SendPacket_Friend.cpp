@@ -31,17 +31,29 @@ bool UNetworkManager::SendInfoFriend() {
     SEND_PACKET(packet);
 }
 
-bool UNetworkManager::SendAddFriend(int friendSeq) {
+bool UNetworkManager::SendAddFriend(FString friendName) {
 
     if (!MainServerSocket) return false;
 
     Protocol::CS_AddFriendRequest packet;
-
+    std::string friendStdString(TCHAR_TO_UTF8(*friendName));
     packet.set_userseq(UserSeq);
-    packet.set_friendseq(friendSeq);
+    packet.set_friendname(friendStdString);
 
     SEND_PACKET(packet);
 }
+bool UNetworkManager::SendRequestFriend(FString friendName) {
+
+    if (!MainServerSocket) return false;
+
+    Protocol::CS_RequestFriendRequest packet;
+    std::string friendStdString(TCHAR_TO_UTF8(*friendName));
+    packet.set_userseq(UserSeq);
+    packet.set_friendname(friendStdString);
+
+    SEND_PACKET(packet);
+}
+
 
 bool UNetworkManager::SendRemoveFriend(int friendSeq)
 {
