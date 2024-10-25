@@ -29,16 +29,13 @@ UObjectManager::UObjectManager()
         }
     }
 }
+void UObjectManager::AddNPCData(FNPCData Data) {
+    FScopeLock Lock(&NPCDataMutex);
+    NPCData.Add(Data);
+}
 
-void UObjectManager::SetNPCData(TArray<FNPCData> Data)
+void UObjectManager::SetNPCData()
 {
-	FScopeLock Lock(&NPCDataMutex);
-
-	for (auto& data : Data)
-	{
-        NPCData.Add(data);
-	}
-
 	SpawnNPC();
 }
 

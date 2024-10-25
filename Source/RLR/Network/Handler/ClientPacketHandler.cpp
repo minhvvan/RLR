@@ -20,6 +20,8 @@
 #include "TradePacketHandler.h"
 #include "PostPacketHandler.h"
 #include "FriendPacketHandler.h"
+#include "GuildPacketHandler.h"
+#include "MapPacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -218,6 +220,92 @@ void ClientPacketHandler::Init()
             return instance.HandlePacket<Protocol::SC_FriendConnectResponse>(&Handle_FRIEND_CONNECT_RESPONSE, session, buffer, len);
         };
 
+    GPacketHandler[PKT_GOOD_USER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_UserGoodResponse>(&Handle_USER_GOOD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_GOOD_PLAYER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_PlayerGoodResponse>(&Handle_PLAYER_GOOD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_GUILD_INFO_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildinfoResponse>(&Handle_INFO_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CREATE_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildCreateResponse>(&Handle_CREATE_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_ACCEPT_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::CS_GuildAcceptResponse>(&Handle_ACCEPT_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_REMOVE_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildRemoveResponse>(&Handle_REMOVE_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_DELETE_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildDeleteResponse>(&Handle_DELETE_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_INVITE_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildInviteResponse>(&Handle_INVITE_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CHANGE_NAME_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildChangeNameResponse>(&Handle_CHANGE_NAME_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CHANGE_RANK_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildChangeRankResponse>(&Handle_CHANGE_RANK_GUILD_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_GUILD_CONNECT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_GuildConnectResponse>(&Handle_CONNECT_GUILD_RESPONSE, session, buffer, len);
+        };
+    
+    GPacketHandler[PKT_COMMUNITY_LIST_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CommunityListResponse>(&Handle_LIST_COMMUNITY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_COMMUNITY_KICK_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CommunityKickResponse>(&Handle_KICK_COMMUNITY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_COMMUNITY_CONTENT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CommunityContentResponse>(&Handle_CONTENT_COMMUNITY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_COMMUNITY_ACCEPT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CommunityAcceptResponse>(&Handle_ACCEPT_COMMUNITY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_COMMUNITY_INVITE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_CommunityInviteResponse>(&Handle_INVITE_COMMUNITY_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_OTHER_STATUS_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_OtherStatusResponse>(&Handle_OTHER_STATUS_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CONTENT_ACCEPT_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_ContentAcceptResponse>(&Handle_ACCEPT_CONTENT_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CONTENT_CANCEL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_ContentCancelResponse>(&Handle_CANCEL_CONTENT_RESPONSE, session, buffer, len);
+        };
+    GPacketHandler[PKT_CONTENT_FAIL_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_ContentFailResponse>(&Handle_FAIL_CONTENT_RESPONSE, session, buffer, len);
+        };
+
+    GPacketHandler[PKT_MAP_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_MapResponse>(&Handle_MAP_RESPONSE, session, buffer, len);
+        };
 }
 
 bool ClientPacketHandler::HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

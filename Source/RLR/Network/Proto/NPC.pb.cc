@@ -36,7 +36,8 @@ struct CS_NPCInfoRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_NPCInfoRequestDefaultTypeInternal _CS_NPCInfoRequest_default_instance_;
 PROTOBUF_CONSTEXPR SC_NPCInfoResponse::SC_NPCInfoResponse(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.npc_)*/{}
+    /*decltype(_impl_.npc_)*/nullptr
+  , /*decltype(_impl_.npccount_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_NPCInfoResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SC_NPCInfoResponseDefaultTypeInternal()
@@ -176,6 +177,7 @@ const uint32_t TableStruct_NPC_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(prot
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_NPCInfoResponse, _impl_.npccount_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_NPCInfoResponse, _impl_.npc_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_UserQuestInfoRequest, _internal_metadata_),
@@ -243,14 +245,14 @@ const uint32_t TableStruct_NPC_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(prot
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CS_NPCInfoRequest)},
   { 7, -1, -1, sizeof(::Protocol::SC_NPCInfoResponse)},
-  { 14, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
-  { 21, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
-  { 29, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
-  { 37, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
-  { 45, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
-  { 54, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
-  { 61, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
-  { 69, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
+  { 15, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
+  { 22, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
+  { 30, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
+  { 38, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
+  { 46, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
+  { 55, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
+  { 62, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
+  { 70, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -269,20 +271,21 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_NPC_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\tNPC.proto\022\010Protocol\032\nEnum.proto\032\017NPCSt"
   "ruct.proto\"\"\n\021CS_NPCInfoRequest\022\r\n\005mapId"
-  "\030\001 \001(\003\"0\n\022SC_NPCInfoResponse\022\032\n\003npc\030\001 \003("
-  "\0132\r.Protocol.NPC\"*\n\027CS_UserQuestInfoRequ"
-  "est\022\017\n\007userSeq\030\001 \001(\005\"O\n\030SC_UserQuestInfo"
-  "Response\022\022\n\nquestCount\030\001 \001(\005\022\037\n\006quests\030\002"
-  " \001(\0132\017.Protocol.Quest\"9\n\024CS_QuestCheckRe"
+  "\030\001 \001(\003\"B\n\022SC_NPCInfoResponse\022\020\n\010npcCount"
+  "\030\001 \001(\005\022\032\n\003npc\030\002 \001(\0132\r.Protocol.NPC\"*\n\027CS"
+  "_UserQuestInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"O"
+  "\n\030SC_UserQuestInfoResponse\022\022\n\nquestCount"
+  "\030\001 \001(\005\022\037\n\006quests\030\002 \001(\0132\017.Protocol.Quest\""
+  "9\n\024CS_QuestCheckRequest\022\020\n\010questSeq\030\001 \001("
+  "\005\022\017\n\007userSeq\030\002 \001(\005\"S\n\025SC_QuestCheckRespo"
+  "nse\022\020\n\010questSeq\030\001 \001(\005\022(\n\nqueststate\030\002 \001("
+  "\0162\024.Protocol.QuestState\"G\n\022CS_QuestAddRe"
   "quest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005"
-  "\"S\n\025SC_QuestCheckResponse\022\020\n\010questSeq\030\001 "
-  "\001(\005\022(\n\nqueststate\030\002 \001(\0162\024.Protocol.Quest"
-  "State\"G\n\022CS_QuestAddRequest\022\020\n\010questSeq\030"
-  "\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006npcSeq\030\003 \001(\005\"&"
-  "\n\023SC_QuestAddResponse\022\017\n\007success\030\001 \001(\005\"<"
-  "\n\027CS_QuestCompleteRequest\022\020\n\010questSeq\030\001 "
-  "\001(\005\022\017\n\007userSeq\030\002 \001(\005\"+\n\030SC_QuestComplete"
-  "Response\022\017\n\007success\030\001 \001(\005b\006proto3"
+  "\022\016\n\006npcSeq\030\003 \001(\005\"&\n\023SC_QuestAddResponse\022"
+  "\017\n\007success\030\001 \001(\005\"<\n\027CS_QuestCompleteRequ"
+  "est\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\"+"
+  "\n\030SC_QuestCompleteResponse\022\017\n\007success\030\001 "
+  "\001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -290,7 +293,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_NPC_2eproto_deps[2]
 };
 static ::_pbi::once_flag descriptor_table_NPC_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_NPC_2eproto = {
-    false, false, 633, descriptor_table_protodef_NPC_2eproto,
+    false, false, 651, descriptor_table_protodef_NPC_2eproto,
     "NPC.proto",
     &descriptor_table_NPC_2eproto_once, descriptor_table_NPC_2eproto_deps, 2, 10,
     schemas, file_default_instances, TableStruct_NPC_2eproto::offsets,
@@ -487,10 +490,18 @@ void CS_NPCInfoRequest::InternalSwap(CS_NPCInfoRequest* other) {
 
 class SC_NPCInfoResponse::_Internal {
  public:
+  static const ::Protocol::NPC& npc(const SC_NPCInfoResponse* msg);
 };
 
+const ::Protocol::NPC&
+SC_NPCInfoResponse::_Internal::npc(const SC_NPCInfoResponse* msg) {
+  return *msg->_impl_.npc_;
+}
 void SC_NPCInfoResponse::clear_npc() {
-  _impl_.npc_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.npc_ != nullptr) {
+    delete _impl_.npc_;
+  }
+  _impl_.npc_ = nullptr;
 }
 SC_NPCInfoResponse::SC_NPCInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -502,10 +513,15 @@ SC_NPCInfoResponse::SC_NPCInfoResponse(const SC_NPCInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   SC_NPCInfoResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.npc_){from._impl_.npc_}
+      decltype(_impl_.npc_){nullptr}
+    , decltype(_impl_.npccount_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_npc()) {
+    _this->_impl_.npc_ = new ::Protocol::NPC(*from._impl_.npc_);
+  }
+  _this->_impl_.npccount_ = from._impl_.npccount_;
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_NPCInfoResponse)
 }
 
@@ -514,7 +530,8 @@ inline void SC_NPCInfoResponse::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.npc_){arena}
+      decltype(_impl_.npc_){nullptr}
+    , decltype(_impl_.npccount_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -530,7 +547,7 @@ SC_NPCInfoResponse::~SC_NPCInfoResponse() {
 
 inline void SC_NPCInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.npc_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.npc_;
 }
 
 void SC_NPCInfoResponse::SetCachedSize(int size) const {
@@ -543,7 +560,11 @@ void SC_NPCInfoResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.npc_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.npc_ != nullptr) {
+    delete _impl_.npc_;
+  }
+  _impl_.npc_ = nullptr;
+  _impl_.npccount_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -553,16 +574,19 @@ const char* SC_NPCInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseCon
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .Protocol.NPC npc = 1;
+      // int32 npcCount = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_npc(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.npccount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.NPC npc = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_npc(), ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -595,12 +619,17 @@ uint8_t* SC_NPCInfoResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Protocol.NPC npc = 1;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_npc_size()); i < n; i++) {
-    const auto& repfield = this->_internal_npc(i);
+  // int32 npcCount = 1;
+  if (this->_internal_npccount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_npccount(), target);
+  }
+
+  // .Protocol.NPC npc = 2;
+  if (this->_internal_has_npc()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+      InternalWriteMessage(2, _Internal::npc(this),
+        _Internal::npc(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -619,11 +648,16 @@ size_t SC_NPCInfoResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.NPC npc = 1;
-  total_size += 1UL * this->_internal_npc_size();
-  for (const auto& msg : this->_impl_.npc_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // .Protocol.NPC npc = 2;
+  if (this->_internal_has_npc()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.npc_);
+  }
+
+  // int32 npcCount = 1;
+  if (this->_internal_npccount() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_npccount());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -644,7 +678,13 @@ void SC_NPCInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.npc_.MergeFrom(from._impl_.npc_);
+  if (from._internal_has_npc()) {
+    _this->_internal_mutable_npc()->::Protocol::NPC::MergeFrom(
+        from._internal_npc());
+  }
+  if (from._internal_npccount() != 0) {
+    _this->_internal_set_npccount(from._internal_npccount());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -662,7 +702,12 @@ bool SC_NPCInfoResponse::IsInitialized() const {
 void SC_NPCInfoResponse::InternalSwap(SC_NPCInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.npc_.InternalSwap(&other->_impl_.npc_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_NPCInfoResponse, _impl_.npccount_)
+      + sizeof(SC_NPCInfoResponse::_impl_.npccount_)
+      - PROTOBUF_FIELD_OFFSET(SC_NPCInfoResponse, _impl_.npc_)>(
+          reinterpret_cast<char*>(&_impl_.npc_),
+          reinterpret_cast<char*>(&other->_impl_.npc_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_NPCInfoResponse::GetMetadata() const {

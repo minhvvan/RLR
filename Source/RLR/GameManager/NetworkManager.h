@@ -201,6 +201,57 @@ public:
 
     bool SendMoveFriendGroup(int groupSeq1, int groupSeq2);
 
+    /*
+           Guild
+                     */
+    bool SendInfoGuild();
+
+    bool SendAddGuild(int userSeq, int guildSeq);
+
+    bool SendRemoveGuild(int userSeq, int guildSeq);
+
+    bool SendInviteGuild(int userSeq, int guildSeq);
+
+    bool SendAcceptGuild(int guildSeq);
+
+    bool SendCreateGuild();
+
+    bool SendDeleteGuild(int guildSeq);
+
+    bool SendChangeNameGuild(int guildSeq, FText guildName);
+
+    bool SendChangeRankGuild(int userSeq, int guildSeq, int guildRank);
+
+    /*
+         Community
+                     */
+
+    bool SendOtherStatus(int userSeq);
+
+    bool SendListCommunity(int communityType);
+
+    bool SendEnterCommunity(int communitySeq);
+
+    bool SendAcceptCommunity(int userSeq, int communitySeq);
+
+    bool SendInviteCommunity(FText userName,int communitySeq);
+
+    bool SendExitCommunity(int communitySeq);
+
+    bool SendCreateCommunity(FText title,int communityType);
+
+    bool SendKickCommunity(int userSeq, int communitySeq);
+
+    bool SendContentCommunity(int communityKey, int communitySeq);
+    bool SendCancelContent(int communitySeq);
+    bool SendAcceptContent(int communitySeq);
+    /*
+            Map
+                     */
+    bool SendContentMap(int64 mapId);
+
+    bool SendMoveMap();
+
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);
     void SetMapId(int64 mapId);

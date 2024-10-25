@@ -108,17 +108,13 @@ bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_N
     //TODO : Object Manager 에 연결
     UE_LOG(LogTemp, Log, TEXT("NPc Spawn Start "));
 
-    TArray<FNPCData> npcDatas;
-    for (auto& npc : pkt.npc()) {
-        FNPCData npcData;
-        npcData.MakeNPCData(npc);
-
-        npcDatas.Add(npcData);
+   
+    FNPCData npcData;
+    npcData.MakeNPCData(pkt.npc());
+    GameInstance->GetObjectManager()->AddNPCData(npcData);
+    if (pkt.npccount()) {
+        GameInstance->GetObjectManager()->SetNPCData();
     }
-
-    GameInstance->GetObjectManager()->SetNPCData(npcDatas);
-
-
 
     return false;
 }
@@ -129,7 +125,6 @@ bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protoco
     questData.MakeQuestData(pkt.quests());
 
     //TODO : Player Manager 에 User 퀘스트의 연결
-    //GameInstance->GetPlayerManager()->SetUserQuest(questDatas); 
     GameInstance->GetQuestManager()->AddUserQuests(questData);
     if (pkt.questcount()) {
         GameInstance->GetQuestManager()->SetUserQuests();
@@ -181,6 +176,22 @@ bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::S
     GameInstance->GetPlayerManager()->UpdatePlayerLevel(pkt.level());
     
    
-    return false;
+    return true;
+}
+
+bool Handle_USER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserGoodResponse& pkt)
+{
+    FUserGoods userGood;
+    userGood.MakeUserGoods(pkt.usergood());
+    GameInstance->GetPlayerManager()->UpdateUserGood(userGood);
+    return true;
+}
+
+bool Handle_PLAYER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PlayerGoodResponse& pkt)
+{
+    FPlayerGoods playerGood;
+    playerGood.MakePlayerGoods(pkt.playergood());
+    GameInstance->GetPlayerManager()->UpdatePlayerGood(playerGood);
+    return true;
 }
 
