@@ -86,7 +86,7 @@ void UPostButtonUI::SetButtonState(bool isPressed)
     FSlateBrush PressedBrush;
     FSlateBrush NormalBrush;
 
-    FButtonStyle ButtonStyle = PostButton->WidgetStyle;
+    FButtonStyle ButtonStyle = PostButton->GetStyle();
 
     if (isPressed)
     {

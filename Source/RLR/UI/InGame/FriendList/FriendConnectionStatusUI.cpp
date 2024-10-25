@@ -23,18 +23,18 @@ void UFriendConnectionStatusUI::NativeConstruct()
 
 void UFriendConnectionStatusUI::SetPlayerStatusOnline()
 {
-	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusOnlineText->Text);
-	this->RemoveFromViewport();
+	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusOnlineText->GetText());
+	this->RemoveFromParent();
 }
 
 void UFriendConnectionStatusUI::SetPlayerStatusOffline()
 {
-	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusOfflineText->Text);
-	this->RemoveFromViewport();
+	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusOfflineText->GetText());
+	this->RemoveFromParent();
 }
 
 void UFriendConnectionStatusUI::SetPlayerStatusAway()
 {
-	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusAwayText->Text);
-	this->RemoveFromViewport();
+	OnPlayerStatusChangedDelegate.Broadcast(PlayerStatusAwayText->GetText());
+	this->RemoveFromParent();
 }

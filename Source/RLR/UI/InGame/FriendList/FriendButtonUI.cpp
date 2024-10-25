@@ -33,21 +33,21 @@ void UFriendButtonUI::SetButtonState(bool isPressed)
 {
     FSlateBrush PressedBrush;
     FSlateBrush NormalBrush;
+    FButtonStyle ButtonStyle = FriendButton->GetStyle();
+
     if (isPressed)
     {
         PressedBrush.TintColor = FSlateColor(FLinearColor(0.f, 0.f, 0.f));
-        FriendButton->SetStyle(FriendButton->WidgetStyle);
-        FriendButton->WidgetStyle.Normal = PressedBrush;
-        FriendButton->WidgetStyle.Hovered = PressedBrush;
-        FriendButton->WidgetStyle.Pressed = PressedBrush;
+        ButtonStyle.SetNormal(PressedBrush);
+        ButtonStyle.SetHovered(PressedBrush);
+        ButtonStyle.SetPressed(PressedBrush);
     }
     else
     {
         NormalBrush.TintColor = FSlateColor(FLinearColor(0.5f, 0.5f, 0.5f));
-        FriendButton->SetStyle(FriendButton->WidgetStyle);
-        FriendButton->WidgetStyle.Normal = NormalBrush;
-        FriendButton->WidgetStyle.Hovered = NormalBrush;
-        FriendButton->WidgetStyle.Pressed = NormalBrush;
+        ButtonStyle.SetNormal(PressedBrush);
+        ButtonStyle.SetHovered(PressedBrush);
+        ButtonStyle.SetPressed(PressedBrush);
     }
 }
 

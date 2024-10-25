@@ -19,21 +19,21 @@ void UQuestButtonUI::SetButtonState(bool isPressed)
 {
 	FSlateBrush PressedBrush;
 	FSlateBrush NormalBrush;
+	FButtonStyle ButtonStyle = QuestButton->GetStyle();
+
 	if (isPressed)
 	{
 		PressedBrush.TintColor = FSlateColor(FLinearColor(0.f, 0.f, 0.f));
-		QuestButton->SetStyle(QuestButton->WidgetStyle);
-		QuestButton->WidgetStyle.Normal = PressedBrush;
-		QuestButton->WidgetStyle.Hovered = PressedBrush;
-		QuestButton->WidgetStyle.Pressed = PressedBrush;
+		ButtonStyle.SetNormal(PressedBrush);
+		ButtonStyle.SetHovered(PressedBrush);
+		ButtonStyle.SetPressed(PressedBrush);
 	}
 	else
 	{
 		NormalBrush.TintColor = FSlateColor(FLinearColor(0.5f, 0.5f, 0.5f));
-		QuestButton->SetStyle(QuestButton->WidgetStyle);
-		QuestButton->WidgetStyle.Normal = NormalBrush;
-		QuestButton->WidgetStyle.Hovered = NormalBrush;
-		QuestButton->WidgetStyle.Pressed = NormalBrush;
+		ButtonStyle.SetNormal(PressedBrush);
+		ButtonStyle.SetHovered(PressedBrush);
+		ButtonStyle.SetPressed(PressedBrush);
 	}
 }
 

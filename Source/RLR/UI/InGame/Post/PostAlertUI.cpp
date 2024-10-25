@@ -66,7 +66,7 @@ void UPostAlertUI::UpdatePostItemSlot(const FPostResult& Post)
 
 void UPostAlertUI::OnCloseButtonClicked()
 {
-    RemoveFromViewport();
+    RemoveFromParent();
 }
 
 void UPostAlertUI::OnAcceptButtonClicked()
@@ -83,5 +83,5 @@ void UPostAlertUI::OnRemovePostButtonClicked()
     {
         GameInstance->GetPostalManager()->AddToPostDeletionList(PostData, false);
     }
-    RemoveFromViewport();
+    RemoveFromParent();
 }
