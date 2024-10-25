@@ -89,7 +89,7 @@ void UNPCPurchaseTab::OnBuyClicked()
 	auto NetworkManager = GetNetworkManager();
 	if (NetworkManager)
 	{
-		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+		auto shopUI = Cast<UNPCShopUI>(GetParent());
 		if (!shopUI) return;
 
 		auto shopData = shopUI->GetShopData().Pin();

@@ -62,13 +62,13 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 				RLR_LOG(LogRLR, Error, TEXT("Failed to spawn Character"));
 				return;
 			}
-
 			// Add player to list before FinishSpawning
 			int32 PlayerID = NewPlayer.userseq();
 			OtherPlayerList.Add(PlayerID, OtherPlayer);
 
 			// Finalize the spawning process
 			OtherPlayer->FinishSpawning(SpawnTransform);
+			OtherPlayer->SetStat(UserCharacter);
 
 			// Optional: Log success
 			RLR_LOG(LogRLR, Warning, TEXT("Player %d spawned successfully"), PlayerID);
