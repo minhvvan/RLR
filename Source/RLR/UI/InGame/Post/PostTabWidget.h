@@ -10,7 +10,6 @@
 class UButton;
 class UTextBlock;
 class UScrollBox;
-class UEditableText;
 class UMultiLineEditableText;
 class UGridPanel;
 class UPostButtonUI;
@@ -45,19 +44,19 @@ public:
     UScrollBox* PostScrollBox;
 
     UPROPERTY(meta = (BindWidget))
-    UEditableText* IdText;
+    UTextBlock* IdText;
 
     UPROPERTY(meta = (BindWidget))
-    UEditableText* PostTitleText;
+    UTextBlock* PostTitleText;
 
     UPROPERTY(meta = (BindWidget))
-    UEditableText* TotalMoney;
+    UTextBlock* TotalMoney;
 
     UPROPERTY(meta = (BindWidget))
-    UMultiLineEditableText* PostContentText;
+    UTextBlock* PostContentText;
 
     UPROPERTY(meta = (BindWidget))
-    UEditableText* ReadStatus;
+    UTextBlock* ReadStatus;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
     UGridPanel* PostSlotGridPanel;

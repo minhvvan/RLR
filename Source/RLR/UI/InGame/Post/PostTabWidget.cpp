@@ -5,7 +5,6 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/ScrollBox.h"
-#include "Components/EditableText.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/GridPanel.h"
 #include "Structs/UtilStructs.h"
@@ -30,12 +29,6 @@ void UPostTabWidget::NativeConstruct()
 
 void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSent)
 {
-    IdText->SetIsReadOnly(true);
-    PostTitleText->SetIsReadOnly(true);
-    PostContentText->SetIsReadOnly(true);
-    TotalMoney->SetIsReadOnly(true);
-    ReadStatus->SetIsReadOnly(true);
-
     bIsSentTab = bIsSent;
     ClearPostList();
 
