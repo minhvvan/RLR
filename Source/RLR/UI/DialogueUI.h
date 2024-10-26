@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestDialogueBegin);
 
 class UButton;
 class UTextBlock;
+class UHorizontalBox;
 class UQuestDialogue;
 class UPostOverlayUI;
 class UNPCShopUI;
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnExit;
+
+	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+	UHorizontalBox* BtnBox;
 
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnQuest;
@@ -78,6 +82,7 @@ public:
 	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
+	UPostOverlayUI* GetPostOverlayUI() {return PostOverlayUI;};
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
