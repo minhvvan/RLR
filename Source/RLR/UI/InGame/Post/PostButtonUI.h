@@ -23,6 +23,7 @@ public:
     void SetSentPostInfo(const FPostResult& InPost);
     void SetButtonState(bool isPressed);
     FString GetPostTitle();
+    FPostResult GetPostInfo() {return PostInfo;};
 
     virtual void NativeConstruct() override;
     virtual void NativePreConstruct() override;

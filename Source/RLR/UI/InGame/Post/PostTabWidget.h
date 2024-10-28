@@ -76,6 +76,9 @@ public:
     UPROPERTY()
     FPostResult SelectedPost;
 
+    UPROPERTY()
+    UPostButtonUI* SelectedPostButton;
+
 private:
     void ClearPostList();
     void AddPostButton(const FPostResult& Post, bool bIsSent);
