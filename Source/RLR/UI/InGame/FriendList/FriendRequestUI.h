@@ -6,7 +6,7 @@
 #include "UI/SubUI.h"
 #include "FriendRequestUI.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseRequestUISignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCloseRequestUISignature, bool, bIsClosed);
 
 class UFriendButtonUI;
 class UEditableText;

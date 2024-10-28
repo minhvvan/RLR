@@ -6,7 +6,7 @@
 #include "UI/SubUI.h"
 #include "GroupCreationUI.generated.h"
 
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGroupAddSignature, FString, GroupName);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnGroupCreationOpen, bool, bIsOpen);
 
 class UEditableText;
 class UButton;
@@ -43,6 +43,8 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* CancelButton;
+
+	FOnGroupCreationOpen OnGroupCreationOpen;
 
 private:
 	bool bIsOpen;	
