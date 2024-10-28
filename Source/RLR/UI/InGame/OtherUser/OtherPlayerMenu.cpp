@@ -76,7 +76,7 @@ void UOtherPlayerMenu::OnTradeClicked()
 {
 	//TODO: 구체적인 구현 내용이 나오면 처리
 	if (!OtherUserData.IsValid()) return;
-	GetNetworkManager()->SendTradeUserRequest(OtherUserData->UserSeq);
+	GetNetworkManager()->SendTradeStartReqeust(OtherUserData->UserSeq);
 	CloseUIByManager();
 }
 

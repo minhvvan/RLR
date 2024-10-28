@@ -47,3 +47,9 @@ void UNotificationMessageBox::OnClickedConfirmButton()
 {
 	CloseUI();
 }
+
+void UNotificationMessageBox::SetText(FString MessageString)
+{
+	FText Text = FText::FromString(MessageString);
+	MessageText->SetText(Text);
+}

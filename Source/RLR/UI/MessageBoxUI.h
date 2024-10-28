@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UI/PopupUI.h"
-#include "Structs/UtilStructs.h"
 #include "MessageBoxUI.generated.h"
 
 /**
@@ -40,8 +39,7 @@ public:
 
 public:
 
-	virtual void SetMessageText(FString Message);
-	virtual void SetMessageText(FText Message);
+	virtual void SetText(FString MessageString);
 
 public:
 	/*
@@ -64,11 +62,4 @@ public:
 
 	UPROPERTY()
 	FOnButtonClicked OnCancelButtonClickedDelegate;
-
-public:
-
-	//기타 정보 저장용
-	//ex 거래창에서 상대방 정보를 저장할 필요가 있는데, 그런거 임시 저장
-	UPROPERTY()
-	TMap<FString, FEtcPropertyData>	EtcPropertyMap;
 };

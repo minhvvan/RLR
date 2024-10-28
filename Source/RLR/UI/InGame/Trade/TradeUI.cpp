@@ -7,7 +7,6 @@
 #include "UI/InGame/Trade/TradeListElement.h"
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
 #include "UI/InGame/Popup/NotificationMessageBox.h"
-#include "UI/InGame/Popup/ConfirmMessageBox.h"
 #include "UI/BaseUI.h"
 
 #include "GameManager/GameManager.h"
@@ -16,15 +15,10 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
-#include "GameManager/OtherUserManager.h"
-#include "GameManager/PlayerManager.h"
 
 #include "Structs/ItemStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
-
-#include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "ActionSystem/StatSet/StatSetPlayer.h"
 
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
@@ -46,7 +40,8 @@ void UTradeUI::Init()
 	TargetPlayerTradeList->Init();
 	TargetPlayerTradeList->SetCanDrag(false);
 	OfferButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeLock);
-	//UnLockButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeUnLock);
+	UnLockButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeUnLock);
+	ConfirmButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeConfirm);
 	AddGoldButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::OnClickedAddGoldButton);
 }
 
@@ -97,168 +92,20 @@ void UTradeUI::CloseUI()
 	GetInventoryManager()->OnInventorySlotClickedDelegate.Clear();
 }
 
-void UTradeUI::HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt)
-{
-	/*
-		거래 요청을 받았으면, 메시지 박스를 뛰운다.
-	*/
-	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
-	{
-		UConfirmMessageBox* ConfirmMessageBox = OpenOtherUI<UConfirmMessageBox>(EUIType::CONFIRM_MESSAGE_BOX);
-		if (IsValid(ConfirmMessageBox) == false)
-			return;
-		ConfirmMessageBox->Clear();
-		ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
-		ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
-
-		ARLRPlayerCharacter* From = GameInstance->GetOtherUserManager()->GetPlayer(pkt.userseq());
-		if(IsValid(From) == false)
-			return;
-
-		const UStatSetPlayer* FromStat =  From->GetStat();
-		if(IsValid(FromStat) == false)
-			return;
-
-		FEtcPropertyData FromData;
-		FromData.EtcStringMap.Add("NickName", FromStat->GetNickName());
-		FromData.EtcIntMap.Add("UserSeq", FromStat->GetUserSeq());
-		ConfirmMessageBox->EtcPropertyMap.Add("From", FromData);
-
-		FString NickName = FromStat->GetNickName();
-		FText Text1 = STRING_TO_FTEXT("가 거래를 신청했습니다");
-		FText MessageTextFormat = FText::Format(
-			FText::FromString(TEXT("[{0}]{1}")),
-			FText::FromString(NickName),
-			Text1
-		);
-		ConfirmMessageBox->SetMessageText(MessageTextFormat);
-	});
-}
-
 void UTradeUI::HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt)
 {
 	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
 		{
-			int32 UserSeq1 = pkt.userseq1();
-			int32 UserSeq2 = pkt.userseq2();
+			int32 MyUserSeq = pkt.userseq1();
+			int32 TargetUserSeq = pkt.userseq2();
 
-			FString UserName1 = UTF8_TO_TCHAR(pkt.username1().c_str());
-			FString UserName2 = UTF8_TO_TCHAR(pkt.username2().c_str());
+			FString MyUserName = UTF8_TO_TCHAR(pkt.username1().c_str());
+			FString TargetUserName = UTF8_TO_TCHAR(pkt.username2().c_str());
 
-			int32 MyUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
-
-			if (MyUserSeq == UserSeq1)
-			{
-				IsUserSeq1 = true;
-				MyNameText->SetText(FText::FromString(UserName1));
-				TargetPlayerNameText->SetText(FText::FromString(UserName2));
-			}
-			else
-			{
-				IsUserSeq1 = false;
-				MyNameText->SetText(FText::FromString(UserName2));
-				TargetPlayerNameText->SetText(FText::FromString(UserName1));
-			}
+			MyNameText->SetText(FText::FromString(MyUserName));
+			TargetPlayerNameText->SetText(FText::FromString(TargetUserName));
 
 			GetUIManager()->OpenUI(EUIType::TRADE_UI);
-		});
-}
-
-void UTradeUI::HandleTradeStateResponse(Protocol::SC_TradeStateResponse& pkt)
-{
-	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
-	{
-		MyTradeList->Clear();
-		TargetPlayerTradeList->Clear();
-
-		TArray<FItemData> UserItemList1;
-		for (int32 i = 0; i < pkt.useritemlist1_size(); i++) {
-			FItemData itemData;
-			itemData.MakeItemData(pkt.useritemlist1().at(i));
-			UserItemList1.Add(itemData);
-		}
-		int32 UserMoney1 = pkt.totalmoney1();
-		int32 UserLockState1 = pkt.lockstate1();
-
-		TArray<FItemData> UserItemList2;
-		for (int32 i = 0; i < pkt.useritemlist2_size(); i++) {
-			FItemData itemData;
-			itemData.MakeItemData(pkt.useritemlist2().at(i));
-			UserItemList2.Add(itemData);
-		}
-		int32 UserMoney2 = pkt.totalmoney2();
-		int32 UserLockState2 = pkt.lockstate2();
-
-		if(IsUserSeq1 == true)
-		{
-			//내가 UserSeq 1
-			for (const FItemData& ItemData : UserItemList1)
-			{
-				HandleTradeAddItemBySelf(ItemData);
-			}
-			HandleTradeAddGoodBySelf(UserMoney1);
-
-			if(UserLockState1 == 1)
-				HandleTradeLockBySelf();
-			else
-				HandleTradeUnLockBySelf();
-
-			//상대가 UserSeq 2
-			for (const FItemData& ItemData : UserItemList2)
-			{
-				HandleTradeAddItemByTarget(ItemData);
-			}
-			HandleTradeAddGoodByTarget(UserMoney2);
-
-			if (UserLockState2 == 1)
-				HandleTradeLockByTarget();
-			else
-				HandleTradeUnLockByTarget();
-		}
-		else if(IsUserSeq1 == false)
-		{
-			//내가 UserSeq 2
-			for (const FItemData& ItemData : UserItemList2)
-			{
-				HandleTradeAddItemBySelf(ItemData);
-			}
-			HandleTradeAddGoodBySelf(UserMoney2);
-
-			if (UserLockState2 == 1)
-				HandleTradeLockBySelf();
-			else
-				HandleTradeUnLockBySelf();
-
-			//상대가 UserSeq 1
-			for (const FItemData& ItemData : UserItemList1)
-			{
-				HandleTradeAddItemByTarget(ItemData);
-			}
-			HandleTradeAddGoodByTarget(UserMoney1);
-
-			if (UserLockState1 == 1)
-				HandleTradeLockByTarget();
-			else
-				HandleTradeUnLockByTarget();
-		}
-	});
-}
-
-void UTradeUI::HandleTradeCompleteResponse(Protocol::SC_TradeCompleteResponse& pkt)
-{
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			SetMyTradeState(ETradeState::SUCCESS);
-			SetTargetTradeState(ETradeState::SUCCESS);
-
-			//거래가 성공했다는 알림을 띄운다.
-			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(EUIType::NOTIFICATION_MESSAGE_BOX);
-			if (IsValid(NotificationMessageBox) == false)
-				return;
-			NotificationMessageBox->Clear();
-			NotificationMessageBox->SetMessageText(TEXT("거래를 성공했습니다"));
-
-			CloseUI();
 		});
 }
 
@@ -270,6 +117,11 @@ void UTradeUI::SendTradeAddItemBySelf(const FItemData& NewTradeItem, int32 Quant
 void UTradeUI::SendTradeAddGoodBySelf(int32 Amount)
 {
 	GetNetworkManager()->SendTradeAddGoodReqeust(Amount);
+}
+
+void UTradeUI::SendTradeRemoveItemBySelf(const FItemData& NewTradeItem, int32 Quantity)
+{
+	GetNetworkManager()->SendRemoveTradeItem(NewTradeItem, Quantity);
 }
 
 void UTradeUI::HandleTradeAddItemByTarget(const FItemData& NewTradeItem)
@@ -307,6 +159,28 @@ void UTradeUI::HandleTradeAddGoodByTarget(int32 Amount)
 	AsyncTask(ENamedThreads::GameThread, [this, Amount]()
 		{
 			TargetGoldText->SetText(FText::FromString(FString::FromInt(Amount)));
+		});
+}
+
+void UTradeUI::HandleTradeRemoveItemByTarget(int32 ItemID)
+{
+	/*
+		상대방이 아이템을 제거했다는 패킷 받았을 때 핸들.
+	*/
+	AsyncTask(ENamedThreads::GameThread, [this, ItemID]()
+		{
+			TargetPlayerTradeList->RemoveTradeItem(ItemID);
+		});
+}
+
+void UTradeUI::HandleTradeRemoveItemBySelf(int32 ItemID)
+{
+	/*
+		내가 아이템을 제거했다는 패킷 받았을 때 핸들.
+	*/
+	AsyncTask(ENamedThreads::GameThread, [this, ItemID]()
+		{
+			MyTradeList->RemoveTradeItem(ItemID);
 		});
 }
 
@@ -354,6 +228,15 @@ void UTradeUI::HandleTradeUnLockByTarget()
 		});
 }
 
+void UTradeUI::HandleTradeWaitConfirm()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetMyTradeState(ETradeState::WAIT_CONFIRM_TRADE);
+			TradeStateWidgetSwitcher->SetActiveWidgetIndex((uint32)ETradeState::WAIT_CONFIRM_TRADE);
+		});
+}
+
 void UTradeUI::SendTradeLock()
 {
 	GetNetworkManager()->SendTradeLockRequest();
@@ -361,7 +244,12 @@ void UTradeUI::SendTradeLock()
 
 void UTradeUI::SendTradeUnLock()
 {
-	//GetNetworkManager()->SendTradeUnlockReqeust();
+	GetNetworkManager()->SendTradeUnlockReqeust();
+}
+
+void UTradeUI::SendTradeConfirm()
+{
+	GetNetworkManager()->SendTradeConfirmRequest();
 }
 
 void UTradeUI::SendTradeCancelPacket()
@@ -390,9 +278,27 @@ void UTradeUI::HandleTradeCanceledByTarget()
 				return;
 
 			NotificationMessageBox->Clear();
-			NotificationMessageBox->SetMessageText(TEXT("상대가 거래를 취소했습니다"));
+			NotificationMessageBox->SetText(TEXT("상대가 거래를 취소했습니다"));
 			SetMyTradeState(ETradeState::CANCEL);
 			SetTargetTradeState(ETradeState::CANCEL);
+
+			CloseUI();
+		});
+}
+
+void UTradeUI::HandleTradeSuccess()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			SetMyTradeState(ETradeState::SUCCESS);
+			SetTargetTradeState(ETradeState::SUCCESS);
+
+			//거래가 성공했다는 알림을 띄운다.
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(EUIType::NOTIFICATION_MESSAGE_BOX);
+			if (IsValid(NotificationMessageBox) == false)
+				return;
+			NotificationMessageBox->Clear();
+			NotificationMessageBox->SetText(TEXT("상대가 거개를 취소했습니다"));
 
 			CloseUI();
 		});
@@ -426,40 +332,6 @@ void UTradeUI::SetTradeUnLock(bool IsSelf)
 		SetTargetTradeState(ETradeState::BEFORE_OFFER);
 		TargetPlayerTradeList->SetIsEnabled(true);
 	}
-}
-
-void UTradeUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
-{
-	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find("From");
-	if(FromData == nullptr)
-		return;
-	int32* FromUserSeq = FromData->EtcIntMap.Find("UserSeq");
-	if(FromUserSeq == nullptr)
-		return;
-	GetNetworkManager()->SendTradeStartReqeust(*FromUserSeq);
-}
-
-void UTradeUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
-{
-	UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(EUIType::NOTIFICATION_MESSAGE_BOX);
-	if (IsValid(NotificationMessageBox) == false)
-		return;
-	NotificationMessageBox->Clear();
-
-	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find("From");
-	if (FromData == nullptr)
-		return;
-	FString FromNickName = FromData->EtcStringMap["NickName"];
-	if (FromNickName.IsEmpty())
-		return;
-	FText Text1 = STRING_TO_FTEXT("거래를 거절했습니다");
-	FText MessageTextFormat = FText::Format(
-		FText::FromString(TEXT("[{0}] {1}")),
-		FText::FromString(FromNickName),
-		Text1
-	); 
-	NotificationMessageBox->SetMessageText(MessageTextFormat);
-	CloseUI();
 }
 
 void UTradeUI::OnClickedInventorySlot(const FItemData& NewTradeItem)

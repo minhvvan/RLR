@@ -11,6 +11,12 @@
 
 /**
    개인 거래 UI.
+
+  * 1.아이템을 올리고 제시를 한다.
+	: 혹은 취소 버튼을 눌러 거래를 닫는다.
+  * 2.제시를 하면 내 거래창이 잠긴다.
+	: 이후 잠금 해제를 해서, 다시 제시를 하거나 상대방이 제시 할 때까지 기다린다.
+  * 3.서로 제시가 끝났으면 '거래'버튼이 활성화 된다.
  */
 
 class UTradeList;
@@ -46,19 +52,20 @@ public:
 
 public:
 
-	void HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt);
 	void HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt);
-	void HandleTradeStateResponse(Protocol::SC_TradeStateResponse& pkt);
-	void HandleTradeCompleteResponse(Protocol::SC_TradeCompleteResponse& pkt);
 
 	UFUNCTION()
 	void SendTradeAddItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
 	void SendTradeAddGoodBySelf(int32 Amount);
+	void SendTradeRemoveItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
 
 	void HandleTradeAddItemByTarget(const FItemData& NewTradeItem);
 	void HandleTradeAddItemBySelf(const FItemData& NewTradeItem);
 	void HandleTradeAddGoodBySelf(int32 Amount);
 	void HandleTradeAddGoodByTarget(int32 Amount);
+
+	void HandleTradeRemoveItemByTarget(int32 ItemID);
+	void HandleTradeRemoveItemBySelf(int32 ItemID);
 
 	UFUNCTION()
 	void SendTradeLock();
@@ -69,10 +76,15 @@ public:
 	void HandleTradeUnLockBySelf();
 	void HandleTradeLockByTarget();
 	void HandleTradeUnLockByTarget();
+	void HandleTradeWaitConfirm();					//서로 Lock이 되었으면 거래 버튼 활성화
 
 	UFUNCTION()
+	void SendTradeConfirm();						//서로 락이 되었을 때 거래 확인 요청
+	UFUNCTION()
 	void SendTradeCancelPacket();					//내가 거래 취소
-	void HandleTradeCanceledByTarget();				//상대방이 취소했을 때 핸들.					//거래가 성공
+
+	void HandleTradeCanceledByTarget();				//상대방이 취소했을 때 핸들.
+	void HandleTradeSuccess();						//거래가 성공
 
 public:
 
@@ -80,11 +92,6 @@ public:
 	void SetTradeUnLock(bool IsSelf);
 
 public:
-
-	UFUNCTION()
-	void		OnClickedAcceptButton(UConfirmMessageBox* MessageBox);
-	UFUNCTION()
-	void		OnClickedCancelButton(UConfirmMessageBox* MessageBox);
 
 	UFUNCTION()
 	void		OnClickedInventorySlot(const FItemData& NewTradeItem);
@@ -154,6 +161,5 @@ private:
 
 	ETradeState TargetTradeState = ETradeState::BEFORE_OFFER;
 	ETradeState MyTradeState = ETradeState::BEFORE_OFFER;
-	bool IsUserSeq1 = true;
 
 };

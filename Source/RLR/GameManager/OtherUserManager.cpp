@@ -55,7 +55,6 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 
 			// Deferred spawning
 			ARLRPlayerCharacter* OtherPlayer = World->SpawnActorDeferred<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnTransform);
-			OtherPlayer->SetStat(UserCharacter);
 
 			// Check if the spawn failed
 			if (!OtherPlayer)

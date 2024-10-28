@@ -31,6 +31,10 @@ public:
 
 public:
 
+	virtual void SetText(FString MessageString) override;
+
+public:
+
 	/*
 		bind
 	*/
