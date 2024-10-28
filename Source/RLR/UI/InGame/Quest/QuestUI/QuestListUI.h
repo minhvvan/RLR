@@ -55,6 +55,7 @@ private:
 	bool IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	FQuest SelectedQuest;
+	UQuestButtonUI* SelectedQuestButton;
 	TMap<FString, UQuestButtonUI*> QuestButtons;
 
 public:
