@@ -51,20 +51,17 @@ public:
     void OnFriendTabButtonClicked();
 
     UFUNCTION()
-    void OnFriendRequestClosed();
-
-    UFUNCTION()
     void OpenFriendInfoUI(int FriendSeq);
 
     //UFUNCTION()
     //void HandleGroupRemoved(int32 GroupSeq);
     
     UFUNCTION()
-    void OpenFriendRequestUI();
+    void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
     void OpenFriendMenuUI(FVector2D ButtonPosition);
     UFUNCTION()
-    void OpenAddGroupUI();
+    void OpenAddGroupUI(bool bOpen);
     UFUNCTION()
     void OpenGroupMenuUI(FVector2D ButtonPosition);
 

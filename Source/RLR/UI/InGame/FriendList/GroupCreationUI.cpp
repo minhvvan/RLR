@@ -32,6 +32,5 @@ void UGroupCreationUI::ConfirmButtonClicked()
 
 void UGroupCreationUI::CancelButtonClicked()
 {
-	CloseUI();
-	bIsOpen = false;
+	OnGroupCreationOpen.Broadcast(true);
 }

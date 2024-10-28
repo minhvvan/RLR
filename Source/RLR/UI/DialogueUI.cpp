@@ -7,8 +7,10 @@
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Components/HorizontalBox.h"
 #include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -135,6 +137,9 @@ void UDialogueUI::OnPostClicked()
 		bOpenPost = false;
 		InventoryUI->CloseUI();
 		PostOverlayUI->CloseUI();
+		BtnBox->SetVisibility(ESlateVisibility::Visible);
+		TxtNPCName->SetVisibility(ESlateVisibility::Visible);
+		TxtNPCTalk->SetVisibility(ESlateVisibility::Visible);
 	}
 	else
 	{
@@ -145,6 +150,9 @@ void UDialogueUI::OnPostClicked()
 			FVector2D panelPos(100.f, 100.f);
 			PostOverlayUI->SetPosition(panelPos);
 			PostOverlayUI->OpenUI();
+			BtnBox->SetVisibility(ESlateVisibility::Hidden);
+			TxtNPCName->SetVisibility(ESlateVisibility::Hidden);
+			TxtNPCTalk->SetVisibility(ESlateVisibility::Hidden);
 		}
 		/*
 			우편함 UI가 생성될 때 인벤토리 창도 함께 열기

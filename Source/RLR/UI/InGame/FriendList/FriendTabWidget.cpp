@@ -77,7 +77,7 @@ void UFriendTabWidget::RequestFriendButtonClicked()
     // FriendListUI에서 처리하도록 변경
     if (FriendListUI)
     {
-        FriendListUI->OpenFriendRequestUI();
+        FriendListUI->OpenFriendRequestUI(false);
     }
 }
 
@@ -123,7 +123,7 @@ void UFriendTabWidget::AddGroupButtonClicked()
     // 그룹 명 입력할 위젯 open하도록 friendlistui에 전달    
     if (FriendListUI)
     {
-        FriendListUI->OpenAddGroupUI();
+        FriendListUI->OpenAddGroupUI(false);
     }
 
 }

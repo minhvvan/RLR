@@ -6,7 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
-#include "UI/InGame/InGameMainUI.h"
+#include "UI/DialogueUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostAlertUI.h"
@@ -24,10 +24,10 @@ void UPostalManager::InitializePostalManager()
 	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (!UIManager) return;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if (!InGameMainUI) return;
+	UDialogueUI* DialogueUI = Cast<UDialogueUI>(UIManager->GetDialogue());
+	if (!DialogueUI) return;
 
-	UPostOverlayUI* PostUI = InGameMainUI->GetPostOverlayUI();
+	UPostOverlayUI* PostUI = DialogueUI->GetPostOverlayUI();
 
 	PostUIClass = PostUI;
 
