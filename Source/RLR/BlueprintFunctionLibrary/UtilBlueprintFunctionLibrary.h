@@ -67,6 +67,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
 	static void TestServerList();
 
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_USER_REQUEST();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_START_REQUEST();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_ADD_ITEM_REQUEST();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_ADD_GOOD_REQUEST();
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_LOCK_REQUEST();
+
+	UFUNCTION(BlueprintCallable, Category = "RLRBlueprintLibrary | Utils")
+	static void Test_Handle_TRADE_CANCEL_REQUEST();
+
 	/*
 		Cheat Code
 	*/

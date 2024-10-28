@@ -58,6 +58,9 @@ void UBaseUI::BindWidget()
 
 void UBaseUI::SetUIType(EUIType Type)
 {
+	if(UIType != EUIType::NONE)
+		return;
+
 	UIType = Type;
 	GetUIManager()->AddUI(this);
 }
