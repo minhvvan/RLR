@@ -102,11 +102,12 @@ int32 UPlayerManager::GetPlayerSeq()
 
 int32 UPlayerManager::GetUserSeq()
 {
-	/*
-		아직 미구현
-	*/
-
-	return 1;
+	if (IsValid(PlayerCharacter) == false)
+	{
+		DEBUG_MESSAGE;
+		return 1;
+	}
+	return PlayerCharacter->GetStat()->GetUserSeq();
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)

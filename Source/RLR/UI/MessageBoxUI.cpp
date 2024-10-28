@@ -37,6 +37,7 @@ void UMessageBoxUI::OpenUI()
 void UMessageBoxUI::Clear()
 {
 	Super::Clear();
+	EtcPropertyMap.Empty();
 	MessageText->SetText(FText());
 	OnConfirmButtonClickedDelegate.Unbind();
 	OnCancelButtonClickedDelegate.Unbind();
@@ -51,17 +52,24 @@ void UMessageBoxUI::CloseUI()
 void UMessageBoxUI::OnClickedConfirmButton()
 {
 	OnConfirmButtonClickedDelegate.ExecuteIfBound(this);
+	CloseUI();
 }
 
 void UMessageBoxUI::OnClickedCancelButton()
 {
 	OnCancelButtonClickedDelegate.ExecuteIfBound(this);
+	CloseUI();
 }
 
-void UMessageBoxUI::SetText(FString MessageString)
+void UMessageBoxUI::SetMessageText(FString Message)
 {
 	//FText Text = STRING_TO_FTEXT(MessageString);
 	//FText MessageTextFormat = FText::Format(FText::FromString("[{0}] {1}"), ItemData.NAME, Text1);
-	FText Text = FText::FromString(MessageString);
+	FText Text = FText::FromString(Message);
 	MessageText->SetText(Text);
+}
+
+void UMessageBoxUI::SetMessageText(FText Message)
+{
+	MessageText->SetText(Message);
 }

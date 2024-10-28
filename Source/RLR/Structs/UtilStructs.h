@@ -48,6 +48,7 @@ enum class EUIType : uint8
 	//Popup
 	ITEM_COUNT_MESSAGE_BOX,
 	NOTIFICATION_MESSAGE_BOX,
+	CONFIRM_MESSAGE_BOX,
 	POST_UI,
 	OTHER_PLAYER_MENU,
 	FRIEND_LIST_UI,
@@ -269,6 +270,19 @@ struct FEffectData : public FTableRowBase
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
 	FString EffectPath;
+};
+
+//잡동사니 데이터 저장용 구조체
+USTRUCT(BlueprintType)
+struct FEtcPropertyData
+{
+	GENERATED_BODY()
+	UPROPERTY()
+	TMap<FString, UObject*> EtcObjectMap;
+	UPROPERTY()
+	TMap<FString, FString> EtcStringMap;
+	UPROPERTY()
+	TMap<FString, int32> EtcIntMap;
 };
 
 USTRUCT(Atomic, BlueprintType)
