@@ -51,7 +51,7 @@ void UOtherPlayerMenu::OnUserInfoClicked()
 void UOtherPlayerMenu::OnAddFriendClicked()
 {
 	if (!OtherUserData.IsValid()) return;
-	GetNetworkManager()->SendAddFriend(OtherUserData->UserSeq);
+	GetNetworkManager()->SendAddFriend(OtherUserData->NickName);
 	CloseUIByManager();
 }
 

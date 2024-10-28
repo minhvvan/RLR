@@ -11,9 +11,10 @@
 #include "Physics/RLRCollision.h"
 #include "Structs/SkillStructs.h"
 
-
-void UActionSkill_Holding_Skill::ActivateAction()
+void UActionSkill_Holding_Skill::OnAnimNotifyTriggered()
 {
+	Super::OnAnimNotifyTriggered();
+
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
@@ -29,7 +30,6 @@ void UActionSkill_Holding_Skill::ActivateAction()
 	FVector MousePos = ActionData.MousePos;
 
 	if (!SkillData) return;
-	float SkillRange = SkillData->SkillRange.X;
 
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
@@ -42,7 +42,7 @@ void UActionSkill_Holding_Skill::ActivateAction()
 	PlayerRotation.Pitch = 0.f;
 
 	ARLRProjectile* HoldingProjectile = GetWorld()->SpawnActorDeferred<ARLRProjectile>(HoldingSkillProjectile, FTransform::Identity, Player);
-	HoldingProjectile->SetSkillRange(SkillRange);
+	HoldingProjectile->SetSkillData(MakeShared<FSkillData>(*SkillData));
 	/* TODO : 50은 나중에 데이터 처리 */
 	FTransform SpawnRange(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
 	SpawnRange.SetRotation(PlayerRotation.Quaternion());
@@ -71,6 +71,7 @@ void UActionSkill_Holding_Skill::ActivateAction()
 			OverlappedActors.Add(Result.GetActor());
 		}
 	}
+
 	if (SkillManager->RequestSkillResult(SkillData, OverlappedActors))
 	{
 		/* IActionSystemInterface와 충돌 성공 */

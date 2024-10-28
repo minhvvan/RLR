@@ -4,7 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Network/Proto/Post.pb.h"
+#include "GameplayTagContainer.h"
+#include "Network/Proto/Friend.pb.h"
 #include "UtilStructs.generated.h"
+
+class UAction;
 
 UENUM(BlueprintType)
 enum class EUIType : uint8
@@ -47,6 +51,12 @@ enum class EUIType : uint8
 	CONFIRM_MESSAGE_BOX,
 	POST_UI,
 	OTHER_PLAYER_MENU,
+	FRIEND_LIST_UI,
+	FRIEND_REQUEST_UI,
+	FRIEND_INFORMATION_UI,
+	FRIEND_MENU_UI,
+	GROUP_CREATION_UI,
+	GROUP_MENU_UI,
 	NONE,
 };
 
@@ -103,6 +113,31 @@ struct FAttackResult
 	void MakeAttackData(/*const Protocol::Item itemData*/);
 };
 
+USTRUCT(Atomic, BlueprintType)
+struct FActionResource : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ActionSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FGameplayTag ActionTag;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TSubclassOf<UAction> ActionClass;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TObjectPtr<UTexture2D> ActionImage;
+
+	FORCEINLINE bool operator==(FActionResource const& Other) const
+	{
+		if (ActionSeq != Other.ActionSeq)
+			return false;
+		return true;
+	}
+	static const FActionResource EmptyActionResource;
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FPostResult
@@ -248,4 +283,50 @@ struct FEtcPropertyData
 	TMap<FString, FString> EtcStringMap;
 	UPROPERTY()
 	TMap<FString, int32> EtcIntMap;
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FFriendGroupResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int32> FriendSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	TArray<FString> FriendName;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 GroupSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FString GroupName;
+
+	void MakeGroupData(const Protocol::Group group);	
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FAnimData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	FAnimData() = default;
+
+	FAnimData(FGameplayTag tag, UAnimMontage* anim) :
+		Tag(tag),
+		Anim(anim)
+	{};
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	FGameplayTag Tag;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite);
+	UAnimMontage* Anim;
+
+	static const FAnimData EmptyAnimData;
+
+	bool operator==(const FAnimData& rhs)
+	{
+		return Tag == rhs.Tag;
+	}
 };

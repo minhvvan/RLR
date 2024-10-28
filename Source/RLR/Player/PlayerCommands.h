@@ -30,6 +30,7 @@ enum class EInputType : uint8
 	OpenUI,
 	Consume,
 	Action,
+	Test,
 	None,
 };
 

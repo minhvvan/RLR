@@ -69,10 +69,6 @@ void UActionSystemComponent::GiveAction(FGameplayTag Tag, const FActionSpec& Spe
 	{
 		UAction* NewActionInstance = CreateNewInstanceOfAction(OwnedSpec);
 		NewActionInstance->SetTriggerTag(Tag);
-		if (Spec.FollowActionTag != FGameplayTag::EmptyTag)
-		{
-			NewActionInstance->SetFollowTriggerTag(Spec.FollowActionTag);
-		}
 	}
 }
 
@@ -131,7 +127,6 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
-			NewActionInstance->SetFollowTriggerTag(Spec->FollowActionTag);
 
 			if (!NewActionInstance->TryActivateAction())
 			{
@@ -141,16 +136,36 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 	}
 }
 
-void UActionSystemComponent::TryActivateActionByString(const std::string& TagName)
+void UActionSystemComponent::ActivateActionForce(FGameplayTag Tag)
 {
-	// std::string -> FString로 변환
-	FString tagName = FString(TagName.c_str());
+	if (auto Spec = GrantedActions.Find(Tag))
+	{
+		UAction* Action = Spec->Action;
 
-	// FString -> FGameplayTag로 변환
-	FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName(*tagName));
+		//instancePolicy에 따라 달라짐
+		if (Action->GetInstancingPolicy() == EActionInstancingPolicy::NonInstanced)
+		{
+			//CDO를 통해 Activate
+			Action->InitCurrentActorInfoFromASC(this);
+			Action->SetTriggerTag(Tag);
+			Action->ActivateActionForce();
+		}
+		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerActor)
+		{
+			//Spec에 있는 Instance를 통해 Activate
+			Spec->ActionInstances[0]->ActivateActionForce();
+		}
+		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
+		{
+			//새로운 Instance 생성 -> Activate
+			UAction* NewActionInstance = CreateNewInstanceOfAction(*Spec);
+			if (!NewActionInstance) return;
+			NewActionInstance->SetTriggerTag(Tag);
 
-	// 기존 TryActivateAction 함수 호출
-	TryActivateAction(Tag);
+			NewActionInstance->ActivateActionForce();
+			Spec->ActionInstances.Remove(NewActionInstance);
+		}
+	}
 }
 
 void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
@@ -158,11 +173,6 @@ void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 	 //if (!GrantedActions.Contains(Tag)) return;
 	for (auto& [triggerTag, spec] : GrantedActions)
 	{
-		//TODO : 홀딩 스킬에서는 입력 중단 시 스킬이 취소되어야 하기 때문에 넣어뒀습니다. 
-		if (triggerTag.MatchesTag(Tag))
-		{
-			Tag = spec.Action->ActionTag;
-		}
 		if (spec.Action->ActionTag.MatchesTag(Tag))
 		{
 			auto copied(spec.ActionInstances);
@@ -175,6 +185,14 @@ void UActionSystemComponent::TryCancelAction(FGameplayTag Tag)
 			}
 		}
 	}
+}
+
+TWeakObjectPtr<UAction> UActionSystemComponent::GetActionInstance(FGameplayTag Tag, int idx)
+{
+	auto spec = GrantedActions.Find(Tag);
+	if (spec == nullptr) return nullptr;
+
+	return MakeWeakObjectPtr<UAction>(spec->ActionInstances[idx]);
 }
 
 void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
@@ -282,12 +300,15 @@ void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
 	}
 }
 
-void UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
+bool UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
 {
 	if (StoredActionData.Contains(Tag))
 	{
 		StoredActionData.RemoveAndCopyValue(Tag, Data);
+		return true;
 	}
+
+	return false;
 }
 
 bool UActionSystemComponent::ActivateWaitAction()

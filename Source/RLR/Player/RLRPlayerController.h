@@ -45,6 +45,7 @@ private:
 	void OnMoveCompleted(FGameplayTag TriggerTag);
 
 	void OnUserClick();
+	void OnTest();
 
 	//bindingAction
 	void OnDefaultAction(FGameplayTag TriggerTag);

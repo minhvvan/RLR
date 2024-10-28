@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ActionSystem/Action/Skills/ActionSkill.h"
+#include "ActionSystem/Action/Skills/ActionSkill_Normal.h"
 #include "ActionSkill_Normal_SwordAura.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UActionSkill_Normal_SwordAura : public UActionSkill
+class RLR_API UActionSkill_Normal_SwordAura : public UActionSkill_Normal
 {
 	GENERATED_BODY()
 	
@@ -22,7 +22,7 @@ protected:
 	TSubclassOf<class ARLRProjectile> SwordAuraProjectile;
 
 protected:
-	virtual void ActivateAction();
+	virtual void OnAnimNotifyTriggered() override;
 
 	UFUNCTION()
 	void OnFinishSkill(TArray<AActor*> OverlappedActor);

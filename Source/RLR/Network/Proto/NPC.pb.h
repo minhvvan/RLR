@@ -363,25 +363,35 @@ class SC_NPCInfoResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNpcFieldNumber = 1,
+    kNpcFieldNumber = 2,
+    kNpcCountFieldNumber = 1,
   };
-  // repeated .Protocol.NPC npc = 1;
-  int npc_size() const;
+  // .Protocol.NPC npc = 2;
+  bool has_npc() const;
   private:
-  int _internal_npc_size() const;
+  bool _internal_has_npc() const;
   public:
   void clear_npc();
-  ::Protocol::NPC* mutable_npc(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::NPC >*
-      mutable_npc();
+  const ::Protocol::NPC& npc() const;
+  PROTOBUF_NODISCARD ::Protocol::NPC* release_npc();
+  ::Protocol::NPC* mutable_npc();
+  void set_allocated_npc(::Protocol::NPC* npc);
   private:
-  const ::Protocol::NPC& _internal_npc(int index) const;
-  ::Protocol::NPC* _internal_add_npc();
+  const ::Protocol::NPC& _internal_npc() const;
+  ::Protocol::NPC* _internal_mutable_npc();
   public:
-  const ::Protocol::NPC& npc(int index) const;
-  ::Protocol::NPC* add_npc();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::NPC >&
-      npc() const;
+  void unsafe_arena_set_allocated_npc(
+      ::Protocol::NPC* npc);
+  ::Protocol::NPC* unsafe_arena_release_npc();
+
+  // int32 npcCount = 1;
+  void clear_npccount();
+  int32_t npccount() const;
+  void set_npccount(int32_t value);
+  private:
+  int32_t _internal_npccount() const;
+  void _internal_set_npccount(int32_t value);
+  public:
 
   // @@protoc_insertion_point(class_scope:Protocol.SC_NPCInfoResponse)
  private:
@@ -391,7 +401,8 @@ class SC_NPCInfoResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::NPC > npc_;
+    ::Protocol::NPC* npc_;
+    int32_t npccount_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -668,25 +679,35 @@ class SC_UserQuestInfoResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kQuestsFieldNumber = 1,
+    kQuestsFieldNumber = 2,
+    kQuestCountFieldNumber = 1,
   };
-  // repeated .Protocol.Quest quests = 1;
-  int quests_size() const;
+  // .Protocol.Quest quests = 2;
+  bool has_quests() const;
   private:
-  int _internal_quests_size() const;
+  bool _internal_has_quests() const;
   public:
   void clear_quests();
-  ::Protocol::Quest* mutable_quests(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Quest >*
-      mutable_quests();
+  const ::Protocol::Quest& quests() const;
+  PROTOBUF_NODISCARD ::Protocol::Quest* release_quests();
+  ::Protocol::Quest* mutable_quests();
+  void set_allocated_quests(::Protocol::Quest* quests);
   private:
-  const ::Protocol::Quest& _internal_quests(int index) const;
-  ::Protocol::Quest* _internal_add_quests();
+  const ::Protocol::Quest& _internal_quests() const;
+  ::Protocol::Quest* _internal_mutable_quests();
   public:
-  const ::Protocol::Quest& quests(int index) const;
-  ::Protocol::Quest* add_quests();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Quest >&
-      quests() const;
+  void unsafe_arena_set_allocated_quests(
+      ::Protocol::Quest* quests);
+  ::Protocol::Quest* unsafe_arena_release_quests();
+
+  // int32 questCount = 1;
+  void clear_questcount();
+  int32_t questcount() const;
+  void set_questcount(int32_t value);
+  private:
+  int32_t _internal_questcount() const;
+  void _internal_set_questcount(int32_t value);
+  public:
 
   // @@protoc_insertion_point(class_scope:Protocol.SC_UserQuestInfoResponse)
  private:
@@ -696,7 +717,8 @@ class SC_UserQuestInfoResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Quest > quests_;
+    ::Protocol::Quest* quests_;
+    int32_t questcount_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1680,41 +1702,109 @@ inline void CS_NPCInfoRequest::set_mapid(int64_t value) {
 
 // SC_NPCInfoResponse
 
-// repeated .Protocol.NPC npc = 1;
-inline int SC_NPCInfoResponse::_internal_npc_size() const {
-  return _impl_.npc_.size();
+// int32 npcCount = 1;
+inline void SC_NPCInfoResponse::clear_npccount() {
+  _impl_.npccount_ = 0;
 }
-inline int SC_NPCInfoResponse::npc_size() const {
-  return _internal_npc_size();
+inline int32_t SC_NPCInfoResponse::_internal_npccount() const {
+  return _impl_.npccount_;
 }
-inline ::Protocol::NPC* SC_NPCInfoResponse::mutable_npc(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_NPCInfoResponse.npc)
-  return _impl_.npc_.Mutable(index);
+inline int32_t SC_NPCInfoResponse::npccount() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_NPCInfoResponse.npcCount)
+  return _internal_npccount();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::NPC >*
-SC_NPCInfoResponse::mutable_npc() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_NPCInfoResponse.npc)
-  return &_impl_.npc_;
+inline void SC_NPCInfoResponse::_internal_set_npccount(int32_t value) {
+  
+  _impl_.npccount_ = value;
 }
-inline const ::Protocol::NPC& SC_NPCInfoResponse::_internal_npc(int index) const {
-  return _impl_.npc_.Get(index);
+inline void SC_NPCInfoResponse::set_npccount(int32_t value) {
+  _internal_set_npccount(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_NPCInfoResponse.npcCount)
 }
-inline const ::Protocol::NPC& SC_NPCInfoResponse::npc(int index) const {
+
+// .Protocol.NPC npc = 2;
+inline bool SC_NPCInfoResponse::_internal_has_npc() const {
+  return this != internal_default_instance() && _impl_.npc_ != nullptr;
+}
+inline bool SC_NPCInfoResponse::has_npc() const {
+  return _internal_has_npc();
+}
+inline const ::Protocol::NPC& SC_NPCInfoResponse::_internal_npc() const {
+  const ::Protocol::NPC* p = _impl_.npc_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::NPC&>(
+      ::Protocol::_NPC_default_instance_);
+}
+inline const ::Protocol::NPC& SC_NPCInfoResponse::npc() const {
   // @@protoc_insertion_point(field_get:Protocol.SC_NPCInfoResponse.npc)
-  return _internal_npc(index);
+  return _internal_npc();
 }
-inline ::Protocol::NPC* SC_NPCInfoResponse::_internal_add_npc() {
-  return _impl_.npc_.Add();
+inline void SC_NPCInfoResponse::unsafe_arena_set_allocated_npc(
+    ::Protocol::NPC* npc) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.npc_);
+  }
+  _impl_.npc_ = npc;
+  if (npc) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SC_NPCInfoResponse.npc)
 }
-inline ::Protocol::NPC* SC_NPCInfoResponse::add_npc() {
-  ::Protocol::NPC* _add = _internal_add_npc();
-  // @@protoc_insertion_point(field_add:Protocol.SC_NPCInfoResponse.npc)
-  return _add;
+inline ::Protocol::NPC* SC_NPCInfoResponse::release_npc() {
+  
+  ::Protocol::NPC* temp = _impl_.npc_;
+  _impl_.npc_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::NPC >&
-SC_NPCInfoResponse::npc() const {
-  // @@protoc_insertion_point(field_list:Protocol.SC_NPCInfoResponse.npc)
+inline ::Protocol::NPC* SC_NPCInfoResponse::unsafe_arena_release_npc() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_NPCInfoResponse.npc)
+  
+  ::Protocol::NPC* temp = _impl_.npc_;
+  _impl_.npc_ = nullptr;
+  return temp;
+}
+inline ::Protocol::NPC* SC_NPCInfoResponse::_internal_mutable_npc() {
+  
+  if (_impl_.npc_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::NPC>(GetArenaForAllocation());
+    _impl_.npc_ = p;
+  }
   return _impl_.npc_;
+}
+inline ::Protocol::NPC* SC_NPCInfoResponse::mutable_npc() {
+  ::Protocol::NPC* _msg = _internal_mutable_npc();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_NPCInfoResponse.npc)
+  return _msg;
+}
+inline void SC_NPCInfoResponse::set_allocated_npc(::Protocol::NPC* npc) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.npc_);
+  }
+  if (npc) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(npc));
+    if (message_arena != submessage_arena) {
+      npc = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, npc, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.npc_ = npc;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_NPCInfoResponse.npc)
 }
 
 // -------------------------------------------------------------------
@@ -1745,41 +1835,109 @@ inline void CS_UserQuestInfoRequest::set_userseq(int32_t value) {
 
 // SC_UserQuestInfoResponse
 
-// repeated .Protocol.Quest quests = 1;
-inline int SC_UserQuestInfoResponse::_internal_quests_size() const {
-  return _impl_.quests_.size();
+// int32 questCount = 1;
+inline void SC_UserQuestInfoResponse::clear_questcount() {
+  _impl_.questcount_ = 0;
 }
-inline int SC_UserQuestInfoResponse::quests_size() const {
-  return _internal_quests_size();
+inline int32_t SC_UserQuestInfoResponse::_internal_questcount() const {
+  return _impl_.questcount_;
 }
-inline ::Protocol::Quest* SC_UserQuestInfoResponse::mutable_quests(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_UserQuestInfoResponse.quests)
-  return _impl_.quests_.Mutable(index);
+inline int32_t SC_UserQuestInfoResponse::questcount() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_UserQuestInfoResponse.questCount)
+  return _internal_questcount();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Quest >*
-SC_UserQuestInfoResponse::mutable_quests() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_UserQuestInfoResponse.quests)
-  return &_impl_.quests_;
+inline void SC_UserQuestInfoResponse::_internal_set_questcount(int32_t value) {
+  
+  _impl_.questcount_ = value;
 }
-inline const ::Protocol::Quest& SC_UserQuestInfoResponse::_internal_quests(int index) const {
-  return _impl_.quests_.Get(index);
+inline void SC_UserQuestInfoResponse::set_questcount(int32_t value) {
+  _internal_set_questcount(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_UserQuestInfoResponse.questCount)
 }
-inline const ::Protocol::Quest& SC_UserQuestInfoResponse::quests(int index) const {
+
+// .Protocol.Quest quests = 2;
+inline bool SC_UserQuestInfoResponse::_internal_has_quests() const {
+  return this != internal_default_instance() && _impl_.quests_ != nullptr;
+}
+inline bool SC_UserQuestInfoResponse::has_quests() const {
+  return _internal_has_quests();
+}
+inline const ::Protocol::Quest& SC_UserQuestInfoResponse::_internal_quests() const {
+  const ::Protocol::Quest* p = _impl_.quests_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Quest&>(
+      ::Protocol::_Quest_default_instance_);
+}
+inline const ::Protocol::Quest& SC_UserQuestInfoResponse::quests() const {
   // @@protoc_insertion_point(field_get:Protocol.SC_UserQuestInfoResponse.quests)
-  return _internal_quests(index);
+  return _internal_quests();
 }
-inline ::Protocol::Quest* SC_UserQuestInfoResponse::_internal_add_quests() {
-  return _impl_.quests_.Add();
+inline void SC_UserQuestInfoResponse::unsafe_arena_set_allocated_quests(
+    ::Protocol::Quest* quests) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.quests_);
+  }
+  _impl_.quests_ = quests;
+  if (quests) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.SC_UserQuestInfoResponse.quests)
 }
-inline ::Protocol::Quest* SC_UserQuestInfoResponse::add_quests() {
-  ::Protocol::Quest* _add = _internal_add_quests();
-  // @@protoc_insertion_point(field_add:Protocol.SC_UserQuestInfoResponse.quests)
-  return _add;
+inline ::Protocol::Quest* SC_UserQuestInfoResponse::release_quests() {
+  
+  ::Protocol::Quest* temp = _impl_.quests_;
+  _impl_.quests_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Quest >&
-SC_UserQuestInfoResponse::quests() const {
-  // @@protoc_insertion_point(field_list:Protocol.SC_UserQuestInfoResponse.quests)
+inline ::Protocol::Quest* SC_UserQuestInfoResponse::unsafe_arena_release_quests() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_UserQuestInfoResponse.quests)
+  
+  ::Protocol::Quest* temp = _impl_.quests_;
+  _impl_.quests_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Quest* SC_UserQuestInfoResponse::_internal_mutable_quests() {
+  
+  if (_impl_.quests_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Quest>(GetArenaForAllocation());
+    _impl_.quests_ = p;
+  }
   return _impl_.quests_;
+}
+inline ::Protocol::Quest* SC_UserQuestInfoResponse::mutable_quests() {
+  ::Protocol::Quest* _msg = _internal_mutable_quests();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_UserQuestInfoResponse.quests)
+  return _msg;
+}
+inline void SC_UserQuestInfoResponse::set_allocated_quests(::Protocol::Quest* quests) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.quests_);
+  }
+  if (quests) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(quests));
+    if (message_arena != submessage_arena) {
+      quests = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, quests, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.quests_ = quests;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_UserQuestInfoResponse.quests)
 }
 
 // -------------------------------------------------------------------

@@ -22,15 +22,6 @@ void USkillManager::Initialize(FSubsystemCollectionBase& Collection)
 	UpdateTest.AddDynamic(this, &USkillManager::SetSelectedSkills);
 }
 
-void USkillManager::Init()
-{
-	if (!RequestGetSelectedSkills())
-	{
-		RLR_LOG(LogRLR, Log, TEXT("Fail GetSelected Skill Load"));
-		return;
-	}
-}
-
 void USkillManager::SkillStart(FGameplayTag TriggerTag)
 {
 	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
@@ -44,22 +35,6 @@ void USkillManager::SkillStart(FGameplayTag TriggerTag)
 
 	ASC->TryActivateAction(TriggerTag);
 	UpdatedTryActivateAction.Broadcast(TriggerTag);
-}
-
-void USkillManager::SkillAttack(FGameplayTag TriggerTag)
-{
-	if (!HasSkillTag(TriggerTag)) Init();
-
-	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (!Controller) return;
-
-	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
-	if (!Character) return;
-
-	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
-	if (!ASC) return;
-
-	ASC->TryActivateAction(TriggerTag);
 }
 
 void USkillManager::SkillComplete(FGameplayTag TriggerTag)
@@ -79,7 +54,8 @@ void USkillManager::SkillComplete(FGameplayTag TriggerTag)
 			UActionSystemComponent* ASC = Character->GetActionSystemComponent();
 			if (!ASC) return;
 
-			ASC->TryCancelAction(TriggerTag);
+			auto skillTag = GetSkillTag(TriggerTag);
+			ASC->TryCancelAction(skillTag);
 		}
 	}
 }
@@ -117,6 +93,12 @@ bool USkillManager::HasSkillTag(FGameplayTag TriggerTag)
 	return bResult;
 }
 
+FGameplayTag USkillManager::GetSkillTag(FGameplayTag TriggerTag)
+{
+	if (!OwnSkills.Contains(TriggerTag)) return FGameplayTag::EmptyTag;
+	return OwnSkills[TriggerTag].SkillTag;
+}
+
 bool USkillManager::HasLearnedSkill(int32 SkillSeq)
 {
 	return LearnedSkills.Contains(SkillSeq);
@@ -148,7 +130,6 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
-	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
 	OwnSkills.Empty();
 
 	for (int i = 0; i < SelectedSkills.Num(); i++)
@@ -159,35 +140,19 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
 			return;
 		}
-		const FSkillClass& SkillClassData = GameInstance->GetDataManager()->GetSkillResource(Data.SkillSeq);
-		if (SkillClassData == FSkillClass::EmptySkillClass)
+		const FActionResource& ActionResource = GameInstance->GetDataManager()->GetActionResource(Data.SkillSeq);
+		if (ActionResource == FActionResource::EmptyActionResource)
 		{
 			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
 			return;
 		}
 
-		//스킬 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> Skill.{퀵 슬롯 인덱스 번호}
-		//퀵 슬롯 세팅 리스트를 따로 빧는게 아니라 지금은 배운 스킬 목록을 받아서, 세팅을 하고 있다. 
-		//그래서 일단 배운 스킬 목록 중에서 SkillIdx 값의 유무에 따라 예외처리. 
-		if(Data.SkillIdx < 0 || Data.SkillIdx > 8)
-			continue;
+		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
+		OwnSkills.Add(SkillTag, Data);
 
-		FGameplayTag SkillTag = SkillTags->GetByIndex(i);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(i);
-
-		OwnSkills.Add(SkillTag, SelectedSkills[i]);
-
-		// TriggerAction
 		{
-			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
-			Spec.FollowActionTag = SkillTag;
-			ASC->GiveAction(SkillAnimTag, Spec);
-		}
-
-		// CheckAction
-		{
-			FActionSpec Spec(SkillClassData.SkillClass, 1, 0);
-			ASC->GiveAction(SkillTag, Spec);
+			FActionSpec Spec(ActionResource.ActionClass, 1, 0);
+			ASC->GiveAction(Data.SkillTag, Spec);
 		}
 	}
 
@@ -198,65 +163,18 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 void USkillManager::SetLearnedSkills(const TArray<FSkillData>& LearnedSkillsList)
 {
 	LearnedSkills.Empty();
+
+	TArray<FSkillData> selectedSkills;
 	for (const FSkillData& SkillData : LearnedSkillsList)
 	{
 		LearnedSkills.Add(SkillData.SkillSeq, SkillData);
-	}
-}
-
-bool USkillManager::RequestGetSelectedSkills()
-{
-	TArray<FSkillData> SelectedSkills;
-	//TODO: Request Get Selected Skill
-	//내가 설정한 8개를 가져와줘
-	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (!Controller) return false;
-
-	ARLRPlayerCharacter* Character = Cast<ARLRPlayerCharacter>(Controller->GetPawn());
-	if (!Character) return false;
-
-	UActionSystemComponent* ASC = Character->GetActionSystemComponent();
-	if (!ASC) return false;
-
-	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	const FGameplayTagContainer* SkillTags = TagManager.GetSkillTags();
-	const FGameplayTagContainer* SkillAnimTags = TagManager.GetSkillAnimTags();
-
-	for (int i = 0; i < SelectedSkills.Num(); i++)
-	{
-		const FSkillData& Data = SelectedSkills[i];
-		if (Data == FSkillData::EmptySkillData)
+		if (0 <= SkillData.SkillIdx && SkillData.SkillIdx < 8)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found SKill Class"));
-			return false;
-		}
-		const FSkillClass& SkillClassData = GameInstance->GetDataManager()->GetSkillResource(Data.SkillSeq);
-		if (SkillClassData == FSkillClass::EmptySkillClass)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
-			return false;
-		}
-
-		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);
-		FGameplayTag SkillAnimTag = SkillAnimTags->GetByIndex(Data.SkillIdx);
-
-		OwnSkills.Add(SkillTag, SelectedSkills[i]);
-
-		//TriggerAction
-		{
-			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
-			//Chain HitCheck Class(for Transfer Data)
-			Spec.FollowActionTag = SkillTag;
-			ASC->GiveAction(SkillAnimTag, Spec);
-		}
-
-		//CheckAction 
-		{
-			FActionSpec Spec(SkillClassData.SkillAnimClass, 1, 0);
-			ASC->GiveAction(SkillTag, Spec);
+			selectedSkills.Add(SkillData);
 		}
 	}
-	return true;
+
+	SetSelectedSkills(selectedSkills);
 }
 
 bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor)
@@ -288,9 +206,7 @@ bool USkillManager::RequestSkillResult(const FSkillData* SkillData, TArray<AActo
 		
 	}
 
-	//TODO: Send To Server(Skill Result) Using NetworkManager
-	GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
-	return false;
+	return GameInstance->GetNetworkManager()->SendAttackPacket(AttackResults);
 }
 
 void USkillManager::UpdatedSkillSettingBroadcast()

@@ -43,8 +43,8 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 
 	if(IsValid(GetItemResourceData().ItemImage) == true)
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetItemResourceData().ItemImage);
-	else if(IsValid(GetSkillClassData().SkillImage) == true)
-		DraggedWidget->SlotImage->SetBrushFromTexture(GetSkillClassData().SkillImage);
+	else if(IsValid(GetActionResource().ActionImage) == true)
+		DraggedWidget->SlotImage->SetBrushFromTexture(GetActionResource().ActionImage);
 	else
 		DraggedWidget->SlotImage->SetBrushFromTexture(GetDefaultSlotImage());
 	/*
@@ -210,25 +210,25 @@ const FSkillData& USlotUI::GetSkillData()
 	return FSkillData::EmptySkillData;
 }
 
-void USlotUI::SetSkillClassData(FSkillClass NewSkillClassData)
+void USlotUI::SetActionResource(FActionResource NewActionResource)
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
 	if (IsValid(SlotData) == true)
 	{
-		SlotData->SetSkillClassData(NewSkillClassData);
+		SlotData->SetActionResource(NewActionResource);
 	}
 	RefreshUI();
 }
 
-const FSkillClass& USlotUI::GetSkillClassData()
+const FActionResource& USlotUI::GetActionResource()
 {
 	UBaseDragDropOperation* SlotData = GetSlotData();
 
 	if (IsValid(SlotData) == true)
 	{
-		return SlotData->GetSkillClassData();
+		return SlotData->GetActionResource();
 	}
-	return FSkillClass::EmptySkillClass;
+	return FActionResource::EmptyActionResource;
 }
 
 TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)

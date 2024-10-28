@@ -11,11 +11,14 @@
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/EffectManager.h"
 #include "GameManager/LevelManager.h"
 #include "GameManager/QuestManager.h"
 #include "GameManager/LobbyManager.h"
 #include "GameManager/PostalManager.h"
+#include "GameManager/FriendManager.h"
 #include "GameManager/PartyManager.h"
+
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
 #include "Kismet/GameplayStatics.h"
@@ -174,6 +177,18 @@ UPostalManager* UGameManager::GetPostalManager()
     return nullptr;
 }
 
+UFriendManager* UGameManager::GetFriendManager()
+{
+    UFriendManager* FriendManager = GetSubsystem<UFriendManager>(this);
+    if (IsValid(FriendManager))
+    {
+        return FriendManager;
+    }
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetFriendManager Error."));
+    return nullptr;
+
+}
+
 UPartyManager* UGameManager::GetPartyManager()
 {
     UPartyManager* PartyManager = GetSubsystem<UPartyManager>(this);
@@ -199,6 +214,18 @@ UGameOptionData* UGameManager::GetGameOptionData()
 	}
 
 	return GameOptionData;
+}
+
+UEffectManager* UGameManager::GetEffectManager()
+{
+    UEffectManager* EffectManager = GetSubsystem<UEffectManager>(this);
+    if (IsValid(EffectManager))
+    {
+        return EffectManager;
+    }
+
+    UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetEffectManager Error."));
+    return nullptr;
 }
 
 ULevelManager* UGameManager::GetLevelManager()

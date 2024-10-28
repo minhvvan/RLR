@@ -57,13 +57,13 @@ void USkillSettingListSlot::RefreshUI()
 		return;
 	int32 SkillSeq = GetSkillData().SkillSeq;
 
-	FSkillClass SkillClassData = GameInstance->GetDataManager()->GetSkillResource(SkillSeq);
-	if(SkillClassData == FSkillClass::EmptySkillClass)
+	FActionResource ActionResource = GameInstance->GetDataManager()->GetActionResource(SkillSeq);
+	if(ActionResource == FActionResource::EmptyActionResource)
 		return;
 
-	if (IsValid(SkillClassData.SkillImage) == true)
+	if (IsValid(ActionResource.ActionImage) == true)
 	{
-		SetSlotImage(SkillClassData.SkillImage);
+		SetSlotImage(ActionResource.ActionImage);
 	}
 
 	SkillLevelText->SetText(FText::AsNumber(GetSkillData().Level));

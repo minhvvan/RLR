@@ -52,9 +52,11 @@ class UMonsterManager;
 class UOtherUserManager;
 class UPlayerManager;
 class UObjectManager;
+class UEffectManager;
 class ULevelManager;
 class ULobbyManager;
 class UPostalManager;
+class UFriendManager;
 class UPartyManager;
 
 UCLASS()
@@ -99,6 +101,9 @@ public:
 	UGameOptionData*	GetGameOptionData();
 
 	UFUNCTION(BlueprintCallable)
+	UEffectManager*		GetEffectManager();
+
+	UFUNCTION(BlueprintCallable)
 	ULevelManager*		GetLevelManager();
 
 	UFUNCTION(BlueprintCallable)
@@ -109,6 +114,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	UPartyManager*		GetPartyManager();
+
+	UFUNCTION(BlueprintCallable)
+	UFriendManager*		GetFriendManager();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

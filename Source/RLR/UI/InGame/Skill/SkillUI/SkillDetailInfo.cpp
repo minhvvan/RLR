@@ -35,7 +35,7 @@ void USkillDetailInfo::RefreshUI()
 		return;
 	}
 
-	if (SkillClassData == FSkillClass::EmptySkillClass)
+	if (ActionResource == FActionResource::EmptyActionResource)
 	{
 		Clear();
 		return;
@@ -55,7 +55,7 @@ void USkillDetailInfo::RefreshUI()
 	SkillInfoText->SetText(FText::FromString(SkillInfoString));
 
 
-	UTexture2D* Texture = SkillClassData.SkillImage;
+	UTexture2D* Texture = ActionResource.ActionImage;
 	if (IsValid(Texture) == false)
 	{
 		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("USkillDetailInfo::RefreshUI Error. 스킬 이미지 정보가 없습니다."));

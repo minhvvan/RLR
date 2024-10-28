@@ -6,6 +6,9 @@
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
+#include "Structs/SkillStructs.h"
+#include "Player/RLRPlayerController.h"
+#include "RLRObjects/Actors/RLRProjectile.h"
 
 UActionSkill_Normal::UActionSkill_Normal()
 {
@@ -20,12 +23,6 @@ void UActionSkill_Normal::EndAction()
 {
 	ActionState = EActionState::STATE_END;
 	Super::EndAction();
-
-	//Actor당 Instancing되는 Action은 Init상태로 초기화
-	if (InstancingPolicy == EActionInstancingPolicy::InstancedPerActor)
-	{
-		ActionState = EActionState::STATE_INIT;
-	}
 }
 
 bool UActionSkill_Normal::PreActivateAction()

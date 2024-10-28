@@ -120,7 +120,7 @@ bool UStatSet::HasActivatedTimer()
 FAbnormalTimer* FAbnormalTimer::MakeTimer(const FAbnormal& Abnormal)
 {
 	FAbnormalTimer* newTimer = (FAbnormalTimer*)FMemory::Malloc(sizeof(FAbnormalTimer));
-	newTimer->EndTime = FDateTime::UtcNow() + FDateTime(Abnormal.Duration);
+	newTimer->EndTime = FDateTime::UtcNow() + FTimespan::FromSeconds(Abnormal.Duration);
 
 	newTimer->AbnormalType = Abnormal.AbnormalType;
 	newTimer->bDisplayed = false;

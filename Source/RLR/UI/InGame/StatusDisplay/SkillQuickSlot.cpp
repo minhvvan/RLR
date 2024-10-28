@@ -42,14 +42,14 @@ void USkillQuickSlot::RefreshUI()
 		return;
 	}
 
-	const FSkillClass& SkillClassData = GetSkillClassData();
-	if (SkillClassData == FSkillClass::EmptySkillClass)
+	const FActionResource& SkillClassData = GetActionResource();
+	if (SkillClassData == FActionResource::EmptyActionResource)
 	{
 		SetSlotImage(GetDefaultSlotImage());
 		return;
 	}
 
-	SetSlotImage(SkillClassData.SkillImage);
+	SetSlotImage(SkillClassData.ActionImage);
 
 	/*
 		연동된 단축키를 찾아주자.

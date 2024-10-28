@@ -31,7 +31,7 @@ public:
 
 	void UpdateTransform(FVector NewTransform);
 	// TODO : string change seq
-	void UpdateAction(std::string tagName);
+	void UpdateAction(int ActionSeq);
 	void SpawnTransform(FVector NewTransform);
 
 	virtual void SetDead() override;

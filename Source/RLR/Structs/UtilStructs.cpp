@@ -4,6 +4,8 @@
 #include "Structs/UtilStructs.h"
 
 const FExpTable FExpTable::EmptyExpData;
+const FAnimData FAnimData::EmptyAnimData = FAnimData(FGameplayTag::EmptyTag, nullptr);
+const FActionResource FActionResource::EmptyActionResource = FActionResource();
 
 void FAttackResult::MakeAttackData()
 {
@@ -33,4 +35,17 @@ void FPostResult::MakePostData(const Protocol::Post post)
 
 	SenderName = UTF8_TO_TCHAR(post.sendername().c_str());
 	ReceiverName = UTF8_TO_TCHAR(post.receivername().c_str());
+}
+
+// group
+void FFriendGroupResult::MakeGroupData(const Protocol::Group group)
+{
+	GroupSeq = group.groupseq();
+	GroupName = UTF8_TO_TCHAR(group.groupname().c_str());
+
+	for (auto& friendInfo : group.friends())
+	{
+		FriendSeq.Add(friendInfo.friendseq());
+		FriendName.Add(UTF8_TO_TCHAR(friendInfo.friendname().c_str()));
+	}
 }

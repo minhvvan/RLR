@@ -14,6 +14,7 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Default_Move = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Move"), FString(TEXT("이동")));
 	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Attack"), FString(TEXT("기본공격")));
 	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Jump"), FString(TEXT("점프")));
+	GameplayTags.Action_Default_PlayMontage = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.PlayMontage"), FString(TEXT("애니메이션 실행")));
 	
 	GameplayTags.Action_Attack_HitCheck = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Attack.HitCheck"), FString(TEXT("공격판정")));
 	
@@ -35,18 +36,12 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Skill_Type_Movility = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Movility"), FString(TEXT("Movility스킬")));
 	GameplayTags.Action_Skill_Type_Targeting = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Targeting"), FString(TEXT("Targeting스킬")));
 	GameplayTags.Action_Skill_Type_Chain = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Chain"), FString(TEXT("Chain스킬")));
-
-
-	//Skill.Anim
-	GameplayTags.Action_Skill_1_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.1.Anim"), FString(TEXT("1애니메이션")));
-	GameplayTags.Action_Skill_2_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.2.Anim"), FString(TEXT("2애니메이션")));
-	GameplayTags.Action_Skill_3_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.3.Anim"), FString(TEXT("3애니메이션")));
-	GameplayTags.Action_Skill_4_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.4.Anim"), FString(TEXT("4애니메이션")));
-	GameplayTags.Action_Skill_5_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.5.Anim"), FString(TEXT("5애니메이션")));
-	GameplayTags.Action_Skill_6_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.6.Anim"), FString(TEXT("6애니메이션")));
-	GameplayTags.Action_Skill_7_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.7.Anim"), FString(TEXT("7애니메이션")));
-	GameplayTags.Action_Skill_8_Anim = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.8.Anim"), FString(TEXT("8애니메이션")));
 	
+	GameplayTags.Action_Skill_SwordsMan_SwordAura = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.SwordsMan.SwordAura"), FString(TEXT("소드오러")));
+	GameplayTags.Action_Skill_MAGE_Meteor = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Mage.Meteor"), FString(TEXT("메테오")));
+	GameplayTags.Action_Skill_MAGE_TrippleCircle = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Mage.TrippleCircle"), FString(TEXT("트리플서클")));
+
+
 	//Action.Interaction
 	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction"), FString(TEXT("상호작용")));
 	GameplayTags.Action_Interaction_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction.Dialogue"), FString(TEXT("대화")));
@@ -102,9 +97,13 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Close = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Close"), FString(TEXT("특정 키 누르면 제일 앞에 있는 UI 닫기")));
 	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
 
+
+	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
+	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.TradeUI = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TradeUI"), FString(TEXT("개인 거래창")));
 	GameplayTags.ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
+	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.UI_OtherPlayerMenu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerMenu"), FString(TEXT("플레이어 메뉴")));
 	GameplayTags.UI_OtherPlayerStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerStatus"), FString(TEXT("타 플레이어 상태창")));
 	GameplayTags.UI_Report = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Report"), FString(TEXT("신고")));
@@ -177,25 +176,6 @@ const FGameplayTagContainer* FGameplayTagManager::GetSkillTags()
 	}
 
 	return &SkillTags;
-}
-
-const FGameplayTagContainer* FGameplayTagManager::GetSkillAnimTags()
-{
-	if (SkillAnimTags.Num() != 8)
-	{
-		SkillAnimTags.Reset(8);
-
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_1_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_2_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_3_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_4_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_5_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_6_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_7_Anim);
-		SkillAnimTags.AddTag(GameplayTags.Action_Skill_8_Anim);
-	}
-
-	return &SkillAnimTags;
 }
 
 FGameplayTag FGameplayTagManager::GetAbnormalTag(int AbnormalType)
