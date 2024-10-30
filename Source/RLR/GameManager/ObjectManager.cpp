@@ -143,8 +143,8 @@ void UObjectManager::SpawnDropItem()
     
     AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
         {
-
-            for (auto& data : DropItemData)
+            TArray<FDropItem> DropItemDataCopy = DropItemData;
+            for (auto& data : DropItemDataCopy)
             {
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemData Size: %d"), DropItemData.Num());
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemInstances Size: %d"), DropItemInstances.Num());
