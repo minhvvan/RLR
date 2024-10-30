@@ -2,12 +2,12 @@
 
 
 #include "GameManager/ObjectManager.h"
-#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
-#include "RLRObjects/Actors/RLRInteractableActor.h"
-#include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "RLRObjects/Actors/RLRInteractableActor.h"
+#include "RLRObjects/Actors/RLRDropItem.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
 

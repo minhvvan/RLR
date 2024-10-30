@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "Structs/ObjectStructs.h"
 #include "NPCShopUI.generated.h"
 
 enum TabIndex
@@ -41,7 +42,7 @@ public:
 	void SetItemData(const TArray<FItemData>& Items);
 	void SetShopData(FNPCShop& Data);
 
-	TWeakPtr<FNPCShop> GetShopData();
+	FNPCShop& GetShopData();
 
 	UPanelSlot* AddChild(UUserWidget* Child);
 
@@ -56,5 +57,5 @@ protected:
 
 protected:
 	TSharedPtr<TArray<FItemData>> ItemData;
-	TSharedPtr<FNPCShop> NPCShopData;
+	FNPCShop NPCShopData;
 };
