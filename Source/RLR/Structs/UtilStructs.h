@@ -13,6 +13,10 @@ class UAction;
 UENUM(BlueprintType)
 enum class EUIType : uint8
 {
+	//Page
+	INGAME_PAGE,
+	DIALOGUE_PAGE,
+
 	//Title
 	TITLE_MAIN_UI,
 	SERVER_LIST,

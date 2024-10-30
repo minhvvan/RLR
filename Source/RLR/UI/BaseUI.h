@@ -37,6 +37,8 @@ public:
 	virtual void CloseUI();
 	virtual void BindWidget();
 
+	virtual void SetInputMode();
+
 	void		SetUIType(EUIType Type);
 	EUIType		GetUIType() {return UIType;}
 	void		SetParent(UBaseUI* UI){Parent = UI;}
@@ -72,7 +74,6 @@ protected:
 	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
 
 public:
-
 	TObjectPtr<UBaseUI> Parent;
 
 	template<typename T>

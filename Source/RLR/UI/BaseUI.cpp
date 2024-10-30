@@ -21,7 +21,7 @@
 void UBaseUI::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	UIType = EUIType::NONE;
+	//UIType = EUIType::NONE;
 }
 
 void UBaseUI::NativeConstruct()
@@ -54,6 +54,12 @@ void UBaseUI::BindWidget()
 			Child->SetParent(this);
 		}
 	}
+}
+
+void UBaseUI::SetInputMode()
+{
+	//특별한 경우가 없다면 그냥 Game And UI 모드.
+	ChangeInputModeGameAndUI();
 }
 
 void UBaseUI::SetUIType(EUIType Type)

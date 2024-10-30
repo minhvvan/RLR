@@ -2,11 +2,13 @@
 
 
 #include "UI/InGame/BaseScreen.h"
+#include "UI/DialogueUI.h"
 #include "Components/WidgetSwitcher.h"
+#include "structs/UtilStructs.h"
 
 UWidget* UBaseScreen::GetPage(EUIType type)
 {
-	return WSPage->GetActiveWidget();
+	return WSPage->GetWidgetAtIndex((int)type);
 }
 
 EUIType UBaseScreen::GetActivePage()
@@ -17,4 +19,12 @@ EUIType UBaseScreen::GetActivePage()
 void UBaseScreen::SetActivePage(EUIType type)
 {
 	WSPage->SetActiveWidgetIndex((int)type);
+}
+
+void UBaseScreen::SetDialogueUI(TObjectPtr<UDialogueUI> newDialogueUI)
+{
+	auto* dialogueUI = GetPage(EUIType::DIALOGUE_PAGE);
+	if (!dialogueUI) return;
+
+	auto* test = WSPage->GetWidgetAtIndex((int)EUIType::DIALOGUE_PAGE);
 }

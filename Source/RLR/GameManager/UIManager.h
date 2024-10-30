@@ -23,6 +23,8 @@ class USlotUI;
 class UDialogueUI;
 class ULoadingScreen;
 class UPopupUI;
+class UBaseScreen;
+class UWidget;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter&, NewPlayerInfo);
@@ -34,7 +36,7 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
+	void OpenMainUI(TSubclassOf<UBaseUI> UIClass);
 	UFUNCTION(BlueprintCallable)
 	UBaseUI* OpenUI(EUIType UIType);
 	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
@@ -58,32 +60,40 @@ public:
 
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
-	TObjectPtr<UDialogueUI>		GetDialogue() {return DialogueUI;}
-
+	TObjectPtr<UDialogueUI>		GetDialogue();
+	
+	UFUNCTION()
+	void OnDialogueEnded();
 
 public:
 
 	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
-protected:
-	UFUNCTION()
-	void OnDialogueEnded();
-
 private:
+	UPROPERTY()
+	TObjectPtr<UBaseScreen>		BaseScreen;	
 
 	UPROPERTY()
-	TObjectPtr<UMainUI>			MainUI;	
-	UPROPERTY()
-	TObjectPtr<UDialogueUI>		DialogueUI;
+	TArray<UWidget*>			Pages;
+
 	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
+
 	UPROPERTY()
 	TArray<USubUI*>				SubUIStack;
 	int32						ZOrder = 0;
 
 	UPROPERTY()
 	TMap<EUIType, UBaseUI*>		UIMap;
+
+private:
+	template<typename T = UWidget>
+	T* GetPage(EUIType Type)
+	{
+		if (!Pages.IsValidIndex((int)Type)) return nullptr;
+		return Cast<T>(Pages[(int)Type]);
+	}
 
 public:
 

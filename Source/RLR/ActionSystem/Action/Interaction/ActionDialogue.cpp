@@ -33,6 +33,7 @@ void UActionDialogue::ActivateAction()
 	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(actionData.UIClass);
 	if (dialogueUI.Get())
 	{
+		dialogueUI->OnDialogueEnd.Clear();
 		dialogueUI->OnDialogueEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
 		dialogueUI->SetDialogueData(actionData.InteractionData.DialogueString);
 		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq, actionData.InteractionData.QuestSeq);
@@ -51,6 +52,6 @@ void UActionDialogue::EndAction()
 
 void UActionDialogue::OnDialogueEnded()
 {
-	//대화 종료 Callback
+	GameInstance->GetUIManager()->OnDialogueEnded();
 	EndAction();
 }

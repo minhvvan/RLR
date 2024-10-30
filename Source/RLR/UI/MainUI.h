@@ -28,8 +28,6 @@ public:
 	virtual void RefreshUI() override;
 	virtual void CloseUI();
 
-	virtual void SetInputMode();
-
 	virtual bool IsOpenSubUI(FGameplayTag InputTag) { return false; }
 	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
 	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }

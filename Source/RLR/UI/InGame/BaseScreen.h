@@ -7,6 +7,7 @@
 #include "BaseScreen.generated.h"
 
 class UWidgetSwitcher;
+class UDialogueUI;
 
 UCLASS()
 class RLR_API UBaseScreen : public UBaseUI
@@ -21,4 +22,5 @@ public:
 	UWidget* GetPage(EUIType type);
 	EUIType GetActivePage();
 	void SetActivePage(EUIType type);
+	void SetDialogueUI(TObjectPtr<UDialogueUI> newDialogueUI);
 };

@@ -11,6 +11,7 @@
  */
 
  class UMainUI;
+ class UBaseUI;
 
 UCLASS()
 class RLR_API ABaseHUD : public AHUD
@@ -23,7 +24,4 @@ public:
 public:
 
 	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UMainUI> MainUIClass;
 };
