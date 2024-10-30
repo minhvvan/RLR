@@ -7,6 +7,7 @@
 #include "Network/Proto/Packet.pb.h"
 #include "RLRStruct.h"
 #include "Structs/ItemStructs.h"
+#include "UI/InGame/BaseScreen.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
@@ -75,9 +76,6 @@ private:
 	TObjectPtr<UBaseScreen>		BaseScreen;	
 
 	UPROPERTY()
-	TArray<UWidget*>			Pages;
-
-	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
 
 	UPROPERTY()
@@ -91,8 +89,8 @@ private:
 	template<typename T = UWidget>
 	T* GetPage(EUIType Type)
 	{
-		if (!Pages.IsValidIndex((int)Type)) return nullptr;
-		return Cast<T>(Pages[(int)Type]);
+		if (!BaseScreen) return nullptr;
+		return Cast<T>(BaseScreen->GetPage(Type));
 	}
 
 public:

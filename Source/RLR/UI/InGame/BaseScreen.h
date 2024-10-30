@@ -8,6 +8,7 @@
 
 class UWidgetSwitcher;
 class UDialogueUI;
+class UPageSwitcher;
 
 UCLASS()
 class RLR_API UBaseScreen : public UBaseUI
@@ -16,7 +17,7 @@ class RLR_API UBaseScreen : public UBaseUI
 	
 protected:
 	UPROPERTY(EditAnywhere, meta=(BindWidget))
-	TObjectPtr<UWidgetSwitcher> WSPage;
+	TObjectPtr<UPageSwitcher> PageSwitcher;
 
 public:
 	UWidget* GetPage(EUIType type);

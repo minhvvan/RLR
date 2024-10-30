@@ -15,7 +15,6 @@
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
 #include "UI/DialogueUI.h"
-#include "UI/InGame/BaseScreen.h"
 #include "UI/LoadingScreen/LoadingScreen.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -44,9 +43,6 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 		NewScreenUI->AddToViewport();
 		BaseScreen = NewScreenUI;
 		BaseScreen->SetInputMode();
-
-		Pages.Add(BaseScreen->GetPage(EUIType::INGAME_PAGE));
-		Pages.Add(BaseScreen->GetPage(EUIType::DIALOGUE_PAGE));
 
 		ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 		if (playerCharacter)

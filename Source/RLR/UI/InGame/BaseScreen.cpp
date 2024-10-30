@@ -4,27 +4,25 @@
 #include "UI/InGame/BaseScreen.h"
 #include "UI/DialogueUI.h"
 #include "Components/WidgetSwitcher.h"
+#include "UI/Components/PageSwitcher.h"
 #include "structs/UtilStructs.h"
 
 UWidget* UBaseScreen::GetPage(EUIType type)
 {
-	return WSPage->GetWidgetAtIndex((int)type);
+	return PageSwitcher->GetWidgetAtIndex((int)type);
 }
 
 EUIType UBaseScreen::GetActivePage()
 {
-	return (EUIType)WSPage->GetActiveWidgetIndex();
+	return (EUIType)PageSwitcher->GetActiveWidgetIndex();
 }
 
 void UBaseScreen::SetActivePage(EUIType type)
 {
-	WSPage->SetActiveWidgetIndex((int)type);
+	PageSwitcher->SetActiveWidgetIndex((int)type);
 }
 
 void UBaseScreen::SetDialogueUI(TObjectPtr<UDialogueUI> newDialogueUI)
 {
-	auto* dialogueUI = GetPage(EUIType::DIALOGUE_PAGE);
-	if (!dialogueUI) return;
-
-	auto* test = WSPage->GetWidgetAtIndex((int)EUIType::DIALOGUE_PAGE);
+	PageSwitcher->SetWidgetAtIndex((int)EUIType::DIALOGUE_PAGE, newDialogueUI);
 }
