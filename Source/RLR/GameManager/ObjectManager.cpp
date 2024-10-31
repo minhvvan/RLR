@@ -2,12 +2,12 @@
 
 
 #include "GameManager/ObjectManager.h"
-#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
-#include "RLRObjects/Actors/RLRInteractableActor.h"
-#include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "RLRObjects/Actors/RLRInteractableActor.h"
+#include "RLRObjects/Actors/RLRDropItem.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
@@ -143,8 +143,8 @@ void UObjectManager::SpawnDropItem()
     
     AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
         {
-
-            for (auto& data : DropItemData)
+            TArray<FDropItem> DropItemDataCopy = DropItemData;
+            for (auto& data : DropItemDataCopy)
             {
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemData Size: %d"), DropItemData.Num());
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemInstances Size: %d"), DropItemInstances.Num());

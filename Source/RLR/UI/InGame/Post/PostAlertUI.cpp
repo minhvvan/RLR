@@ -13,6 +13,7 @@
 #include "GameManager/PostalManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 
 
@@ -82,6 +83,8 @@ void UPostAlertUI::OnRemovePostButtonClicked()
     if (GameInstance->GetPostalManager()->PostUIClass)
     {
         GameInstance->GetPostalManager()->AddToPostDeletionList(PostData, false);
+        /* 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
+        GameInstance->GetNetworkManager()->SendPostRemoveRequest(PostData);
     }
     RemoveFromViewport();
 }

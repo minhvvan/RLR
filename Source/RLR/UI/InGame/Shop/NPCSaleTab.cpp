@@ -32,12 +32,12 @@ void UNPCSaleTab::OnSellClicked()
 		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
 		if (!shopUI) return;
 
-		auto shopData = shopUI->GetShopData().Pin();
+		auto shopData = shopUI->GetShopData();
 		AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
 			{
 				for (auto& item : Cart)
 				{
-					NetworkManager->SendSellPacket(item.ITEM_ID, shopData->ShopSeq, item.ITEM_VALUE);
+					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_VALUE);
 				}
 			});
 
