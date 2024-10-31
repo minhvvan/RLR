@@ -23,7 +23,7 @@ bool Handle_INFO_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 
 bool Handle_REQUEST_FRIEND_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_RequestFriendResponse& pkt)
 {
-
+	GameInstance->GetFriendManager()->SetRequestFriendData(pkt.friendseq(), UTF8_TO_TCHAR(pkt.friendname().c_str()));
 	return false;
 }
 

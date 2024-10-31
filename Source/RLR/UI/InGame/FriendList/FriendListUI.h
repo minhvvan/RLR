@@ -7,6 +7,7 @@
 #include "Structs/UtilStructs.h"
 #include "FriendListUI.generated.h"
 
+class UFriendRequestTabWidget;
 class UExistingGroupList;
 class UFriendRequestUI;
 class UFriendButtonMenu;
@@ -45,10 +46,16 @@ public:
     void SetFriendData(TArray<FFriendGroupResult> NewFriendData);
 
     UFUNCTION()
+    void SetFriendRequestData(TMap<int32, FString> NewFriendRequestData);
+
+    UFUNCTION()
     TArray<FFriendGroupResult>& GetFriendData();
 
     UFUNCTION()
     void OnFriendTabButtonClicked();
+
+    UFUNCTION()
+    void OnFriendRequestTabButtonClicked();
 
     UFUNCTION()
     void OpenFriendInfoUI(int FriendSeq);
@@ -87,14 +94,23 @@ public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendTabWidget> FriendTabWidget;
 
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<UFriendRequestTabWidget> FriendRequestTabWidget;
+
 	UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* FriendWidgetSwitcher;
 
     UPROPERTY(meta = (BindWidget))
     UButton* FriendTabButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* FriendRequestTabButton;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FFriendGroupResult> FriendData;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<int32, FString> FriendRequestData;
 
 private:
     bool bOpenRequestUI;
