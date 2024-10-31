@@ -32,6 +32,7 @@
  class UFriendListUI;
  class UOtherPlayerMenu;
  class UReportUI;
+ class UGuildUI;
  class UCanvasPanel;
  class UTradeUI;
  class UItemCountMessageBox;
@@ -66,6 +67,7 @@ public:
 	UFriendListUI*		GetFriendListUI() {return FriendListUI;}
 	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	UTradeUI*			GetTradeUI() {return TradeUI;}
+	UGuildUI*				GetGuildUI() {return GuildUI;}
 	
 public:
 	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
@@ -112,6 +114,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UTradeUI> TradeUI;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UFriendListUI> FriendListUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UGuildUI> GuildUI;	
+
 public:
 	
 	//Popup
@@ -132,9 +140,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UReportUI> ReportUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UFriendListUI> FriendListUI;	
 
 protected:
 	UFUNCTION()

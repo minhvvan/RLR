@@ -42,12 +42,14 @@ enum class EUIType : uint8
 	BADGE_UI,
 	QUEST,
 	TRADE_UI,
+	FRIEND_LIST_UI,
+	Guild,
+
 	//Popup
 	ITEM_COUNT_MESSAGE_BOX,
 	NOTIFICATION_MESSAGE_BOX,
 	POST_UI,
 	OTHER_PLAYER_MENU,
-	FRIEND_LIST_UI,
 	FRIEND_REQUEST_UI,
 	FRIEND_INFORMATION_UI,
 	FRIEND_MENU_UI,
@@ -261,4 +263,30 @@ struct FFriendGroupResult
 	FString GroupName;
 
 	void MakeGroupData(const Protocol::Group group);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FGuildResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildSeq;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString  guildName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildLevel;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildMaxExp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildExp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildMaxUser ;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//vector<GuildRank> guildRanks;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//vector<UserCharacter> waitUsers;
+
+	//void MakeGuildData(const Protocol::Guild guild);
 };

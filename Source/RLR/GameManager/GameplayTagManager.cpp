@@ -99,13 +99,13 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat"), FString(TEXT("채팅창")));
 	GameplayTags.UI_ChatOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ChatOption"), FString(TEXT("채팅 옵션창")));
 	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Party"), FString(TEXT("파티창")));
+	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
+	GameplayTags.UI_Guild = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Guild"), FString(TEXT("길드창")));
 
 	GameplayTags.UI_Close = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Close"), FString(TEXT("특정 키 누르면 제일 앞에 있는 UI 닫기")));
 	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
 
-
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
-	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.TradeUI = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TradeUI"), FString(TEXT("개인 거래창")));
 	GameplayTags.ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));

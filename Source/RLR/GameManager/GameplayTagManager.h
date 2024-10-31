@@ -120,6 +120,8 @@ public:
 	FGameplayTag UI_Chat;
 	FGameplayTag UI_ChatOption;
 	FGameplayTag UI_Party;
+	FGameplayTag UI_Guild;
+	FGameplayTag UI_FriendList;
 	
 	FGameplayTag UI_SkillUpgrade;
 	FGameplayTag UI_Close;
@@ -138,7 +140,6 @@ public:
 
 
 	FGameplayTag UI_Post;
-	FGameplayTag UI_FriendList;
 	FGameplayTag UI_OtherPlayerMenu;
 	FGameplayTag UI_OtherPlayerStatus;
 	FGameplayTag UI_Report;
