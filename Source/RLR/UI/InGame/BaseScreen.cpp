@@ -39,8 +39,18 @@ void UBaseScreen::SetActivePage(FGameplayTag tag)
 	ActivePage = tag;
 }
 
-void UBaseScreen::SetPageUI(FGameplayTag tag, TObjectPtr<UDialogueUI> newDialogueUI)
+bool UBaseScreen::SetPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage)
 {
-	if (!PageIndices.Contains(tag)) return;
-	PageSwitcher->SetWidgetAtIndex(PageIndices[tag], newDialogueUI);
+	if (!PageIndices.Contains(tag)) return false;
+
+	PageSwitcher->SetWidgetAtIndex(PageIndices[tag], newPage);
+	return true;
+}
+
+void UBaseScreen::AddPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage)
+{
+	if (PageIndices.Contains(tag)) return;
+
+	PageIndices.Add(tag, PageIndices.Num());
+	PageSwitcher->AddChild(newPage);
 }

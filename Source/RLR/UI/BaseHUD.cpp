@@ -8,23 +8,17 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/GameplayTagManager.h"
 
 void ABaseHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
 	auto DataManager = GameInstance->GetDataManager();
-	if (!DataManager)
-	{
-		//TODO: 예외 처리(e.g. 재시작)
+	if (!DataManager) return;
 
-	}
-
-	auto baseScreenClass = DataManager->GetWidgetClass<UBaseUI>(TEXT("WBP_BaseScreen"));
-	if (!baseScreenClass)
-	{
-		//TODO: 예외 처리(e.g. 재시작)
-	}
-
-	GameInstance->GetUIManager()->OpenMainUI(baseScreenClass);
+	auto mainUIClass = DataManager->GetWidgetClass<UBaseUI>(MainUIClassName);
+	if (!mainUIClass) return;
+	
+	GameInstance->GetUIManager()->OpenMainUI(mainUIClass);
 }

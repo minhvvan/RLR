@@ -18,8 +18,9 @@ class RLR_API ABaseHUD : public AHUD
 {
 	GENERATED_BODY()
 
-public:
-
+protected:
+	UPROPERTY(EditAnywhere, category=UI)
+	FString MainUIClassName;
 
 public:
 

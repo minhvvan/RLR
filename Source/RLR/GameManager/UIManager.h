@@ -62,6 +62,7 @@ public:
 	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
 	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
 	TObjectPtr<UDialogueUI>		GetDialogue();
+	FGameplayTag				GetActivePageTag();
 	
 	UFUNCTION()
 	void OnDialogueEnded();
@@ -73,7 +74,7 @@ public:
 
 private:
 	UPROPERTY()
-	TObjectPtr<UBaseScreen>		BaseScreen;	
+	TObjectPtr<UMainUI>			MainUI;
 
 	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
@@ -89,6 +90,7 @@ private:
 	template<typename T = UWidget>
 	T* GetPage(FGameplayTag Page)
 	{
+		UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
 		if (!BaseScreen) return nullptr;
 		return Cast<T>(BaseScreen->GetPage(Page));
 	}

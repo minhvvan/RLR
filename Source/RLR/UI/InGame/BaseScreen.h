@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/BaseUI.h"
+#include "UI/MainUI.h"
 #include "GameplayTagContainer.h"
 #include "BaseScreen.generated.h"
 
@@ -12,7 +12,7 @@ class UDialogueUI;
 class UPageSwitcher;
 
 UCLASS()
-class RLR_API UBaseScreen : public UBaseUI
+class RLR_API UBaseScreen : public UMainUI
 {
 	GENERATED_BODY()
 	
@@ -27,7 +27,8 @@ public:
 	UWidget* GetPage(FGameplayTag tag);
 	FGameplayTag GetActivePage();
 	void SetActivePage(FGameplayTag tag);
-	void SetPageUI(FGameplayTag tag, TObjectPtr<UDialogueUI> newDialogueUI);
+	bool SetPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage);
+	void AddPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage);
 
 private:
 	TMap<FGameplayTag, int> PageIndices;
