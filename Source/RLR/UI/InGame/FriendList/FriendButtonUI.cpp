@@ -2,17 +2,26 @@
 
 
 #include "UI/InGame/FriendList/FriendButtonUI.h"
+#include "UI/InGame/FriendList/FriendRequestTabWidget.h"
+#include "UI/InGame/FriendList/FriendListUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/FriendManager.h"
 
 
 void UFriendButtonUI::NativeConstruct()
 {
     SetButtonState(false);
-    if (FriendButton && IsValid(FriendButton))
+    if (FriendButton && IsValid(FriendButton) && !bIsFriendRequestTab)
     {
         FriendButton->OnClicked.RemoveDynamic(this, &UFriendButtonUI::OnFriendButtonClicked);
         FriendButton->OnClicked.AddDynamic(this, &UFriendButtonUI::OnFriendButtonClicked);
+    }
+    if (bIsFriendRequestTab && AcceptRequestButton)
+    {
+        AcceptRequestButton->OnClicked.AddDynamic(this, &UFriendButtonUI::OnAcceptRequestClicked);
     }
 }
 
@@ -27,6 +36,13 @@ void UFriendButtonUI::SetFriendInfo(int NewFriendSeq, FString NewFriendName)
 void UFriendButtonUI::OnFriendButtonClicked()
 {
     OnFriendRequestButtonClick.Broadcast(FriendSeq, this);
+}
+
+void UFriendButtonUI::OnAcceptRequestClicked()
+{
+    GameInstance->GetNetworkManager()->SendAddFriend(FriendName);
+    GameInstance->GetFriendManager()->DeleteFromRequestList(FriendSeq);
+    GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
 }
 
 void UFriendButtonUI::SetButtonState(bool isPressed)

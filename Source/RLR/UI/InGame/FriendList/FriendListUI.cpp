@@ -4,6 +4,7 @@
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendTabWidget.h"
 #include "UI/InGame/FriendList/FriendRequestUI.h"
+#include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
 #include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/GroupButtonMenu.h"
@@ -36,6 +37,10 @@ void UFriendListUI::NativeConstruct()
     if (FriendTabButton)
     {
         FriendTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
+    }
+    if (FriendRequestTabButton)
+    {
+        FriendRequestTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendRequestTabButtonClicked);
     }
 }
 
@@ -87,6 +92,15 @@ void UFriendListUI::SetFriendData(TArray<FFriendGroupResult> NewFriendData)
     }
 }
 
+void UFriendListUI::SetFriendRequestData(TMap<int32, FString> NewFriendRequestData)
+{
+    FriendRequestData = NewFriendRequestData;
+    if (FriendRequestTabWidget)
+    {
+        FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+    }
+}
+
 TArray<FFriendGroupResult>& UFriendListUI::GetFriendData()
 {
     return FriendData;
@@ -100,6 +114,18 @@ void UFriendListUI::OnFriendTabButtonClicked()
         if (FriendTabWidget)
         {
             FriendTabWidget->UpdateFriendTab(GameInstance->GetFriendManager()->GetFriendData());
+        }
+    }
+}
+
+void UFriendListUI::OnFriendRequestTabButtonClicked()
+{
+    if (FriendWidgetSwitcher)
+    {
+        FriendWidgetSwitcher->SetActiveWidgetIndex(1);
+        if (FriendRequestTabWidget)
+        {
+            FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
         }
     }
 }

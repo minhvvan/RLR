@@ -23,8 +23,13 @@ public:
 
     const TArray<FFriendGroupResult>& GetFriendData() const;
     
+    void SetRequestFriendData(int NewFriendSeq, FString NewFriendName);
+    const TMap<int32, FString>& GetRequestFriendData() const;
+
     void AddToFriendDeletionList(const int32& NewFriendData);
     TArray<FFriendGroupResult> GetAndClearFriendDeletionList();
+
+    void DeleteFromRequestList(int friendSeq);
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -35,4 +40,7 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FFriendGroupResult> GroupData;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TMap<int32, FString> RequestFriendData;
 };
