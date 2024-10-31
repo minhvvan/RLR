@@ -82,6 +82,8 @@ public:
 	template<typename T>
 	T* OpenOtherUI(EUIType Type);
 
+	UPROPERTY(EditAnywhere, Category = "Tag")
+	FGameplayTag UITag = FGameplayTag();
 };
 
 template<typename T>
