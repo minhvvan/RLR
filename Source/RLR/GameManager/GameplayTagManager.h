@@ -100,8 +100,17 @@ public:
 
 	FGameplayTagContainer ItemTags;
 
+
+
+
 	/*
-		Action UI. Key Binding에 함께 사용되는 태그.
+	* Page
+	*/
+	FGameplayTag Page_InGame;
+	FGameplayTag Page_Dialogue;
+
+	/*
+	Action UI. Key Binding에 함께 사용되는 태그.
 	*/
 
 	FGameplayTag UI_Inventory;

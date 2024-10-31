@@ -80,11 +80,18 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_ItemQuickSlot_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.7"), FString(TEXT("아이템 퀵 슬롯 7")));
 	GameplayTags.Action_ItemQuickSlot_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.8"), FString(TEXT("아이템 퀵 슬롯 8")));
 	GameplayTags.Action_ItemQuickSlot_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.9"), FString(TEXT("아이템 퀵 슬롯 9")));
+	
+	/*
+	Page
+	*/
+	GameplayTags.Page_InGame = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.InGame"), FString(TEXT("인게임 페이지")));
+	GameplayTags.Page_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.Dialogue"), FString(TEXT("대화 페이지")));
+
 	/*
 		Action UI
 	*/
 
-	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토라")));
+	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토리")));
 	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ItemInfomation"), FString(TEXT("아이템 정보창")));
 	GameplayTags.UI_CharacterStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.CharacterStatus"), FString(TEXT("캐릭터창")));
 	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
