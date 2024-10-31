@@ -67,7 +67,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 UBaseUI* UUIManager::OpenUI(EUIType UIType)
 {
 	//UI Toggle
-	UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+	UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!MainUI) return nullptr;
 
 	USubUI* SubUI = MainUI->GetSubUI(UIType);
@@ -101,11 +101,11 @@ void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 		1. itemInfo SubUI 토글
 		3. 상태(아이템 정보, 위치) 업데이트
 	*/
-	auto activePageType = BaseScreen->GetActivePage();
+	auto activePageTag = BaseScreen->GetActivePage();
 
-	if (activePageType == EUIType::DIALOGUE_PAGE)
+	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
 	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 		if (!DialogueUI) return;
 
 		DialogueUI->OpenItemInfo(Target);
@@ -161,7 +161,7 @@ void UUIManager::CloseAllSubUI()
 
 UMainUI* UUIManager::GetMainUI()
 {
-	return GetPage<UMainUI>(EUIType::INGAME_PAGE);
+	return GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 }
 
 UBaseUI* UUIManager::GetUI(EUIType UIType)
@@ -202,7 +202,7 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	}
 
 	//UI Toggle
-	UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+	UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!MainUI) return;
 	bool bOpen = MainUI->ToggleSubUI(UITag);
 
@@ -227,16 +227,16 @@ void UUIManager::OpenSubUI(FGameplayTag UITag)
 {
 	auto activePageType = BaseScreen->GetActivePage();
 
-	if (activePageType == EUIType::DIALOGUE_PAGE)
+	if (activePageType == FGameplayTagManager::Get().Page_Dialogue)
 	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 		if (!DialogueUI) return;
 
 		DialogueUI->CloseItemInfo();
 	}
 	else
 	{
-		UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+		UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 		if (!MainUI) return;
 
 		if (!MainUI->IsOpenSubUI(UITag))
@@ -252,16 +252,16 @@ void UUIManager::CloseSubUI(FGameplayTag UITag)
 {
 	auto activePageType = BaseScreen->GetActivePage();
 
-	if (activePageType == EUIType::DIALOGUE_PAGE)
+	if (activePageType == FGameplayTagManager::Get().Page_Dialogue)
 	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 		if (!DialogueUI) return;
 
 		DialogueUI->CloseItemInfo();
 	}
 	else
 	{
-		UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+		UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 		if (!MainUI) return;
 
 		if (MainUI->IsOpenSubUI(UITag))
@@ -277,16 +277,16 @@ void UUIManager::CloseSubUI(EUIType SubUIType)
 {
 	auto activePageType = BaseScreen->GetActivePage();
 
-	if (activePageType == EUIType::DIALOGUE_PAGE)
+	if (activePageType == FGameplayTagManager::Get().Page_Dialogue)
 	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 		if (!DialogueUI) return;
 
 		DialogueUI->CloseItemInfo();
 	}
 	else
 	{
-		UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+		UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 		if (!MainUI) return;
 
 		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
@@ -302,7 +302,7 @@ void UUIManager::CloseSubUI(EUIType SubUIType)
 
 USubUI* UUIManager::GetSubUI(FGameplayTag UITag)
 {
-	UMainUI* MainUI = GetPage<UMainUI>(EUIType::INGAME_PAGE);
+	UMainUI* MainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!MainUI) return nullptr;
 
 	return MainUI->GetSubUI(UITag);
@@ -358,22 +358,22 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 		playerController->SetInputMode(FInputModeUIOnly());
 	}
 
-	BaseScreen->SetDialogueUI(newDialogueUI);
-	BaseScreen->SetActivePage(EUIType::DIALOGUE_PAGE);
+	BaseScreen->SetPageUI(FGameplayTagManager::Get().Page_Dialogue, newDialogueUI);
+	BaseScreen->SetActivePage(FGameplayTagManager::Get().Page_Dialogue);
 
 	return GetDialogue();
 }
 
 TObjectPtr<UDialogueUI> UUIManager::GetDialogue()
 {
-	return GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+	return GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 }
 
 void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemResource)
 {
-	if (BaseScreen->GetActivePage() != EUIType::DIALOGUE_PAGE) return;
+	if (BaseScreen->GetActivePage() != FGameplayTagManager::Get().Page_Dialogue) return;
 
-	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 	if (!DialogueUI) return;
 
 	DialogueUI->AddSaleItem(Item, ItemResource);
@@ -381,9 +381,9 @@ void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemRes
 
 void UUIManager::RemoveSaleItem(const FItemData& Item)
 {
-	if (BaseScreen->GetActivePage() != EUIType::DIALOGUE_PAGE) return;
+	if (BaseScreen->GetActivePage() != FGameplayTagManager::Get().Page_Dialogue) return;
 
-	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(EUIType::DIALOGUE_PAGE);
+	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 	if (!DialogueUI) return;
 
 	DialogueUI->RemoveSaleItem(Item);
@@ -400,5 +400,5 @@ void UUIManager::OnDialogueEnded()
 		playerController->SetInputMode(inputMode);
 	}
 
-	BaseScreen->SetActivePage(EUIType::INGAME_PAGE);
+	BaseScreen->SetActivePage(FGameplayTagManager::Get().Page_InGame);
 }

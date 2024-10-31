@@ -17,6 +17,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/FriendManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Structs/UtilStructs.h"
 
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
+#include "GameplayTagContainer.h"
 #include "BaseScreen.generated.h"
 
 class UWidgetSwitcher;
@@ -20,8 +21,15 @@ protected:
 	TObjectPtr<UPageSwitcher> PageSwitcher;
 
 public:
-	UWidget* GetPage(EUIType type);
-	EUIType GetActivePage();
-	void SetActivePage(EUIType type);
-	void SetDialogueUI(TObjectPtr<UDialogueUI> newDialogueUI);
+	virtual void NativeConstruct() override;
+
+public:
+	UWidget* GetPage(FGameplayTag tag);
+	FGameplayTag GetActivePage();
+	void SetActivePage(FGameplayTag tag);
+	void SetPageUI(FGameplayTag tag, TObjectPtr<UDialogueUI> newDialogueUI);
+
+private:
+	TMap<FGameplayTag, int> PageIndices;
+	FGameplayTag ActivePage;
 };

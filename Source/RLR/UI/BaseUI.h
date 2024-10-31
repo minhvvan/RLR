@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GameManager/RLRStruct.h"
 #include "Structs/ItemStructs.h"
+#include "GameplayTagContainer.h"
 #include "BaseUI.generated.h"
 
 /**

@@ -5,24 +5,42 @@
 #include "UI/DialogueUI.h"
 #include "Components/WidgetSwitcher.h"
 #include "UI/Components/PageSwitcher.h"
-#include "structs/UtilStructs.h"
+#include "GameManager/GameplayTagManager.h"
 
-UWidget* UBaseScreen::GetPage(EUIType type)
+void UBaseScreen::NativeConstruct()
 {
-	return PageSwitcher->GetWidgetAtIndex((int)type);
+	Super::NativeConstruct();
+
+	for(int i = 0 ; i < PageSwitcher->GetChildrenCount(); i++)
+	{
+		auto page = Cast<UBaseUI>(PageSwitcher->GetChildAt(i));
+		if (!page) continue;
+
+		if (i == 0) ActivePage = page->UITag;
+		PageIndices.Add(page->UITag, i);
+	}
 }
 
-EUIType UBaseScreen::GetActivePage()
+UWidget* UBaseScreen::GetPage(FGameplayTag tag)
 {
-	return (EUIType)PageSwitcher->GetActiveWidgetIndex();
+	if (!PageIndices.Contains(tag)) return nullptr;
+	return PageSwitcher->GetWidgetAtIndex(PageIndices[tag]);
 }
 
-void UBaseScreen::SetActivePage(EUIType type)
+FGameplayTag UBaseScreen::GetActivePage()
 {
-	PageSwitcher->SetActiveWidgetIndex((int)type);
+	return ActivePage;
 }
 
-void UBaseScreen::SetDialogueUI(TObjectPtr<UDialogueUI> newDialogueUI)
+void UBaseScreen::SetActivePage(FGameplayTag tag)
 {
-	PageSwitcher->SetWidgetAtIndex((int)EUIType::DIALOGUE_PAGE, newDialogueUI);
+	if (!PageIndices.Contains(tag)) return;
+	PageSwitcher->SetActiveWidgetIndex(PageIndices[tag]);
+	ActivePage = tag;
+}
+
+void UBaseScreen::SetPageUI(FGameplayTag tag, TObjectPtr<UDialogueUI> newDialogueUI)
+{
+	if (!PageIndices.Contains(tag)) return;
+	PageSwitcher->SetWidgetAtIndex(PageIndices[tag], newDialogueUI);
 }

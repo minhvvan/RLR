@@ -87,10 +87,10 @@ private:
 
 private:
 	template<typename T = UWidget>
-	T* GetPage(EUIType Type)
+	T* GetPage(FGameplayTag Page)
 	{
 		if (!BaseScreen) return nullptr;
-		return Cast<T>(BaseScreen->GetPage(Type));
+		return Cast<T>(BaseScreen->GetPage(Page));
 	}
 
 public:
