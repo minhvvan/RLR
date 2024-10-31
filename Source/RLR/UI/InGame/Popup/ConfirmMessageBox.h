@@ -4,16 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UI/MessageBoxUI.h"
-#include "NotificationMessageBox.generated.h"
+#include "ConfirmMessageBox.generated.h"
 
 /**
  * 
  */
-
- class UTextBlock;
-
 UCLASS()
-class RLR_API UNotificationMessageBox : public UMessageBoxUI
+class RLR_API UConfirmMessageBox : public UMessageBoxUI
 {
 	GENERATED_BODY()
 public:
@@ -24,14 +21,4 @@ public:
 	virtual void OpenUI() override;
 	virtual void Clear() override;
 	virtual void CloseUI() override;
-
-public:
-
-	virtual void OnClickedConfirmButton() override;
-
-public:
-
-	/*
-		bind
-	*/
 };

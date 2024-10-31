@@ -36,6 +36,7 @@
  class UTradeUI;
  class UItemCountMessageBox;
  class UNotificationMessageBox;
+ class UConfirmMessageBox;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -119,6 +120,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UNotificationMessageBox> NotificationMessageBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UConfirmMessageBox> ConfirmMessageBox; 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UPostOverlayUI> PostOverlayUI;	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;

@@ -203,6 +203,10 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_TradeUserResponse>(&Handle_TRADE_USER_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_TRADE_START_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_TradeStartResponse>(&Handle_TRADE_START_RESPONSE, session, buffer, len);
+        };
     GPacketHandler[PKT_TRADE_STATE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::SC_TradeStateResponse>(&Handle_TRADE_STATE_RESPONSE, session, buffer, len);
