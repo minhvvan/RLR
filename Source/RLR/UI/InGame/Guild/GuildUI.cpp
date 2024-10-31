@@ -13,7 +13,7 @@ void UGuildUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	SetUIType(EUIType::Guild);
-	SetUITag(FGameplayTagManager::Get().UI_Guild);
+	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
 
 	if (CreateGuildButton)
 	{

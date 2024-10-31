@@ -24,10 +24,10 @@ public:
 	void SetGuildInfo(const FGuildResult& guildData);
 	FGuildResult GetGuildInfo() {return GuildData;};
 
-private:
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGuildResult GuildData;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TObjectPtr<UGuildUI> GuildOverlayUI;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FGuildResult GuildData;
 };
