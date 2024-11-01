@@ -29,5 +29,4 @@ public:
 	FGuildResult GuildData;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TObjectPtr<UGuildUI> GuildOverlayUI;
-
 };

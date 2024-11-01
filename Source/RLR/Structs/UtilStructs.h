@@ -282,6 +282,8 @@ struct FGuildResult
 	int guildExp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildMaxUser ;
+	
+	/* TODO : GuildPacketHandler로 들어오는 패킷 보고 수정하기 */
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	//vector<GuildRank> guildRanks;

@@ -7,7 +7,7 @@
 #include "GuildMemberUI.generated.h"
 
 /**
- * 
+ * 길드원 목록 탭
  */
 UCLASS()
 class RLR_API UGuildMemberUI : public UUserWidget

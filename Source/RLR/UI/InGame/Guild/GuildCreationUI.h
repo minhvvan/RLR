@@ -7,7 +7,7 @@
 #include "GuildCreationUI.generated.h"
 
 /**
- * 
+ * 길드 생성 UI
  */
 UCLASS()
 class RLR_API UGuildCreationUI : public UUserWidget

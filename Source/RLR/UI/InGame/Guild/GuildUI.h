@@ -7,9 +7,11 @@
 #include "GuildUI.generated.h"
 
 class UWidgetSwitcher;
+class UPlayerGuildUI;
+class UGuildEntryUI;
 
 /**
- * 
+ *	길드 통합 창
  */
 UCLASS()
 class RLR_API UGuildUI : public USubUI
@@ -27,19 +29,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void RefreshUI();
 
-	UFUNCTION()
-	void OpenApplyGuildUI();
-
-	UFUNCTION()
-	void OpenCreateGuildUI();
-
 public:
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* WidgetSwitcher;
 
-	UPROPERTY(meta = (BindWidget))
-	UButton* CreateGuildButton;
+	/* Guild에 속해있는지 유무에 따라 Switch Widget */
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UGuildEntryUI> GuildEntryUI;
 
-	UPROPERTY(meta = (BindWidget))
-	UButton* ApplyGuildButton;
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UPlayerGuildUI> PlayerGuildUI;
 };
