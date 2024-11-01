@@ -215,7 +215,6 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	if (!DataManager) return;
 
 	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
-	if (actionResource == FActionResource::EmptyActionResource) return;
 
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
