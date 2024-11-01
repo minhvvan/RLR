@@ -72,8 +72,10 @@ void UFriendListUI::RefreshUI()
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
 {
     SelectedFriend = FriendButtonUI->GetFriendSeq();
-    FriendRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
-    
+    //FriendRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+    FriendRelativePosition = GetCachedGeometry().AbsoluteToLocal(
+        FriendButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
+    );
     OpenFriendMenuUI();
 }
 
@@ -81,8 +83,8 @@ void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, U
 {
     SelectedGroup = GroupButtonUI->GetGroupSeq();
     //GroupRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
-    FVector2D GroupButtonRelativePosition = GetCachedGeometry().AbsoluteToLocal(
-        GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D(0.f, 130.f))
+    GroupRelativePosition = GetCachedGeometry().AbsoluteToLocal(
+        GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
     
     OpenGroupMenuUI();
@@ -169,7 +171,7 @@ void UFriendListUI::OpenFriendMenuUI()
         {
             FWidgetTransform  position = FriendMenuUI->GetRenderTransform();
             position.Translation.X = -3.f;
-            position.Translation.Y = FriendRelativePosition.Y;
+            position.Translation.Y = FriendRelativePosition.Y + 13.f;
             FriendMenuUI->SetRenderTransform(position);
             FriendMenuUI->OpenUI();
             FriendMenuUI->SetFriendSeq(SelectedFriend);
@@ -214,7 +216,7 @@ void UFriendListUI::OpenGroupMenuUI()
 
         FWidgetTransform position = GroupMenuUI->GetRenderTransform();
         position.Translation.X = -3.f;
-        position.Translation.Y = GroupRelativePosition.Y;
+        position.Translation.Y = GroupRelativePosition.Y + 13.f;
         GroupMenuUI->SetRenderTransform(position);
         GroupMenuUI->OpenUI();
         GroupMenuUI->SetGroupSeq(SelectedGroup);
