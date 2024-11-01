@@ -28,6 +28,7 @@ enum class EInputType : uint8
 {
 	Skill,
 	OpenUI,
+	CloseUI,
 	Consume,
 	Action,
 	Test,

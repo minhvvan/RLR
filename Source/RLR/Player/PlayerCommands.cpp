@@ -113,6 +113,10 @@ void APlayerCommands::BindInput(TObjectPtr<ARLRPlayerController> Controller)
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnOpenUI, Input.ActionTag);
 				break;
 
+			case EInputType::CloseUI:
+				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnCloseUI);
+				break;
+
 			case EInputType::Consume:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnConsumeItem, Input.ActionTag);
 				break;
@@ -120,9 +124,11 @@ void APlayerCommands::BindInput(TObjectPtr<ARLRPlayerController> Controller)
 			case EInputType::Action:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnActionStart, Input.ActionTag);
 				break;
+
 			case EInputType::Test:
 				RLRInputComponent->BindAction(Input.InputAction, ETriggerEvent::Started, Controller.Get(), &ARLRPlayerController::OnTest);
 				break;
+
 			default:
 				break;
 		}

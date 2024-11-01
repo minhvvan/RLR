@@ -15,6 +15,7 @@
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
@@ -66,12 +67,12 @@ void ARLRPlayerController::Tick(float DeltaTime)
         {
 			UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 			if (!ASC) {
-				UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
+				//UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
 				return;
 			}
 			UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
 			if (!statSet) {
-				UE_LOG(LogTemp, Warning, TEXT("statSet Not in ASC"));
+				//UE_LOG(LogTemp, Warning, TEXT("statSet Not in ASC"));
 				return;
 			}
 			FMoveResult moveResult;
@@ -298,6 +299,18 @@ void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 
 	UIManager->ToggleSubUI(InputTag);
 	soundEvent.Broadcast();;
+}
+
+void ARLRPlayerController::OnCloseUI()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM == nullptr) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UMainUI* currentMainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	currentMainUI->CloseFrontSubUI();
 }
 
 void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
