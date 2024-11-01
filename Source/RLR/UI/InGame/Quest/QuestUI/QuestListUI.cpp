@@ -174,21 +174,23 @@ void UQuestListUI::OnQuestButtonClicked(const FQuest& ClickedQuest, UQuestButton
 	QuestButtonUI->SetButtonState(true);
 	if (!SelectedQuest.QuestTitle.IsEmpty())
 	{
-		UQuestButtonUI* QuestButton = *QuestButtons.Find(SelectedQuest.QuestTitle);
-		if (QuestButton)
-		{
-			QuestButton->SetButtonState(false);
-		}
+		SelectedQuestButton->SetButtonState(false);
 	}
 	UpdateQuestDetails(ClickedQuest);
+	SelectedQuestButton = QuestButtonUI;
 }
 
 void UQuestListUI::OnCompleteButtonClicked()
 {
+	/* quest 완료조건 */
 	if (SelectedQuest.QuestSeq != 0)
 	{
 		GameInstance->GetQuestManager()->SelectedQuestInfo = SelectedQuest;
 		GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
+
+		QuestButtons.Remove(SelectedQuest.QuestTitle);
+		SelectedQuestButton = nullptr;
+		SelectedQuest = FQuest();
 	}
 }
 

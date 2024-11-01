@@ -134,8 +134,7 @@ void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
 		TestArray.Add(Data);
 	}
 
-
-	GameInstance->GetSkillManager()->SetSelectedSkills(TestArray);
+	GameInstance->GetSkillManager()->SetLearnedSkills(TestArray);
 }
 
 void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
@@ -167,6 +166,32 @@ void UUtilBlueprintFunctionLibrary::TestServerList()
 		Data.ServerName = TestString[i];
 		Title->AddServerListElement(Data);
 	};	
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_USER_REQUEST()
+{
+	GameInstance->GetNetworkManager()->SendTradeUserRequest(2);
+
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_START_REQUEST()
+{
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_ADD_ITEM_REQUEST()
+{
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_ADD_GOOD_REQUEST()
+{
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_LOCK_REQUEST()
+{
+}
+
+void UUtilBlueprintFunctionLibrary::Test_Handle_TRADE_CANCEL_REQUEST()
+{
 }
 
 /*

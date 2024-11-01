@@ -5,7 +5,6 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/ScrollBox.h"
-#include "Components/EditableText.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/GridPanel.h"
 #include "Structs/UtilStructs.h"
@@ -30,12 +29,6 @@ void UPostTabWidget::NativeConstruct()
 
 void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSent)
 {
-    IdText->SetIsReadOnly(true);
-    PostTitleText->SetIsReadOnly(true);
-    PostContentText->SetIsReadOnly(true);
-    TotalMoney->SetIsReadOnly(true);
-    ReadStatus->SetIsReadOnly(true);
-
     bIsSentTab = bIsSent;
     ClearPostList();
 
@@ -59,7 +52,8 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
         TArray<FPostResult> DeletionList = GameInstance->GetPostalManager()->GetAndClearPostDeletionList(false);
         for (const FPostResult& PostData : DeletionList)
         {
-            RemovePost(PostData);
+            /* 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
+            //RemovePost(PostData);
         }
     }
 }
@@ -78,6 +72,7 @@ void UPostTabWidget::RemovePost(FPostResult Post)
             /* TODO : 서버에 삭제된 우편을 제외한 post목록을 전달하여 목록 새로고침하기 */
             PostButtons.Remove(SelectedPost.Title);
             SelectedPost = FPostResult();
+            SelectedPostButton = nullptr;
             UpdatePostDetails(SelectedPost);
             GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
         });
@@ -177,15 +172,28 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     // if(ClickedPost.PostId == SelectedPost.PostId) return;
 
     /* 이건 postid가 고유 값을 갖기 전까지 사용할 임시코드임 */
-    if(SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content) return;
+    if(SelectedPost.PostId == ClickedPost.PostId || SelectedPost.ReceiverName == ClickedPost.ReceiverName && (SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content)) 
+    {
+        if (!SelectedPost.Title.IsEmpty() && PostButtons.Contains(SelectedPost.Title))
+        {
+            SelectedPostButton->SetButtonState(false);
+            UpdatePostDetails(ClickedPost);
+            SelectedPostButton = PostButtonUI;
+
+        }
+        else
+        {
+            SelectedPostButton->SetButtonState(false);
+            UpdatePostDetails(ClickedPost);
+            SelectedPostButton = PostButtonUI;
+        }
+        return;
+    }
     PostButtonUI->SetButtonState(true);
     if (!SelectedPost.Title.IsEmpty() && PostButtons.Contains(SelectedPost.Title))
     {
-        UPostButtonUI* PrevButton = *PostButtons.Find(SelectedPost.Title);
-        if (PrevButton)
-        {
-            PrevButton->SetButtonState(false);
-        }
+        SelectedPostButton->SetButtonState(false);
     }
     UpdatePostDetails(ClickedPost);
+    SelectedPostButton = PostButtonUI;
 }

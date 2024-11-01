@@ -69,7 +69,7 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 	FPostResult PostResult;
 	{	
 		/* 임시 값 */
-		PostResult.ReceiverSeq = FCString::Atoi(*RecipientIdString);
+		PostResult.ReceiverName = RecipientIdString;
 		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
 		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();

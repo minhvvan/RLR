@@ -16,7 +16,6 @@ public:
 	static void	Init();
 
 	const FGameplayTagContainer* GetSkillTags();
-	const FGameplayTagContainer* GetSkillAnimTags();
 	FGameplayTag GetAbnormalTag(int AbnormalType);
 	const FGameplayTagContainer* GetItemTags();
 
@@ -28,6 +27,7 @@ public:
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
 	FGameplayTag Action_Default_GuildOpen;
+	FGameplayTag Action_Default_PlayMontage;
 
 	//Action.Attack
 	FGameplayTag Action_Attack_HitCheck;
@@ -51,18 +51,12 @@ public:
 	FGameplayTag Action_Skill_Type_Targeting;
 	FGameplayTag Action_Skill_Type_Chain;
 
-	FGameplayTagContainer SkillTags;
-	FGameplayTagContainer SkillAnimTags;
+	FGameplayTag Action_Skill_SwordsMan_SwordAura;
+	FGameplayTag Action_Skill_MAGE_Meteor;
+	FGameplayTag Action_Skill_MAGE_TrippleCircle;
 
-	//Action.Skill.Anim
-	FGameplayTag Action_Skill_1_Anim;
-	FGameplayTag Action_Skill_2_Anim;
-	FGameplayTag Action_Skill_3_Anim;
-	FGameplayTag Action_Skill_4_Anim;
-	FGameplayTag Action_Skill_5_Anim;
-	FGameplayTag Action_Skill_6_Anim;
-	FGameplayTag Action_Skill_7_Anim;
-	FGameplayTag Action_Skill_8_Anim;
+
+	FGameplayTagContainer SkillTags;
 
 	//Action.Interaction
 	FGameplayTag Action_Interaction;

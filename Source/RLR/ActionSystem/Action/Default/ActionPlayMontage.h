@@ -4,25 +4,28 @@
 
 #include "CoreMinimal.h"
 #include "ActionSystem/Action/Action.h"
-#include "GameManager/RLRStruct.h"
-#include "ActionAttackHitCheck.generated.h"
-
+#include "ActionPlayMontage.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UActionAttackHitCheck : public UAction
+class RLR_API UActionPlayMontage : public UAction
 {
 	GENERATED_BODY()
 
 public:
-	UActionAttackHitCheck();
-	const FSkillData* SkillData;
+	UActionPlayMontage();
+
 protected:
+	virtual bool PreActivateAction();
 	virtual void ActivateAction();
 
 public:
 	virtual void CancelAction();
 	virtual void EndAction();
+
+protected:
+	UFUNCTION()
+	void OnCompletePlayMontage();
 };

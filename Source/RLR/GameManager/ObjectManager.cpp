@@ -2,12 +2,12 @@
 
 
 #include "GameManager/ObjectManager.h"
-#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
-#include "RLRObjects/Actors/RLRInteractableActor.h"
-#include "RLRObjects/Actors/RLRDropItem.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
+#include "RLRObjects/Actors/RLRInteractableActor.h"
+#include "RLRObjects/Actors/RLRDropItem.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
@@ -29,16 +29,13 @@ UObjectManager::UObjectManager()
         }
     }
 }
+void UObjectManager::AddNPCData(FNPCData Data) {
+    FScopeLock Lock(&NPCDataMutex);
+    NPCData.Add(Data);
+}
 
-void UObjectManager::SetNPCData(TArray<FNPCData> Data)
+void UObjectManager::SetNPCData()
 {
-	FScopeLock Lock(&NPCDataMutex);
-
-	for (auto& data : Data)
-	{
-        NPCData.Add(data);
-	}
-
 	SpawnNPC();
 }
 
@@ -146,8 +143,8 @@ void UObjectManager::SpawnDropItem()
     
     AsyncTask(ENamedThreads::GameThread, [this, world, dataManager]()
         {
-
-            for (auto& data : DropItemData)
+            TArray<FDropItem> DropItemDataCopy = DropItemData;
+            for (auto& data : DropItemDataCopy)
             {
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemData Size: %d"), DropItemData.Num());
                 RLR_LOG(LogRLR, Warning, TEXT("DropItemInstances Size: %d"), DropItemInstances.Num());

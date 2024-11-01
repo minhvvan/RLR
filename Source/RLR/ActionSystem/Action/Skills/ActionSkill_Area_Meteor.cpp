@@ -13,8 +13,11 @@
 #include <Player/RLRPlayerController.h>
 #include "Structs/SkillStructs.h"
 
-void UActionSkill_Area_Meteor::ActivateAction()
+void UActionSkill_Area_Meteor::OnAnimNotifyTriggered()
 {
+	//Callback 제거
+	Super::OnAnimNotifyTriggered();
+
 	//TODO: Spawn Projectile || 판정
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
@@ -71,14 +74,7 @@ void UActionSkill_Area_Meteor::ActivateAction()
 			OverlappedActor.Add(result.GetActor());
 		}
 	}
-	
-	if (SkillManager->RequestSkillResult(SkillData, OverlappedActor))
-	{
-		//Success
-		DrawDebugCylinder(GetWorld(), StartPos, EndPos, SkillRange, 32, FColor::Green, false, 2.f, 0U, 3.f);
-	}
-	else
-	{
-		//fail
-	}
+
+	//Req to Server(result)
+	SkillManager->RequestSkillResult(SkillData, OverlappedActor);
 }

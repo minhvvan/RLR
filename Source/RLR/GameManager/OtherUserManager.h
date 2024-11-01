@@ -35,6 +35,8 @@ public:
 	ARLRPlayerCharacter* GetPlayer(int32 PlayerID);
 	void RemovePlayer(int32 PlayerID);
 
+public:
+
 	//Move Packet이 만들어지면 마저 완성. 
 	//void MovePlayer();
 

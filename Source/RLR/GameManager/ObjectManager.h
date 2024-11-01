@@ -19,9 +19,11 @@ class RLR_API UObjectManager : public UGameInstanceSubsystem
 public:
     UObjectManager();
 
+    void AddNPCData(FNPCData Data);
+
     //NPC
     UFUNCTION()
-    void SetNPCData(TArray<FNPCData> Data);
+    void SetNPCData();
 
     const FNPCData& GetNPCDataBySeq(int NPCSeq);
 

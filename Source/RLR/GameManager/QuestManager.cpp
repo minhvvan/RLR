@@ -7,11 +7,12 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "Structs/ObjectStructs.h"
-
-void UQuestManager::SetUserQuests(const TArray<FQuest>& Quests)
+void UQuestManager::AddUserQuests(const FQuest& Quest)
 {
-	CurrentQuests = Quests;
-
+	CurrentQuests.Add(Quest);
+}
+void UQuestManager::SetUserQuests()
+{
 	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
 	if (!GM) return;
 

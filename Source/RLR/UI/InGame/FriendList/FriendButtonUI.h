@@ -35,6 +35,9 @@ public:
     UFUNCTION()
     void OnFriendButtonClicked();
 
+    UFUNCTION()
+    void OnAcceptRequestClicked();
+
     void SetButtonState(bool isPressed);
 
     FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
@@ -48,6 +51,14 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* FriendNameText;
+
+    /* 친구 요청 탭 */
+    UPROPERTY(meta = (BindWidgetOptional))
+    UButton* AcceptRequestButton;
+
+    /* 친구목록 or 친구요청탭 구분 */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Group")
+    bool bIsFriendRequestTab = false;
 
 private:
     int FriendSeq;

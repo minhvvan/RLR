@@ -4,6 +4,7 @@
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendTabWidget.h"
 #include "UI/InGame/FriendList/FriendRequestUI.h"
+#include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
 #include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/GroupButtonMenu.h"
@@ -37,6 +38,10 @@ void UFriendListUI::NativeConstruct()
     {
         FriendTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
     }
+    if (FriendRequestTabButton)
+    {
+        FriendRequestTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendRequestTabButtonClicked);
+    }
 }
 
 void UFriendListUI::Init()
@@ -51,12 +56,17 @@ void UFriendListUI::RefreshUI()
     {
         FriendRequestUI->OnCloseRequestUISignature.RemoveAll(this);
         // FriendRequestUI가 닫힐 때 호출될 델리게이트에 바인딩
-        FriendRequestUI->OnCloseRequestUISignature.AddDynamic(this, &UFriendListUI::OnFriendRequestClosed);
+        FriendRequestUI->OnCloseRequestUISignature.AddDynamic(this, &UFriendListUI::OpenFriendRequestUI);
     }
     if (FriendTabWidget)
     {
         GameInstance->GetNetworkManager()->SendInfoFriend();
     }
+	if (GroupCreationUI)
+	{
+        GroupCreationUI->OnGroupCreationOpen.RemoveAll(this);
+		GroupCreationUI->OnGroupCreationOpen.AddDynamic(this, &UFriendListUI::OpenAddGroupUI);
+	}
 }
 
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
@@ -82,6 +92,15 @@ void UFriendListUI::SetFriendData(TArray<FFriendGroupResult> NewFriendData)
     }
 }
 
+void UFriendListUI::SetFriendRequestData(TMap<int32, FString> NewFriendRequestData)
+{
+    FriendRequestData = NewFriendRequestData;
+    if (FriendRequestTabWidget)
+    {
+        FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+    }
+}
+
 TArray<FFriendGroupResult>& UFriendListUI::GetFriendData()
 {
     return FriendData;
@@ -99,12 +118,26 @@ void UFriendListUI::OnFriendTabButtonClicked()
     }
 }
 
-void UFriendListUI::OpenFriendRequestUI()
+void UFriendListUI::OnFriendRequestTabButtonClicked()
 {
+    if (FriendWidgetSwitcher)
+    {
+        FriendWidgetSwitcher->SetActiveWidgetIndex(1);
+        if (FriendRequestTabWidget)
+        {
+            FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+        }
+    }
+}
+
+void UFriendListUI::OpenFriendRequestUI(bool bOpen)
+{
+    bOpenRequestUI = bOpen;
     if (bOpenRequestUI)
     {
         bOpenRequestUI = false;
         FriendRequestUI->CloseUI();
+        FriendRequestUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
@@ -138,15 +171,16 @@ void UFriendListUI::OpenFriendMenuUI(FVector2D ButtonPosition)
     }
 }
 
-void UFriendListUI::OpenAddGroupUI()
+void UFriendListUI::OpenAddGroupUI(bool bOpen)
 {
-    bOpenGroupCreationUI = GroupCreationUI->GetVisibilityStatus();
+    bOpenGroupCreationUI = bOpen;
 
     if (bOpenGroupCreationUI)
     {
         GroupCreationUI->SetVisibilityStatus(false);
         bOpenGroupCreationUI = false;
         GroupCreationUI->CloseUI();
+        GroupCreationUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
@@ -217,11 +251,6 @@ void UFriendListUI::OpenFriendInfoUI(int FriendSeq)
             FriendInfoUI->SetFriendDetails(SelectedFriend);
         }
     }
-}
-
-void UFriendListUI::OnFriendRequestClosed()
-{
-    bOpenRequestUI = false;
 }
 
 FVector2D UFriendListUI::GetButtonRightCenter(FVector2D ViewportSize)

@@ -6,7 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
-#include "UI/InGame/InGameMainUI.h"
+#include "UI/DialogueUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostAlertUI.h"
@@ -17,24 +17,6 @@
 void UPostalManager::Update()
 {
 	OnUpdatePostalDelegateBroadcast();
-}
-
-void UPostalManager::InitializePostalManager()
-{
-	UUIManager* UIManager = GameInstance->GetUIManager();
-	if (!UIManager) return;
-
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if (!InGameMainUI) return;
-
-	UPostOverlayUI* PostUI = InGameMainUI->GetPostOverlayUI();
-
-	PostUIClass = PostUI;
-
-	if (PostUIClass)
-	{
-		PostUIClass->SetRecvPostData(PostRecvData);
-	}
 }
 
 void UPostalManager::SetRecvPostData(const TArray<FPostResult>& NewPostResult)
@@ -51,7 +33,7 @@ void UPostalManager::SetSentPostData(const TArray<FPostResult>& NewPostResult)
 	PostSentData = NewPostResult;
 	if (PostUIClass)
 	{
-		PostUIClass->SetSentPostData(PostRecvData);
+		PostUIClass->SetSentPostData(PostSentData);
 	}
 }
 
@@ -59,33 +41,33 @@ void UPostalManager::SetAlertPostData(const FPostResult& NewPostResult)
 {
 	PostAlertData = NewPostResult;
 
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			CreateAlertPost();
-		});
+	CreateAlertPost();
 }
 
 void UPostalManager::CreateAlertPost()
 {
-	TSubclassOf<UPostAlertUI> PostAlertUIClass = GameInstance->GetDataManager()->GetWidgetClass<UPostAlertUI>("WBP_PostAlertUI");
-	if (PostAlertUIClass)
-	{
-		UWorld* World = GameInstance->GetWorld();
-		if (!World) return;
-
-		// CreateWidget을 위한 적절한 World Context 제공
-		UPostAlertUI* NewPostAlertUI = CreateWidget<UPostAlertUI>(World, PostAlertUIClass);
-		if (!NewPostAlertUI) return;
-
-		NewPostAlertUI->UpdatePost(PostAlertData);
-
-		NewPostAlertUI->AddToViewport();
-
-		if (IsValid(NewPostAlertUI))
+	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			NewPostAlertUI->UpdatePostItemSlot(PostAlertData);
-		}
-	}
+			TSubclassOf<UPostAlertUI> PostAlertUIClass = GameInstance->GetDataManager()->GetWidgetClass<UPostAlertUI>("WBP_PostAlertUI");
+			if (PostAlertUIClass)
+			{
+				UWorld* World = GameInstance->GetWorld();
+				if (!World) return;
+
+				// CreateWidget을 위한 적절한 World Context 제공
+				UPostAlertUI* NewPostAlertUI = CreateWidget<UPostAlertUI>(World, PostAlertUIClass);
+				if (!NewPostAlertUI) return;
+
+				NewPostAlertUI->UpdatePost(PostAlertData);
+
+				NewPostAlertUI->AddToViewport();
+
+				if (IsValid(NewPostAlertUI))
+				{
+					NewPostAlertUI->UpdatePostItemSlot(PostAlertData);
+				}
+			}
+		});
 }
 
 const TArray<FPostResult>& UPostalManager::GetSentPostData() const

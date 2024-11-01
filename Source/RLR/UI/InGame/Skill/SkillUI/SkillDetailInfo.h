@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
 #include "Structs/SkillStructs.h"
+#include "Structs/UtilStructs.h"
 #include "SkillDetailInfo.generated.h"
 
 /**
@@ -60,11 +61,9 @@ public:
 	TObjectPtr<UButton> ShowChainSkillButton;
 
 public:
-
-
 	UPROPERTY()
 	FSkillData SkillData = FSkillData::EmptySkillData;
 
 	UPROPERTY()
-	FSkillClass SkillClassData = FSkillClass::EmptySkillClass;
+	FActionResource ActionResource = FActionResource::EmptyActionResource;
 };

@@ -4,7 +4,12 @@
 #include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
+#include "ActionSystem/AnimNotify_ActivateAction.h"
 
 UAction::UAction() :
 	bIsActive(false),
@@ -65,6 +70,11 @@ bool UAction::TryActivateAction()
 	return bPossible;
 }
 
+void UAction::ActivateActionForce()
+{
+	ActivateAction();
+}
+
 bool UAction::PreActivateAction()
 {
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
@@ -119,6 +129,10 @@ void UAction::EndAction()
 	{
 		ActionState = EActionState::STATE_INIT;
 	}
+	else if (InstancingPolicy == EActionInstancingPolicy::NonInstanced)
+	{
+		ActionState = EActionState::STATE_INIT;
+	}
 
 	if (UActionSystemComponent* const ASC = CurrentActorInfo->ActionSystemComponent.Get())
 	{
@@ -166,11 +180,6 @@ void UAction::SetTriggerTag(FGameplayTag Tag)
 	TriggerTag = Tag;
 }
 
-void UAction::SetFollowTriggerTag(FGameplayTag Tag)
-{
-	FollowTriggerTag = Tag;
-}
-
 EActionInstancingPolicy UAction::GetInstancingPolicy() const
 {
 	return InstancingPolicy;
@@ -204,6 +213,31 @@ void UAction::AddOwnedTag()
 			ASC->AddGameplayTag(AddTag);
 		}
 	}
+}
+
+bool UAction::IsOtherUserAction()
+{
+	bool result = false;
+
+	auto NetworkManager = GameInstance->GetNetworkManager();
+	if (!NetworkManager) return false;
+
+	ARLRPlayerCharacter* Owner = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Owner) return false;
+
+	auto ASC = Owner->GetActionSystemComponent();
+	if (!ASC) return false;
+
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return false;
+
+	if (statSet->GetUserSeq() != NetworkManager->GetUserSeq()) result = true;
+
+	return result;
+}
+
+void UAction::OnAnimNotifyTriggered()
+{
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()

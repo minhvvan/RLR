@@ -37,6 +37,7 @@
  class UTradeUI;
  class UItemCountMessageBox;
  class UNotificationMessageBox;
+ class UConfirmMessageBox;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -63,7 +64,6 @@ public:
 	USkillUI*			GetSkillUI(){return SkillUI;}
 	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
 	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
-	UPostOverlayUI*		GetPostOverlayUI() {return PostOverlayUI;}
 	UFriendListUI*		GetFriendListUI() {return FriendListUI;}
 	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
 	UTradeUI*			GetTradeUI() {return TradeUI;}
@@ -128,6 +128,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UNotificationMessageBox> NotificationMessageBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
+	TObjectPtr<UConfirmMessageBox> ConfirmMessageBox; 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
 	TObjectPtr<UPostOverlayUI> PostOverlayUI;	

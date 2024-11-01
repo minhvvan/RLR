@@ -31,12 +31,12 @@ public:
 
 	void			SetItemData(const FItemData& NewItemData);
 	void			SetSkillData(const FSkillData& NewSkillData);
-	void			SetSkillClassData(const FSkillClass& NewSkillClassData);
+	void			SetActionResource(const FActionResource& NewActionResource);
 
 	const FItemData&		GetItemData();
 	const FSkillData&		GetSkillData();
 	const FItemResource		GetItemResource();
-	const FSkillClass&		GetSkillClassData();
+	const FActionResource&	GetActionResource();
 
 	void			SetMaster(USlotUI* From) {Master = From;}
 	USlotUI*		GetMaster(){return Master;}
@@ -56,7 +56,7 @@ public:
 	FSkillData SkillData;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FSkillClass SkillClassData;
+	FActionResource ActionResource;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<USlotUI> Master;

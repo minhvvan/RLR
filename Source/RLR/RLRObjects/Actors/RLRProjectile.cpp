@@ -5,12 +5,15 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameManager/EffectManager.h"
+#include "GameManager/SkillManager.h"
+#include "GameManager/GameManager.h"
+#include "Structs/SkillStructs.h"
 
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "RLR.h"
 
 ARLRProjectile::ARLRProjectile():
-	SkillRange(0.f),
+	SkillDistance(0.f),
 	MoveDistance(0.f)
 {
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
@@ -46,31 +49,36 @@ void ARLRProjectile::Tick(float DeltaTime)
 
 	MoveDistance += ProjectileMovement->InitialSpeed * DeltaTime;
 
-	if (MoveDistance >= SkillRange)
+	if (MoveDistance >= SkillDistance)
 	{
 		FinishSkill();
 	}
 }
 
-void ARLRProjectile::SetFireDir()
+void ARLRProjectile::SetSkillData(TSharedPtr<FSkillData> Data)
 {
-	if (!ProjectileMovement) return;
-
-	ProjectileMovement->Velocity = GetActorForwardVector() * ProjectileMovement->InitialSpeed;
+	SkillData = Data;
+	SetSkillDistance(SkillData->SkillDistance);
 }
 
-void ARLRProjectile::SetSkillRange(const float& Range)
+void ARLRProjectile::SetSkillDistance(const float& Range)
 {
-	SkillRange = Range;
+	SkillDistance = Range;
 }
 
 void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (!OtherActor || OtherActor == Owner) return;
 
-	RLR_LOG(LogRLR, Log, TEXT("Overlapped Actor: %s"), *OtherActor->GetName());
+	auto* EffectManager = GameInstance->GetEffectManager();
+	auto* SkillManager = GameInstance->GetSkillManager();
+
 	OverlappedActors.Add(OtherActor);
-	UEffectManager* EffectManager = GetGameInstance()->GetSubsystem<UEffectManager>();
+	if (SkillManager->RequestSkillResult(SkillData.Get(), OverlappedActors))
+	{
+		OverlappedActors.Empty();
+	}
+	
 	if (EffectManager)
 	{
 		FVector effectLocation = (OtherActor->GetActorLocation() - SweepResult.Location) / 2;
@@ -84,8 +92,5 @@ void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 void ARLRProjectile::FinishSkill()
 {
-	RLR_LOG(LogRLR, Log, TEXT("Overlapped: %d"), OverlappedActors.Num());
-
-	OnFinishSkill.Broadcast(OverlappedActors);
 	Destroy();
 }

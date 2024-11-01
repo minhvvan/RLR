@@ -27,24 +27,20 @@ public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection);
 
 public:
-	void Init();
 	void SkillStart(FGameplayTag TriggerTag);
-	void SkillAttack(FGameplayTag TriggerTag);
 	void SkillComplete(FGameplayTag TriggerTag);
 	
 	const FSkillData* GetSkillData(FGameplayTag TriggerTag);
 	const FSkillDictionary<FGameplayTag, FSkillData>& GetOwnSkills();
 	bool HasSkillTag(FGameplayTag TriggerTag);
+	FGameplayTag GetSkillTag(FGameplayTag TriggerTag);
 	bool HasLearnedSkill(int32 SkillSeq);
 
 	//Response
 	UFUNCTION()
-	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
-	UFUNCTION()
 	void SetLearnedSkills(const TArray<FSkillData>& LearnedSkillsList);
 
 	//Request to Server
-	bool RequestGetSelectedSkills();
 	bool RequestSkillResult(const FSkillData* SkillData, TArray<AActor*> OverlappedActor);
 
 private:
@@ -52,6 +48,9 @@ private:
 
 	UPROPERTY()
 	TMap<int32, FSkillData> LearnedSkills;
+
+	UFUNCTION()
+	void SetSelectedSkills(TArray<FSkillData>& SelectedSkills);
 
 public:
 

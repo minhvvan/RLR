@@ -89,17 +89,15 @@ void UNPCPurchaseTab::OnBuyClicked()
 	auto NetworkManager = GetNetworkManager();
 	if (NetworkManager)
 	{
-		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+		auto shopUI = Cast<UNPCShopUI>(GetParent());
 		if (!shopUI) return;
 
-		auto shopData = shopUI->GetShopData().Pin();
-		AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
+		/* shopData 가 null */
+		auto shopData = shopUI->GetShopData();
+		for (auto& item : Cart)
 		{
-			for (auto& item : Cart)
-			{
-				NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData->ShopSeq, item.ITEM_VALUE);
-			}
-		});
+			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_VALUE);
+		}
 	}
 
 	//Cart 비우기

@@ -102,11 +102,12 @@ int32 UPlayerManager::GetPlayerSeq()
 
 int32 UPlayerManager::GetUserSeq()
 {
-	/*
-		아직 미구현
-	*/
-
-	return 1;
+	if (IsValid(PlayerCharacter) == false)
+	{
+		DEBUG_MESSAGE;
+		return 1;
+	}
+	return PlayerCharacter->GetStat()->GetUserSeq();
 }
 
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
@@ -223,6 +224,24 @@ bool UPlayerManager::RequestTalent(int TalentOrder)
 	return false;
 }
 
+void UPlayerManager::UpdateUserGood(FUserGoods userGood)
+{
+	UserGood.Contribution = userGood.Contribution;
+	UserGood.Reputation = userGood.Reputation;
+}
+void UPlayerManager::UpdatePlayerGood(FPlayerGoods playerGood)
+{
+	PlayerGood.TotalMoney = playerGood.TotalMoney;
+	PlayerGood.Diamond = playerGood.Diamond;
+}
+FUserGoods UPlayerManager::GetUserGood() const
+{
+	return UserGood;
+}
+FPlayerGoods UPlayerManager::GetPlayerGood() const
+{
+	return PlayerGood;
+}
 UStatSetPlayer* UPlayerManager::GetStatSet()
 {
 	if (UWorld* world = GetWorld())

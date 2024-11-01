@@ -9,11 +9,11 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/OtherUserManager.h"
+#include "GameManager/DataManager.h"
 #include "GameManager/InventoryManager.h"
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
-#include "UI/MainUI.h"
-#include "UI/InGame/InGameHUD.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
@@ -190,6 +190,15 @@ void ARLRPlayerController::OnUserClick()
 	}
 }
 
+void ARLRPlayerController::OnTest()
+{
+	//Test Code
+	auto* player = GameInstance->GetOtherUserManager()->GetPlayer(2);
+	if (!player) return;
+
+	player->UpdateAction(2);
+}
+
 FVector ARLRPlayerController::GetClickPosition()
 {
 	FHitResult Hit;
@@ -202,19 +211,25 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
+	if (actionResource == FActionResource::EmptyActionResource) return;
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
 	ASC->AddActionData(TriggerTag, actionData);
+
 
 	//Active Skill Check
 	if (ASC->ActivateWaitAction())
 	{
 		return;
 	}
-
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(), TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq) ;
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -222,11 +237,30 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 {
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (SkillManager == nullptr) return;
-	SkillManager->SkillStart(TriggerTag);
-	
+
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
-	
+	if (!NetworkManager) return;
+
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	auto skillTag = SkillManager->GetSkillTag(TriggerTag);
+	if (skillTag == FGameplayTag::EmptyTag) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(skillTag);
+	if (actionResource == FActionResource::EmptyActionResource) return;
+
+	FActionData actionData;
+	actionData.MousePos = GetClickPosition();
+	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
+	ASC->AddActionData(skillTag, actionData);
+
+	SkillManager->SkillStart(skillTag);
+
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)

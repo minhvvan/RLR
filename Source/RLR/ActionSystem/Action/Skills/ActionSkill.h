@@ -20,6 +20,8 @@ class RLR_API UActionSkill : public UAction
 public:
 	UActionSkill();
 
+	virtual void ActivateActionForce() override;
+
 protected:
 	void PlaySkillMontage();
 
@@ -27,8 +29,8 @@ protected:
 	virtual void ActivateAction();
 
 	UFUNCTION()
-	virtual void OnCompletePlayMontage();
-
+	virtual void OnCompletePlayMontage();	
+	
 public:
 	FOnSkillExpired OnSkillExpired;
 
@@ -39,10 +41,6 @@ protected:
 
 	//Action 유효 시간 타이머 핸들
 	FTimerHandle SkillValidTimerHandle;
-
-	//Skill Anim
-	UPROPERTY(EditAnywhere, Category = Anim)
-	TObjectPtr<UAnimMontage> SkillAnim;
 
 	//표시 클래스(지점이나 방향)
 	UPROPERTY(EditAnywhere)

@@ -97,7 +97,7 @@ public:
                         */
 
     bool SendAttackPacket(FAttackResult attackResult);
-    bool SendActionPacket(int32 userSeq, string tagName);
+    bool SendActionPacket(int32 userSeq, int actionSeq);
     bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
 
     /*
@@ -149,13 +149,11 @@ public:
     /*
             Trade
                         */
-    bool SendTradeStartReqeust(int32 TargetUserSeq); //거래 요청 보내기
+    bool SendTradeUserRequest(int32 TargetUserSeq);  //거래 요청 보내기
+    bool SendTradeStartReqeust(int32 TargetUserSeq); //거래 요청 수락하기
     bool SendTradeAddItemReqeust(const FItemData& NewTradeItemm, int32 Quantity = 1); //개인 거래에 새로운 아이템 추가하기 패킷
     bool SendTradeAddGoodReqeust(int32 Amount);    //개인 거래에 재화 추가하기
-    bool SendRemoveTradeItem(const FItemData& NewTradeItem, int32 Quantity = 1); //개인 거래에서 아이템 제거
     bool SendTradeLockRequest();   //거래 잠금
-    bool SendTradeUnlockReqeust(); //거래 잠금 해제
-    bool SendTradeConfirmRequest();//거래 확인
     bool SendTradeCancelReqeust(); //거래 취소
 
     /*
@@ -189,7 +187,9 @@ public:
                       */
     bool SendInfoFriend();
 
-    bool SendAddFriend(int userSeq);
+    bool SendAddFriend(FString friendName);
+
+    bool SendRequestFriend(FString friendName);
 
     bool SendRemoveFriend(int userSeq);
 
@@ -200,6 +200,57 @@ public:
     bool SendMoveFriendInGroup(int friendSeq, int groupSeq);
 
     bool SendMoveFriendGroup(int groupSeq1, int groupSeq2);
+
+    /*
+           Guild
+                     */
+    bool SendInfoGuild();
+
+    bool SendAddGuild(int userSeq, int guildSeq);
+
+    bool SendRemoveGuild(int userSeq, int guildSeq);
+
+    bool SendInviteGuild(int userSeq, int guildSeq);
+
+    bool SendAcceptGuild(int guildSeq);
+
+    bool SendCreateGuild();
+
+    bool SendDeleteGuild(int guildSeq);
+
+    bool SendChangeNameGuild(int guildSeq, FText guildName);
+
+    bool SendChangeRankGuild(int userSeq, int guildSeq, int guildRank);
+
+    /*
+         Community
+                     */
+
+    bool SendOtherStatus(int userSeq);
+
+    bool SendListCommunity(int communityType);
+
+    bool SendEnterCommunity(int communitySeq);
+
+    bool SendAcceptCommunity(int userSeq, int communitySeq);
+
+    bool SendInviteCommunity(FText userName,int communitySeq);
+
+    bool SendExitCommunity(int communitySeq);
+
+    bool SendCreateCommunity(FText title,int communityType);
+
+    bool SendKickCommunity(int userSeq, int communitySeq);
+
+    bool SendContentCommunity(int communityKey, int communitySeq);
+    bool SendCancelContent(int communitySeq);
+    bool SendAcceptContent(int communitySeq);
+    /*
+            Map
+                     */
+    bool SendContentMap(int64 mapId);
+
+    bool SendMoveMap();
 
     void SetUserSeq(int32 userSeq);
     void SetPlayerSeq(int32 playerSeq);

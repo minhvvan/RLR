@@ -41,22 +41,22 @@ void UFriendRequestUI::OnFriendNameTextChanged(const FText& Text)
 
 void UFriendRequestUI::OnSendRequestClicked()
 {
-	GameInstance->GetNetworkManager()->SendAddFriend(FriendSeq);
+	GameInstance->GetNetworkManager()->SendRequestFriend(FriendNameText->GetText().ToString());
 }
 
 void UFriendRequestUI::OnCancelClicked()
 {
-	CloseUI();
-	OnCloseRequestUISignature.Broadcast();
+	//CloseUI();
+	OnCloseRequestUISignature.Broadcast(true);
 }
 
 /* 유저가 존재하면 버튼 추가 */
 void UFriendRequestUI::AddFriendButtonIfExists(const FString& NewFriendName)
 {
-	if (CheckIfFriendExists(NewFriendName))
-	{
-		AddFriendButton(NewFriendName);
-	}
+	//if (CheckIfFriendExists(NewFriendName))
+	//{
+	//	AddFriendButton(NewFriendName);
+	//}
 }
 
 /* 유저 존재 여부 확인 (여기서는 단순히 확인, 실제로는 서버나 데이터베이스 조회) */

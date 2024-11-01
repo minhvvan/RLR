@@ -99,7 +99,7 @@ void ARLRCharacter::BeginPlay()
 
 void ARLRCharacter::PlayDeadAnimation()
 {
-	if (DeadMontage.IsNull()) return;
+	if (!DeadMontage) return;
 
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	AnimInstance->StopAllMontages(0.0f);

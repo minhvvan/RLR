@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
+#include "Structs/ObjectStructs.h"
 #include "PlayerManager.generated.h"
 
 class ARLRPlayerCharacter;
@@ -42,10 +43,20 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
     TSubclassOf<ARLRPlayerCharacter> PlayerCharacterClass;
 
+
+    //재화
+    void UpdateUserGood(FUserGoods userGood);
+
+    void UpdatePlayerGood(FPlayerGoods playerGood);
+    FUserGoods GetUserGood() const;
+    FPlayerGoods GetPlayerGood() const;
 private:
     UPROPERTY()
     TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
 
+    FUserGoods UserGood;
+
+    FPlayerGoods PlayerGood;
 public:
     class UStatSetPlayer* GetStatSet();
 };
