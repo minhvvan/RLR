@@ -174,7 +174,7 @@ void ARLRPlayerController::OnUserClick()
 	{
 		FGameplayTagManager TagManager = FGameplayTagManager::Get();
 		auto UIManger = GameInstance->GetUIManager();
-		auto otherUserMenu = Cast<UOtherPlayerMenu>(UIManger->GetUI(EUIType::OTHER_PLAYER_MENU));
+		UOtherPlayerMenu* otherUserMenu = UIManger->GetSubUI<UOtherPlayerMenu>(FGameplayTagManager::Get().UI_OtherPlayerMenu);
 		if (otherUserMenu)
 		{
 			auto asc = otherUser->GetActionSystemComponent();

@@ -21,7 +21,7 @@ void UItemCountMessageBox::Init()
 {
 	Super::Init();
 
-	SetUITag(FGameplayTagManager::Get().ItemCountMessageBox);
+	SetUITag(FGameplayTagManager::Get().UI_ItemCountMessageBox);
 	SetUIType(EUIType::ITEM_COUNT_MESSAGE_BOX);
 }
 

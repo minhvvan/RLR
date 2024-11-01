@@ -80,8 +80,10 @@ public:
 	template<typename T>
 	TSubclassOf<T> GetWidgetClass(FString Name);
 
+	void OpenOtherUI(FGameplayTag Tag);
+
 	template<typename T>
-	T* OpenOtherUI(EUIType Type);
+	TObjectPtr<T> GetSubUI(FGameplayTag Tag);
 
 	UPROPERTY(EditAnywhere, Category = "Tag")
 	FGameplayTag UITag = FGameplayTag();
@@ -94,7 +96,7 @@ inline TSubclassOf<T> UBaseUI::GetWidgetClass(FString Name)
 }
 
 template<typename T>
-inline T* UBaseUI::OpenOtherUI(EUIType Type)
+inline TObjectPtr<T> UBaseUI::GetSubUI(FGameplayTag Tag)
 {
-	return Cast<T>(GetUIManager()->OpenUI(Type));
+	return GetUIManager()->GetSubUI<T>(Tag);
 }

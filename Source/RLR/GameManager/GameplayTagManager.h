@@ -130,13 +130,15 @@ public:
 		UI Tag. 단순히 종류 분류를 위해 사용.
 	*/
 
-	FGameplayTag TradeUI;
+	FGameplayTag UI_Trade;
 
 	/*
 		Popup Tag. 단순히 종류 분류를 위해 사용.
 	*/
 
-	FGameplayTag ItemCountMessageBox;
+	FGameplayTag UI_ItemCountMessageBox;
+	FGameplayTag UI_NotificationMessageBox;
+	FGameplayTag UI_ConfirmMessageBox;
 
 
 	FGameplayTag UI_Post;

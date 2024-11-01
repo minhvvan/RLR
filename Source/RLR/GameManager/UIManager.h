@@ -41,7 +41,8 @@ public:
 	void OpenMainUI(TSubclassOf<UBaseUI> UIClass);
 	FGameplayTag				GetActivePageTag();
 
-
+	template<typename T>
+	TObjectPtr<T> GetSubUI(FGameplayTag UITag);
 
 
 	//TODO: 삭제
@@ -75,19 +76,11 @@ public:
 
 
 	//TODO: 통합
-	//UBaseUI* GetUI(EUIType UIType);
-
-	template<typename T>
-	TObjectPtr<T> GetSubUI(FGameplayTag UITag);
-
-
 	void OpenSubUI(FGameplayTag UITag);
-	UBaseUI* OpenUI(EUIType UIType);
+	//UBaseUI* OpenUI(EUIType UIType);
 
 	void CloseSubUI(FGameplayTag UITag);
 	void CloseSubUI(EUIType UIType);
-
-
 
 
 

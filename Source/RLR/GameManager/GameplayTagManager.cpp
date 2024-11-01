@@ -107,8 +107,10 @@ void FGameplayTagManager::Init()
 
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
 	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
-	GameplayTags.TradeUI = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TradeUI"), FString(TEXT("개인 거래창")));
-	GameplayTags.ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
+	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Trade"), FString(TEXT("개인 거래창")));
+	GameplayTags.UI_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
+	GameplayTags.UI_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
+	GameplayTags.UI_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
 	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.UI_OtherPlayerMenu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerMenu"), FString(TEXT("플레이어 메뉴")));

@@ -61,36 +61,38 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 	}
 }
 
-UBaseUI* UUIManager::OpenUI(EUIType UIType)
-{
-	//UI Toggle
-	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-	if (!currentMainUI) return nullptr;
-
-	USubUI* SubUI = currentMainUI->GetSubUI(UIType);
-	if(IsValid(SubUI) == false)
-		return nullptr;
-	bool bOpen = SubUI->GetVisibility() == ESlateVisibility::Hidden;
-	SubUI->OpenUI();
-
-	if (bOpen)
-	{
-		SubUIStack.AddUnique(SubUI);
-		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
-		CanvasSlot->SetZOrder(SubUIStack.Num());
-	}
-	else
-	{
-		SubUIStack.Remove(SubUI);
-		SubUIStack.AddUnique(SubUI);
-		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
-		CanvasSlot->SetZOrder(SubUIStack.Num());
-	}
-
-	MainUI->InvalidateLayoutAndVolatility();
-
-	return SubUI;
-}
+//UBaseUI* UUIManager::OpenUI(EUIType UIType)
+//{
+//	//UI Toggle
+//	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+//	if (!currentMainUI) return nullptr;
+//
+//	USubUI* SubUI = currentMainUI->GetSubUI(UIType);
+//	if(IsValid(SubUI) == false)
+//		return nullptr;
+//
+//
+//	bool bOpen = SubUI->GetVisibility() == ESlateVisibility::Hidden;
+//	SubUI->OpenUI();
+//
+//	if (bOpen)
+//	{
+//		SubUIStack.AddUnique(SubUI);
+//		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+//		CanvasSlot->SetZOrder(SubUIStack.Num());
+//	}
+//	else
+//	{
+//		SubUIStack.Remove(SubUI);
+//		SubUIStack.AddUnique(SubUI);
+//		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
+//		CanvasSlot->SetZOrder(SubUIStack.Num());
+//	}
+//
+//	MainUI->InvalidateLayoutAndVolatility();
+//
+//	return SubUI;
+//}
 
 void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 {

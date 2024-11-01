@@ -38,8 +38,7 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_OtherPlayerStatus);
-	auto otherPlayerStatus = Cast<UCharacterStatusUI>(subUI);
+	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterStatusUI>(TagManager.UI_OtherPlayerStatus);
 
 	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
 
@@ -83,7 +82,7 @@ void UOtherPlayerMenu::OnTradeClicked()
 void UOtherPlayerMenu::OnWhisperClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI(TagManager.UI_Chat));
+	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI<UChatUI>(TagManager.UI_Chat));
 
 	if (!chatUI || !OtherUserData.IsValid()) return;
 
@@ -94,8 +93,7 @@ void UOtherPlayerMenu::OnWhisperClicked()
 void UOtherPlayerMenu::OnReportClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_Report);
-	auto reportUI = Cast<UReportUI>(subUI);
+	auto reportUI = GetUIManager()->GetSubUI<UReportUI>(TagManager.UI_Report);
 
 	if (!reportUI || !OtherUserData.IsValid()) return;
 
