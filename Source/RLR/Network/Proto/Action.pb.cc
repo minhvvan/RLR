@@ -23,7 +23,7 @@ namespace _pbi = _pb::internal;
 namespace Protocol {
 PROTOBUF_CONSTEXPR CS_ActionRequestPacket::CS_ActionRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.tagname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.actionseq_)*/int64_t{0}
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CS_ActionRequestPacketDefaultTypeInternal {
@@ -37,7 +37,7 @@ struct CS_ActionRequestPacketDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_ActionRequestPacketDefaultTypeInternal _CS_ActionRequestPacket_default_instance_;
 PROTOBUF_CONSTEXPR SC_ActionBroadcastPacket::SC_ActionBroadcastPacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.tagname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.actionseq_)*/int64_t{0}
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_ActionBroadcastPacketDefaultTypeInternal {
@@ -62,7 +62,7 @@ const uint32_t TableStruct_Action_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.tagname_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.actionseq_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -70,7 +70,7 @@ const uint32_t TableStruct_Action_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.tagname_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.actionseq_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CS_ActionRequestPacket)},
@@ -83,14 +83,14 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Action_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Action.proto\022\010Protocol\":\n\026CS_ActionReq"
-  "uestPacket\022\017\n\007userSeq\030\001 \001(\005\022\017\n\007tagName\030\002"
-  " \001(\t\"<\n\030SC_ActionBroadcastPacket\022\017\n\007user"
-  "Seq\030\001 \001(\005\022\017\n\007tagName\030\002 \001(\tb\006proto3"
+  "\n\014Action.proto\022\010Protocol\"<\n\026CS_ActionReq"
+  "uestPacket\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tactionSeq"
+  "\030\002 \001(\003\">\n\030SC_ActionBroadcastPacket\022\017\n\007us"
+  "erSeq\030\001 \001(\005\022\021\n\tactionSeq\030\002 \001(\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Action_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Action_2eproto = {
-    false, false, 154, descriptor_table_protodef_Action_2eproto,
+    false, false, 158, descriptor_table_protodef_Action_2eproto,
     "Action.proto",
     &descriptor_table_Action_2eproto_once, nullptr, 0, 2,
     schemas, file_default_instances, TableStruct_Action_2eproto::offsets,
@@ -121,20 +121,14 @@ CS_ActionRequestPacket::CS_ActionRequestPacket(const CS_ActionRequestPacket& fro
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   CS_ActionRequestPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.tagname_){}
+      decltype(_impl_.actionseq_){}
     , decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.tagname_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_tagname().empty()) {
-    _this->_impl_.tagname_.Set(from._internal_tagname(), 
-      _this->GetArenaForAllocation());
-  }
-  _this->_impl_.userseq_ = from._impl_.userseq_;
+  ::memcpy(&_impl_.actionseq_, &from._impl_.actionseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
+    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
   // @@protoc_insertion_point(copy_constructor:Protocol.CS_ActionRequestPacket)
 }
 
@@ -143,14 +137,10 @@ inline void CS_ActionRequestPacket::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.tagname_){}
+      decltype(_impl_.actionseq_){int64_t{0}}
     , decltype(_impl_.userseq_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.tagname_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CS_ActionRequestPacket::~CS_ActionRequestPacket() {
@@ -164,7 +154,6 @@ CS_ActionRequestPacket::~CS_ActionRequestPacket() {
 
 inline void CS_ActionRequestPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.tagname_.Destroy();
 }
 
 void CS_ActionRequestPacket::SetCachedSize(int size) const {
@@ -177,8 +166,9 @@ void CS_ActionRequestPacket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.tagname_.ClearToEmpty();
-  _impl_.userseq_ = 0;
+  ::memset(&_impl_.actionseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.userseq_) -
+      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -196,13 +186,11 @@ const char* CS_ActionRequestPacket::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // string tagName = 2;
+      // int64 actionSeq = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_tagname();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.actionseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.CS_ActionRequestPacket.tagName"));
         } else
           goto handle_unusual;
         continue;
@@ -241,14 +229,10 @@ uint8_t* CS_ActionRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // string tagName = 2;
-  if (!this->_internal_tagname().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_tagname().data(), static_cast<int>(this->_internal_tagname().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.CS_ActionRequestPacket.tagName");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_tagname(), target);
+  // int64 actionSeq = 2;
+  if (this->_internal_actionseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_actionseq(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -267,11 +251,9 @@ size_t CS_ActionRequestPacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string tagName = 2;
-  if (!this->_internal_tagname().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_tagname());
+  // int64 actionSeq = 2;
+  if (this->_internal_actionseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_actionseq());
   }
 
   // int32 userSeq = 1;
@@ -297,8 +279,8 @@ void CS_ActionRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_tagname().empty()) {
-    _this->_internal_set_tagname(from._internal_tagname());
+  if (from._internal_actionseq() != 0) {
+    _this->_internal_set_actionseq(from._internal_actionseq());
   }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
@@ -319,14 +301,13 @@ bool CS_ActionRequestPacket::IsInitialized() const {
 
 void CS_ActionRequestPacket::InternalSwap(CS_ActionRequestPacket* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.tagname_, lhs_arena,
-      &other->_impl_.tagname_, rhs_arena
-  );
-  swap(_impl_.userseq_, other->_impl_.userseq_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CS_ActionRequestPacket, _impl_.userseq_)
+      + sizeof(CS_ActionRequestPacket::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(CS_ActionRequestPacket, _impl_.actionseq_)>(
+          reinterpret_cast<char*>(&_impl_.actionseq_),
+          reinterpret_cast<char*>(&other->_impl_.actionseq_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_ActionRequestPacket::GetMetadata() const {
@@ -351,20 +332,14 @@ SC_ActionBroadcastPacket::SC_ActionBroadcastPacket(const SC_ActionBroadcastPacke
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   SC_ActionBroadcastPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.tagname_){}
+      decltype(_impl_.actionseq_){}
     , decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.tagname_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_tagname().empty()) {
-    _this->_impl_.tagname_.Set(from._internal_tagname(), 
-      _this->GetArenaForAllocation());
-  }
-  _this->_impl_.userseq_ = from._impl_.userseq_;
+  ::memcpy(&_impl_.actionseq_, &from._impl_.actionseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
+    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_ActionBroadcastPacket)
 }
 
@@ -373,14 +348,10 @@ inline void SC_ActionBroadcastPacket::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.tagname_){}
+      decltype(_impl_.actionseq_){int64_t{0}}
     , decltype(_impl_.userseq_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
-  _impl_.tagname_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SC_ActionBroadcastPacket::~SC_ActionBroadcastPacket() {
@@ -394,7 +365,6 @@ SC_ActionBroadcastPacket::~SC_ActionBroadcastPacket() {
 
 inline void SC_ActionBroadcastPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.tagname_.Destroy();
 }
 
 void SC_ActionBroadcastPacket::SetCachedSize(int size) const {
@@ -407,8 +377,9 @@ void SC_ActionBroadcastPacket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.tagname_.ClearToEmpty();
-  _impl_.userseq_ = 0;
+  ::memset(&_impl_.actionseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.userseq_) -
+      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -426,13 +397,11 @@ const char* SC_ActionBroadcastPacket::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
-      // string tagName = 2;
+      // int64 actionSeq = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_tagname();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.actionseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_ActionBroadcastPacket.tagName"));
         } else
           goto handle_unusual;
         continue;
@@ -471,14 +440,10 @@ uint8_t* SC_ActionBroadcastPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // string tagName = 2;
-  if (!this->_internal_tagname().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_tagname().data(), static_cast<int>(this->_internal_tagname().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.SC_ActionBroadcastPacket.tagName");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_tagname(), target);
+  // int64 actionSeq = 2;
+  if (this->_internal_actionseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_actionseq(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -497,11 +462,9 @@ size_t SC_ActionBroadcastPacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string tagName = 2;
-  if (!this->_internal_tagname().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_tagname());
+  // int64 actionSeq = 2;
+  if (this->_internal_actionseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_actionseq());
   }
 
   // int32 userSeq = 1;
@@ -527,8 +490,8 @@ void SC_ActionBroadcastPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_tagname().empty()) {
-    _this->_internal_set_tagname(from._internal_tagname());
+  if (from._internal_actionseq() != 0) {
+    _this->_internal_set_actionseq(from._internal_actionseq());
   }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
@@ -549,14 +512,13 @@ bool SC_ActionBroadcastPacket::IsInitialized() const {
 
 void SC_ActionBroadcastPacket::InternalSwap(SC_ActionBroadcastPacket* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.tagname_, lhs_arena,
-      &other->_impl_.tagname_, rhs_arena
-  );
-  swap(_impl_.userseq_, other->_impl_.userseq_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SC_ActionBroadcastPacket, _impl_.userseq_)
+      + sizeof(SC_ActionBroadcastPacket::_impl_.userseq_)
+      - PROTOBUF_FIELD_OFFSET(SC_ActionBroadcastPacket, _impl_.actionseq_)>(
+          reinterpret_cast<char*>(&_impl_.actionseq_),
+          reinterpret_cast<char*>(&other->_impl_.actionseq_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_ActionBroadcastPacket::GetMetadata() const {

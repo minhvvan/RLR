@@ -211,19 +211,25 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
+	if (actionResource == FActionResource::EmptyActionResource) return;
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
 	ASC->AddActionData(TriggerTag, actionData);
+
 
 	//Active Skill Check
 	if (ASC->ActivateWaitAction())
 	{
 		return;
 	}
-
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(), TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq) ;
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -254,8 +260,7 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 
 	SkillManager->SkillStart(skillTag);
 
-	//TODO: tag -> string (X), ActionSeq로 전달( actionResource.ActionSeq 사용하면 됩니다)
-	//NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
