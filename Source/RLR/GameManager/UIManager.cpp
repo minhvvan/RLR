@@ -109,10 +109,10 @@ void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
 	}
 	else
 	{
-		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+		if (GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap.Contains(SubUIType) == false)
 			return;
 
-		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+		USubUI* SubUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap[SubUIType];
 		SetZOrderToTop(SubUI);
 		SubUI->OpenUI();
 		SubUI->UpdateSlotState(Target);
@@ -156,24 +156,24 @@ void UUIManager::CloseAllSubUI()
 	}
 }
 
-UMainUI* UUIManager::GetMainUI()
-{
-	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
-	if (!BaseScreen) return MainUI;
+//UMainUI* UUIManager::GetMainUI()
+//{
+//	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
+//	if (!BaseScreen) return MainUI;
+//
+//	return GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+//}
 
-	return GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-}
-
-UBaseUI* UUIManager::GetUI(EUIType UIType)
-{
-	if (UIMap.Contains(UIType) == false)
-	{
-		DEBUG_MESSAGE;
-		return nullptr;
-	}
-
-	return UIMap[UIType];
-}
+//UBaseUI* UUIManager::GetUI(EUIType UIType)
+//{
+//	if (UIMap.Contains(UIType) == false)
+//	{
+//		DEBUG_MESSAGE;
+//		return nullptr;
+//	}
+//
+//	return UIMap[UIType];
+//}
 
 void UUIManager::AddUI(UBaseUI* BaseUI)
 {
@@ -289,23 +289,15 @@ void UUIManager::CloseSubUI(EUIType SubUIType)
 		UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 		if (!currentMainUI) return;
 
-		if (GetMainUI()->SubUIMap.Contains(SubUIType) == false)
+		if (GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap.Contains(SubUIType) == false)
 			return;
 
-		USubUI* SubUI = GetMainUI()->SubUIMap[SubUIType];
+		USubUI* SubUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap[SubUIType];
 		SubUI->SetVisibility(ESlateVisibility::Hidden);
 		SubUIStack.Remove(SubUI);
 		AdjustZOrder();
 		currentMainUI->InvalidateLayoutAndVolatility();
 	}
-}
-
-USubUI* UUIManager::GetSubUI(FGameplayTag UITag)
-{
-	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-	if (!currentMainUI) return nullptr;
-
-	return currentMainUI->GetSubUI(UITag);
 }
 
 void UUIManager::AdjustZOrder()
@@ -324,7 +316,7 @@ void UUIManager::AdjustZOrder()
 
 void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
 {
-	USubUI* subUI = GetMainUI()->GetSubUI(UITag);
+	USubUI* subUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->GetSubUI(UITag);
 	if (!subUI) return;
 
 	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);
@@ -363,11 +355,6 @@ TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 		playerController->SetInputMode(FInputModeUIOnly());
 	}
 
-	return GetDialogue();
-}
-
-TObjectPtr<UDialogueUI> UUIManager::GetDialogue()
-{
 	return GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 }
 

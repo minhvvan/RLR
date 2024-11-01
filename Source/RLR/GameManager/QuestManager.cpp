@@ -19,7 +19,7 @@ void UQuestManager::SetUserQuests()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (!UIManager) return;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	UInGameMainUI* InGameMainUI = UIManager->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!InGameMainUI) return;
 
 	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();

@@ -75,7 +75,7 @@ UBaseUI* UBaseUI::GetParent()
 {
 	if (IsValid(Parent) == false)
 	{
-		Parent = GetUIManager()->GetMainUI();
+		Parent = GetUIManager()->GetPage<UBaseUI>(FGameplayTagManager::Get().Page_InGame);
 	}
 	return Parent;
 }
@@ -97,7 +97,7 @@ void UBaseUI::ChangeInputModeGameAndUI()
 	if(IsValid(PlayerController) == false)
 		return;
 
-	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	UMainUI* MainUI = GameInstance->GetUIManager()->GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if(IsValid(MainUI) == false)
 		return;
 
@@ -127,7 +127,7 @@ void UBaseUI::ChangeInputModeUIOnly()
 	if (IsValid(PlayerController) == false)
 		return;
 
-	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	UMainUI* MainUI = GameInstance->GetUIManager()->GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (IsValid(MainUI) == false)
 		return;
 

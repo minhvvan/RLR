@@ -236,7 +236,7 @@ void USkillSetting::ApplySkillQuickSlotSetting()
 		스킬 퀵 슬롯에 세팅해놓은 걸 Status Display의 스킬 세팅으로 옮겨준다.
 	*/
 
-	UInGameMainUI* MainUI = Cast<UInGameMainUI>(GetGameManager()->GetUIManager()->GetMainUI());
+	UInGameMainUI* MainUI = GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if(IsValid(MainUI) == false)
 		return;
 

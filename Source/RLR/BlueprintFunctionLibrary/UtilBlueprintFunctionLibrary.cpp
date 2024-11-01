@@ -155,7 +155,7 @@ void UUtilBlueprintFunctionLibrary::TestServerList()
 {
 	TArray<FString> TestString = {TEXT("서버1"), TEXT("서버2"), TEXT("서버3"), TEXT("서버4"), "글자 깨짐 테스트 서버 5"};
 
-	UTitleMainUI* Title = Cast<UTitleMainUI>(GameInstance->GetUIManager()->GetUI(EUIType::TITLE_MAIN_UI));
+	UTitleMainUI* Title = GameInstance->GetUIManager()->GetPage<UTitleMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (IsValid(Title) == false)
 		return;
 

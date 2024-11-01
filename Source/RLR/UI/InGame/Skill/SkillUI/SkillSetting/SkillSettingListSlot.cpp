@@ -35,7 +35,7 @@ FReply USkillSettingListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 	if (GetSkillData() == FSkillData::EmptySkillData)
 		return result;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
+	UInGameMainUI* InGameMainUI = GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (IsValid(InGameMainUI) == false)
 		return result;
 

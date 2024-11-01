@@ -226,7 +226,7 @@ void UKeyOption::ApplyKeyOption()
 		퀵 슬롯도 업데이트
 	*/
 
-	 UStatusDisplay* StatusDisplay = Cast<UInGameMainUI>(GetUIManager()->GetMainUI())->GetStatusDisplayUI();
+	 UStatusDisplay* StatusDisplay = GameInstance->GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame)->GetStatusDisplayUI();
 	 if(IsValid(StatusDisplay) == false)
 		return;
 

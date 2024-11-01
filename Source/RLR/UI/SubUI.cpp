@@ -3,6 +3,7 @@
 
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
+#include "UI/DialogueUI.h"
 #include "GameManager/UIManager.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
@@ -44,7 +45,7 @@ void USubUI::CloseUI()
 	}
 	else
 	{
-		UDialogueUI* Dialogue = GetUIManager()->GetDialogue();
+		UDialogueUI* Dialogue = GetUIManager()->GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 		if(Dialogue == nullptr)
 			GetUIManager()->CloseSubUI(GetUIType());
 		else
