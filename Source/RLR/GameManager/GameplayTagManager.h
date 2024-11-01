@@ -8,6 +8,7 @@
 /**`
 	Gameplay Tag를 관리하기 위한 구조체겸 싱글톤
  */
+#define RLRTAG FGameplayTagManager::Get()
 
 struct FGameplayTagManager
 {
