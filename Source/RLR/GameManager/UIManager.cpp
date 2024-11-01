@@ -40,7 +40,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 		SubUI->RemoveFromParent();
 	}
 	SubUIStack.Empty();
-	UIMap.Empty();
+	//UIMap.Empty();
 
 	//ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	//if (playerCharacter)
@@ -177,22 +177,22 @@ void UUIManager::CloseAllSubUI()
 //	return UIMap[UIType];
 //}
 
-void UUIManager::AddUI(UBaseUI* BaseUI)
-{
-	if(BaseUI->GetUIType() == EUIType::NONE)
-		return;
-
-	EUIType Type = BaseUI->GetUIType();
-	if (UIMap.Contains(Type) == true)
-	{
-		//중복된 UI가 추가되고 있다.
-		UBaseUI* DeplicatedUI = UIMap[Type];
-		DeplicatedUI->RemoveFromParent();
-		UIMap.Remove(Type);
-		DEBUG_MESSAGE;
-	}
-	UIMap.Add(Type, BaseUI);
-}
+//void UUIManager::AddUI(UBaseUI* BaseUI)
+//{
+//	if(BaseUI->GetUIType() == EUIType::NONE)
+//		return;
+//
+//	EUIType Type = BaseUI->GetUIType();
+//	if (UIMap.Contains(Type) == true)
+//	{
+//		//중복된 UI가 추가되고 있다.
+//		UBaseUI* DeplicatedUI = UIMap[Type];
+//		DeplicatedUI->RemoveFromParent();
+//		UIMap.Remove(Type);
+//		DEBUG_MESSAGE;
+//	}
+//	UIMap.Add(Type, BaseUI);
+//}
 
 void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
@@ -331,19 +331,19 @@ void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
 	panel->SetPosition(NewPos);
 }
 
-TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
-{
-	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);
-	if(IsValid(WidgetClass) == false)
-		return nullptr;
-
-	UBaseUI* NewUI = CreateWidget<UBaseUI>(GetWorld(), WidgetClass);
-	if(IsValid(NewUI) == false)
-		return nullptr;
-	NewUI->AddToViewport();
-	
-	return NewUI;
-}
+//TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
+//{
+//	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);
+//	if(IsValid(WidgetClass) == false)
+//		return nullptr;
+//
+//	UBaseUI* NewUI = CreateWidget<UBaseUI>(GetWorld(), WidgetClass);
+//	if(IsValid(NewUI) == false)
+//		return nullptr;
+//	NewUI->AddToViewport();
+//	
+//	return NewUI;
+//}
 
 TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
 {

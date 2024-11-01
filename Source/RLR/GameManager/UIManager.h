@@ -44,18 +44,13 @@ public:
 	template<typename T>
 	TObjectPtr<T> GetSubUI(FGameplayTag UITag);
 
+	void OpenSubUI(FGameplayTag UITag);
+	void CloseSubUI(FGameplayTag UITag);
+
 
 	//TODO: 삭제
-	void AddUI(UBaseUI* BaseUI);
-	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
-
-	UPROPERTY()
-	TMap<EUIType, UBaseUI*>		UIMap;
-
 	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
-
-
 
 
 	//TODO: 위치조정
@@ -72,16 +67,6 @@ public:
 
 	UPROPERTY()
 	TArray<USubUI*>				SubUIStack;
-
-
-
-	//TODO: 통합
-	void OpenSubUI(FGameplayTag UITag);
-	//UBaseUI* OpenUI(EUIType UIType);
-
-	void CloseSubUI(FGameplayTag UITag);
-	//void CloseSubUI(EUIType UIType);
-
 
 
 	//TODO: 변경

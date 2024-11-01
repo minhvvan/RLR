@@ -21,7 +21,6 @@
 void UBaseUI::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	//UIType = EUIType::NONE;
 }
 
 void UBaseUI::NativeConstruct()
@@ -74,7 +73,6 @@ void UBaseUI::SetUIType(EUIType Type)
 		return;
 
 	UIType = Type;
-	GetUIManager()->AddUI(this);
 }
 
 UBaseUI* UBaseUI::GetParent()
