@@ -39,7 +39,7 @@ void UBaseUI::OpenUI()
 
 void UBaseUI::CloseUI()
 {
-	SetVisibility(ESlateVisibility::Hidden);
+	GetUIManager()->CloseSubUI(UITag);
 }
 
 void UBaseUI::BindWidget()
@@ -60,6 +60,12 @@ void UBaseUI::SetInputMode()
 {
 	//특별한 경우가 없다면 그냥 Game And UI 모드.
 	ChangeInputModeGameAndUI();
+}
+
+void UBaseUI::SetVisible(bool bVisible)
+{
+	if (bVisible) SetVisibility(ESlateVisibility::Visible);
+	else SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UBaseUI::SetUIType(EUIType Type)

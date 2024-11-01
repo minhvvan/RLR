@@ -55,11 +55,11 @@ bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
 
 	if (bOpen)
 	{
-		subUI->OpenUI();
+		subUI->SetVisible(true);
 	}
 	else
 	{
-		subUI->CloseUI();
+		subUI->SetVisible(false);
 	}
 
 	return bOpen;
@@ -78,7 +78,7 @@ void UInGameMainUI::CloseSubUI(FGameplayTag InputTag)
 	USubUI* subUI = GetSubUI(InputTag);
 	if (!subUI) return;
 
-	subUI->CloseUI();
+	subUI->SetVisible(false);
 }
 
 bool UInGameMainUI::IsOpenSubUI(FGameplayTag InputTag)

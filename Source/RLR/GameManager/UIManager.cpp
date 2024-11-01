@@ -253,54 +253,58 @@ void UUIManager::OpenSubUI(FGameplayTag UITag)
 void UUIManager::CloseSubUI(FGameplayTag UITag)
 {
 	auto activePageTag = GetActivePageTag();
+	auto currentMainUI = GetPage<UMainUI>(activePageTag);
 
-	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
-	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-		if (!DialogueUI) return;
+	if (!currentMainUI) return;
+	currentMainUI->CloseSubUI(UITag);
 
-		DialogueUI->CloseItemInfo();
-	}
-	else
-	{
-		UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-		if (!currentMainUI) return;
+	//if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
+	//{
+	//	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
+	//	if (!DialogueUI) return;
 
-		if (currentMainUI->IsOpenSubUI(UITag))
-		{
-			currentMainUI->CloseSubUI(UITag);
-			SubUIStack.Remove(currentMainUI->GetSubUI(UITag));
-			AdjustZOrder();
-		}
-	}
+	//	DialogueUI->CloseItemInfo();
+	//}
+	//else
+	//{
+	//	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+	//	if (!currentMainUI) return;
+
+	//	if (currentMainUI->IsOpenSubUI(UITag))
+	//	{
+	//		currentMainUI->CloseSubUI(UITag);
+	//		SubUIStack.Remove(currentMainUI->GetSubUI(UITag));
+	//		AdjustZOrder();
+	//	}
+	//}
 }
 
-void UUIManager::CloseSubUI(EUIType SubUIType)
-{
-	auto activePageTag = GetActivePageTag();
-
-	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
-	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-		if (!DialogueUI) return;
-
-		DialogueUI->CloseItemInfo();
-	}
-	else
-	{
-		UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-		if (!currentMainUI) return;
-
-		if (GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap.Contains(SubUIType) == false)
-			return;
-
-		USubUI* SubUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap[SubUIType];
-		SubUI->SetVisibility(ESlateVisibility::Hidden);
-		SubUIStack.Remove(SubUI);
-		AdjustZOrder();
-		currentMainUI->InvalidateLayoutAndVolatility();
-	}
-}
+//void UUIManager::CloseSubUI(EUIType SubUIType)
+//{
+//	auto activePageTag = GetActivePageTag();
+//
+//	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
+//	{
+//		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
+//		if (!DialogueUI) return;
+//
+//		DialogueUI->CloseItemInfo();
+//	}
+//	else
+//	{
+//		UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+//		if (!currentMainUI) return;
+//
+//		if (GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap.Contains(SubUIType) == false)
+//			return;
+//
+//		USubUI* SubUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap[SubUIType];
+//		SubUI->SetVisibility(ESlateVisibility::Hidden);
+//		SubUIStack.Remove(SubUI);
+//		AdjustZOrder();
+//		currentMainUI->InvalidateLayoutAndVolatility();
+//	}
+//}
 
 void UUIManager::AdjustZOrder()
 {

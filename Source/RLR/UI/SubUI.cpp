@@ -37,22 +37,6 @@ void USubUI::OpenUI()
 	SetVisibility(ESlateVisibility::Visible);
 }
 
-void USubUI::CloseUI()
-{
-	if (GetUIType() == EUIType::NONE)
-	{
-		SetVisibility(ESlateVisibility::Hidden);
-	}
-	else
-	{
-		UDialogueUI* Dialogue = GetUIManager()->GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-		if(Dialogue == nullptr)
-			GetUIManager()->CloseSubUI(GetUIType());
-		else
-			SetVisibility(ESlateVisibility::Hidden);
-	}
-}
-
 void USubUI::OnDragStarted()
 {
 	UUIManager* UIManager = GetUIManager();

@@ -35,10 +35,13 @@ public:
 	virtual void RefreshUI(){};
 	virtual void OpenUI();
 	virtual void Clear(){};
+	UFUNCTION()
 	virtual void CloseUI();
 	virtual void BindWidget();
 
 	virtual void SetInputMode();
+
+	void SetVisible(bool bVisible);
 
 	void		SetUIType(EUIType Type);
 	EUIType		GetUIType() {return UIType;}

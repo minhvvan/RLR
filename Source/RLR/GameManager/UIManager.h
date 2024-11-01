@@ -80,7 +80,7 @@ public:
 	//UBaseUI* OpenUI(EUIType UIType);
 
 	void CloseSubUI(FGameplayTag UITag);
-	void CloseSubUI(EUIType UIType);
+	//void CloseSubUI(EUIType UIType);
 
 
 

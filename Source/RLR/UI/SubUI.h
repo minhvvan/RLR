@@ -34,9 +34,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void OpenUI();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void CloseUI();
-
 	virtual void UpdateSlotState(class USlotUI* Target) {};
 	
 	UFUNCTION()
