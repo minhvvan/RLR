@@ -31,7 +31,6 @@
 void UKeyOption::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::KEY_OPTION);
 	SetUITag(FGameplayTagManager::Get().UI_KeyOption);
 	
 	TArray<UWidget*> Array;

@@ -8,6 +8,7 @@
 #include "Components/TextBlock.h"
 #include "Components/GridPanel.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "GameManager/GameManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
@@ -23,8 +24,7 @@ void UInventoryUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::INVENTORY_UI);
-	SetUITag(FGameplayTagManager::Get().UI_Inventory);
+	SetUITag(RLRTAG.UI_Inventory);
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 

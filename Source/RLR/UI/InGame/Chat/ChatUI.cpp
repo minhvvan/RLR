@@ -21,7 +21,6 @@
 void UChatUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::CHAT_UI);
 
 	if (ChatInput)
 	{

@@ -12,13 +12,13 @@
 #include "Blueprint/WidgetTree.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/QuestManager.h"
+#include "GameManager/GameplayTagManager.h"
 
 
 void UQuestListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::QUEST);
-	SetUITag(FGameplayTagManager::Get().UI_Quest);
+	SetUITag(RLRTAG.UI_Quest);
 
 	if (CompleteButton)
 	{

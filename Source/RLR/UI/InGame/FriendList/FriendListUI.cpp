@@ -25,7 +25,6 @@ void UFriendListUI::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    SetUIType(EUIType::FRIEND_LIST_UI);
     SetUITag(FGameplayTagManager::Get().UI_FriendList);
 
     bOpenRequestUI = false;

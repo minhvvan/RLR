@@ -13,7 +13,6 @@
 void UInGameMenuUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::INGAME_MENU);
 
 	if (IsValid(CheckUnhoveredButton))
 	{

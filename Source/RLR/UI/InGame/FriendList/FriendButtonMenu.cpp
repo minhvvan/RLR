@@ -12,8 +12,6 @@ void UFriendButtonMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::FRIEND_MENU_UI);
-
 	if (PlayerInfoButton)
 	{
 		PlayerInfoButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::OpenFriendInfoUI);

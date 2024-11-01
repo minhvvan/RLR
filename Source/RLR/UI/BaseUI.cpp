@@ -67,14 +67,6 @@ void UBaseUI::SetVisible(bool bVisible)
 	else SetVisibility(ESlateVisibility::Hidden);
 }
 
-void UBaseUI::SetUIType(EUIType Type)
-{
-	if(UIType != EUIType::NONE)
-		return;
-
-	UIType = Type;
-}
-
 UBaseUI* UBaseUI::GetParent()
 {
 	if (IsValid(Parent) == false)

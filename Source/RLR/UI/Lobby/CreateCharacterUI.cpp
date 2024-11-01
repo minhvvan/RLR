@@ -7,7 +7,6 @@
 void UCreateCharacterUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::CREATE_CHARACTER_UI);
 }
 
 void UCreateCharacterUI::Init()

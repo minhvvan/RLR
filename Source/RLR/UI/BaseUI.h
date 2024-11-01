@@ -43,8 +43,6 @@ public:
 
 	void SetVisible(bool bVisible);
 
-	void		SetUIType(EUIType Type);
-	EUIType		GetUIType() {return UIType;}
 	void		SetParent(UBaseUI* UI){Parent = UI;}
 	UBaseUI*	GetParent();
 
@@ -61,9 +59,6 @@ public:
 	void UnHighlight();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EUIType	UIType;
-
 	UUIManager*			GetUIManager();
 	UGameManager*		GetGameManager();
 	UNetworkManager*	GetNetworkManager();

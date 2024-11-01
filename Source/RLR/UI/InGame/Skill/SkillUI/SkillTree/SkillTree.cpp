@@ -23,7 +23,6 @@
 void USkillTree::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::SKILL_TREE);
 }
 
 void USkillTree::Init()

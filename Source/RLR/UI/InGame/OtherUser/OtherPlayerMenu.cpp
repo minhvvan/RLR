@@ -19,8 +19,6 @@ void UOtherPlayerMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::OTHER_PLAYER_MENU);
-
 	BtnUserInfo->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
 	BtnAddFriend->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
 	BtnAddParty->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);

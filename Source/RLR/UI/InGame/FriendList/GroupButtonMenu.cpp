@@ -11,8 +11,6 @@ void UGroupButtonMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::GROUP_MENU_UI);
-
 	if (RemoveGroupButton)
 	{
 		RemoveGroupButton->OnClicked.AddDynamic(this, &UGroupButtonMenu::RemoveGroup);

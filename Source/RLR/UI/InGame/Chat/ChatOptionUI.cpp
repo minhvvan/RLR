@@ -16,7 +16,6 @@ void UChatOptionUI::NativeConstruct()
 {
     //필터가 바뀌어도 채팅 탭이 다를 수 있으니 현재 선택되어 있는 타입을 불러와준다.
     Super::NativeConstruct();
-    SetUIType(EUIType::CHAT_OPTION_UI);
     SetUITag(FGameplayTagManager::Get().UI_ChatOption);
 
     LoadChatOption();

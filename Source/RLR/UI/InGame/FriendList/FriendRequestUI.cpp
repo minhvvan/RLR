@@ -16,8 +16,6 @@ void UFriendRequestUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::FRIEND_REQUEST_UI);
-
 	if (FriendNameText)
 	{
 		FriendNameText->OnTextChanged.AddDynamic(this, &UFriendRequestUI::OnFriendNameTextChanged);

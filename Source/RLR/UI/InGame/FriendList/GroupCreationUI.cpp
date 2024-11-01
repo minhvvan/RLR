@@ -12,8 +12,6 @@ void UGroupCreationUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::GROUP_CREATION_UI);
-
 	if (ConfirmButton)
 	{
 		ConfirmButton->OnClicked.AddDynamic(this, &UGroupCreationUI::ConfirmButtonClicked);

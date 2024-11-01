@@ -24,7 +24,6 @@ void UPostOverlayUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::POST_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Post);
 
 	GameInstance->GetPostalManager()->InitializePostalManager();

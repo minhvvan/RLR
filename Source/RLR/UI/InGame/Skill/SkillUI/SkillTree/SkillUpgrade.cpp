@@ -5,13 +5,13 @@
 
 #include "Components/Button.h"
 #include "Structs/UtilStructs.h"
+#include "GameManager/GameplayTagManager.h"
 
 void USkillUpgrade::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::SKILL_UPGRADE);
-	SetUITag(FGameplayTagManager::Get().UI_SkillUpgrade);
+	SetUITag(RLRTAG.UI_SkillUpgrade);
 
 	CloseButton->OnClicked.AddUniqueDynamic(this, &USkillUpgrade::CloseUI);
 

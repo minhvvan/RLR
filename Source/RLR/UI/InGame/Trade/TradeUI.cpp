@@ -39,7 +39,6 @@ void UTradeUI::Init()
 {
 	Super::Init();
 
-	SetUIType(EUIType::TRADE_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Trade);
 	MyTradeList->Init();
 	MyTradeList->SetCanDrag(true);

@@ -11,8 +11,6 @@ void UConfirmMessageBox::NativeConstruct()
 void UConfirmMessageBox::Init()
 {
 	Super::Init();
-
-	SetUIType(EUIType::CONFIRM_MESSAGE_BOX);
 }
 
 void UConfirmMessageBox::RefreshUI()
