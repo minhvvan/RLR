@@ -62,7 +62,7 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 		}
 	
 	*/
-	FString RecipientIdString = RecipientIdText->Text.ToString();
+	FString RecipientIdString = RecipientIdText->GetText().ToString();
 
 	if(RecipientIdText == nullptr) return;	
 
@@ -73,9 +73,9 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
 		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();
-		PostResult.Title = PostTitleText->Text.ToString();
-		PostResult.Content = PostContentText->Text.ToString();
-		PostResult.TotalMoney = FCString::Atoi(*GrantCostInput->TransactionCostInput->Text.ToString());
+		PostResult.Title = PostTitleText->GetText().ToString();
+		PostResult.Content = PostContentText->GetText().ToString();
+		PostResult.TotalMoney = FCString::Atoi(*GrantCostInput->TransactionCostInput->GetText().ToString());
 	}
 
 	GameInstance->GetNetworkManager()->SendPostRequest(PostResult);

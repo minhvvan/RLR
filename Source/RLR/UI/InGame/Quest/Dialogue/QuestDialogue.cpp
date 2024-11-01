@@ -23,13 +23,15 @@ void UQuestDialogue::OnQuestAccepted()
 	OnQuestAccept.Broadcast();
 	GameInstance->GetNetworkManager()->SendQuestAddPacket(CurrentNPCSeq, CurrentQuestSeq);
 	
-	this->RemoveFromViewport();
+	/*this->RemoveFromViewport();*/
+	this->RemoveFromParent();
 }
 
 void UQuestDialogue::OnQuestDialogueEnded()
 {
 	OnQuestDialogueEnd.Broadcast();
-	this->RemoveFromViewport();
+	/*this->RemoveFromViewport();*/
+	this->RemoveFromParent();
 }
 
 void UQuestDialogue::SetDialogueData(FString QuestDialogueString, int32 NPCSeq, int32 QuestSeq)

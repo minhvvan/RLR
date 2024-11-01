@@ -40,6 +40,9 @@ void UQuestListUI::NativeConstruct()
 	}
 }
 
+/* RefreshUI 추가해서 questListUI 오픈할때마다 리스트 초기화해주기 */
+
+
 void UQuestListUI::UpdateQuestList(const TArray<FQuest>& Quests)
 {
 	/* TODO : 퀘스트 목록 구성 로직 */

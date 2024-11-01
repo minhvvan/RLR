@@ -44,10 +44,10 @@ void UPostAlertUI::UpdatePost(const FPostResult& Post)
     PostContentText->SetIsReadOnly(true);
     TotalMoney->SetIsReadOnly(true);
 
-    IdText->Text = FText::AsNumber(Post.SenderSeq);
-    PostTitleText->Text = FText::FromString(Post.Title);
-    PostContentText->Text = FText::FromString(Post.Content);
-    TotalMoney->Text = FText::AsNumber(Post.TotalMoney);
+    IdText->SetText(FText::AsNumber(Post.SenderSeq));
+    PostTitleText->SetText(FText::FromString(Post.Title));
+    PostContentText->SetText(FText::FromString(Post.Content));
+    TotalMoney->SetText(FText::AsNumber(Post.TotalMoney));
 }
 
 void UPostAlertUI::UpdatePostItemSlot(const FPostResult& Post)
@@ -67,7 +67,7 @@ void UPostAlertUI::UpdatePostItemSlot(const FPostResult& Post)
 
 void UPostAlertUI::OnCloseButtonClicked()
 {
-    RemoveFromViewport();
+    RemoveFromParent();
 }
 
 void UPostAlertUI::OnAcceptButtonClicked()
@@ -86,5 +86,5 @@ void UPostAlertUI::OnRemovePostButtonClicked()
         /* 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
         GameInstance->GetNetworkManager()->SendPostRemoveRequest(PostData);
     }
-    RemoveFromViewport();
+    RemoveFromParent();
 }

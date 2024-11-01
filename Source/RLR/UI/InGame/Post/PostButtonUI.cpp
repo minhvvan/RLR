@@ -85,21 +85,24 @@ void UPostButtonUI::SetButtonState(bool isPressed)
 {
     FSlateBrush PressedBrush;
     FSlateBrush NormalBrush;
+
+    FButtonStyle ButtonStyle = PostButton->GetStyle();
+
     if (isPressed)
     {
         PressedBrush.TintColor = FSlateColor(FLinearColor(0.f, 0.f, 0.f));
-        PostButton->SetStyle(PostButton->WidgetStyle);
-        PostButton->WidgetStyle.Normal = PressedBrush;
-        PostButton->WidgetStyle.Hovered = PressedBrush;
-        PostButton->WidgetStyle.Pressed = PressedBrush;
+        
+        ButtonStyle.SetNormal(PressedBrush);
+        ButtonStyle.SetHovered(PressedBrush);
+        ButtonStyle.SetPressed(PressedBrush);
     }
     else
     {
         NormalBrush.TintColor = FSlateColor(FLinearColor(0.5f, 0.5f, 0.5f));
-        PostButton->SetStyle(PostButton->WidgetStyle);
-        PostButton->WidgetStyle.Normal = NormalBrush;
-        PostButton->WidgetStyle.Hovered = NormalBrush;
-        PostButton->WidgetStyle.Pressed = NormalBrush;
+
+        ButtonStyle.SetNormal(NormalBrush);
+        ButtonStyle.SetHovered(NormalBrush);
+        ButtonStyle.SetPressed(NormalBrush);
     }
 }
 

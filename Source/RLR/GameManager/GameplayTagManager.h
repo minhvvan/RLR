@@ -26,6 +26,7 @@ public:
 	FGameplayTag Action_Default_Move;
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
+	FGameplayTag Action_Default_GuildOpen;
 	FGameplayTag Action_Default_PlayMontage;
 
 	//Action.Attack
@@ -113,6 +114,8 @@ public:
 	FGameplayTag UI_Chat;
 	FGameplayTag UI_ChatOption;
 	FGameplayTag UI_Party;
+	FGameplayTag UI_Guild;
+	FGameplayTag UI_FriendList;
 	
 	FGameplayTag UI_SkillUpgrade;
 	FGameplayTag UI_Close;
@@ -131,7 +134,6 @@ public:
 
 
 	FGameplayTag UI_Post;
-	FGameplayTag UI_FriendList;
 	FGameplayTag UI_OtherPlayerMenu;
 	FGameplayTag UI_OtherPlayerStatus;
 	FGameplayTag UI_Report;
@@ -184,7 +186,7 @@ public:
 	FGameplayTag InputTag_X;
 	FGameplayTag InputTag_Y;
 	FGameplayTag InputTag_Z;
-
+	FGameplayTag InputTag_Alt_U;
 
 	FGameplayTag None = FGameplayTag();
 
