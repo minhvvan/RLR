@@ -31,9 +31,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void SetVisibilityToggle();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void OpenUI();
-
 	virtual void UpdateSlotState(class USlotUI* Target) {};
 	
 	UFUNCTION()

@@ -46,53 +46,9 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 	statSet->OnChangedTalent.AddDynamic(this, &UInGameMainUI::OnChangedTalent);
 }
 
-bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
+void UInGameMainUI::OnPageActivated()
 {
-	USubUI* subUI = GetSubUI(inputTag);
-	if (!subUI) return false;
-
-	bool bOpen = subUI->GetVisibility() == ESlateVisibility::Hidden;
-
-	if (bOpen)
-	{
-		subUI->SetVisible(true);
-	}
-	else
-	{
-		subUI->SetVisible(false);
-	}
-
-	return bOpen;
-}
-
-void UInGameMainUI::OpenSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return;
-
-	subUI->OpenUI();
-}
-
-void UInGameMainUI::CloseSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return;
-
-	subUI->SetVisible(false);
-}
-
-bool UInGameMainUI::IsOpenSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return false;
-
-	return subUI->GetVisibility() == ESlateVisibility::Visible;
-}
-
-USubUI* UInGameMainUI::GetSubUI(FGameplayTag InputTag)
-{
-	if (!UserActionSubUI.Contains(InputTag)) return nullptr;
-	return UserActionSubUI[InputTag];
+	ChangeInputModeGameAndUI();
 }
 
 void UInGameMainUI::OnChangedTotalStatus()

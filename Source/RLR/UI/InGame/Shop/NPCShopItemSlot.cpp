@@ -10,6 +10,7 @@
 #include "Structs/UtilStructs.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
 #include "UI/InGame/Shop/NPCSaleTab.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "RLR.h"
@@ -65,8 +66,16 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 
 void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-	auto UIMananger = GetUIManager();
-	UIMananger->OpenSubUINearTargetSlot(this, EUIType::ITEM_INFOMATION);
+	if (IsEmpty() == true)
+		return;
+
+	UUIManager* UIManager = GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(RLRTAG.Page_InGame);
+	if (UIManager == nullptr) return;
+
+	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
 }
 
 void UNPCShopItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)

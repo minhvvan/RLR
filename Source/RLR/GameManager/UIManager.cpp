@@ -8,7 +8,6 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/RLRStruct.h"
-#include "Components/CanvasPanelSlot.h"
 #include "Components/PanelWidget.h"
 #include "Components/SizeBox.h"
 #include "UI/MainUI.h"
@@ -19,7 +18,6 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
-#include "Kismet/GameplayStatics.h"
 #include "Structs/ItemStructs.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
@@ -35,11 +33,11 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 	UpdatedPartyPlayerInfo.Clear();
 	UpdatedPlayerInfo.Clear();
 
-	for (USubUI* SubUI : SubUIStack)
-	{
-		SubUI->RemoveFromParent();
-	}
-	SubUIStack.Empty();
+	//for (USubUI* SubUI : SubUIStack)
+	//{
+	//	SubUI->RemoveFromParent();
+	//}
+	//SubUIStack.Empty();
 	//UIMap.Empty();
 
 	//ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
@@ -94,69 +92,33 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 //	return SubUI;
 //}
 
-void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
-{
-	/*
-		1. itemInfo SubUI 토글
-		3. 상태(아이템 정보, 위치) 업데이트
-	*/
-	auto activePageTag = GetActivePageTag();
+//void UUIManager::OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType)
+//{
+//	/*
+//		1. itemInfo SubUI 토글
+//		3. 상태(아이템 정보, 위치) 업데이트
+//	*/
+//}
+//
+//void UUIManager::SetZOrderToTop(USubUI* Target)
+//{
+//
+//}
+//
+//void UUIManager::CloseFrontSubUI()
+//{
+//
+//}
 
-	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
-	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-		if (!DialogueUI) return;
+//void UUIManager::CloseAllSubUI()
+//{
+	//TArray<USubUI*> TempArray = SubUIStack;
 
-		DialogueUI->OpenItemInfo(Target);
-	}
-	else
-	{
-		if (GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap.Contains(SubUIType) == false)
-			return;
-
-		USubUI* SubUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->SubUIMap[SubUIType];
-		SetZOrderToTop(SubUI);
-		SubUI->OpenUI();
-		SubUI->UpdateSlotState(Target);
-	}
-}
-
-void UUIManager::SetZOrderToTop(USubUI* Target)
-{
-	if(SubUIStack.Num() == 0)
-		return;
-
-	if (SubUIStack[0] != Target && SubUIStack.Find(Target) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UIManager::SetZOrderToTop Error."));
-		return;
-	}
-
-	SubUIStack.Remove(Target);
-	SubUIStack.AddUnique(Target);
-
-	//변경된 순서에 맞게 ZOrder 수정
-	AdjustZOrder();
-}
-
-void UUIManager::CloseFrontSubUI()
-{
-	if(SubUIStack.Num() <= 0)
-		return;
-
-	FGameplayTag UITag = SubUIStack.Last()->GetUITag();
-	ToggleSubUI(UITag);
-}
-
-void UUIManager::CloseAllSubUI()
-{
-	TArray<USubUI*> TempArray = SubUIStack;
-
-	for (USubUI* SubUI : TempArray)
-	{
-		SubUI->CloseUI();
-	}
-}
+	//for (USubUI* SubUI : TempArray)
+	//{
+	//	SubUI->CloseUI();
+	//}
+//}
 
 //UMainUI* UUIManager::GetMainUI()
 //{
@@ -196,66 +158,54 @@ void UUIManager::CloseAllSubUI()
 
 void UUIManager::ToggleSubUI(FGameplayTag UITag)
 {
-	//ESC 누르면 제일 앞에 있는 UI 닫기. 단, 에디터에서는 ESC누르면 게임이 꺼지니 '0'번 키로 설정.
+	//TODO: ESC 누르면 제일 앞에 있는 UI 닫기. 단, 에디터에서는 ESC누르면 게임이 꺼지니 '0'번 키로 설정.
 	if (UITag == FGameplayTagManager::Get().UI_Close)
 	{
-		CloseFrontSubUI();
 		return;
 	}
 
 	//UI Toggle
 	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!currentMainUI) return;
-	bool bOpen = currentMainUI->ToggleSubUI(UITag);
 
-	if (bOpen)
-	{
-		//열렸으면 Stack에 추가 -> ZOrder조정
-		SubUIStack.AddUnique(currentMainUI->GetSubUI(UITag));
-		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUIStack.Top()->Slot);
-		CanvasSlot->SetZOrder(SubUIStack.Num());
-	}
-	else
-	{
-		//닫혔으면 Stack에서 제거 -> ZOrder 조정
-		SubUIStack.Remove(currentMainUI->GetSubUI(UITag));
-		AdjustZOrder();
-	}
-
-	currentMainUI->InvalidateLayoutAndVolatility();
+	currentMainUI->ToggleSubUI(UITag);
 }
 
 void UUIManager::OpenSubUI(FGameplayTag UITag)
 {
 	auto activePageTag = GetActivePageTag();
+	UMainUI* currentMainUI = GetPage(activePageTag);
+	if (!currentMainUI) return;
 
-	if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
+	if (!currentMainUI->IsOpenSubUI(UITag))
 	{
-		UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-		if (!DialogueUI) return;
-
-		DialogueUI->CloseItemInfo();
+		currentMainUI->OpenSubUI(UITag);
 	}
-	else
-	{
-		UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
-		if (!currentMainUI) return;
+	//if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
+	//{
+	//	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
+	//	if (!DialogueUI) return;
 
-		if (!currentMainUI->IsOpenSubUI(UITag))
-		{
-			currentMainUI->OpenSubUI(UITag);
-			SubUIStack.AddUnique(currentMainUI->GetSubUI(UITag));
-			AdjustZOrder();
-		}
-	}
+	//	DialogueUI->CloseItemInfo();
+	//}
+	//else
+	//{
+	//	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+	//	if (!currentMainUI) return;
+
+	//	if (!currentMainUI->IsOpenSubUI(UITag))
+	//	{
+	//		currentMainUI->OpenSubUI(UITag);
+	//	}
+	//}
 }
 
 void UUIManager::CloseSubUI(FGameplayTag UITag)
 {
 	auto activePageTag = GetActivePageTag();
 	auto currentMainUI = GetPage<UMainUI>(activePageTag);
-
 	if (!currentMainUI) return;
+
 	currentMainUI->CloseSubUI(UITag);
 
 	//if (activePageTag == FGameplayTagManager::Get().Page_Dialogue)
@@ -306,31 +256,6 @@ void UUIManager::CloseSubUI(FGameplayTag UITag)
 //	}
 //}
 
-void UUIManager::AdjustZOrder()
-{
-	for (int32 OrderNum = 0; OrderNum < SubUIStack.Num(); OrderNum++)
-	{
-		USubUI* SubUI = SubUIStack[OrderNum];
-
-		UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(SubUI->Slot);
-		if (CanvasSlot)
-		{
-			CanvasSlot->SetZOrder(OrderNum);
-		}
-	}
-}
-
-void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
-{
-	USubUI* subUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame)->GetSubUI(UITag);
-	if (!subUI) return;
-
-	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);
-	if (!panel) return;
-
-	panel->SetPosition(NewPos);
-}
-
 //TObjectPtr<UBaseUI> UUIManager::CreateUI(FString WidgetName)
 //{
 //	TSubclassOf<UBaseUI> WidgetClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseUI>(WidgetName);
@@ -345,30 +270,11 @@ void UUIManager::SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos)
 //	return NewUI;
 //}
 
-TObjectPtr<UDialogueUI> UUIManager::OpenDialogue(TSubclassOf<UBaseUI> UIClass)
-{
-	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
-	if (!BaseScreen) return nullptr;
-
-	UBaseUI* newDialougePage = CreateWidget<UBaseUI>(GetWorld(), UIClass);
-	if (!BaseScreen->SetPageUI(FGameplayTagManager::Get().Page_Dialogue, newDialougePage)) return nullptr;
-
-	BaseScreen->SetActivePage(FGameplayTagManager::Get().Page_Dialogue);
-
-	APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (playerController)
-	{
-		playerController->SetInputMode(FInputModeUIOnly());
-	}
-
-	return GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
-}
-
 FGameplayTag UUIManager::GetActivePageTag()
 {
 	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
 	if (!BaseScreen) return FGameplayTag::EmptyTag;
-	return BaseScreen->GetActivePage();
+	return BaseScreen->GetActivePageTag();
 }
 
 void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemResource)
@@ -376,7 +282,7 @@ void UUIManager::AddSaleItem(const FItemData& Item, const FItemResource& ItemRes
 	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
 	if (!BaseScreen) return;
 
-	if (BaseScreen->GetActivePage() != FGameplayTagManager::Get().Page_Dialogue) return;
+	if (BaseScreen->GetActivePageTag() != FGameplayTagManager::Get().Page_Dialogue) return;
 
 	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 	if (!DialogueUI) return;
@@ -389,7 +295,7 @@ void UUIManager::RemoveSaleItem(const FItemData& Item)
 	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
 	if (!BaseScreen) return;
 
-	if (BaseScreen->GetActivePage() != FGameplayTagManager::Get().Page_Dialogue) return;
+	if (BaseScreen->GetActivePageTag() != FGameplayTagManager::Get().Page_Dialogue) return;
 
 	UDialogueUI* DialogueUI = GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
 	if (!DialogueUI) return;
@@ -397,19 +303,10 @@ void UUIManager::RemoveSaleItem(const FItemData& Item)
 	DialogueUI->RemoveSaleItem(Item);
 }
 
-void UUIManager::OnDialogueEnded()
+void UUIManager::ClosePage()
 {
 	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
 	if (!BaseScreen) return;
-
-	APlayerController* playerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (playerController)
-	{
-		FInputModeGameAndUI inputMode = FInputModeGameAndUI();
-		inputMode.SetHideCursorDuringCapture(false);
-
-		playerController->SetInputMode(inputMode);
-	}
 
 	BaseScreen->SetActivePage(FGameplayTagManager::Get().Page_InGame);
 }

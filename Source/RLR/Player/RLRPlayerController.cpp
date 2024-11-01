@@ -172,9 +172,8 @@ void ARLRPlayerController::OnUserClick()
 
 	if (auto otherUser = Cast<ARLRPlayerCharacter>(Hit.GetActor()))
 	{
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		auto UIManger = GameInstance->GetUIManager();
-		UOtherPlayerMenu* otherUserMenu = UIManger->GetSubUI<UOtherPlayerMenu>(FGameplayTagManager::Get().UI_OtherPlayerMenu);
+		auto UIManager = GameInstance->GetUIManager();
+		UOtherPlayerMenu* otherUserMenu = UIManager->GetSubUI<UOtherPlayerMenu>(RLRTAG.UI_OtherPlayerMenu);
 		if (otherUserMenu)
 		{
 			auto asc = otherUser->GetActionSystemComponent();
@@ -185,8 +184,9 @@ void ARLRPlayerController::OnUserClick()
 			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
 		}
 
-		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
-		OnOpenUI(TagManager.UI_OtherPlayerMenu);
+		UInGameMainUI* mainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
+		mainUI->SetSubUIPosition(RLRTAG.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		OnOpenUI(RLRTAG.UI_OtherPlayerMenu);
 	}
 }
 

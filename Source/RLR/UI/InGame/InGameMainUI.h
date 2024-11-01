@@ -154,9 +154,6 @@ protected:
 
 	UFUNCTION()
 	void OnChangedLevel();
-	virtual bool ToggleSubUI(FGameplayTag InputTag);
-	virtual void OpenSubUI(FGameplayTag InputTag) override;
-	virtual void CloseSubUI(FGameplayTag InputTag) override;
-	virtual bool IsOpenSubUI(FGameplayTag InputTag) override;
-	virtual class USubUI* GetSubUI(FGameplayTag InputTag);
+
+	virtual void OnPageActivated() override;
 };

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/BaseUI.h"
+#include "UI/MainUI.h"
 #include "Structs/ItemStructs.h"
 #include "DialogueUI.generated.h"
 
@@ -23,7 +23,7 @@ class UInventoryUI;
 class USlotUI;
 
 UCLASS()
-class RLR_API UDialogueUI : public UBaseUI
+class RLR_API UDialogueUI : public UMainUI
 {
 	GENERATED_BODY()
 	
@@ -83,6 +83,8 @@ public:
 	void RemoveSaleItem(const FItemData& Item);
 
 	UPostOverlayUI* GetPostOverlayUI() {return PostOverlayUI;};
+	virtual void OnPageActivated() override;
+
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();

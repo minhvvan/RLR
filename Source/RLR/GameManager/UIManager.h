@@ -47,37 +47,19 @@ public:
 	void OpenSubUI(FGameplayTag UITag);
 	void CloseSubUI(FGameplayTag UITag);
 
+	template<typename T>
+	TObjectPtr<T> OpenPage(FGameplayTag PageTag, TSubclassOf<UBaseUI> UIClass = nullptr);
+
+	UFUNCTION()
+	void ClosePage();
 
 	//TODO: 삭제
 	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
 
-
 	//TODO: 위치조정
-	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
-	void SetZOrderToTop(USubUI* Target);
-
-	void CloseFrontSubUI();
-	void CloseAllSubUI();
-	void AdjustZOrder();
-	void SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos);
-
 	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
 	void RemoveSaleItem(const FItemData& Item);
-
-	UPROPERTY()
-	TArray<USubUI*>				SubUIStack;
-
-
-	//TODO: 변경
-	//OpenPage
-	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
-
-	//ClosePage(Default: InGame열어주기)
-	UFUNCTION()
-	void OnDialogueEnded();
-
-
 
 
 	//TODO: 생각 중
@@ -88,7 +70,7 @@ private:
 	TObjectPtr<UMainUI>			MainUI;
 
 public:
-	template<typename T = UWidget>
+	template<typename T = UMainUI>
 	TObjectPtr<T> GetPage(FGameplayTag Page);
 
 	/*
@@ -115,6 +97,19 @@ inline TObjectPtr<T> UUIManager::GetSubUI(FGameplayTag UITag)
 	if (!currentMainUI) return nullptr;
 
 	return Cast<T>(currentMainUI->GetSubUI(UITag));
+}
+
+template<typename T>
+inline TObjectPtr<T> UUIManager::OpenPage(FGameplayTag PageTag, TSubclassOf<UBaseUI> UIClass)
+{
+	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
+	if (!BaseScreen || UIClass == nullptr) return nullptr;
+
+	UBaseUI* newPage = CreateWidget<UBaseUI>(GetWorld(), UIClass);
+	if (!BaseScreen->SetPageUI(PageTag, newPage)) return nullptr;
+
+	BaseScreen->SetActivePage(PageTag);
+	return GetPage<T>(PageTag);
 }
 
 template<typename T>

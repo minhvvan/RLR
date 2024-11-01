@@ -25,12 +25,13 @@ public:
 
 public:
 	UWidget* GetPage(FGameplayTag tag);
-	FGameplayTag GetActivePage();
+	UWidget* GetActivePage();
+	FGameplayTag GetActivePageTag();
 	void SetActivePage(FGameplayTag tag);
 	bool SetPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage);
 	void AddPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage);
 
 private:
 	TMap<FGameplayTag, int> PageIndices;
-	FGameplayTag ActivePage;
+	FGameplayTag ActivePageTag;
 };

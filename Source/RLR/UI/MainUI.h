@@ -15,6 +15,7 @@
  */
 
  class USubUI;
+ class USlotUI;
 
 UCLASS()
 class RLR_API UMainUI : public UBaseUI
@@ -26,17 +27,24 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void BindSubUI();
 	virtual void RefreshUI() override;
-	virtual void CloseUI();
+	virtual void CloseUI() {};
 
-	virtual bool IsOpenSubUI(FGameplayTag InputTag) { return false; }
-	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
-	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
-	virtual USubUI* GetSubUI(EUIType Type){return SubUIMap[Type]; }
-	virtual void OpenSubUI(FGameplayTag InputTag) {};
-	virtual void CloseSubUI(FGameplayTag InputTag) {};
+	bool IsOpenSubUI(FGameplayTag InputTag);
+	void ToggleSubUI(FGameplayTag InputTag);
+	USubUI* GetSubUI(FGameplayTag InputTag);
+	virtual void OpenSubUI(FGameplayTag InputTag);
+	virtual void CloseSubUI(FGameplayTag InputTag);
+	void CloseFrontSubUI();
+	void CloseAllSubUI();
 
-public:
+	void AdjustZOrder();
+	void SetZOrderToTop(FGameplayTag Tag);
+	void SetSubUIPosition(FGameplayTag Tag, FVector2D NewPos);
+	void OpenSubUINearTargetSlot(USlotUI* Target, FGameplayTag Tag);		//해당 슬롯 옆에 Sub UI를 띄운다.
 
-	TMap<FGameplayTag , USubUI*> UserActionSubUI;
-	TMap<EUIType, USubUI*>				SubUIMap;
+	virtual void OnPageActivated() {};
+
+protected:
+	TMap<FGameplayTag, USubUI*>		SubUIMap;
+	TArray<USubUI*>					SubUIStack;
 };

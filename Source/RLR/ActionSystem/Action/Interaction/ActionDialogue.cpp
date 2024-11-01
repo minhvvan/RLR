@@ -30,7 +30,7 @@ void UActionDialogue::ActivateAction()
 	FActionData actionData;
 	playerASC->GetActionData(TagManager.Action_Interaction, actionData);
 
-	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(actionData.UIClass);
+	auto dialogueUI = GameInstance->GetUIManager()->OpenPage<UDialogueUI>(RLRTAG.Page_Dialogue, actionData.UIClass);
 	if (dialogueUI.Get())
 	{
 		dialogueUI->OnDialogueEnd.Clear();
@@ -52,6 +52,6 @@ void UActionDialogue::EndAction()
 
 void UActionDialogue::OnDialogueEnded()
 {
-	GameInstance->GetUIManager()->OnDialogueEnded();
+	GameInstance->GetUIManager()->ClosePage();
 	EndAction();
 }

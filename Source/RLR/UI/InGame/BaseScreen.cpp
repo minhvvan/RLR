@@ -16,7 +16,7 @@ void UBaseScreen::NativeConstruct()
 		auto page = Cast<UBaseUI>(PageSwitcher->GetChildAt(i));
 		if (!page) continue;
 
-		if (i == 0) ActivePage = page->UITag;
+		if (i == 0) ActivePageTag = page->UITag;
 		PageIndices.Add(page->UITag, i);
 	}
 }
@@ -27,16 +27,26 @@ UWidget* UBaseScreen::GetPage(FGameplayTag tag)
 	return PageSwitcher->GetWidgetAtIndex(PageIndices[tag]);
 }
 
-FGameplayTag UBaseScreen::GetActivePage()
+UWidget* UBaseScreen::GetActivePage()
 {
-	return ActivePage;
+	return GetPage(ActivePageTag);
+}
+
+FGameplayTag UBaseScreen::GetActivePageTag()
+{
+	return ActivePageTag;
 }
 
 void UBaseScreen::SetActivePage(FGameplayTag tag)
 {
 	if (!PageIndices.Contains(tag)) return;
 	PageSwitcher->SetActiveWidgetIndex(PageIndices[tag]);
-	ActivePage = tag;
+	ActivePageTag = tag;
+
+	auto activeWidget = Cast<UMainUI>(GetActivePage());
+	if (!activeWidget) return;
+
+	activeWidget->OnPageActivated();
 }
 
 bool UBaseScreen::SetPageUI(FGameplayTag tag, TObjectPtr<UBaseUI> newPage)

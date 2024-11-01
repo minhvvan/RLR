@@ -20,6 +20,7 @@
 #include "GameManager/InventoryManager.h"
 #include "Structs/ObjectStructs.h"
 #include "Structs/ItemStructs.h"
+#include "Kismet/GameplayStatics.h"
 
 void UDialogueUI::NativeConstruct()
 {
@@ -66,6 +67,11 @@ void UDialogueUI::AddSaleItem(const FItemData& Item, const FItemResource& NewIte
 void UDialogueUI::RemoveSaleItem(const FItemData& Item)
 {
 	InventoryUI->RemoveSaleItem(Item);
+}
+
+void UDialogueUI::OnPageActivated()
+{
+	ChangeInputModeUIOnly();
 }
 
 void UDialogueUI::OnDialogueEnded()

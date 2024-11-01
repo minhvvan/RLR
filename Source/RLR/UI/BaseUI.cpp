@@ -33,7 +33,7 @@ void UBaseUI::NativeConstruct()
 void UBaseUI::OpenUI()
 {
 	RefreshUI();
-	SetVisibility(ESlateVisibility::Visible);
+	GetUIManager()->OpenSubUI(UITag);
 }
 
 void UBaseUI::CloseUI()

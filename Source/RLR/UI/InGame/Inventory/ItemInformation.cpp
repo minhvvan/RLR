@@ -14,6 +14,7 @@
 #include "Components/CanvasPanelSlot.h"
 #include "Components/SizeBox.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/UtilStructs.h"
 
