@@ -59,18 +59,15 @@ public:
 
     UFUNCTION()
     void OpenFriendInfoUI(int FriendSeq);
-
-    //UFUNCTION()
-    //void HandleGroupRemoved(int32 GroupSeq);
     
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
-    void OpenFriendMenuUI(FVector2D ButtonPosition);
+    void OpenFriendMenuUI();
     UFUNCTION()
     void OpenAddGroupUI(bool bOpen);
     UFUNCTION()
-    void OpenGroupMenuUI(FVector2D ButtonPosition);
+    void OpenGroupMenuUI();
 
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
@@ -122,5 +119,6 @@ private:
     int32 SelectedGroup;
 
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
-	
+	FVector2D FriendRelativePosition;
+    FVector2D GroupRelativePosition;
 };

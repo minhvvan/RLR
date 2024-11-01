@@ -32,7 +32,6 @@ void UFriendButtonMenu::NativeConstruct()
 void UFriendButtonMenu::OpenFriendInfoUI()
 {
 	OnFriendInfoClicked.Broadcast(FriendSeq);
-	CloseUI();
 }
 // 친구 삭제
 void UFriendButtonMenu::RemoveFriend()
@@ -40,7 +39,6 @@ void UFriendButtonMenu::RemoveFriend()
 	GameInstance->GetNetworkManager()->SendRemoveFriend(FriendSeq);
 	// TODO : 친구 삭제 friendListUI에 전달하기
 
-	CloseUI();
 }
 // 그룹 이동(그룹 리스트 Open)
 void UFriendButtonMenu::MoveGroup()

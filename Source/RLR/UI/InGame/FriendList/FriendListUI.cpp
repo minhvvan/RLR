@@ -72,15 +72,20 @@ void UFriendListUI::RefreshUI()
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
 {
     SelectedFriend = FriendButtonUI->GetFriendSeq();
-    FVector2D RelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
-    OpenFriendMenuUI(RelativePosition);
+    FriendRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+    
+    OpenFriendMenuUI();
 }
 
 void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, UGroupButtonUI* GroupButtonUI)
 {
     SelectedGroup = GroupButtonUI->GetGroupSeq();
-    FVector2D RelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
-    OpenGroupMenuUI(RelativePosition);
+    //GroupRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+    FVector2D GroupButtonRelativePosition = GetCachedGeometry().AbsoluteToLocal(
+        GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D(0.f, 130.f))
+    );
+    
+    OpenGroupMenuUI();
 }
 
 void UFriendListUI::SetFriendData(TArray<FFriendGroupResult> NewFriendData)
@@ -149,12 +154,13 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     }
 }
 
-void UFriendListUI::OpenFriendMenuUI(FVector2D ButtonPosition)
+void UFriendListUI::OpenFriendMenuUI()
 {
     if (bOpenFriendMenuUI)
     {
         bOpenFriendMenuUI = false;
         FriendMenuUI->CloseUI();
+        GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
@@ -163,7 +169,7 @@ void UFriendListUI::OpenFriendMenuUI(FVector2D ButtonPosition)
         {
             FWidgetTransform  position = FriendMenuUI->GetRenderTransform();
             position.Translation.X = -3.f;
-            position.Translation.Y = ButtonPosition.Y;
+            position.Translation.Y = FriendRelativePosition.Y;
             FriendMenuUI->SetRenderTransform(position);
             FriendMenuUI->OpenUI();
             FriendMenuUI->SetFriendSeq(SelectedFriend);
@@ -193,27 +199,26 @@ void UFriendListUI::OpenAddGroupUI(bool bOpen)
     }
 }
 
-void UFriendListUI::OpenGroupMenuUI(FVector2D ButtonPosition)
+void UFriendListUI::OpenGroupMenuUI()
 {
     if (bOpenGroupMenuUI)
     {
         bOpenGroupMenuUI = false;
-        GroupMenuUI->CloseUI();
+        GroupCreationUI->CloseUI();
+        GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
         GroupMenuUI->GroupRemovedSignature.Unbind();
     }
     else
     {
         bOpenGroupMenuUI = true;
-        if (FriendMenuUI)
-        {
-            FWidgetTransform  position = FriendMenuUI->GetRenderTransform();
-            position.Translation.X = -3.f;
-            position.Translation.Y = ButtonPosition.Y;
-            GroupMenuUI->SetRenderTransform(position);
-            GroupMenuUI->OpenUI();
-            GroupMenuUI->SetGroupSeq(SelectedGroup);
-            GroupMenuUI->GroupRemovedSignature.BindUObject(this, &UFriendListUI::RemoveGroup);
-        }
+
+        FWidgetTransform position = GroupMenuUI->GetRenderTransform();
+        position.Translation.X = -3.f;
+        position.Translation.Y = GroupRelativePosition.Y;
+        GroupMenuUI->SetRenderTransform(position);
+        GroupMenuUI->OpenUI();
+        GroupMenuUI->SetGroupSeq(SelectedGroup);
+        GroupMenuUI->GroupRemovedSignature.BindUObject(this, &UFriendListUI::RemoveGroup);
     }
 }
 
