@@ -54,8 +54,7 @@ bool Handle_ACTION_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_Ac
 		if (otherManager->GetPlayer(pkt.userseq()))
 		{
 			//TODO: pkt.ActionSeq로 변경 필요
-			otherManager->GetPlayer(pkt.userseq())->UpdateAction(pkt.actionseq());
-
+			//otherManager->GetPlayer(pkt.userseq())->UpdateAction(pkt.tagname());
 		}
 		
 		else

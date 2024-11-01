@@ -181,16 +181,21 @@ class CS_ActionRequestPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kActionSeqFieldNumber = 2,
+    kTagNameFieldNumber = 2,
     kUserSeqFieldNumber = 1,
   };
-  // int64 actionSeq = 2;
-  void clear_actionseq();
-  int64_t actionseq() const;
-  void set_actionseq(int64_t value);
+  // string tagName = 2;
+  void clear_tagname();
+  const std::string& tagname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tagname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tagname();
+  PROTOBUF_NODISCARD std::string* release_tagname();
+  void set_allocated_tagname(std::string* tagname);
   private:
-  int64_t _internal_actionseq() const;
-  void _internal_set_actionseq(int64_t value);
+  const std::string& _internal_tagname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tagname(const std::string& value);
+  std::string* _internal_mutable_tagname();
   public:
 
   // int32 userSeq = 1;
@@ -210,7 +215,7 @@ class CS_ActionRequestPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int64_t actionseq_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tagname_;
     int32_t userseq_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -340,16 +345,21 @@ class SC_ActionBroadcastPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kActionSeqFieldNumber = 2,
+    kTagNameFieldNumber = 2,
     kUserSeqFieldNumber = 1,
   };
-  // int64 actionSeq = 2;
-  void clear_actionseq();
-  int64_t actionseq() const;
-  void set_actionseq(int64_t value);
+  // string tagName = 2;
+  void clear_tagname();
+  const std::string& tagname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_tagname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_tagname();
+  PROTOBUF_NODISCARD std::string* release_tagname();
+  void set_allocated_tagname(std::string* tagname);
   private:
-  int64_t _internal_actionseq() const;
-  void _internal_set_actionseq(int64_t value);
+  const std::string& _internal_tagname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tagname(const std::string& value);
+  std::string* _internal_mutable_tagname();
   public:
 
   // int32 userSeq = 1;
@@ -369,7 +379,7 @@ class SC_ActionBroadcastPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int64_t actionseq_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tagname_;
     int32_t userseq_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -407,24 +417,54 @@ inline void CS_ActionRequestPacket::set_userseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.userSeq)
 }
 
-// int64 actionSeq = 2;
-inline void CS_ActionRequestPacket::clear_actionseq() {
-  _impl_.actionseq_ = int64_t{0};
+// string tagName = 2;
+inline void CS_ActionRequestPacket::clear_tagname() {
+  _impl_.tagname_.ClearToEmpty();
 }
-inline int64_t CS_ActionRequestPacket::_internal_actionseq() const {
-  return _impl_.actionseq_;
+inline const std::string& CS_ActionRequestPacket::tagname() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.tagName)
+  return _internal_tagname();
 }
-inline int64_t CS_ActionRequestPacket::actionseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.actionSeq)
-  return _internal_actionseq();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CS_ActionRequestPacket::set_tagname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tagname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.tagName)
 }
-inline void CS_ActionRequestPacket::_internal_set_actionseq(int64_t value) {
+inline std::string* CS_ActionRequestPacket::mutable_tagname() {
+  std::string* _s = _internal_mutable_tagname();
+  // @@protoc_insertion_point(field_mutable:Protocol.CS_ActionRequestPacket.tagName)
+  return _s;
+}
+inline const std::string& CS_ActionRequestPacket::_internal_tagname() const {
+  return _impl_.tagname_.Get();
+}
+inline void CS_ActionRequestPacket::_internal_set_tagname(const std::string& value) {
   
-  _impl_.actionseq_ = value;
+  _impl_.tagname_.Set(value, GetArenaForAllocation());
 }
-inline void CS_ActionRequestPacket::set_actionseq(int64_t value) {
-  _internal_set_actionseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.actionSeq)
+inline std::string* CS_ActionRequestPacket::_internal_mutable_tagname() {
+  
+  return _impl_.tagname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CS_ActionRequestPacket::release_tagname() {
+  // @@protoc_insertion_point(field_release:Protocol.CS_ActionRequestPacket.tagName)
+  return _impl_.tagname_.Release();
+}
+inline void CS_ActionRequestPacket::set_allocated_tagname(std::string* tagname) {
+  if (tagname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.tagname_.SetAllocated(tagname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tagname_.IsDefault()) {
+    _impl_.tagname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.CS_ActionRequestPacket.tagName)
 }
 
 // -------------------------------------------------------------------
@@ -451,24 +491,54 @@ inline void SC_ActionBroadcastPacket::set_userseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.userSeq)
 }
 
-// int64 actionSeq = 2;
-inline void SC_ActionBroadcastPacket::clear_actionseq() {
-  _impl_.actionseq_ = int64_t{0};
+// string tagName = 2;
+inline void SC_ActionBroadcastPacket::clear_tagname() {
+  _impl_.tagname_.ClearToEmpty();
 }
-inline int64_t SC_ActionBroadcastPacket::_internal_actionseq() const {
-  return _impl_.actionseq_;
+inline const std::string& SC_ActionBroadcastPacket::tagname() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.tagName)
+  return _internal_tagname();
 }
-inline int64_t SC_ActionBroadcastPacket::actionseq() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.actionSeq)
-  return _internal_actionseq();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SC_ActionBroadcastPacket::set_tagname(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.tagname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.tagName)
 }
-inline void SC_ActionBroadcastPacket::_internal_set_actionseq(int64_t value) {
+inline std::string* SC_ActionBroadcastPacket::mutable_tagname() {
+  std::string* _s = _internal_mutable_tagname();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_ActionBroadcastPacket.tagName)
+  return _s;
+}
+inline const std::string& SC_ActionBroadcastPacket::_internal_tagname() const {
+  return _impl_.tagname_.Get();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_tagname(const std::string& value) {
   
-  _impl_.actionseq_ = value;
+  _impl_.tagname_.Set(value, GetArenaForAllocation());
 }
-inline void SC_ActionBroadcastPacket::set_actionseq(int64_t value) {
-  _internal_set_actionseq(value);
-  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.actionSeq)
+inline std::string* SC_ActionBroadcastPacket::_internal_mutable_tagname() {
+  
+  return _impl_.tagname_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SC_ActionBroadcastPacket::release_tagname() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_ActionBroadcastPacket.tagName)
+  return _impl_.tagname_.Release();
+}
+inline void SC_ActionBroadcastPacket::set_allocated_tagname(std::string* tagname) {
+  if (tagname != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.tagname_.SetAllocated(tagname, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.tagname_.IsDefault()) {
+    _impl_.tagname_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_ActionBroadcastPacket.tagName)
 }
 
 #ifdef __GNUC__

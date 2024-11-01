@@ -6,13 +6,13 @@
 #include "ActionSystem/ActionSystemComponent.h"
 
 
-bool UNetworkManager::SendActionPacket(int32 userSeq, int actionSeq)
+bool UNetworkManager::SendActionPacket(int32 userSeq, string tagName)
 {
     Protocol::CS_ActionRequestPacket packet;
     packet.set_userseq(userSeq);
-    packet.set_actionseq(actionSeq);
+    packet.set_tagname(tagName);
 
     SEND_PACKET(packet);
    
-    return false; 
+    return false;
 }
