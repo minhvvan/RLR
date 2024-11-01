@@ -13,6 +13,8 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "UI/DialogueUI.h"
 #include "RLR.h"
 
 void UNPCShopItemSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
@@ -54,7 +56,11 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData());
 				auto UIManager = GetUIManager();
 				if (!UIManager) return result;
-				UIManager->RemoveSaleItem(GetItemData());
+
+				UDialogueUI* DialogueUI = UIManager->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue);
+				if (!DialogueUI) return result;
+
+				DialogueUI->RemoveSaleItem(GetItemData());
 				SetItemData(FItemData::EmptyItemData);
 				RefreshUI();
 			}

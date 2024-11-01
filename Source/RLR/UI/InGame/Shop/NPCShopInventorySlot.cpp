@@ -4,6 +4,8 @@
 #include "UI/InGame/Shop/NPCShopInventorySlot.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "UI/DialogueUI.h"
 #include "Structs/ItemStructs.h"
 #include "Components/Button.h"
 #include "RLR.h"
@@ -14,10 +16,13 @@ FReply UNPCShopInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 
 	if (InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
 	{
-		auto UIManager = GameInstance->GetUIManager();
+		auto UIManager = GetUIManager();
 		if (!UIManager) return result;
 
-		UIManager->AddSaleItem(GetItemData(), GetItemResourceData());
+		UDialogueUI* DialogueUI = UIManager->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue);
+		if (!DialogueUI) return result;
+
+		DialogueUI->AddSaleItem(GetItemData(), GetItemResourceData());
 		SetIsEnabled(false);
 	}
 

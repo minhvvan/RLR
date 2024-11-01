@@ -53,17 +53,11 @@ public:
 	UFUNCTION()
 	void ClosePage();
 
+	void ToggleSubUI(FGameplayTag UITag);
+
 	//TODO: 삭제
 	UPROPERTY()
 	TObjectPtr<ULoadingScreen>	LoadingScreen;
-
-	//TODO: 위치조정
-	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
-	void RemoveSaleItem(const FItemData& Item);
-
-
-	//TODO: 생각 중
-	void ToggleSubUI(FGameplayTag UITag);
 
 private:
 	UPROPERTY()

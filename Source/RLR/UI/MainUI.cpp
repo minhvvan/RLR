@@ -87,6 +87,8 @@ USubUI* UMainUI::GetSubUI(FGameplayTag InputTag)
 
 void UMainUI::OpenSubUI(FGameplayTag InputTag)
 {
+	if (IsOpenSubUI(InputTag)) return;
+
 	USubUI* subUI = GetSubUI(InputTag);
 	if (!subUI) return;
 
@@ -97,6 +99,8 @@ void UMainUI::OpenSubUI(FGameplayTag InputTag)
 
 void UMainUI::CloseSubUI(FGameplayTag InputTag)
 {
+	if (!IsOpenSubUI(InputTag)) return;
+
 	USubUI* subUI = GetSubUI(InputTag);
 	if (!subUI) return;
 
