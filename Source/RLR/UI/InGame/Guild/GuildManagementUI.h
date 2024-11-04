@@ -29,6 +29,9 @@ public:
 	UFUNCTION()
 	void QuitGuldButtonClicked();
 
+	UFUNCTION()
+	void DeleteGuildButtonClicked();
+
 public:
 	/* 나중에 기획 보고 WidgetSwitcher 필요하다 싶으면 추가 */
 	UPROPERTY(meta = (BindWidgetOptional))
@@ -41,4 +44,9 @@ public:
 	UButton* InviteToGuildButton;
 	UPROPERTY(meta = (BindWidget))
 	UButton* QuitGuildButton;
+
+	/* 길드장에게만 노출 */
+	UPROPERTY(meta = (BindWidget))
+	UButton* DeleteGuildButton;
+
 };

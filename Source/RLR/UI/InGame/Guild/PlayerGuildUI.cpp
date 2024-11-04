@@ -38,7 +38,7 @@ void UPlayerGuildUI::SwitchToGuildMember()
 {
 	if (WidgetSwitcher)
 	{
-		WidgetSwitcher->SetActiveWidgetIndex(0);
+		WidgetSwitcher->SetActiveWidgetIndex(1);
 		if (GuildMemberUI)
 		{
 
@@ -50,7 +50,7 @@ void UPlayerGuildUI::SwitchToGuildManagement()
 {
 	if (WidgetSwitcher)
 	{
-		WidgetSwitcher->SetActiveWidgetIndex(0);
+		WidgetSwitcher->SetActiveWidgetIndex(2);
 		if (GuildManagementUI)
 		{
 

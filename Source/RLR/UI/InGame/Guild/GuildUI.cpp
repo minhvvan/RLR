@@ -4,6 +4,7 @@
 #include "UI/InGame/Guild/GuildUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 #include "Structs/UtilStructs.h"
@@ -22,8 +23,19 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	/* GuildManager 으로부터 정보를 받아온다 */
+	/* Set GuildManager */
 	GameInstance->GetGuildManager()->InitializeGuildManager();
+	if (GameInstance->GetGuildManager()->GetGuildValidation())
+	{
+		GameInstance->GetNetworkManager()->SendInfoGuild();
+	}
+	else
+	{
+		if (WidgetSwitcher)
+		{
+			WidgetSwitcher->SetActiveWidgetIndex(0);
+		}
+	}
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

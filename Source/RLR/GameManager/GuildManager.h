@@ -21,12 +21,18 @@ public:
 	void InitializeGuildManager();
 
 	/* Guild Struct 만들어야 함 */
-	void SetGuildInfo(const FGuildResult& guildData);
-	FGuildResult GetGuildInfo() {return GuildData;};
+	void SetGuildInfo(const FGuildResult& guildData);	
+	FGuildResult GetGuildInfo();
+
+	void SetGuildValidation(bool guildValidation);
+	bool GetGuildValidation();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGuildResult GuildData;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TObjectPtr<UGuildUI> GuildOverlayUI;
+
+private:
+	bool bBelongToGuild;
 };
