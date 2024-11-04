@@ -13,7 +13,7 @@
 void UCharacterStatusUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	//SetUITag(FGameplayTagManager::Get().UI_CharacterStatus);
+	//SetUITag(FGameplayTagManager::Get().UI_Stat);
 
 
 	//GameInstance->GetUIManager()->UpdatedPlayerInfo.AddDynamic(this, &UCharacterStatusUI::SetPlayerInfo);

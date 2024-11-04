@@ -124,7 +124,7 @@ void ARLRPlayerController::InitBinding()
 void ARLRPlayerController::OnInput()
 {
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
+	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayer_Menu);
 }
 
 void ARLRPlayerController::OnMoveStarted(FGameplayTag TriggerTag)
@@ -174,7 +174,7 @@ void ARLRPlayerController::OnUserClick()
 	if (auto otherUser = Cast<ARLRPlayerCharacter>(Hit.GetActor()))
 	{
 		auto UIManager = GameInstance->GetUIManager();
-		UOtherPlayerMenu* otherUserMenu = UIManager->GetSubUI<UOtherPlayerMenu>(RLRTAG.UI_OtherPlayerMenu);
+		UOtherPlayerMenu* otherUserMenu = UIManager->GetSubUI<UOtherPlayerMenu>(RLRTAG.UI_OtherPlayer_Menu);
 		if (otherUserMenu)
 		{
 			auto asc = otherUser->GetActionSystemComponent();
@@ -186,8 +186,8 @@ void ARLRPlayerController::OnUserClick()
 		}
 
 		UInGameMainUI* mainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
-		mainUI->SetSubUIPosition(RLRTAG.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
-		OnOpenUI(RLRTAG.UI_OtherPlayerMenu);
+		mainUI->SetSubUIPosition(RLRTAG.UI_OtherPlayer_Menu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		OnOpenUI(RLRTAG.UI_OtherPlayer_Menu);
 	}
 }
 

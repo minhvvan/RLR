@@ -37,7 +37,6 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	//TODO: 유지
 	void OpenMainUI(TSubclassOf<UBaseUI> UIClass);
 	FGameplayTag				GetActivePageTag();
 
@@ -83,7 +82,6 @@ public:
 	FUpdatedPartyPlayerInfo	UpdatedPartyPlayerInfo;
 };
 
-//TODO: Dialogue::SubUI는 못받아오는 상태
 template<typename T>
 inline TObjectPtr<T> UUIManager::GetSubUI(FGameplayTag UITag)
 {

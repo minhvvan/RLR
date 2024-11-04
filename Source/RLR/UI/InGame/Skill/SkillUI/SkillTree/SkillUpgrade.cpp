@@ -11,7 +11,7 @@ void USkillUpgrade::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUITag(RLRTAG.UI_SkillUpgrade);
+	SetUITag(RLRTAG.UI_Skill_Upgrade);
 
 	CloseButton->OnClicked.AddUniqueDynamic(this, &USkillUpgrade::CloseUI);
 

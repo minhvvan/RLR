@@ -103,10 +103,10 @@ void UTradeUI::HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt)
 	*/
 	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
 	{
-		UConfirmMessageBox* ConfirmMessageBox = GetSubUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_ConfirmMessageBox);
+		UConfirmMessageBox* ConfirmMessageBox = GetSubUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		if (IsValid(ConfirmMessageBox) == false) return;
 			
-		OpenOtherUI(FGameplayTagManager::Get().UI_ConfirmMessageBox);
+		OpenOtherUI(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		ConfirmMessageBox->Clear();
 		ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
 		ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
@@ -252,10 +252,10 @@ void UTradeUI::HandleTradeCompleteResponse(Protocol::SC_TradeCompleteResponse& p
 			SetTargetTradeState(ETradeState::SUCCESS);
 
 			//거래가 성공했다는 알림을 띄운다.
-			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(FGameplayTagManager::Get().UI_NotificationMessageBox);
+			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
 			if (IsValid(NotificationMessageBox) == false) return;
 
-			OpenOtherUI(FGameplayTagManager::Get().UI_NotificationMessageBox);
+			OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 			NotificationMessageBox->Clear();
 			NotificationMessageBox->SetMessageText(TEXT("거래를 성공했습니다"));
 
@@ -386,10 +386,10 @@ void UTradeUI::HandleTradeCanceledByTarget()
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
 			//거래가 취소 되었다는 알림 UI를 띄운다.
-			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(FGameplayTagManager::Get().UI_NotificationMessageBox);
+			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
 			if (IsValid(NotificationMessageBox) == false) return;
 
-			OpenOtherUI(FGameplayTagManager::Get().UI_NotificationMessageBox);
+			OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 			NotificationMessageBox->Clear();
 			NotificationMessageBox->SetMessageText(TEXT("상대가 거래를 취소했습니다"));
 			SetMyTradeState(ETradeState::CANCEL);
@@ -442,10 +442,10 @@ void UTradeUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
 
 void UTradeUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
 {
-	UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(FGameplayTagManager::Get().UI_NotificationMessageBox);
+	UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
 	if (IsValid(NotificationMessageBox) == false) return;
 
-	OpenOtherUI(FGameplayTagManager::Get().UI_NotificationMessageBox);
+	OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 	NotificationMessageBox->Clear();
 
 	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find("From");
@@ -478,14 +478,14 @@ void UTradeUI::OnClickedInventorySlot(const FItemData& NewTradeItem)
 	/*
 		아이템 갯수를 입력 받는 메시지 박스를 띄운다.
 	*/
-	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(FGameplayTagManager::Get().UI_ItemCountMessageBox);
+	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	OpenOtherUI(FGameplayTagManager::Get().UI_ItemCountMessageBox);
+	OpenOtherUI(RLRTAG.UI_Popup_ItemCountMessageBox);
 
 	ItemCountMessageBox->Clear();
 	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
@@ -538,14 +538,14 @@ void UTradeUI::OnClickedAddGoldButton()
 	/*
 		얼마나 입력할지 수량 입력 박스 띄우기
 	*/
-	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(FGameplayTagManager::Get().UI_ItemCountMessageBox);
+	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	OpenOtherUI(FGameplayTagManager::Get().UI_ItemCountMessageBox);
+	OpenOtherUI(RLRTAG.UI_Popup_ItemCountMessageBox);
 
 	ItemCountMessageBox->Clear();
 	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
