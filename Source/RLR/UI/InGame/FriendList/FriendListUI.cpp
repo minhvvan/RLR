@@ -143,7 +143,6 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     if (bOpenRequestUI)
     {
         bOpenRequestUI = false;
-        FriendRequestUI->CloseUI();
         FriendRequestUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
@@ -151,7 +150,7 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
         bOpenRequestUI = true;
         if (FriendRequestUI)
         {
-            FriendRequestUI->OpenUI();
+            FriendRequestUI->SetVisibility(ESlateVisibility::Visible);
         }
     }
 }
@@ -161,8 +160,7 @@ void UFriendListUI::OpenFriendMenuUI()
     if (bOpenFriendMenuUI)
     {
         bOpenFriendMenuUI = false;
-        FriendMenuUI->CloseUI();
-        GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
+        FriendMenuUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
@@ -173,7 +171,7 @@ void UFriendListUI::OpenFriendMenuUI()
             position.Translation.X = -3.f;
             position.Translation.Y = FriendRelativePosition.Y + 13.f;
             FriendMenuUI->SetRenderTransform(position);
-            FriendMenuUI->OpenUI();
+            FriendMenuUI->SetVisibility(ESlateVisibility::Visible);
             FriendMenuUI->SetFriendSeq(SelectedFriend);
         }
     }
@@ -187,7 +185,6 @@ void UFriendListUI::OpenAddGroupUI(bool bOpen)
     {
         GroupCreationUI->SetVisibilityStatus(false);
         bOpenGroupCreationUI = false;
-        GroupCreationUI->CloseUI();
         GroupCreationUI->SetVisibility(ESlateVisibility::Hidden);
     }
     else
@@ -196,7 +193,7 @@ void UFriendListUI::OpenAddGroupUI(bool bOpen)
         bOpenGroupCreationUI = true;
         if (GroupCreationUI)
         {
-            GroupCreationUI->OpenUI();
+            GroupCreationUI->SetVisibility(ESlateVisibility::Visible);
         }
     }
 }
@@ -218,7 +215,7 @@ void UFriendListUI::OpenGroupMenuUI()
         position.Translation.X = -3.f;
         position.Translation.Y = GroupRelativePosition.Y + 13.f;
         GroupMenuUI->SetRenderTransform(position);
-        GroupMenuUI->OpenUI();
+        GroupMenuUI->SetVisibility(ESlateVisibility::Visible);
         GroupMenuUI->SetGroupSeq(SelectedGroup);
         GroupMenuUI->GroupRemovedSignature.BindUObject(this, &UFriendListUI::RemoveGroup);
     }
