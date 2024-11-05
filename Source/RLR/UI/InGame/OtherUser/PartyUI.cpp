@@ -18,13 +18,11 @@
 void UPartyUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUITag(FGameplayTagManager::Get().UI_Party);
 
-	UUIManager* UI  = GameInstance->GetUIManager();
-	if(IsValid(UI) == false)
-		return;
+	UUIManager* UI = GameInstance->GetUIManager();
+	if (IsValid(UI) == false) return;
 
-	UI->UpdatedPartyPlayerInfo.AddDynamic(this, &UPartyUI::AddPlayer);
+	UI->UpdatedPartyPlayerInfo.AddUniqueDynamic(this, &UPartyUI::AddPlayer);
 }
 
 void UPartyUI::RefreshUI()

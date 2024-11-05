@@ -28,11 +28,11 @@ void UInventoryUI::NativeConstruct()
 
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 
-	if(IsValid(InventoryManager) == false)
+	if (IsValid(InventoryManager) == false)
 		return;
 
-	InventoryManager->OnUpdateInventoryDelegate.AddDynamic(this, &UInventoryUI::RefreshUI);
-	InventoryManager->OnUpdateGoldAndCashDelegate.AddDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
+	InventoryManager->OnUpdateInventoryDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshUI);
+	InventoryManager->OnUpdateGoldAndCashDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
 
 	AllButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnAllButtonClicked);
 	EquipmentButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnEquipmentButtonClicked);

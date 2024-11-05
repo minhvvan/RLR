@@ -35,7 +35,7 @@ void UFriendListUI::NativeConstruct()
 
     if (FriendTabButton)
     {
-        FriendTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
+        FriendTabButton->OnClicked.AddUniqueDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
     }
 }
 

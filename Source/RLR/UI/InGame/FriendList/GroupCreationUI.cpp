@@ -14,11 +14,11 @@ void UGroupCreationUI::NativeConstruct()
 
 	if (ConfirmButton)
 	{
-		ConfirmButton->OnClicked.AddDynamic(this, &UGroupCreationUI::ConfirmButtonClicked);
+		ConfirmButton->OnClicked.AddUniqueDynamic(this, &UGroupCreationUI::ConfirmButtonClicked);
 	}
 	if (CancelButton)
 	{
-		CancelButton->OnClicked.AddDynamic(this, &UGroupCreationUI::CancelButtonClicked);
+		CancelButton->OnClicked.AddUniqueDynamic(this, &UGroupCreationUI::CancelButtonClicked);
 	}
 }
 

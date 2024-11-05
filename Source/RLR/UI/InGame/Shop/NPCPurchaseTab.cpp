@@ -22,13 +22,13 @@ void UNPCPurchaseTab::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnBuy->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnBuyClicked);
-	BtnEmpty->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnEmptyClicked);
+	BtnBuy->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnBuyClicked);
+	BtnEmpty->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnEmptyClicked);
 
-	BtnFirst->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnFirstClicked);
-	BtnPrev->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnPrevClicked);
-	BtnNext->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnNextClicked);
-	BtnLast->OnClicked.AddDynamic(this, &UNPCPurchaseTab::OnLastClicked);
+	BtnFirst->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnFirstClicked);
+	BtnPrev->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnPrevClicked);
+	BtnNext->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnNextClicked);
+	BtnLast->OnClicked.AddUniqueDynamic(this, &UNPCPurchaseTab::OnLastClicked);
 
 	CurrentPage = 1;
 	LastPage = Items.Num() / ItemNumPerPage + (Items.Num() % ItemNumPerPage ? 1 : 0);

@@ -12,8 +12,8 @@ void UQuestDialogue::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnDeny->OnClicked.AddDynamic(this, &UQuestDialogue::OnQuestDialogueEnded);
-	BtnAccept->OnClicked.AddDynamic(this, &UQuestDialogue::OnQuestAccepted);
+	BtnDeny->OnClicked.AddUniqueDynamic(this, &UQuestDialogue::OnQuestDialogueEnded);
+	BtnAccept->OnClicked.AddUniqueDynamic(this, &UQuestDialogue::OnQuestAccepted);
 }
 
 void UQuestDialogue::OnQuestAccepted()

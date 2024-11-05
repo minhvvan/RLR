@@ -16,11 +16,16 @@
 
  class USubUI;
  class USlotUI;
+ class UCanvasPanel;
 
 UCLASS()
 class RLR_API UMainUI : public UBaseUI
 {
 	GENERATED_BODY()
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
 
 public:
 

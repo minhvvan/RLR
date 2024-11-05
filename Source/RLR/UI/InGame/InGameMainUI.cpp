@@ -9,8 +9,9 @@
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/StatusDisplay/StatusDisplay.h"
 
+
 #include "Blueprint/WidgetTree.h"
-#include <Kismet/GameplayStatics.h>
+#include "Kismet/GameplayStatics.h"
 
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
@@ -38,11 +39,11 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 	StatSet에 묶여있는 Data들이 변경되면 업데이트할 UI들의 함수 Binding
 	*/
 	statSet->ClearBindFunc();
-	statSet->OnChangedTotalStatus.AddDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
-	statSet->OnChangedSetStatus.AddDynamic(this, &UInGameMainUI::OnChangedSetStatus);
-	statSet->OnChangedLevel.AddDynamic(this, &UInGameMainUI::OnChangedLevel);
-	statSet->OnChangedExp.AddDynamic(this, &UInGameMainUI::OnChangedExp);
-	statSet->OnChangedTalent.AddDynamic(this, &UInGameMainUI::OnChangedTalent);
+	statSet->OnChangedTotalStatus.AddUniqueDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
+	statSet->OnChangedSetStatus.AddUniqueDynamic(this, &UInGameMainUI::OnChangedSetStatus);
+	statSet->OnChangedLevel.AddUniqueDynamic(this, &UInGameMainUI::OnChangedLevel);
+	statSet->OnChangedExp.AddUniqueDynamic(this, &UInGameMainUI::OnChangedExp);
+	statSet->OnChangedTalent.AddUniqueDynamic(this, &UInGameMainUI::OnChangedTalent);
 }
 
 void UInGameMainUI::OnPageActivated()

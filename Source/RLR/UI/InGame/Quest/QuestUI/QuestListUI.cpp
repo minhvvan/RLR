@@ -22,11 +22,11 @@ void UQuestListUI::NativeConstruct()
 
 	if (CompleteButton)
 	{
-		CompleteButton->OnClicked.AddDynamic(this, &UQuestListUI::OnCompleteButtonClicked);
+		CompleteButton->OnClicked.AddUniqueDynamic(this, &UQuestListUI::OnCompleteButtonClicked);
 	}
 	if (DeclineButton)
 	{
-		DeclineButton->OnClicked.AddDynamic(this, &UQuestListUI::OnDeclineButtonClicked);
+		DeclineButton->OnClicked.AddUniqueDynamic(this, &UQuestListUI::OnDeclineButtonClicked);
 	}
 
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())

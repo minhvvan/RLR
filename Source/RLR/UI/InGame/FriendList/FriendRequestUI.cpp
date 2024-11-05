@@ -18,15 +18,15 @@ void UFriendRequestUI::NativeConstruct()
 
 	if (FriendNameText)
 	{
-		FriendNameText->OnTextChanged.AddDynamic(this, &UFriendRequestUI::OnFriendNameTextChanged);
+		FriendNameText->OnTextChanged.AddUniqueDynamic(this, &UFriendRequestUI::OnFriendNameTextChanged);
 	}
 	if (SendRequestButton)
 	{
-		SendRequestButton->OnClicked.AddDynamic(this, &UFriendRequestUI::OnSendRequestClicked);
+		SendRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendRequestUI::OnSendRequestClicked);
 	}
 	if (CancelRequestButton)
 	{
-		CancelRequestButton->OnClicked.AddDynamic(this, &UFriendRequestUI::OnCancelClicked);
+		CancelRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendRequestUI::OnCancelClicked);
 	}
 }
 

@@ -3,10 +3,13 @@
 
 #include "UI/MainUI.h"
 #include "UI/SubUI.h"
+#include "UI/GroupUI.h"
 #include "Blueprint/WidgetTree.h"
 #include "Structs/UtilStructs.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "Components/CanvasPanelSlot.h"
+#include "Components/CanvasPanel.h"
+#include "RLR.h"
 
 void UMainUI::NativeConstruct()
 {
@@ -29,13 +32,39 @@ void UMainUI::BindSubUI()
 
 			if (Tag == FGameplayTag::EmptyTag)
 			{
-				DEBUG_LOG("BIndSubUI Error. UITag이 설정이 안된 SubUI가 있습니다. 확인 바랍니다.");
+				RLR_LOG(LogRLR, Log, TEXT("BIndSubUI Error.UITag이 설정이 안된 SubUI가 있습니다.확인 바랍니다. %s"), *SubUI->GetName());
+				continue;
 			}
 
 			SubUIMap.Add(Tag, SubUI);
 		}
-	}
+		else if (UGroupUI* GroupUI = Cast<UGroupUI>(Widget))
+		{
+			TArray<USubUI*> SubUIs = GroupUI->GetSubUIs();
 
+			for (auto subUI : SubUIs)
+			{
+				UCanvasPanelSlot* OldSlot = Cast<UCanvasPanelSlot>(subUI->Slot);
+				if (OldSlot && Canvas)
+				{
+					// CanvasPanel에 SubUI를 추가
+					UCanvasPanelSlot* NewSlot = Canvas->AddChildToCanvas(subUI);
+
+					// 이전 슬롯의 Transform 설정을 복제
+					NewSlot->SetPosition(OldSlot->GetPosition());
+					NewSlot->SetSize(OldSlot->GetSize());
+					NewSlot->SetAnchors(OldSlot->GetAnchors());
+					NewSlot->SetAlignment(OldSlot->GetAlignment());
+					NewSlot->SetOffsets(OldSlot->GetOffsets());
+					NewSlot->SetAutoSize(OldSlot->GetAutoSize());
+				}
+
+				subUI->SetMainUI(this);
+				subUI->SetParent(this);
+				SubUIMap.Add(subUI->GetUITag(), subUI);
+			}
+		}
+	}
 }
 
 void UMainUI::RefreshUI()

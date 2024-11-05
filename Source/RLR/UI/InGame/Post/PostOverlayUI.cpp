@@ -28,11 +28,11 @@ void UPostOverlayUI::NativeConstruct()
 
 	GameInstance->GetPostalManager()->InitializePostalManager();
 	if (ReceivedPostButton)
-		ReceivedPostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
+		ReceivedPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
 	if (SentPostButton)
-		SentPostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnSentPostButtonClicked);
+		SentPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnSentPostButtonClicked);
 	if (WritePostButton)
-		WritePostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnWritePostButtonClicked);
+		WritePostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnWritePostButtonClicked);
 }
 
 void UPostOverlayUI::Init()

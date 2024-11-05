@@ -13,8 +13,8 @@ void UReportUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnSubmit->OnClicked.AddDynamic(this, &UReportUI::OnSubmitClicked);
-	BtnExit->OnClicked.AddDynamic(this, &UReportUI::CloseUIByManager);
+	BtnSubmit->OnClicked.AddUniqueDynamic(this, &UReportUI::OnSubmitClicked);
+	BtnExit->OnClicked.AddUniqueDynamic(this, &UReportUI::CloseUIByManager);
 }
 
 void UReportUI::OnSubmitClicked()

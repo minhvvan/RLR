@@ -13,7 +13,7 @@ void UGroupButtonMenu::NativeConstruct()
 
 	if (RemoveGroupButton)
 	{
-		RemoveGroupButton->OnClicked.AddDynamic(this, &UGroupButtonMenu::RemoveGroup);
+		RemoveGroupButton->OnClicked.AddUniqueDynamic(this, &UGroupButtonMenu::RemoveGroup);
 	}
 }
 

@@ -65,7 +65,6 @@ public:
 	void CloseUIByManager();
 
 public:
-
 	FVector2D ClickedFirstPoint;
 	FVector2D ClickedCurrentPoint;
 

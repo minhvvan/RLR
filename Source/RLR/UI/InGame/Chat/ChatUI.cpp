@@ -47,7 +47,7 @@ void UChatUI::NativeConstruct()
 	AChatClient* client = Cast<AChatClient>(FoundActors[0]);
 	SetChatClient(client);
 
-	CbbChatType->OnSelectionChanged.AddDynamic(this, &UChatUI::OnChatTypeChanged);
+	CbbChatType->OnSelectionChanged.AddUniqueDynamic(this, &UChatUI::OnChatTypeChanged);
 	CbbChatType->SetDefaultOptionColor(TextColor[EChatType::General]);
 
 	//TODO: 채팅타입 추가

@@ -26,10 +26,10 @@ void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
-	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
-	BtnShop->OnClicked.AddDynamic(this, &UDialogueUI::OnShopClicked);
-	PostButton->OnClicked.AddDynamic(this, &UDialogueUI::OnPostClicked);
+	BtnExit->OnClicked.AddUniqueDynamic(this, &UDialogueUI::OnDialogueEnded);
+	BtnQuest->OnClicked.AddUniqueDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
+	BtnShop->OnClicked.AddUniqueDynamic(this, &UDialogueUI::OnShopClicked);
+	PostButton->OnClicked.AddUniqueDynamic(this, &UDialogueUI::OnPostClicked);
 
 	bOpenShop = false;
 }

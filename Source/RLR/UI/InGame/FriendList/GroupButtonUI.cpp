@@ -17,8 +17,7 @@ void UGroupButtonUI::NativeConstruct()
 
     if (GroupButton)
     {
-        GroupButton->OnClicked.RemoveDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
-        GroupButton->OnClicked.AddDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
+        GroupButton->OnClicked.AddUniqueDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
     }
     if (UScrollBox* ParentBox = Cast<UScrollBox>(GetParent()))
     {

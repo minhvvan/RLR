@@ -28,9 +28,6 @@ class RLR_API UDialogueUI : public UMainUI
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UCanvasPanel> Canvas;
-
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnExit;
 

@@ -14,8 +14,8 @@ void UNPCShopUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	BtnPurchase->OnClicked.AddDynamic(this, &UNPCShopUI::OnPurchaseClicked);
-	BtnSale->OnClicked.AddDynamic(this, &UNPCShopUI::OnSaleClicked);
+	BtnPurchase->OnClicked.AddUniqueDynamic(this, &UNPCShopUI::OnPurchaseClicked);
+	BtnSale->OnClicked.AddUniqueDynamic(this, &UNPCShopUI::OnSaleClicked);
 
 	OnPurchaseClicked();
 }
