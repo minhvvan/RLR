@@ -56,7 +56,6 @@ void UGuildManagementUI::InviteButtonClicked()
 /* 길드 탈퇴 */
 void UGuildManagementUI::QuitGuldButtonClicked()
 {
-	GameInstance->GetGuildManager()->SetGuildValidation(false);
 	int32 GuildSeq = GameInstance->GetGuildManager()->GetGuildInfo().guildSeq;
 	int32 UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
 	GameInstance->GetNetworkManager()->SendRemoveGuild(UserSeq, GuildSeq);
@@ -65,7 +64,6 @@ void UGuildManagementUI::QuitGuldButtonClicked()
 /* 길드 삭제 */
 void UGuildManagementUI::DeleteGuildButtonClicked()
 {
-	GameInstance->GetGuildManager()->SetGuildValidation(false);
 	int32 GuildSeq = GameInstance->GetGuildManager()->GetGuildInfo().guildSeq;
 	GameInstance->GetNetworkManager()->SendDeleteGuild(GuildSeq);
 }

@@ -18,6 +18,5 @@ void UGuildCreationUI::NativeConstruct()
 void UGuildCreationUI::CreateGuild()
 {
 	/* 길드 창설 */
-	GameInstance->GetGuildManager()->SetGuildValidation(true);
 	GameInstance->GetNetworkManager()->SendCreateGuild();
 }

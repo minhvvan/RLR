@@ -13,7 +13,6 @@ void UGuildUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::Guild);
 	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
 }
 
@@ -25,17 +24,7 @@ void UGuildUI::RefreshUI()
 {
 	/* Set GuildManager */
 	GameInstance->GetGuildManager()->InitializeGuildManager();
-	if (GameInstance->GetGuildManager()->GetGuildValidation())
-	{
-		GameInstance->GetNetworkManager()->SendInfoGuild();
-	}
-	else
-	{
-		if (WidgetSwitcher)
-		{
-			WidgetSwitcher->SetActiveWidgetIndex(0);
-		}
-	}
+	GameInstance->GetNetworkManager()->SendInfoGuild();
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

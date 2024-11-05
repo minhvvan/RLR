@@ -30,7 +30,7 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
         {
             if (GuildOverlayUI && GuildOverlayUI->WidgetSwitcher)
             {
-				if (bBelongToGuild)
+				if (GuildData.guildSeq != -1)
 				{
 					GuildOverlayUI->WidgetSwitcher->SetActiveWidgetIndex(1);
 				}
@@ -46,14 +46,4 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 FGuildResult UGuildManager::GetGuildInfo()
 {
 	return GuildData;
-}
-
-void UGuildManager::SetGuildValidation(bool guildValidation)
-{
-    bBelongToGuild = guildValidation;
-}
-
-bool UGuildManager::GetGuildValidation()
-{
-    return bBelongToGuild;
 }
