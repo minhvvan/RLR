@@ -54,10 +54,6 @@ public:
 
 	void ToggleSubUI(FGameplayTag UITag);
 
-	//TODO: 삭제
-	UPROPERTY()
-	TObjectPtr<ULoadingScreen>	LoadingScreen;
-
 private:
 	UPROPERTY()
 	TObjectPtr<UMainUI>			MainUI;
