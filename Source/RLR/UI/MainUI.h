@@ -36,7 +36,8 @@ public:
 
 	bool IsOpenSubUI(FGameplayTag InputTag);
 	void ToggleSubUI(FGameplayTag InputTag);
-	USubUI* GetSubUI(FGameplayTag InputTag);
+	template<typename T = USubUI>
+	T* GetSubUI(FGameplayTag InputTag);
 	virtual void OpenSubUI(FGameplayTag InputTag);
 	virtual void CloseSubUI(FGameplayTag InputTag);
 	void CloseFrontSubUI();
@@ -53,3 +54,10 @@ protected:
 	TMap<FGameplayTag, USubUI*>		SubUIMap;
 	TArray<USubUI*>					SubUIStack;
 };
+
+template<typename T>
+inline T* UMainUI::GetSubUI(FGameplayTag InputTag)
+{
+	if (!SubUIMap.Contains(InputTag)) return nullptr;
+	return Cast<T>(SubUIMap[InputTag]);
+}

@@ -235,11 +235,13 @@ void USkillSetting::ApplySkillQuickSlotSetting()
 		스킬 퀵 슬롯에 세팅해놓은 걸 Status Display의 스킬 세팅으로 옮겨준다.
 	*/
 
-	UInGameMainUI* MainUI = GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
-	if(IsValid(MainUI) == false)
-		return;
+	auto UIManager = GetUIManager();
+	if (!UIManager) return;
 
-	UStatusDisplay* SD = MainUI->GetStatusDisplayUI();
+	UInGameMainUI* MainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
+	if(IsValid(MainUI) == false) return;
+
+	UStatusDisplay* SD = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if(IsValid(SD) == false)
 		return;
 

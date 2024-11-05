@@ -6,6 +6,8 @@
 #include "Components/Button.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/InGame/Chat/ChatUI.h"
 #include "UI/InGame/InGameMainUI.h"
@@ -136,9 +138,13 @@ void UChatOptionUI::OnConfirmButtonClicked()
         CloseUI();
         SaveChatOption();
 
-        UChatUI* ChatUI = GetMainUI<UInGameMainUI>()->GetChatUI();
-        if(ChatUI)
-            ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
+        auto UIManager = GetUIManager();
+        if (!UIManager) return;
+
+        UChatUI* ChatUI = UIManager->GetSubUI<UChatUI>(RLRTAG.UI_Chat);
+        if (!ChatUI) return;
+
+        ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
     }
 }
 

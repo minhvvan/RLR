@@ -107,12 +107,6 @@ void UMainUI::ToggleSubUI(FGameplayTag InputTag)
 	InvalidateLayoutAndVolatility();
 }
 
-USubUI* UMainUI::GetSubUI(FGameplayTag InputTag)
-{
-	if (!SubUIMap.Contains(InputTag)) return nullptr;
-	return SubUIMap[InputTag];
-}
-
 void UMainUI::OpenSubUI(FGameplayTag InputTag)
 {
 	if (IsOpenSubUI(InputTag)) return;
@@ -173,7 +167,7 @@ void UMainUI::SetZOrderToTop(FGameplayTag Tag)
 {
 	if (SubUIStack.Num() == 0) return;
 
-	auto* target = GetSubUI(Tag);
+	auto* target = GetSubUI<USubUI>(Tag);
 	if (!target) return;
 
 	if (SubUIStack[0] != target && SubUIStack.Find(target) == false)
@@ -191,7 +185,7 @@ void UMainUI::SetZOrderToTop(FGameplayTag Tag)
 
 void UMainUI::SetSubUIPosition(FGameplayTag Tag, FVector2D NewPos)
 {
-	USubUI* subUI = GetSubUI(Tag);
+	USubUI* subUI = GetSubUI<USubUI>(Tag);
 	if (!subUI) return;
 
 	auto panel = Cast<UCanvasPanelSlot>(subUI->Slot);

@@ -37,11 +37,14 @@ FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 	스킬 디테일 창에 정보를 넘긴다.
 	*/
 
-	UInGameMainUI* InGameMainUI = GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
+	auto UIManager = GetUIManager();
+	if (!UIManager) return result;
+
+	UInGameMainUI* InGameMainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
 	if (IsValid(InGameMainUI) == false)
 		return result;
 
-	USkillUI* SkillUI = InGameMainUI->SkillUI;
+	USkillUI* SkillUI = UIManager->GetSubUI<USkillUI>(RLRTAG.UI_Skill);
 	if (IsValid(SkillUI) == false)
 		return result;
 

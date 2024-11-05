@@ -224,13 +224,15 @@ void UKeyOption::ApplyKeyOption()
 	/*
 		퀵 슬롯도 업데이트
 	*/
+	auto UIManager = GetUIManager();
+	if (!UIManager) return;
 
-	 UStatusDisplay* StatusDisplay = GameInstance->GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame)->GetStatusDisplayUI();
-	 if(IsValid(StatusDisplay) == false)
+	UStatusDisplay* StatusDisplay = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
+	if(IsValid(StatusDisplay) == false)
 		return;
 
-	 StatusDisplay->LoadSkillQuickSlotData();
-	 StatusDisplay->LoadItemQuickSlotData();
+	StatusDisplay->LoadSkillQuickSlotData();
+	StatusDisplay->LoadItemQuickSlotData();
 }
 
 void UKeyOption::CreateDataAsset()

@@ -8,6 +8,7 @@
 #include "RLRStruct.h"
 #include "Structs/ItemStructs.h"
 #include "UI/InGame/BaseScreen.h"
+#include "UI/SubUI.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
@@ -84,7 +85,7 @@ inline TObjectPtr<T> UUIManager::GetSubUI(FGameplayTag UITag)
 	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (!currentMainUI) return nullptr;
 
-	return Cast<T>(currentMainUI->GetSubUI(UITag));
+	return currentMainUI->GetSubUI<T>(UITag);
 }
 
 template<typename T>

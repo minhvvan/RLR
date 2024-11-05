@@ -282,11 +282,10 @@ void UChatUI::OnSendButtonClicked()
 
 void UChatUI::OnChatOptionUIButtonClicked()
 {
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (IsValid(GM) == false)
-		return;
+	auto UIManager = GetUIManager();
+	if (!UIManager) return;
 
-	UChatOptionUI* ChatOptionUI = GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame)->GetChatOptionUI();
+	UChatOptionUI* ChatOptionUI = UIManager->GetSubUI<UChatOptionUI>(RLRTAG.UI_Chat_Option);
 
 	if (IsValid(ChatOptionUI))
 	{

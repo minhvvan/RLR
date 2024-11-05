@@ -8,9 +8,9 @@
 #include <iostream>
 #include <string>
 #include "GameManager/UIManager.h"
-#include "UI/InGame/InGameMainUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "UI/InGame/InGameMainUI.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -126,8 +126,10 @@ void AChatClient::ReceiveMessages()
                     {
                         if (!ChatUI)
                         {
-                            UInGameMainUI* ingameUI = GameInstance->GetUIManager()->GetPage<UInGameMainUI>(FGameplayTagManager::Get().Page_InGame);
-                            ChatUI = ingameUI->GetChatUI();
+                            auto UIManager = GameInstance->GetUIManager();
+                            if (!UIManager) return;
+
+                            ChatUI = UIManager->GetSubUI<UChatUI>(RLRTAG.UI_Chat);
                         }
 
                         if (ChatUI)

@@ -54,7 +54,10 @@ void UInGameMainUI::OnPageActivated()
 void UInGameMainUI::OnChangedTotalStatus()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
+
+	auto CharacterStatusUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Stat);
 	if (!CharacterStatusUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -67,6 +70,7 @@ void UInGameMainUI::OnChangedTotalStatus()
 void UInGameMainUI::OnChangedSetStatus()
 {
 	if (!ActionSystemComponent) return;
+	auto CharacterStatusUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Stat);
 	if (!CharacterStatusUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -79,6 +83,7 @@ void UInGameMainUI::OnChangedSetStatus()
 void UInGameMainUI::OnChangedExp()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -100,6 +105,7 @@ void UInGameMainUI::OnChangedTalent()
 void UInGameMainUI::OnChangedLevel()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();

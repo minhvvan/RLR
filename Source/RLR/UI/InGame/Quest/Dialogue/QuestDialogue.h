@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "UI/BaseUI.h"
+#include "UI/SubUI.h"
 #include "QuestDialogue.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestDialogueEnd);
@@ -14,7 +14,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestAccept);
 class UDialogueUI;
 
 UCLASS()
-class RLR_API UQuestDialogue : public UBaseUI
+class RLR_API UQuestDialogue : public USubUI
 {
 	GENERATED_BODY()
 

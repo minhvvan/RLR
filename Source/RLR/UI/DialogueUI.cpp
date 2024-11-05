@@ -48,6 +48,9 @@ void UDialogueUI::SetNPCData(int32 NPCSeq, int32 QuestSeq)
 
 void UDialogueUI::OpenItemInfo(USlotUI* Target)
 {
+	UItemInformation* ItemInformationUI = GetSubUI<UItemInformation>(RLRTAG.UI_ItemInfomation);
+	if (!ItemInformationUI) return;
+
 	ItemInformationUI->OpenUI();
 	ItemInformationUI->UpdateSlotState(Target);
 
@@ -56,16 +59,25 @@ void UDialogueUI::OpenItemInfo(USlotUI* Target)
 
 void UDialogueUI::CloseItemInfo()
 {
+	UItemInformation* ItemInformationUI = GetSubUI<UItemInformation>(RLRTAG.UI_ItemInfomation);
+	if (!ItemInformationUI) return;
+
 	ItemInformationUI->CloseUI();
 }
 
 void UDialogueUI::AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource)
 {
+	UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+	if (!NPCShopUI) return;
+
 	NPCShopUI->AddSaleItem(Item, NewItemResource);
 }
 
 void UDialogueUI::RemoveSaleItem(const FItemData& Item)
 {
+	UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (!InventoryUI) return;
+
 	InventoryUI->RemoveSaleItem(Item);
 }
 
@@ -84,16 +96,10 @@ void UDialogueUI::OnQuestDialogueBegins()
 	OnQuestDialogueBegin.Broadcast();
 	OnDialogueEnd.Broadcast();
 
-	if (QuestDialogueWidgetClass)
-	{
-		UQuestDialogue* QuestDialogueWidget = CreateWidget<UQuestDialogue>(GetWorld(), QuestDialogueWidgetClass);
-		if (QuestDialogueWidget)
-		{
-			QuestDialogueWidget->SetDialogueData(FString::Printf(TEXT("Quest from NPC %d"), CurrentNPCSeq), CurrentNPCSeq, CurrentQuestSeq);
-			QuestDialogueWidget->AddToViewport();
-			this->RemoveFromParent();
-		}
-	}
+	UQuestDialogue* QuestDialogue = GetSubUI<UQuestDialogue>(RLRTAG.UI_Quest_Dialogue);
+	if (!QuestDialogue) return;
+
+	QuestDialogue->SetDialogueData(FString::Printf(TEXT("Quest from NPC %d"), CurrentNPCSeq), CurrentNPCSeq, CurrentQuestSeq);
 }
 
 void UDialogueUI::OnShopClicked()
@@ -101,8 +107,8 @@ void UDialogueUI::OnShopClicked()
 	if (bOpenShop)
 	{
 		bOpenShop = false;
-		NPCShopUI->CloseUI();
-		InventoryUI->CloseUI();
+		CloseSubUI(RLRTAG.UI_NPCShop);
+		CloseSubUI(RLRTAG.UI_Inventory);
 	}
 	else
 	{
@@ -110,6 +116,7 @@ void UDialogueUI::OnShopClicked()
 		auto ObjectManager = GameInstance->GetObjectManager();
 		const auto& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
 
+		UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
 		if (NPCShopUI)
 		{
 			FVector2D panelPos(100.f, 100.f);
@@ -127,6 +134,7 @@ void UDialogueUI::OnShopClicked()
 			NPCShopUI->OpenUI();
 		}
 
+		UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
 		if (InventoryUI)
 		{
 			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
@@ -141,8 +149,8 @@ void UDialogueUI::OnPostClicked()
 	if (bOpenPost)
 	{
 		bOpenPost = false;
-		InventoryUI->CloseUI();
-		PostOverlayUI->CloseUI();
+		CloseSubUI(RLRTAG.UI_NPCShop);
+		CloseSubUI(RLRTAG.UI_Inventory);
 		BtnBox->SetVisibility(ESlateVisibility::Visible);
 		TxtNPCName->SetVisibility(ESlateVisibility::Visible);
 		TxtNPCTalk->SetVisibility(ESlateVisibility::Visible);
@@ -151,6 +159,7 @@ void UDialogueUI::OnPostClicked()
 	{
 		bOpenPost = true;
 
+		UPostOverlayUI* PostOverlayUI = GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
 		if (PostOverlayUI)
 		{
 			FVector2D panelPos(100.f, 100.f);
@@ -163,6 +172,7 @@ void UDialogueUI::OnPostClicked()
 		/*
 			우편함 UI가 생성될 때 인벤토리 창도 함께 열기
 		*/
+		UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
 		if (InventoryUI)
 		{
 			FVector2D panelPos(100.f + PostOverlayUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);

@@ -24,10 +24,10 @@ void UPostalManager::InitializePostalManager()
 	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (!UIManager) return;
 
-	UDialogueUI* DialogueUI = UIManager->GetPage<UDialogueUI>(FGameplayTagManager::Get().Page_Dialogue);
+	UDialogueUI* DialogueUI = UIManager->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue);
 	if (!DialogueUI) return;
 
-	UPostOverlayUI* PostUI = DialogueUI->GetPostOverlayUI();
+	UPostOverlayUI* PostUI = DialogueUI->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
 
 	PostUIClass = PostUI;
 

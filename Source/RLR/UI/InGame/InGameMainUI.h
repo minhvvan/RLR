@@ -37,6 +37,7 @@
  class UItemCountMessageBox;
  class UNotificationMessageBox;
  class UConfirmMessageBox;
+ class UGroupUI;
 
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
@@ -46,98 +47,6 @@ class RLR_API UInGameMainUI : public UMainUI
 public:
 	virtual void NativeConstruct() override;
 	void SetActionSystemComponent(AActor* Owner) override;
-
-
-public:
-
-	UChatUI*			GetChatUI(){return ChatUI;}
-	UChatOptionUI*		GetChatOptionUI(){return ChatOptionUI;}
-	UInventoryUI*		GetInventoryUI(){return InventoryUI;}
-	UCharacterStatusUI*	GetCharacterStatusUI() {return CharacterStatusUI;}
-	UItemInformation*	GetItemInformation(){return ItemInformation;}
-	UMinimapUI*			GetMinimapUI(){return Minimap;}
-	UStatusDisplay*		GetStatusDisplayUI(){return StatusDisplayUI;}
-	UInGameMenuUI*		GetInGameMenuUI(){return InGameMenuUI;}
-	UPartyUI*			GetPartyUI(){return PartyUI;}
-	UKeyOption*			GetKeyOptionUI(){return KeyOptionUI;}
-	USkillUI*			GetSkillUI(){return SkillUI;}
-	USkillUpgrade*		GetSkillUpgradeUI(){return SkillUpgrade;}
-	UQuestListUI*		GetQuestListUI() {return QuestListUI;}
-	UFriendListUI*		GetFriendListUI() {return FriendListUI;}
-	UOtherPlayerMenu*	GetOtherPlayerMenu() {return OtherPlayerMenu;}
-	UTradeUI*			GetTradeUI() {return TradeUI;}
-	
-public:
-	//나중에 Private로 닫아주자. 지금은 블루프린트로 테스트할 때가 있으니 편하게 다 열어준다.
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UChatUI> ChatUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UChatOptionUI> ChatOptionUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UInventoryUI> InventoryUI;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UCharacterStatusUI> CharacterStatusUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UItemInformation> ItemInformation;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UMinimapUI> Minimap;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UStatusDisplay> StatusDisplayUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UInGameMenuUI> InGameMenuUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UPartyUI> PartyUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UKeyOption> KeyOptionUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUI> SkillUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<USkillUpgrade> SkillUpgrade;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UQuestListUI> QuestListUI;	
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UTradeUI> TradeUI;
-
-public:
-	
-	//Popup
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UItemCountMessageBox> ItemCountMessageBox;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UNotificationMessageBox> NotificationMessageBox;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UConfirmMessageBox> ConfirmMessageBox; 
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UPostOverlayUI> PostOverlayUI;	
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UOtherPlayerMenu> OtherPlayerMenu;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UCharacterStatusUI> OtherPlayerStatusUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UReportUI> ReportUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidgetOptional))
-	TObjectPtr<UFriendListUI> FriendListUI;	
 
 protected:
 	UFUNCTION()
