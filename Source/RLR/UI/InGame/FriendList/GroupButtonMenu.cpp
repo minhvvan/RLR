@@ -23,5 +23,4 @@ void UGroupButtonMenu::RemoveGroup()
 {
 	GameInstance->GetNetworkManager()->SendRemoveFriendGroup(GroupSeq);
 	GroupRemovedSignature.Execute(GroupSeq);
-	CloseUI();
 }
