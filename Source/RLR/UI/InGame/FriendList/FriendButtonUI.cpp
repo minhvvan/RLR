@@ -2,17 +2,26 @@
 
 
 #include "UI/InGame/FriendList/FriendButtonUI.h"
+#include "UI/InGame/FriendList/FriendRequestTabWidget.h"
+#include "UI/InGame/FriendList/FriendListUI.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/FriendManager.h"
 
 
 void UFriendButtonUI::NativeConstruct()
 {
     SetButtonState(false);
-    if (FriendButton && IsValid(FriendButton))
+    if (FriendButton && IsValid(FriendButton) && !bIsFriendRequestTab)
     {
         FriendButton->OnClicked.RemoveDynamic(this, &UFriendButtonUI::OnFriendButtonClicked);
         FriendButton->OnClicked.AddDynamic(this, &UFriendButtonUI::OnFriendButtonClicked);
+    }
+    if (bIsFriendRequestTab && AcceptRequestButton)
+    {
+        AcceptRequestButton->OnClicked.AddDynamic(this, &UFriendButtonUI::OnAcceptRequestClicked);
     }
 }
 
@@ -29,25 +38,32 @@ void UFriendButtonUI::OnFriendButtonClicked()
     OnFriendRequestButtonClick.Broadcast(FriendSeq, this);
 }
 
+void UFriendButtonUI::OnAcceptRequestClicked()
+{
+    GameInstance->GetNetworkManager()->SendAddFriend(FriendName);
+    GameInstance->GetFriendManager()->DeleteFromRequestList(FriendSeq);
+    GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+}
+
 void UFriendButtonUI::SetButtonState(bool isPressed)
 {
     FSlateBrush PressedBrush;
     FSlateBrush NormalBrush;
+    FButtonStyle ButtonStyle = FriendButton->GetStyle();
+
     if (isPressed)
     {
         PressedBrush.TintColor = FSlateColor(FLinearColor(0.f, 0.f, 0.f));
-        FriendButton->SetStyle(FriendButton->WidgetStyle);
-        FriendButton->WidgetStyle.Normal = PressedBrush;
-        FriendButton->WidgetStyle.Hovered = PressedBrush;
-        FriendButton->WidgetStyle.Pressed = PressedBrush;
+        ButtonStyle.SetNormal(PressedBrush);
+        ButtonStyle.SetHovered(PressedBrush);
+        ButtonStyle.SetPressed(PressedBrush);
     }
     else
     {
         NormalBrush.TintColor = FSlateColor(FLinearColor(0.5f, 0.5f, 0.5f));
-        FriendButton->SetStyle(FriendButton->WidgetStyle);
-        FriendButton->WidgetStyle.Normal = NormalBrush;
-        FriendButton->WidgetStyle.Hovered = NormalBrush;
-        FriendButton->WidgetStyle.Pressed = NormalBrush;
+        ButtonStyle.SetNormal(PressedBrush);
+        ButtonStyle.SetHovered(PressedBrush);
+        ButtonStyle.SetPressed(PressedBrush);
     }
 }
 

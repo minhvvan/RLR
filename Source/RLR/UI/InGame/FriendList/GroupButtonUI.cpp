@@ -57,11 +57,10 @@ void UGroupButtonUI::OnGroupButtonClicked()
         if (bIsInGroupList)
         {
 		    GroupClickedOnList.Execute(this);
-
             // Close friendButtonMenu
             if (FriendListUI)
             {
-                FriendListUI->FriendMenuUI->CloseUI();
+                FriendListUI->FriendMenuUI->SetVisibility(ESlateVisibility::Hidden);
             }
         }
 	}

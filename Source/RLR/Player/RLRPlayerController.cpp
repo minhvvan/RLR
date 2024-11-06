@@ -27,14 +27,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 
-ARLRPlayerController::ARLRPlayerController():
+ARLRPlayerController::ARLRPlayerController() :
 	movePacketInterval(1.f),
 	timeSinceLastMovePacket(1.f),
 	lastSentPosition(FVector::ZeroVector)
 {
-    PrimaryActorTick.bCanEverTick = true;
-    bShowMouseCursor = true;
-    DefaultMouseCursor = EMouseCursor::Default;
+	PrimaryActorTick.bCanEverTick = true;
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
 }
 
 void ARLRPlayerController::BeginPlay()
@@ -53,18 +53,18 @@ void ARLRPlayerController::OnPossess(APawn* InPawn)
 
 void ARLRPlayerController::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 
 	if (!PlayerManager || !Player) return;
 
-    timeSinceLastMovePacket += DeltaTime;
+	timeSinceLastMovePacket += DeltaTime;
 
-    if (timeSinceLastMovePacket >= movePacketInterval)
-    {
-        FVector CurrentPosition = PlayerCharacter->GetActorLocation();
+	if (timeSinceLastMovePacket >= movePacketInterval)
+	{
+		FVector CurrentPosition = PlayerCharacter->GetActorLocation();
 
-        if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
-        {
+		if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
+		{
 			UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 			if (!ASC) {
 				//UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
@@ -85,10 +85,10 @@ void ARLRPlayerController::Tick(float DeltaTime)
 			{
 				lastSentPosition = CurrentPosition;
 			}
-        }
+		}
 
-        timeSinceLastMovePacket = 0.0f;
-    }
+		timeSinceLastMovePacket = 0.0f;
+	}
 }
 
 void ARLRPlayerController::SetupInputComponent()
@@ -112,7 +112,7 @@ void ARLRPlayerController::InitBinding()
 
 	URLREnhancedInputComponent* Component = Cast<URLREnhancedInputComponent>(InputComponent);
 
-	if (Component &&  Commands)
+	if (Component && Commands)
 	{
 		Component->ClearActionBindings();
 		Component->ClearActionEventBindings();
@@ -212,19 +212,31 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
 	ASC->AddActionData(TriggerTag, actionData);
+
 
 	//Active Skill Check
 	if (ASC->ActivateWaitAction())
 	{
 		return;
 	}
-
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(), TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	//FActionResult actionResult;
+
+	//actionResult.UserSeq = statSet->GetUserSeq();
+	//actionResult.ActionSeq = statSet->GetMapId();
+	//actionResult.ChannelId = statSet->GetChannelId();
+	//actionResult.TargetTransform = CurrentPosition;
+
+	//NetworkManager->SendActionPacket(actionResult);
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -248,6 +260,9 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	const FActionResource& actionResource = DataManager->GetActionResourceByTag(skillTag);
 	if (actionResource == FActionResource::EmptyActionResource) return;
 
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return;
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
@@ -255,8 +270,14 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 
 	SkillManager->SkillStart(skillTag);
 
-	//TODO: tag -> string (X), ActionSeq로 전달( actionResource.ActionSeq 사용하면 됩니다)
-	//NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),TCHAR_TO_UTF8(*TriggerTag.GetTagName().ToString()));
+	//FActionResult actionResult;
+
+	//actionResult.UserSeq = statSet->GetUserSeq();
+	//actionResult.ActionSeq = statSet->GetMapId();
+	//actionResult.ChannelId = statSet->GetChannelId();
+	//actionResult.TargetTransform = CurrentPosition;
+
+	//NetworkManager->SendActionPacket(actionResult);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
@@ -317,7 +338,7 @@ void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
 {
 	if (!PlayerCharacter) return;
 
-	UActionSystemComponent* ASC =  PlayerCharacter->GetActionSystemComponent();
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
 	ASC->TryActivateAction(InputTag);

@@ -32,6 +32,7 @@
  class UFriendListUI;
  class UOtherPlayerMenu;
  class UReportUI;
+ class UGuildUI;
  class UCanvasPanel;
  class UTradeUI;
  class UItemCountMessageBox;

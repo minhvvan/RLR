@@ -89,20 +89,38 @@ struct FActionResource : public FTableRowBase
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FActionResult : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ActionSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector TargetTransform;
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FPostResult
 {
 	GENERATED_BODY()
 
 	FPostResult() :
 	ReceiverSeq(0),
-	SenderSeq(0),
-	TotalMoney(0),
-	PostId(-1),
 	ReceiverName(""),
-	SenderName(""),
 	Title(""),
+	SenderSeq(0),
 	Content(""),
-	IsRead(false)
+	TotalMoney(0),
+	IsRead(false),
+	PostId(-1),
+	SenderName("")
 	{}
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
@@ -251,6 +269,35 @@ struct FFriendGroupResult
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString GroupName;
 
+  void MakeGroupData(const Protocol::Group group);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FGuildResult
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildSeq;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString  guildName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildLevel;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildMaxExp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildExp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildMaxUser ;
+	
+	/* TODO : GuildPacketHandler로 들어오는 패킷 보고 수정하기 */
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//vector<GuildRank> guildRanks;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//vector<UserCharacter> waitUsers;
+
+	//void MakeGuildData(const Protocol::Guild guild);
 	void MakeGroupData(const Protocol::Group group);	
 };
 

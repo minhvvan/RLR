@@ -27,6 +27,7 @@ public:
 	FGameplayTag Action_Default_Move;
 	FGameplayTag Action_Default_Attack;
 	FGameplayTag Action_Default_Jump;
+	FGameplayTag Action_Default_GuildOpen;
 	FGameplayTag Action_Default_PlayMontage;
 
 	//Action.Attack
@@ -144,6 +145,7 @@ public:
 	FGameplayTag UI_Trade;
 	FGameplayTag UI_FriendList;
 	FGameplayTag UI_Report;
+	FGameplayTag UI_Guild;
 	
 	FGameplayTag UI_Popup_ItemCountMessageBox;
 	FGameplayTag UI_Popup_NotificationMessageBox;
@@ -211,7 +213,7 @@ public:
 	FGameplayTag InputTag_X;
 	FGameplayTag InputTag_Y;
 	FGameplayTag InputTag_Z;
-
+	FGameplayTag InputTag_Alt_U;
 
 	FGameplayTag None = FGameplayTag();
 

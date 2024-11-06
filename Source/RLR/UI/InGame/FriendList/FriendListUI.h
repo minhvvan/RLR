@@ -7,6 +7,7 @@
 #include "Structs/UtilStructs.h"
 #include "FriendListUI.generated.h"
 
+class UFriendRequestTabWidget;
 class UExistingGroupList;
 class UFriendRequestUI;
 class UFriendButtonMenu;
@@ -45,25 +46,28 @@ public:
     void SetFriendData(TArray<FFriendGroupResult> NewFriendData);
 
     UFUNCTION()
+    void SetFriendRequestData(TMap<int32, FString> NewFriendRequestData);
+
+    UFUNCTION()
     TArray<FFriendGroupResult>& GetFriendData();
 
     UFUNCTION()
     void OnFriendTabButtonClicked();
 
     UFUNCTION()
-    void OpenFriendInfoUI(int FriendSeq);
+    void OnFriendRequestTabButtonClicked();
 
-    //UFUNCTION()
-    //void HandleGroupRemoved(int32 GroupSeq);
+    UFUNCTION()
+    void OpenFriendInfoUI(int FriendSeq);
     
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
-    void OpenFriendMenuUI(FVector2D ButtonPosition);
+    void OpenFriendMenuUI();
     UFUNCTION()
     void OpenAddGroupUI(bool bOpen);
     UFUNCTION()
-    void OpenGroupMenuUI(FVector2D ButtonPosition);
+    void OpenGroupMenuUI();
 
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
@@ -87,14 +91,23 @@ public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendTabWidget> FriendTabWidget;
 
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<UFriendRequestTabWidget> FriendRequestTabWidget;
+
 	UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* FriendWidgetSwitcher;
 
     UPROPERTY(meta = (BindWidget))
     UButton* FriendTabButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* FriendRequestTabButton;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FFriendGroupResult> FriendData;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<int32, FString> FriendRequestData;
 
 private:
     bool bOpenRequestUI;
@@ -106,5 +119,6 @@ private:
     int32 SelectedGroup;
 
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
-	
+	FVector2D FriendRelativePosition;
+    FVector2D GroupRelativePosition;
 };

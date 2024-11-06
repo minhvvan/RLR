@@ -21,7 +21,6 @@ class RLR_API UPostalManager : public UGameInstanceSubsystem
 public:
     void Update();
 
-    void InitializePostalManager();
     virtual void SetRecvPostData(const TArray<FPostResult>& NewPostResult);
     virtual void SetSentPostData(const TArray<FPostResult>& NewPostResult);
     virtual void SetAlertPostData(const FPostResult& NewPostResult);

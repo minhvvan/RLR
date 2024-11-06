@@ -26,7 +26,7 @@ void UPostOverlayUI::NativeConstruct()
 
 	SetUITag(FGameplayTagManager::Get().UI_Post);
 
-	GameInstance->GetPostalManager()->InitializePostalManager();
+	GameInstance->GetPostalManager()->PostUIClass = this;
 	if (ReceivedPostButton)
 		ReceivedPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
 	if (SentPostButton)

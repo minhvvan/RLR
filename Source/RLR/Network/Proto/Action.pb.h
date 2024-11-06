@@ -181,21 +181,20 @@ class CS_ActionRequestPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kTagNameFieldNumber = 2,
+    kActionSeqFieldNumber = 2,
     kUserSeqFieldNumber = 1,
+    kTransXFieldNumber = 4,
+    kChannelIdFieldNumber = 3,
+    kTransYFieldNumber = 5,
+    kTransZFieldNumber = 6,
   };
-  // string tagName = 2;
-  void clear_tagname();
-  const std::string& tagname() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_tagname(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_tagname();
-  PROTOBUF_NODISCARD std::string* release_tagname();
-  void set_allocated_tagname(std::string* tagname);
+  // int64 actionSeq = 2;
+  void clear_actionseq();
+  int64_t actionseq() const;
+  void set_actionseq(int64_t value);
   private:
-  const std::string& _internal_tagname() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tagname(const std::string& value);
-  std::string* _internal_mutable_tagname();
+  int64_t _internal_actionseq() const;
+  void _internal_set_actionseq(int64_t value);
   public:
 
   // int32 userSeq = 1;
@@ -207,6 +206,42 @@ class CS_ActionRequestPacket final :
   void _internal_set_userseq(int32_t value);
   public:
 
+  // float transX = 4;
+  void clear_transx();
+  float transx() const;
+  void set_transx(float value);
+  private:
+  float _internal_transx() const;
+  void _internal_set_transx(float value);
+  public:
+
+  // int64 channelId = 3;
+  void clear_channelid();
+  int64_t channelid() const;
+  void set_channelid(int64_t value);
+  private:
+  int64_t _internal_channelid() const;
+  void _internal_set_channelid(int64_t value);
+  public:
+
+  // float transY = 5;
+  void clear_transy();
+  float transy() const;
+  void set_transy(float value);
+  private:
+  float _internal_transy() const;
+  void _internal_set_transy(float value);
+  public:
+
+  // float transZ = 6;
+  void clear_transz();
+  float transz() const;
+  void set_transz(float value);
+  private:
+  float _internal_transz() const;
+  void _internal_set_transz(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.CS_ActionRequestPacket)
  private:
   class _Internal;
@@ -215,8 +250,12 @@ class CS_ActionRequestPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tagname_;
+    int64_t actionseq_;
     int32_t userseq_;
+    float transx_;
+    int64_t channelid_;
+    float transy_;
+    float transz_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -345,21 +384,19 @@ class SC_ActionBroadcastPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kTagNameFieldNumber = 2,
+    kActionSeqFieldNumber = 2,
     kUserSeqFieldNumber = 1,
+    kTransXFieldNumber = 4,
+    kTransYFieldNumber = 5,
+    kTransZFieldNumber = 6,
   };
-  // string tagName = 2;
-  void clear_tagname();
-  const std::string& tagname() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_tagname(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_tagname();
-  PROTOBUF_NODISCARD std::string* release_tagname();
-  void set_allocated_tagname(std::string* tagname);
+  // int64 actionSeq = 2;
+  void clear_actionseq();
+  int64_t actionseq() const;
+  void set_actionseq(int64_t value);
   private:
-  const std::string& _internal_tagname() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_tagname(const std::string& value);
-  std::string* _internal_mutable_tagname();
+  int64_t _internal_actionseq() const;
+  void _internal_set_actionseq(int64_t value);
   public:
 
   // int32 userSeq = 1;
@@ -371,6 +408,33 @@ class SC_ActionBroadcastPacket final :
   void _internal_set_userseq(int32_t value);
   public:
 
+  // float transX = 4;
+  void clear_transx();
+  float transx() const;
+  void set_transx(float value);
+  private:
+  float _internal_transx() const;
+  void _internal_set_transx(float value);
+  public:
+
+  // float transY = 5;
+  void clear_transy();
+  float transy() const;
+  void set_transy(float value);
+  private:
+  float _internal_transy() const;
+  void _internal_set_transy(float value);
+  public:
+
+  // float transZ = 6;
+  void clear_transz();
+  float transz() const;
+  void set_transz(float value);
+  private:
+  float _internal_transz() const;
+  void _internal_set_transz(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.SC_ActionBroadcastPacket)
  private:
   class _Internal;
@@ -379,8 +443,11 @@ class SC_ActionBroadcastPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tagname_;
+    int64_t actionseq_;
     int32_t userseq_;
+    float transx_;
+    float transy_;
+    float transz_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -417,54 +484,104 @@ inline void CS_ActionRequestPacket::set_userseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.userSeq)
 }
 
-// string tagName = 2;
-inline void CS_ActionRequestPacket::clear_tagname() {
-  _impl_.tagname_.ClearToEmpty();
+// int64 actionSeq = 2;
+inline void CS_ActionRequestPacket::clear_actionseq() {
+  _impl_.actionseq_ = int64_t{0};
 }
-inline const std::string& CS_ActionRequestPacket::tagname() const {
-  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.tagName)
-  return _internal_tagname();
+inline int64_t CS_ActionRequestPacket::_internal_actionseq() const {
+  return _impl_.actionseq_;
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void CS_ActionRequestPacket::set_tagname(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.tagname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.tagName)
+inline int64_t CS_ActionRequestPacket::actionseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.actionSeq)
+  return _internal_actionseq();
 }
-inline std::string* CS_ActionRequestPacket::mutable_tagname() {
-  std::string* _s = _internal_mutable_tagname();
-  // @@protoc_insertion_point(field_mutable:Protocol.CS_ActionRequestPacket.tagName)
-  return _s;
-}
-inline const std::string& CS_ActionRequestPacket::_internal_tagname() const {
-  return _impl_.tagname_.Get();
-}
-inline void CS_ActionRequestPacket::_internal_set_tagname(const std::string& value) {
+inline void CS_ActionRequestPacket::_internal_set_actionseq(int64_t value) {
   
-  _impl_.tagname_.Set(value, GetArenaForAllocation());
+  _impl_.actionseq_ = value;
 }
-inline std::string* CS_ActionRequestPacket::_internal_mutable_tagname() {
+inline void CS_ActionRequestPacket::set_actionseq(int64_t value) {
+  _internal_set_actionseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.actionSeq)
+}
+
+// int64 channelId = 3;
+inline void CS_ActionRequestPacket::clear_channelid() {
+  _impl_.channelid_ = int64_t{0};
+}
+inline int64_t CS_ActionRequestPacket::_internal_channelid() const {
+  return _impl_.channelid_;
+}
+inline int64_t CS_ActionRequestPacket::channelid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.channelId)
+  return _internal_channelid();
+}
+inline void CS_ActionRequestPacket::_internal_set_channelid(int64_t value) {
   
-  return _impl_.tagname_.Mutable(GetArenaForAllocation());
+  _impl_.channelid_ = value;
 }
-inline std::string* CS_ActionRequestPacket::release_tagname() {
-  // @@protoc_insertion_point(field_release:Protocol.CS_ActionRequestPacket.tagName)
-  return _impl_.tagname_.Release();
+inline void CS_ActionRequestPacket::set_channelid(int64_t value) {
+  _internal_set_channelid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.channelId)
 }
-inline void CS_ActionRequestPacket::set_allocated_tagname(std::string* tagname) {
-  if (tagname != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.tagname_.SetAllocated(tagname, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.tagname_.IsDefault()) {
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.CS_ActionRequestPacket.tagName)
+
+// float transX = 4;
+inline void CS_ActionRequestPacket::clear_transx() {
+  _impl_.transx_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transx() const {
+  return _impl_.transx_;
+}
+inline float CS_ActionRequestPacket::transx() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transX)
+  return _internal_transx();
+}
+inline void CS_ActionRequestPacket::_internal_set_transx(float value) {
+  
+  _impl_.transx_ = value;
+}
+inline void CS_ActionRequestPacket::set_transx(float value) {
+  _internal_set_transx(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transX)
+}
+
+// float transY = 5;
+inline void CS_ActionRequestPacket::clear_transy() {
+  _impl_.transy_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transy() const {
+  return _impl_.transy_;
+}
+inline float CS_ActionRequestPacket::transy() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transY)
+  return _internal_transy();
+}
+inline void CS_ActionRequestPacket::_internal_set_transy(float value) {
+  
+  _impl_.transy_ = value;
+}
+inline void CS_ActionRequestPacket::set_transy(float value) {
+  _internal_set_transy(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transY)
+}
+
+// float transZ = 6;
+inline void CS_ActionRequestPacket::clear_transz() {
+  _impl_.transz_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transz() const {
+  return _impl_.transz_;
+}
+inline float CS_ActionRequestPacket::transz() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transZ)
+  return _internal_transz();
+}
+inline void CS_ActionRequestPacket::_internal_set_transz(float value) {
+  
+  _impl_.transz_ = value;
+}
+inline void CS_ActionRequestPacket::set_transz(float value) {
+  _internal_set_transz(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transZ)
 }
 
 // -------------------------------------------------------------------
@@ -491,54 +608,84 @@ inline void SC_ActionBroadcastPacket::set_userseq(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.userSeq)
 }
 
-// string tagName = 2;
-inline void SC_ActionBroadcastPacket::clear_tagname() {
-  _impl_.tagname_.ClearToEmpty();
+// int64 actionSeq = 2;
+inline void SC_ActionBroadcastPacket::clear_actionseq() {
+  _impl_.actionseq_ = int64_t{0};
 }
-inline const std::string& SC_ActionBroadcastPacket::tagname() const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.tagName)
-  return _internal_tagname();
+inline int64_t SC_ActionBroadcastPacket::_internal_actionseq() const {
+  return _impl_.actionseq_;
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void SC_ActionBroadcastPacket::set_tagname(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.tagname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.tagName)
+inline int64_t SC_ActionBroadcastPacket::actionseq() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.actionSeq)
+  return _internal_actionseq();
 }
-inline std::string* SC_ActionBroadcastPacket::mutable_tagname() {
-  std::string* _s = _internal_mutable_tagname();
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_ActionBroadcastPacket.tagName)
-  return _s;
-}
-inline const std::string& SC_ActionBroadcastPacket::_internal_tagname() const {
-  return _impl_.tagname_.Get();
-}
-inline void SC_ActionBroadcastPacket::_internal_set_tagname(const std::string& value) {
+inline void SC_ActionBroadcastPacket::_internal_set_actionseq(int64_t value) {
   
-  _impl_.tagname_.Set(value, GetArenaForAllocation());
+  _impl_.actionseq_ = value;
 }
-inline std::string* SC_ActionBroadcastPacket::_internal_mutable_tagname() {
+inline void SC_ActionBroadcastPacket::set_actionseq(int64_t value) {
+  _internal_set_actionseq(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.actionSeq)
+}
+
+// float transX = 4;
+inline void SC_ActionBroadcastPacket::clear_transx() {
+  _impl_.transx_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transx() const {
+  return _impl_.transx_;
+}
+inline float SC_ActionBroadcastPacket::transx() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transX)
+  return _internal_transx();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transx(float value) {
   
-  return _impl_.tagname_.Mutable(GetArenaForAllocation());
+  _impl_.transx_ = value;
 }
-inline std::string* SC_ActionBroadcastPacket::release_tagname() {
-  // @@protoc_insertion_point(field_release:Protocol.SC_ActionBroadcastPacket.tagName)
-  return _impl_.tagname_.Release();
+inline void SC_ActionBroadcastPacket::set_transx(float value) {
+  _internal_set_transx(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transX)
 }
-inline void SC_ActionBroadcastPacket::set_allocated_tagname(std::string* tagname) {
-  if (tagname != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.tagname_.SetAllocated(tagname, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.tagname_.IsDefault()) {
-    _impl_.tagname_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_ActionBroadcastPacket.tagName)
+
+// float transY = 5;
+inline void SC_ActionBroadcastPacket::clear_transy() {
+  _impl_.transy_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transy() const {
+  return _impl_.transy_;
+}
+inline float SC_ActionBroadcastPacket::transy() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transY)
+  return _internal_transy();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transy(float value) {
+  
+  _impl_.transy_ = value;
+}
+inline void SC_ActionBroadcastPacket::set_transy(float value) {
+  _internal_set_transy(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transY)
+}
+
+// float transZ = 6;
+inline void SC_ActionBroadcastPacket::clear_transz() {
+  _impl_.transz_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transz() const {
+  return _impl_.transz_;
+}
+inline float SC_ActionBroadcastPacket::transz() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transZ)
+  return _internal_transz();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transz(float value) {
+  
+  _impl_.transz_ = value;
+}
+inline void SC_ActionBroadcastPacket::set_transz(float value) {
+  _internal_set_transz(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transZ)
 }
 
 #ifdef __GNUC__

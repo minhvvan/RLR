@@ -9,6 +9,8 @@
 #include "UI/InGame/Shop/NPCSaleTab.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/ObjectManager.h"
 
 void UNPCShopUI::NativeConstruct()
 {
@@ -27,16 +29,22 @@ void UNPCShopUI::SetItemData(const TArray<FItemData>& Items)
 	auto purchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
 	if (!purchaseTab) return;
 	purchaseTab->SetItemList(ItemData.Get());
+
+	FNPCData npc = GameInstance->GetObjectManager()->GetNPCDataBySeq(1);
+	for (int i = 0; i < npc.Shop.Num(); i++)
+	{
+		SetShopData(npc.Shop[i]);
+	}
 }
 
 void UNPCShopUI::SetShopData(FNPCShop& Data)
 {
-	NPCShopData = MakeShared<FNPCShop>(Data);
+	NPCShopData = Data;
 }
 
-TWeakPtr<FNPCShop> UNPCShopUI::GetShopData()
+FNPCShop& UNPCShopUI::GetShopData()
 {
-	return NPCShopData.ToWeakPtr();
+	return NPCShopData;
 }
 
 UPanelSlot* UNPCShopUI::AddChild(UUserWidget* Child)

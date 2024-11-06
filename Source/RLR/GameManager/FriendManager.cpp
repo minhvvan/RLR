@@ -34,6 +34,20 @@ const TArray<FFriendGroupResult>& UFriendManager::GetFriendData() const
 	return GroupData;
 }
 
+void UFriendManager::SetRequestFriendData(int NewFriendSeq, FString NewFriendName)
+{
+	RequestFriendData.Add(NewFriendSeq) = NewFriendName;
+	if (FriendListUI)
+	{
+		FriendListUI->SetFriendRequestData(RequestFriendData);
+	}
+}
+
+const TMap<int32, FString>& UFriendManager::GetRequestFriendData() const
+{
+	return RequestFriendData;
+}
+
 void UFriendManager::AddToFriendDeletionList(const int32& NewFriendData)
 {
 }
@@ -44,3 +58,8 @@ TArray<FFriendGroupResult> UFriendManager::GetAndClearFriendDeletionList()
 	FriendDeletionList.Empty();
 	return TempList;
 }
+
+void UFriendManager::DeleteFromRequestList(int friendSeq)
+{
+	RequestFriendData.Remove(friendSeq);
+}	
