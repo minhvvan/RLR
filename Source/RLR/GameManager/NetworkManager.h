@@ -252,9 +252,7 @@ public:
 
     bool SendMoveMap();
 
-    void SetMapId(int64 mapId);
 
-    int64 GetMapId() { return MapId; }
 
 private:
     FSocket* LoginServerSocket;
@@ -270,10 +268,6 @@ private:
     FRunnableThread* LobbyServerThread;
     FRunnableThread* LoginServerThread;
     LoadBalancerClient* LoadBalancer;
-
-    UPROPERTY()
-    int64 MapId;
-
 };
 
 #define SEND_PACKET(Packet) \

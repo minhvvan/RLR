@@ -74,7 +74,7 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
     GameInstance->GetPlayerManager()->SpawnPlayerTransform(FVector(pkt.usercharacter().transx(), pkt.usercharacter().transy(), pkt.usercharacter().transz()));
-    GameInstance->GetNetworkManager()->SetMapId(pkt.usercharacter().mapid());
+    GameInstance->SetMapId(pkt.usercharacter().mapid());
     GameInstance->SetUserSeq(pkt.usercharacter().userseq());
     GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();

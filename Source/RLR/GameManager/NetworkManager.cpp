@@ -113,10 +113,6 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     }
 }
 
-void UNetworkManager::SetMapId(int64 mapId) {
-
-    this->MapId = mapId;
-}
 void UNetworkManager::Update()
 {
     // Periodic updates if needed
@@ -145,7 +141,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
     if (!MonsterServerSocket) return false;
 
     Protocol::CS_MapMonsterInfoRequestPacket packet;
-    packet.set_mapid(MapId);
+    packet.set_mapid(GameInstance->GetMapId());
     packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
@@ -316,8 +312,8 @@ bool UNetworkManager::SendNPCInfoPacket() {
 
     if (!MainServerSocket) return false;
     Protocol::CS_NPCInfoRequest packet;
-    packet.set_mapid(MapId);
-    UE_LOG(LogTemp, Log, TEXT("Map Id : %d"),MapId);
+    packet.set_mapid(GameInstance->GetMapId());
+    UE_LOG(LogTemp, Log, TEXT("Map Id : %d"), GameInstance->GetMapId());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool bSuccess = SendToMainSocket(sendBuffer);

@@ -51,7 +51,7 @@ bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& Charac
 	*/
 	
 	GameInstance->SetUserSeq(Character.UserSeq);
-	GameInstance->GetNetworkManager()->SetMapId(Character.MapId);
+	GameInstance->SetMapId(Character.MapId);
 	GameInstance->GetNetworkManager()->SendEnterPacket(Character.UserSeq);
 	DEBUG_INCOMPLETE;
 	return false;

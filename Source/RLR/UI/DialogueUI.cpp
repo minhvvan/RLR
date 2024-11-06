@@ -26,6 +26,7 @@ void UDialogueUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
+
 	BtnQuest->OnClicked.AddDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
 	BtnShop->OnClicked.AddDynamic(this, &UDialogueUI::OnShopClicked);
 	PostButton->OnClicked.AddDynamic(this, &UDialogueUI::OnPostClicked);
