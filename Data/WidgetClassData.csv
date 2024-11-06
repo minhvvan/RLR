@@ -22,3 +22,4 @@ WBP_PostAlertUI,"/Script/UMG.WidgetBlueprintGeneratedClass'/Game/Blueprints/UI/I
 WBP_BaseScreen,"/Script/UMG.WidgetBlueprintGeneratedClass'/Game/Blueprints/UI/InGame/WBP_BaseScreen.WBP_BaseScreen_C'","베이스 스크린"
 WBP_TitleMainUI,"/Script/UMG.WidgetBlueprintGeneratedClass'/Game/Blueprints/UI/Title/WBP_TitleMainUI.WBP_TitleMainUI_C'","타이틀 화면"
 WBP_LobbyMainUI,"/Script/UMG.WidgetBlueprintGeneratedClass'/Game/Blueprints/UI/Lobby/WBP_LobbyMainUI.WBP_LobbyMainUI_C'","로비 화면"
+
