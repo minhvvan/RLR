@@ -12,8 +12,8 @@ void UGuildUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::Guild);
-	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
+	//SetUIType(EUIType::Guild);
+	//SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
 }
 
 void UGuildUI::Init()

@@ -12,12 +12,12 @@ void UGuildManager::InitializeGuildManager()
 	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (!UIManager) return;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if (!InGameMainUI) return;
+	//UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
+	//if (!InGameMainUI) return;
 
-	UGuildUI* GuildUI = InGameMainUI->GetGuildUI();
+	//UGuildUI* GuildUI = InGameMainUI->GetGuildUI();
 
-	GuildOverlayUI = GuildUI;
+	//GuildOverlayUI = GuildUI;
 }
 
 void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
