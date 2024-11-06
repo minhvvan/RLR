@@ -83,7 +83,7 @@ bool UNetworkManager::SendExitCommunity(int communitySeq)
 
 	Protocol::CS_CommunityExitRequest packet;
 
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 	packet.set_communityseq(communitySeq);
 
 	SEND_PACKET(packet);
@@ -98,7 +98,7 @@ bool UNetworkManager::SendCreateCommunity(FText title, int communityType)
 
 	// FString을 std::string으로 변환
 	std::string titleStdString(TCHAR_TO_UTF8(*titleFString));
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 	packet.set_title(titleStdString);
 	packet.set_communitytype(communityType);
 
@@ -134,7 +134,7 @@ bool UNetworkManager::SendCancelContent(int communitySeq)
 
 	Protocol::CS_ContentCancelRequest packet;
 
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 	packet.set_communityseq(communitySeq);
 
 	SEND_PACKET(packet);
@@ -146,7 +146,7 @@ bool UNetworkManager::SendAcceptContent(int communitySeq)
 
 	Protocol::CS_ContentAcceptRequest packet;
 
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 	packet.set_communityseq(communitySeq);
 
 	SEND_PACKET(packet);

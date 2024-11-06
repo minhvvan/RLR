@@ -26,7 +26,7 @@ void UGuildManagementUI::NativeConstruct()
 
 	for (const FGuildRank& guildRank : GameInstance->GetGuildManager()->GetGuildInfo().GuildRanks)
 	{
-		if (guildRank.UserSeq == GameInstance->GetNetworkManager()->GetUserSeq())
+		if (guildRank.UserSeq == GameInstance->GetUserSeq())
 		{
 			/* 길드장에게만 보이도록 하기 */
 			if (guildRank.GuildRankSeq == 4)
@@ -57,7 +57,7 @@ void UGuildManagementUI::InviteButtonClicked()
 void UGuildManagementUI::QuitGuldButtonClicked()
 {
 	int32 GuildSeq = GameInstance->GetGuildManager()->GetGuildInfo().guildSeq;
-	int32 UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+	int32 UserSeq = GameInstance->GetUserSeq();
 	GameInstance->GetNetworkManager()->SendRemoveGuild(UserSeq, GuildSeq);
 }
 

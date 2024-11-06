@@ -28,7 +28,7 @@ bool UNetworkManager::SendAddItemPacket(int64 itemId, int32 value)
     Protocol::CS_AddItemRequest packet;
    
     packet.set_objectid(itemId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_value(value);
 
     SEND_PACKET(packet);

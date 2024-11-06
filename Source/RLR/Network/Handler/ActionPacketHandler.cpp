@@ -25,7 +25,7 @@ bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MoveR
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_MoveBroadcastPacket& pkt) {
 
 	UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
-	if (GameInstance->GetNetworkManager()->GetUserSeq() != pkt.userseq()) {
+	if (GameInstance->GetUserSeq() != pkt.userseq()) {
 		if (OtherManager->GetPlayer(pkt.userseq())) {
 			OtherManager->GetPlayer(pkt.userseq())->UpdateTransform(FVector(pkt.transx(), pkt.transy(), pkt.transz()));
 		}
@@ -49,7 +49,7 @@ bool Handle_ACTION_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_Ac
 {
 	UOtherUserManager* otherManager = GameInstance->GetOtherUserManager();
 
-	if (GameInstance->GetNetworkManager()->GetUserSeq() != pkt.userseq())
+	if (GameInstance->GetUserSeq() != pkt.userseq())
 	{
 		if (otherManager->GetPlayer(pkt.userseq()))
 		{

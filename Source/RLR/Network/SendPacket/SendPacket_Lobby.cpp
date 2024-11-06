@@ -50,7 +50,7 @@ bool UNetworkManager::SendEnterGameFromLobbyReqeust(const FUserCharacter& Charac
 		로비에서 선택한 캐릭터 입장
 	*/
 	
-	GameInstance->GetNetworkManager()->SetUserSeq(Character.UserSeq);
+	GameInstance->SetUserSeq(Character.UserSeq);
 	GameInstance->GetNetworkManager()->SetMapId(Character.MapId);
 	GameInstance->GetNetworkManager()->SendEnterPacket(Character.UserSeq);
 	DEBUG_INCOMPLETE;

@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include <Network/Buffer.h>
 #include "Subsystems/GameInstanceSubsystem.h"
-
+#include "GameManager/GameManager.h"
 #include "RLRStruct.h"
 
 #include "Structs/UtilStructs.h"
@@ -252,12 +252,8 @@ public:
 
     bool SendMoveMap();
 
-    void SetUserSeq(int32 userSeq);
-    void SetPlayerSeq(int32 playerSeq);
     void SetMapId(int64 mapId);
 
-    int32 GetUserSeq() { return UserSeq; }
-    int32 GetPlayerSeq() { return PlayerSeq; }
     int64 GetMapId() { return MapId; }
 
 private:
@@ -274,10 +270,7 @@ private:
     FRunnableThread* LobbyServerThread;
     FRunnableThread* LoginServerThread;
     LoadBalancerClient* LoadBalancer;
-    UPROPERTY()
-    int32 PlayerSeq;
-    UPROPERTY()
-    int32 UserSeq;
+
     UPROPERTY()
     int64 MapId;
 
