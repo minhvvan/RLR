@@ -142,6 +142,24 @@ struct FActionResource : public FTableRowBase
 };
 
 USTRUCT(Atomic, BlueprintType)
+struct FActionResult : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 UserSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int32 ActionSeq;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	int64 ChannelId;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	FVector TargetTransform;
+};
+
+USTRUCT(Atomic, BlueprintType)
 struct FPostResult
 {
 	GENERATED_BODY()

@@ -6,12 +6,16 @@
 #include "ActionSystem/ActionSystemComponent.h"
 
 
-bool UNetworkManager::SendActionPacket(int32 userSeq, int actionSeq)
+bool UNetworkManager::SendActionPacket(FActionResult actionResult)
 {
     Protocol::CS_ActionRequestPacket packet;
-    packet.set_userseq(userSeq);
-    packet.set_actionseq(actionSeq);
-
+    packet.set_userseq(actionResult.UserSeq);
+    packet.set_actionseq(actionResult.ActionSeq);
+    packet.set_channelid(actionResult.ChannelId);
+    packet.set_transx(actionResult.TargetTransform.X);
+    packet.set_transy(actionResult.TargetTransform.Y);
+    packet.set_transz(actionResult.TargetTransform.Z);
+    
     SEND_PACKET(packet);
    
     return false; 
