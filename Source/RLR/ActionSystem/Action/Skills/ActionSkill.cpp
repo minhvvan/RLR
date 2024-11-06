@@ -53,13 +53,13 @@ void UActionSkill::PlaySkillMontage()
 		if (!noti) continue;
 
 		noti->OnTriggered.Clear();
-		noti->OnTriggered.AddDynamic(this, &ThisClass::OnAnimNotifyTriggered);
+		noti->OnTriggered.AddUniqueDynamic(this, &ThisClass::OnAnimNotifyTriggered);
 	}
 
 	//Play Montage
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), ActionMontage);
-	AT->OnCompleted.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
-	AT->OnCancelled.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
+	AT->OnCompleted.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
+	AT->OnCancelled.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
 
 	AT->ReadyForActivation();
 }

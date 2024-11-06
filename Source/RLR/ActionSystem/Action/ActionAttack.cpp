@@ -31,7 +31,7 @@ bool UActionAttack::PreActivateAction()
 		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
 		if (!noti) continue;
 
-		noti->OnTriggered.AddDynamic(this, &ThisClass::OnAnimNotifyTriggered);
+		noti->OnTriggered.AddUniqueDynamic(this, &ThisClass::OnAnimNotifyTriggered);
 	}
 
 	return bPossible;
