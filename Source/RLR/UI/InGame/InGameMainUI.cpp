@@ -9,8 +9,9 @@
 #include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
 #include "UI/InGame/StatusDisplay/StatusDisplay.h"
 
+
 #include "Blueprint/WidgetTree.h"
-#include <Kismet/GameplayStatics.h>
+#include "Kismet/GameplayStatics.h"
 
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
@@ -21,7 +22,6 @@
 void UInGameMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::INGAME_MAIN_UI);
 }
 
 void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
@@ -39,66 +39,25 @@ void UInGameMainUI::SetActionSystemComponent(AActor* Owner)
 	StatSet에 묶여있는 Data들이 변경되면 업데이트할 UI들의 함수 Binding
 	*/
 	statSet->ClearBindFunc();
-	statSet->OnChangedTotalStatus.AddDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
-	statSet->OnChangedSetStatus.AddDynamic(this, &UInGameMainUI::OnChangedSetStatus);
-	statSet->OnChangedLevel.AddDynamic(this, &UInGameMainUI::OnChangedLevel);
-	statSet->OnChangedExp.AddDynamic(this, &UInGameMainUI::OnChangedExp);
-	statSet->OnChangedTalent.AddDynamic(this, &UInGameMainUI::OnChangedTalent);
+	statSet->OnChangedTotalStatus.AddUniqueDynamic(this, &UInGameMainUI::OnChangedTotalStatus);
+	statSet->OnChangedSetStatus.AddUniqueDynamic(this, &UInGameMainUI::OnChangedSetStatus);
+	statSet->OnChangedLevel.AddUniqueDynamic(this, &UInGameMainUI::OnChangedLevel);
+	statSet->OnChangedExp.AddUniqueDynamic(this, &UInGameMainUI::OnChangedExp);
+	statSet->OnChangedTalent.AddUniqueDynamic(this, &UInGameMainUI::OnChangedTalent);
 }
 
-bool UInGameMainUI::ToggleSubUI(FGameplayTag inputTag)
+void UInGameMainUI::OnPageActivated()
 {
-	USubUI* subUI = GetSubUI(inputTag);
-	if (!subUI) return false;
-
-	bool bOpen = subUI->GetVisibility() == ESlateVisibility::Hidden;
-
-	if (bOpen)
-	{
-		subUI->OpenUI();
-	}
-	else
-	{
-		subUI->CloseUI();
-	}
-
-	return bOpen;
-}
-
-void UInGameMainUI::OpenSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return;
-
-	subUI->OpenUI();
-}
-
-void UInGameMainUI::CloseSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return;
-
-	subUI->CloseUI();
-}
-
-bool UInGameMainUI::IsOpenSubUI(FGameplayTag InputTag)
-{
-	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return false;
-
-	return subUI->GetVisibility() == ESlateVisibility::Visible;
-}
-
-USubUI* UInGameMainUI::GetSubUI(FGameplayTag InputTag)
-{
-	if (!UserActionSubUI.Contains(InputTag)) return nullptr;
-	return UserActionSubUI[InputTag];
+	ChangeInputModeGameAndUI();
 }
 
 void UInGameMainUI::OnChangedTotalStatus()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
+
+	auto CharacterStatusUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Stat);
 	if (!CharacterStatusUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -111,6 +70,7 @@ void UInGameMainUI::OnChangedTotalStatus()
 void UInGameMainUI::OnChangedSetStatus()
 {
 	if (!ActionSystemComponent) return;
+	auto CharacterStatusUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Stat);
 	if (!CharacterStatusUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -123,6 +83,7 @@ void UInGameMainUI::OnChangedSetStatus()
 void UInGameMainUI::OnChangedExp()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
@@ -144,6 +105,7 @@ void UInGameMainUI::OnChangedTalent()
 void UInGameMainUI::OnChangedLevel()
 {
 	if (!ActionSystemComponent) return;
+	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
 	if (!StatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();

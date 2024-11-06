@@ -17,7 +17,6 @@
 void UTitleMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::TITLE_MAIN_UI);
 
 	ConnectServerButton->OnClicked.AddUniqueDynamic(this, &UTitleMainUI::OnClickedConnectServerButton);
 }

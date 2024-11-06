@@ -18,6 +18,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/FriendManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Structs/UtilStructs.h"
 
 
@@ -25,7 +26,6 @@ void UFriendListUI::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    SetUIType(EUIType::FRIEND_LIST_UI);
     SetUITag(FGameplayTagManager::Get().UI_FriendList);
 
     bOpenRequestUI = false;
@@ -36,7 +36,7 @@ void UFriendListUI::NativeConstruct()
 
     if (FriendTabButton)
     {
-        FriendTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
+        FriendTabButton->OnClicked.AddUniqueDynamic(this, &UFriendListUI::OnFriendTabButtonClicked);
     }
     if (FriendRequestTabButton)
     {

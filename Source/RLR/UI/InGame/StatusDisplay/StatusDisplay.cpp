@@ -27,7 +27,6 @@
 void UStatusDisplay::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::STATUS_DISPLAY);
 
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
 	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);

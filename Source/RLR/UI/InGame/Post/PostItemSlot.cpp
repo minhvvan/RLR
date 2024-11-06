@@ -109,13 +109,13 @@ void UPostItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPoint
 	if (IsEmpty() == true)
 		return;
 
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (!GM) return;
-
-	UUIManager* UIManager = GM->GetUIManager();
+	UUIManager* UIManager = GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UIManager->OpenSubUINearTargetSlot(this, EUIType::ITEM_INFOMATION);
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(RLRTAG.Page_InGame);
+	if (UIManager == nullptr) return;
+
+	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
 }
 
 void UPostItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)

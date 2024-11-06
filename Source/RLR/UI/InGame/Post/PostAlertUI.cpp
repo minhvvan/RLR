@@ -23,15 +23,15 @@ void UPostAlertUI::NativeConstruct()
 
     if (CloseButton)
     {
-        CloseButton->OnClicked.AddDynamic(this, &UPostAlertUI::OnCloseButtonClicked);
+        CloseButton->OnClicked.AddUniqueDynamic(this, &UPostAlertUI::OnCloseButtonClicked);
     }
     if (RemovePostButton)
     {
-        RemovePostButton->OnClicked.AddDynamic(this, &UPostAlertUI::OnRemovePostButtonClicked);
+        RemovePostButton->OnClicked.AddUniqueDynamic(this, &UPostAlertUI::OnRemovePostButtonClicked);
     }
     if (AcceptAllButton)
     {
-        AcceptAllButton->OnClicked.AddDynamic(this, &UPostAlertUI::OnAcceptButtonClicked);
+        AcceptAllButton->OnClicked.AddUniqueDynamic(this, &UPostAlertUI::OnAcceptButtonClicked);
     }
 }
 

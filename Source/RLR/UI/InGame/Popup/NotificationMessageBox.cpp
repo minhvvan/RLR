@@ -19,8 +19,6 @@ void UNotificationMessageBox::NativeConstruct()
 void UNotificationMessageBox::Init()
 {
 	Super::Init();
-
-	SetUIType(EUIType::NOTIFICATION_MESSAGE_BOX);
 }
 
 void UNotificationMessageBox::RefreshUI()

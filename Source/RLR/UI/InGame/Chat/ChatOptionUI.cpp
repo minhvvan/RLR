@@ -6,6 +6,8 @@
 #include "Components/Button.h"
 #include "GameOptionData/GameOptionData.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/InGame/Chat/ChatUI.h"
 #include "UI/InGame/InGameMainUI.h"
@@ -16,8 +18,7 @@ void UChatOptionUI::NativeConstruct()
 {
     //필터가 바뀌어도 채팅 탭이 다를 수 있으니 현재 선택되어 있는 타입을 불러와준다.
     Super::NativeConstruct();
-    SetUIType(EUIType::CHAT_OPTION_UI);
-    SetUITag(FGameplayTagManager::Get().UI_ChatOption);
+    SetUITag(RLRTAG.UI_Chat_Option);
 
     LoadChatOption();
     Init();
@@ -137,9 +138,13 @@ void UChatOptionUI::OnConfirmButtonClicked()
         CloseUI();
         SaveChatOption();
 
-        UChatUI* ChatUI = GetMainUI<UInGameMainUI>()->GetChatUI();
-        if(ChatUI)
-            ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
+        auto UIManager = GetUIManager();
+        if (!UIManager) return;
+
+        UChatUI* ChatUI = UIManager->GetSubUI<UChatUI>(RLRTAG.UI_Chat);
+        if (!ChatUI) return;
+
+        ChatUI->UpdateChatDisplay(ChatUI->GetCurrentChatTypeTab());
     }
 }
 

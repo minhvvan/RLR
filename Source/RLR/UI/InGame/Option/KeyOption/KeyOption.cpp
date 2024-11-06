@@ -31,7 +31,6 @@
 void UKeyOption::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::KEY_OPTION);
 	SetUITag(FGameplayTagManager::Get().UI_KeyOption);
 	
 	TArray<UWidget*> Array;
@@ -225,13 +224,15 @@ void UKeyOption::ApplyKeyOption()
 	/*
 		퀵 슬롯도 업데이트
 	*/
+	auto UIManager = GetUIManager();
+	if (!UIManager) return;
 
-	 UStatusDisplay* StatusDisplay = Cast<UInGameMainUI>(GetUIManager()->GetMainUI())->GetStatusDisplayUI();
-	 if(IsValid(StatusDisplay) == false)
+	UStatusDisplay* StatusDisplay = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
+	if(IsValid(StatusDisplay) == false)
 		return;
 
-	 StatusDisplay->LoadSkillQuickSlotData();
-	 StatusDisplay->LoadItemQuickSlotData();
+	StatusDisplay->LoadSkillQuickSlotData();
+	StatusDisplay->LoadItemQuickSlotData();
 }
 
 void UKeyOption::CreateDataAsset()

@@ -21,8 +21,7 @@ void UItemCountMessageBox::Init()
 {
 	Super::Init();
 
-	SetUITag(FGameplayTagManager::Get().ItemCountMessageBox);
-	SetUIType(EUIType::ITEM_COUNT_MESSAGE_BOX);
+	SetUITag(RLRTAG.UI_Popup_ItemCountMessageBox);
 }
 
 void UItemCountMessageBox::RefreshUI()

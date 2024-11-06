@@ -8,6 +8,7 @@
 /**`
 	Gameplay Tag를 관리하기 위한 구조체겸 싱글톤
  */
+#define RLRTAG FGameplayTagManager::Get()
 
 struct FGameplayTagManager
 {
@@ -101,42 +102,68 @@ public:
 
 	FGameplayTagContainer ItemTags;
 
+
+
+
 	/*
-		Action UI. Key Binding에 함께 사용되는 태그.
+	* Page
 	*/
+	FGameplayTag Page_InGame;
+	FGameplayTag Page_Dialogue;
+
+	/*
+	UI Tag: 식별을 위한 고유한 태그
+	*/
+
+	FGameplayTag UI_Character_Status;
+	FGameplayTag UI_Character_Display;
+
+	FGameplayTag UI_Stat;
+
+	FGameplayTag UI_Skill;
+	FGameplayTag UI_Skill_Upgrade;
+	FGameplayTag UI_Skill_DetailInfo;
 
 	FGameplayTag UI_Inventory;
 	FGameplayTag UI_ItemInfomation;
-	FGameplayTag UI_CharacterStatus;
-	FGameplayTag UI_KeyOption;
-	FGameplayTag UI_Skill;
-	FGameplayTag UI_Quest;
+
+	FGameplayTag UI_NPCShop;
+	FGameplayTag UI_NPCShop_Popup_Bundle;
+
 	FGameplayTag UI_Chat;
-	FGameplayTag UI_ChatOption;
-	FGameplayTag UI_Party;
-	FGameplayTag UI_Guild;
-	FGameplayTag UI_FriendList;
+	FGameplayTag UI_Chat_Option;
 	
-	FGameplayTag UI_SkillUpgrade;
-	FGameplayTag UI_Close;
-	
-	/*
-		UI Tag. 단순히 종류 분류를 위해 사용.
-	*/
+	FGameplayTag UI_KeyOption;
 
-	FGameplayTag TradeUI;
-
-	/*
-		Popup Tag. 단순히 종류 분류를 위해 사용.
-	*/
-
-	FGameplayTag ItemCountMessageBox;
-
+	FGameplayTag UI_Quest;
+	FGameplayTag UI_Quest_Dialogue;
 
 	FGameplayTag UI_Post;
-	FGameplayTag UI_OtherPlayerMenu;
-	FGameplayTag UI_OtherPlayerStatus;
+	FGameplayTag UI_Post_Alert;
+
+	FGameplayTag UI_Party;
+	FGameplayTag UI_Trade;
+	FGameplayTag UI_FriendList;
 	FGameplayTag UI_Report;
+	FGameplayTag UI_Guild;
+	
+	FGameplayTag UI_Popup_ItemCountMessageBox;
+	FGameplayTag UI_Popup_NotificationMessageBox;
+	FGameplayTag UI_Popup_ConfirmMessageBox;
+
+	FGameplayTag UI_OtherPlayer_Menu;
+	FGameplayTag UI_OtherPlayer_Display;
+	FGameplayTag UI_OtherPlayer_Stat;
+
+	FGameplayTag UI_MiniMap;
+	FGameplayTag UI_Badge;
+
+	FGameplayTag UI_Montster_Display;
+	FGameplayTag UI_TimerProgressBar;
+
+	FGameplayTag UI_Menu;
+
+
 	/*
 	
 			키 입력 바인딩에 사용되는 태그

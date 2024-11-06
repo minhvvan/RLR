@@ -8,10 +8,10 @@
 
 void UNPCShopBundlePurchase::NativeConstruct()
 {
-	BtnConfirm->OnClicked.AddDynamic(this, &UNPCShopBundlePurchase::OnConfirmClicked);
-	BtnCancel->OnClicked.AddDynamic(this, &UNPCShopBundlePurchase::OnCancelClicked);
-	BtnIncrease->OnClicked.AddDynamic(this, &UNPCShopBundlePurchase::OnIncreaseClicked);
-	BtnDecrease->OnClicked.AddDynamic(this, &UNPCShopBundlePurchase::OnDecreaseClicked);
+	BtnConfirm->OnClicked.AddUniqueDynamic(this, &UNPCShopBundlePurchase::OnConfirmClicked);
+	BtnCancel->OnClicked.AddUniqueDynamic(this, &UNPCShopBundlePurchase::OnCancelClicked);
+	BtnIncrease->OnClicked.AddUniqueDynamic(this, &UNPCShopBundlePurchase::OnIncreaseClicked);
+	BtnDecrease->OnClicked.AddUniqueDynamic(this, &UNPCShopBundlePurchase::OnDecreaseClicked);
 }
 
 void UNPCShopBundlePurchase::OnConfirmClicked()
