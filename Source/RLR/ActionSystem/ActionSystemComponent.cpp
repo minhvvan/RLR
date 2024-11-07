@@ -218,6 +218,11 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 		//해당 instance 삭제
 		Spec->ActionInstances.Remove(EndedAction);
 	}
+
+	if (StoredActionData.Contains(TriggerTag))
+	{
+		StoredActionData.Remove(TriggerTag);
+	}
 }
 
 UAction* UActionSystemComponent::CreateNewInstanceOfAction(FActionSpec& Spec)
