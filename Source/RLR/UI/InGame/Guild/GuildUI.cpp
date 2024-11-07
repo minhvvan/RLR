@@ -32,7 +32,6 @@ void UGuildUI::RefreshUI()
 	else
 	{
 		WidgetSwitcher->SetActiveWidgetIndex(0);
-		//GameInstance->GetNetworkManager()->SendInfoGuild();
 	}
 }
 
