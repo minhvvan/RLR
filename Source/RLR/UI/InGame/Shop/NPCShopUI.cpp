@@ -29,15 +29,9 @@ void UNPCShopUI::SetItemData(const TArray<FItemData>& Items)
 	auto purchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
 	if (!purchaseTab) return;
 	purchaseTab->SetItemList(ItemData.Get());
-
-	FNPCData npc = GameInstance->GetObjectManager()->GetNPCDataBySeq(1);
-	for (int i = 0; i < npc.Shop.Num(); i++)
-	{
-		SetShopData(npc.Shop[i]);
-	}
 }
 
-void UNPCShopUI::SetShopData(FNPCShop& Data)
+void UNPCShopUI::SetShopData(const FNPCShop& Data)
 {
 	NPCShopData = Data;
 }

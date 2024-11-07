@@ -45,6 +45,26 @@ void UGameManager::LoadComplete(const float LoadTime, const FString& MapName)
     GetLevelManager()->LoadComplete(LoadTime, MapName);
 }
 
+void UGameManager::SetUserSeq(int32 userSeq)
+{
+    this->UserSeq = userSeq;
+}
+
+void UGameManager::SetPlayerSeq(int32 playerSeq)
+{
+    this->PlayerSeq = playerSeq;
+}
+
+void UGameManager::SetMapId(int64 mapId) {
+
+    this->MapId = mapId;
+}
+
+void UGameManager::SetChannelId(int64 channelId)
+{
+    this->ChannelId = channelId;
+}
+
 UDataManager* UGameManager::GetDataManager()
 {
 	UDataManager* DataManager = GetSubsystem<UDataManager>(this);

@@ -22,7 +22,7 @@ bool UNetworkManager::SendQuestAddPacket(int npcSeq, int questSeq) {
 
     Protocol::CS_QuestAddRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_npcseq(npcSeq);
     packet.set_questseq(questSeq);
 
@@ -34,7 +34,7 @@ bool UNetworkManager::SendQuestCheckPacket(int questSeq) {
 
     Protocol::CS_QuestCheckRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_questseq(questSeq);
 
 
@@ -46,7 +46,7 @@ bool UNetworkManager::SendQuestCompletePacket(int questSeq) {
 
     Protocol::CS_QuestCompleteRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_questseq(questSeq);
     
 

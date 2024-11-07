@@ -6,6 +6,7 @@
 #include "Network/Proto/Post.pb.h"
 #include "GameplayTagContainer.h"
 #include "Network/Proto/Friend.pb.h"
+#include "Network/Proto/Guild.pb.h"
 #include "UtilStructs.generated.h"
 
 class UAction;
@@ -272,6 +273,26 @@ struct FFriendGroupResult
   void MakeGroupData(const Protocol::Group group);
 };
 
+USTRUCT(BlueprintType)
+struct FGuildRank
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 GuildRankSeq;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 UserSeq;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString UserName;
+
+    FGuildRank()
+        : GuildRankSeq(0), UserSeq(0), UserName(TEXT("")) {}
+
+	static FGuildRank MakeGuildRankData(const Protocol::GuildRank& guildRank);
+};
+
 USTRUCT(Atomic, BlueprintType)
 struct FGuildResult
 {
@@ -288,17 +309,17 @@ struct FGuildResult
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildExp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int guildMaxUser ;
-	
-	/* TODO : GuildPacketHandler로 들어오는 패킷 보고 수정하기 */
+	int guildMaxUser;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//vector<GuildRank> guildRanks;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//vector<UserCharacter> waitUsers;
+	// GuildRank 배열 추가
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FGuildRank> GuildRanks;
 
-	//void MakeGuildData(const Protocol::Guild guild);
-	void MakeGroupData(const Protocol::Group group);	
+	FGuildResult()
+		: guildSeq(-1), guildName(TEXT("")), guildLevel(0), guildMaxExp(0), guildExp(0), guildMaxUser(0) {}
+
+
+	void MakeGuildData(const Protocol::Guild guild);	
 };
 
 USTRUCT(Atomic, BlueprintType)

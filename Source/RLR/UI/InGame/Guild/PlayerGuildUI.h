@@ -6,9 +6,10 @@
 #include "Blueprint/UserWidget.h"
 #include "PlayerGuildUI.generated.h"
 
+class UGuildReportAndExitUI;
 class UGuildManagementUI;
 class UGuildMemberUI;
-class UGuildInfoUI;
+class UGuildMainUI;
 class UWidgetSwitcher;
 class UButton;
 
@@ -32,12 +33,29 @@ public:
 	UFUNCTION()
 	void SwitchToGuildManagement();
 
+	UFUNCTION()
+	void CloseGuildWidget();
+	
+	UFUNCTION()
+	void OpenGuildReportUI();
+
+	void SetGuildOpenState(bool bOpenState) {bOpenGuildReport = bOpenState;};
+
 public:
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* WidgetSwitcher;
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* GuildInfoButton;
+	UButton* GuildMainButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* GuildQuestButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* GuildShopButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* GuildActivityLogButton;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* GuildMemberButton;
@@ -45,13 +63,25 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* ManageGuildButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* GuildReportButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* CloseButton;
+
 	/* 길드 정보, 길드 멤버목록, 길드 관리 */
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UGuildInfoUI> GuildInfoUI;
+	TObjectPtr<UGuildMainUI> GuildMainUI;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UGuildMemberUI> GuildMemberUI;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UGuildManagementUI> GuildManagementUI;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UGuildReportAndExitUI> GuildReportAndExitUI;
+
+private:
+	bool bOpenGuildReport;
 };

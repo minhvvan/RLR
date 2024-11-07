@@ -17,7 +17,7 @@ bool UNetworkManager::SendMatchMaking(int64 mapId) {
     Protocol::CS_MatchMakingRequest packet;
 
     packet.set_mapid(mapId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }

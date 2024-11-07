@@ -71,7 +71,7 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 		/* 임시 값 */
 		PostResult.ReceiverName = RecipientIdString;
 		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
-		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+		PostResult.SenderSeq = GameInstance->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();
 		PostResult.Title = PostTitleText->GetText().ToString();
 		PostResult.Content = PostContentText->GetText().ToString();

@@ -10,6 +10,7 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Structs/UtilStructs.h"
 #include "Network/Proto/Item.pb.h"
+#include "GameManager/GameManager.h"
 
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
@@ -72,7 +73,7 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
     {
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
         LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
-        SetPlayerSeq(playerSeq);
+        GameInstance->SetPlayerSeq(playerSeq);
         
     }
 }
@@ -112,19 +113,6 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     }
 }
 
-void UNetworkManager::SetUserSeq(int32 userSeq)
-{
-    this->UserSeq = userSeq;
-
-}
-void UNetworkManager::SetPlayerSeq(int32 playerSeq)
-{
-    this->PlayerSeq = playerSeq;
-}
-void UNetworkManager::SetMapId(int64 mapId) {
-
-    this->MapId = mapId;
-}
 void UNetworkManager::Update()
 {
     // Periodic updates if needed
@@ -153,7 +141,7 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
     if (!MonsterServerSocket) return false;
 
     Protocol::CS_MapMonsterInfoRequestPacket packet;
-    packet.set_mapid(MapId);
+    packet.set_mapid(GameInstance->GetMapId());
     packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
@@ -173,7 +161,7 @@ bool UNetworkManager::SendPlayerPacket()
     if (!LobbyServerSocket) return false;
 
     Protocol::CS_CharacterRequestPacket packet;
-    packet.set_playerseq(PlayerSeq);
+    packet.set_playerseq(GameInstance->GetPlayerSeq());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToLobbySocket(sendBuffer);
 
@@ -193,7 +181,7 @@ bool UNetworkManager::SendStatusPacket()
     if (!MainServerSocket) return false;
 
     Protocol::CS_StatusRequestPacket packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
 
@@ -213,7 +201,7 @@ bool UNetworkManager::SendInventoryPacket()
     if (!MainServerSocket) return false;
 
     Protocol::CS_InventoryRequestPacket packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
 
@@ -234,7 +222,7 @@ bool UNetworkManager::SendAttackPacket(FAttackResult attackResult)
     Protocol::CS_AttackRequestPacket packet;
     packet.mutable_skill()->set_skillseq(attackResult.SkillSeq);
     packet.mutable_skill()->set_level(attackResult.Level);
-    packet.mutable_skill()->set_userseq(UserSeq);
+    packet.mutable_skill()->set_userseq(GameInstance->GetUserSeq());
     packet.mutable_skill()->set_timestamp(attackResult.Timestamp);
     for (int i = 0; i < attackResult.TargetSeq.Num(); i++) {
         packet.mutable_skill()->add_targetseq(attackResult.TargetSeq[i]);
@@ -256,7 +244,7 @@ bool UNetworkManager::SendGetSkillPacket() {
     if (!MainServerSocket) return false;
 
     Protocol::CS_GetSkillRequestPacket packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
@@ -276,7 +264,7 @@ bool UNetworkManager::SendServerRequest() {
 
     Protocol::CS_ServerReqeustPacket packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
@@ -293,13 +281,13 @@ bool UNetworkManager::SendServerRequest() {
 bool UNetworkManager::SendMovePacket(FVector vector, int64 mapid, int64 channelid) {
 
     if (!MainServerSocket && !MonsterServerSocket) return false;
-    if (UserSeq == 0) return false;
+    if (GameInstance->GetUserSeq() == 0) return false;
 
-    if (UserSeq == 0) {
+    if (GameInstance->GetUserSeq() == 0) {
         return false;
     }
     Protocol::CS_MoveRequestPacket packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_mapid(mapid);
     packet.set_channelid(1);  
     packet.set_transx((float)vector.X);
@@ -324,8 +312,8 @@ bool UNetworkManager::SendNPCInfoPacket() {
 
     if (!MainServerSocket) return false;
     Protocol::CS_NPCInfoRequest packet;
-    packet.set_mapid(MapId);
-    UE_LOG(LogTemp, Log, TEXT("Map Id : %d"),MapId);
+    packet.set_mapid(GameInstance->GetMapId());
+    UE_LOG(LogTemp, Log, TEXT("Map Id : %d"), GameInstance->GetMapId());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool bSuccess = SendToMainSocket(sendBuffer);
@@ -345,7 +333,7 @@ bool UNetworkManager::SendUserQuestPacket() {
 
     if (!MainServerSocket) return false;
     Protocol::CS_UserQuestInfoRequest packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     int32 BytesSent = 0;
     bool bSuccess = SendToMainSocket(sendBuffer);
@@ -364,7 +352,7 @@ bool UNetworkManager::SendUserQuestPacket() {
 bool UNetworkManager::SendEnterPacket(int32 userSeq) {
     // 로비 ui로 이동 필요
     Protocol::CS_EnterGamePacket packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess =  SendToLobbySocket(sendBuffer);

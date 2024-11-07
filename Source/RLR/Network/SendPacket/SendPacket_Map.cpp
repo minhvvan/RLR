@@ -23,14 +23,14 @@ bool UNetworkManager::SendContentMap(int64 mapId) {
 
     Protocol::CS_MapContentRequest packet;
     packet.set_mapid(mapId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }
 bool UNetworkManager::SendMoveMap() {
     Protocol::CS_MapMoveRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }

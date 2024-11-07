@@ -2,10 +2,16 @@
 
 
 #include "Network/Handler/GuildPacketHandler.h"
-
+#include "GameManager/GuildManager.h"
+#include "GameManager/GameManager.h"
+#include "Structs/UtilStructs.h"
 
 bool Handle_INFO_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildinfoResponse& pkt)
 {
+	FGuildResult Guild;
+	Guild.MakeGuildData(pkt.guild());
+
+	GameInstance->GetGuildManager()->SetGuildInfo(Guild);
 	return false;
 }
 
@@ -19,13 +25,31 @@ bool Handle_ADD_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
 	return false;
 }
 
+/* 길드 탈퇴 */
 bool Handle_REMOVE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildRemoveResponse& pkt)
 {
+	if (pkt.success())
+	{
+		/* 유저 길드 초기화 */
+		FGuildResult Guild;
+
+		GameInstance->GetGuildManager()->SetGuildInfo(Guild);
+	}
 	return false;
 }
 
+/* 길드 삭제 */
 bool Handle_DELETE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildDeleteResponse& pkt)
 {
+	/* TODO : ExistingGuildListUI에서 길드 삭제 */
+	if (pkt.success())
+	{	
+		/* 유저 길드 초기화 */
+		FGuildResult Guild;
+
+		GameInstance->GetGuildManager()->SetGuildInfo(Guild);
+	}
+
 	return false;
 }
 

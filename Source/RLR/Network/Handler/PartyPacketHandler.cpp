@@ -9,7 +9,7 @@
 #include "GameManager/NetworkManager.h"
 bool Handle_PARTY_MAP_INFO_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SC_PartyMapInfoRequest& pkt)
 {
-	GameInstance->GetNetworkManager()->SetMapId(pkt.mapid());
+	GameInstance->SetMapId(pkt.mapid());
 	GameInstance->GetNetworkManager()->SendMapInfoRequest(pkt.partyid());
 	return false;
 }

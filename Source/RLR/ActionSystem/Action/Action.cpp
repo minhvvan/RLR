@@ -231,7 +231,7 @@ bool UAction::IsOtherUserAction()
 	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
 	if (!statSet) return false;
 
-	if (statSet->GetUserSeq() != NetworkManager->GetUserSeq()) result = true;
+	if (statSet->GetUserSeq() != GameInstance->GetUserSeq()) result = true;
 
 	return result;
 }
