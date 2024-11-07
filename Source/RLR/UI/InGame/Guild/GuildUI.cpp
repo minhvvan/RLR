@@ -24,17 +24,16 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	GameInstance->GetNetworkManager()->SendInfoGuild();
-
 	/* Handle_INFO_GUILD_RESPONSE 작동하는거 보고 바꾸기 */
-	//if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq != -1)
-	//{
-	//	GameInstance->GetNetworkManager()->SendInfoGuild();
-	//}
-	//else
-	//{
-	//	WidgetSwitcher->SetActiveWidgetIndex(0);
-	//}
+	if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq != 0)
+	{
+		GameInstance->GetNetworkManager()->SendInfoGuild();
+	}
+	else
+	{
+		WidgetSwitcher->SetActiveWidgetIndex(0);
+		//GameInstance->GetNetworkManager()->SendInfoGuild();
+	}
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

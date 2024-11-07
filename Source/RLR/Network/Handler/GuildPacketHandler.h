@@ -10,7 +10,7 @@ bool Handle_CREATE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::
 bool Handle_ADD_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildAddResponse& pkt);
 bool Handle_REMOVE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildRemoveResponse& pkt);
 bool Handle_DELETE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildDeleteResponse& pkt);
-bool Handle_ACCEPT_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::CS_GuildAcceptResponse& pkt);
+bool Handle_ACCEPT_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildAcceptResponse& pkt);
 bool Handle_INVITE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildInviteResponse& pkt);
 bool Handle_CHANGE_NAME_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildChangeNameResponse& pkt);
 bool Handle_CHANGE_RANK_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildChangeRankResponse& pkt);
