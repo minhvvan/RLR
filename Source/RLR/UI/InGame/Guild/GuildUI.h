@@ -27,7 +27,7 @@ public:
 
 
 	UFUNCTION(BlueprintCallable)
-	virtual void RefreshUI();
+	virtual void RefreshUI() override;
 
 public:
 	UPROPERTY(meta = (BindWidget))

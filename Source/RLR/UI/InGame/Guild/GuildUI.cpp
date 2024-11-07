@@ -5,15 +5,17 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 #include "Structs/UtilStructs.h"
+
 
 void UGuildUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
+	SetUITag(RLRTAG.Action_Default_GuildOpen);
 	GameInstance->GetGuildManager()->GuildOverlayUI = this;
   
 }
@@ -24,14 +26,13 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	/* Handle_INFO_GUILD_RESPONSE 작동하는거 보고 바꾸기 */
-	if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq != 0)
+	if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq == 0)
 	{
-		GameInstance->GetNetworkManager()->SendInfoGuild();
+		WidgetSwitcher->SetActiveWidgetIndex(0);
 	}
 	else
 	{
-		WidgetSwitcher->SetActiveWidgetIndex(0);
+		GameInstance->GetNetworkManager()->SendInfoGuild();
 	}
 }
 

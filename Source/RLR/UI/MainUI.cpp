@@ -116,6 +116,7 @@ void UMainUI::OpenSubUI(FGameplayTag InputTag)
 
 	SubUIStack.AddUnique(subUI);
 	subUI->SetVisible(true);
+	subUI->RefreshUI();
 	AdjustZOrder();
 }
 

@@ -53,6 +53,7 @@ void UGuildReportAndExitUI::OnReportContentChanged(const FText& Text)
 void UGuildReportAndExitUI::OnReportButtonClicked()
 {
 	PlayerGuildUI->GuildReportAndExitUI->SetVisibility(ESlateVisibility::Hidden);
+	PlayerGuildUI->SetGuildOpenState(false);
 	/* TODO : SendReportAndExit() 생기면 그걸로 대체하기 */
 	GameInstance->GetNetworkManager()->SendRemoveGuild(GameInstance->GetUserSeq(), GameInstance->GetGuildManager()->GetGuildInfo().guildSeq);
 }
