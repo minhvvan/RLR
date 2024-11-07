@@ -55,6 +55,8 @@ protected:
 protected:
 	virtual void NativeConstruct();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+		TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
 public:
 	FOnDialogueEnd OnDialogueEnd;
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
@@ -69,7 +71,6 @@ public:
 	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
-	UPostOverlayUI* GetPostOverlayUI() {return PostOverlayUI;};
 	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
 	
 	virtual void OnPageActivated() override;
