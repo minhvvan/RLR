@@ -40,7 +40,7 @@ void UFriendListUI::NativeConstruct()
     }
     if (FriendRequestTabButton)
     {
-        FriendRequestTabButton->OnClicked.AddDynamic(this, &UFriendListUI::OnFriendRequestTabButtonClicked);
+        FriendRequestTabButton->OnClicked.AddUniqueDynamic(this, &UFriendListUI::OnFriendRequestTabButtonClicked);
     }
 }
 
