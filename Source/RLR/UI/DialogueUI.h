@@ -76,6 +76,7 @@ protected:
 public:
 	FOnDialogueEnd OnDialogueEnd;
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
+	void UpdateNPCFunctionality();
 	//Test
 	void SetDialogueData(FString DialogueString);
 	void SetNPCData(int32 NPCSeq);

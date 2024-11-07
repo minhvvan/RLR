@@ -28,6 +28,11 @@ void UDialogueUI::NativeConstruct()
 
 	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
 
+	bOpenShop = false;
+}
+
+void UDialogueUI::UpdateNPCFunctionality()
+{
 	UObjectManager* ObjectManager = GameInstance->GetObjectManager();
 	const FNPCData& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
 
@@ -50,9 +55,6 @@ void UDialogueUI::NativeConstruct()
 			CreateDynamicButton(2, TEXT("Quest"), i);
 		}
 	}
-
-
-	bOpenShop = false;
 }
 
 void UDialogueUI::SetDialogueData(FString DialogueString)
