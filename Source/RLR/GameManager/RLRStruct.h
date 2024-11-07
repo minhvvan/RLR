@@ -61,6 +61,7 @@ struct FMoveResult;
 struct FResourceData;
 struct FClassData;
 struct FEffectData;
+struct FActionResult;
 
 enum class EUIType : uint8;
 

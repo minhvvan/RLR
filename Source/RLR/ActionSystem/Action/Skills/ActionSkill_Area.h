@@ -17,17 +17,15 @@ class RLR_API UActionSkill_Area : public UActionSkill
 public:
 	UActionSkill_Area();
 
-	virtual void CancelAction();
-	virtual void EndAction();
+	virtual void CancelAction() override;
+	virtual void EndAction() override;
 
 protected:
-	virtual bool PreActivateAction();
-	virtual void ActivateAction();
+	virtual bool PreActivateAction() override;
+	virtual void ActivateAction() override;
 
-	virtual void OnCompletePlayMontage();
+	virtual void OnCompletePlayMontage() override;
+	virtual void OnAnimNotifyTriggered() override;
 
 	TObjectPtr<ARLRReticle> SpawnedReticle;
-
-	UFUNCTION()
-	void OnAnimNotified();
 };

@@ -6,12 +6,15 @@
 #include "ActionSystem/ActionTask/ActionTask.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
+#include "Structs/UtilStructs.h"
 
 UAction::UAction() :
+	bShouldSendPacket(true),
 	bIsActive(false),
 	bIsActionEnding(false),
 	bIsCancelable(false)
@@ -99,7 +102,8 @@ bool UAction::PreActivateAction()
 
 void UAction::ActivateAction()
 {
-	//Do Someting
+	//ActionPacket전송
+	if(bShouldSendPacket) SendActionPacket();
 }
 
 void UAction::CancelAction()
@@ -238,6 +242,40 @@ bool UAction::IsOtherUserAction()
 
 void UAction::OnAnimNotifyTriggered()
 {
+}
+
+void UAction::SendActionPacket()
+{
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	if (!NetworkManager) return;	
+	
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	UActionSystemComponent* ASC = GetASCFromActorInfo();
+	if (!ASC) return;
+
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return;
+
+	FActionResult actionResult;
+	FActionData actionData;
+	ASC->GetActionData(ActionTag, actionData);
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(ActionTag);
+	if (actionResource == FActionResource::EmptyActionResource)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Not Found ActionResource"));
+		return;
+	}
+
+	actionResult.UserSeq = statSet->GetUserSeq();
+	actionResult.ActionSeq = actionResource.ActionSeq;
+	//TODO: ChannelID GameInstance에서 받아오기
+	actionResult.ChannelId = 1;
+	actionResult.TargetTransform = actionData.MousePos;
+
+	NetworkManager->SendActionPacket(actionResult);
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()

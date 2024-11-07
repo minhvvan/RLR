@@ -71,12 +71,17 @@ protected:
 	UFUNCTION()
 	virtual void OnAnimNotifyTriggered();
 
+	void SendActionPacket();
+
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = Instance)
 	EActionInstancingPolicy InstancingPolicy;
+
+	UPROPERTY(EditDefaultsOnly, Category = Network)
+	bool bShouldSendPacket;
 
 	UPROPERTY()
 	bool bIsActive;
