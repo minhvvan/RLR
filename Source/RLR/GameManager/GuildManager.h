@@ -15,14 +15,10 @@ class RLR_API UGuildManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	void InitializeGuildManager();
 
 	/* Guild Struct 만들어야 함 */
 	void SetGuildInfo(const FGuildResult& guildData);	
 	FGuildResult GetGuildInfo();
-
-	void SetGuildValidation(bool guildValidation);
-	bool GetGuildValidation();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

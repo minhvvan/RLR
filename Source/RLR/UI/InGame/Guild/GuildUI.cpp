@@ -14,6 +14,8 @@ void UGuildUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
+
+	GameInstance->GetGuildManager()->GuildOverlayUI = this;
 }
 
 void UGuildUI::Init()
@@ -22,9 +24,17 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	/* Set GuildManager */
-	GameInstance->GetGuildManager()->InitializeGuildManager();
 	GameInstance->GetNetworkManager()->SendInfoGuild();
+
+	/* Handle_INFO_GUILD_RESPONSE 작동하는거 보고 바꾸기 */
+	//if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq != -1)
+	//{
+	//	GameInstance->GetNetworkManager()->SendInfoGuild();
+	//}
+	//else
+	//{
+	//	WidgetSwitcher->SetActiveWidgetIndex(0);
+	//}
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
