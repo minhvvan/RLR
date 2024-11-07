@@ -165,21 +165,21 @@ struct CS_GuildAcceptRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_GuildAcceptRequestDefaultTypeInternal _CS_GuildAcceptRequest_default_instance_;
-PROTOBUF_CONSTEXPR CS_GuildAcceptResponse::CS_GuildAcceptResponse(
+PROTOBUF_CONSTEXPR SC_GuildAcceptResponse::SC_GuildAcceptResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.guildname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_.guildseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct CS_GuildAcceptResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CS_GuildAcceptResponseDefaultTypeInternal()
+struct SC_GuildAcceptResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SC_GuildAcceptResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CS_GuildAcceptResponseDefaultTypeInternal() {}
+  ~SC_GuildAcceptResponseDefaultTypeInternal() {}
   union {
-    CS_GuildAcceptResponse _instance;
+    SC_GuildAcceptResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_GuildAcceptResponseDefaultTypeInternal _CS_GuildAcceptResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_GuildAcceptResponseDefaultTypeInternal _SC_GuildAcceptResponse_default_instance_;
 PROTOBUF_CONSTEXPR CS_GuildAddRequest::CS_GuildAddRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.guildseq_)*/0
@@ -237,7 +237,8 @@ struct SC_GuildRemoveResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_GuildRemoveResponseDefaultTypeInternal _SC_GuildRemoveResponse_default_instance_;
 PROTOBUF_CONSTEXPR CS_GuildCreateRequest::CS_GuildCreateRequest(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.userseq_)*/0
+    /*decltype(_impl_.guildname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.userseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CS_GuildCreateRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CS_GuildCreateRequestDefaultTypeInternal()
@@ -433,14 +434,14 @@ const uint32_t TableStruct_Guild_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptRequest, _impl_.otherseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptRequest, _impl_.guildseq_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GuildAcceptResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptResponse, _impl_.userseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptResponse, _impl_.guildseq_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAcceptResponse, _impl_.guildname_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GuildAcceptResponse, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GuildAcceptResponse, _impl_.guildseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_GuildAcceptResponse, _impl_.guildname_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildAddRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -479,6 +480,7 @@ const uint32_t TableStruct_Guild_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildCreateRequest, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_GuildCreateRequest, _impl_.guildname_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_GuildCreateResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -543,19 +545,19 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 60, -1, -1, sizeof(::Protocol::CS_GuildInviteRequest)},
   { 68, -1, -1, sizeof(::Protocol::SC_GuildInviteResponse)},
   { 76, -1, -1, sizeof(::Protocol::CS_GuildAcceptRequest)},
-  { 84, -1, -1, sizeof(::Protocol::CS_GuildAcceptResponse)},
+  { 84, -1, -1, sizeof(::Protocol::SC_GuildAcceptResponse)},
   { 93, -1, -1, sizeof(::Protocol::CS_GuildAddRequest)},
   { 101, -1, -1, sizeof(::Protocol::SC_GuildAddResponse)},
   { 108, -1, -1, sizeof(::Protocol::CS_GuildRemoveRequest)},
   { 117, -1, -1, sizeof(::Protocol::SC_GuildRemoveResponse)},
   { 124, -1, -1, sizeof(::Protocol::CS_GuildCreateRequest)},
-  { 131, -1, -1, sizeof(::Protocol::SC_GuildCreateResponse)},
-  { 138, -1, -1, sizeof(::Protocol::CS_GuildDeleteRequest)},
-  { 145, -1, -1, sizeof(::Protocol::SC_GuildDeleteResponse)},
-  { 152, -1, -1, sizeof(::Protocol::CS_GuildChangeNameRequest)},
-  { 160, -1, -1, sizeof(::Protocol::SC_GuildChangeNameResponse)},
-  { 167, -1, -1, sizeof(::Protocol::CS_GuildChangeRankRequest)},
-  { 176, -1, -1, sizeof(::Protocol::SC_GuildChangeRankResponse)},
+  { 132, -1, -1, sizeof(::Protocol::SC_GuildCreateResponse)},
+  { 139, -1, -1, sizeof(::Protocol::CS_GuildDeleteRequest)},
+  { 146, -1, -1, sizeof(::Protocol::SC_GuildDeleteResponse)},
+  { 153, -1, -1, sizeof(::Protocol::CS_GuildChangeNameRequest)},
+  { 161, -1, -1, sizeof(::Protocol::SC_GuildChangeNameResponse)},
+  { 168, -1, -1, sizeof(::Protocol::CS_GuildChangeRankRequest)},
+  { 177, -1, -1, sizeof(::Protocol::SC_GuildChangeRankResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -569,7 +571,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_CS_GuildInviteRequest_default_instance_._instance,
   &::Protocol::_SC_GuildInviteResponse_default_instance_._instance,
   &::Protocol::_CS_GuildAcceptRequest_default_instance_._instance,
-  &::Protocol::_CS_GuildAcceptResponse_default_instance_._instance,
+  &::Protocol::_SC_GuildAcceptResponse_default_instance_._instance,
   &::Protocol::_CS_GuildAddRequest_default_instance_._instance,
   &::Protocol::_SC_GuildAddResponse_default_instance_._instance,
   &::Protocol::_CS_GuildRemoveRequest_default_instance_._instance,
@@ -603,29 +605,29 @@ const char descriptor_table_protodef_Guild_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\026SC_GuildInviteResponse\022\020\n\010guildSeq\030\001 \001("
   "\005\022\021\n\tguildName\030\002 \001(\t\";\n\025CS_GuildAcceptRe"
   "quest\022\020\n\010otherSeq\030\001 \001(\005\022\020\n\010guildSeq\030\002 \001("
-  "\005\"N\n\026CS_GuildAcceptResponse\022\017\n\007userSeq\030\001"
+  "\005\"N\n\026SC_GuildAcceptResponse\022\017\n\007userSeq\030\001"
   " \001(\005\022\020\n\010guildSeq\030\002 \001(\005\022\021\n\tguildName\030\003 \001("
   "\t\"7\n\022CS_GuildAddRequest\022\020\n\010guildSeq\030\001 \001("
   "\005\022\017\n\007userSeq\030\002 \001(\005\"&\n\023SC_GuildAddRespons"
   "e\022\017\n\007success\030\001 \001(\005\"L\n\025CS_GuildRemoveRequ"
   "est\022\020\n\010guildSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\020"
   "\n\010otherSeq\030\003 \001(\005\")\n\026SC_GuildRemoveRespon"
-  "se\022\017\n\007success\030\001 \001(\005\"(\n\025CS_GuildCreateReq"
-  "uest\022\017\n\007userSeq\030\001 \001(\005\")\n\026SC_GuildCreateR"
-  "esponse\022\017\n\007success\030\001 \001(\005\")\n\025CS_GuildDele"
-  "teRequest\022\020\n\010guildSeq\030\001 \001(\005\")\n\026SC_GuildD"
-  "eleteResponse\022\017\n\007success\030\001 \001(\005\"@\n\031CS_Gui"
-  "ldChangeNameRequest\022\020\n\010guildSeq\030\001 \001(\005\022\021\n"
-  "\tguildName\030\002 \001(\t\"-\n\032SC_GuildChangeNameRe"
-  "sponse\022\017\n\007success\030\001 \001(\005\"T\n\031CS_GuildChang"
-  "eRankRequest\022\020\n\010guildSeq\030\001 \001(\005\022\024\n\014guildR"
-  "ankSeq\030\002 \001(\005\022\017\n\007userSeq\030\003 \001(\005\"-\n\032SC_Guil"
-  "dChangeRankResponse\022\017\n\007success\030\001 \001(\005b\006pr"
-  "oto3"
+  "se\022\017\n\007success\030\001 \001(\005\";\n\025CS_GuildCreateReq"
+  "uest\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tguildName\030\002 \001(\t"
+  "\")\n\026SC_GuildCreateResponse\022\017\n\007success\030\001 "
+  "\001(\005\")\n\025CS_GuildDeleteRequest\022\020\n\010guildSeq"
+  "\030\001 \001(\005\")\n\026SC_GuildDeleteResponse\022\017\n\007succ"
+  "ess\030\001 \001(\005\"@\n\031CS_GuildChangeNameRequest\022\020"
+  "\n\010guildSeq\030\001 \001(\005\022\021\n\tguildName\030\002 \001(\t\"-\n\032S"
+  "C_GuildChangeNameResponse\022\017\n\007success\030\001 \001"
+  "(\005\"T\n\031CS_GuildChangeRankRequest\022\020\n\010guild"
+  "Seq\030\001 \001(\005\022\024\n\014guildRankSeq\030\002 \001(\005\022\017\n\007userS"
+  "eq\030\003 \001(\005\"-\n\032SC_GuildChangeRankResponse\022\017"
+  "\n\007success\030\001 \001(\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Guild_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Guild_2eproto = {
-    false, false, 1444, descriptor_table_protodef_Guild_2eproto,
+    false, false, 1463, descriptor_table_protodef_Guild_2eproto,
     "Guild.proto",
     &descriptor_table_Guild_2eproto_once, nullptr, 0, 23,
     schemas, file_default_instances, TableStruct_Guild_2eproto::offsets,
@@ -2949,19 +2951,19 @@ void CS_GuildAcceptRequest::InternalSwap(CS_GuildAcceptRequest* other) {
 
 // ===================================================================
 
-class CS_GuildAcceptResponse::_Internal {
+class SC_GuildAcceptResponse::_Internal {
  public:
 };
 
-CS_GuildAcceptResponse::CS_GuildAcceptResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SC_GuildAcceptResponse::SC_GuildAcceptResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.CS_GuildAcceptResponse)
+  // @@protoc_insertion_point(arena_constructor:Protocol.SC_GuildAcceptResponse)
 }
-CS_GuildAcceptResponse::CS_GuildAcceptResponse(const CS_GuildAcceptResponse& from)
+SC_GuildAcceptResponse::SC_GuildAcceptResponse(const SC_GuildAcceptResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  CS_GuildAcceptResponse* const _this = this; (void)_this;
+  SC_GuildAcceptResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.guildname_){}
     , decltype(_impl_.userseq_){}
@@ -2980,10 +2982,10 @@ CS_GuildAcceptResponse::CS_GuildAcceptResponse(const CS_GuildAcceptResponse& fro
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.guildseq_) -
     reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.guildseq_));
-  // @@protoc_insertion_point(copy_constructor:Protocol.CS_GuildAcceptResponse)
+  // @@protoc_insertion_point(copy_constructor:Protocol.SC_GuildAcceptResponse)
 }
 
-inline void CS_GuildAcceptResponse::SharedCtor(
+inline void SC_GuildAcceptResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -2999,8 +3001,8 @@ inline void CS_GuildAcceptResponse::SharedCtor(
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-CS_GuildAcceptResponse::~CS_GuildAcceptResponse() {
-  // @@protoc_insertion_point(destructor:Protocol.CS_GuildAcceptResponse)
+SC_GuildAcceptResponse::~SC_GuildAcceptResponse() {
+  // @@protoc_insertion_point(destructor:Protocol.SC_GuildAcceptResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -3008,17 +3010,17 @@ CS_GuildAcceptResponse::~CS_GuildAcceptResponse() {
   SharedDtor();
 }
 
-inline void CS_GuildAcceptResponse::SharedDtor() {
+inline void SC_GuildAcceptResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.guildname_.Destroy();
 }
 
-void CS_GuildAcceptResponse::SetCachedSize(int size) const {
+void SC_GuildAcceptResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void CS_GuildAcceptResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.CS_GuildAcceptResponse)
+void SC_GuildAcceptResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.SC_GuildAcceptResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3030,7 +3032,7 @@ void CS_GuildAcceptResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CS_GuildAcceptResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* SC_GuildAcceptResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -3058,7 +3060,7 @@ const char* CS_GuildAcceptResponse::_InternalParse(const char* ptr, ::_pbi::Pars
           auto str = _internal_mutable_guildname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.CS_GuildAcceptResponse.guildName"));
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_GuildAcceptResponse.guildName"));
         } else
           goto handle_unusual;
         continue;
@@ -3085,9 +3087,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CS_GuildAcceptResponse::_InternalSerialize(
+uint8_t* SC_GuildAcceptResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_GuildAcceptResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.SC_GuildAcceptResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3108,7 +3110,7 @@ uint8_t* CS_GuildAcceptResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_guildname().data(), static_cast<int>(this->_internal_guildname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.CS_GuildAcceptResponse.guildName");
+      "Protocol.SC_GuildAcceptResponse.guildName");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_guildname(), target);
   }
@@ -3117,12 +3119,12 @@ uint8_t* CS_GuildAcceptResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_GuildAcceptResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.SC_GuildAcceptResponse)
   return target;
 }
 
-size_t CS_GuildAcceptResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_GuildAcceptResponse)
+size_t SC_GuildAcceptResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.SC_GuildAcceptResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3149,17 +3151,17 @@ size_t CS_GuildAcceptResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_GuildAcceptResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SC_GuildAcceptResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CS_GuildAcceptResponse::MergeImpl
+    SC_GuildAcceptResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_GuildAcceptResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SC_GuildAcceptResponse::GetClassData() const { return &_class_data_; }
 
 
-void CS_GuildAcceptResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CS_GuildAcceptResponse*>(&to_msg);
-  auto& from = static_cast<const CS_GuildAcceptResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_GuildAcceptResponse)
+void SC_GuildAcceptResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SC_GuildAcceptResponse*>(&to_msg);
+  auto& from = static_cast<const SC_GuildAcceptResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.SC_GuildAcceptResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3176,18 +3178,18 @@ void CS_GuildAcceptResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void CS_GuildAcceptResponse::CopyFrom(const CS_GuildAcceptResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_GuildAcceptResponse)
+void SC_GuildAcceptResponse::CopyFrom(const SC_GuildAcceptResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.SC_GuildAcceptResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CS_GuildAcceptResponse::IsInitialized() const {
+bool SC_GuildAcceptResponse::IsInitialized() const {
   return true;
 }
 
-void CS_GuildAcceptResponse::InternalSwap(CS_GuildAcceptResponse* other) {
+void SC_GuildAcceptResponse::InternalSwap(SC_GuildAcceptResponse* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -3197,14 +3199,14 @@ void CS_GuildAcceptResponse::InternalSwap(CS_GuildAcceptResponse* other) {
       &other->_impl_.guildname_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CS_GuildAcceptResponse, _impl_.guildseq_)
-      + sizeof(CS_GuildAcceptResponse::_impl_.guildseq_)
-      - PROTOBUF_FIELD_OFFSET(CS_GuildAcceptResponse, _impl_.userseq_)>(
+      PROTOBUF_FIELD_OFFSET(SC_GuildAcceptResponse, _impl_.guildseq_)
+      + sizeof(SC_GuildAcceptResponse::_impl_.guildseq_)
+      - PROTOBUF_FIELD_OFFSET(SC_GuildAcceptResponse, _impl_.userseq_)>(
           reinterpret_cast<char*>(&_impl_.userseq_),
           reinterpret_cast<char*>(&other->_impl_.userseq_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CS_GuildAcceptResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SC_GuildAcceptResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Guild_2eproto_getter, &descriptor_table_Guild_2eproto_once,
       file_level_metadata_Guild_2eproto[10]);
@@ -4028,10 +4030,19 @@ CS_GuildCreateRequest::CS_GuildCreateRequest(const CS_GuildCreateRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   CS_GuildCreateRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.userseq_){}
+      decltype(_impl_.guildname_){}
+    , decltype(_impl_.userseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.guildname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.guildname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_guildname().empty()) {
+    _this->_impl_.guildname_.Set(from._internal_guildname(), 
+      _this->GetArenaForAllocation());
+  }
   _this->_impl_.userseq_ = from._impl_.userseq_;
   // @@protoc_insertion_point(copy_constructor:Protocol.CS_GuildCreateRequest)
 }
@@ -4041,9 +4052,14 @@ inline void CS_GuildCreateRequest::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.userseq_){0}
+      decltype(_impl_.guildname_){}
+    , decltype(_impl_.userseq_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.guildname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.guildname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CS_GuildCreateRequest::~CS_GuildCreateRequest() {
@@ -4057,6 +4073,7 @@ CS_GuildCreateRequest::~CS_GuildCreateRequest() {
 
 inline void CS_GuildCreateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.guildname_.Destroy();
 }
 
 void CS_GuildCreateRequest::SetCachedSize(int size) const {
@@ -4069,6 +4086,7 @@ void CS_GuildCreateRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.guildname_.ClearToEmpty();
   _impl_.userseq_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -4084,6 +4102,16 @@ const char* CS_GuildCreateRequest::_InternalParse(const char* ptr, ::_pbi::Parse
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string guildName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_guildname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.CS_GuildCreateRequest.guildName"));
         } else
           goto handle_unusual;
         continue;
@@ -4122,6 +4150,16 @@ uint8_t* CS_GuildCreateRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
   }
 
+  // string guildName = 2;
+  if (!this->_internal_guildname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_guildname().data(), static_cast<int>(this->_internal_guildname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.CS_GuildCreateRequest.guildName");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_guildname(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4137,6 +4175,13 @@ size_t CS_GuildCreateRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // string guildName = 2;
+  if (!this->_internal_guildname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_guildname());
+  }
 
   // int32 userSeq = 1;
   if (this->_internal_userseq() != 0) {
@@ -4161,6 +4206,9 @@ void CS_GuildCreateRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_guildname().empty()) {
+    _this->_internal_set_guildname(from._internal_guildname());
+  }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
@@ -4180,7 +4228,13 @@ bool CS_GuildCreateRequest::IsInitialized() const {
 
 void CS_GuildCreateRequest::InternalSwap(CS_GuildCreateRequest* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.guildname_, lhs_arena,
+      &other->_impl_.guildname_, rhs_arena
+  );
   swap(_impl_.userseq_, other->_impl_.userseq_);
 }
 
@@ -5588,9 +5642,9 @@ template<> PROTOBUF_NOINLINE ::Protocol::CS_GuildAcceptRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_GuildAcceptRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_GuildAcceptRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::CS_GuildAcceptResponse*
-Arena::CreateMaybeMessage< ::Protocol::CS_GuildAcceptResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::CS_GuildAcceptResponse >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::SC_GuildAcceptResponse*
+Arena::CreateMaybeMessage< ::Protocol::SC_GuildAcceptResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::SC_GuildAcceptResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::CS_GuildAddRequest*
 Arena::CreateMaybeMessage< ::Protocol::CS_GuildAddRequest >(Arena* arena) {
