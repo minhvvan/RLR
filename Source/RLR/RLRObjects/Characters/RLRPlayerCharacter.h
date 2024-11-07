@@ -30,8 +30,7 @@ public:
 	const UStatSetPlayer* GetStat();
 
 	void UpdateTransform(FVector NewTransform);
-	// TODO : string change seq
-	void UpdateAction(int ActionSeq);
+	void UpdateAction(const FActionResult& ActionResult);
 	void SpawnTransform(FVector NewTransform);
 
 	virtual void SetDead() override;

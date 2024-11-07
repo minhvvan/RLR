@@ -22,15 +22,9 @@ protected:
 	virtual void ActivateAction() override;
 
 public:
+	virtual void ActivateActionForce(const FActionResult& ActionResult) override;
 	virtual void CancelAction() override;
 	virtual void EndAction() override;
 
-	UFUNCTION()
-	void OnCompletePlayMontage();
-
 	virtual void OnAnimNotifyTriggered() override;
-
-protected:
-	UPROPERTY(EditAnywhere)
-	float RotationSpeed;
 };

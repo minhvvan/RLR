@@ -124,7 +124,7 @@ void ARLRPlayerCharacter::SetStat(const FUserCharacter& Stat)
 	AsyncTask(ENamedThreads::GameThread, [statSet, Stat]()
 		{
 			statSet->SetStatData(Stat);
-	statSet->UpdateStat();
+			statSet->UpdateStat();
 		});
 
 }
@@ -146,7 +146,7 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 	}
 }
 
-void ARLRPlayerCharacter::UpdateAction(int ActionSeq)
+void ARLRPlayerCharacter::UpdateAction(const FActionResult& ActionResult)
 {
 	// Transform 을 매개변수 추가해야합니다. ActionPakcet에서 포장은 처리완료.
 	//Controller ActionPacketHandler 주석 해제해야합니다. Controller 는 샌드 데이터 재구성 필요.
@@ -157,13 +157,12 @@ void ARLRPlayerCharacter::UpdateAction(int ActionSeq)
 		auto DataManager = GameInstance->GetDataManager();
 		if (!DataManager) return;
 
-		auto actionResource = DataManager->GetActionResource(ActionSeq);
-		//if (actionResource == FActionResource::EmptyActionResource) return;
+		const FActionResource& actionResource = DataManager->GetActionResource(ActionResult.ActionSeq);
+		if (actionResource == FActionResource::EmptyActionResource) return;
 
 		FActionSpec spec(actionResource.ActionClass);
 		ASC->GiveAction(actionResource.ActionTag, spec);
-
-		ASC->ActivateActionForce(actionResource.ActionTag);
+		ASC->ActivateActionForce(ActionResult);
 	}
 }
 

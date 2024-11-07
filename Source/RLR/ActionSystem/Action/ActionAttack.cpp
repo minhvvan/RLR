@@ -16,8 +16,7 @@
 #include "Structs/PlayerStructs.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
 
-UActionAttack::UActionAttack():
-	RotationSpeed(1.f)
+UActionAttack::UActionAttack()
 {
 	InstancingPolicy = EActionInstancingPolicy::InstancedPerActor;
 }
@@ -52,10 +51,15 @@ void UActionAttack::ActivateAction()
 
 	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAttackAnim"), Player->AttackMontage);
 	AT->OnCompleted.AddDynamic(this, &UActionAttack::OnCompletePlayMontage);
-
 	AT->ReadyForActivation();
 	
 	Super::ActivateAction();
+}
+
+void UActionAttack::ActivateActionForce(const FActionResult& ActionResult)
+{
+	Super::ActivateActionForce(ActionResult);
+	PlayActionMontage();
 }
 
 void UActionAttack::CancelAction()
@@ -66,11 +70,6 @@ void UActionAttack::CancelAction()
 void UActionAttack::EndAction()
 {
 	Super::EndAction();
-}
-
-void UActionAttack::OnCompletePlayMontage()
-{
-	EndAction();
 }
 
 void UActionAttack::OnAnimNotifyTriggered()

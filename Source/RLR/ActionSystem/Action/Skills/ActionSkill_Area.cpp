@@ -87,7 +87,7 @@ void UActionSkill_Area::ActivateAction()
 		{
 			//Notify가 하나일 때 가능 늘어나면 변경 필요
 			TimerWidget->SetTimerDuration(ActionMontage->Notifies[0].GetTriggerTime());
-			PlaySkillMontage();
+			PlayActionMontage();
 		}
 
 		Super::ActivateAction();

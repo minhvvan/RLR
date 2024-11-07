@@ -39,7 +39,7 @@ bool UActionSkill_Normal::PreActivateAction()
 void UActionSkill_Normal::ActivateAction()
 {
 	Super::ActivateAction();
-	PlaySkillMontage();
+	PlayActionMontage();
 }
 
 void UActionSkill_Normal::OnCompletePlayMontage()

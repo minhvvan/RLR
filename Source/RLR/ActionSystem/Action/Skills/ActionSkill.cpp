@@ -12,57 +12,50 @@
 #include "GameManager/DataManager.h"
 #include "Structs/SkillStructs.h"
 
-UActionSkill::UActionSkill():
-	RotationSpeed(10.f)
+UActionSkill::UActionSkill()
 {
 }
 
-void UActionSkill::ActivateActionForce()
+void UActionSkill::ActivateActionForce(const FActionResult& ActionResult)
 {
-	if (ActionState == EActionState::STATE_ACTIVATE) return;
-
-	UAction::PreActivateAction();
-	ActionState = EActionState::STATE_ACTIVATE;
-	PlaySkillMontage();
+	Super::ActivateActionForce(ActionResult);
+	PlayActionMontage();
 }
 
-void UActionSkill::PlaySkillMontage()
-{
-	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
-	if (!Player) return;
-
-	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
-	if (!ASC) return;
-
-	ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
-	if (Controller)
-	{
-		//Set Actor Orientation
-		Controller->StopMovement();
-		FVector MousePos = Controller->GetClickPosition();
-		Player->SetTargetRotation(MousePos, RotationSpeed);
-
-		FActionData Data;
-		Data.MousePos = MousePos;
-		ASC->AddActionData(TriggerTag, Data);
-	}
-
-	for (const auto& notify : ActionMontage->Notifies)
-	{
-		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
-		if (!noti) continue;
-
-		noti->OnTriggered.Clear();
-		noti->OnTriggered.AddUniqueDynamic(this, &ThisClass::OnAnimNotifyTriggered);
-	}
-
-	//Play Montage
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), ActionMontage);
-	AT->OnCompleted.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
-	AT->OnCancelled.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
-
-	AT->ReadyForActivation();
-}
+//void UActionSkill::PlaySkillMontage()
+//{
+//	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+//	if (!Player) return;
+//
+//	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+//	if (!ASC) return;
+//
+//	AController* Controller = Player->GetController();
+//	if (!Controller) return;
+//
+//	FActionData Data;
+//	if (ASC->GetActionData(TriggerTag, Data))
+//	{
+//		Controller->StopMovement();
+//		Player->SetTargetRotation(Data.MousePos, RotationSpeed);
+//	}
+//
+//	for (const auto& notify : ActionMontage->Notifies)
+//	{
+//		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
+//		if (!noti) continue;
+//
+//		noti->OnTriggered.Clear();
+//		noti->OnTriggered.AddUniqueDynamic(this, &ThisClass::OnAnimNotifyTriggered);
+//	}
+//
+//	//Play Montage
+//	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), ActionMontage);
+//	AT->OnCompleted.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
+//	AT->OnCancelled.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
+//
+//	AT->ReadyForActivation();
+//}
 
 bool UActionSkill::PreActivateAction()
 {
@@ -83,11 +76,6 @@ void UActionSkill::ActivateAction()
 	
 	//Timer Widget 부착
 	if (TimerWidget) TimerWidget->AddToViewport();
-}
-
-void UActionSkill::OnCompletePlayMontage()
-{
-	EndAction();
 }
 
 void UActionSkill::SetSkillData()

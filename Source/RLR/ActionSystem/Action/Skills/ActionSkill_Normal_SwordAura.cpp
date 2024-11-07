@@ -29,7 +29,7 @@ void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
 	if (!ASC) return;
 
-	if (!SkillData) return;
+	if (!SkillData) SetSkillData();
 
 	FVector StartPos = Player->GetActorLocation();
 	FVector MousePos = StartPos + Player->GetActorForwardVector() * 100;

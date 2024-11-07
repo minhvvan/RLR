@@ -53,12 +53,13 @@ bool Handle_ACTION_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_Ac
 	{
 		if (otherManager->GetPlayer(pkt.userseq()))
 		{
-			FVector transform = FVector(pkt.transx(), pkt.transy(), pkt.transz());
+			FActionResult actionResult;
+			actionResult.UserSeq = pkt.userseq();
+			actionResult.ActionSeq = pkt.actionseq();
+			actionResult.TargetTransform = FVector(pkt.transx(), pkt.transy(), pkt.transz());
 
-			//otherManager->GetPlayer(pkt.userseq())->UpdateAction(pkt.actionseq(),transform);
-
+			otherManager->GetPlayer(pkt.userseq())->UpdateAction(actionResult);
 		}
-		
 		else
 		{
 			Protocol::UserCharacter userCharacter;

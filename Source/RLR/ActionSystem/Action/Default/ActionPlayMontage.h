@@ -24,8 +24,4 @@ protected:
 public:
 	virtual void CancelAction();
 	virtual void EndAction();
-
-protected:
-	UFUNCTION()
-	void OnCompletePlayMontage();
 };

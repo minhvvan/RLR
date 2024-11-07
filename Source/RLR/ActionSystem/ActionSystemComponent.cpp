@@ -6,7 +6,10 @@
 #include "RLR.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimInstance.h"
-#include "GameManager\GameplayTagManager.h"
+#include "GameManager/GameplayTagManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameManager.h"
+#include "Structs/UtilStructs.h"
 
 UActionSystemComponent::UActionSystemComponent(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
@@ -136,8 +139,15 @@ void UActionSystemComponent::TryActivateAction(FGameplayTag Tag)
 	}
 }
 
-void UActionSystemComponent::ActivateActionForce(FGameplayTag Tag)
+void UActionSystemComponent::ActivateActionForce(const FActionResult& ActionResult)
 {
+	auto DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	const FActionResource& actionResource = DataManager->GetActionResource(ActionResult.ActionSeq);
+	if (actionResource == FActionResource::EmptyActionResource) return;
+
+	FGameplayTag Tag = actionResource.ActionTag;
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
 		UAction* Action = Spec->Action;
@@ -148,12 +158,12 @@ void UActionSystemComponent::ActivateActionForce(FGameplayTag Tag)
 			//CDO를 통해 Activate
 			Action->InitCurrentActorInfoFromASC(this);
 			Action->SetTriggerTag(Tag);
-			Action->ActivateActionForce();
+			Action->ActivateActionForce(ActionResult);
 		}
 		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerActor)
 		{
 			//Spec에 있는 Instance를 통해 Activate
-			Spec->ActionInstances[0]->ActivateActionForce();
+			Spec->ActionInstances[0]->ActivateActionForce(ActionResult);
 		}
 		else if (Action->GetInstancingPolicy() == EActionInstancingPolicy::InstancedPerExecution)
 		{
@@ -162,7 +172,7 @@ void UActionSystemComponent::ActivateActionForce(FGameplayTag Tag)
 			if (!NewActionInstance) return;
 			NewActionInstance->SetTriggerTag(Tag);
 
-			NewActionInstance->ActivateActionForce();
+			NewActionInstance->ActivateActionForce(ActionResult);
 			Spec->ActionInstances.Remove(NewActionInstance);
 		}
 	}
@@ -298,13 +308,17 @@ void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
 	{
 		StoredActionData.Add({ Tag , Data });
 	}
+	else
+	{
+		StoredActionData[Tag] = Data;
+	}
 }
 
 bool UActionSystemComponent::GetActionData(FGameplayTag Tag, FActionData& Data)
 {
 	if (StoredActionData.Contains(Tag))
 	{
-		StoredActionData.RemoveAndCopyValue(Tag, Data);
+		Data = *StoredActionData.Find(Tag);
 		return true;
 	}
 
