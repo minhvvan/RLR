@@ -207,11 +207,6 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
-	UDataManager* DataManager = GameInstance->GetDataManager();
-	if (!DataManager) return;
-
-	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
-
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;

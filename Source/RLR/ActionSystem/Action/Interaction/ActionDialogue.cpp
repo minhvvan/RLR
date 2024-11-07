@@ -28,7 +28,7 @@ void UActionDialogue::ActivateAction()
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	FActionData actionData;
-	playerASC->GetActionData(TagManager.Action_Interaction, actionData);
+	playerASC->GetActionData(TagManager.Action_Interaction_Dialogue, actionData);
 
 	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(actionData.UIClass);
 	if (dialogueUI.Get())
