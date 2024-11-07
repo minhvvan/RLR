@@ -35,7 +35,7 @@ void UActionDialogue::ActivateAction()
 	{
 		dialogueUI->OnDialogueEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
 		dialogueUI->SetDialogueData(actionData.InteractionData.DialogueString);
-		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq, actionData.InteractionData.QuestSeq);
+		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq);
 	}
 }
 

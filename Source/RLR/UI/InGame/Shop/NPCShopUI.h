@@ -40,7 +40,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	void SetItemData(const TArray<FItemData>& Items);
-	void SetShopData(FNPCShop& Data);
+	void SetShopData(const FNPCShop& Data);
 
 	FNPCShop& GetShopData();
 

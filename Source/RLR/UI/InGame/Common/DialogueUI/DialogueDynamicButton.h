@@ -1,0 +1,53 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Blueprint/UserWidget.h"
+#include "DialogueDynamicButton.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonClickedTwoParam, int32, ButtonType, int32, ButtonIndex);
+
+class UButton;
+class UTextBlock;
+
+/**
+ * DialogueUI에서 NPC의 Quest, Post, Shop 유무에 따라 동적 생성되는 버튼 클래스
+ */
+UCLASS()
+class RLR_API UDialogueDynamicButton : public UUserWidget
+{
+	GENERATED_BODY()
+
+public:
+	virtual void NativeConstruct() override;	
+	void SetButtonText(FString buttonText);
+
+	void SetButtonIndex(int32 index);
+	void SetButtonType(int32 type);
+	
+	int32 GetButtonIndex();
+	int32 GetButtonType();
+
+	UFUNCTION()
+	void OnButtonClicked();
+
+public:
+	UPROPERTY(meta = (BindWidget))
+	UButton* DynamicButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* ButtonText;
+
+	FOnButtonClickedTwoParam OnButtonClickedTwoParam;
+
+private:
+	int32 buttonIdx;
+	/* 
+		Type
+		0 : Shop
+		1 : Post
+		2 : Quest
+	*/
+	int32 buttonType;
+};

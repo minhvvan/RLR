@@ -10,6 +10,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDialogueEnd);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnQuestDialogueBegin);
 
+class UDialogueDynamicButton;
 class UButton;
 class UTextBlock;
 class UHorizontalBox;
@@ -37,13 +38,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	UHorizontalBox* BtnBox;
 
-	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
-	TObjectPtr<UButton> BtnQuest;
-	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
-	TObjectPtr<UButton> PostButton;
-
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UButton> BtnShop;	
+	/* 버튼 동적 생성 */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDialogueDynamicButton> BtnQuest;
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDialogueDynamicButton> PostButton;
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UDialogueDynamicButton> BtnShop;	
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtNPCName;
@@ -66,6 +67,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
+	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
+
 protected:
 	virtual void NativeConstruct();
 
@@ -74,7 +78,7 @@ public:
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
 	//Test
 	void SetDialogueData(FString DialogueString);
-	void SetNPCData(int32 NPCSeq, int32 QuestSeq);
+	void SetNPCData(int32 NPCSeq);
 
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
@@ -83,22 +87,26 @@ public:
 	void RemoveSaleItem(const FItemData& Item);
 
 	UPostOverlayUI* GetPostOverlayUI() {return PostOverlayUI;};
+
+	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
+	
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
 
 	UFUNCTION()
-	void OnQuestDialogueBegins();	
+	void OnQuestDialogueBegins(int32 ButtonIndex);
 	
 	UFUNCTION()
-	void OnShopClicked();
+	void OnShopClicked(int32 ButtonIndex);
 
 	UFUNCTION()
 	void OnPostClicked();
 
+	UFUNCTION()
+	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
 private:
 	int32 CurrentNPCSeq;
-	int32 CurrentQuestSeq;
 
 	bool bOpenShop;
 	bool bOpenPost;

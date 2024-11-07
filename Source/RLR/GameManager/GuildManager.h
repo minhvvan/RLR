@@ -9,9 +9,6 @@
 
 class UGuildUI;
 
-/**
- * 
- */
 UCLASS()
 class RLR_API UGuildManager : public UGameInstanceSubsystem
 {
