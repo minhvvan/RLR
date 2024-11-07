@@ -80,6 +80,14 @@ void UActionSystemComponent::RemoveAction(FGameplayTag Tag)
 	//Tag로 Action 제거
 	if (auto Spec = GrantedActions.Find(Tag))
 	{
+		UAction* DefaultAction = Cast<UAction>(Spec->Action);
+		if (!DefaultAction)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Fail Cast to Action"));
+			return;
+		}
+
+		TryCancelAction(DefaultAction->ActionTag);
 		GrantedActions.Remove(Tag);
 	}
 	else
@@ -219,10 +227,7 @@ void UActionSystemComponent::NotifyActionEnded(UAction* EndedAction)
 		Spec->ActionInstances.Remove(EndedAction);
 	}
 
-	if (StoredActionData.Contains(TriggerTag))
-	{
-		StoredActionData.Remove(TriggerTag);
-	}
+	RemoveActionData(TriggerTag);
 }
 
 UAction* UActionSystemComponent::CreateNewInstanceOfAction(FActionSpec& Spec)
@@ -316,6 +321,14 @@ void UActionSystemComponent::AddActionData(FGameplayTag Tag, FActionData& Data)
 	else
 	{
 		StoredActionData[Tag] = Data;
+	}
+}
+
+void UActionSystemComponent::RemoveActionData(FGameplayTag Tag)
+{
+	if (StoredActionData.Contains(Tag))
+	{
+		StoredActionData.Remove(Tag);
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Components/SphereComponent.h"
 #include "UI/DialogueUI.h"
+#include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
@@ -56,12 +57,11 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 
 	FInteractionData interactionData;
 	interactionData.DialogueString = NPCData->NPCTalk;
-	// 임시 데이터 
 	interactionData.NPCSeq = NPCData->NPCSeq;
 	data.InteractionData = interactionData;
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	PlayerASC->AddActionData(TagManager.Action_Interaction, data);
+	PlayerASC->AddActionData(TagManager.Action_Interaction_Dialogue, data);
 }
 
 void ARLRNonPlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -74,6 +74,8 @@ void ARLRNonPlayerCharacter::OnEndOverlap(UPrimitiveComponent* OverlappedCompone
 	UActionSystemComponent* PlayerASC = Player->GetActionSystemComponent();
 	if (!PlayerASC) return;
 
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	PlayerASC->RemoveActionData(TagManager.Action_Interaction_Dialogue);
 	for (auto [Tag, Action] : GiveToPlayerActions)
 	{
 		PlayerASC->RemoveAction(Tag);

@@ -80,6 +80,7 @@ public:
 	}
 
 	void AddActionData(FGameplayTag Tag, FActionData& Data);
+	void RemoveActionData(FGameplayTag Tag);
 	bool GetActionData(FGameplayTag Tag, FActionData& Data);
 
 	bool ActivateWaitAction();
