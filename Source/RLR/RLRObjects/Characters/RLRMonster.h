@@ -26,5 +26,8 @@ protected:
 protected:
 	virtual void SetDead() override;
 	virtual void SetRevive() override;
+
+private:
+	int32 MonsterID;
 };
  
