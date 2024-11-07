@@ -30,7 +30,7 @@ bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
         return false;
 
 
-    UTitleMainUI* TitleMainUI = Cast<UTitleMainUI>(UIManager->GetMainUI());
+    UTitleMainUI* TitleMainUI = UIManager->GetPage<UTitleMainUI>(FGameplayTagManager::Get().Page_InGame);
     if(IsValid(TitleMainUI) == false)
         return false;
     
@@ -112,7 +112,8 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 
 bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserResponsePacket& pkt) {
 
-    ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GameInstance->GetUIManager()->GetMainUI());
+    ULobbyMainUI* LobbyMainUI = GameInstance->GetUIManager()->GetPage<ULobbyMainUI>(FGameplayTagManager::Get().Page_InGame);
+
     if (IsValid(LobbyMainUI) == false)
         return false;
 

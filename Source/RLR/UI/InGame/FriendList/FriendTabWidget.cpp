@@ -52,23 +52,23 @@ void UFriendTabWidget::NativeConstruct()
 {
     if (FriendRequestButton)
     {
-        FriendRequestButton->OnClicked.AddDynamic(this, &UFriendTabWidget::RequestFriendButtonClicked);
+        FriendRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::RequestFriendButtonClicked);
     }
     if (PlayerStatusSetting)
     {
-        PlayerStatusSetting->OnClicked.AddDynamic(this, &UFriendTabWidget::OnPlayerStatusSettingClicked);
+        PlayerStatusSetting->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::OnPlayerStatusSettingClicked);
     }
     if (GroupCreationButton)
     {
-        GroupCreationButton->OnClicked.AddDynamic(this, &UFriendTabWidget::AddGroupButtonClicked);
+        GroupCreationButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::AddGroupButtonClicked);
     }
     if (SearchFriendUI)
     {
-        SearchFriendUI->OnTextChanged.AddDynamic(this, &UFriendTabWidget::SearchFriend);
+        SearchFriendUI->OnTextChanged.AddUniqueDynamic(this, &UFriendTabWidget::SearchFriend);
     }
     if (ChangeGroupOrderButton)
     {
-        ChangeGroupOrderButton->OnClicked.AddDynamic(this, &UFriendTabWidget::ChangeGroupOrder);
+        ChangeGroupOrderButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::ChangeGroupOrder);
     }
 }
 
@@ -86,13 +86,13 @@ void UFriendTabWidget::UpdateFriendTab(const TArray<FFriendGroupResult>& groupDa
 {
     ClearFriendList();
     AddDefaultGroup(groupData);
-    for (const FFriendGroupResult groupDatum : groupData)
+    for (int i = 0; i < groupData.Num(); i++)
     {
-        AddGroupButton(groupDatum.GroupSeq, groupDatum.GroupName);
+        AddGroupButton(i, groupData[i].GroupName);
 
-        for (int i = 0; i < groupDatum.FriendSeq.Num(); i++)
+        for (int j = 0; j < groupData[i].FriendSeq.Num(); j++)
         {
-            AddFriendButton(groupDatum.FriendSeq[i], groupDatum.GroupSeq, groupDatum.FriendName[i]);
+            AddFriendButton(groupData[i].FriendSeq[j], i, groupData[i].FriendName[j]);
         }
     }
 }
@@ -436,6 +436,7 @@ void UFriendTabWidget::ClearFriendList()
 
     GroupButtons.Empty();
     FriendButtons.Empty();
+    OrderedGroupButtons.Empty();
 }
 
 
@@ -446,8 +447,13 @@ void UFriendTabWidget::ReorderGroups(UGroupButtonUI* DraggedButton, UGroupButton
 
     if (DraggedIndex != INDEX_NONE && TargetIndex != INDEX_NONE)
     {
-        OrderedGroupButtons.RemoveAt(DraggedIndex);
-        OrderedGroupButtons.Insert(DraggedButton, TargetIndex);
+        int32 TempGroupSeq = DraggedButton->GetGroupSeq();
+        DraggedButton->SetGroupInfo(TargetButton->GetGroupSeq(), DraggedButton->GetGroupName());
+        TargetButton->SetGroupInfo(TempGroupSeq, TargetButton->GetGroupName());
+
+        // OrderedGroupButtons 배열에서 DraggedButton과 TargetButton의 위치 교환
+        OrderedGroupButtons[DraggedIndex] = TargetButton;
+        OrderedGroupButtons[TargetIndex] = DraggedButton;
 
         // Reorder the widgets in the scroll box
         GroupOrderScrollBox->ClearChildren();

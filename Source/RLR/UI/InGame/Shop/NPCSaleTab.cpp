@@ -19,8 +19,8 @@ void UNPCSaleTab::NativeConstruct()
 	Super::NativeConstruct();
 
 	UpdatePage();
-	BtnSell->OnClicked.AddDynamic(this, &UNPCSaleTab::OnSellClicked);
-	BtnEmpty->OnClicked.AddDynamic(this, &UNPCSaleTab::OnEmptyClicked);
+	BtnSell->OnClicked.AddUniqueDynamic(this, &UNPCSaleTab::OnSellClicked);
+	BtnEmpty->OnClicked.AddUniqueDynamic(this, &UNPCSaleTab::OnEmptyClicked);
 }
 
 void UNPCSaleTab::OnSellClicked()

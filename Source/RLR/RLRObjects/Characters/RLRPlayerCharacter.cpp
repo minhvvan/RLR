@@ -20,6 +20,7 @@
 #include "Player/RLRPlayerController.h"
 #include "Camera/CameraComponent.h"
 #include "Structs/PlayerStructs.h"
+#include "Structs/UtilStructs.h"
 #include "RLR.h"
 
 // Sets default values
@@ -147,6 +148,8 @@ void ARLRPlayerCharacter::UpdateTransform(FVector NewTransform)
 
 void ARLRPlayerCharacter::UpdateAction(int ActionSeq)
 {
+	// Transform 을 매개변수 추가해야합니다. ActionPakcet에서 포장은 처리완료.
+	//Controller ActionPacketHandler 주석 해제해야합니다. Controller 는 샌드 데이터 재구성 필요.
 	if (AIController)
 	{
 		if (!ASC) return;
@@ -155,7 +158,7 @@ void ARLRPlayerCharacter::UpdateAction(int ActionSeq)
 		if (!DataManager) return;
 
 		auto actionResource = DataManager->GetActionResource(ActionSeq);
-		if (actionResource == FActionResource::EmptyActionResource) return;
+		//if (actionResource == FActionResource::EmptyActionResource) return;
 
 		FActionSpec spec(actionResource.ActionClass);
 		ASC->GiveAction(actionResource.ActionTag, spec);

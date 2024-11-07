@@ -15,30 +15,49 @@
  */
 
  class USubUI;
+ class USlotUI;
+ class UCanvasPanel;
 
 UCLASS()
 class RLR_API UMainUI : public UBaseUI
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
+
 public:
 
 	virtual void NativeConstruct() override;
 	virtual void BindSubUI();
 	virtual void RefreshUI() override;
-	virtual void CloseUI();
+	virtual void CloseUI() {};
 
-	virtual void SetInputMode();
+	bool IsOpenSubUI(FGameplayTag InputTag);
+	void ToggleSubUI(FGameplayTag InputTag);
+	template<typename T = USubUI>
+	T* GetSubUI(FGameplayTag InputTag);
+	virtual void OpenSubUI(FGameplayTag InputTag);
+	virtual void CloseSubUI(FGameplayTag InputTag);
+	void CloseFrontSubUI();
+	void CloseAllSubUI();
 
-	virtual bool IsOpenSubUI(FGameplayTag InputTag) { return false; }
-	virtual bool ToggleSubUI(FGameplayTag InputTag) { return false; }
-	virtual USubUI* GetSubUI(FGameplayTag InputTag) { return nullptr; }
-	virtual USubUI* GetSubUI(EUIType Type){return SubUIMap[Type]; }
-	virtual void OpenSubUI(FGameplayTag InputTag) {};
-	virtual void CloseSubUI(FGameplayTag InputTag) {};
+	void AdjustZOrder();
+	void SetZOrderToTop(FGameplayTag Tag);
+	void SetSubUIPosition(FGameplayTag Tag, FVector2D NewPos);
+	void OpenSubUINearTargetSlot(USlotUI* Target, FGameplayTag Tag);		//해당 슬롯 옆에 Sub UI를 띄운다.
 
-public:
+	virtual void OnPageActivated() {};
 
-	TMap<FGameplayTag , USubUI*> UserActionSubUI;
-	TMap<EUIType, USubUI*>				SubUIMap;
+protected:
+	TMap<FGameplayTag, USubUI*>		SubUIMap;
+	TArray<USubUI*>					SubUIStack;
 };
+
+template<typename T>
+inline T* UMainUI::GetSubUI(FGameplayTag InputTag)
+{
+	if (!SubUIMap.Contains(InputTag)) return nullptr;
+	return Cast<T>(SubUIMap[InputTag]);
+}

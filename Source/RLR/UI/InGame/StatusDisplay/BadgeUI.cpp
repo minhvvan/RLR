@@ -13,7 +13,6 @@
 void UBadgeUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::BADGE_UI);
 	SetUserLevel();
 	// Test Code
 	ExpProgressBar->UpdateMaxExp(userLevel);

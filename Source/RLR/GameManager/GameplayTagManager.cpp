@@ -80,33 +80,62 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_ItemQuickSlot_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.7"), FString(TEXT("아이템 퀵 슬롯 7")));
 	GameplayTags.Action_ItemQuickSlot_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.8"), FString(TEXT("아이템 퀵 슬롯 8")));
 	GameplayTags.Action_ItemQuickSlot_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.9"), FString(TEXT("아이템 퀵 슬롯 9")));
+	
+	/*
+	Page
+	*/
+	GameplayTags.Page_InGame = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.InGame"), FString(TEXT("인게임 페이지")));
+	GameplayTags.Page_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.Dialogue"), FString(TEXT("대화 페이지")));
+
 	/*
 		Action UI
 	*/
+	GameplayTags.UI_Character_Status = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Status"), FString(TEXT("캐릭터 상태창")));
+	GameplayTags.UI_Character_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Display"), FString(TEXT("캐릭터 체력바")));
+	
+	GameplayTags.UI_Stat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Stat"), FString(TEXT("캐릭터 스탯창")));
 
-	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토라")));
-	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ItemInfomation"), FString(TEXT("아이템 정보창")));
-	GameplayTags.UI_CharacterStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.CharacterStatus"), FString(TEXT("캐릭터창")));
-	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
 	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill"), FString(TEXT("스킬창")));
-	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest"), FString(TEXT("퀘스트 정보창")));
+	GameplayTags.UI_Skill_Upgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill.Upgrade"), FString(TEXT("스킬 업그레이드")));
+	GameplayTags.UI_Skill_DetailInfo = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill.DetailInfo"), FString(TEXT("스킬 정보창")));
+
+	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토리")));
+	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ItemInfomation"), FString(TEXT("아이템 정보창")));
+	GameplayTags.UI_NPCShop = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop"), FString(TEXT("NPC 상점")));
+	GameplayTags.UI_NPCShop_Popup_Bundle = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop.Popup.Bundle"), FString(TEXT("NPC 상점 묶음 구매")));
+
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat"), FString(TEXT("채팅창")));
-	GameplayTags.UI_ChatOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ChatOption"), FString(TEXT("채팅 옵션창")));
+	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat.Option"), FString(TEXT("채팅 옵션창")));
+	
+	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
+	
+	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest"), FString(TEXT("퀘스트 정보창")));
+	GameplayTags.UI_Quest_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest.Dialogue"), FString(TEXT("퀘스트 대화창")));
+	
+	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
+	GameplayTags.UI_Post_Alert = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post.Alert"), FString(TEXT("우편 알림")));
+	
 	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Party"), FString(TEXT("파티창")));
+	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Trade"), FString(TEXT("개인 거래창")));
 	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
 	GameplayTags.UI_Guild = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Guild"), FString(TEXT("길드창")));
-
-	GameplayTags.UI_Close = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Close"), FString(TEXT("특정 키 누르면 제일 앞에 있는 UI 닫기")));
-	GameplayTags.UI_SkillUpgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.UI_SkillUpgrade"), FString(TEXT("스킬 업그레이드")));
-
-	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
-	GameplayTags.TradeUI = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TradeUI"), FString(TEXT("개인 거래창")));
-	GameplayTags.ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
-	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));
-	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
-	GameplayTags.UI_OtherPlayerMenu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerMenu"), FString(TEXT("플레이어 메뉴")));
-	GameplayTags.UI_OtherPlayerStatus = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayerStatus"), FString(TEXT("타 플레이어 상태창")));
 	GameplayTags.UI_Report = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Report"), FString(TEXT("신고")));
+	
+	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
+	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
+	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
+	
+	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Menu"), FString(TEXT("플레이어 메뉴")));
+	GameplayTags.UI_OtherPlayer_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Display"), FString(TEXT("타 플레이어 체력바")));
+	GameplayTags.UI_OtherPlayer_Stat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Stat"), FString(TEXT("타 플레이어 상태창")));
+	
+	GameplayTags.UI_MiniMap = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.MiniMap"), FString(TEXT("미니맵")));
+	GameplayTags.UI_Badge = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Badge"), FString(TEXT("뱃지")));
+	
+	GameplayTags.UI_Montster_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Monster.Display"), FString(TEXT("몬스터 상태")));
+	GameplayTags.UI_TimerProgressBar = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TimeProgressBar"), FString(TEXT("프로그래스바")));
+	
+	GameplayTags.UI_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Menu"), FString(TEXT("메뉴")));
 
 	/*
 		Input

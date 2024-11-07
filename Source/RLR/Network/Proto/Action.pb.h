@@ -183,6 +183,10 @@ class CS_ActionRequestPacket final :
   enum : int {
     kActionSeqFieldNumber = 2,
     kUserSeqFieldNumber = 1,
+    kTransXFieldNumber = 4,
+    kChannelIdFieldNumber = 3,
+    kTransYFieldNumber = 5,
+    kTransZFieldNumber = 6,
   };
   // int64 actionSeq = 2;
   void clear_actionseq();
@@ -202,6 +206,42 @@ class CS_ActionRequestPacket final :
   void _internal_set_userseq(int32_t value);
   public:
 
+  // float transX = 4;
+  void clear_transx();
+  float transx() const;
+  void set_transx(float value);
+  private:
+  float _internal_transx() const;
+  void _internal_set_transx(float value);
+  public:
+
+  // int64 channelId = 3;
+  void clear_channelid();
+  int64_t channelid() const;
+  void set_channelid(int64_t value);
+  private:
+  int64_t _internal_channelid() const;
+  void _internal_set_channelid(int64_t value);
+  public:
+
+  // float transY = 5;
+  void clear_transy();
+  float transy() const;
+  void set_transy(float value);
+  private:
+  float _internal_transy() const;
+  void _internal_set_transy(float value);
+  public:
+
+  // float transZ = 6;
+  void clear_transz();
+  float transz() const;
+  void set_transz(float value);
+  private:
+  float _internal_transz() const;
+  void _internal_set_transz(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.CS_ActionRequestPacket)
  private:
   class _Internal;
@@ -212,6 +252,10 @@ class CS_ActionRequestPacket final :
   struct Impl_ {
     int64_t actionseq_;
     int32_t userseq_;
+    float transx_;
+    int64_t channelid_;
+    float transy_;
+    float transz_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -342,6 +386,9 @@ class SC_ActionBroadcastPacket final :
   enum : int {
     kActionSeqFieldNumber = 2,
     kUserSeqFieldNumber = 1,
+    kTransXFieldNumber = 4,
+    kTransYFieldNumber = 5,
+    kTransZFieldNumber = 6,
   };
   // int64 actionSeq = 2;
   void clear_actionseq();
@@ -361,6 +408,33 @@ class SC_ActionBroadcastPacket final :
   void _internal_set_userseq(int32_t value);
   public:
 
+  // float transX = 4;
+  void clear_transx();
+  float transx() const;
+  void set_transx(float value);
+  private:
+  float _internal_transx() const;
+  void _internal_set_transx(float value);
+  public:
+
+  // float transY = 5;
+  void clear_transy();
+  float transy() const;
+  void set_transy(float value);
+  private:
+  float _internal_transy() const;
+  void _internal_set_transy(float value);
+  public:
+
+  // float transZ = 6;
+  void clear_transz();
+  float transz() const;
+  void set_transz(float value);
+  private:
+  float _internal_transz() const;
+  void _internal_set_transz(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.SC_ActionBroadcastPacket)
  private:
   class _Internal;
@@ -371,6 +445,9 @@ class SC_ActionBroadcastPacket final :
   struct Impl_ {
     int64_t actionseq_;
     int32_t userseq_;
+    float transx_;
+    float transy_;
+    float transz_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -427,6 +504,86 @@ inline void CS_ActionRequestPacket::set_actionseq(int64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.actionSeq)
 }
 
+// int64 channelId = 3;
+inline void CS_ActionRequestPacket::clear_channelid() {
+  _impl_.channelid_ = int64_t{0};
+}
+inline int64_t CS_ActionRequestPacket::_internal_channelid() const {
+  return _impl_.channelid_;
+}
+inline int64_t CS_ActionRequestPacket::channelid() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.channelId)
+  return _internal_channelid();
+}
+inline void CS_ActionRequestPacket::_internal_set_channelid(int64_t value) {
+  
+  _impl_.channelid_ = value;
+}
+inline void CS_ActionRequestPacket::set_channelid(int64_t value) {
+  _internal_set_channelid(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.channelId)
+}
+
+// float transX = 4;
+inline void CS_ActionRequestPacket::clear_transx() {
+  _impl_.transx_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transx() const {
+  return _impl_.transx_;
+}
+inline float CS_ActionRequestPacket::transx() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transX)
+  return _internal_transx();
+}
+inline void CS_ActionRequestPacket::_internal_set_transx(float value) {
+  
+  _impl_.transx_ = value;
+}
+inline void CS_ActionRequestPacket::set_transx(float value) {
+  _internal_set_transx(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transX)
+}
+
+// float transY = 5;
+inline void CS_ActionRequestPacket::clear_transy() {
+  _impl_.transy_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transy() const {
+  return _impl_.transy_;
+}
+inline float CS_ActionRequestPacket::transy() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transY)
+  return _internal_transy();
+}
+inline void CS_ActionRequestPacket::_internal_set_transy(float value) {
+  
+  _impl_.transy_ = value;
+}
+inline void CS_ActionRequestPacket::set_transy(float value) {
+  _internal_set_transy(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transY)
+}
+
+// float transZ = 6;
+inline void CS_ActionRequestPacket::clear_transz() {
+  _impl_.transz_ = 0;
+}
+inline float CS_ActionRequestPacket::_internal_transz() const {
+  return _impl_.transz_;
+}
+inline float CS_ActionRequestPacket::transz() const {
+  // @@protoc_insertion_point(field_get:Protocol.CS_ActionRequestPacket.transZ)
+  return _internal_transz();
+}
+inline void CS_ActionRequestPacket::_internal_set_transz(float value) {
+  
+  _impl_.transz_ = value;
+}
+inline void CS_ActionRequestPacket::set_transz(float value) {
+  _internal_set_transz(value);
+  // @@protoc_insertion_point(field_set:Protocol.CS_ActionRequestPacket.transZ)
+}
+
 // -------------------------------------------------------------------
 
 // SC_ActionBroadcastPacket
@@ -469,6 +626,66 @@ inline void SC_ActionBroadcastPacket::_internal_set_actionseq(int64_t value) {
 inline void SC_ActionBroadcastPacket::set_actionseq(int64_t value) {
   _internal_set_actionseq(value);
   // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.actionSeq)
+}
+
+// float transX = 4;
+inline void SC_ActionBroadcastPacket::clear_transx() {
+  _impl_.transx_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transx() const {
+  return _impl_.transx_;
+}
+inline float SC_ActionBroadcastPacket::transx() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transX)
+  return _internal_transx();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transx(float value) {
+  
+  _impl_.transx_ = value;
+}
+inline void SC_ActionBroadcastPacket::set_transx(float value) {
+  _internal_set_transx(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transX)
+}
+
+// float transY = 5;
+inline void SC_ActionBroadcastPacket::clear_transy() {
+  _impl_.transy_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transy() const {
+  return _impl_.transy_;
+}
+inline float SC_ActionBroadcastPacket::transy() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transY)
+  return _internal_transy();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transy(float value) {
+  
+  _impl_.transy_ = value;
+}
+inline void SC_ActionBroadcastPacket::set_transy(float value) {
+  _internal_set_transy(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transY)
+}
+
+// float transZ = 6;
+inline void SC_ActionBroadcastPacket::clear_transz() {
+  _impl_.transz_ = 0;
+}
+inline float SC_ActionBroadcastPacket::_internal_transz() const {
+  return _impl_.transz_;
+}
+inline float SC_ActionBroadcastPacket::transz() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_ActionBroadcastPacket.transZ)
+  return _internal_transz();
+}
+inline void SC_ActionBroadcastPacket::_internal_set_transz(float value) {
+  
+  _impl_.transz_ = value;
+}
+inline void SC_ActionBroadcastPacket::set_transz(float value) {
+  _internal_set_transz(value);
+  // @@protoc_insertion_point(field_set:Protocol.SC_ActionBroadcastPacket.transZ)
 }
 
 #ifdef __GNUC__

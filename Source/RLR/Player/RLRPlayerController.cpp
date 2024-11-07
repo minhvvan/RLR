@@ -15,6 +15,7 @@
 #include "Network/Handler/ClientPacketHandler.h"
 #include "Structs/UtilStructs.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
+#include "UI/InGame/InGameMainUI.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
@@ -26,14 +27,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 
-ARLRPlayerController::ARLRPlayerController():
+ARLRPlayerController::ARLRPlayerController() :
 	movePacketInterval(1.f),
 	timeSinceLastMovePacket(1.f),
 	lastSentPosition(FVector::ZeroVector)
 {
-    PrimaryActorTick.bCanEverTick = true;
-    bShowMouseCursor = true;
-    DefaultMouseCursor = EMouseCursor::Default;
+	PrimaryActorTick.bCanEverTick = true;
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
 }
 
 void ARLRPlayerController::BeginPlay()
@@ -52,26 +53,26 @@ void ARLRPlayerController::OnPossess(APawn* InPawn)
 
 void ARLRPlayerController::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);
 
 	if (!PlayerManager || !Player) return;
 
-    timeSinceLastMovePacket += DeltaTime;
+	timeSinceLastMovePacket += DeltaTime;
 
-    if (timeSinceLastMovePacket >= movePacketInterval)
-    {
-        FVector CurrentPosition = PlayerCharacter->GetActorLocation();
+	if (timeSinceLastMovePacket >= movePacketInterval)
+	{
+		FVector CurrentPosition = PlayerCharacter->GetActorLocation();
 
-        if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
-        {
+		if (FVector::DistSquared(CurrentPosition, lastSentPosition) > KINDA_SMALL_NUMBER)
+		{
 			UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 			if (!ASC) {
-				UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
+				//UE_LOG(LogTemp, Warning, TEXT("ASC Not in Player"));
 				return;
 			}
 			UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
 			if (!statSet) {
-				UE_LOG(LogTemp, Warning, TEXT("statSet Not in ASC"));
+				//UE_LOG(LogTemp, Warning, TEXT("statSet Not in ASC"));
 				return;
 			}
 			FMoveResult moveResult;
@@ -84,10 +85,10 @@ void ARLRPlayerController::Tick(float DeltaTime)
 			{
 				lastSentPosition = CurrentPosition;
 			}
-        }
+		}
 
-        timeSinceLastMovePacket = 0.0f;
-    }
+		timeSinceLastMovePacket = 0.0f;
+	}
 }
 
 void ARLRPlayerController::SetupInputComponent()
@@ -111,7 +112,7 @@ void ARLRPlayerController::InitBinding()
 
 	URLREnhancedInputComponent* Component = Cast<URLREnhancedInputComponent>(InputComponent);
 
-	if (Component &&  Commands)
+	if (Component && Commands)
 	{
 		Component->ClearActionBindings();
 		Component->ClearActionEventBindings();
@@ -123,7 +124,7 @@ void ARLRPlayerController::InitBinding()
 void ARLRPlayerController::OnInput()
 {
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
-	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayerMenu);
+	GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_OtherPlayer_Menu);
 }
 
 void ARLRPlayerController::OnMoveStarted(FGameplayTag TriggerTag)
@@ -172,9 +173,8 @@ void ARLRPlayerController::OnUserClick()
 
 	if (auto otherUser = Cast<ARLRPlayerCharacter>(Hit.GetActor()))
 	{
-		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		auto UIManger = GameInstance->GetUIManager();
-		auto otherUserMenu = Cast<UOtherPlayerMenu>(UIManger->GetUI(EUIType::OTHER_PLAYER_MENU));
+		auto UIManager = GameInstance->GetUIManager();
+		UOtherPlayerMenu* otherUserMenu = UIManager->GetSubUI<UOtherPlayerMenu>(RLRTAG.UI_OtherPlayer_Menu);
 		if (otherUserMenu)
 		{
 			auto asc = otherUser->GetActionSystemComponent();
@@ -185,8 +185,9 @@ void ARLRPlayerController::OnUserClick()
 			otherUserMenu->SetOtherUserData(MakeShared<FUserCharacter>(*otherUserData));
 		}
 
-		UIManger->SetSubUIPosition(TagManager.UI_OtherPlayerMenu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
-		OnOpenUI(TagManager.UI_OtherPlayerMenu);
+		UInGameMainUI* mainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
+		mainUI->SetSubUIPosition(RLRTAG.UI_OtherPlayer_Menu, UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld()));
+		OnOpenUI(RLRTAG.UI_OtherPlayer_Menu);
 	}
 }
 
@@ -215,7 +216,6 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	if (!DataManager) return;
 
 	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
-	if (actionResource == FActionResource::EmptyActionResource) return;
 
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
@@ -229,7 +229,14 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 		return;
 	}
 	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq) ;
+	//FActionResult actionResult;
+
+	//actionResult.UserSeq = statSet->GetUserSeq();
+	//actionResult.ActionSeq = statSet->GetMapId();
+	//actionResult.ChannelId = statSet->GetChannelId();
+	//actionResult.TargetTransform = CurrentPosition;
+
+	//NetworkManager->SendActionPacket(actionResult);
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -253,6 +260,9 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	const FActionResource& actionResource = DataManager->GetActionResourceByTag(skillTag);
 	if (actionResource == FActionResource::EmptyActionResource) return;
 
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return;
+
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_START;
@@ -260,7 +270,14 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 
 	SkillManager->SkillStart(skillTag);
 
-	NetworkManager->SendActionPacket(PlayerCharacter->GetPlayerSeq(),actionResource.ActionSeq);
+	//FActionResult actionResult;
+
+	//actionResult.UserSeq = statSet->GetUserSeq();
+	//actionResult.ActionSeq = statSet->GetMapId();
+	//actionResult.ChannelId = statSet->GetChannelId();
+	//actionResult.TargetTransform = CurrentPosition;
+
+	//NetworkManager->SendActionPacket(actionResult);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)
@@ -305,11 +322,23 @@ void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)
 	soundEvent.Broadcast();;
 }
 
+void ARLRPlayerController::OnCloseUI()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+	if (GM == nullptr) return;
+
+	UUIManager* UIManager = GM->GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UMainUI* currentMainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	currentMainUI->CloseFrontSubUI();
+}
+
 void ARLRPlayerController::OnActionStart(FGameplayTag InputTag)
 {
 	if (!PlayerCharacter) return;
 
-	UActionSystemComponent* ASC =  PlayerCharacter->GetActionSystemComponent();
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
 	ASC->TryActivateAction(InputTag);

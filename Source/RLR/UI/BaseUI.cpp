@@ -21,7 +21,6 @@
 void UBaseUI::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
-	UIType = EUIType::NONE;
 }
 
 void UBaseUI::NativeConstruct()
@@ -34,12 +33,12 @@ void UBaseUI::NativeConstruct()
 void UBaseUI::OpenUI()
 {
 	RefreshUI();
-	SetVisibility(ESlateVisibility::Visible);
+	GetUIManager()->OpenSubUI(UITag);
 }
 
 void UBaseUI::CloseUI()
 {
-	SetVisibility(ESlateVisibility::Hidden);
+	GetUIManager()->CloseSubUI(UITag);
 }
 
 void UBaseUI::BindWidget()
@@ -56,20 +55,23 @@ void UBaseUI::BindWidget()
 	}
 }
 
-void UBaseUI::SetUIType(EUIType Type)
+void UBaseUI::SetInputMode()
 {
-	if(UIType != EUIType::NONE)
-		return;
+	//특별한 경우가 없다면 그냥 Game And UI 모드.
+	ChangeInputModeGameAndUI();
+}
 
-	UIType = Type;
-	GetUIManager()->AddUI(this);
+void UBaseUI::SetVisible(bool bVisible)
+{
+	if (bVisible) SetVisibility(ESlateVisibility::Visible);
+	else SetVisibility(ESlateVisibility::Hidden);
 }
 
 UBaseUI* UBaseUI::GetParent()
 {
 	if (IsValid(Parent) == false)
 	{
-		Parent = GetUIManager()->GetMainUI();
+		Parent = GetUIManager()->GetPage<UBaseUI>(FGameplayTagManager::Get().Page_InGame);
 	}
 	return Parent;
 }
@@ -91,7 +93,7 @@ void UBaseUI::ChangeInputModeGameAndUI()
 	if(IsValid(PlayerController) == false)
 		return;
 
-	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	UMainUI* MainUI = GameInstance->GetUIManager()->GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if(IsValid(MainUI) == false)
 		return;
 
@@ -121,7 +123,7 @@ void UBaseUI::ChangeInputModeUIOnly()
 	if (IsValid(PlayerController) == false)
 		return;
 
-	UMainUI* MainUI = GetUIManager()->GetMainUI();
+	UMainUI* MainUI = GameInstance->GetUIManager()->GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if (IsValid(MainUI) == false)
 		return;
 
@@ -226,4 +228,9 @@ UPartyManager* UBaseUI::GetPartyManager()
 	}
 
 	return nullptr;
+}
+
+void UBaseUI::OpenOtherUI(FGameplayTag Tag)
+{
+	GetUIManager()->OpenSubUI(Tag);
 }

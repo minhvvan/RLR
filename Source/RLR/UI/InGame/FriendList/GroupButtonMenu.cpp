@@ -11,11 +11,9 @@ void UGroupButtonMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::GROUP_MENU_UI);
-
 	if (RemoveGroupButton)
 	{
-		RemoveGroupButton->OnClicked.AddDynamic(this, &UGroupButtonMenu::RemoveGroup);
+		RemoveGroupButton->OnClicked.AddUniqueDynamic(this, &UGroupButtonMenu::RemoveGroup);
 	}
 }
 
@@ -23,5 +21,4 @@ void UGroupButtonMenu::RemoveGroup()
 {
 	GameInstance->GetNetworkManager()->SendRemoveFriendGroup(GroupSeq);
 	GroupRemovedSignature.Execute(GroupSeq);
-	CloseUI();
 }

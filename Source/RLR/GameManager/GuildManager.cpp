@@ -28,7 +28,6 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 				}
             }
         });
-
 }
 
 FGuildResult UGuildManager::GetGuildInfo()

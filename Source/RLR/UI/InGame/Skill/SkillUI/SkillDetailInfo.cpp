@@ -75,11 +75,11 @@ void USkillDetailInfo::OnClickedUpgradeSkillButton()
 	if (SkillData == FSkillData::EmptySkillData)
 	{
 		FGameplayTagManager TagManager = FGameplayTagManager::Get();
-		GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_SkillUpgrade);
+		GameInstance->GetUIManager()->CloseSubUI(TagManager.UI_Skill_Upgrade);
 		return;
 	}
 
-	GameInstance->GetUIManager()->ToggleSubUI(FGameplayTagManager::Get().UI_SkillUpgrade);
+	GameInstance->GetUIManager()->ToggleSubUI(FGameplayTagManager::Get().UI_Skill_Upgrade);
 }
 
 void USkillDetailInfo::OnClickedShowChainSkillButton()

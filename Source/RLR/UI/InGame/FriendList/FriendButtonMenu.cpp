@@ -12,19 +12,17 @@ void UFriendButtonMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::FRIEND_MENU_UI);
-
 	if (PlayerInfoButton)
 	{
-		PlayerInfoButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::OpenFriendInfoUI);
+		PlayerInfoButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::OpenFriendInfoUI);
 	}
 	if (RemoveFriendButton)
 	{
-		RemoveFriendButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::RemoveFriend);
+		RemoveFriendButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::RemoveFriend);
 	}
 	if (MoveGroupButton)
 	{
-		MoveGroupButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::MoveGroup);
+		MoveGroupButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::MoveGroup);
 	}
 }
 
@@ -32,7 +30,6 @@ void UFriendButtonMenu::NativeConstruct()
 void UFriendButtonMenu::OpenFriendInfoUI()
 {
 	OnFriendInfoClicked.Broadcast(FriendSeq);
-	CloseUI();
 }
 // 친구 삭제
 void UFriendButtonMenu::RemoveFriend()
@@ -40,7 +37,6 @@ void UFriendButtonMenu::RemoveFriend()
 	GameInstance->GetNetworkManager()->SendRemoveFriend(FriendSeq);
 	// TODO : 친구 삭제 friendListUI에 전달하기
 
-	CloseUI();
 }
 // 그룹 이동(그룹 리스트 Open)
 void UFriendButtonMenu::MoveGroup()

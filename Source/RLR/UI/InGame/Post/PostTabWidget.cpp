@@ -23,7 +23,7 @@ void UPostTabWidget::NativeConstruct()
 
     if (RemovePostButton)
     {
-        RemovePostButton->OnClicked.AddDynamic(this, &UPostTabWidget::OnRemoveButtonClicked);
+        RemovePostButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnRemoveButtonClicked);
     }
 }
 

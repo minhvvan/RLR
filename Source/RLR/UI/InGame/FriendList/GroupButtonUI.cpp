@@ -17,8 +17,7 @@ void UGroupButtonUI::NativeConstruct()
 
     if (GroupButton)
     {
-        GroupButton->OnClicked.RemoveDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
-        GroupButton->OnClicked.AddDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
+        GroupButton->OnClicked.AddUniqueDynamic(this, &UGroupButtonUI::OnGroupButtonClicked);
     }
     if (UScrollBox* ParentBox = Cast<UScrollBox>(GetParent()))
     {
@@ -58,11 +57,10 @@ void UGroupButtonUI::OnGroupButtonClicked()
         if (bIsInGroupList)
         {
 		    GroupClickedOnList.Execute(this);
-
             // Close friendButtonMenu
             if (FriendListUI)
             {
-                FriendListUI->FriendMenuUI->CloseUI();
+                FriendListUI->FriendMenuUI->SetVisibility(ESlateVisibility::Hidden);
             }
         }
 	}

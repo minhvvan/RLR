@@ -14,7 +14,6 @@
 void ULobbyMainUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::LOBBY_MAIN_UI);
 
 }
 

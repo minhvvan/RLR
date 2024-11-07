@@ -14,8 +14,6 @@
 void UServerList::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::SERVER_LIST);
-	
 }
 
 void UServerList::Init()

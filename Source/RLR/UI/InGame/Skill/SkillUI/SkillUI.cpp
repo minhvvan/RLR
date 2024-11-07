@@ -11,14 +11,14 @@
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillPropertyContainer.h"
 #include "UI/InGame/Skill/SkillUI/SkillSetting/SkillSetting.h"
 #include "UI/InGame/Skill/SkillUI/SkillDetailInfo.h"
+#include "GameManager/GameplayTagManager.h"
 #include "Structs/UtilStructs.h"
 
 void USkillUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::SKILL_UI);
-	SetUITag(FGameplayTagManager::Get().UI_Skill);
+	SetUITag(RLRTAG.UI_Skill);
 
 
 	SkillTreeTabButton->OnClicked.AddUniqueDynamic(this, &USkillUI::OnClickedSkillTreeTab);

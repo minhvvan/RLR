@@ -9,15 +9,15 @@ void UFriendConnectionStatusUI::NativeConstruct()
 {
 	if (PlayerStatusOnline)
 	{
-		PlayerStatusOnline->OnClicked.AddDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusOnline);
+		PlayerStatusOnline->OnClicked.AddUniqueDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusOnline);
 	}
 	if (PlayerStatusOffline)
 	{
-		PlayerStatusOffline->OnClicked.AddDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusOffline);
+		PlayerStatusOffline->OnClicked.AddUniqueDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusOffline);
 	}
 	if (PlayerStatusAway)
 	{
-		PlayerStatusAway->OnClicked.AddDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusAway);
+		PlayerStatusAway->OnClicked.AddUniqueDynamic(this, &UFriendConnectionStatusUI::SetPlayerStatusAway);
 	}
 }
 

@@ -25,6 +25,10 @@ PROTOBUF_CONSTEXPR CS_ActionRequestPacket::CS_ActionRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.actionseq_)*/int64_t{0}
   , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.transx_)*/0
+  , /*decltype(_impl_.channelid_)*/int64_t{0}
+  , /*decltype(_impl_.transy_)*/0
+  , /*decltype(_impl_.transz_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CS_ActionRequestPacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR CS_ActionRequestPacketDefaultTypeInternal()
@@ -39,6 +43,9 @@ PROTOBUF_CONSTEXPR SC_ActionBroadcastPacket::SC_ActionBroadcastPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.actionseq_)*/int64_t{0}
   , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.transx_)*/0
+  , /*decltype(_impl_.transy_)*/0
+  , /*decltype(_impl_.transz_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SC_ActionBroadcastPacketDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SC_ActionBroadcastPacketDefaultTypeInternal()
@@ -63,6 +70,10 @@ const uint32_t TableStruct_Action_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.userseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.actionseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.channelid_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.transx_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.transy_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_ActionRequestPacket, _impl_.transz_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -71,10 +82,13 @@ const uint32_t TableStruct_Action_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.userseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.actionseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.transx_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.transy_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_ActionBroadcastPacket, _impl_.transz_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::CS_ActionRequestPacket)},
-  { 8, -1, -1, sizeof(::Protocol::SC_ActionBroadcastPacket)},
+  { 12, -1, -1, sizeof(::Protocol::SC_ActionBroadcastPacket)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -83,14 +97,17 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_Action_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Action.proto\022\010Protocol\"<\n\026CS_ActionReq"
+  "\n\014Action.proto\022\010Protocol\"\177\n\026CS_ActionReq"
   "uestPacket\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tactionSeq"
-  "\030\002 \001(\003\">\n\030SC_ActionBroadcastPacket\022\017\n\007us"
-  "erSeq\030\001 \001(\005\022\021\n\tactionSeq\030\002 \001(\003b\006proto3"
+  "\030\002 \001(\003\022\021\n\tchannelId\030\003 \001(\003\022\016\n\006transX\030\004 \001("
+  "\002\022\016\n\006transY\030\005 \001(\002\022\016\n\006transZ\030\006 \001(\002\"n\n\030SC_"
+  "ActionBroadcastPacket\022\017\n\007userSeq\030\001 \001(\005\022\021"
+  "\n\tactionSeq\030\002 \001(\003\022\016\n\006transX\030\004 \001(\002\022\016\n\006tra"
+  "nsY\030\005 \001(\002\022\016\n\006transZ\030\006 \001(\002b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Action_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Action_2eproto = {
-    false, false, 158, descriptor_table_protodef_Action_2eproto,
+    false, false, 273, descriptor_table_protodef_Action_2eproto,
     "Action.proto",
     &descriptor_table_Action_2eproto_once, nullptr, 0, 2,
     schemas, file_default_instances, TableStruct_Action_2eproto::offsets,
@@ -123,12 +140,16 @@ CS_ActionRequestPacket::CS_ActionRequestPacket(const CS_ActionRequestPacket& fro
   new (&_impl_) Impl_{
       decltype(_impl_.actionseq_){}
     , decltype(_impl_.userseq_){}
+    , decltype(_impl_.transx_){}
+    , decltype(_impl_.channelid_){}
+    , decltype(_impl_.transy_){}
+    , decltype(_impl_.transz_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.actionseq_, &from._impl_.actionseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
-    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transz_) -
+    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.transz_));
   // @@protoc_insertion_point(copy_constructor:Protocol.CS_ActionRequestPacket)
 }
 
@@ -139,6 +160,10 @@ inline void CS_ActionRequestPacket::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.actionseq_){int64_t{0}}
     , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.transx_){0}
+    , decltype(_impl_.channelid_){int64_t{0}}
+    , decltype(_impl_.transy_){0}
+    , decltype(_impl_.transz_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -167,8 +192,8 @@ void CS_ActionRequestPacket::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.actionseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.userseq_) -
-      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
+      reinterpret_cast<char*>(&_impl_.transz_) -
+      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.transz_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -191,6 +216,38 @@ const char* CS_ActionRequestPacket::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.actionseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 channelId = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.channelid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
+          _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transY = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
+          _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transZ = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
+          _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
@@ -235,6 +292,42 @@ uint8_t* CS_ActionRequestPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_actionseq(), target);
   }
 
+  // int64 channelId = 3;
+  if (this->_internal_channelid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_channelid(), target);
+  }
+
+  // float transX = 4;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transx(), target);
+  }
+
+  // float transY = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_transy(), target);
+  }
+
+  // float transZ = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_transz(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -261,6 +354,38 @@ size_t CS_ActionRequestPacket::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
   }
 
+  // float transX = 4;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    total_size += 1 + 4;
+  }
+
+  // int64 channelId = 3;
+  if (this->_internal_channelid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_channelid());
+  }
+
+  // float transY = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float transZ = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    total_size += 1 + 4;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -285,6 +410,30 @@ void CS_ActionRequestPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = from._internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    _this->_internal_set_transx(from._internal_transx());
+  }
+  if (from._internal_channelid() != 0) {
+    _this->_internal_set_channelid(from._internal_channelid());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = from._internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    _this->_internal_set_transy(from._internal_transy());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = from._internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    _this->_internal_set_transz(from._internal_transz());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -303,8 +452,8 @@ void CS_ActionRequestPacket::InternalSwap(CS_ActionRequestPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CS_ActionRequestPacket, _impl_.userseq_)
-      + sizeof(CS_ActionRequestPacket::_impl_.userseq_)
+      PROTOBUF_FIELD_OFFSET(CS_ActionRequestPacket, _impl_.transz_)
+      + sizeof(CS_ActionRequestPacket::_impl_.transz_)
       - PROTOBUF_FIELD_OFFSET(CS_ActionRequestPacket, _impl_.actionseq_)>(
           reinterpret_cast<char*>(&_impl_.actionseq_),
           reinterpret_cast<char*>(&other->_impl_.actionseq_));
@@ -334,12 +483,15 @@ SC_ActionBroadcastPacket::SC_ActionBroadcastPacket(const SC_ActionBroadcastPacke
   new (&_impl_) Impl_{
       decltype(_impl_.actionseq_){}
     , decltype(_impl_.userseq_){}
+    , decltype(_impl_.transx_){}
+    , decltype(_impl_.transy_){}
+    , decltype(_impl_.transz_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.actionseq_, &from._impl_.actionseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.userseq_) -
-    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transz_) -
+    reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.transz_));
   // @@protoc_insertion_point(copy_constructor:Protocol.SC_ActionBroadcastPacket)
 }
 
@@ -350,6 +502,9 @@ inline void SC_ActionBroadcastPacket::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.actionseq_){int64_t{0}}
     , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.transx_){0}
+    , decltype(_impl_.transy_){0}
+    , decltype(_impl_.transz_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -378,8 +533,8 @@ void SC_ActionBroadcastPacket::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.actionseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.userseq_) -
-      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.userseq_));
+      reinterpret_cast<char*>(&_impl_.transz_) -
+      reinterpret_cast<char*>(&_impl_.actionseq_)) + sizeof(_impl_.transz_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -402,6 +557,30 @@ const char* SC_ActionBroadcastPacket::_InternalParse(const char* ptr, ::_pbi::Pa
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.actionseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
+          _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transY = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
+          _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transZ = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
+          _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
@@ -446,6 +625,36 @@ uint8_t* SC_ActionBroadcastPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_actionseq(), target);
   }
 
+  // float transX = 4;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transx(), target);
+  }
+
+  // float transY = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_transy(), target);
+  }
+
+  // float transZ = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_transz(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -472,6 +681,33 @@ size_t SC_ActionBroadcastPacket::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
   }
 
+  // float transX = 4;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float transY = 5;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float transZ = 6;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    total_size += 1 + 4;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -496,6 +732,27 @@ void SC_ActionBroadcastPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_ms
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = from._internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    _this->_internal_set_transx(from._internal_transx());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = from._internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    _this->_internal_set_transy(from._internal_transy());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = from._internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    _this->_internal_set_transz(from._internal_transz());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -514,8 +771,8 @@ void SC_ActionBroadcastPacket::InternalSwap(SC_ActionBroadcastPacket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SC_ActionBroadcastPacket, _impl_.userseq_)
-      + sizeof(SC_ActionBroadcastPacket::_impl_.userseq_)
+      PROTOBUF_FIELD_OFFSET(SC_ActionBroadcastPacket, _impl_.transz_)
+      + sizeof(SC_ActionBroadcastPacket::_impl_.transz_)
       - PROTOBUF_FIELD_OFFSET(SC_ActionBroadcastPacket, _impl_.actionseq_)>(
           reinterpret_cast<char*>(&_impl_.actionseq_),
           reinterpret_cast<char*>(&other->_impl_.actionseq_));

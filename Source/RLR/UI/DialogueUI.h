@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/BaseUI.h"
+#include "UI/MainUI.h"
 #include "Structs/ItemStructs.h"
 #include "DialogueUI.generated.h"
 
@@ -24,14 +24,11 @@ class UInventoryUI;
 class USlotUI;
 
 UCLASS()
-class RLR_API UDialogueUI : public UBaseUI
+class RLR_API UDialogueUI : public UMainUI
 {
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UCanvasPanel> Canvas;
-
 	UPROPERTY(VisibleAnywhere, meta=(BindWidget))
 	TObjectPtr<UButton> BtnExit;
 
@@ -51,21 +48,6 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtNPCTalk;	
-	
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UNPCShopUI> NPCShopUI;		
-	
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UInventoryUI> InventoryUI;
-	
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UItemInformation> ItemInformationUI;
-
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-	TObjectPtr<UPostOverlayUI> PostOverlayUI;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
@@ -88,9 +70,10 @@ public:
 	void RemoveSaleItem(const FItemData& Item);
 
 	UPostOverlayUI* GetPostOverlayUI() {return PostOverlayUI;};
-
 	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
 	
+	virtual void OnPageActivated() override;
+
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();

@@ -21,7 +21,6 @@
 void UChatUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::CHAT_UI);
 
 	if (ChatInput)
 	{
@@ -48,7 +47,7 @@ void UChatUI::NativeConstruct()
 	AChatClient* client = Cast<AChatClient>(FoundActors[0]);
 	SetChatClient(client);
 
-	CbbChatType->OnSelectionChanged.AddDynamic(this, &UChatUI::OnChatTypeChanged);
+	CbbChatType->OnSelectionChanged.AddUniqueDynamic(this, &UChatUI::OnChatTypeChanged);
 	CbbChatType->SetDefaultOptionColor(TextColor[EChatType::General]);
 
 	//TODO: 채팅타입 추가
@@ -283,11 +282,10 @@ void UChatUI::OnSendButtonClicked()
 
 void UChatUI::OnChatOptionUIButtonClicked()
 {
-	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
-	if (IsValid(GM) == false)
-		return;
+	auto UIManager = GetUIManager();
+	if (!UIManager) return;
 
-	UChatOptionUI* ChatOptionUI = Cast<UInGameMainUI>(GM->GetUIManager()->GetMainUI())->GetChatOptionUI();
+	UChatOptionUI* ChatOptionUI = UIManager->GetSubUI<UChatOptionUI>(RLRTAG.UI_Chat_Option);
 
 	if (IsValid(ChatOptionUI))
 	{

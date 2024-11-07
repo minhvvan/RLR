@@ -35,11 +35,14 @@ FReply USkillSettingListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 	if (GetSkillData() == FSkillData::EmptySkillData)
 		return result;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(GameInstance->GetUIManager()->GetMainUI());
+	auto UIManager = GetUIManager();
+	if (!UIManager) return result;
+
+	UInGameMainUI* InGameMainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
 	if (IsValid(InGameMainUI) == false)
 		return result;
 
-	USkillUI* SkillUI = InGameMainUI->SkillUI;
+	USkillUI* SkillUI = UIManager->GetSubUI<USkillUI>(RLRTAG.UI_Skill);
 	if (IsValid(SkillUI) == false)
 		return result;
 

@@ -76,7 +76,7 @@ void UCharacterListElement::OnClickedElementButton()
 	if (UserCharacterData.UserSeq == -1)
 		return;
 
-	ULobbyMainUI* LobbyMainUI = Cast<ULobbyMainUI>(GetUIManager()->GetMainUI());
+	ULobbyMainUI* LobbyMainUI = GetUIManager()->GetPage<ULobbyMainUI>(FGameplayTagManager::Get().Page_InGame);
 	if(IsValid(LobbyMainUI) == false)
 		return;
 

@@ -14,8 +14,8 @@ void UGuildUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
-
 	GameInstance->GetGuildManager()->GuildOverlayUI = this;
+  
 }
 
 void UGuildUI::Init()

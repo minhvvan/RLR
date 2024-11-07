@@ -19,7 +19,6 @@
 void UCharacterListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::CHARACTER_LIST_UI);
 
 	CharacterCreateButton->OnClicked.AddUniqueDynamic(this, &UCharacterListUI::OnClickedCreateCharacterButton);
 	CharacterDeleteButton->OnClicked.AddUniqueDynamic(this, &UCharacterListUI::OnClickedDeleteCharacterButton);

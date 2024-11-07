@@ -19,8 +19,6 @@ void UOtherPlayerMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::OTHER_PLAYER_MENU);
-
 	BtnUserInfo->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnUserInfoClicked);
 	BtnAddFriend->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnAddFriendClicked);
 	BtnAddParty->OnClicked.AddUniqueDynamic(this, &UOtherPlayerMenu::OnInvitePartyClicked);
@@ -38,20 +36,19 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_OtherPlayerStatus);
-	auto otherPlayerStatus = Cast<UCharacterStatusUI>(subUI);
+	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterStatusUI>(TagManager.UI_OtherPlayer_Display);
 
 	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
 
 	otherPlayerStatus->UpdateTotalStat(OtherUserData.Get()->TotalStatus);
-	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayerStatus);
+	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayer_Display);
 	CloseUIByManager();
 }
 
 void UOtherPlayerMenu::OnAddFriendClicked()
 {
 	if (!OtherUserData.IsValid()) return;
-	GetNetworkManager()->SendAddFriend(OtherUserData->NickName);
+	GetNetworkManager()->SendRequestFriend(OtherUserData->NickName);
 	CloseUIByManager();
 }
 
@@ -83,7 +80,7 @@ void UOtherPlayerMenu::OnTradeClicked()
 void UOtherPlayerMenu::OnWhisperClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI(TagManager.UI_Chat));
+	auto chatUI = Cast<UChatUI>(GetUIManager()->GetSubUI<UChatUI>(TagManager.UI_Chat));
 
 	if (!chatUI || !OtherUserData.IsValid()) return;
 
@@ -94,8 +91,7 @@ void UOtherPlayerMenu::OnWhisperClicked()
 void UOtherPlayerMenu::OnReportClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto subUI = GetUIManager()->GetSubUI(TagManager.UI_Report);
-	auto reportUI = Cast<UReportUI>(subUI);
+	auto reportUI = GetUIManager()->GetSubUI<UReportUI>(TagManager.UI_Report);
 
 	if (!reportUI || !OtherUserData.IsValid()) return;
 

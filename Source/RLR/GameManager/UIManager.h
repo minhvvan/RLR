@@ -7,6 +7,8 @@
 #include "Network/Proto/Packet.pb.h"
 #include "RLRStruct.h"
 #include "Structs/ItemStructs.h"
+#include "UI/InGame/BaseScreen.h"
+#include "UI/SubUI.h"
 #include "GameManager/GameplayTagManager.h"
 #include "UIManager.generated.h"
 
@@ -23,6 +25,8 @@ class USlotUI;
 class UDialogueUI;
 class ULoadingScreen;
 class UPopupUI;
+class UBaseScreen;
+class UWidget;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdatedPlayerInfo, FUserCharacter&, NewPlayerInfo);
@@ -34,58 +38,30 @@ class RLR_API UUIManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 public:
-	void OpenMainUI(TSubclassOf<UMainUI> UIClass);
-	UFUNCTION(BlueprintCallable)
-	UBaseUI* OpenUI(EUIType UIType);
-	void OpenSubUINearTargetSlot(USlotUI* Target, EUIType SubUIType);		//해당 슬롯 옆에 Sub UI를 띄운다.
-	void SetZOrderToTop(USubUI* Target);
+	void OpenMainUI(TSubclassOf<UBaseUI> UIClass);
+	FGameplayTag				GetActivePageTag();
 
-	void CloseFrontSubUI();
-	void CloseAllSubUI();
+	template<typename T>
+	TObjectPtr<T> GetSubUI(FGameplayTag UITag);
 
-	UMainUI* GetMainUI();
-	UBaseUI* GetUI(EUIType UIType);
-	void AddUI(UBaseUI* BaseUI);
-
-	void ToggleSubUI(FGameplayTag UITag);
 	void OpenSubUI(FGameplayTag UITag);
 	void CloseSubUI(FGameplayTag UITag);
-	void CloseSubUI(EUIType UIType);
-	USubUI* GetSubUI(FGameplayTag UITag);
 
-	void AdjustZOrder();
-	void SetSubUIPosition(FGameplayTag UITag, FVector2D NewPos);
+	template<typename T>
+	TObjectPtr<T> OpenPage(FGameplayTag PageTag, TSubclassOf<UBaseUI> UIClass = nullptr);
 
-	TObjectPtr<UBaseUI>			CreateUI(FString WidgetName);
-	TObjectPtr<UDialogueUI>		OpenDialogue(TSubclassOf<UBaseUI> UIClass);
-	TObjectPtr<UDialogueUI>		GetDialogue() {return DialogueUI;}
-
-
-public:
-
-	void AddSaleItem(const FItemData& Item, const FItemResource& ItemResource);
-	void RemoveSaleItem(const FItemData& Item);
-
-protected:
 	UFUNCTION()
-	void OnDialogueEnded();
+	void ClosePage();
+
+	void ToggleSubUI(FGameplayTag UITag);
 
 private:
-
 	UPROPERTY()
-	TObjectPtr<UMainUI>			MainUI;	
-	UPROPERTY()
-	TObjectPtr<UDialogueUI>		DialogueUI;
-	UPROPERTY()
-	TObjectPtr<ULoadingScreen>	LoadingScreen;
-	UPROPERTY()
-	TArray<USubUI*>				SubUIStack;
-	int32						ZOrder = 0;
-
-	UPROPERTY()
-	TMap<EUIType, UBaseUI*>		UIMap;
+	TObjectPtr<UMainUI>			MainUI;
 
 public:
+	template<typename T = UMainUI>
+	TObjectPtr<T> GetPage(FGameplayTag Page);
 
 	/*
 		Title Delegate
@@ -101,8 +77,34 @@ public:
   
 	FUpdatedPlayerInfo		UpdatedPlayerInfo;
 	FUpdatedPartyPlayerInfo	UpdatedPartyPlayerInfo;
-
-public:
-
-	FTimerHandle				TimerHandle;
 };
+
+template<typename T>
+inline TObjectPtr<T> UUIManager::GetSubUI(FGameplayTag UITag)
+{
+	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+	if (!currentMainUI) return nullptr;
+
+	return currentMainUI->GetSubUI<T>(UITag);
+}
+
+template<typename T>
+inline TObjectPtr<T> UUIManager::OpenPage(FGameplayTag PageTag, TSubclassOf<UBaseUI> UIClass)
+{
+	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
+	if (!BaseScreen || UIClass == nullptr) return nullptr;
+
+	UBaseUI* newPage = CreateWidget<UBaseUI>(GetWorld(), UIClass);
+	if (!BaseScreen->SetPageUI(PageTag, newPage)) return nullptr;
+
+	BaseScreen->SetActivePage(PageTag);
+	return GetPage<T>(PageTag);
+}
+
+template<typename T>
+inline TObjectPtr<T> UUIManager::GetPage(FGameplayTag Page)
+{
+	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
+	if (!BaseScreen) return Cast<T>(MainUI);
+	return Cast<T>(BaseScreen->GetPage(Page));
+}

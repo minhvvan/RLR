@@ -25,9 +25,9 @@ void UPostWriteTabWidget::NativeConstruct()
 
 	/* 버튼 바인딩 */
 	if (SendPostButton)
-		SendPostButton->OnClicked.AddDynamic(this, &UPostWriteTabWidget::OnSendPostButtonClicked);
+		SendPostButton->OnClicked.AddUniqueDynamic(this, &UPostWriteTabWidget::OnSendPostButtonClicked);
 	if (ClearPostButton)
-		ClearPostButton->OnClicked.AddDynamic(this, &UPostWriteTabWidget::OnClearPostButtonClicked);
+		ClearPostButton->OnClicked.AddUniqueDynamic(this, &UPostWriteTabWidget::OnClearPostButtonClicked);
 }
 
 void UPostWriteTabWidget::OnNormalPostButtonClicked()

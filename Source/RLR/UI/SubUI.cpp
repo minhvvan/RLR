@@ -3,6 +3,7 @@
 
 #include "UI/SubUI.h"
 #include "UI/SlotUI.h"
+#include "UI/DialogueUI.h"
 #include "GameManager/UIManager.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
@@ -30,42 +31,18 @@ void USubUI::SetVisibilityToggle()
 		CloseUI();
 }
 
-void USubUI::OpenUI()
-{
-	RefreshUI();
-	SetVisibility(ESlateVisibility::Visible);
-}
-
-void USubUI::CloseUI()
-{
-	if (GetUIType() == EUIType::NONE)
-	{
-		SetVisibility(ESlateVisibility::Hidden);
-	}
-	else
-	{
-		UDialogueUI* Dialogue = GetUIManager()->GetDialogue();
-		if(Dialogue == nullptr)
-			GetUIManager()->CloseSubUI(GetUIType());
-		else
-			SetVisibility(ESlateVisibility::Hidden);
-	}
-}
-
 void USubUI::OnDragStarted()
 {
-	UUIManager* UIManager = GetUIManager();
+	UMainUI* mainUI = Cast<UMainUI>(GetParent());
+	if (!mainUI) return;
 
-	if(IsValid(UIManager))
-	{ 
-		UIManager->SetZOrderToTop(this);
+	mainUI->SetZOrderToTop(UITag);
 
-		FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
-		FVector2D V2 = Cast<UCanvasPanelSlot>(Slot)->GetPosition();
-		ClickedFirstPoint = V1 - V2;
+	FVector2D V1 = UWidgetLayoutLibrary::GetMousePositionOnViewport(GetWorld());
+	FVector2D V2 = Cast<UCanvasPanelSlot>(Slot)->GetPosition();
+	ClickedFirstPoint = V1 - V2;
 
-		UpdateLocation();
-	}
+	UpdateLocation();
 }
 
 void USubUI::UpdateLocation()

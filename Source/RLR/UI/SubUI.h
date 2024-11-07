@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
-#include "GameManager/GameplayTagManager.h"
 #include "SubUI.generated.h"
 
 /**
@@ -31,12 +30,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void SetVisibilityToggle();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void OpenUI();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void CloseUI();
 
 	virtual void UpdateSlotState(class USlotUI* Target) {};
 	
@@ -72,7 +65,6 @@ public:
 	void CloseUIByManager();
 
 public:
-
 	FVector2D ClickedFirstPoint;
 	FVector2D ClickedCurrentPoint;
 
@@ -92,6 +84,5 @@ public:
 		Input Binding
 	*/
 
-	UPROPERTY(EditAnywhere, Category="Tag")
-	FGameplayTag UITag = FGameplayTag();
+
 };
