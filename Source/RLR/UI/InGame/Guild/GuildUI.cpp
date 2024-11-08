@@ -26,14 +26,7 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq == 0)
-	{
-		WidgetSwitcher->SetActiveWidgetIndex(0);
-	}
-	else
-	{
-		GameInstance->GetNetworkManager()->SendInfoGuild();
-	}
+	GameInstance->GetNetworkManager()->SendInfoGuild();
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
