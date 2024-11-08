@@ -55,7 +55,7 @@ bool Handle_DELETE_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::
 
 
 
-bool Handle_ACCEPT_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::CS_GuildAcceptResponse& pkt)
+bool Handle_ACCEPT_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildAcceptResponse& pkt)
 {
 	return false;
 }

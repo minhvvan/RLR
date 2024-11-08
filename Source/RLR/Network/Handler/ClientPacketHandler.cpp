@@ -246,7 +246,7 @@ void ClientPacketHandler::Init()
         };
     GPacketHandler[PKT_ACCEPT_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-            return instance.HandlePacket<Protocol::CS_GuildAcceptResponse>(&Handle_ACCEPT_GUILD_RESPONSE, session, buffer, len);
+            return instance.HandlePacket<Protocol::SC_GuildAcceptResponse>(&Handle_ACCEPT_GUILD_RESPONSE, session, buffer, len);
         };
     GPacketHandler[PKT_REMOVE_GUILD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {

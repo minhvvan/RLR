@@ -14,7 +14,6 @@ void UCharacterStatusUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 	
-	SetUITag(FGameplayTagManager::Get().UI_Character_Status);
 }
 
 void UCharacterStatusUI::RefreshUI()
