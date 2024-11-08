@@ -6,6 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "ActionSystem/ActionSystemComponent.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "UI/DialogueUI.h"
 #include "RLR.h"
 
@@ -25,6 +26,15 @@ void UActionDialogue::ActivateAction()
 {
 	UActionSystemComponent* playerASC = CurrentActorInfo->ActionSystemComponent.Get();
 	if (!playerASC) return;
+
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	AController* Controller = Player->GetController();
+	if (Controller)
+	{
+		Controller->StopMovement();
+	}
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
 	FActionData actionData;
