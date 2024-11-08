@@ -13,7 +13,7 @@ void UPostButtonUI::NativeConstruct()
     SetButtonState(false);
     if (PostButton)
     {
-        PostButton->OnClicked.AddDynamic(this, &UPostButtonUI::OnPostButtonClicked);
+        PostButton->OnClicked.AddUniqueDynamic(this, &UPostButtonUI::OnPostButtonClicked);
     }
 }
 

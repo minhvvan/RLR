@@ -70,6 +70,15 @@ public:
 	virtual void Init() override;
 	virtual void LoadComplete(const float LoadTime, const FString& MapName);
 	
+	void SetUserSeq(int32 userSeq);
+	void SetPlayerSeq(int32 playerSeq);
+	void SetMapId(int64 mapId);
+	void SetChannelId(int64 channelId);
+
+	int32 GetUserSeq() { return UserSeq; }
+	int32 GetPlayerSeq() { return PlayerSeq; }
+	int64 GetMapId() { return MapId; }
+	int64 GetChannelId() { return ChannelId; }
 
 	UFUNCTION(BlueprintCallable)
 	UDataManager*		GetDataManager();
@@ -136,6 +145,13 @@ private:
 	UPROPERTY();
 	TObjectPtr<UGameOptionData> GameOptionData;
 
-	
+	UPROPERTY()
+    int32 PlayerSeq;
+    UPROPERTY()
+    int32 UserSeq;
+	UPROPERTY()
+    int64 MapId;
+	UPROPERTY()
+    int64 ChannelId;
 };
 extern  UGameManager* GameInstance;

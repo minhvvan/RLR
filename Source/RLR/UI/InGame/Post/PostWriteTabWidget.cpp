@@ -25,9 +25,9 @@ void UPostWriteTabWidget::NativeConstruct()
 
 	/* 버튼 바인딩 */
 	if (SendPostButton)
-		SendPostButton->OnClicked.AddDynamic(this, &UPostWriteTabWidget::OnSendPostButtonClicked);
+		SendPostButton->OnClicked.AddUniqueDynamic(this, &UPostWriteTabWidget::OnSendPostButtonClicked);
 	if (ClearPostButton)
-		ClearPostButton->OnClicked.AddDynamic(this, &UPostWriteTabWidget::OnClearPostButtonClicked);
+		ClearPostButton->OnClicked.AddUniqueDynamic(this, &UPostWriteTabWidget::OnClearPostButtonClicked);
 }
 
 void UPostWriteTabWidget::OnNormalPostButtonClicked()
@@ -71,7 +71,7 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 		/* 임시 값 */
 		PostResult.ReceiverName = RecipientIdString;
 		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
-		PostResult.SenderSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+		PostResult.SenderSeq = GameInstance->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();
 		PostResult.Title = PostTitleText->GetText().ToString();
 		PostResult.Content = PostContentText->GetText().ToString();

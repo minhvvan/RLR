@@ -49,3 +49,29 @@ void FFriendGroupResult::MakeGroupData(const Protocol::Group group)
 		FriendName.Add(UTF8_TO_TCHAR(friendInfo.friendname().c_str()));
 	}
 }
+
+void FGuildResult::MakeGuildData(const Protocol::Guild guild)
+{
+	guildSeq = guild.guildseq();
+	guildName = UTF8_TO_TCHAR(guild.guildname().c_str());
+	guildLevel = guild.guildlevel();
+	guildMaxExp = guild.guildmaxexp();
+	guildExp = guild.guildexp();
+	guildMaxUser = guild.guildmaxuser();
+
+	GuildRanks.Empty();
+	for (const auto& rank : guild.guildranks())
+	{
+		GuildRanks.Add(FGuildRank::MakeGuildRankData(rank));
+	}
+}
+
+FGuildRank FGuildRank::MakeGuildRankData(const Protocol::GuildRank& guildRank)
+{
+	FGuildRank NewRank;
+	NewRank.GuildRankSeq = guildRank.guildrankseq();
+	NewRank.UserSeq = guildRank.userseq();
+	NewRank.UserName = UTF8_TO_TCHAR(guildRank.username().c_str());
+	
+	return FGuildRank();
+}

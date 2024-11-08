@@ -26,7 +26,7 @@ bool UNetworkManager::SendInfoFriend() {
 
     Protocol::CS_FriendInfoRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }
@@ -37,7 +37,7 @@ bool UNetworkManager::SendAddFriend(FString friendName) {
 
     Protocol::CS_AddFriendRequest packet;
     std::string friendStdString(TCHAR_TO_UTF8(*friendName));
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_friendname(friendStdString);
 
     SEND_PACKET(packet);
@@ -48,7 +48,7 @@ bool UNetworkManager::SendRequestFriend(FString friendName) {
 
     Protocol::CS_RequestFriendRequest packet;
     std::string friendStdString(TCHAR_TO_UTF8(*friendName));
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_friendname(friendStdString);
 
     SEND_PACKET(packet);
@@ -61,7 +61,7 @@ bool UNetworkManager::SendRemoveFriend(int friendSeq)
 
     Protocol::CS_RemoveFriendRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_friendseq(friendSeq);
 
     SEND_PACKET(packet);
@@ -73,7 +73,7 @@ bool UNetworkManager::SendCreateFriendGroup(string& groupName)
 
     Protocol::CS_CreateFriendGroupRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_groupname(groupName);
 
     SEND_PACKET(packet);
@@ -85,7 +85,7 @@ bool UNetworkManager::SendRemoveFriendGroup(int groupSeq)
 
     Protocol::CS_RemoveFriendGroupRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_groupseq(groupSeq);
 
     SEND_PACKET(packet);
@@ -97,7 +97,7 @@ bool UNetworkManager::SendMoveFriendInGroup(int friendSeq, int groupSeq)
 
     Protocol::CS_MoveFriendInGroupRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_groupseq(groupSeq);
     packet.set_friendseq(friendSeq);
 
@@ -110,7 +110,7 @@ bool UNetworkManager::SendMoveFriendGroup(int groupSeq1, int groupSeq2)
 
     Protocol::CS_MoveFriendGroupRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_groupseq1(groupSeq1);
     packet.set_groupseq2(groupSeq2);
 

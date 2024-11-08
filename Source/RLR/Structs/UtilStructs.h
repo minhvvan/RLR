@@ -6,62 +6,10 @@
 #include "Network/Proto/Post.pb.h"
 #include "GameplayTagContainer.h"
 #include "Network/Proto/Friend.pb.h"
+#include "Network/Proto/Guild.pb.h"
 #include "UtilStructs.generated.h"
 
 class UAction;
-
-UENUM(BlueprintType)
-enum class EUIType : uint8
-{
-	//Title
-	TITLE_MAIN_UI,
-	SERVER_LIST,
-
-	//Lobby
-	LOBBY_MAIN_UI,
-	CHARACTER_LIST_UI,
-	CREATE_CHARACTER_UI,
-
-	//InGame
-	INGAME_MAIN_UI,
-	ABNORMAL_DISPLAY,
-	INVENTORY_UI,
-	CHARACTER_STATUS_UI,
-	CHAT_OPTION_UI,
-	CHAT_UI,
-	ITEM_INFOMATION,
-	MINIMAP,
-	STATUS_DISPLAY,
-	INGAME_MENU,
-	PARTY,
-	QUEST_DIALOGUE,
-	KEY_OPTION,
-	SKILL_UI,
-	SKILL_SETTING,
-	SKILL_TREE,
-	SKILL_UPGRADE,
-	TIME_PROGRESS_BAR,
-	EXP_PROGRESS_BAR,
-	BADGE_UI,
-	QUEST,
-	TRADE_UI,
-	FRIEND_LIST_UI,
-	Guild,
-
-	//Popup
-	ITEM_COUNT_MESSAGE_BOX,
-	NOTIFICATION_MESSAGE_BOX,
-	CONFIRM_MESSAGE_BOX,
-	POST_UI,
-	OTHER_PLAYER_MENU,
-	FRIEND_REQUEST_UI,
-	FRIEND_INFORMATION_UI,
-	FRIEND_MENU_UI,
-	GROUP_CREATION_UI,
-	GROUP_MENU_UI,
-	NONE,
-};
-
 
 USTRUCT(Atomic, BlueprintType)
 struct FAttackResult
@@ -325,6 +273,26 @@ struct FFriendGroupResult
   void MakeGroupData(const Protocol::Group group);
 };
 
+USTRUCT(BlueprintType)
+struct FGuildRank
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 GuildRankSeq;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 UserSeq;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString UserName;
+
+    FGuildRank()
+        : GuildRankSeq(0), UserSeq(0), UserName(TEXT("")) {}
+
+	static FGuildRank MakeGuildRankData(const Protocol::GuildRank& guildRank);
+};
+
 USTRUCT(Atomic, BlueprintType)
 struct FGuildResult
 {
@@ -341,17 +309,17 @@ struct FGuildResult
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildExp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int guildMaxUser ;
-	
-	/* TODO : GuildPacketHandler로 들어오는 패킷 보고 수정하기 */
+	int guildMaxUser;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//vector<GuildRank> guildRanks;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//vector<UserCharacter> waitUsers;
+	// GuildRank 배열 추가
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FGuildRank> GuildRanks;
 
-	//void MakeGuildData(const Protocol::Guild guild);
-	void MakeGroupData(const Protocol::Group group);	
+	FGuildResult()
+		: guildSeq(-1), guildName(TEXT("")), guildLevel(0), guildMaxExp(0), guildExp(0), guildMaxUser(0) {}
+
+
+	void MakeGuildData(const Protocol::Guild guild);	
 };
 
 USTRUCT(Atomic, BlueprintType)

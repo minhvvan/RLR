@@ -55,6 +55,7 @@ private:
 	void OnConsumeItem(int inputID);
 	void OnConsumeItem(FGameplayTag InputTag);
 	void OnOpenUI(FGameplayTag InputTag);
+	void OnCloseUI();
 	void OnActionStart(FGameplayTag InputTag);
 
 	UPROPERTY(VisibleAnywhere, Category = Character);

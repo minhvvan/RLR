@@ -52,23 +52,23 @@ void UFriendTabWidget::NativeConstruct()
 {
     if (FriendRequestButton)
     {
-        FriendRequestButton->OnClicked.AddDynamic(this, &UFriendTabWidget::RequestFriendButtonClicked);
+        FriendRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::RequestFriendButtonClicked);
     }
     if (PlayerStatusSetting)
     {
-        PlayerStatusSetting->OnClicked.AddDynamic(this, &UFriendTabWidget::OnPlayerStatusSettingClicked);
+        PlayerStatusSetting->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::OnPlayerStatusSettingClicked);
     }
     if (GroupCreationButton)
     {
-        GroupCreationButton->OnClicked.AddDynamic(this, &UFriendTabWidget::AddGroupButtonClicked);
+        GroupCreationButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::AddGroupButtonClicked);
     }
     if (SearchFriendUI)
     {
-        SearchFriendUI->OnTextChanged.AddDynamic(this, &UFriendTabWidget::SearchFriend);
+        SearchFriendUI->OnTextChanged.AddUniqueDynamic(this, &UFriendTabWidget::SearchFriend);
     }
     if (ChangeGroupOrderButton)
     {
-        ChangeGroupOrderButton->OnClicked.AddDynamic(this, &UFriendTabWidget::ChangeGroupOrder);
+        ChangeGroupOrderButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::ChangeGroupOrder);
     }
 }
 

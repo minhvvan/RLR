@@ -23,7 +23,7 @@ bool UNetworkManager::SendBuyPacket(int itemSeq, int shopSeq, int quantity) {
 
     Protocol::CS_BuyRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_itemseq(itemSeq);
     packet.set_shopseq(shopSeq);
     packet.set_quantity(quantity);
@@ -37,7 +37,7 @@ bool UNetworkManager::SendSellPacket(int64 itemId, int shopSeq, int quantity) {
 
     Protocol::CS_SellRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_itemid(itemId);
     packet.set_shopseq(shopSeq);
     packet.set_quantity(quantity);

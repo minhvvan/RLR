@@ -12,19 +12,17 @@ void UFriendButtonMenu::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::FRIEND_MENU_UI);
-
 	if (PlayerInfoButton)
 	{
-		PlayerInfoButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::OpenFriendInfoUI);
+		PlayerInfoButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::OpenFriendInfoUI);
 	}
 	if (RemoveFriendButton)
 	{
-		RemoveFriendButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::RemoveFriend);
+		RemoveFriendButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::RemoveFriend);
 	}
 	if (MoveGroupButton)
 	{
-		MoveGroupButton->OnClicked.AddDynamic(this, &UFriendButtonMenu::MoveGroup);
+		MoveGroupButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::MoveGroup);
 	}
 }
 

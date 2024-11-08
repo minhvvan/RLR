@@ -19,10 +19,9 @@ void UQuestManager::SetUserQuests()
 	UUIManager* UIManager = GM->GetUIManager();
 	if (!UIManager) return;
 
-	UInGameMainUI* InGameMainUI = Cast<UInGameMainUI>(UIManager->GetMainUI());
-	if (!InGameMainUI) return;
+	UQuestListUI* QuestListUI = UIManager->GetSubUI<UQuestListUI>(RLRTAG.UI_Quest);
+	if (!QuestListUI) return;
 
-	UQuestListUI* QuestListUI = InGameMainUI->GetQuestListUI();
 	/* TODO : 일단 변수에 저장하는 것으로 바꿨는데, 서버연결 해서 확인해야함 */
 	QuestListUIVariable = QuestListUI;
 

@@ -23,7 +23,7 @@ bool UNetworkManager::SendInfoGuild() {
 
 	Protocol::CS_GuildInfoRequest packet;
 
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 	
 
 	SEND_PACKET(packet);
@@ -70,7 +70,7 @@ bool UNetworkManager::SendAcceptGuild(int guildSeq)
 	Protocol::CS_GuildAcceptRequest packet;
 
 	packet.set_guildseq(guildSeq);
-	packet.set_otherseq(UserSeq);
+	packet.set_otherseq(GameInstance->GetUserSeq());
 
 	SEND_PACKET(packet);
 	return false;
@@ -82,7 +82,7 @@ bool UNetworkManager::SendCreateGuild()
 
 	Protocol::CS_GuildCreateRequest packet;
 
-	packet.set_userseq(UserSeq);
+	packet.set_userseq(GameInstance->GetUserSeq());
 
 	SEND_PACKET(packet);
 	return false;

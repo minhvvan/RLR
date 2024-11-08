@@ -12,21 +12,21 @@
 #include "Blueprint/WidgetTree.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/QuestManager.h"
+#include "GameManager/GameplayTagManager.h"
 
 
 void UQuestListUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::QUEST);
-	SetUITag(FGameplayTagManager::Get().UI_Quest);
+	SetUITag(RLRTAG.UI_Quest);
 
 	if (CompleteButton)
 	{
-		CompleteButton->OnClicked.AddDynamic(this, &UQuestListUI::OnCompleteButtonClicked);
+		CompleteButton->OnClicked.AddUniqueDynamic(this, &UQuestListUI::OnCompleteButtonClicked);
 	}
 	if (DeclineButton)
 	{
-		DeclineButton->OnClicked.AddDynamic(this, &UQuestListUI::OnDeclineButtonClicked);
+		DeclineButton->OnClicked.AddUniqueDynamic(this, &UQuestListUI::OnDeclineButtonClicked);
 	}
 
 	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())

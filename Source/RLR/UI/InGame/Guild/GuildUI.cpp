@@ -4,6 +4,7 @@
 #include "UI/InGame/Guild/GuildUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 #include "Structs/UtilStructs.h"
@@ -12,8 +13,9 @@ void UGuildUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::Guild);
 	SetUITag(FGameplayTagManager::Get().Action_Default_GuildOpen);
+	GameInstance->GetGuildManager()->GuildOverlayUI = this;
+  
 }
 
 void UGuildUI::Init()
@@ -22,8 +24,17 @@ void UGuildUI::Init()
 
 void UGuildUI::RefreshUI()
 {
-	/* GuildManager 으로부터 정보를 받아온다 */
-	GameInstance->GetGuildManager()->InitializeGuildManager();
+	GameInstance->GetNetworkManager()->SendInfoGuild();
+
+	/* Handle_INFO_GUILD_RESPONSE 작동하는거 보고 바꾸기 */
+	//if (GameInstance->GetGuildManager()->GetGuildInfo().guildSeq != -1)
+	//{
+	//	GameInstance->GetNetworkManager()->SendInfoGuild();
+	//}
+	//else
+	//{
+	//	WidgetSwitcher->SetActiveWidgetIndex(0);
+	//}
 }
 
 FReply UGuildUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

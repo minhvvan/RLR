@@ -40,12 +40,14 @@ void UActionDialogue::ActivateAction()
 	FActionData actionData;
 	playerASC->GetActionData(TagManager.Action_Interaction_Dialogue, actionData);
 
-	auto dialogueUI = GameInstance->GetUIManager()->OpenDialogue(actionData.UIClass);
+	auto dialogueUI = GameInstance->GetUIManager()->OpenPage<UDialogueUI>(RLRTAG.Page_Dialogue, actionData.UIClass);
 	if (dialogueUI.Get())
 	{
+		dialogueUI->OnDialogueEnd.Clear();
 		dialogueUI->OnDialogueEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
 		dialogueUI->SetDialogueData(actionData.InteractionData.DialogueString);
-		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq, actionData.InteractionData.QuestSeq);
+		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq);
+		dialogueUI->UpdateNPCFunctionality();
 	}
 }
 
@@ -61,6 +63,6 @@ void UActionDialogue::EndAction()
 
 void UActionDialogue::OnDialogueEnded()
 {
-	//대화 종료 Callback
+	GameInstance->GetUIManager()->ClosePage();
 	EndAction();
 }

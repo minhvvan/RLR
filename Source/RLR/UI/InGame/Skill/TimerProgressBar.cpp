@@ -15,7 +15,6 @@ UTimerProgressBar::UTimerProgressBar(const FObjectInitializer& ObjectInitializer
 void UTimerProgressBar::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::TIME_PROGRESS_BAR);
 
 	//Tick 실행
 	bStarted = true;

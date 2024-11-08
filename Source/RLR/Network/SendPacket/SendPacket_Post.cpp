@@ -32,7 +32,7 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     std::string receiverName(TCHAR_TO_UTF8(*post.ReceiverName));
     packetPost->set_title(title);
     packetPost->set_postid(post.PostId);
-    packetPost->set_senderseq(UserSeq);
+    packetPost->set_senderseq(GameInstance->GetUserSeq());
     packetPost->set_receiverseq(post.ReceiverSeq);
     packetPost->set_receivername(receiverName);
     packetPost->set_totalmoney(post.TotalMoney);
@@ -46,7 +46,7 @@ bool UNetworkManager::SendPostGetRequest() {
     Protocol::CS_PostGetRequest packet;
 
   
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     SEND_PACKET(packet);
 }
 bool UNetworkManager::SendPostRemoveRequest(FPostResult post) {
@@ -55,7 +55,7 @@ bool UNetworkManager::SendPostRemoveRequest(FPostResult post) {
 
     Protocol::CS_RemovePostRequest packet;
     packet.set_postid(post.PostId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }
@@ -66,7 +66,7 @@ bool UNetworkManager::SendPostReadRequest(FPostResult post) {
 
     Protocol::CS_PostRead packet;
     packet.set_postid(post.PostId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }
@@ -76,7 +76,7 @@ bool UNetworkManager::SendPostReceivedRequest(FPostResult post) {
 
     Protocol::CS_PostReceived packet;
     packet.set_postid(post.PostId);
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }

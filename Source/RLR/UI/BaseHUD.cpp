@@ -7,12 +7,18 @@
 
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/DataManager.h"
+#include "GameManager/GameplayTagManager.h"
 
 void ABaseHUD::BeginPlay()
 {
 	Super::BeginPlay();
-	if (GameInstance)
-	{
-		GameInstance->GetUIManager()->OpenMainUI(MainUIClass);
-	}
+
+	auto DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	auto mainUIClass = DataManager->GetWidgetClass<UBaseUI>(MainUIClassName);
+	if (!mainUIClass) return;
+	
+	GameInstance->GetUIManager()->OpenMainUI(mainUIClass);
 }

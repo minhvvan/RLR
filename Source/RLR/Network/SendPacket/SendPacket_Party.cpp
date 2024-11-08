@@ -13,7 +13,7 @@ bool UNetworkManager::SendCreateParty() {
 
     Protocol::CS_CreatePartyRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     SEND_PACKET(packet);
 }
 bool UNetworkManager::SendJoinParty(int partyId) {
@@ -21,7 +21,7 @@ bool UNetworkManager::SendJoinParty(int partyId) {
 
     Protocol::CS_JoinPartyRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
 
     SEND_PACKET(packet);
 }
@@ -30,7 +30,7 @@ bool UNetworkManager::SendLeaveParty(int partyId) {
 
     Protocol::CS_LeavePartyRequest packet;
 
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_partyid(partyId);
 
     SEND_PACKET(packet);
@@ -40,7 +40,7 @@ bool UNetworkManager::SendRequestParty(int otherSeq) {
 
     Protocol::CS_RequestPartyRequest packet;
 
-    packet.set_userseq1(UserSeq);
+    packet.set_userseq1(GameInstance->GetUserSeq());
     packet.set_userseq2(otherSeq);
 
     SEND_PACKET(packet);
@@ -49,7 +49,7 @@ bool UNetworkManager::SendExileParty(int otherSeq) {
     if (!MainServerSocket) return false;
 
     Protocol::CS_ExilePartyRequest packet;
-    packet.set_userseq(UserSeq);
+    packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_otherseq(otherSeq);
 
     SEND_PACKET(packet);

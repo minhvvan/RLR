@@ -8,8 +8,6 @@
 void UFriendInformation::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	SetUIType(EUIType::FRIEND_INFORMATION_UI);
 }
 
 void UFriendInformation::SetFriendDetails(int FriendSeq)

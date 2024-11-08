@@ -16,7 +16,6 @@ UExpProgressBar::UExpProgressBar(const FObjectInitializer& ObjectInitializer)
 void UExpProgressBar::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUIType(EUIType::EXP_PROGRESS_BAR);
 }
 
 void UExpProgressBar::UpdateMaxExp(int32 CurrentLevel)

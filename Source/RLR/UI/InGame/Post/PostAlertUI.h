@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/SubUI.h"
 #include "Structs/UtilStructs.h"
 #include "PostAlertUI.generated.h"
 
@@ -14,7 +14,7 @@ class UButton;
 class USizeBox;
 
 UCLASS()
-class RLR_API UPostAlertUI : public UUserWidget
+class RLR_API UPostAlertUI : public USubUI
 {
 	GENERATED_BODY()
 	

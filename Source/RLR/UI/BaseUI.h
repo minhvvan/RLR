@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GameManager/RLRStruct.h"
 #include "Structs/ItemStructs.h"
+#include "GameplayTagContainer.h"
 #include "BaseUI.generated.h"
 
 /**
@@ -34,11 +35,14 @@ public:
 	virtual void RefreshUI(){};
 	virtual void OpenUI();
 	virtual void Clear(){};
+	UFUNCTION()
 	virtual void CloseUI();
 	virtual void BindWidget();
 
-	void		SetUIType(EUIType Type);
-	EUIType		GetUIType() {return UIType;}
+	virtual void SetInputMode();
+
+	void SetVisible(bool bVisible);
+
 	void		SetParent(UBaseUI* UI){Parent = UI;}
 	UBaseUI*	GetParent();
 
@@ -55,9 +59,6 @@ public:
 	void UnHighlight();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EUIType	UIType;
-
 	UUIManager*			GetUIManager();
 	UGameManager*		GetGameManager();
 	UNetworkManager*	GetNetworkManager();
@@ -72,15 +73,18 @@ protected:
 	TObjectPtr<UActionSystemComponent> ActionSystemComponent;
 
 public:
-
 	TObjectPtr<UBaseUI> Parent;
 
 	template<typename T>
 	TSubclassOf<T> GetWidgetClass(FString Name);
 
-	template<typename T>
-	T* OpenOtherUI(EUIType Type);
+	void OpenOtherUI(FGameplayTag Tag);
 
+	template<typename T>
+	TObjectPtr<T> GetSubUI(FGameplayTag Tag);
+
+	UPROPERTY(EditAnywhere, Category = "Tag")
+	FGameplayTag UITag = FGameplayTag();
 };
 
 template<typename T>
@@ -90,7 +94,7 @@ inline TSubclassOf<T> UBaseUI::GetWidgetClass(FString Name)
 }
 
 template<typename T>
-inline T* UBaseUI::OpenOtherUI(EUIType Type)
+inline TObjectPtr<T> UBaseUI::GetSubUI(FGameplayTag Tag)
 {
-	return Cast<T>(GetUIManager()->OpenUI(Type));
+	return GetUIManager()->GetSubUI<T>(Tag);
 }

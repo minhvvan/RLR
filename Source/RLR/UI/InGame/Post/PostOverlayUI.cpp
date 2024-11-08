@@ -24,16 +24,15 @@ void UPostOverlayUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::POST_UI);
 	SetUITag(FGameplayTagManager::Get().UI_Post);
 
 	GameInstance->GetPostalManager()->PostUIClass = this;
 	if (ReceivedPostButton)
-		ReceivedPostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
+		ReceivedPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
 	if (SentPostButton)
-		SentPostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnSentPostButtonClicked);
+		SentPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnSentPostButtonClicked);
 	if (WritePostButton)
-		WritePostButton->OnClicked.AddDynamic(this, &UPostOverlayUI::OnWritePostButtonClicked);
+		WritePostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnWritePostButtonClicked);
 }
 
 void UPostOverlayUI::Init()

@@ -16,19 +16,17 @@ void UFriendRequestUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetUIType(EUIType::FRIEND_REQUEST_UI);
-
 	if (FriendNameText)
 	{
-		FriendNameText->OnTextChanged.AddDynamic(this, &UFriendRequestUI::OnFriendNameTextChanged);
+		FriendNameText->OnTextChanged.AddUniqueDynamic(this, &UFriendRequestUI::OnFriendNameTextChanged);
 	}
 	if (SendRequestButton)
 	{
-		SendRequestButton->OnClicked.AddDynamic(this, &UFriendRequestUI::OnSendRequestClicked);
+		SendRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendRequestUI::OnSendRequestClicked);
 	}
 	if (CancelRequestButton)
 	{
-		CancelRequestButton->OnClicked.AddDynamic(this, &UFriendRequestUI::OnCancelClicked);
+		CancelRequestButton->OnClicked.AddUniqueDynamic(this, &UFriendRequestUI::OnCancelClicked);
 	}
 }
 
@@ -63,7 +61,7 @@ void UFriendRequestUI::AddFriendButtonIfExists(const FString& NewFriendName)
 bool UFriendRequestUI::CheckIfFriendExists(const FString& NewFriendName)
 {
 	/* TODO : NewFriendName인 플레이어가 존재하는지 확인 */
-	int UserSeq = GameInstance->GetNetworkManager()->GetUserSeq();
+	int UserSeq = GameInstance->GetUserSeq();
 	int FriendNameSeq = FCString::Atoi(*NewFriendName);
 	/* TODO : 현재 userSeq로 userName을 가져오는 로직이 있는지 모름. 일단 userSeq가 1인 플레이어 불러오기 */
 	if (UserSeq == FriendNameSeq)

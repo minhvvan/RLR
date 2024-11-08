@@ -9,24 +9,23 @@
 
 class UGuildUI;
 
-/**
- * 
- */
 UCLASS()
 class RLR_API UGuildManager : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 	
 public:
-	void InitializeGuildManager();
 
 	/* Guild Struct 만들어야 함 */
-	void SetGuildInfo(const FGuildResult& guildData);
-	FGuildResult GetGuildInfo() {return GuildData;};
+	void SetGuildInfo(const FGuildResult& guildData);	
+	FGuildResult GetGuildInfo();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGuildResult GuildData;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TObjectPtr<UGuildUI> GuildOverlayUI;
+
+private:
+	bool bBelongToGuild;
 };
