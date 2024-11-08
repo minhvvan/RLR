@@ -4,14 +4,19 @@
 #include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/ActionTask/ActionTask.h"
+#include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/DataManager.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 #include "ActionSystem/AnimNotify_ActivateAction.h"
+#include "Structs/UtilStructs.h"
 
 UAction::UAction() :
+	bShouldSendPacket(true),
+	RotationSpeed(10.f),
 	bIsActive(false),
 	bIsActionEnding(false),
 	bIsCancelable(false)
@@ -70,9 +75,22 @@ bool UAction::TryActivateAction()
 	return bPossible;
 }
 
-void UAction::ActivateActionForce()
+void UAction::ActivateActionForce(const FActionResult& ActionResult)
 {
-	ActivateAction();
+	if (ActionState == EActionState::STATE_ACTIVATE) return;
+
+	UAction::PreActivateAction();
+	ActionState = EActionState::STATE_ACTIVATE;
+
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+	if (!ASC) return;
+
+	FActionData Data;
+	Data.MousePos = ActionResult.TargetTransform;
+	ASC->AddActionData(TriggerTag, Data);
 }
 
 bool UAction::PreActivateAction()
@@ -99,7 +117,8 @@ bool UAction::PreActivateAction()
 
 void UAction::ActivateAction()
 {
-	//Do Someting
+	//ActionPacket전송
+	if(bShouldSendPacket) SendActionPacket();
 }
 
 void UAction::CancelAction()
@@ -166,7 +185,6 @@ void UAction::InitCurrentActorInfo()
 
 void UAction::InitCurrentActorInfoFromASC(TObjectPtr<UActionSystemComponent> ASC)
 {
-	if (CurrentActorInfo) return;
 	CurrentActorInfo = ASC->GetActionActorInfo();
 }
 
@@ -236,8 +254,82 @@ bool UAction::IsOtherUserAction()
 	return result;
 }
 
+void UAction::PlayActionMontage()
+{
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	UActionSystemComponent* ASC = Player->GetActionSystemComponent();
+	if (!ASC) return;
+
+	AController* Controller = Player->GetController();
+	if (!Controller) return;
+
+	FActionData Data;
+	if (ASC->GetActionData(TriggerTag, Data))
+	{
+		Controller->StopMovement();
+		Player->SetTargetRotation(Data.MousePos, RotationSpeed);
+	}
+
+	for (const auto& notify : ActionMontage->Notifies)
+	{
+		UAnimNotify_ActivateAction* noti = Cast<UAnimNotify_ActivateAction>(notify.Notify);
+		if (!noti) continue;
+
+		noti->OnTriggered.Clear();
+		noti->OnTriggered.AddUniqueDynamic(this, &ThisClass::OnAnimNotifyTriggered);
+	}
+
+	//Play Montage
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlaySkillAnim"), ActionMontage);
+	AT->OnCompleted.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
+	AT->OnCancelled.AddUniqueDynamic(this, &ThisClass::OnCompletePlayMontage);
+
+	AT->ReadyForActivation();
+}
+
+void UAction::OnCompletePlayMontage()
+{
+	EndAction();
+}
+
 void UAction::OnAnimNotifyTriggered()
 {
+}
+
+void UAction::SendActionPacket()
+{
+	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
+	if (!NetworkManager) return;	
+	
+	UDataManager* DataManager = GameInstance->GetDataManager();
+	if (!DataManager) return;
+
+	UActionSystemComponent* ASC = GetASCFromActorInfo();
+	if (!ASC) return;
+
+	UStatSetPlayer* statSet = ASC->GetStatSet<UStatSetPlayer>();
+	if (!statSet) return;
+
+	FActionResult actionResult;
+	FActionData actionData;
+	ASC->GetActionData(ActionTag, actionData);
+
+	const FActionResource& actionResource = DataManager->GetActionResourceByTag(ActionTag);
+	if (actionResource == FActionResource::EmptyActionResource)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Not Found ActionResource"));
+		return;
+	}
+
+	actionResult.UserSeq = statSet->GetUserSeq();
+	actionResult.ActionSeq = actionResource.ActionSeq;
+	//TODO: ChannelID GameInstance에서 받아오기
+	actionResult.ChannelId = 1;
+	actionResult.TargetTransform = actionData.MousePos;
+
+	NetworkManager->SendActionPacket(actionResult);
 }
 
 UActionSystemComponent* UAction::GetASCFromActorInfo()

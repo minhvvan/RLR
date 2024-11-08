@@ -128,9 +128,18 @@ void UUtilBlueprintFunctionLibrary::TestSkillQuickSlot()
 {
 	TArray<FSkillData> TestArray;
 
-	for (int32 i = 1; i <= 3; i++)
 	{
-		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(i);
+		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(3);
+		TestArray.Add(Data);
+	}
+
+	{
+		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(302);
+		TestArray.Add(Data);
+	}
+
+	{
+		FSkillData Data = GameInstance->GetDataManager()->GetSkillData(304);
 		TestArray.Add(Data);
 	}
 

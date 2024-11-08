@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "GameplayTaskOwnerInterface.h"
 #include "ActionSystem/ActionSystemTypes.h"
+#include "Structs/UtilStructs.h"
 #include "Action.generated.h"
 
 class UActionSystemComponent;
@@ -32,7 +33,7 @@ public:
 
 public:
 	bool TryActivateAction();
-	virtual void ActivateActionForce();
+	virtual void ActivateActionForce(const FActionResult& ActionResult);
 	virtual void CancelAction();
 	virtual void EndAction();
 
@@ -68,8 +69,15 @@ protected:
 
 	virtual bool IsOtherUserAction();
 
+	virtual void PlayActionMontage();
+
+	UFUNCTION()
+	virtual void OnCompletePlayMontage();
+
 	UFUNCTION()
 	virtual void OnAnimNotifyTriggered();
+
+	void SendActionPacket();
 
 public:
 	FOnGameplayAbilityCancelled OnGameplayAbilityCancelled;
@@ -86,6 +94,12 @@ protected:
 
 	UPROPERTY()
 	bool bIsCancelable;
+
+	UPROPERTY(EditDefaultsOnly, Category = Network)
+	bool bShouldSendPacket;
+
+	UPROPERTY(EditAnywhere)
+	float RotationSpeed;
 
 	UPROPERTY(EditDefaultsOnly, Category = Tags)
 	FGameplayTag TriggerTag;

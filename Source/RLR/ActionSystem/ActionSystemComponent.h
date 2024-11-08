@@ -36,7 +36,7 @@ public:
 	void GiveAction(FGameplayTag Tag, const FActionSpec& Spec);
 	void RemoveAction(FGameplayTag Tag);
 	void TryActivateAction(FGameplayTag Tag);
-	void ActivateActionForce(FGameplayTag Tag);
+	void ActivateActionForce(const FActionResult& ActionResult);
 	void TryCancelAction(FGameplayTag Tag);
 
 	TWeakObjectPtr<UAction> GetActionInstance(FGameplayTag Tag, int idx = 0);
@@ -80,6 +80,7 @@ public:
 	}
 
 	void AddActionData(FGameplayTag Tag, FActionData& Data);
+	void RemoveActionData(FGameplayTag Tag);
 	bool GetActionData(FGameplayTag Tag, FActionData& Data);
 
 	bool ActivateWaitAction();

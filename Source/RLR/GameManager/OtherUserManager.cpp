@@ -31,7 +31,6 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 {
 	AsyncTask(ENamedThreads::GameThread, [this, NewPlayer]()
 		{
-
 			FVector SpawnLocation = FVector::ZeroVector;
 			FTransform SpawnTransform;
 			SpawnLocation.X = NewPlayer.transx();

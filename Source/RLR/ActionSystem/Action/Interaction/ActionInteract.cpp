@@ -34,7 +34,7 @@ bool UActionInteract::PreActivateAction()
 void UActionInteract::ActivateAction()
 {
 	RLR_LOG(LogRLR, Log, TEXT("Interaction"));
-	PlayInteractMontage();
+	PlayActionMontage();
 
 	if (InteractTimerUI)
 	{
@@ -68,7 +68,7 @@ void UActionInteract::EndAction()
 	Super::EndAction();
 }
 
-void UActionInteract::PlayInteractMontage()
+void UActionInteract::PlayActionMontage()
 {
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;

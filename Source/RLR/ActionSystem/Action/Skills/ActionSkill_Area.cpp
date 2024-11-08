@@ -49,6 +49,21 @@ bool UActionSkill_Area::PreActivateAction()
 		bIsActive = true;
 		bIsActionEnding = false;
 
+		ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+		if (!Player) return bPossible;
+
+		ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
+		if (!Controller) return bPossible;
+
+		if (!SkillData) SetSkillData();
+
+		//Spawn Reticle
+		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
+		SpawnedReticle->InitializeReticle(Controller, SkillData->SkillRange.X);
+
+		FTransform SpawnLoc(Controller->GetClickPosition());
+		SpawnedReticle->FinishSpawning(SpawnLoc);
+
 		ActionState = EActionState::STATE_WAIT_ACTIVATE;
 	}
 	else if (ActionState == EActionState::STATE_WAIT_ACTIVATE)
@@ -63,39 +78,16 @@ bool UActionSkill_Area::PreActivateAction()
 
 void UActionSkill_Area::ActivateAction()
 {
-	if (ActionState == EActionState::STATE_WAIT_ACTIVATE)
-	{
-		ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
-		if (!Player) return;
-
-		ARLRPlayerController* Controller = Cast<ARLRPlayerController>(Player->GetController());
-		if (!Controller) return;
-
-		if (!SkillData) SetSkillData();
-
-		//Spawn Reticle
-		SpawnedReticle = GetWorld()->SpawnActorDeferred<ARLRReticle>(ReticleClass, FTransform::Identity);
-		SpawnedReticle->InitializeReticle(Controller, SkillData->SkillRange.X);
-
-		FTransform SpawnLoc(Controller->GetClickPosition());
-		SpawnedReticle->FinishSpawning(SpawnLoc);
-	}
-	else if (ActionState == EActionState::STATE_ACTIVATE)
+	if (ActionState == EActionState::STATE_ACTIVATE)
 	{
 		//Play Anim & Activate Check ActionARLRReticle
 		SpawnedReticle->Destroy();
-		PlaySkillMontage();
 
 		if (TimerWidget)
 		{
 			//Notify가 하나일 때 가능 늘어나면 변경 필요
 			TimerWidget->SetTimerDuration(ActionMontage->Notifies[0].GetTriggerTime());
-			UAnimNotify_ActivateAction* AnimNotify = Cast<UAnimNotify_ActivateAction>(ActionMontage->Notifies[0].Notify);
-			if (AnimNotify)
-			{
-				AnimNotify->OnTriggered.Clear();
-				AnimNotify->OnTriggered.AddDynamic(this, &UActionSkill_Area::OnAnimNotified);
-			}
+			PlayActionMontage();
 		}
 
 		Super::ActivateAction();
@@ -108,7 +100,7 @@ void UActionSkill_Area::OnCompletePlayMontage()
 	EndAction();
 }
 
-void UActionSkill_Area::OnAnimNotified()
+void UActionSkill_Area::OnAnimNotifyTriggered()
 {
 	if (TimerWidget) TimerWidget->RemoveFromParent();
 }

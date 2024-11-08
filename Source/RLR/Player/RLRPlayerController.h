@@ -58,9 +58,6 @@ private:
 	void OnCloseUI();
 	void OnActionStart(FGameplayTag InputTag);
 
-	//UPROPERTY(EditAnywhere, Category = Input);
-	//TObjectPtr<UNiagaraSystem> Cursor;
-
 	UPROPERTY(VisibleAnywhere, Category = Character);
 	TObjectPtr<ARLRPlayerCharacter> PlayerCharacter;
 

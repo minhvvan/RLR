@@ -44,8 +44,3 @@ void UActionPlayMontage::EndAction()
 {
 	Super::EndAction();
 }
-
-void UActionPlayMontage::OnCompletePlayMontage()
-{
-	EndAction();
-}

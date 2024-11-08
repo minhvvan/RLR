@@ -194,10 +194,6 @@ void ARLRPlayerController::OnUserClick()
 void ARLRPlayerController::OnTest()
 {
 	//Test Code
-	auto* player = GameInstance->GetOtherUserManager()->GetPlayer(2);
-	if (!player) return;
-
-	player->UpdateAction(2);
 }
 
 FVector ARLRPlayerController::GetClickPosition()
@@ -212,31 +208,13 @@ void ARLRPlayerController::OnDefaultAction(FGameplayTag TriggerTag)
 	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
 	if (!ASC) return;
 
-	UDataManager* DataManager = GameInstance->GetDataManager();
-	if (!DataManager) return;
-
-	const FActionResource& actionResource = DataManager->GetActionResourceByTag(TriggerTag);
-
 	FActionData actionData;
 	actionData.MousePos = GetClickPosition();
 	actionData.TriggerType = EInputTriggerType::TRIGGER_COMPLETE;
 	ASC->AddActionData(TriggerTag, actionData);
 
-
 	//Active Skill Check
-	if (ASC->ActivateWaitAction())
-	{
-		return;
-	}
-	UNetworkManager* NetworkManager = GameInstance->GetNetworkManager();
-	//FActionResult actionResult;
-
-	//actionResult.UserSeq = statSet->GetUserSeq();
-	//actionResult.ActionSeq = statSet->GetMapId();
-	//actionResult.ChannelId = statSet->GetChannelId();
-	//actionResult.TargetTransform = CurrentPosition;
-
-	//NetworkManager->SendActionPacket(actionResult);
+	if (ASC->ActivateWaitAction()) return;
 	ASC->TryActivateAction(TriggerTag);
 }
 
@@ -269,15 +247,6 @@ void ARLRPlayerController::OnSkillStarted(FGameplayTag TriggerTag)
 	ASC->AddActionData(skillTag, actionData);
 
 	SkillManager->SkillStart(skillTag);
-
-	//FActionResult actionResult;
-
-	//actionResult.UserSeq = statSet->GetUserSeq();
-	//actionResult.ActionSeq = statSet->GetMapId();
-	//actionResult.ChannelId = statSet->GetChannelId();
-	//actionResult.TargetTransform = CurrentPosition;
-
-	//NetworkManager->SendActionPacket(actionResult);
 }
 
 void ARLRPlayerController::OnSkillCompleted(FGameplayTag TriggerTag)

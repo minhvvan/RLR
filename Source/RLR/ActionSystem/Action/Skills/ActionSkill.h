@@ -20,17 +20,12 @@ class RLR_API UActionSkill : public UAction
 public:
 	UActionSkill();
 
-	virtual void ActivateActionForce() override;
+	virtual void ActivateActionForce(const FActionResult& ActionResult) override;
 
 protected:
-	void PlaySkillMontage();
-
 	virtual bool PreActivateAction();
 	virtual void ActivateAction();
 
-	UFUNCTION()
-	virtual void OnCompletePlayMontage();	
-	
 public:
 	FOnSkillExpired OnSkillExpired;
 
@@ -52,7 +47,4 @@ protected:
 	//Timer Widget
 	UPROPERTY(VisibleAnywhere, Category = Timer)
 	TObjectPtr<UTimerProgressBar> TimerWidget;
-
-	UPROPERTY(EditAnywhere)
-	float RotationSpeed;
 };

@@ -87,7 +87,7 @@ void UActionSkill_Holding::ActivateAction()
 			}
 
 			//Play Montage
-			PlaySkillMontage();
+			PlayActionMontage();
 		}
 		ActionState = EActionState::STATE_WAIT_CANCEL;
 	}

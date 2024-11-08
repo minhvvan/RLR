@@ -69,7 +69,7 @@ struct FActionResource : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 ActionSeq;
+	int32 ActionSeq = -1;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FGameplayTag ActionTag;

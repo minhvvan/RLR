@@ -25,10 +25,8 @@ public:
 	virtual void EndAction() override;
 
 protected:
-	void PlayInteractMontage();
-
-	UFUNCTION()
-	virtual void OnCompletePlayMontage();
+	void PlayActionMontage() override;
+	virtual void OnCompletePlayMontage() override;
 
 protected:
 	//Interac Anim

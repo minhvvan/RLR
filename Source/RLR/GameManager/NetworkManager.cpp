@@ -10,6 +10,7 @@
 #include "Network/Proto/Skill.pb.h"
 #include "Structs/UtilStructs.h"
 #include "Network/Proto/Item.pb.h"
+#include "RLR.h"
 #include "GameManager/GameManager.h"
 
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
@@ -289,7 +290,7 @@ bool UNetworkManager::SendMovePacket(FVector vector, int64 mapid, int64 channeli
     Protocol::CS_MoveRequestPacket packet;
     packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_mapid(mapid);
-    packet.set_channelid(1);  
+    packet.set_channelid(channelid);
     packet.set_transx((float)vector.X);
     packet.set_transy((float)vector.Y);
     packet.set_transz((float)vector.Z);
@@ -302,7 +303,7 @@ bool UNetworkManager::SendMovePacket(FVector vector, int64 mapid, int64 channeli
         UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        RLR_LOG(LogRLR, Log, TEXT("패킷 송신 성공"));
     }
 
 
