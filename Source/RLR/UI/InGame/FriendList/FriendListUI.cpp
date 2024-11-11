@@ -80,7 +80,14 @@ void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, 
     FriendRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         FriendButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
-    OpenFriendMenuUI();
+    if (bOpenFriendMenuUI)
+    {
+        OpenFriendMenuUI(true);
+    }
+    else
+    {
+        OpenFriendMenuUI(false);
+    }
 }
 
 void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, UGroupButtonUI* GroupButtonUI)
@@ -159,8 +166,9 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     }
 }
 
-void UFriendListUI::OpenFriendMenuUI()
+void UFriendListUI::OpenFriendMenuUI(bool bOpen)
 {
+    bOpenFriendMenuUI = bOpen;
     if (bOpenFriendMenuUI)
     {
         bOpenFriendMenuUI = false;
@@ -244,26 +252,29 @@ void UFriendListUI::RemoveGroup(int OldGroupSeq)
 
 void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)
 {
-    // MessageBox 생성
-    UFriendRequestMessageBox* FriendRequestMessageBox = CreateWidget<UFriendRequestMessageBox>(GetWorld(), FriendRequestMessageBoxClass);
-    if (FriendRequestMessageBox)
-    {
-        FriendRequestMessageBox->InitializeWidget(PlayerName);
-        FriendRequestMessageBox->AddToViewport();
-    }
-
-    // 몇 초 후에 Viewport에서 제거
-    GetWorld()->GetTimerManager().SetTimer(
-        FriendRequestMessageBoxTimerHandle,
-        FTimerDelegate::CreateWeakLambda(this, [FriendRequestMessageBox]() {
-            if (IsValid(FriendRequestMessageBox))
+    AsyncTask(ENamedThreads::GameThread, [this, PlayerName]()
+        {
+            // MessageBox 생성
+            UFriendRequestMessageBox* FriendRequestMessageBox = CreateWidget<UFriendRequestMessageBox>(GetWorld(), FriendRequestMessageBoxClass);
+            if (FriendRequestMessageBox)
             {
-                FriendRequestMessageBox->RemoveFromParent();
+                FriendRequestMessageBox->InitializeWidget(PlayerName);
+                FriendRequestMessageBox->AddToViewport();
+
+                GetWorld()->GetTimerManager().SetTimer(
+                    FriendRequestMessageBoxTimerHandle,
+                    FTimerDelegate::CreateWeakLambda(this, [FriendRequestMessageBox]()
+                        {
+                            if (IsValid(FriendRequestMessageBox))
+                            {
+                                FriendRequestMessageBox->RemoveFromParent();
+                            }
+                        }),
+                    10.0f,
+                    false
+                );
             }
-            }),
-        5.0f, 
-        false 
-    );
+        });
 }
 
 void UFriendListUI::OpenFriendInfoUI(int FriendSeq)

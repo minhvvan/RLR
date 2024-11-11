@@ -36,7 +36,7 @@ public:
     bool IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
     UFUNCTION(BlueprintCallable)
-    void RefreshUI();
+    virtual void RefreshUI() override;
 
     UFUNCTION()
     void OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI);
@@ -64,7 +64,7 @@ public:
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
-    void OpenFriendMenuUI();
+    void OpenFriendMenuUI(bool bOpen);
     UFUNCTION()
     void OpenAddGroupUI(bool bOpen);
     UFUNCTION()

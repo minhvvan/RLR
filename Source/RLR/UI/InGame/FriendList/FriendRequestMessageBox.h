@@ -14,6 +14,8 @@ class RLR_API UFriendRequestMessageBox : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void NativeConstruct() override;
+	
 	UFUNCTION(BlueprintCallable)
 	void InitializeWidget(const FString& SenderName);
 
