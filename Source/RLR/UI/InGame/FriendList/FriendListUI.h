@@ -7,6 +7,7 @@
 #include "Structs/UtilStructs.h"
 #include "FriendListUI.generated.h"
 
+class UFriendRequestMessageBox;
 class UFriendRequestTabWidget;
 class UExistingGroupList;
 class UFriendRequestUI;
@@ -72,6 +73,8 @@ public:
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
 
+    void SetFriendRequestMessageBox(FString& PlayerName);
+
 public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendRequestUI> FriendRequestUI;
@@ -103,6 +106,9 @@ public:
     UPROPERTY(meta = (BindWidget))
     UButton* FriendRequestTabButton;
     
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UFriendRequestMessageBox> FriendRequestMessageBoxClass;
+    
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FFriendGroupResult> FriendData;
 
@@ -121,4 +127,7 @@ private:
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
 	FVector2D FriendRelativePosition;
     FVector2D GroupRelativePosition;
+
+    // FriendListUI.h
+    FTimerHandle FriendRequestMessageBoxTimerHandle;
 };
