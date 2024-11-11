@@ -19,6 +19,7 @@
 #include "GameManager/FriendManager.h"
 #include "GameManager/PartyManager.h"
 #include "GameManager/GuildManager.h"
+#include "GameManager/TradeManager.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
@@ -218,6 +219,17 @@ UGuildManager* UGameManager::GetGuildManager()
         return GuildManager;
     }
     UUtilBlueprintFunctionLibrary::DebugLog(TEXT("GetGuildManager Error."));
+    return nullptr;
+}
+
+UTradeManager* UGameManager::GetTradeManager()
+{
+    UTradeManager* TradeManager = GetSubsystem<UTradeManager>(this);
+    if (IsValid(TradeManager))
+    {
+        return TradeManager;
+    }
+    DEBUG_MESSAGE;
     return nullptr;
 }
 

@@ -4,9 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
-#include "../../../Network/Proto/Packet.pb.h"
-#include "../../../Network/Proto/Item.pb.h"
-#include "../../../Network/Proto/Trade.pb.h"
+#include "Structs/ItemStructs.h"
 #include "TradeUI.generated.h"
 
 /**
@@ -19,17 +17,8 @@ class UTradeListElement;
 class UButton;
 class UTextBlock;
 class UWidgetSwitcher;
-
-UENUM(BlueprintType)
-enum class ETradeState : uint8
-{
-	BEFORE_OFFER = 0,
-	LOCK = 1,
-	WAIT_CONFIRM_TRADE = 2,
-	CANCEL,
-	SUCCESS,
-	NONE,
-};
+class UItemCountMessageBox;
+class UConfirmMessageBox;
 
 UCLASS()
 class RLR_API UTradeUI : public USubUI
@@ -39,6 +28,7 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void Init() override;
+	UFUNCTION()
 	virtual void RefreshUI() override;
 	virtual void OpenUI() override;
 	virtual void Clear() override;
@@ -46,29 +36,30 @@ public:
 
 public:
 
-	void HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt);
-	void HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt);
-	void HandleTradeStateResponse(Protocol::SC_TradeStateResponse& pkt);
-	void HandleTradeCompleteResponse(Protocol::SC_TradeCompleteResponse& pkt);
+	void HandleTradeUserResponse(int32 UserSeq);
+	void HandleTradeStartResponse(int32 UserSeq1, FString UserName1, int32 UserSeq2, FString UserName2);
+	void UpdateTradeData();
+	void UpdateTradeState();
+	void HandleTradeCompleteResponse();
 
 	UFUNCTION()
 	void SendTradeAddItemBySelf(const FItemData& NewTradeItem, int32 Quantity = 1);
 	void SendTradeAddGoodBySelf(int32 Amount);
 
-	void HandleTradeAddItemByTarget(const FItemData& NewTradeItem);
-	void HandleTradeAddItemBySelf(const FItemData& NewTradeItem);
-	void HandleTradeAddGoodBySelf(int32 Amount);
-	void HandleTradeAddGoodByTarget(int32 Amount);
+	void AddItemByTarget(const FItemData& NewTradeItem);
+	void AddItemBySelf(const FItemData& NewTradeItem);
+	void AddGoodBySelf(int32 Amount);
+	void AddGoodByTarget(int32 Amount);
 
 	UFUNCTION()
 	void SendTradeLock();
 	UFUNCTION()
 	void SendTradeUnLock();
 
-	void HandleTradeLockBySelf();
-	void HandleTradeUnLockBySelf();
-	void HandleTradeLockByTarget();
-	void HandleTradeUnLockByTarget();
+	void LockBySelf();
+	void UnLockBySelf();
+	void LockByTarget();
+	void UnLockByTarget();
 
 	UFUNCTION()
 	void SendTradeCancelPacket();					//내가 거래 취소
@@ -94,14 +85,6 @@ public:
 	void		OnCancelItemCountMessageBox(UItemCountMessageBox* MessageBox);
 	UFUNCTION()
 	void		OnClickedAddGoldButton();
-
-public:
-
-	void		SetMyTradeState(ETradeState TradeType);
-	ETradeState GetMyTradeState(){return MyTradeState;}
-
-	void		SetTargetTradeState(ETradeState TradeType);
-	ETradeState GetTargetTradeState() { return TargetTradeState; }
 
 public:
 
@@ -149,11 +132,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> CancelButton;
-
-private:
-
-	ETradeState TargetTradeState = ETradeState::BEFORE_OFFER;
-	ETradeState MyTradeState = ETradeState::BEFORE_OFFER;
-	bool IsUserSeq1 = true;
-
 };

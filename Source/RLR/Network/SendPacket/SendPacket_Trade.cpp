@@ -29,7 +29,7 @@ bool UNetworkManager::SendTradeUserRequest(int32 TargetUserSeq)
         거래 요청 보내기
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
 
     Protocol::CS_TradeUserRequest packet;
     packet.set_userseq1(MySeq);
@@ -46,7 +46,7 @@ bool UNetworkManager::SendTradeStartReqeust(int32 TargetUserSeq)
         거래 요청 수락하기
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
 
     Protocol::CS_TradeStartRequest packet;
     packet.set_userseq1(MySeq);
@@ -63,7 +63,7 @@ bool UNetworkManager::SendTradeAddItemReqeust(const FItemData& NewTradeItem, int
         개인거래창에 새로운 아이템 올리기
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
 
     Protocol::CS_TradeAddItemRequest packet;
     packet.set_userseq(MySeq);
@@ -81,7 +81,7 @@ bool UNetworkManager::SendTradeAddGoodReqeust(int32 Amount)
         개인거래창에 재화 올리기
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
 
     Protocol::CS_TradeAddGoodRequest packet;
     packet.set_userseq(MySeq);
@@ -98,7 +98,7 @@ bool UNetworkManager::SendTradeLockRequest()
         거래 잠금
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
 
     Protocol::CS_TradeLockRequest packet;
     packet.set_userseq(MySeq);
@@ -114,7 +114,7 @@ bool UNetworkManager::SendTradeCancelReqeust()
         거래 취소
     */
 
-    int32 MySeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 MySeq = GameInstance->GetUserSeq();
     Protocol::CS_TradeCancelRequest packet;
     packet.set_userseq(MySeq);
     SEND_PACKET(packet);

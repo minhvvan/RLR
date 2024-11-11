@@ -22,6 +22,18 @@ void USubUI::NativeConstruct()
 	}
 }
 
+void USubUI::OpenUI()
+{
+	SetVisible(true);
+	RefreshUI();
+}
+
+void USubUI::CloseUI()
+{
+	SetVisible(false);
+	Clear();
+}
+
 void USubUI::SetVisibilityToggle()
 {
 	ESlateVisibility CurrentVisivility = GetVisibility();
