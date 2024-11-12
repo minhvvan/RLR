@@ -93,7 +93,7 @@ void UInventorySlot::RefreshUI()
 	if (GetItemData() == FItemData::EmptyItemData)
 	{
 		DisplayEquippedItems(false);
-		
+		ItemNameText->SetText(FText());
 		return;
 	}
 	
