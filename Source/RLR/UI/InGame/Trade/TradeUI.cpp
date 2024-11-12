@@ -18,10 +18,11 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/TradeManager.h"
 
-#include "Structs/ItemStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/CommunicationStructs.h"
 
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
@@ -45,22 +46,22 @@ void UTradeUI::Init()
 	TargetPlayerTradeList->Init();
 	TargetPlayerTradeList->SetCanDrag(false);
 	OfferButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeLock);
-	//UnLockButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::SendTradeUnLock);
 	AddGoldButton->OnClicked.AddUniqueDynamic(this, &UTradeUI::OnClickedAddGoldButton);
+	
+	UTradeManager* TradeManager = GetGameManager()->GetTradeManager();
+	TradeManager->UpdateTradeManager.AddUniqueDynamic(this, &UTradeUI::RefreshUI);
 }
 
 void UTradeUI::RefreshUI()
 {
 	Super::RefreshUI();
-	MyTradeList->RefreshUI();
-	TargetPlayerTradeList->RefreshUI();
+	UpdateTradeData();
+	UpdateTradeState();
 }
 
 void UTradeUI::OpenUI()
 {
 	Super::OpenUI();
-	Clear();
-
 	/*
 		개인 거래 UI가 열렸을 때, 인벤토리에서 아이템을 누르면 아이템 올라가게 이벤트를 추가해준다.
 	*/
@@ -77,9 +78,7 @@ void UTradeUI::Clear()
 	MyGoldText->SetText(DefaultGold);
 	TargetGoldText->SetText(DefaultGold);
 
-	SetMyTradeState(ETradeState::BEFORE_OFFER);
 	SetTradeUnLock(true);
-	SetTargetTradeState(ETradeState::BEFORE_OFFER);
 	SetTradeUnLock(false);
 }
 
@@ -92,26 +91,37 @@ void UTradeUI::CloseUI()
 		개인 거래 UI를 닫을 때, 상대방한테 거래가 취소되었다는 메시지를 줘야 한다.
 		
 	*/
-	SendTradeCancelPacket();
+	const FTradeData& TradeState = GetGameManager()->GetTradeManager()->GetTradeData();
+	if (TradeState.UserLockState1 == 1 && TradeState.UserLockState2 == 1)
+	{
+		//거래 성공. 
+	}
+	else
+	{ 
+		//거래 완료 전에 닫으면 거래 취소 패킷 보내기
+		SendTradeCancelPacket();
+	}
 	GetInventoryManager()->OnInventorySlotClickedDelegate.Clear();
 }
 
-void UTradeUI::HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt)
+void UTradeUI::HandleTradeUserResponse(int32 UserSeq)
 {
 	/*
 		거래 요청을 받았으면, 메시지 박스를 뛰운다.
 	*/
-	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
+	AsyncTask(ENamedThreads::GameThread, [this, UserSeq]()
 	{
 		UConfirmMessageBox* ConfirmMessageBox = GetSubUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		if (IsValid(ConfirmMessageBox) == false) return;
 			
 		OpenOtherUI(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		ConfirmMessageBox->Clear();
+
+		//클릭, 취소 버튼 콜백 함수 등록
 		ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
 		ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
 
-		ARLRPlayerCharacter* From = GameInstance->GetOtherUserManager()->GetPlayer(pkt.userseq());
+		ARLRPlayerCharacter* From = GameInstance->GetOtherUserManager()->GetPlayer(UserSeq);
 		if(IsValid(From) == false)
 			return;
 
@@ -119,6 +129,7 @@ void UTradeUI::HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt)
 		if(IsValid(FromStat) == false)
 			return;
 
+		//데이터 저장
 		FEtcPropertyData FromData;
 		FromData.EtcStringMap.Add("NickName", FromStat->GetNickName());
 		FromData.EtcIntMap.Add("UserSeq", FromStat->GetUserSeq());
@@ -135,122 +146,119 @@ void UTradeUI::HandleTradeUserResponse(Protocol::SC_TradeUserResponse& pkt)
 	});
 }
 
-void UTradeUI::HandleTradeStartResponse(Protocol::SC_TradeStartResponse& pkt)
+void UTradeUI::HandleTradeStartResponse(int32 UserSeq1, FString UserName1, int32 UserSeq2, FString UserName2)
 {
-	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
+	AsyncTask(ENamedThreads::GameThread, [this, UserSeq1, UserName1, UserSeq2, UserName2]()
 		{
-			int32 UserSeq1 = pkt.userseq1();
-			int32 UserSeq2 = pkt.userseq2();
-
-			FString UserName1 = UTF8_TO_TCHAR(pkt.username1().c_str());
-			FString UserName2 = UTF8_TO_TCHAR(pkt.username2().c_str());
-
-			int32 MyUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+			int32 MyUserSeq = GameInstance->GetUserSeq();
 
 			if (MyUserSeq == UserSeq1)
 			{
-				IsUserSeq1 = true;
 				MyNameText->SetText(FText::FromString(UserName1));
 				TargetPlayerNameText->SetText(FText::FromString(UserName2));
 			}
 			else
 			{
-				IsUserSeq1 = false;
 				MyNameText->SetText(FText::FromString(UserName2));
 				TargetPlayerNameText->SetText(FText::FromString(UserName1));
 			}
 
+			Clear();
 			GetUIManager()->OpenSubUI(FGameplayTagManager::Get().UI_Trade);
+			GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("OnClickedInventorySlot"));
 		});
 }
 
-void UTradeUI::HandleTradeStateResponse(Protocol::SC_TradeStateResponse& pkt)
+void UTradeUI::UpdateTradeData()
 {
-	AsyncTask(ENamedThreads::GameThread, [this, pkt]()
+	MyTradeList->Clear();
+	TargetPlayerTradeList->Clear();
+
+	const FTradeData& TradeState = GetGameManager()->GetTradeManager()->GetTradeData();
+
+	if(TradeState.IsUserSeq1 == true)
 	{
-		MyTradeList->Clear();
-		TargetPlayerTradeList->Clear();
-
-		TArray<FItemData> UserItemList1;
-		for (int32 i = 0; i < pkt.useritemlist1_size(); i++) {
-			FItemData itemData;
-			itemData.MakeItemData(pkt.useritemlist1().at(i));
-			UserItemList1.Add(itemData);
-		}
-		int32 UserMoney1 = pkt.totalmoney1();
-		int32 UserLockState1 = pkt.lockstate1();
-
-		TArray<FItemData> UserItemList2;
-		for (int32 i = 0; i < pkt.useritemlist2_size(); i++) {
-			FItemData itemData;
-			itemData.MakeItemData(pkt.useritemlist2().at(i));
-			UserItemList2.Add(itemData);
-		}
-		int32 UserMoney2 = pkt.totalmoney2();
-		int32 UserLockState2 = pkt.lockstate2();
-
-		if(IsUserSeq1 == true)
+		//내가 UserSeq 1
+		for (const FItemData& ItemData : TradeState.UserItemList1)
 		{
-			//내가 UserSeq 1
-			for (const FItemData& ItemData : UserItemList1)
-			{
-				HandleTradeAddItemBySelf(ItemData);
-			}
-			HandleTradeAddGoodBySelf(UserMoney1);
-
-			if(UserLockState1 == 1)
-				HandleTradeLockBySelf();
-			else
-				HandleTradeUnLockBySelf();
-
-			//상대가 UserSeq 2
-			for (const FItemData& ItemData : UserItemList2)
-			{
-				HandleTradeAddItemByTarget(ItemData);
-			}
-			HandleTradeAddGoodByTarget(UserMoney2);
-
-			if (UserLockState2 == 1)
-				HandleTradeLockByTarget();
-			else
-				HandleTradeUnLockByTarget();
+			AddItemBySelf(ItemData);
 		}
-		else if(IsUserSeq1 == false)
+		AddGoodBySelf(TradeState.UserMoney1);
+
+		if(TradeState.UserLockState1 == 1)
+			LockBySelf();
+		else
+			UnLockBySelf();
+
+		//상대가 UserSeq 2
+		for (const FItemData& ItemData : TradeState.UserItemList2)
 		{
-			//내가 UserSeq 2
-			for (const FItemData& ItemData : UserItemList2)
-			{
-				HandleTradeAddItemBySelf(ItemData);
-			}
-			HandleTradeAddGoodBySelf(UserMoney2);
-
-			if (UserLockState2 == 1)
-				HandleTradeLockBySelf();
-			else
-				HandleTradeUnLockBySelf();
-
-			//상대가 UserSeq 1
-			for (const FItemData& ItemData : UserItemList1)
-			{
-				HandleTradeAddItemByTarget(ItemData);
-			}
-			HandleTradeAddGoodByTarget(UserMoney1);
-
-			if (UserLockState1 == 1)
-				HandleTradeLockByTarget();
-			else
-				HandleTradeUnLockByTarget();
+			AddItemByTarget(ItemData);
 		}
-	});
+		AddGoodByTarget(TradeState.UserMoney2);
+
+		if (TradeState.UserLockState2 == 1)
+			LockByTarget();
+		else
+			UnLockByTarget();
+	}
+	else if(TradeState.IsUserSeq1 == false)
+	{
+		//내가 UserSeq 2
+		for (const FItemData& ItemData : TradeState.UserItemList2)
+		{
+			AddItemBySelf(ItemData);
+		}
+		AddGoodBySelf(TradeState.UserMoney2);
+
+		if (TradeState.UserLockState2 == 1)
+			LockBySelf();
+		else
+			UnLockBySelf();
+
+		//상대가 UserSeq 1
+		for (const FItemData& ItemData : TradeState.UserItemList1)
+		{
+			AddItemByTarget(ItemData);
+		}
+		AddGoodByTarget(TradeState.UserMoney1);
+
+		if (TradeState.UserLockState1 == 1)
+			LockByTarget();
+		else
+			UnLockByTarget();
+	}
 }
 
-void UTradeUI::HandleTradeCompleteResponse(Protocol::SC_TradeCompleteResponse& pkt)
+void UTradeUI::UpdateTradeState()
+{
+
+	const FTradeData& TradeState = GetGameManager()->GetTradeManager()->GetTradeData();
+
+	int32 LockState = 0;
+	bool IsUserSeq1 = TradeState.IsUserSeq1;
+	if(IsUserSeq1 == true)
+		LockState = TradeState.UserLockState1;
+	else
+		LockState = TradeState.UserLockState2;
+
+	if (LockState)
+	{
+		OfferStateText->SetIsEnabled(false);
+		TradeStateText->SetIsEnabled(true);
+	}
+	else
+	{
+		OfferStateText->SetIsEnabled(true);
+		TradeStateText->SetIsEnabled(false);		
+	}
+	TradeStateWidgetSwitcher->SetActiveWidgetIndex((uint32)LockState);
+}
+
+void UTradeUI::HandleTradeCompleteResponse()
 {
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			SetMyTradeState(ETradeState::SUCCESS);
-			SetTargetTradeState(ETradeState::SUCCESS);
-
 			//거래가 성공했다는 알림을 띄운다.
 			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
 			if (IsValid(NotificationMessageBox) == false) return;
@@ -273,7 +281,7 @@ void UTradeUI::SendTradeAddGoodBySelf(int32 Amount)
 	GetNetworkManager()->SendTradeAddGoodReqeust(Amount);
 }
 
-void UTradeUI::HandleTradeAddItemByTarget(const FItemData& NewTradeItem)
+void UTradeUI::AddItemByTarget(const FItemData& NewTradeItem)
 {
 	/*
 		상대방이 아이템을 추가했다는 패킷 받았을 때 핸들. 
@@ -284,7 +292,7 @@ void UTradeUI::HandleTradeAddItemByTarget(const FItemData& NewTradeItem)
 		});
 }
 
-void UTradeUI::HandleTradeAddItemBySelf(const FItemData& NewTradeItem)
+void UTradeUI::AddItemBySelf(const FItemData& NewTradeItem)
 {
 	/*
 		내가 아이템을 추가했다는 패킷 받았을 때 핸들.
@@ -295,7 +303,7 @@ void UTradeUI::HandleTradeAddItemBySelf(const FItemData& NewTradeItem)
 		});
 }
 
-void UTradeUI::HandleTradeAddGoodBySelf(int32 Amount)
+void UTradeUI::AddGoodBySelf(int32 Amount)
 {
 	AsyncTask(ENamedThreads::GameThread, [this, Amount]()
 		{
@@ -303,7 +311,7 @@ void UTradeUI::HandleTradeAddGoodBySelf(int32 Amount)
 		});
 }
 
-void UTradeUI::HandleTradeAddGoodByTarget(int32 Amount)
+void UTradeUI::AddGoodByTarget(int32 Amount)
 {
 	AsyncTask(ENamedThreads::GameThread, [this, Amount]()
 		{
@@ -311,7 +319,7 @@ void UTradeUI::HandleTradeAddGoodByTarget(int32 Amount)
 		});
 }
 
-void UTradeUI::HandleTradeLockBySelf()
+void UTradeUI::LockBySelf()
 {
 	/*
 		내가 거래 잠금을 했을 때 핸들
@@ -322,7 +330,7 @@ void UTradeUI::HandleTradeLockBySelf()
 		});
 }
 
-void UTradeUI::HandleTradeUnLockBySelf()
+void UTradeUI::UnLockBySelf()
 {
 	/*
 		내가 거래 잠금 해제 했을 때 핸들
@@ -333,7 +341,7 @@ void UTradeUI::HandleTradeUnLockBySelf()
 		});
 }
 
-void UTradeUI::HandleTradeLockByTarget()
+void UTradeUI::LockByTarget()
 {
 	/*
 	*	상대방이 거래 잠금 했을 때 핸들
@@ -344,7 +352,7 @@ void UTradeUI::HandleTradeLockByTarget()
 		});
 }
 
-void UTradeUI::HandleTradeUnLockByTarget()
+void UTradeUI::UnLockByTarget()
 {
 	/*
 		상대방이 거래 잠금 해제 했을 때 핸들
@@ -371,10 +379,7 @@ void UTradeUI::SendTradeCancelPacket()
 		상대방한테 거래가 취소되었다는 패킷을 보낸다.
 	*/
 
-	//거래가 이미 취소되거나 끝난 상태라면, 보내지 않는다.
-	if(MyTradeState == ETradeState::CANCEL || MyTradeState == ETradeState::SUCCESS)
-		return;
-
+	const FTradeData& TradeData = GameInstance->GetTradeManager()->GetTradeData();
 	GetNetworkManager()->SendTradeCancelReqeust();
 }
 
@@ -392,8 +397,6 @@ void UTradeUI::HandleTradeCanceledByTarget()
 			OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 			NotificationMessageBox->Clear();
 			NotificationMessageBox->SetMessageText(TEXT("상대가 거래를 취소했습니다"));
-			SetMyTradeState(ETradeState::CANCEL);
-			SetTargetTradeState(ETradeState::CANCEL);
 
 			CloseUI();
 		});
@@ -403,13 +406,11 @@ void UTradeUI::SetTradeLock(bool IsSelf)
 {
 	if (IsSelf == true)
 	{
-		SetMyTradeState(ETradeState::LOCK);
 		MyTradeList->SetCanDrag(false);
 		MyTradeList->SetIsEnabled(false);
 	}
 	else if (IsSelf == false)
 	{
-		SetTargetTradeState(ETradeState::LOCK);
 		TargetPlayerTradeList->SetIsEnabled(false);
 	}
 }
@@ -418,13 +419,11 @@ void UTradeUI::SetTradeUnLock(bool IsSelf)
 {
 	if (IsSelf == true)
 	{
-		SetMyTradeState(ETradeState::BEFORE_OFFER);
 		MyTradeList->SetCanDrag(true);
 		MyTradeList->SetIsEnabled(true);
 	}
 	else if (IsSelf == false)
 	{
-		SetTargetTradeState(ETradeState::BEFORE_OFFER);
 		TargetPlayerTradeList->SetIsEnabled(true);
 	}
 }
@@ -558,28 +557,3 @@ void UTradeUI::OnClickedAddGoldButton()
 	ItemCountMessageBox->SetItemData(DummyData);
 	ItemCountMessageBox->RefreshUI();
 }
-
-void UTradeUI::SetMyTradeState(ETradeState TradeState)
-{
-	MyTradeState = TradeState;
-
-	if (MyTradeState == ETradeState::WAIT_CONFIRM_TRADE)
-	{
-		OfferStateText->SetIsEnabled(false);
-		TradeStateText->SetIsEnabled(true);
-	}
-	else
-	{
-		OfferStateText->SetIsEnabled(true);
-		TradeStateText->SetIsEnabled(false);
-
-		if(MyTradeState == ETradeState::BEFORE_OFFER || MyTradeState == ETradeState::LOCK)
-			TradeStateWidgetSwitcher->SetActiveWidgetIndex((uint32)MyTradeState);
-	}
-}
-
-void UTradeUI::SetTargetTradeState(ETradeState TradeType)
-{
-	TargetTradeState = TradeType;
-}
-

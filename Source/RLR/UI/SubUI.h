@@ -27,6 +27,8 @@ class RLR_API USubUI : public UBaseUI
 public:
 
 	virtual void NativeConstruct() override;
+	virtual void OpenUI() override;
+	virtual void CloseUI() override;
 
 	UFUNCTION(BlueprintCallable)
 	virtual void SetVisibilityToggle();

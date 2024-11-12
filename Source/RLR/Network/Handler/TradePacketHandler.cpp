@@ -17,10 +17,12 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/TradeManager.h"
 
 #include "Structs/ItemStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/CommunicationStructs.h"
 
 bool Handle_TRADE_USER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_TradeUserResponse& pkt)
 {
@@ -29,7 +31,7 @@ bool Handle_TRADE_USER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 	if(IsValid(TradeUI) == false)
 		return false;
 
-	TradeUI->HandleTradeUserResponse(pkt);
+	TradeUI->HandleTradeUserResponse(pkt.userseq());
 	return true;
 }
 
@@ -40,8 +42,14 @@ bool Handle_TRADE_START_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 	UTradeUI* TradeUI = GameInstance->GetUIManager()->GetSubUI<UTradeUI>(FGameplayTagManager::Get().UI_Trade);
 	if (IsValid(TradeUI) == false)
 		return false;
-	
-	TradeUI->HandleTradeStartResponse(pkt);
+
+	int32 UserSeq1 = pkt.userseq1();
+	int32 UserSeq2 = pkt.userseq2();
+	FString UserName1 = UTF8_TO_TCHAR(pkt.username1().c_str());
+	FString UserName2 = UTF8_TO_TCHAR(pkt.username2().c_str());
+
+	GameInstance->GetTradeManager()->SetTradeState(UserSeq1, UserSeq2);
+	TradeUI->HandleTradeStartResponse(UserSeq1, UserName1, UserSeq2, UserName2);
 	return true;
 }
 
@@ -52,7 +60,9 @@ bool Handle_TRADE_STATE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 	if (IsValid(TradeUI) == false)
 		return false;
 
-	TradeUI->HandleTradeStateResponse(pkt);
+	FTradeData TradeState;
+	TradeState.MakeTradeState(pkt);
+	GameInstance->GetTradeManager()->UpdateTradeState(TradeState);
 	return true;
 }
 
@@ -63,6 +73,6 @@ bool Handle_TRADE_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol
 	if (IsValid(TradeUI) == false)
 		return false;
 
-	TradeUI->HandleTradeCompleteResponse(pkt);
+	TradeUI->HandleTradeCompleteResponse();
 	return true;
 }

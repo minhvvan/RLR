@@ -59,6 +59,7 @@ class UPostalManager;
 class UFriendManager;
 class UPartyManager;
 class UGuildManager;
+class UTradeManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -130,6 +131,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UGuildManager*		GetGuildManager();
+
+	UFUNCTION(BlueprintCallable)
+	UTradeManager*		GetTradeManager();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

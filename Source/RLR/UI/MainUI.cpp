@@ -115,8 +115,7 @@ void UMainUI::OpenSubUI(FGameplayTag InputTag)
 	if (!subUI) return;
 
 	SubUIStack.AddUnique(subUI);
-	subUI->SetVisible(true);
-	subUI->RefreshUI();
+	subUI->OpenUI();
 	AdjustZOrder();
 }
 
@@ -128,7 +127,7 @@ void UMainUI::CloseSubUI(FGameplayTag InputTag)
 	if (!subUI) return;
 
 	SubUIStack.Remove(subUI);
-	subUI->SetVisible(false);
+	subUI->CloseUI();
 	AdjustZOrder();
 }
 
