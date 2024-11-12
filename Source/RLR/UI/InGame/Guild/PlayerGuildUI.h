@@ -39,7 +39,7 @@ public:
 	UFUNCTION()
 	void OpenGuildReportUI();
 
-	void SetGuildOpenState(bool bOpenState) {bOpenGuildReport = bOpenState;};
+	void SetGuildOpenState(bool bOpenState);
 
 public:
 	UPROPERTY(meta = (BindWidget))

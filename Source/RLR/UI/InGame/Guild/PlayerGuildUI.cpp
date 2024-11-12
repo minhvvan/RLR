@@ -90,3 +90,8 @@ void UPlayerGuildUI::OpenGuildReportUI()
 		GuildReportAndExitUI->SetVisibility(ESlateVisibility::Visible);
 	}
 }
+
+void UPlayerGuildUI::SetGuildOpenState(bool bOpenState)
+{
+	bOpenGuildReport = bOpenState;
+}
