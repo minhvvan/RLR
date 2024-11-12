@@ -12,7 +12,14 @@ void UPageSwitcher::SetWidgetAtIndex(int index, UWidget* newWidget)
         if (Slots.IsValidIndex(index))
         {
             RemoveChildAt(index);
-            InsertChildAt(index, newWidget);
+
+            //Slot 할당
+            AddChild(newWidget);
+            int32 CurrentIndex = GetChildIndex(newWidget);
+            Slots.RemoveAt(CurrentIndex);
+
+            //추가
+            Slots.Insert(newWidget->Slot, FMath::Clamp(index, 0, Slots.Num()));
         }
     }
 }
