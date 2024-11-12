@@ -49,14 +49,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtNPCTalk;	
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
-
 protected:
 	virtual void NativeConstruct();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-		TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
+	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
+
 public:
 	FOnDialogueEnd OnDialogueEnd;
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
@@ -75,6 +76,7 @@ public:
 	
 	virtual void OnPageActivated() override;
 
+	void ToggleNpcButtons(bool bOpen);
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
@@ -90,9 +92,19 @@ protected:
 
 	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
+
+	UFUNCTION()
+	void CloseQuestDialogue();
+
+	UFUNCTION()
+	void RemoveQuestButton();
 private:
+	TArray<UDialogueDynamicButton*> QuestButtons;
+
 	int32 CurrentNPCSeq;
+	int32 CurrentOpenQuest;
 
 	bool bOpenShop;
 	bool bOpenPost;
+	bool bOpenQuestDialogue;
 };
