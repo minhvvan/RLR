@@ -44,7 +44,6 @@ void UFriendRequestUI::OnSendRequestClicked()
 
 void UFriendRequestUI::OnCancelClicked()
 {
-	//CloseUI();
 	OnCloseRequestUISignature.Broadcast(true);
 }
 

@@ -40,6 +40,7 @@ void UFriendManager::SetRequestFriendData(int NewFriendSeq, FString NewFriendNam
 	if (FriendListUI)
 	{
 		FriendListUI->SetFriendRequestData(RequestFriendData);
+		FriendListUI->SetFriendRequestMessageBox(NewFriendName);
 	}
 }
 

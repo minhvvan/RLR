@@ -7,6 +7,7 @@
 #include "Structs/UtilStructs.h"
 #include "FriendListUI.generated.h"
 
+class UFriendRequestMessageBox;
 class UFriendRequestTabWidget;
 class UExistingGroupList;
 class UFriendRequestUI;
@@ -35,7 +36,7 @@ public:
     bool IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
     UFUNCTION(BlueprintCallable)
-    void RefreshUI();
+    virtual void RefreshUI() override;
 
     UFUNCTION()
     void OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI);
@@ -63,7 +64,7 @@ public:
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
-    void OpenFriendMenuUI();
+    void OpenFriendMenuUI(bool bOpen);
     UFUNCTION()
     void OpenAddGroupUI(bool bOpen);
     UFUNCTION()
@@ -71,6 +72,8 @@ public:
 
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
+
+    void SetFriendRequestMessageBox(FString& PlayerName);
 
 public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
@@ -103,6 +106,9 @@ public:
     UPROPERTY(meta = (BindWidget))
     UButton* FriendRequestTabButton;
     
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UFriendRequestMessageBox> FriendRequestMessageBoxClass;
+    
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FFriendGroupResult> FriendData;
 
@@ -121,4 +127,7 @@ private:
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
 	FVector2D FriendRelativePosition;
     FVector2D GroupRelativePosition;
+
+    // FriendListUI.h
+    FTimerHandle FriendRequestMessageBoxTimerHandle;
 };

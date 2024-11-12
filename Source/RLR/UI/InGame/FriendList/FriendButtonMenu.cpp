@@ -3,10 +3,12 @@
 
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
 #include "UI/InGame/FriendList/ExistingGroupList.h"
+#include "UI/InGame/FriendList/FriendListUI.h"
 #include "Structs/UtilStructs.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/FriendManager.h"
 
 void UFriendButtonMenu::NativeConstruct()
 {
@@ -35,8 +37,7 @@ void UFriendButtonMenu::OpenFriendInfoUI()
 void UFriendButtonMenu::RemoveFriend()
 {
 	GameInstance->GetNetworkManager()->SendRemoveFriend(FriendSeq);
-	// TODO : 친구 삭제 friendListUI에 전달하기
-
+	GameInstance->GetFriendManager()->FriendListUI->OpenFriendMenuUI(true);
 }
 // 그룹 이동(그룹 리스트 Open)
 void UFriendButtonMenu::MoveGroup()
@@ -44,14 +45,14 @@ void UFriendButtonMenu::MoveGroup()
 	if (bIsGroupListOpen)
 	{
 		bIsGroupListOpen = false;
-		GroupListUI->CloseUI();
+		GroupListUI->SetVisibility(ESlateVisibility::Hidden);
 	}
 	else
 	{
 		bIsGroupListOpen = true;
 		if (GroupListUI)
 		{
-			GroupListUI->OpenUI();
+			GroupListUI->SetVisibility(ESlateVisibility::Visible);
 		}
 	}
 }
