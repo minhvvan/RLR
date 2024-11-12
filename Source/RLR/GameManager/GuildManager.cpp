@@ -18,7 +18,7 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
         {
             if (GuildOverlayUI && GuildOverlayUI->WidgetSwitcher)
             {
-				if (GuildData.guildSeq != -1)
+				if (GuildData.guildSeq != 0)
 				{
 					GuildOverlayUI->WidgetSwitcher->SetActiveWidgetIndex(1);
 				}

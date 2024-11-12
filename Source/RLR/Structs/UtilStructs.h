@@ -316,7 +316,7 @@ struct FGuildResult
     TArray<FGuildRank> GuildRanks;
 
 	FGuildResult()
-		: guildSeq(-1), guildName(TEXT("")), guildLevel(0), guildMaxExp(0), guildExp(0), guildMaxUser(0) {}
+		: guildSeq(0), guildName(TEXT("")), guildLevel(0), guildMaxExp(0), guildExp(0), guildMaxUser(0) {}
 
 
 	void MakeGuildData(const Protocol::Guild guild);	

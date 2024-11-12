@@ -42,7 +42,10 @@ void UFriendButtonUI::OnAcceptRequestClicked()
 {
     GameInstance->GetNetworkManager()->SendAddFriend(FriendName);
     GameInstance->GetFriendManager()->DeleteFromRequestList(FriendSeq);
-    GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+    if (GameInstance->GetFriendManager()->FriendListUI && GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget)
+    {
+        GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+    }
 }
 
 void UFriendButtonUI::SetButtonState(bool isPressed)

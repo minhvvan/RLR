@@ -32,13 +32,17 @@ void UFriendRequestTabWidget::AddFriendButton(int32 friendSeq, FString friendNam
 
 void UFriendRequestTabWidget::ClearFriendRequestList()
 {
-    FriendButtons.Empty();
-    
-    for (UWidget* child : FriendRequestScrollBox->GetAllChildren())
+    if (!IsInGameThread())
     {
-        if (child)
-        {
-            FriendRequestScrollBox->RemoveChild(child);
-        }
+        AsyncTask(ENamedThreads::GameThread, [this]()
+            {
+                /* Game Thread 에서 재호출 */
+                ClearFriendRequestList();
+            });
+        return;
     }
+
+    // 실제 Clear 작업
+    FriendButtons.Empty();
+    FriendRequestScrollBox->ClearChildren();
 }

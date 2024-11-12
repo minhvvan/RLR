@@ -5,6 +5,8 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetMonster.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/QuestManager.h"
 #include "UI/ASCWidgetComponent.h"
 #include "Structs/MonsterStructs.h"
 #include "RLR.h"
@@ -21,6 +23,7 @@ void ARLRMonster::SetStat(FMonsterStatus& Stat)
 		ASC->CreateStatSet<UStatSetMonster>();
 		statSet = ASC->GetStatSet<UStatSetMonster>();
 	}
+	MonsterID = Stat.MonsterSeq;
 
 	statSet->OnOutOfHealth.AddDynamic(this, &ARLRMonster::SetDead);
 	statSet->OnRevive.AddDynamic(this, &ARLRMonster::SetRevive);
@@ -48,6 +51,8 @@ void ARLRMonster::SetDead()
 	{
 		root->SetVisibility(false, true);
 	}
+	/* QuestManager의 AddMonsterKillCountForAllQuests에 해당 몬스터 추가 */
+	GameInstance->GetQuestManager()->AddMonsterKillCountForAllQuests(MonsterID);
 }
 
 void ARLRMonster::SetRevive()
