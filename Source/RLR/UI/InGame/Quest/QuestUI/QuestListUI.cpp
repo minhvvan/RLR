@@ -13,6 +13,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/QuestManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/InventoryManager.h"
 
 
 void UQuestListUI::NativeConstruct()
@@ -186,11 +187,49 @@ void UQuestListUI::OnCompleteButtonClicked()
 	if (SelectedQuest.QuestSeq != 0)
 	{
 		GameInstance->GetQuestManager()->SelectedQuestInfo = SelectedQuest;
-		GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
 
-		QuestButtons.Remove(SelectedQuest.QuestTitle);
-		SelectedQuestButton = nullptr;
-		SelectedQuest = FQuest();
+		/* 조건을 충족하면 */
+		bool bIsAllConditionMet = true;
+		for (const auto& NeedEntry : SelectedQuest.Needs)
+		{
+			const FString& ConditionType = NeedEntry.Key;
+			const FObjectMap& NeededObjects = NeedEntry.Value;
+
+			for (const auto& [NeededID, NeededAmount] : NeededObjects.Map)
+			{
+				int32 CurrentAmount = 0;
+
+				if (ConditionType == "item")
+				{
+					/* 필요한 아이템이 인벤토리에 얼마나 있는지 체크 */
+					CurrentAmount = GameInstance->GetInventoryManager()->GetItem(NeededID).QUANTITY;
+				}
+				else if (ConditionType == "monster")
+				{
+					/* 퀘스트에서 필요한 몬스터 수량 추적 */
+					CurrentAmount = GameInstance->GetQuestManager()->GetMonsterKillCount(SelectedQuest.QuestSeq, NeededID);
+				}
+
+				if (CurrentAmount < NeededAmount)
+				{
+					bIsAllConditionMet = false;
+					break;
+				}
+			}
+			if(!bIsAllConditionMet) break;
+		}
+
+		if (bIsAllConditionMet)
+		{
+			GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
+
+			/* 버튼 삭제 */
+			UQuestButtonUI* TmpSelectedQuestButton = QuestButtons.FindRef(SelectedQuest.QuestTitle);
+			QuestListContainer->RemoveChild(TmpSelectedQuestButton);
+			QuestButtons.Remove(SelectedQuest.QuestTitle);
+			SelectedQuestButton = nullptr;
+			SelectedQuest = FQuest();
+		}
 	}
 }
 
