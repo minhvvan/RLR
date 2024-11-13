@@ -41,7 +41,7 @@ void UPostOverlayUI::NativeConstruct()
 
 void UPostOverlayUI::Init()
 {
-	CreatePostSlots();
+	//CreatePostSlots();
 
 	PostWidgetSwitcher->SetActiveWidgetIndex(0);
 	GameInstance->GetNetworkManager()->SendPostGetRequest();
@@ -67,8 +67,8 @@ void UPostOverlayUI::CreatePostSlots()
 
 	TSubclassOf<UPostItemSlot> PostItemSlotClass = dataManager->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
 
-	PostWriteTabWidget->PostSlotList.Empty();
-	PostWriteTabWidget->PostSlotList.Init(nullptr, MaxPostSlotCount);
+	//PostWriteTabWidget->PostSlotList.Empty();
+	//PostWriteTabWidget->PostSlotList.Init(nullptr, MaxPostSlotCount);
 
 	if (PostItemSlotClass == nullptr)
 	{
@@ -80,7 +80,7 @@ void UPostOverlayUI::CreatePostSlots()
 	{
 		// PostWriteTabWidget에 슬롯 추가
 		UPostItemSlot* WriteSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
-		PostWriteTabWidget->PostSlotList[Count] = WriteSlot;
+		/*PostWriteTabWidget->PostSlotList[Count] = WriteSlot;*/
 		WriteSlot->SlotIndex = Count;
 		WriteSlot->PostUI = this;
 		PostWriteTabWidget->PostSlotGridPanel->AddChildToGrid(WriteSlot, 0, Count);
@@ -102,14 +102,11 @@ void UPostOverlayUI::CreatePostSlotWriteTab(int32 SlotCount)
 	TSubclassOf<UPostItemSlot> PostItemSlotClass = GameInstance->GetDataManager()->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
 	for (int32 Count = 0; Count < SlotCount; Count++)
 	{
-		if (PostReceivedTabWidget->PostSlotGridPanel->GetChildrenCount() == 0)
-		{
-			// PostReceivedTabWidget에 슬롯 추가
-			UPostItemSlot* ReceivedSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
-			ReceivedSlot->SlotIndex = Count;
-			ReceivedSlot->PostUI = this;
-			PostReceivedTabWidget->PostSlotGridPanel->AddChildToGrid(ReceivedSlot, 0, Count);
-		}
+		// PostReceivedTabWidget에 슬롯 추가
+		UPostItemSlot* ReceivedSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		ReceivedSlot->SlotIndex = Count;
+		ReceivedSlot->PostUI = this;
+		PostReceivedTabWidget->PostSlotGridPanel->AddChildToGrid(ReceivedSlot, 0, Count);
 	}
 }
 
@@ -118,14 +115,11 @@ void UPostOverlayUI::CreatePostSlotSentTab(int32 SlotCount)
 	TSubclassOf<UPostItemSlot> PostItemSlotClass = GameInstance->GetDataManager()->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
 	for (int32 Count = 0; Count < SlotCount; Count++)
 	{
-		if (PostSentTabWidget->PostSlotGridPanel->GetChildrenCount() == 0)
-		{
-			// PostSentTabWidget에 슬롯 추가
-			UPostItemSlot* SentSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
-			SentSlot->SlotIndex = Count;
-			SentSlot->PostUI = this;
-			PostSentTabWidget->PostSlotGridPanel->AddChildToGrid(SentSlot, 0, Count);
-		}
+		// PostSentTabWidget에 슬롯 추가
+		UPostItemSlot* SentSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		SentSlot->SlotIndex = Count;
+		SentSlot->PostUI = this;
+		PostSentTabWidget->PostSlotGridPanel->AddChildToGrid(SentSlot, 0, Count);
 	}
 }
 

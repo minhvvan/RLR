@@ -31,23 +31,12 @@ void UPostTabWidget::NativeConstruct()
 void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSent)
 {
     bIsSentTab = bIsSent;
+    ClearPostList();
 
+    int32 SlotIndex = 0;
     for (const FPostResult& Post : Posts)
     {
-        if (bIsSentTab)
-        {
-            GameInstance->GetPostalManager()->PostUIClass->CreatePostSlotSentTab(Post.ItemId.Num());
-        }
-        else
-        {
-            GameInstance->GetPostalManager()->PostUIClass->CreatePostSlotWriteTab(Post.ItemId.Num());
-        }
-
-        ClearPostList();
-
         AddPostButton(Post, bIsSentTab);
-        
-        int32 SlotIndex = 0;
 
         // Post.ItemValues의 데이터를 기반으로 PostSlotGridPanel에 슬롯 업데이트
         for (const auto& ItemValuePair : Post.ItemValues)
@@ -57,12 +46,6 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
 
             for (int32 Count = 0; Count < ItemCount; Count++)
             {
-                if (SlotIndex >= PostSlotGridPanel->GetChildrenCount())
-                {
-                    // 슬롯이 부족한 경우 더 이상 설정하지 않음
-                    break;
-                }
-
                 // 슬롯 가져오기
                 UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
                 if (ItemSlot)

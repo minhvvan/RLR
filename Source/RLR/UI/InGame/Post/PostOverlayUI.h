@@ -93,8 +93,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 MaxPostSlotCount;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TArray<TObjectPtr<UPostItemSlot>> PostSlots;    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<TObjectPtr<UPostItemSlot>> PostSlots;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FPostResult> SentPostData;

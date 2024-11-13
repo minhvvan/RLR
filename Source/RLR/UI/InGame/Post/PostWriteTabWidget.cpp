@@ -84,8 +84,13 @@ void UPostWriteTabWidget::OnClearPostButtonClicked()
 		PostContentText->SetText(FText::GetEmpty());
 
 	// PostItemSlot 초기화
-	if (PostItemSlot)
-		PostItemSlot->Clear();
+	for (UWidget* Child : PostSlotGridPanel->GetAllChildren())
+	{
+		if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Child))
+		{
+			itemSlot->Clear();
+		}
+	}
 
 	if(RecipientIdText)
 		RecipientIdText->SetText(FText::GetEmpty());
@@ -99,15 +104,19 @@ TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()
 	TArray<int64> AttachedItems;
 
 	// PostSlotList는 우편에 첨부된 아이템 슬롯 리스트
-	for (UPostItemSlot* ItemSlot : PostSlotList)
+	for (UWidget* Child : PostSlotGridPanel->GetAllChildren())
 	{
-		if (IsValid(ItemSlot) && !ItemSlot->IsEmpty())
+		if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Child))
 		{
-			FItemData ItemData = ItemSlot->GetItemData();
-			GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
-			AttachedItems.Add(ItemData.ITEM_ID);
+			if (IsValid(itemSlot) && !itemSlot->IsEmpty())
+			{
+				FItemData ItemData = itemSlot->GetItemData();
+				GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
+				AttachedItems.Add(ItemData.ITEM_ID);
+			}
 		}
 	}
+
 	return AttachedItems;
 }
 
