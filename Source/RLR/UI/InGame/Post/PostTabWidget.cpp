@@ -33,31 +33,9 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
     bIsSentTab = bIsSent;
     ClearPostList();
 
-    int32 SlotIndex = 0;
     for (const FPostResult& Post : Posts)
     {
         AddPostButton(Post, bIsSentTab);
-
-        // Post.ItemValues의 데이터를 기반으로 PostSlotGridPanel에 슬롯 업데이트
-        for (const auto& ItemValuePair : Post.ItemValues)
-        {
-            int64 ItemId = ItemValuePair.Key;
-            int32 ItemCount = ItemValuePair.Value;
-
-            for (int32 Count = 0; Count < ItemCount; Count++)
-            {
-                // 슬롯 가져오기
-                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
-                if (ItemSlot)
-                {
-                    // 아이템 데이터 설정
-                    ItemSlot->SetSlot(ItemId);
-                }
-
-                // 다음 슬롯으로 이동
-                SlotIndex++;
-            }
-        }
     }
 
     if (!bIsSentTab)
@@ -163,8 +141,19 @@ void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
 void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 {
     SelectedPost = Post;
-    GameInstance->GetPostalManager()->PostUIClass->CreatePostSlots();
     
+    if (PostSlotGridPanel)
+    {
+        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
+        for (UWidget* slot : Slots)
+        {
+            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
+            {
+                ItemSlot->Clear();
+            }
+        }
+    }
+
     if (IdText)
     {
         IdText->SetText(FText::FromString(bIsSentTab ? Post.ReceiverName : Post.SenderName));
@@ -179,7 +168,27 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     }
     if (PostSlotGridPanel)
     {
-        // PostalManager->GetPostData()의 ItemId가 있다면 GridPanel에 표시
+        int32 SlotIndex = 0;
+
+        for (const auto& ItemValuePair : Post.ItemValues)
+        {
+            int64 ItemId = ItemValuePair.Key;
+            int32 ItemCount = ItemValuePair.Value;
+
+            for (int32 Count = 0; Count < ItemCount; Count++)
+            {
+                // 슬롯 가져오기
+                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
+                if (ItemSlot)
+                {
+                    // 아이템 데이터 설정
+                    ItemSlot->SetSlot(ItemId);
+                }
+
+                // 다음 슬롯으로 이동
+                SlotIndex++;
+            }
+        }
     }
     if (TotalMoney)
     {

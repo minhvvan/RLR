@@ -68,7 +68,7 @@ public:
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UPostButtonUI> PostButtonUIClass;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UButton* AcceptAllButton;
 
     UPROPERTY(meta = (BindWidget))
