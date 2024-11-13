@@ -325,8 +325,7 @@ void UAction::SendActionPacket()
 
 	actionResult.UserSeq = statSet->GetUserSeq();
 	actionResult.ActionSeq = actionResource.ActionSeq;
-	//TODO: ChannelID GameInstance에서 받아오기
-	actionResult.ChannelId = 1;
+	actionResult.ChannelId = GameInstance->GetChannelId();
 	actionResult.TargetTransform = actionData.MousePos;
 
 	NetworkManager->SendActionPacket(actionResult);

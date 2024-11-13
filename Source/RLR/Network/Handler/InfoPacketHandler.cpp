@@ -65,7 +65,6 @@ bool Handle_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Sta
     UserCharacter.MakeUserCharacter(pkt.usercharacter());
     GameInstance->GetPlayerManager()->SetPlayerData(UserCharacter);
 
-    //UIManager->UpdatedPlayerInfo.Broadcast(UserCharacter); 플레이어 매니저로 이전 
     return true;
 }
 bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserSpawnResponse& pkt) {
@@ -96,9 +95,7 @@ bool Handle_GET_SKILL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
 
 
 bool  Handle_CHANNEL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ChannelResponsePacket& pkt) {
-    UE_LOG(LogTemp, Log, TEXT("User Channel : %d"), pkt.channelid());
-    //TODO : PlayerManager or UserManager 만들면 거기에 Channel 정보도 같이 리스폰
-
+    GameInstance->SetChannelId(pkt.channelid());
     GameInstance->GetNetworkManager()->SendMapInfoRequest(pkt.channelid());
     return true;
 }

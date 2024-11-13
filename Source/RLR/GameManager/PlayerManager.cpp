@@ -89,27 +89,6 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 	}
 }
 
-int32 UPlayerManager::GetPlayerSeq()
-{
-	if (IsValid(PlayerCharacter) == false)
-	{
-		DEBUG_LOG("GetPlayerSeq Error. Player Character Is Null");
-		return 1;
-	}
-
-	return PlayerCharacter->GetPlayerSeq();
-}
-
-int32 UPlayerManager::GetUserSeq()
-{
-	if (IsValid(PlayerCharacter) == false)
-	{
-		DEBUG_MESSAGE;
-		return 1;
-	}
-	return PlayerCharacter->GetStat()->GetUserSeq();
-}
-
 void UPlayerManager::UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus)
 {
 	UStatSetPlayer* statSet = GetStatSet();
@@ -187,7 +166,7 @@ void UPlayerManager::ApplyAbnormal(const FAbnormal& Abnormal)
 
 bool UPlayerManager::RequestMove(const FMoveResult& MoveResult)
 {
-	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.TargetTransform, MoveResult.MapId, MoveResult.ChannelId);
+	return GameInstance->GetNetworkManager()->SendMovePacket(MoveResult.TargetTransform);
 }
 
 void UPlayerManager::UpdatePlayerTransform(const FVector& NewTransform)

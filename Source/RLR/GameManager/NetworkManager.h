@@ -98,7 +98,7 @@ public:
 
     bool SendAttackPacket(FAttackResult attackResult);
     bool SendActionPacket(FActionResult actionResult);
-    bool SendMovePacket(FVector vector, int64 mapid, int64 channelid);
+    bool SendMovePacket(FVector vector);
 
     /*
             Skill

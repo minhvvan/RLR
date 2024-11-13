@@ -194,7 +194,7 @@ void USkillSetting::LoadSkillList()
 
 void USkillSetting::ReqeustSkillQuickSlotChange()
 {
-	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	int32 UserSeq = GetGameManager()->GetUserSeq();
 
 	const TMap<FGameplayTag, USkillSettingQuickSlot*>& SkillQuickSlotMap = SkillQuickSlotGridPanel->QuickSlotMap;
 	for (TTuple<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> Element : SkillQuickSlotMap)
@@ -214,7 +214,7 @@ void USkillSetting::SaveSkillQuickSlotData()
 	if(CHECK_VALID(GameOption) == false)
 		return;
 
-	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	int32 UserSeq = GetGameManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
 	const FSkillDictionary<FGameplayTag, FSkillData>& OwnSkills = GetSkillManager()->GetOwnSkills();
 

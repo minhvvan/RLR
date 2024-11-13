@@ -59,7 +59,7 @@ void UStatusDisplay::SaveItemQuickSlotData()
 	if (CHECK_VALID(GameOption) == false)
 		return;
 
-	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	int32 UserSeq = GetGameManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetItemQuickSlotOption().ItemQuickSlotList;
 	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetInventoryManager()->GetOwnItems();
 

@@ -25,9 +25,6 @@ public:
 	ALL_STAT_SETTER(FUserCharacter);
 	ALL_STAT_GETTER(FUserCharacter);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, UserSeq , int32);
-    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, PlayerSeq, int32);
-    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, MapId, int64);
-    STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, ChannelId, int64);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NickName, FString);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, Level, int32);
     STAT_ACCESSORS(UStatSetPlayer, FUserCharacter, NobilityRank, int32);

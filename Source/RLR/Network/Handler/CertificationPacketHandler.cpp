@@ -50,7 +50,7 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
     GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport(),pkt.playerseq());
-   bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
+    bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
 
     if (Ret == false)
     {
@@ -122,8 +122,8 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         FUserCharacter UserChracter;
         UserChracter.MakeUserCharacter(user);
         users.Add(UserChracter);
-      
     }
+
     LobbyMainUI->AddUserCharacter(users);
     return true;
 }

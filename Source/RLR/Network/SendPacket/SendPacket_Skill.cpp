@@ -27,7 +27,7 @@ bool UNetworkManager::SendChangeSkillPacket(const FSkillData* SkillData, int ski
 
     Protocol::CS_SkillChangeRequestPacket packet;
 
-    int32 SkillUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 SkillUserSeq = GameInstance->GetUserSeq();
     packet.set_skillidx(skillIdx);
     packet.set_userseq(SkillUserSeq);
     packet.set_skillseq(SkillData->SkillSeq);
@@ -40,7 +40,7 @@ bool UNetworkManager::SendAddSkillPacket(int skillSeq) {
 
     Protocol::CS_SkillAddRequestPacket packet;
 
-    int32 SkillUserSeq = GameInstance->GetPlayerManager()->GetUserSeq();
+    int32 SkillUserSeq = GameInstance->GetUserSeq();
     packet.set_userseq(SkillUserSeq);
     packet.set_skillseq(skillSeq);
 
