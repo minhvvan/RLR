@@ -72,11 +72,15 @@ public:
 	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
-	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
+	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq = -1);
 	
 	virtual void OnPageActivated() override;
 
 	void ToggleNpcButtons(bool bOpen);
+
+	void RemoveQuestButton(int32 QuestSeq);
+	void ReAddQuestButton(int32 QuestSeq);
+
 protected:
 	UFUNCTION()
 	void OnDialogueEnded();
@@ -95,9 +99,9 @@ protected:
 
 	UFUNCTION()
 	void CloseQuestDialogue();
-
+	
 	UFUNCTION()
-	void RemoveQuestButton();
+	void RemoveFromHorizontalBox();
 private:
 	TArray<UDialogueDynamicButton*> QuestButtons;
 

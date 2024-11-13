@@ -11,7 +11,7 @@ void UDialogueDynamicButton::NativeConstruct()
 {
 	if (DynamicButton)
 	{
-		DynamicButton->OnClicked.AddDynamic(this, &UDialogueDynamicButton::OnButtonClicked);
+		DynamicButton->OnClicked.AddUniqueDynamic(this, &UDialogueDynamicButton::OnButtonClicked);
 	}
 }
 

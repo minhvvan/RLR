@@ -14,7 +14,8 @@
 #include "GameManager/QuestManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/InventoryManager.h"
-
+#include "GameManager/UIManager.h"
+#include "UI/DialogueUI.h"
 
 void UQuestListUI::NativeConstruct()
 {
@@ -223,6 +224,12 @@ void UQuestListUI::OnCompleteButtonClicked()
 		{
 			GameInstance->GetNetworkManager()->SendQuestCompletePacket(SelectedQuest.QuestSeq);
 
+			if (UDialogueUI* DialogueUI = GameInstance->GetUIManager()->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue))
+			{
+				/* TODO : 현재는 테스트용으로 QuestSeq가 동일한 퀘스트가 7개 있기 때문에 문제가 되지만, 나중에는 괜찮을 것 */
+				DialogueUI->RemoveQuestButton(SelectedQuest.QuestSeq);
+			}
+
 			/* 버튼 삭제 */
 			UQuestButtonUI* TmpSelectedQuestButton = QuestButtons.FindRef(SelectedQuest.QuestTitle);
 			QuestListContainer->RemoveChild(TmpSelectedQuestButton);
@@ -241,6 +248,12 @@ void UQuestListUI::OnDeclineButtonClicked()
 		{
 			if (QuestButton->GetQuestTitle() == SelectedQuest.QuestTitle)
 			{
+				if (UDialogueUI* DialogueUI = GameInstance->GetUIManager()->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue))
+				{
+					/* TODO : 현재는 테스트용으로 QuestSeq가 동일한 퀘스트가 7개 있기 때문에 문제가 되지만, 나중에는 괜찮을 것 */
+					DialogueUI->ReAddQuestButton(SelectedQuest.QuestSeq);
+				}
+
 				QuestListContainer->RemoveChild(QuestButton);
 				QuestButton->SetButtonState(false);
 				break;
