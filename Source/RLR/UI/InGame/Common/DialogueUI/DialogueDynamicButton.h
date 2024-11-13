@@ -32,8 +32,8 @@ public:
 	UFUNCTION()
 	void OnButtonClicked();
 
-	void SetQuestSeq(int32 questSeq) {QuestSeq = questSeq;};
-	int32 GetQuestSeq() {return QuestSeq;};
+	void SetQuestSeq(int32 NewQuestSeq) { questSeq = NewQuestSeq;};
+	int32 GetQuestSeq() {return questSeq;};
 public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* DynamicButton;
@@ -53,5 +53,5 @@ private:
 	*/
 	int32 buttonType;
 
-	int32 QuestSeq;
+	int32 questSeq;
 };
