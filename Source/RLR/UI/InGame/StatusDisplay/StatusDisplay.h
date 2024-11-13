@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameManager/RLRStruct.h"
-#include "UI/BaseUI.h"
+#include "UI/SubUI.h"
 #include "GameManager/GameplayTagManager.h"
 #include "StatusDisplay.generated.h"
 
@@ -21,12 +21,11 @@
  class UItemQuickSlot;
 
 UCLASS()
-class RLR_API UStatusDisplay : public UBaseUI
+class RLR_API UStatusDisplay : public USubUI
 {
 	GENERATED_BODY()
 	
 public:
-
 	virtual void NativeConstruct() override;
 	virtual void Init();
 	virtual void RefreshUI() override;

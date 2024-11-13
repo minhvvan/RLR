@@ -19,7 +19,6 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
 #include "Structs/ItemStructs.h"
-#include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "RLR.h"
 
 void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
@@ -32,12 +31,6 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 
 	UpdatedPartyPlayerInfo.Clear();
 	UpdatedPlayerInfo.Clear();
-
-	//ARLRPlayerCharacter* playerCharacter = Cast<ARLRPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	//if (playerCharacter)
-	//{
-	//	BaseScreen->SetActionSystemComponent(playerCharacter);
-	//}
 
 	FString CurrentLevelName = GetWorld()->GetMapName();
 	if (CurrentLevelName.Contains(TEXT("Main")))
