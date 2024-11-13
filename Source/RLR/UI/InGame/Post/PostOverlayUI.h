@@ -32,6 +32,9 @@ public:
     UFUNCTION()
     void CreatePostSlots();
 
+    void CreatePostSlotWriteTab(int32 SlotCount);
+    void CreatePostSlotSentTab(int32 SlotCount);
+
     UFUNCTION()
     void OnReceivedPostButtonClicked();
 

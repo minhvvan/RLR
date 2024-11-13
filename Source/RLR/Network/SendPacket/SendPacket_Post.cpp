@@ -31,6 +31,15 @@ bool UNetworkManager::SendPostRequest(FPostResult post) {
     std::string content(TCHAR_TO_UTF8(*post.Content));
     std::string receiverName(TCHAR_TO_UTF8(*post.ReceiverName));
     packetPost->set_title(title);
+    
+    for (int64 Item : post.ItemId) {
+        packetPost->add_itemid(Item);
+    }
+    
+    for (const auto& ItemValue : post.ItemValues) {
+        (*packetPost->mutable_itemvalues())[ItemValue.Key] = ItemValue.Value;
+    }
+
     packetPost->set_postid(post.PostId);
     packetPost->set_senderseq(GameInstance->GetUserSeq());
     packetPost->set_receiverseq(post.ReceiverSeq);

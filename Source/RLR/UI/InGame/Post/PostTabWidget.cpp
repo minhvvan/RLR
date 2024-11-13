@@ -31,19 +31,48 @@ void UPostTabWidget::NativeConstruct()
 void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSent)
 {
     bIsSentTab = bIsSent;
-    ClearPostList();
 
     for (const FPostResult& Post : Posts)
     {
-        AddPostButton(Post, bIsSentTab);
-        /* alert에서 삭제하기로 예약해둔 우편들 삭제 */
-
-        for (int i = 0; i < 7; i++)
+        if (bIsSentTab)
         {
-            UPostItemSlot* itemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(i));
-            if (!Post.ItemId.IsEmpty() && Post.ItemId[i] != 0)
+            GameInstance->GetPostalManager()->PostUIClass->CreatePostSlotSentTab(Post.ItemId.Num());
+        }
+        else
+        {
+            GameInstance->GetPostalManager()->PostUIClass->CreatePostSlotWriteTab(Post.ItemId.Num());
+        }
+
+        ClearPostList();
+
+        AddPostButton(Post, bIsSentTab);
+        
+        int32 SlotIndex = 0;
+
+        // Post.ItemValues의 데이터를 기반으로 PostSlotGridPanel에 슬롯 업데이트
+        for (const auto& ItemValuePair : Post.ItemValues)
+        {
+            int64 ItemId = ItemValuePair.Key;
+            int32 ItemCount = ItemValuePair.Value;
+
+            for (int32 Count = 0; Count < ItemCount; Count++)
             {
-                itemSlot->SetSlot(Post.ItemId[i]);
+                if (SlotIndex >= PostSlotGridPanel->GetChildrenCount())
+                {
+                    // 슬롯이 부족한 경우 더 이상 설정하지 않음
+                    break;
+                }
+
+                // 슬롯 가져오기
+                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
+                if (ItemSlot)
+                {
+                    // 아이템 데이터 설정
+                    ItemSlot->SetSlot(ItemId);
+                }
+
+                // 다음 슬롯으로 이동
+                SlotIndex++;
             }
         }
     }
@@ -111,6 +140,18 @@ void UPostTabWidget::ClearPostList()
             if (Child)
             {
                 PostScrollBox->RemoveChild(Child);
+            }
+        }
+    }
+
+    if (PostSlotGridPanel)
+    {
+        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
+        for (UWidget* slot : Slots)
+        {
+            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
+            {
+                ItemSlot->Clear();
             }
         }
     }

@@ -6,6 +6,7 @@
 #include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/DraggableWidget.h"
 #include "UI/BaseDragDropOperation.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
 #include "Components/Image.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
@@ -29,62 +30,29 @@ void UPostItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPoi
 
 bool UPostItemSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
-	//bool Ret = Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
-	//if (Ret == false)
-	//	return false;
-
-	//UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::POST_ITEM_SLOT);
-	//if (IsValid(Operation) == false)
-	//	return false;
-
-	//UPostItemSlot* DraggedSlot = Cast<UPostItemSlot>(Operation->Master);
-	//if (IsValid(DraggedSlot) == false)
-	//	return false;
-
-	////만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
-	//if (IsEmpty() == false)
-	//{
-	//	/*
-	//		A->B
-	//		B->A
-	//	*/
-	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(GetItemData().ITEM_SEQ, Operation->Master->SlotIndex);
-	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
-	//}
-	//else
-	//{
-	//	GetGameManager()->GetPostalManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
-	//	//SetItemData(Operation->GetItemData());
-	//	DraggedSlot->Clear();
-	//}
-
-	////슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
-	//PostUI->RefreshUI();
+	HandleInventoryItemDrop(InGeometry, InDragDropEvent, InOperation);
 
 	return true;
 }
 
-bool UPostItemSlot::HandleInventoryItemDrop(UBaseDragDropOperation* Operation)
+bool UPostItemSlot::HandleInventoryItemDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
-	UInventoryManager* InventoryManager = GetGameManager()->GetInventoryManager();
-	UPostalManager* PostalManager = GetGameManager()->GetPostalManager();
-
-	if (!IsValid(InventoryManager) || !IsValid(PostalManager))
+	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
+	if (!Operation || !Operation->Payload)
 		return false;
 
-	FItemData DroppedItem = Operation->GetItemData();
-	FItemResource DroppedItemResource = Operation->GetItemResource();
-	// 우편함에 아이템 추가
-	SetItemData(DroppedItem);
+	// 드래그된 데이터 확인
+	UInventorySlot* DraggedSlot = Cast<UInventorySlot>(Operation->Payload);
+	if (!DraggedSlot || DraggedSlot->IsEmpty())
+		return false;
 
-	// 인벤토리에서 아이템 제거
-	InventoryManager->RemoveItem(DroppedItem.ITEM_SEQ);
+	// PostItemSlot에 데이터 설정
+	SetItemData(DraggedSlot->GetItemData());
+	SetSlotImage(DraggedSlot->GetItemResourceData().ItemImage);
+	ItemNameText->SetText(DraggedSlot->GetItemData().NAME);
 
-	// UI 갱신
-	PostUI->RefreshUI();
-
-	// PostalManager의 Update 함수 호출
-	PostalManager->Update();
+	// 드래그된 인벤토리 슬롯 비우기
+	DraggedSlot->Clear();
 
 	return true;
 }
@@ -95,6 +63,11 @@ void UPostItemSlot::SetSlot(int64 NewitemId)
 	FText itemName = GameInstance->GetDataManager()->GetItemData(NewitemId).NAME;
 	SetSlotImage(itemTexture);
 	ItemNameText->SetText(itemName);
+}
+
+void UPostItemSlot::Clear()
+{
+	Super::Clear();
 }
 
 void UPostItemSlot::RefreshUI()

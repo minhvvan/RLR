@@ -66,6 +66,9 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	CopyOperation->SetSkillData(GetSkillData());
 	CopyOperation->SetMaster(this);
 	CopyOperation->DragedSlotType = GetSlotType();
+
+	CopyOperation->Payload = this;
+
 	OutOperation = CopyOperation;
 
 }

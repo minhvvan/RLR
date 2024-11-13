@@ -135,5 +135,15 @@ void UPostalManager::SetItemData(int32 itemId)
 {
 	//ItemData[itemId] = Item;
 	FItemData Data = GameInstance->GetDataManager()->GetItemData(itemId);
-	ItemData[itemId] = Data;
+	ItemData.Add(itemId, Data);
+
+	// ItemValues 맵에 itemId가 이미 존재하면 카운트 증가, 아니면 1로 초기화
+	if (ItemValues.Contains(itemId))
+	{
+		ItemValues[itemId]++;
+	}
+	else
+	{
+		ItemValues.Add(itemId, 1);
+	}
 }
