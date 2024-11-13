@@ -6,6 +6,7 @@
 #include "Components/TextBlock.h"
 #include "Components/ScrollBox.h"
 #include "Components/MultiLineEditableText.h"
+#include "Components/SizeBox.h"
 #include "Components/GridPanel.h"
 #include "Structs/UtilStructs.h"
 #include "GameManager/GameManager.h"
@@ -171,21 +172,24 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     /* TODO : 현재 서버에서 postid를 1로 고정하고 있음, 나중에는 postid가 고유 값을 가질 것이기 때문에 이렇게 함 */
     // if(ClickedPost.PostId == SelectedPost.PostId) return;
 
-    /* 이건 postid가 고유 값을 갖기 전까지 사용할 임시코드임 */
-    if(SelectedPost.PostId == ClickedPost.PostId || SelectedPost.ReceiverName == ClickedPost.ReceiverName && (SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content)) 
+    /* 이건 postid가 고유 값을 갖기 전까지 사용할 임시코드임, 눌렀던 버튼 또 눌렀을 때 */
+    if(SelectedPost.PostId == ClickedPost.PostId && SelectedPost.ReceiverName == ClickedPost.ReceiverName && (SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content)) 
     {
         if (!SelectedPost.Title.IsEmpty() && PostButtons.Contains(SelectedPost.Title))
         {
             SelectedPostButton->SetButtonState(false);
-            UpdatePostDetails(ClickedPost);
-            SelectedPostButton = PostButtonUI;
-
+            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            SelectedPostButton = nullptr;
+            SelectedPost = FPostResult();
+            UpdatePostDetails(SelectedPost);
         }
         else
         {
             SelectedPostButton->SetButtonState(false);
-            UpdatePostDetails(ClickedPost);
-            SelectedPostButton = PostButtonUI;
+            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            SelectedPostButton = nullptr;
+            SelectedPost = FPostResult();
+            UpdatePostDetails(SelectedPost);
         }
         return;
     }
@@ -194,6 +198,7 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     {
         SelectedPostButton->SetButtonState(false);
     }
+    PostList_SizeBox->SetVisibility(ESlateVisibility::Visible);
     UpdatePostDetails(ClickedPost);
     SelectedPostButton = PostButtonUI;
 }

@@ -10,6 +10,7 @@
 class UButton;
 class UTextBlock;
 class UScrollBox;
+class USizeBox;
 class UMultiLineEditableText;
 class UGridPanel;
 class UPostButtonUI;
@@ -39,6 +40,9 @@ public:
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post")
     bool bIsSentTab;
+
+    UPROPERTY(meta = (BindWidget))
+    USizeBox* PostList_SizeBox;
 
     UPROPERTY(meta = (BindWidget))
     UScrollBox* PostScrollBox;
