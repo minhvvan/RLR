@@ -10,36 +10,6 @@
 #include "UI/MainUI.h"
 #include "InGameMainUI.generated.h"
 
-/**
- * 
- */
-
- class UChatUI;
- class UInventoryUI;
- class UChatOptionUI;
- class UEquipmentUI;
- class UItemInformation;
- class UCharacterStatusUI;
- class UMinimapUI;
- class UStatusDisplay;
- class UInGameMenuUI;
- class UPartyUI;
- class UKeyOption;
- class USkillUI;
- class USkillUpgrade;
- class UQuestListUI;
- class UPostOverlayUI;
- class UFriendListUI;
- class UOtherPlayerMenu;
- class UReportUI;
- class UGuildUI;
- class UCanvasPanel;
- class UTradeUI;
- class UItemCountMessageBox;
- class UNotificationMessageBox;
- class UConfirmMessageBox;
- class UGroupUI;
-
 UCLASS()
 class RLR_API UInGameMainUI : public UMainUI
 {

@@ -241,7 +241,7 @@ void USkillSetting::ApplySkillQuickSlotSetting()
 	UInGameMainUI* MainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
 	if(IsValid(MainUI) == false) return;
 
-	UStatusDisplay* SD = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
+	UStatusDisplay* SD = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
 	if(IsValid(SD) == false)
 		return;
 

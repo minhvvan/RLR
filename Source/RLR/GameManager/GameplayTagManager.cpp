@@ -90,10 +90,9 @@ void FGameplayTagManager::Init()
 	/*
 		Action UI
 	*/
-	GameplayTags.UI_Character_Status = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.CharacterStatus"), FString(TEXT("캐릭터 상태창")));
-	GameplayTags.UI_Character_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Display"), FString(TEXT("캐릭터 체력바")));
-	
-	GameplayTags.UI_Stat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Stat"), FString(TEXT("캐릭터 스탯창")));
+	GameplayTags.UI_Character_StatusDisplay = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.StatusDisplay"), FString(TEXT("캐릭터 상태창")));
+	GameplayTags.UI_Character_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Profile"), FString(TEXT("캐릭터 스탯창")));
+	GameplayTags.UI_Character_Overhead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Overhead"), FString(TEXT("캐릭터 체력바")));
 
 	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill"), FString(TEXT("스킬창")));
 	GameplayTags.UI_Skill_Upgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill.Upgrade"), FString(TEXT("스킬 업그레이드")));

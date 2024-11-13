@@ -227,7 +227,7 @@ void UKeyOption::ApplyKeyOption()
 	auto UIManager = GetUIManager();
 	if (!UIManager) return;
 
-	UStatusDisplay* StatusDisplay = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
+	UStatusDisplay* StatusDisplay = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
 	if(IsValid(StatusDisplay) == false)
 		return;
 

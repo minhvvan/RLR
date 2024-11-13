@@ -115,10 +115,9 @@ public:
 	UI Tag: 식별을 위한 고유한 태그
 	*/
 
-	FGameplayTag UI_Character_Status;
-	FGameplayTag UI_Character_Display;
-
-	FGameplayTag UI_Stat;
+	FGameplayTag UI_Character_StatusDisplay;
+	FGameplayTag UI_Character_Profile;
+	FGameplayTag UI_Character_Overhead;
 
 	FGameplayTag UI_Skill;
 	FGameplayTag UI_Skill_Upgrade;
