@@ -6,16 +6,20 @@
 #include "UI/InGame/Post/PostTabWidget.h"
 #include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
+#include "UI/InGame/Popup/ConfirmMessageBox.h"
+
 #include "GameManager/PostalManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+
 #include "Structs/UtilStructs.h"
 #include "Components/GridPanel.h"
 #include "Components/EditableTextBox.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/EditableText.h"
 #include "Components/TextBlock.h"
 #include "Components/Button.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
@@ -99,6 +103,24 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
+		if (PostWidgetSwitcher->GetActiveWidgetIndex() == 2)
+		{
+			/* 우편 작성 탭이 열려있고, 작성중인 내용이 있다면 */
+			if (!PostWriteTabWidget->RecipientIdText->GetText().IsEmpty() || !PostWriteTabWidget->PostTitleText->GetText().IsEmpty())
+			{
+				/* "작성중이던 우편이 있습니다" 팝업 띄우기 */
+				ConfirmMessageBox->SetVisibility(ESlateVisibility::Visible);
+				FText MessageText = STRING_TO_FTEXT("작성중인 우편이 있습니다. 창을 종료하면 작성 중이던 편지가 삭제됩니다.");
+				ConfirmMessageBox->SetMessageText(MessageText);
+
+				//클릭, 취소 버튼 콜백 함수 등록
+				ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
+				ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+
+				ChangeTabIndex = 0;
+				return;
+			}
+		}
 		PostWidgetSwitcher->SetActiveWidgetIndex(0);
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 		OnPostGetRequestComplete();
@@ -117,6 +139,25 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
+		if (PostWidgetSwitcher->GetActiveWidgetIndex() == 2)
+		{
+			/* 우편 작성 탭이 열려있고, 작성중인 내용이 있다면 */
+			if (!PostWriteTabWidget->RecipientIdText->GetText().IsEmpty() || !PostWriteTabWidget->PostTitleText->GetText().IsEmpty())
+			{
+				/* "작성중이던 우편이 있습니다" 팝업 띄우기 */
+				ConfirmMessageBox->SetVisibility(ESlateVisibility::Visible);
+				FText MessageText = STRING_TO_FTEXT("작성중인 우편이 있습니다. 창을 종료하면 작성 중이던 편지가 삭제됩니다.");
+				ConfirmMessageBox->SetMessageText(MessageText);
+
+				//클릭, 취소 버튼 콜백 함수 등록
+				ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
+				ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+
+				ChangeTabIndex = 1;
+				return;
+			}
+		}
+
 		PostWidgetSwitcher->SetActiveWidgetIndex(1); // 발신함 위젯으로 전환
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 		OnPostSentRequestComplete();
@@ -145,6 +186,26 @@ void UPostOverlayUI::SetMaxSlotCount(int32 Count)
 	MaxPostSlotCount = Count;
 	Init();
 	RefreshUI();
+}
+
+void UPostOverlayUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
+{
+	if (PostWriteTabWidget)
+	{
+		/* 작성하던 내용 모두 초기화 */
+		PostWriteTabWidget->OnClearPostButtonClicked();
+		ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+		/* 열려고 했던 창 열기 */
+		if (PostWidgetSwitcher)
+		{
+			PostWidgetSwitcher->SetActiveWidgetIndex(ChangeTabIndex);
+		}
+	}
+}
+
+void UPostOverlayUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
+{
+	ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
 }
 
 void UPostOverlayUI::UpdatePostWidget()

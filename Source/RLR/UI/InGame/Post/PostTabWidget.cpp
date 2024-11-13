@@ -143,7 +143,7 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     
     if (IdText)
     {
-        IdText->SetText(FText::FromString(FString::FromInt(bIsSentTab ? Post.ReceiverSeq : Post.SenderSeq)));
+        IdText->SetText(FText::FromString(bIsSentTab ? Post.ReceiverName : Post.SenderName));
     }
     if (PostTitleText)
     {
@@ -163,7 +163,7 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     }
     if (ReadStatus)
     {
-        ReadStatus->SetText(FText::FromString("Read"));
+        ReadStatus->SetText(FText::FromString(bIsSentTab ? "" : "Read"));
     }
 }
 

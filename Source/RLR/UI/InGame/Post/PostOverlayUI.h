@@ -14,6 +14,7 @@ class UPostWriteTabWidget;
 class UPostSentTabWidget;
 class UPostItemSlot;
 class UPostTabWidget;
+class UConfirmMessageBox;
 
 
 UCLASS()
@@ -41,9 +42,15 @@ public:
     void OnWritePostButtonClicked();
 
     UFUNCTION(BlueprintCallable)
-	void	SetMaxSlotCount(int32 Count);
+	void SetMaxSlotCount(int32 Count);
+
 	UFUNCTION(BlueprintCallable)
-	int32	GetMaxSlotCount(){return MaxPostSlotCount;};
+	int32 GetMaxSlotCount(){return MaxPostSlotCount;};
+
+    UFUNCTION()
+	void OnClickedAcceptButton(UConfirmMessageBox* MessageBox);
+	UFUNCTION()
+	void OnClickedCancelButton(UConfirmMessageBox* MessageBox);
 
     void UpdatePostWidget();
 
@@ -64,6 +71,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostTabWidget> PostSentTabWidget;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UConfirmMessageBox> ConfirmMessageBox;
 
     UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PostWidgetSwitcher;
@@ -89,4 +99,7 @@ public:
 	TArray<FPostResult> RecvPostData;
 
     FCriticalSection PostDataMutex;
+
+private:
+    int32 ChangeTabIndex;
 };
