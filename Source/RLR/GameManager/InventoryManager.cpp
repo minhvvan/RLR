@@ -36,7 +36,7 @@ void UInventoryManager::AddItem(const FItemData& NewItem)
 		return;
 	}
 	
-	InventoryItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+	InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
 	OnUpdateInventoryDelegateBroadcast();
 }
 
@@ -49,16 +49,16 @@ void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList)
 			DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 			return;
 		}
-		InventoryItemData.Add(NewItem.ITEM_SLOT_IDX, NewItem);
+		InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
 	}
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-FItemData UInventoryManager::GetItem(int32 Id)
+FItemData UInventoryManager::GetItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Id))
+	if (InventoryItemData.Contains(Item_ID))
 	{
-		return InventoryItemData[Id];
+		return InventoryItemData[Item_ID];
 	}
 	return FItemData::EmptyItemData;
 }
@@ -72,55 +72,55 @@ void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
 
 	for (const FItemData& Item : ItemArray)
 	{
-		InventoryItemData.Add(Item.ITEM_SEQ, Item);
+		InventoryItemData.Add(Item.ITEM_ID, Item);
 	}
 
 	Update();
 }
 
-void UInventoryManager::RemoveItem(int32 Id)
+void UInventoryManager::RemoveItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Id))
+	if (InventoryItemData.Contains(Item_ID) == true)
 	{
 		FItemData RemoveItem;
-		InventoryItemData.RemoveAndCopyValue(Id, RemoveItem);
+		InventoryItemData.RemoveAndCopyValue(Item_ID, RemoveItem);
 		OnUpdateInventoryDelegateBroadcast();
 	}
 }
 
-bool UInventoryManager::EquipItem(int32 ItemSeq)
+bool UInventoryManager::EquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(ItemSeq) == false)
+	if (InventoryItemData.Contains(Item_ID) == false)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
 
-	FItemData& EquipedItem = InventoryItemData[ItemSeq];
+	FItemData& EquipedItem = InventoryItemData[Item_ID];
 	EquipedItem.IsEquiped = true;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
-bool UInventoryManager::UnEquipItem(int32 ItemSeq)
+bool UInventoryManager::UnEquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(ItemSeq) == false)
+	if (InventoryItemData.Contains(Item_ID) == false)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
 
-	FItemData& EquipedItem = InventoryItemData[ItemSeq];
+	FItemData& EquipedItem = InventoryItemData[Item_ID];
 	EquipedItem.IsEquiped = false;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
-void UInventoryManager::ChangeItemSlot(int32 Item_Seq, int32 NewSlotIndex)
+void UInventoryManager::ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex)
 {
-	if (InventoryItemData.Contains(Item_Seq))
+	if (InventoryItemData.Contains(Item_ID))
 	{
-		InventoryItemData[Item_Seq].ITEM_SLOT_IDX = NewSlotIndex;
+		InventoryItemData[Item_ID].ITEM_SLOT_IDX = NewSlotIndex;
 	}
 }
 
