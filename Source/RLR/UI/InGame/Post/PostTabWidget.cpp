@@ -43,7 +43,7 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
         TArray<FPostResult> DeletionList = GameInstance->GetPostalManager()->GetAndClearPostDeletionList(false);
         for (const FPostResult& PostData : DeletionList)
         {
-            /* 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
+            /* TODO : 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
             //RemovePost(PostData);
         }
     }
