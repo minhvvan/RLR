@@ -36,12 +36,12 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterProfile>(TagManager.UI_OtherPlayer_Display);
+	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterProfile>(TagManager.UI_OtherPlayer_Profile);
 
 	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
 
 	otherPlayerStatus->UpdateTotalStat(OtherUserData.Get()->TotalStatus);
-	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayer_Display);
+	GetUIManager()->OpenSubUI(TagManager.UI_OtherPlayer_Profile);
 	CloseUIByManager();
 }
 
