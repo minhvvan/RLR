@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 #include "UI/InGame/CharacterStatusDisplay/ProgressGlobe.h"
 #include "UI/InGame/CharacterStatusDisplay/ExpProgressBar.h"
 #include "UI/InGame/CharacterStatusDisplay/SkillQuickSlot.h"
@@ -24,32 +24,32 @@
 #include "Structs/PlayerStructs.h"
 #include "Structs/UtilStructs.h"
 
-void UStatusDisplay::NativeConstruct()
+void UCharacterStatusDisplay::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
-	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateSkillQuickSlot);
+	GameInstance->GetSkillManager()->UpdatedTryActivateAction.RemoveDynamic(this, &UCharacterStatusDisplay::UpdateSkillQuickSlot);
+	GameInstance->GetSkillManager()->UpdatedTryActivateAction.AddUniqueDynamic(this, &UCharacterStatusDisplay::UpdateSkillQuickSlot);
 
-	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.RemoveDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
-	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.AddUniqueDynamic(this, &UStatusDisplay::UpdateItemQuickSlot);
+	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.RemoveDynamic(this, &UCharacterStatusDisplay::UpdateItemQuickSlot);
+	GameInstance->GetInventoryManager()->UpdatedTryUsingItemAction.AddUniqueDynamic(this, &UCharacterStatusDisplay::UpdateItemQuickSlot);
 
-	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.RemoveDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
-	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.AddUniqueDynamic(this, &UStatusDisplay::SaveItemQuickSlotData);
+	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.RemoveDynamic(this, &UCharacterStatusDisplay::SaveItemQuickSlotData);
+	GameInstance->GetInventoryManager()->UpdatedItemSettingDelegate.AddUniqueDynamic(this, &UCharacterStatusDisplay::SaveItemQuickSlotData);
 }
 
-void UStatusDisplay::Init()
+void UCharacterStatusDisplay::Init()
 {
 	Super::Init();
 }
 
-void UStatusDisplay::RefreshUI()
+void UCharacterStatusDisplay::RefreshUI()
 {
 	LoadSkillQuickSlotData();
 	LoadItemQuickSlotData();
 }
 
-void UStatusDisplay::SaveItemQuickSlotData()
+void UCharacterStatusDisplay::SaveItemQuickSlotData()
 {
 	/*
 		현재 세팅 되어 있는 아이템 퀵 슬롯 저장
@@ -75,17 +75,17 @@ void UStatusDisplay::SaveItemQuickSlotData()
 	LoadItemQuickSlotData();
 }
 
-void UStatusDisplay::LoadSkillQuickSlotData()
+void UCharacterStatusDisplay::LoadSkillQuickSlotData()
 {
 	SkillQuickSlotContainer->RefreshUI();
 }
 
-void UStatusDisplay::LoadItemQuickSlotData()
+void UCharacterStatusDisplay::LoadItemQuickSlotData()
 {
 	ItemQuickSlotContainer->RefreshUI();
 }
 
-void UStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)
+void UCharacterStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)
 {
 	float hpPercent = FMath::Clamp(NewTotalStatus.HP / NewTotalStatus.MAX_HP, 0.f, 1.f);
 	float mpPercent = FMath::Clamp(NewTotalStatus.MP / NewTotalStatus.MAX_MP, 0.f, 1.f);
@@ -94,27 +94,27 @@ void UStatusDisplay::UpdateTotalStat(const FTotalStatus& NewTotalStatus)
 	UpdateMpGlobe(mpPercent);
 }
 
-void UStatusDisplay::UpdateHpGlobe(float NewPercent)
+void UCharacterStatusDisplay::UpdateHpGlobe(float NewPercent)
 {
 	HPGlobe->SetGlobePercent(NewPercent);
 }
 
-void UStatusDisplay::UpdateMpGlobe(float NewPercent)
+void UCharacterStatusDisplay::UpdateMpGlobe(float NewPercent)
 {
 	MPGlobe->SetGlobePercent(NewPercent);
 }
 
-void UStatusDisplay::UpdateLevel(int32 NewLevel)
+void UCharacterStatusDisplay::UpdateLevel(int32 NewLevel)
 {
 	ExpProgressBar->UpdateMaxExp(NewLevel);
 }
 
-void UStatusDisplay::UpdateExp(int32 NewExp)
+void UCharacterStatusDisplay::UpdateExp(int32 NewExp)
 {
 	ExpProgressBar->UpdateExp(NewExp);
 }
 
-void UStatusDisplay::UpdateSkillQuickSlot(FGameplayTag ActionTag)
+void UCharacterStatusDisplay::UpdateSkillQuickSlot(FGameplayTag ActionTag)
 {
 	/*
 		TODO. 스킬 쿨타임 돌려주자.
@@ -125,7 +125,7 @@ void UStatusDisplay::UpdateSkillQuickSlot(FGameplayTag ActionTag)
 	UpdatedSlot->UpdatedSkillQuickSlot();
 }
 
-void UStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
+void UCharacterStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
 {
 	/*
 		TODO. 
@@ -139,14 +139,14 @@ void UStatusDisplay::UpdateItemQuickSlot(FGameplayTag ActionTag)
 	UpdatedSlot->UpdatedItemQuickSlot();
 }
 
-USkillQuickSlot* UStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
+USkillQuickSlot* UCharacterStatusDisplay::GetSkillQuickSlot(FGameplayTag ActionTag)
 {
 	if(SkillQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
 		return nullptr;
 	return  SkillQuickSlotContainer->QuickSlotMap[ActionTag];
 }
 
-UItemQuickSlot* UStatusDisplay::GetItemQuickSlot(FGameplayTag ActionTag)
+UItemQuickSlot* UCharacterStatusDisplay::GetItemQuickSlot(FGameplayTag ActionTag)
 {
 	if (ItemQuickSlotContainer->QuickSlotMap.Contains(ActionTag) == false)
 		return nullptr;

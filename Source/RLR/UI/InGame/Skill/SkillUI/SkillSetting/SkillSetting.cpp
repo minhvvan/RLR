@@ -8,7 +8,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillSetting/SkillSettingQuickSlotContainer.h"
 
 #include "UI/InGame/InGameMainUI.h"
-#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Player/PlayerCommands.h"
@@ -241,7 +241,7 @@ void USkillSetting::ApplySkillQuickSlotSetting()
 	UInGameMainUI* MainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
 	if(IsValid(MainUI) == false) return;
 
-	UStatusDisplay* SD = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
+	UCharacterStatusDisplay* SD = UIManager->GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
 	if(IsValid(SD) == false)
 		return;
 

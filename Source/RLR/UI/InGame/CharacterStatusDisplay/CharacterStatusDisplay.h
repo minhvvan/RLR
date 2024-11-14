@@ -6,7 +6,7 @@
 #include "GameManager/RLRStruct.h"
 #include "UI/SubUI.h"
 #include "GameManager/GameplayTagManager.h"
-#include "StatusDisplay.generated.h"
+#include "CharacterStatusDisplay.generated.h"
 
 /**
  * 
@@ -21,7 +21,7 @@
  class UItemQuickSlot;
 
 UCLASS()
-class RLR_API UStatusDisplay : public USubUI
+class RLR_API UCharacterStatusDisplay : public USubUI
 {
 	GENERATED_BODY()
 	

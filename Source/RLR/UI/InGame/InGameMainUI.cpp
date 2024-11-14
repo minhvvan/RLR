@@ -6,7 +6,7 @@
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
-#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"
@@ -52,8 +52,8 @@ void UInGameMainUI::OnPageActivated()
 void UInGameMainUI::OnChangedTotalStatus()
 {
 	if (!ActionSystemComponent) return;
-	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
-	if (!StatusDisplayUI) return;
+	auto CharacterStatusDisplayUI = GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
+	if (!CharacterStatusDisplayUI) return;
 
 	auto CharacterStatusUI = GetSubUI<UCharacterStatusUI>(RLRTAG.UI_Character_Profile);
 	if (!CharacterStatusUI) return;
@@ -61,7 +61,7 @@ void UInGameMainUI::OnChangedTotalStatus()
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	FTotalStatus totalStat = statSet->GetTotalStatus();
 
-	StatusDisplayUI->UpdateTotalStat(totalStat);
+	CharacterStatusDisplayUI->UpdateTotalStat(totalStat);
 	CharacterStatusUI->UpdateTotalStat(totalStat);
 }
 
@@ -81,12 +81,12 @@ void UInGameMainUI::OnChangedSetStatus()
 void UInGameMainUI::OnChangedExp()
 {
 	if (!ActionSystemComponent) return;
-	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
-	if (!StatusDisplayUI) return;
+	auto CharacterStatusDisplayUI = GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
+	if (!CharacterStatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	int32 newExp = statSet->GetExp();
-	StatusDisplayUI->UpdateExp(newExp);
+	CharacterStatusDisplayUI->UpdateExp(newExp);
 }
 
 void UInGameMainUI::OnChangedTalent()
@@ -103,10 +103,10 @@ void UInGameMainUI::OnChangedTalent()
 void UInGameMainUI::OnChangedLevel()
 {
 	if (!ActionSystemComponent) return;
-	auto StatusDisplayUI = GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
-	if (!StatusDisplayUI) return;
+	auto CharacterStatusDisplayUI = GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
+	if (!CharacterStatusDisplayUI) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	int32 newLevel = statSet->GetLevel();
-	StatusDisplayUI->UpdateLevel(newLevel);
+	CharacterStatusDisplayUI->UpdateLevel(newLevel);
 }
