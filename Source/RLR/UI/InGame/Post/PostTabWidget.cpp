@@ -6,6 +6,7 @@
 #include "Components/TextBlock.h"
 #include "Components/ScrollBox.h"
 #include "Components/MultiLineEditableText.h"
+#include "Components/SizeBox.h"
 #include "Components/GridPanel.h"
 #include "Structs/UtilStructs.h"
 #include "GameManager/GameManager.h"
@@ -35,16 +36,6 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
     for (const FPostResult& Post : Posts)
     {
         AddPostButton(Post, bIsSentTab);
-        /* alert에서 삭제하기로 예약해둔 우편들 삭제 */
-
-        for (int i = 0; i < 7; i++)
-        {
-            UPostItemSlot* itemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(i));
-            if (!Post.ItemId.IsEmpty() && Post.ItemId[i] != 0)
-            {
-                itemSlot->SetSlot(Post.ItemId[i]);
-            }
-        }
     }
 
     if (!bIsSentTab)
@@ -52,7 +43,7 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
         TArray<FPostResult> DeletionList = GameInstance->GetPostalManager()->GetAndClearPostDeletionList(false);
         for (const FPostResult& PostData : DeletionList)
         {
-            /* 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
+            /* TODO : 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
             //RemovePost(PostData);
         }
     }
@@ -114,6 +105,18 @@ void UPostTabWidget::ClearPostList()
         }
     }
 
+    if (PostSlotGridPanel)
+    {
+        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
+        for (UWidget* slot : Slots)
+        {
+            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
+            {
+                ItemSlot->Clear();
+            }
+        }
+    }
+
     PostButtons.Empty();
 }
 
@@ -138,11 +141,22 @@ void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
 void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 {
     SelectedPost = Post;
-    GameInstance->GetPostalManager()->PostUIClass->CreatePostSlots();
     
+    if (PostSlotGridPanel)
+    {
+        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
+        for (UWidget* slot : Slots)
+        {
+            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
+            {
+                ItemSlot->Clear();
+            }
+        }
+    }
+
     if (IdText)
     {
-        IdText->SetText(FText::FromString(FString::FromInt(bIsSentTab ? Post.ReceiverSeq : Post.SenderSeq)));
+        IdText->SetText(FText::FromString(bIsSentTab ? Post.ReceiverName : Post.SenderName));
     }
     if (PostTitleText)
     {
@@ -154,7 +168,27 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     }
     if (PostSlotGridPanel)
     {
-        // PostalManager->GetPostData()의 ItemId가 있다면 GridPanel에 표시
+        int32 SlotIndex = 0;
+
+        for (const auto& ItemValuePair : Post.ItemValues)
+        {
+            int64 ItemId = ItemValuePair.Key;
+            int32 ItemCount = ItemValuePair.Value;
+
+            for (int32 Count = 0; Count < ItemCount; Count++)
+            {
+                // 슬롯 가져오기
+                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
+                if (ItemSlot)
+                {
+                    // 아이템 데이터 설정
+                    ItemSlot->SetSlot(ItemId);
+                }
+
+                // 다음 슬롯으로 이동
+                SlotIndex++;
+            }
+        }
     }
     if (TotalMoney)
     {
@@ -162,7 +196,7 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     }
     if (ReadStatus)
     {
-        ReadStatus->SetText(FText::FromString("Read"));
+        ReadStatus->SetText(FText::FromString(bIsSentTab ? "" : "Read"));
     }
 }
 
@@ -171,21 +205,24 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     /* TODO : 현재 서버에서 postid를 1로 고정하고 있음, 나중에는 postid가 고유 값을 가질 것이기 때문에 이렇게 함 */
     // if(ClickedPost.PostId == SelectedPost.PostId) return;
 
-    /* 이건 postid가 고유 값을 갖기 전까지 사용할 임시코드임 */
-    if(SelectedPost.PostId == ClickedPost.PostId || SelectedPost.ReceiverName == ClickedPost.ReceiverName && (SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content)) 
+    /* 이건 postid가 고유 값을 갖기 전까지 사용할 임시코드임, 눌렀던 버튼 또 눌렀을 때 */
+    if(SelectedPost.PostId == ClickedPost.PostId && SelectedPost.ReceiverName == ClickedPost.ReceiverName && (SelectedPost.Title == ClickedPost.Title && SelectedPost.Content == ClickedPost.Content)) 
     {
         if (!SelectedPost.Title.IsEmpty() && PostButtons.Contains(SelectedPost.Title))
         {
             SelectedPostButton->SetButtonState(false);
-            UpdatePostDetails(ClickedPost);
-            SelectedPostButton = PostButtonUI;
-
+            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            SelectedPostButton = nullptr;
+            SelectedPost = FPostResult();
+            UpdatePostDetails(SelectedPost);
         }
         else
         {
             SelectedPostButton->SetButtonState(false);
-            UpdatePostDetails(ClickedPost);
-            SelectedPostButton = PostButtonUI;
+            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            SelectedPostButton = nullptr;
+            SelectedPost = FPostResult();
+            UpdatePostDetails(SelectedPost);
         }
         return;
     }
@@ -194,6 +231,7 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     {
         SelectedPostButton->SetButtonState(false);
     }
+    PostList_SizeBox->SetVisibility(ESlateVisibility::Visible);
     UpdatePostDetails(ClickedPost);
     SelectedPostButton = PostButtonUI;
 }

@@ -29,11 +29,12 @@ public:
 	virtual FReply NativeOnMouseButtonDown( const FGeometry& InGeometry, const FPointerEvent& InMouseEvent ) override;
 
 	// 인벤토리에서 드래그된 아이템을 처리하는 함수
-	bool HandleInventoryItemDrop(UBaseDragDropOperation* Operation);
+	bool HandleInventoryItemDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation);
 
 	UFUNCTION()
 	void SetSlot(int64 NewitemId);
 
+	virtual void Clear() override;
 public:
 
 	/*

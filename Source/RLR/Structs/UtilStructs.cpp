@@ -24,7 +24,16 @@ void FPostResult::MakePostData(const Protocol::Post post)
 	for (auto& itemId : post.itemid()) {
 		ItemId.Add(itemId);
 	}
-
+	for (auto& itemId : post.itemid()) {
+		if (ItemValues.Contains(itemId))
+		{
+			ItemValues[itemId]++;
+		}
+		else
+		{
+			ItemValues.Add(itemId, 1);
+		}
+	}
 	TotalMoney = post.totalmoney();
 
 	IsRead = post.isread();

@@ -53,6 +53,9 @@ public:
     TMap<int32, FItemData> ItemData;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+    TMap<int64, int64> ItemValues;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
     TMap<int32, FItemResource> ItemResourceData;
 
     /* 우편 목록 */

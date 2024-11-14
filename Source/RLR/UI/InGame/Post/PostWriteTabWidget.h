@@ -48,8 +48,8 @@ public:
     UPROPERTY(meta = (BindWidget))
     UEditableText* PostTitleText;
 
-    UPROPERTY(meta = (BindWidget))
-    UPostItemSlot* PostItemSlot;
+    //UPROPERTY(meta = (BindWidgetOptional))
+    //UPostItemSlot* PostItemSlot;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
     UInputTransactionCost* RequestCostInput;
@@ -63,8 +63,8 @@ public:
     UPROPERTY(meta = (BindWidget))
     UButton* ClearPostButton;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (AllowPrivateAccess = "true"))
-	TArray<TObjectPtr<UPostItemSlot>> PostSlotList;
+ //   UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (AllowPrivateAccess = "true"))
+	//TArray<TObjectPtr<UPostItemSlot>> PostSlotList;
 
     bool bIsSpecialPost = false;
     UFUNCTION()

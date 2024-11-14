@@ -119,11 +119,15 @@ FItemData UDataManager::GetItemData(int32 Seq)
 {
 	if (ItemDataTable)
 	{
-		FItemData* Data = ItemDataTable->FindRow<FItemData>(*FString::FromInt(Seq), TEXT(""));
-		if(Data == nullptr)
-			return FItemData();
-
-		return *Data;
+		TArray<FName> RowNames = ItemDataTable->GetRowNames();
+		for (const FName& RowName : RowNames)
+		{
+			FItemData* Data = ItemDataTable->FindRow<FItemData>(RowName, TEXT("Searching by ITEM_SEQ"));
+			if (Data && Data->ITEM_SEQ == Seq)
+			{
+				return *Data;
+			}
+		}
 	}
 
 

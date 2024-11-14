@@ -142,6 +142,10 @@ struct FPostResult
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TArray<int64> ItemId;
 
+	/* ItemId, Value */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<int64, int64> ItemValues;
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 TotalMoney;
 
