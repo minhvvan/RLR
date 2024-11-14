@@ -16,8 +16,8 @@
 
 UAction::UAction() :
 	bShouldSendPacket(true),
-	RotationSpeed(10.f),
 	bIsActive(false),
+	RotationSpeed(10.f),
 	bIsActionEnding(false),
 	bIsCancelable(false)
 {

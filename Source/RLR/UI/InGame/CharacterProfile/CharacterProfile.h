@@ -6,7 +6,7 @@
 #include "UI/SubUI.h"
 #include "GameManager/RLRStruct.h"
 #include "Network/Proto/Packet.pb.h"
-#include "CharacterStatusUI.generated.h"
+#include "CharacterProfile.generated.h"
 
 
  using FPlayerInfo = FUserCharacter;
@@ -14,7 +14,7 @@
  class UEquipmentUI;
 
 UCLASS()
-class RLR_API UCharacterStatusUI : public USubUI
+class RLR_API UCharacterProfile : public USubUI
 {
 	GENERATED_BODY()
 

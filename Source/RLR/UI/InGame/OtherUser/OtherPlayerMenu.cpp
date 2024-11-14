@@ -11,7 +11,7 @@
 #include "GameManager/PartyManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Chat/ChatUI.h"
-#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/CharacterProfile.h"
 #include "UI/InGame/OtherUser/ReportUI.h"
 #include "RLR.h"
 
@@ -36,7 +36,7 @@ void UOtherPlayerMenu::SetOtherUserData(TSharedPtr<FUserCharacter> Otheruser)
 void UOtherPlayerMenu::OnUserInfoClicked()
 {
 	auto TagManager = FGameplayTagManager::Get();
-	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterStatusUI>(TagManager.UI_OtherPlayer_Display);
+	auto otherPlayerStatus = GetUIManager()->GetSubUI<UCharacterProfile>(TagManager.UI_OtherPlayer_Display);
 
 	if (!otherPlayerStatus || !OtherUserData.IsValid()) return;
 

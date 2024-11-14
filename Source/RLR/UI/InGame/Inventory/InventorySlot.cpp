@@ -13,7 +13,7 @@
 #include "GameManager/NetworkManager.h"
 
 #include "UI/InGame/CharacterProfile/Equipment/EquipmentUI.h"
-#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/CharacterProfile.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/DraggableWidget.h"

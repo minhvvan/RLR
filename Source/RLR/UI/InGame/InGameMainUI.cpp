@@ -4,7 +4,7 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/SubUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
-#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/CharacterProfile.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 
@@ -55,27 +55,27 @@ void UInGameMainUI::OnChangedTotalStatus()
 	auto CharacterStatusDisplayUI = GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
 	if (!CharacterStatusDisplayUI) return;
 
-	auto CharacterStatusUI = GetSubUI<UCharacterStatusUI>(RLRTAG.UI_Character_Profile);
-	if (!CharacterStatusUI) return;
+	auto CharacterProfile = GetSubUI<UCharacterProfile>(RLRTAG.UI_Character_Profile);
+	if (!CharacterProfile) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	FTotalStatus totalStat = statSet->GetTotalStatus();
 
 	CharacterStatusDisplayUI->UpdateTotalStat(totalStat);
-	CharacterStatusUI->UpdateTotalStat(totalStat);
+	CharacterProfile->UpdateTotalStat(totalStat);
 }
 
 void UInGameMainUI::OnChangedSetStatus()
 {
 	if (!ActionSystemComponent) return;
-	auto CharacterStatusUI = GetSubUI<UCharacterStatusUI>(RLRTAG.UI_Character_Profile);
-	if (!CharacterStatusUI) return;
+	auto CharacterProfile = GetSubUI<UCharacterProfile>(RLRTAG.UI_Character_Profile);
+	if (!CharacterProfile) return;
 
 	UStatSetPlayer* statSet = ActionSystemComponent->GetStatSet<UStatSetPlayer>();
 	FSetStatus setStat = statSet->GetSetStatus();
 
 	//TODO: 상의후 변경
-	//CharacterStatusUI->UpdateSetStatus(setStat);
+	//CharacterProfile->UpdateSetStatus(setStat);
 }
 
 void UInGameMainUI::OnChangedExp()
