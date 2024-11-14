@@ -3,7 +3,7 @@
 
 #include "UI/InGame/Option/KeyOption/KeyOption.h"
 #include "UI/InGame/Option/KeyOption/KeyOptionElement.h"
-#include "UI/InGame/StatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/MainUI.h"
 

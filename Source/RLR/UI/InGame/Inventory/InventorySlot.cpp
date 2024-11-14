@@ -12,8 +12,8 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/DraggableWidget.h"

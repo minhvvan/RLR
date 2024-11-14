@@ -8,7 +8,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "UI/ASCWidgetComponent.h"
-#include "UI/InGame/CharacterDisplay/CharacterStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"

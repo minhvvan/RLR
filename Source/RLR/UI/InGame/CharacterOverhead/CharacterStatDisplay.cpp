@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/CharacterDisplay/CharacterStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
 #include "Components/TextBlock.h"
 #include "Components/Overlay.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "Blueprint/WidgetTree.h"
-#include "UI/InGame/CharacterDisplay/AbnormalText.h"
+#include "UI/InGame/CharacterOverhead/AbnormalText.h"
 #include "Structs/UtilStructs.h"
 
 UCharacterStatDisplay::UCharacterStatDisplay(const FObjectInitializer& ObjectInitializer)

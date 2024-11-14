@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/InGame/CharacterDisplay/CharacterStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
 #include "MonsterStatDisplay.generated.h"
 
 /**

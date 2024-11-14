@@ -4,11 +4,9 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/SubUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
-#include "UI/InGame/StatusDisplay/StatusDisplay.h"
-
+#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"

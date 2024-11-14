@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/StatusDisplay/BadgeUI.h"
-#include "UI/InGame/StatusDisplay/ExpProgressBar.h"
+#include "UI/InGame/CharacterStatusDisplay/BadgeUI.h"
+#include "UI/InGame/CharacterStatusDisplay/ExpProgressBar.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/PlayerManager.h"
 #include "Structs/UtilStructs.h"
-#include <Kismet\GameplayStatics.h>
+#include "Kismet\GameplayStatics.h"
 
 void UBadgeUI::NativeConstruct()
 {

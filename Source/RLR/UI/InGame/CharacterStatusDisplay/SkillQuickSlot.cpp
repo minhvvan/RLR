@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/StatusDisplay/SkillQuickSlot.h"
+#include "UI/InGame/CharacterStatusDisplay/SkillQuickSlot.h"
 
 #include "Components/TextBlock.h"
 

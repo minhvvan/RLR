@@ -8,7 +8,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillSetting/SkillSettingQuickSlotContainer.h"
 
 #include "UI/InGame/InGameMainUI.h"
-#include "UI/InGame/StatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/StatusDisplay.h"
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Player/PlayerCommands.h"

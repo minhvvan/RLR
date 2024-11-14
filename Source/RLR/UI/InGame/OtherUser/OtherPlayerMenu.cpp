@@ -11,7 +11,7 @@
 #include "GameManager/PartyManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Chat/ChatUI.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/CharacterStatusUI.h"
 #include "UI/InGame/OtherUser/ReportUI.h"
 #include "RLR.h"
 
