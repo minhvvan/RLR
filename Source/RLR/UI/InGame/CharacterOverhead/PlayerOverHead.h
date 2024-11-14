@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
-#include "PlayerStatDisplay.generated.h"
+#include "UI/InGame/CharacterOverhead/CharacterOverHead.h"
+#include "PlayerOverHead.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UPlayerStatDisplay : public UCharacterStatDisplay
+class RLR_API UPlayerOverHead : public UCharacterOverHead
 {
 	GENERATED_BODY()
 	

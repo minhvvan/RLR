@@ -3,19 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
-#include "MonsterStatDisplay.generated.h"
+#include "UI/InGame/CharacterOverhead/CharacterOverHead.h"
+#include "MonsterOverHead.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UMonsterStatDisplay : public UCharacterStatDisplay
+class RLR_API UMonsterOverHead : public UCharacterOverHead
 {
 	GENERATED_BODY()
 	
 public:
-	UMonsterStatDisplay(const FObjectInitializer& ObjectInitializer);
+	UMonsterOverHead(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))

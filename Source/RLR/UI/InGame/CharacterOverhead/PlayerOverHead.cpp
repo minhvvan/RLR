@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/CharacterOverhead/PlayerStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/PlayerOverHead.h"
 #include "Components/TextBlock.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "ActionSystem/ActionSystemComponent.h"
 
-void UPlayerStatDisplay::SetActionSystemComponent(AActor* Owner)
+void UPlayerOverHead::SetActionSystemComponent(AActor* Owner)
 {
 	Super::SetActionSystemComponent(Owner);
 

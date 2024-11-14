@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "UI/BaseUI.h"
-#include "CharacterStatDisplay.generated.h"
+#include "CharacterOverHead.generated.h"
 
 class UActionSystemComponent;
 class UOverlay;
 struct FAbnormalMark;
 
 UCLASS()
-class RLR_API UCharacterStatDisplay : public UBaseUI
+class RLR_API UCharacterOverHead : public UBaseUI
 {
 	GENERATED_BODY()
 	
 public:
-	UCharacterStatDisplay(const FObjectInitializer& ObjectInitializer);
+	UCharacterOverHead(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))

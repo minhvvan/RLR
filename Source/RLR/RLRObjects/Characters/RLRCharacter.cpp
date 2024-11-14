@@ -8,7 +8,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSet.h"
 #include "UI/ASCWidgetComponent.h"
-#include "UI/InGame/CharacterOverhead/CharacterStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/CharacterOverHead.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -63,7 +63,7 @@ void ARLRCharacter::Tick(float DeltaSeconds)
 
 void ARLRCharacter::DisplayAbnormalText(const FString AbnormalText)
 {
-	UCharacterStatDisplay* statDisplay = Cast<UCharacterStatDisplay>(StatDisplay->GetWidget());
+	UCharacterOverHead* statDisplay = Cast<UCharacterOverHead>(StatDisplay->GetWidget());
 	if (!statDisplay) return;
 
 	statDisplay->ShowAbnormal(AbnormalText);

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/CharacterOverhead/MonsterStatDisplay.h"
+#include "UI/InGame/CharacterOverhead/MonsterOverHead.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "Components/Overlay.h"
@@ -9,7 +9,7 @@
 #include "ActionSystem/ActionSystemComponent.h"
 #include "RLRObjects/Characters/RLRMonster.h"
 
-UMonsterStatDisplay::UMonsterStatDisplay(const FObjectInitializer& ObjectInitializer):
+UMonsterOverHead::UMonsterOverHead(const FObjectInitializer& ObjectInitializer):
 	Super(ObjectInitializer),
 	bCompletedChange(true),
 	MaxHp(0),
@@ -17,7 +17,7 @@ UMonsterStatDisplay::UMonsterStatDisplay(const FObjectInitializer& ObjectInitial
 {
 }
 
-void UMonsterStatDisplay::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+void UMonsterOverHead::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
@@ -38,13 +38,13 @@ void UMonsterStatDisplay::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 	}
 }
 
-void UMonsterStatDisplay::UpdateHp()
+void UMonsterOverHead::UpdateHp()
 {
 	float percent = FMath::Clamp(float(CurrentHp) / MaxHp, 0.f, 100.f);
 	HpProgressBar->SetPercent(percent);
 }
 
-void UMonsterStatDisplay::OnHpChanged()
+void UMonsterOverHead::OnHpChanged()
 {
 	UStatSetMonster* statSet = ActionSystemComponent->GetStatSet<UStatSetMonster>();
 	if (!statSet) return;
@@ -53,7 +53,7 @@ void UMonsterStatDisplay::OnHpChanged()
 	TargetHp = statSet->GetMonsterHp();
 }
 
-void UMonsterStatDisplay::SetActionSystemComponent(AActor* Owner)
+void UMonsterOverHead::SetActionSystemComponent(AActor* Owner)
 {
 	Super::SetActionSystemComponent(Owner);
 
@@ -66,5 +66,5 @@ void UMonsterStatDisplay::SetActionSystemComponent(AActor* Owner)
 	Name->SetText(FText::FromString(statSet->GetMonsterName()));
 	UpdateHp();
 
-	statSet->OnHpChanged.AddDynamic(this, &UMonsterStatDisplay::OnHpChanged);
+	statSet->OnHpChanged.AddDynamic(this, &UMonsterOverHead::OnHpChanged);
 }
