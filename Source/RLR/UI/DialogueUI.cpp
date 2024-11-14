@@ -52,7 +52,7 @@ void UDialogueUI::UpdateNPCFunctionality()
 	{
 		for (int i = 0; i < npcData.NPCQuests.Num(); i++)
 		{
-			CreateDynamicButton(2, TEXT("Quest"), i);
+			CreateDynamicButton(2, TEXT("Quest"), i, npcData.NPCQuests[i].QuestSeq);
 		}
 	}
 }
@@ -103,7 +103,7 @@ void UDialogueUI::RemoveSaleItem(const FItemData& Item)
 	InventoryUI->RemoveSaleItem(Item);
 }
 /* NPC 기능들 동적 생성 */
-void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex)
+void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq)
 {
 	if(!DialogueDynamicButtonClass) return;
 	UDialogueDynamicButton* NewButton = CreateWidget<UDialogueDynamicButton>(GetWorld(), DialogueDynamicButtonClass);
@@ -112,9 +112,16 @@ void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int3
 	NewButton->SetButtonType(ButtonType);
 	NewButton->SetButtonText(ButtonText);
 	NewButton->SetButtonIndex(ButtonIndex);
-	NewButton->OnButtonClickedTwoParam.AddDynamic(this, &UDialogueUI::HandleButtonClicked);
+	NewButton->OnButtonClickedTwoParam.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
 
 	BtnBox->AddChildToHorizontalBox(NewButton);
+
+	// Quest 버튼인 경우 배열에 추가
+	if (ButtonType == 2) // Quest 버튼 타입
+	{
+		NewButton->SetQuestSeq(QuestSeq);
+		QuestButtons.Add(NewButton);
+	}
 }
 /* 클릭 이벤트 */
 void UDialogueUI::HandleButtonClicked(int32 ButtonType, int32 ButtonIdx)
@@ -135,9 +142,77 @@ void UDialogueUI::HandleButtonClicked(int32 ButtonType, int32 ButtonIdx)
 	}
 }
 
+void UDialogueUI::CloseQuestDialogue()
+{
+	bOpenQuestDialogue = false;
+	CloseSubUI(RLRTAG.UI_Quest_Dialogue);
+	ToggleNpcButtons(true);
+}
+
+void UDialogueUI::RemoveQuestButton(int32 QuestSeq)
+{
+	CloseQuestDialogue();
+
+	/* 최근 열었던 QuestButton 삭제 */
+	for (int32 i = 0; i < QuestButtons.Num(); i++)
+	{
+		if (QuestButtons[i] && QuestButtons[i]->GetQuestSeq() == QuestSeq)
+		{
+			QuestButtons.RemoveAt(i);
+			break;
+		}
+	}
+}
+
+void UDialogueUI::RemoveFromHorizontalBox()
+{
+	CloseQuestDialogue();
+
+	/* 최근 열었던 QuestButton 삭제 */
+	for (int32 i = 0; i < QuestButtons.Num(); i++)
+	{
+		if (QuestButtons[i] && QuestButtons[i]->GetButtonIndex() == CurrentOpenQuest)
+		{
+			// 버튼을 부모 컨테이너에서 제거
+			BtnBox->RemoveChild(QuestButtons[i]);
+			break;
+		}
+	}
+}
+
+void UDialogueUI::ReAddQuestButton(int32 QuestSeq)
+{
+	for (UDialogueDynamicButton* QuestButton : QuestButtons)
+	{
+		if (QuestButton->GetQuestSeq() == QuestSeq)
+		{
+			// BtnBox에 버튼 다시 추가
+			BtnBox->AddChildToHorizontalBox(QuestButton);
+			QuestButton->OnButtonClickedTwoParam.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
+			break;
+		}
+	}
+}
+
 void UDialogueUI::OnPageActivated()
 {
 	ChangeInputModeUIOnly();
+}
+
+void UDialogueUI::ToggleNpcButtons(bool bOpen)
+{
+	if (bOpen)
+	{
+		BtnBox->SetVisibility(ESlateVisibility::Visible);
+		TxtNPCName->SetVisibility(ESlateVisibility::Visible);
+		TxtNPCTalk->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		BtnBox->SetVisibility(ESlateVisibility::Hidden);
+		TxtNPCName->SetVisibility(ESlateVisibility::Hidden);
+		TxtNPCTalk->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 void UDialogueUI::OnDialogueEnded()
@@ -147,27 +222,28 @@ void UDialogueUI::OnDialogueEnded()
 
 void UDialogueUI::OnQuestDialogueBegins(int32 ButtonIndex)
 {
-	OnQuestDialogueBegin.Broadcast();
-	OnDialogueEnd.Broadcast();
-
-	if (QuestDialogueWidgetClass)
+	if (bOpenQuestDialogue)
 	{
-		UQuestDialogue* QuestDialogueWidget = CreateWidget<UQuestDialogue>(GetWorld(), QuestDialogueWidgetClass);
-		if (QuestDialogueWidget)
+		bOpenQuestDialogue = false;
+		CloseSubUI(RLRTAG.UI_Quest_Dialogue);
+		ToggleNpcButtons(true);
+	}
+	else
+	{
+		bOpenQuestDialogue = true;
+		CurrentOpenQuest = ButtonIndex;
+
+		UQuestDialogue* QuestDialogueUI = GetSubUI<UQuestDialogue>(RLRTAG.UI_Quest_Dialogue);
+		if (QuestDialogueUI)
 		{
-			auto ObjectManager = GameInstance->GetObjectManager();
-			const FNPCData& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
+			FVector2D panelPos(100.f, 100.f);
+			QuestDialogueUI->SetPosition(panelPos);
+			QuestDialogueUI->OpenUI();
 
-			// ButtonIndex에 해당하는 Quest 데이터를 가져옴
-			if (npcData.NPCQuests.IsValidIndex(ButtonIndex))
-			{
-				const FQuest& QuestData = npcData.NPCQuests[ButtonIndex];
-				FString QuestDialogueString = FString::Printf(TEXT("Quest: %s"), *QuestData.QuestDescription);
-				QuestDialogueWidget->SetDialogueData(QuestDialogueString, CurrentNPCSeq, npcData.NPCQuests[ButtonIndex].QuestSeq);
-			}
-
-			QuestDialogueWidget->AddToViewport();
-			this->RemoveFromParent();
+			QuestDialogueUI->OnQuestDialogueEnd.AddUniqueDynamic(this, &UDialogueUI::CloseQuestDialogue);
+			QuestDialogueUI->OnQuestAccept.AddUniqueDynamic(this, &UDialogueUI::RemoveFromHorizontalBox);
+		
+			ToggleNpcButtons(false);
 		}
 	}
 }
@@ -222,9 +298,7 @@ void UDialogueUI::OnPostClicked()
 		bOpenPost = false;
 		CloseSubUI(RLRTAG.UI_NPCShop);
 		CloseSubUI(RLRTAG.UI_Inventory);
-		BtnBox->SetVisibility(ESlateVisibility::Visible);
-		TxtNPCName->SetVisibility(ESlateVisibility::Visible);
-		TxtNPCTalk->SetVisibility(ESlateVisibility::Visible);
+		ToggleNpcButtons(true);
 	}
 	else
 	{
@@ -236,9 +310,7 @@ void UDialogueUI::OnPostClicked()
 			FVector2D panelPos(100.f, 100.f);
 			PostOverlayUI->SetPosition(panelPos);
 			PostOverlayUI->OpenUI();
-			BtnBox->SetVisibility(ESlateVisibility::Hidden);
-			TxtNPCName->SetVisibility(ESlateVisibility::Hidden);
-			TxtNPCTalk->SetVisibility(ESlateVisibility::Hidden);
+			ToggleNpcButtons(false);
 		}
 		/*
 			우편함 UI가 생성될 때 인벤토리 창도 함께 열기

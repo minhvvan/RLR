@@ -49,14 +49,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtNPCTalk;	
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
-
 protected:
 	virtual void NativeConstruct();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
-		TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
+	TSubclassOf<UQuestDialogue> QuestDialogueWidgetClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UDialogueDynamicButton> DialogueDynamicButtonClass;
+
 public:
 	FOnDialogueEnd OnDialogueEnd;
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
@@ -71,9 +72,14 @@ public:
 	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
 	void RemoveSaleItem(const FItemData& Item);
 
-	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
+	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq = -1);
 	
 	virtual void OnPageActivated() override;
+
+	void ToggleNpcButtons(bool bOpen);
+
+	void RemoveQuestButton(int32 QuestSeq);
+	void ReAddQuestButton(int32 QuestSeq);
 
 protected:
 	UFUNCTION()
@@ -90,9 +96,19 @@ protected:
 
 	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
+
+	UFUNCTION()
+	void CloseQuestDialogue();
+	
+	UFUNCTION()
+	void RemoveFromHorizontalBox();
 private:
+	TArray<UDialogueDynamicButton*> QuestButtons;
+
 	int32 CurrentNPCSeq;
+	int32 CurrentOpenQuest;
 
 	bool bOpenShop;
 	bool bOpenPost;
+	bool bOpenQuestDialogue;
 };
