@@ -151,13 +151,13 @@ public:
 	FGameplayTag UI_Popup_ConfirmMessageBox;
 
 	FGameplayTag UI_OtherPlayer_Menu;
-	FGameplayTag UI_OtherPlayer_Display;
-	FGameplayTag UI_OtherPlayer_Stat;
+	FGameplayTag UI_OtherPlayer_OverHead;
+	FGameplayTag UI_OtherPlayer_Profile;
 
 	FGameplayTag UI_MiniMap;
 	FGameplayTag UI_Badge;
 
-	FGameplayTag UI_Montster_Display;
+	FGameplayTag UI_Montster_OverHead;
 	FGameplayTag UI_TimerProgressBar;
 
 	FGameplayTag UI_Menu;

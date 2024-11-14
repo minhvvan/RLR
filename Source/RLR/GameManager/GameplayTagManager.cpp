@@ -125,13 +125,13 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
 	
 	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Menu"), FString(TEXT("플레이어 메뉴")));
-	GameplayTags.UI_OtherPlayer_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Display"), FString(TEXT("타 플레이어 체력바")));
-	GameplayTags.UI_OtherPlayer_Stat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Stat"), FString(TEXT("타 플레이어 상태창")));
+	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.OverHead"), FString(TEXT("타 플레이어 체력바")));
+	GameplayTags.UI_OtherPlayer_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Profile"), FString(TEXT("타 플레이어 상태창")));
 	
 	GameplayTags.UI_MiniMap = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.MiniMap"), FString(TEXT("미니맵")));
 	GameplayTags.UI_Badge = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Badge"), FString(TEXT("뱃지")));
 	
-	GameplayTags.UI_Montster_Display = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Monster.Display"), FString(TEXT("몬스터 상태")));
+	GameplayTags.UI_Montster_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Monster.OverHead"), FString(TEXT("몬스터 상태")));
 	GameplayTags.UI_TimerProgressBar = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TimeProgressBar"), FString(TEXT("프로그래스바")));
 	
 	GameplayTags.UI_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Menu"), FString(TEXT("메뉴")));
