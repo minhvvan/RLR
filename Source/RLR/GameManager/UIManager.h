@@ -82,7 +82,10 @@ public:
 template<typename T>
 inline TObjectPtr<T> UUIManager::GetSubUI(FGameplayTag UITag)
 {
-	UMainUI* currentMainUI = GetPage<UMainUI>(FGameplayTagManager::Get().Page_InGame);
+	UBaseScreen* BaseScreen = Cast<UBaseScreen>(MainUI);
+	if (!BaseScreen) return nullptr;
+
+	UMainUI* currentMainUI = Cast<UMainUI>(BaseScreen->GetActivePage());
 	if (!currentMainUI) return nullptr;
 
 	return currentMainUI->GetSubUI<T>(UITag);

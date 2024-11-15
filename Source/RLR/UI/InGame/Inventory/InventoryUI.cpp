@@ -198,10 +198,18 @@ void UInventoryUI::SetMaxSlotCount(int32 Count)
 	RefreshUI();
 }
 
-void UInventoryUI::RemoveSaleItem(const FItemData& Item)
+void UInventoryUI::SelectSlot(const FItemData& Item)
 {
 	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
 	if (!slot) return;
 
-	slot->CancelSale();
+	slot->OnSelected();
+}
+
+void UInventoryUI::CancelSelectSlot(const FItemData& Item)
+{
+	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	if (!slot) return;
+
+	slot->CancelSelected();
 }

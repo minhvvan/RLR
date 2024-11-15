@@ -68,9 +68,6 @@ public:
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
 
-	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
-	void RemoveSaleItem(const FItemData& Item);
-
 	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
 	
 	virtual void OnPageActivated() override;

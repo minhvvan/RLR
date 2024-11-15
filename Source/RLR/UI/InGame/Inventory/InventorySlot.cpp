@@ -113,9 +113,6 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		return result;
 	}
 
-
-
-
 	const FItemData&  itemData = GetItemData();
 	UInventoryManager* InventoryManger = GetInventoryManager();
 	bool HasCustomEvent = InventoryManger->OnInventorySlotClickedDelegate.IsBound(); 
@@ -176,7 +173,21 @@ void UInventorySlot::Clear()
 	Super::Clear();
 }
 
-void UInventorySlot::CancelSale()
+void UInventorySlot::OnSelected()
+{
+	SetIsEnabled(false);
+	SlotImage->SetColorAndOpacity(SlotColors[false]);
+	SlotImage->SynchronizeProperties();
+}
+
+void UInventorySlot::CancelSelected()
 {
 	SetIsEnabled(true);
+	SlotImage->SetColorAndOpacity(SlotColors[true]);
+	SlotImage->SynchronizeProperties();
+}
+
+void UInventorySlot::SetIsEnabled(bool bInIsEnabled)
+{
+	Super::SetIsEnabled(bInIsEnabled);
 }

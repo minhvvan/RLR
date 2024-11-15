@@ -7,10 +7,13 @@
 #include "Components/CanvasPanel.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
 #include "UI/InGame/Shop/NPCSaleTab.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/ObjectManager.h"
+#include "GameManager/InventoryManager.h"
+#include "GameManager/UIManager.h"
 
 void UNPCShopUI::NativeConstruct()
 {
@@ -46,21 +49,27 @@ UPanelSlot* UNPCShopUI::AddChild(UUserWidget* Child)
 	return Canvas->AddChild(Child);
 }
 
-void UNPCShopUI::AddSaleItem(const FItemData& Item, const FItemResource& ItemResource)
+void UNPCShopUI::AddSaleItem(const FItemData& Item)
 {
 	if (TabSwitcher->GetActiveWidgetIndex() != TabIndex::ESale) return;
 	auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
-	if(!saleTab) return;
+	if (!saleTab) return;
 
+	UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (!Inventory) return;
+
+	Inventory->SelectSlot(Item);
 	saleTab->AddToCart(Item);
 }
 
 void UNPCShopUI::OnPurchaseClicked()
 {
 	TabSwitcher->SetActiveWidgetIndex(TabIndex::EPurchase);
+	GetInventoryManager()->OnInventorySlotClickedDelegate.Clear();
 }
 
 void UNPCShopUI::OnSaleClicked()
 {
 	TabSwitcher->SetActiveWidgetIndex(TabIndex::ESale);
+	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("AddSaleItem"));
 }

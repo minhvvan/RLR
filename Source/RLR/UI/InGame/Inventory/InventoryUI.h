@@ -113,5 +113,6 @@ public:
 	EItemType CurrentFilter;
 
 public:
-	void RemoveSaleItem(const FItemData& Item);
+	void SelectSlot(const FItemData& Item);
+	void CancelSelectSlot(const FItemData& Item);
 };
