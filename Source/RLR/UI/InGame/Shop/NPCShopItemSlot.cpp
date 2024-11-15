@@ -84,8 +84,8 @@ void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPo
 	UUIManager* UIManager = GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UMainUI* mainUI = UIManager->GetPage<UMainUI>(RLRTAG.Page_InGame);
-	if (UIManager == nullptr) return;
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	if (mainUI == nullptr) return;
 
 	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
 }
