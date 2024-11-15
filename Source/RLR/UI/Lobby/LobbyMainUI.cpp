@@ -51,7 +51,7 @@ void ULobbyMainUI::OpenCreateCharacterUI()
 {
 	FUserCharacter character;
 	character.UserSeq = 2;
-	character.MapId = 1;
+	//character.MapId = 1;
 	
 	GameInstance->GetLevelManager()->LoadLevel("Main");
 	GameInstance->GetNetworkManager()->SendEnterGameFromLobbyReqeust(character);
