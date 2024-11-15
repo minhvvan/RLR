@@ -115,10 +115,9 @@ public:
 	UI Tag: 식별을 위한 고유한 태그
 	*/
 
-	FGameplayTag UI_Character_Status;
-	FGameplayTag UI_Character_Display;
-
-	FGameplayTag UI_Stat;
+	FGameplayTag UI_Character_StatusDisplay;
+	FGameplayTag UI_Character_Profile;
+	FGameplayTag UI_Character_Overhead;
 
 	FGameplayTag UI_Skill;
 	FGameplayTag UI_Skill_Upgrade;
@@ -152,13 +151,13 @@ public:
 	FGameplayTag UI_Popup_ConfirmMessageBox;
 
 	FGameplayTag UI_OtherPlayer_Menu;
-	FGameplayTag UI_OtherPlayer_Display;
-	FGameplayTag UI_OtherPlayer_Stat;
+	FGameplayTag UI_OtherPlayer_OverHead;
+	FGameplayTag UI_OtherPlayer_Profile;
 
 	FGameplayTag UI_MiniMap;
 	FGameplayTag UI_Badge;
 
-	FGameplayTag UI_Montster_Display;
+	FGameplayTag UI_Montster_OverHead;
 	FGameplayTag UI_TimerProgressBar;
 
 	FGameplayTag UI_Menu;

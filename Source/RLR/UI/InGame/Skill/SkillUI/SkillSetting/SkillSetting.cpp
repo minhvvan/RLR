@@ -8,7 +8,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillSetting/SkillSettingQuickSlotContainer.h"
 
 #include "UI/InGame/InGameMainUI.h"
-#include "UI/InGame/StatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Player/PlayerCommands.h"
@@ -194,7 +194,7 @@ void USkillSetting::LoadSkillList()
 
 void USkillSetting::ReqeustSkillQuickSlotChange()
 {
-	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	int32 UserSeq = GetGameManager()->GetUserSeq();
 
 	const TMap<FGameplayTag, USkillSettingQuickSlot*>& SkillQuickSlotMap = SkillQuickSlotGridPanel->QuickSlotMap;
 	for (TTuple<FGameplayTag, TObjectPtr<USkillSettingQuickSlot>> Element : SkillQuickSlotMap)
@@ -214,7 +214,7 @@ void USkillSetting::SaveSkillQuickSlotData()
 	if(CHECK_VALID(GameOption) == false)
 		return;
 
-	int32 UserSeq = GetGameManager()->GetPlayerManager()->GetUserSeq();
+	int32 UserSeq = GetGameManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetSkillQuickSlotOption().SkillQuickSlotList;
 	const FSkillDictionary<FGameplayTag, FSkillData>& OwnSkills = GetSkillManager()->GetOwnSkills();
 
@@ -241,7 +241,7 @@ void USkillSetting::ApplySkillQuickSlotSetting()
 	UInGameMainUI* MainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
 	if(IsValid(MainUI) == false) return;
 
-	UStatusDisplay* SD = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
+	UCharacterStatusDisplay* SD = UIManager->GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
 	if(IsValid(SD) == false)
 		return;
 

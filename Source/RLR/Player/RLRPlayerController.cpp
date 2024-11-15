@@ -77,8 +77,6 @@ void ARLRPlayerController::Tick(float DeltaTime)
 			}
 			FMoveResult moveResult;
 			moveResult.UserSeq = statSet->GetUserSeq();
-			moveResult.MapId = statSet->GetMapId();
-			moveResult.ChannelId = statSet->GetChannelId();
 			moveResult.TargetTransform = CurrentPosition;
 
 			if (PlayerManager->RequestMove(moveResult))

@@ -11,6 +11,7 @@
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
 #include "UI/InGame/Shop/NPCSaleTab.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameplayTagManager.h"
@@ -38,6 +39,7 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 	{
 		if (InMouseEvent.IsLeftShiftDown())
 		{
+			//묶음 구매
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
 				Cast<UNPCPurchaseTab>(ParentUI)->OpenBundlePurchase(GetItemData());
@@ -47,20 +49,24 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 		{
 			if (ParentUI->IsA(UNPCPurchaseTab::StaticClass()))
 			{
+				//1개 구매
 				FItemData item(GetItemData());
 				item.ITEM_VALUE = 1;
 				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item);
 			}
 			else if (ParentUI->IsA(UNPCSaleTab::StaticClass()))
 			{
+				//판매 취소
 				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData());
-				auto UIManager = GetUIManager();
-				if (!UIManager) return result;
 
-				UDialogueUI* DialogueUI = UIManager->GetPage<UDialogueUI>(RLRTAG.Page_Dialogue);
-				if (!DialogueUI) return result;
+				UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+				if (!Inventory)
+				{
+					RLR_LOG(LogRLR, Log, TEXT("InventoryUI Is Null"));
+					return result;
+				}
 
-				DialogueUI->RemoveSaleItem(GetItemData());
+				Inventory->CancelSelectSlot(GetItemData());
 				SetItemData(FItemData::EmptyItemData);
 				RefreshUI();
 			}
@@ -78,8 +84,8 @@ void UNPCShopItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPo
 	UUIManager* UIManager = GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UMainUI* mainUI = UIManager->GetPage<UMainUI>(RLRTAG.Page_InGame);
-	if (UIManager == nullptr) return;
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	if (mainUI == nullptr) return;
 
 	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
 }

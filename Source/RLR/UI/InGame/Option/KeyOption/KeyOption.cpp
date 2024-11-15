@@ -3,7 +3,7 @@
 
 #include "UI/InGame/Option/KeyOption/KeyOption.h"
 #include "UI/InGame/Option/KeyOption/KeyOptionElement.h"
-#include "UI/InGame/StatusDisplay/StatusDisplay.h"
+#include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/MainUI.h"
 
@@ -227,12 +227,12 @@ void UKeyOption::ApplyKeyOption()
 	auto UIManager = GetUIManager();
 	if (!UIManager) return;
 
-	UStatusDisplay* StatusDisplay = UIManager->GetSubUI<UStatusDisplay>(RLRTAG.UI_Character_Status);
-	if(IsValid(StatusDisplay) == false)
+	UCharacterStatusDisplay* CharacterStatusDisplay = UIManager->GetSubUI<UCharacterStatusDisplay>(RLRTAG.UI_Character_StatusDisplay);
+	if(IsValid(CharacterStatusDisplay) == false)
 		return;
 
-	StatusDisplay->LoadSkillQuickSlotData();
-	StatusDisplay->LoadItemQuickSlotData();
+	CharacterStatusDisplay->LoadSkillQuickSlotData();
+	CharacterStatusDisplay->LoadItemQuickSlotData();
 }
 
 void UKeyOption::CreateDataAsset()

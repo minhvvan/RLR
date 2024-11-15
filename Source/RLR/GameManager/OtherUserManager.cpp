@@ -39,8 +39,6 @@ void UOtherUserManager::AddPlayer(Protocol::UserCharacter& NewPlayer)
 
 			FUserCharacter UserCharacter;
 			UserCharacter.MakeUserCharacter(NewPlayer);
-			UserCharacter.MapId = 1;
-			UserCharacter.ChannelId = 1;
 			SpawnTransform.SetLocation(SpawnLocation);
 			SpawnTransform.SetRotation(FQuat::Identity);
 			SpawnTransform.SetScale3D(FVector(1.0f, 1.0f, 1.0f));

@@ -87,21 +87,6 @@ void UDialogueUI::CloseItemInfo()
 	ItemInformationUI->CloseUI();
 }
 
-void UDialogueUI::AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource)
-{
-	UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
-	if (!NPCShopUI) return;
-
-	NPCShopUI->AddSaleItem(Item, NewItemResource);
-}
-
-void UDialogueUI::RemoveSaleItem(const FItemData& Item)
-{
-	UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-	if (!InventoryUI) return;
-
-	InventoryUI->RemoveSaleItem(Item);
-}
 /* NPC 기능들 동적 생성 */
 void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq)
 {
@@ -123,6 +108,7 @@ void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int3
 		QuestButtons.Add(NewButton);
 	}
 }
+
 /* 클릭 이벤트 */
 void UDialogueUI::HandleButtonClicked(int32 ButtonType, int32 ButtonIdx)
 {

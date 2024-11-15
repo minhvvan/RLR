@@ -7,8 +7,8 @@
 //UI
 #include "UI/MainUI.h"
 #include "UI/InGame/InGameMainUI.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterProfile/CharacterProfile.h"
+#include "UI/InGame/CharacterProfile/Equipment/EquipmentUI.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "CertificationPacketHandler.h"

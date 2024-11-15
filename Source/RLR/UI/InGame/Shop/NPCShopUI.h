@@ -46,7 +46,8 @@ public:
 
 	UPanelSlot* AddChild(UUserWidget* Child);
 
-	void AddSaleItem(const FItemData& Item, const FItemResource& NewItemResource);
+	UFUNCTION()
+	void AddSaleItem(const FItemData& Item);
 
 protected:
 	UFUNCTION()

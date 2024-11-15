@@ -36,14 +36,18 @@ public:
 	virtual void RefreshUI() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void			DisplayEquippedItems(bool IsEquiped = false);
+	void DisplayEquippedItems(bool IsEquiped = false);
 
 	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
-	virtual void	Clear();
-	void CancelSale();
+	virtual void Clear();
+	void OnSelected();
+	void CancelSelected();
+
+	virtual void SetIsEnabled(bool bInIsEnabled) override;
+
 public:
 
 	/*
@@ -60,7 +64,10 @@ public:
 	TObjectPtr<UTextBlock> ItemNameText;
 
 public:
-
 	UPROPERTY(EditAnywhere)
 	UInventoryUI* Inventory;
+
+protected:
+	UPROPERTY(EditAnywhere, Category = Color)
+	TMap<bool, FLinearColor> SlotColors;
 };

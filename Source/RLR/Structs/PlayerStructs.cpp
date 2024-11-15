@@ -47,7 +47,6 @@ void FTalent::MakeTalent(Protocol::Talent Data)
 void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
 {
     UserSeq = Data.userseq();
-    PlayerSeq = Data.playerseq();
     NickName = UTF8_TO_TCHAR(Data.name().c_str());
     Level = Data.level();
     NobilityRank = Data.nobilityrank();

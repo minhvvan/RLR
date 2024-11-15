@@ -12,8 +12,8 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 
-#include "UI/InGame/CharacterStatus/Equipment/EquipmentUI.h"
-#include "UI/InGame/CharacterStatus/CharacterStatusUI.h"
+#include "UI/InGame/CharacterProfile/Equipment/EquipmentUI.h"
+#include "UI/InGame/CharacterProfile/CharacterProfile.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/DraggableWidget.h"
@@ -113,9 +113,6 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		return result;
 	}
 
-
-
-
 	const FItemData&  itemData = GetItemData();
 	UInventoryManager* InventoryManger = GetInventoryManager();
 	bool HasCustomEvent = InventoryManger->OnInventorySlotClickedDelegate.IsBound(); 
@@ -150,8 +147,8 @@ void UInventorySlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPoin
 	UUIManager* UIManager = GetUIManager();
 	if (UIManager == nullptr) return;
 
-	UMainUI* mainUI = UIManager->GetPage<UMainUI>(RLRTAG.Page_InGame);
-	if (UIManager == nullptr) return;
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	if (mainUI == nullptr) return;
 
 	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
 }
@@ -176,7 +173,21 @@ void UInventorySlot::Clear()
 	Super::Clear();
 }
 
-void UInventorySlot::CancelSale()
+void UInventorySlot::OnSelected()
+{
+	SetIsEnabled(false);
+	SlotImage->SetColorAndOpacity(SlotColors[false]);
+	SlotImage->SynchronizeProperties();
+}
+
+void UInventorySlot::CancelSelected()
 {
 	SetIsEnabled(true);
+	SlotImage->SetColorAndOpacity(SlotColors[true]);
+	SlotImage->SynchronizeProperties();
+}
+
+void UInventorySlot::SetIsEnabled(bool bInIsEnabled)
+{
+	Super::SetIsEnabled(bInIsEnabled);
 }

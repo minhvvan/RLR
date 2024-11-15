@@ -227,16 +227,6 @@ struct FUserCharacter
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int32 UserSeq = -1;
 
-	//플레이어 == 클라이언트
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int32 PlayerSeq = -1;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 MapId;
-
-	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	int64 ChannelId;
-
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString NickName;
 

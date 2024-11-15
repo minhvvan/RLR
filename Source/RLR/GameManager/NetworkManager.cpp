@@ -279,18 +279,35 @@ bool UNetworkManager::SendServerRequest() {
     }
     return bSuccess;
 }
-bool UNetworkManager::SendMovePacket(FVector vector, int64 mapid, int64 channelid) {
+bool UNetworkManager::SendMovePacket(FVector vector) {
 
     if (!MainServerSocket && !MonsterServerSocket) return false;
-    if (GameInstance->GetUserSeq() == 0) return false;
 
-    if (GameInstance->GetUserSeq() == 0) {
+    int userSeq = GameInstance->GetUserSeq();
+    int mapid = GameInstance->GetMapId();
+    int channelId = GameInstance->GetChannelId();
+    if (userSeq == 0)
+    {
+        RLR_LOG(LogRLR, Log, TEXT("UserSeq is Invalid: %d"), userSeq);
         return false;
     }
+
+    if (mapid == 0)
+    {
+        RLR_LOG(LogRLR, Log, TEXT("MapID is Invalid: %d"), mapid);
+        return false;
+    }
+
+    if (channelId == 0)
+    {
+        RLR_LOG(LogRLR, Log, TEXT("ChannelID is Invalid: %d"), channelId);
+        return false;
+    }
+
     Protocol::CS_MoveRequestPacket packet;
-    packet.set_userseq(GameInstance->GetUserSeq());
+    packet.set_userseq(userSeq);
     packet.set_mapid(mapid);
-    packet.set_channelid(channelid);
+    packet.set_channelid(channelId);
     packet.set_transx((float)vector.X);
     packet.set_transy((float)vector.Y);
     packet.set_transz((float)vector.Z);
@@ -353,7 +370,7 @@ bool UNetworkManager::SendUserQuestPacket() {
 bool UNetworkManager::SendEnterPacket(int32 userSeq) {
     // 로비 ui로 이동 필요
     Protocol::CS_EnterGamePacket packet;
-    packet.set_userseq(GameInstance->GetUserSeq());
+    packet.set_userseq(userSeq);
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess =  SendToLobbySocket(sendBuffer);

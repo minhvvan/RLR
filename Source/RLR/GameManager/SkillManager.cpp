@@ -213,12 +213,6 @@ void USkillManager::UpdatedSkillSettingBroadcast()
 {
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			// 유효성 검사 추가
-			if (!IsValid(this))
-			{
-				RLR_LOG(LogRLR, Warning, TEXT("SkillManager is invalid during broadcast."));
-				return;
-			}
 			UpdatedSkillSettingDelegate.Broadcast();
 		});
 }

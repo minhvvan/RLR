@@ -21,8 +21,6 @@ public:
     void                  SetPlayerData(FUserCharacter PlayerData);
 
     ARLRPlayerCharacter*  GetPlayerCharacter();
-    int32                 GetPlayerSeq();
-    int32                 GetUserSeq();
 
     //UpdateStat
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);

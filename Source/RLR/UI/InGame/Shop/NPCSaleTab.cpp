@@ -10,9 +10,11 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
+#include "UI/InGame/Shop/NPCShopItemSlot.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
-#include "UI/InGame/Shop/NPCShopItemSlot.h"
+
 
 void UNPCSaleTab::NativeConstruct()
 {
@@ -47,6 +49,18 @@ void UNPCSaleTab::OnSellClicked()
 
 void UNPCSaleTab::OnEmptyClicked()
 {
+	UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (!Inventory)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("InventoryUI Is Null"));
+		return;
+	}
+
+	for (auto item : Cart)
+	{
+		Inventory->CancelSelectSlot(item);
+	}
+
 	Cart.Empty();
 	SellPrice = 0;
 	UpdatePrice();
@@ -59,6 +73,7 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 
 	for (int i = 0; i < Cart.Num(); i++)
 	{
+		//TODO: ITEM_ID vs ITEM_SEQ 어떤걸로 비교????
 		if (Cart[i].ITEM_ID == item.ITEM_ID)
 		{
 			Cart[i].ITEM_VALUE += item.ITEM_VALUE;
