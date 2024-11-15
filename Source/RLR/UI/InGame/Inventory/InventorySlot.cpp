@@ -70,12 +70,12 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 			A->B 
 			B->A
 		*/
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(GetItemData().ITEM_SEQ, Operation->Master->SlotIndex);
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(GetItemData().ITEM_ID, Operation->Master->SlotIndex);
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
 	}
 	else
 	{
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_SEQ, SlotIndex);
+		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
 		//SetItemData(Operation->GetItemData());
 		DraggedSlot->Clear();
 	}
@@ -93,7 +93,7 @@ void UInventorySlot::RefreshUI()
 	if (GetItemData() == FItemData::EmptyItemData)
 	{
 		DisplayEquippedItems(false);
-		
+		ItemNameText->SetText(FText());
 		return;
 	}
 	

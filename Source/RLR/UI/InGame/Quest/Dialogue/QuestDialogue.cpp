@@ -12,6 +12,8 @@ void UQuestDialogue::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	SetUITag(RLRTAG.UI_Quest_Dialogue);
+
 	BtnDeny->OnClicked.AddUniqueDynamic(this, &UQuestDialogue::OnQuestDialogueEnded);
 	BtnAccept->OnClicked.AddUniqueDynamic(this, &UQuestDialogue::OnQuestAccepted);
 }
@@ -29,12 +31,11 @@ void UQuestDialogue::OnQuestAccepted()
 void UQuestDialogue::OnQuestDialogueEnded()
 {
 	OnQuestDialogueEnd.Broadcast();
-	/*this->RemoveFromViewport();*/
-	this->RemoveFromParent();
 }
 
 void UQuestDialogue::SetDialogueData(FString QuestDialogueString, int32 NPCSeq, int32 QuestSeq)
 {
+	OnQuestAccept.Broadcast();
 	//TODO : 나중에 FQuest->Needs에 따라 바뀌게 할 것
 	TxtQuest->SetText(FText::FromString(QuestDialogueString));
 	CurrentNPCSeq = NPCSeq;

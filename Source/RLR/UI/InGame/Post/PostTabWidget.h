@@ -10,6 +10,7 @@
 class UButton;
 class UTextBlock;
 class UScrollBox;
+class USizeBox;
 class UMultiLineEditableText;
 class UGridPanel;
 class UPostButtonUI;
@@ -41,6 +42,9 @@ public:
     bool bIsSentTab;
 
     UPROPERTY(meta = (BindWidget))
+    USizeBox* PostList_SizeBox;
+
+    UPROPERTY(meta = (BindWidget))
     UScrollBox* PostScrollBox;
 
     UPROPERTY(meta = (BindWidget))
@@ -64,7 +68,7 @@ public:
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UPostButtonUI> PostButtonUIClass;
 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UButton* AcceptAllButton;
 
     UPROPERTY(meta = (BindWidget))

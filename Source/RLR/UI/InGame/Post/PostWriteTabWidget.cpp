@@ -5,7 +5,6 @@
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
-#include "UI/InGame/Post/InputTransactionCost.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/EditableText.h"
 #include "Components/EditableTextBox.h"
@@ -14,6 +13,7 @@
 #include "Components/ListView.h"
 #include "Components/Button.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/InventoryManager.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/GameManager.h"
 #include "Structs/UtilStructs.h"
@@ -44,24 +44,6 @@ void UPostWriteTabWidget::AddItemToPostSlot(const FItemData& ItemData)
 
 void UPostWriteTabWidget::OnSendPostButtonClicked()
 {
-	/* userName을 통해 userSeq를 가져올 수 있는지 확인하고, 그렇게 변경하기 */
-	/*
-	*	ue5에서 사용자 이름 가져오는 방법 1. 
-		if (GEngine && GEngine->GetFirstLocalPlayerController(GetWorld()))
-		{
-			APlayerController* PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
-			if (PlayerController)
-			{
-				APlayerState* PlayerState = PlayerController->GetPlayerState<APlayerState>();
-				if (PlayerState)
-				{
-					FString PlayerName = PlayerState->GetPlayerName();
-					UE_LOG(LogTemp, Log, TEXT("Local Player Name: %s"), *PlayerName);
-				}
-			}
-		}
-	
-	*/
 	FString RecipientIdString = RecipientIdText->GetText().ToString();
 
 	if(RecipientIdText == nullptr) return;	
@@ -73,6 +55,7 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 		PostResult.PostId = GameInstance->GetPostalManager()->GetReceivedPostData().Num() + 1;
 		PostResult.SenderSeq = GameInstance->GetUserSeq();
 		PostResult.ItemId = GetAttachedItemsFromSlots();
+		PostResult.ItemValues = GameInstance->GetPostalManager()->ItemValues;
 		PostResult.Title = PostTitleText->GetText().ToString();
 		PostResult.Content = PostContentText->GetText().ToString();
 		PostResult.TotalMoney = FCString::Atoi(*GrantCostInput->TransactionCostInput->GetText().ToString());
@@ -80,6 +63,14 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 
 	GameInstance->GetNetworkManager()->SendPostRequest(PostResult);
 	GameInstance->GetNetworkManager()->SendPostGetRequest();
+
+	OnClearPostButtonClicked();
+
+	for (int i = 0; i < PostResult.ItemId.Num(); i++)
+	{
+		// 인벤토리에서 첨부한 아이템들 제거
+		GameInstance->GetInventoryManager()->RemoveItem(PostResult.ItemId[i]);
+	}
 }
 
 void UPostWriteTabWidget::OnClearPostButtonClicked()
@@ -93,8 +84,13 @@ void UPostWriteTabWidget::OnClearPostButtonClicked()
 		PostContentText->SetText(FText::GetEmpty());
 
 	// PostItemSlot 초기화
-	if (PostItemSlot)
-		PostItemSlot->Clear();
+	for (UWidget* Child : PostSlotGridPanel->GetAllChildren())
+	{
+		if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Child))
+		{
+			itemSlot->Clear();
+		}
+	}
 
 	if(RecipientIdText)
 		RecipientIdText->SetText(FText::GetEmpty());
@@ -108,15 +104,19 @@ TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()
 	TArray<int64> AttachedItems;
 
 	// PostSlotList는 우편에 첨부된 아이템 슬롯 리스트
-	for (UPostItemSlot* ItemSlot : PostSlotList)
+	for (UWidget* Child : PostSlotGridPanel->GetAllChildren())
 	{
-		if (IsValid(ItemSlot) && !ItemSlot->IsEmpty())
+		if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Child))
 		{
-			FItemData ItemData = ItemSlot->GetItemData();
-			GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
-			AttachedItems.Add(ItemData.ITEM_ID);
+			if (IsValid(itemSlot) && !itemSlot->IsEmpty())
+			{
+				FItemData ItemData = itemSlot->GetItemData();
+				GameInstance->GetPostalManager()->SetItemData(ItemData.ITEM_ID);
+				AttachedItems.Add(ItemData.ITEM_ID);
+			}
 		}
 	}
+
 	return AttachedItems;
 }
 

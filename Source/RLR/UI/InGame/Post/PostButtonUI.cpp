@@ -41,11 +41,11 @@ void UPostButtonUI::SetPostInfo(const FPostResult& InPost, bool bIsSentPost)
         FString Name;
         if (bIsSentPost)
         {
-            Name = FString::FromInt(PostInfo.ReceiverSeq);
+            Name = PostInfo.ReceiverName;
         }
         else
         {
-            Name = FString::FromInt(PostInfo.SenderSeq);
+            Name = PostInfo.SenderName;
         }
         PostNameText->SetText(FText::FromString(Name));
     }
