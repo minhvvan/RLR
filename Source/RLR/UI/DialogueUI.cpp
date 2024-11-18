@@ -17,10 +17,12 @@
 #include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
+
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/InventoryManager.h"
+
 #include "Structs/ObjectStructs.h"
 #include "Structs/ItemStructs.h"
 #include "Kismet/GameplayStatics.h"

@@ -135,6 +135,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_TimerProgressBar = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TimeProgressBar"), FString(TEXT("프로그래스바")));
 	
 	GameplayTags.UI_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Menu"), FString(TEXT("메뉴")));
+	
+	GameplayTags.UI_Enhance = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Enhance"), FString(TEXT("강화")));
 
 	/*
 		Input

@@ -7,7 +7,7 @@
 #include "EnhanceStatInfo.generated.h"
 
 /**
- * 
+ * 강화 전/후 스탯
  */
 UCLASS()
 class RLR_API UEnhanceStatInfo : public UUserWidget
