@@ -162,6 +162,8 @@ public:
 
 	FGameplayTag UI_Menu;
 
+	FGameplayTag UI_Enhance;
+
 
 	/*
 	
