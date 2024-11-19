@@ -11,7 +11,6 @@ void UEnhanceSlot::NativeConstruct()
 	Super::NativeConstruct();
 	SetSlotType(ESlotType::ENHANCE_ITEM_SLOT);
 	itemId = -1;
-	Clear();
 }
 
 void UEnhanceSlot::RefreshUI()
