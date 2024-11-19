@@ -2,6 +2,7 @@
 
 
 #include "UI/InGame/Enhancement/EquipmentButton.h"
+#include "UI/InGame/Enhancement/EnhanceSlot.h"
 
 #include "Components/Button.h"
 
@@ -13,17 +14,23 @@ void UEquipmentButton::NativeConstruct()
 	}
 }
 
-void UEquipmentButton::SetItemID(int64 NewItemID)
+void UEquipmentButton::SetItemData(const FItemData& NewItemData)
 {
-	itemID = NewItemID;
+	itemData = NewItemData;
+	itemID = itemData.ITEM_ID;
 }
 
-int64 UEquipmentButton::GetItemID()
+void UEquipmentButton::SetEnhanceSlot()
 {
-	return itemID;
+	EnhanceSlot->SetSlot(itemID);
+}
+
+FItemData UEquipmentButton::GetItemData()
+{
+	return itemData;
 }
 
 void UEquipmentButton::EquipButtonClicked()
 {
-	OnEquipButtonClick.Broadcast(itemID);
+	OnEquipButtonClick.Broadcast(itemData);
 }

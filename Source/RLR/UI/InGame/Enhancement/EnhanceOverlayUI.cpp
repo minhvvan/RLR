@@ -33,7 +33,7 @@ void UEnhanceOverlayUI::RefreshUI()
 
 	for (FItemData itemData : GameInstance->GetEnhanceManager()->EquipItemList)
 	{
-		EquipmentList->AddEquipButton(itemData.ITEM_ID);
+		EquipmentList->AddEquipButton(itemData);
 	}
 }
 /* 강화창에서 장비 목록에 있는 장비 클릭 */

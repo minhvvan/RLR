@@ -4,10 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Structs/ItemStructs.h"
 #include "EquipmentButton.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEquipButtonClick, int64, ItemID);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEquipButtonClick, FItemData&, ItemData);
 
+
+class UEnhanceSlot;
+class UTextBlock;
 class UButton;
 
 /**
@@ -20,8 +24,9 @@ class RLR_API UEquipmentButton : public UUserWidget
 	
 public:
 	virtual void NativeConstruct() override;
-	void SetItemID(int64 NewItemID);
-	int64 GetItemID();
+	void SetItemData(const FItemData& NewItemData);
+	void SetEnhanceSlot();
+	FItemData GetItemData();
 
 	UFUNCTION()
 	void EquipButtonClicked();
@@ -32,6 +37,16 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* EquipButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UEnhanceSlot> EnhanceSlot;
+
+	UPROPERTY(meta =(BindWidget))
+	UTextBlock* EnhanceLevelText;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* EquipmentNameText;
+
 private:
 	int64 itemID;
+	FItemData itemData;
 };

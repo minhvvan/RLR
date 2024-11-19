@@ -19,6 +19,8 @@ public:
 	virtual void RefreshUI() override;
 	virtual void Clear() override;
 
+	void SetItemID(int64 NewItemId);
+
 	UFUNCTION()
 	void SetSlot(int64 NewitemId);
 

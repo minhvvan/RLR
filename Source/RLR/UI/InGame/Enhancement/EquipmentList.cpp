@@ -7,29 +7,33 @@
 #include "UI/InGame/Enhancement/EnhanceSlot.h"
 
 #include "Components/VerticalBox.h"
+#include "Components/TextBlock.h"
 
 void UEquipmentList::NativeConstruct()
 {
 }
 /* 강화창의 장비목록에 장비아이템 추가 */
-void UEquipmentList::AddEquipButton(int64 itemID)
+void UEquipmentList::AddEquipButton(FItemData& itemData)
 {
-	AsyncTask(ENamedThreads::GameThread, [this, itemID]()
+	if (EquipListContainer && EquipButtonUIClass)
+	{
+		UEquipmentButton* EquipButton = CreateWidget<UEquipmentButton>(this, EquipButtonUIClass);
+		if (EquipButton)
 		{
-			if (EquipListContainer && EquipButtonUIClass)
-			{
-				UEquipmentButton* EquipButton = CreateWidget<UEquipmentButton>(this, EquipButtonUIClass);
-				if (EquipButton)
-				{
-					EquipButton->SetItemID(itemID);
-					EquipButton->OnEquipButtonClick.AddUniqueDynamic(this, &UEquipmentList::OnEquipItemClicked);
-					EquipListContainer->AddChild(EquipButton);
-				}
-			}
-		});
+			EquipButton->SetItemData(itemData);
+			EquipButton->SetEnhanceSlot();
+			EquipButton->EnhanceSlot->SetItemData(itemData);
+			//EquipButton->EnhanceLevelText->SetText()
+			EquipButton->EquipmentNameText->SetText(itemData.NAME);
+
+			EquipButton->OnEquipButtonClick.AddUniqueDynamic(this, &UEquipmentList::OnEquipItemClicked);
+			EquipListContainer->AddChild(EquipButton);
+		}
+	}
 }
 /* 장비아이템이 클릭되었을 때 */
-void UEquipmentList::OnEquipItemClicked(int64 itemID)
+void UEquipmentList::OnEquipItemClicked(FItemData& itemData)
 {
-	EnhanceUI->EnhanceSlot_Equip->SetSlot(itemID);
+	EnhanceUI->EnhanceSlot_Equip->SetSlot(itemData.ITEM_ID);
+	EnhanceUI->EnhanceSlot_Equip->SetItemData(itemData);
 }

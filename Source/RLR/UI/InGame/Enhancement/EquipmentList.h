@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Structs/ItemStructs.h"
 #include "EquipmentList.generated.h"
 
 class UEquipmentButton;
@@ -20,10 +21,10 @@ class RLR_API UEquipmentList : public UUserWidget
 	
 public:
 	virtual void NativeConstruct() override;
-	void AddEquipButton(int64 itemID);
+	void AddEquipButton(FItemData& itemData);
 
 	UFUNCTION()
-	void OnEquipItemClicked(int64 itemID);
+	void OnEquipItemClicked(FItemData& itemData);
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category="UI")
