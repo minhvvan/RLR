@@ -59,7 +59,7 @@ void UDialogueUI::UpdateNPCFunctionality()
 			CreateDynamicButton(2, TEXT("Quest"), i, npcData.NPCQuests[i].QuestSeq);
 		}
 	}
-	if (!npcData.hasEnhanceFunctionality)
+	if (npcData.hasEnhanceFunctionality)
 	{
 		CreateDynamicButton(3, TEXT("Enhance"), 0);
 	}

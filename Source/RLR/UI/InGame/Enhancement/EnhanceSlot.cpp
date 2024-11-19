@@ -16,7 +16,6 @@ void UEnhanceSlot::NativeConstruct()
 void UEnhanceSlot::RefreshUI()
 {
 	Super::RefreshUI();
-	Clear();
 }
 
 void UEnhanceSlot::Clear()

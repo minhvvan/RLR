@@ -16,19 +16,19 @@ void UGuildReportAndExitUI::NativeConstruct()
 {
 	if (ReportTitleText)
 	{
-		ReportTitleText->OnTextChanged.AddDynamic(this, &UGuildReportAndExitUI::OnReportTitleChanged);
+		ReportTitleText->OnTextChanged.AddUniqueDynamic(this, &UGuildReportAndExitUI::OnReportTitleChanged);
 	}
 	if (ReportContentText)
 	{
-		ReportContentText->OnTextChanged.AddDynamic(this, &UGuildReportAndExitUI::OnReportContentChanged);
+		ReportContentText->OnTextChanged.AddUniqueDynamic(this, &UGuildReportAndExitUI::OnReportContentChanged);
 	}
 	if (ReportButton)
 	{
-		ReportButton->OnClicked.AddDynamic(this, &UGuildReportAndExitUI::OnReportButtonClicked);
+		ReportButton->OnClicked.AddUniqueDynamic(this, &UGuildReportAndExitUI::OnReportButtonClicked);
 	}
 	if (CloseButton)
 	{
-		CloseButton->OnClicked.AddDynamic(this, &UGuildReportAndExitUI::OnCloseButtonClicked);
+		CloseButton->OnClicked.AddUniqueDynamic(this, &UGuildReportAndExitUI::OnCloseButtonClicked);
 	}
 }
 
