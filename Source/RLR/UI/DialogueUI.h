@@ -69,7 +69,6 @@ public:
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
 
-	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex);
 	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq = -1);
 	
 	virtual void OnPageActivated() override;
@@ -93,6 +92,9 @@ protected:
 	void OnPostClicked();
 
 	UFUNCTION()
+	void OnEnhanceClicked();
+
+	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
 
 	UFUNCTION()
@@ -108,5 +110,6 @@ private:
 
 	bool bOpenShop;
 	bool bOpenPost;
+	bool bOpenEnhance;
 	bool bOpenQuestDialogue;
 };
