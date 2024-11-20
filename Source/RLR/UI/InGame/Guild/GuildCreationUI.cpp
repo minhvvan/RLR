@@ -11,7 +11,7 @@ void UGuildCreationUI::NativeConstruct()
 {
 	if (CreateGuildButton)
 	{
-		CreateGuildButton->OnClicked.AddDynamic(this, &UGuildCreationUI::CreateGuild);
+		CreateGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildCreationUI::CreateGuild);
 	}
 }
 

@@ -10,11 +10,11 @@ void UGuildEntryUI::NativeConstruct()
 {
 	if (CreateGuildButton)
 	{
-		CreateGuildButton->OnClicked.AddDynamic(this, &UGuildEntryUI::OpenCreateGuildUI);
+		CreateGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildEntryUI::OpenCreateGuildUI);
 	}
 	if (ApplyGuildButton)
 	{
-		ApplyGuildButton->OnClicked.AddDynamic(this, &UGuildEntryUI::OpenApplyGuildUI);
+		ApplyGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildEntryUI::OpenApplyGuildUI);
 	}
 }
 

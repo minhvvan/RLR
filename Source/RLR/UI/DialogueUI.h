@@ -92,6 +92,9 @@ protected:
 	void OnPostClicked();
 
 	UFUNCTION()
+	void OnEnhanceClicked();
+
+	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
 
 	UFUNCTION()
@@ -107,5 +110,6 @@ private:
 
 	bool bOpenShop;
 	bool bOpenPost;
+	bool bOpenEnhance;
 	bool bOpenQuestDialogue;
 };

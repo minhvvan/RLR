@@ -50,6 +50,7 @@ private:
 		0 : Shop
 		1 : Post
 		2 : Quest
+		3 : Enhance
 	*/
 	int32 buttonType;
 

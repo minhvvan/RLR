@@ -10,6 +10,7 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/EnhanceManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
@@ -80,6 +81,9 @@ void UInventoryUI::RefreshUI()
 	for (UInventorySlot* ItemSlot : InventorySlotList)
 	{
 		ItemSlot->Clear();
+
+		/* 강화 장비 배열도 초기화 */
+		GameInstance->GetEnhanceManager()->EquipItemList.Empty();
 	}
 
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
@@ -102,6 +106,12 @@ void UInventoryUI::RefreshUI()
 		if(ItemSlotIndex >= MaxInventorySlotCount || ItemSlotIndex < 0 )
 			continue;
 		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
+
+		/* 강화 장비 배열에 추가 */
+		if (ItemData.TYPE == EItemType::EQUIPMENT)
+		{
+			GameInstance->GetEnhanceManager()->EquipItemList.Add(ItemData);
+		}
 	}
 }
 
