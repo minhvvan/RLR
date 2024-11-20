@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEnhanceButtonClicked);
 
+class UEnhanceStatInfo;
 class UEnhanceSlot;
 class UButton;
 
@@ -29,6 +30,12 @@ public:
 public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* EnhanceButton;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UEnhanceStatInfo> BeforeEnhanceStatInfo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UEnhanceStatInfo> AfterEnhanceStatInfo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UEnhanceSlot> EnhanceSlot_Equip;

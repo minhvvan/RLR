@@ -3,3 +3,6 @@
 
 #include "UI/InGame/Enhancement/EnhanceStatInfo.h"
 
+void UEnhanceStatInfo::NativeConstruct()
+{
+}
