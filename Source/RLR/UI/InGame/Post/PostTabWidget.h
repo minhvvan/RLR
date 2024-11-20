@@ -109,6 +109,9 @@ public:
     UButton* PostPageButton;
 
     UPROPERTY(meta = (BindWidget))
+    UTextBlock* CurrentPageText;
+
+    UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PageSwitcher;
 
     // 한 페이지에 표시할 버튼 최대 수

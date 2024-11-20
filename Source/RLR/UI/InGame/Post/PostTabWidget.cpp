@@ -231,6 +231,17 @@ void UPostTabWidget::CreateNewPage()
     // 새 페이지를 WidgetSwitcher에 추가
     PageSwitcher->AddChild(CurrentVerticalBox);
     PageSwitcher->SetActiveWidget(CurrentVerticalBox);
+
+    int32 CurrentIndex = PageSwitcher->GetActiveWidgetIndex();
+    int32 TotalPages = PageSwitcher->GetNumWidgets();
+    
+    FText PageText = FText::Format(
+        FText::FromString(TEXT("{0}/{1}")),
+        FText::AsNumber(CurrentIndex + 1),
+        FText::AsNumber(TotalPages)
+    );
+
+    CurrentPageText->SetText(PageText);
 }
 
 void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
@@ -365,6 +376,14 @@ void UPostTabWidget::SwitchPostPage()
     if (CurrentIndex < TotalPages - 1)
     {
         PageSwitcher->SetActiveWidgetIndex(CurrentIndex + 1);
+        
+        FText PageText = FText::Format(
+            FText::FromString(TEXT("{0}/{1}")),
+            FText::AsNumber(CurrentIndex + 1), 
+            FText::AsNumber(TotalPages)
+        );
+
+        CurrentPageText->SetText(PageText);
     }
 }
 
@@ -374,9 +393,18 @@ void UPostTabWidget::SwitchPrevPage()
         return;
 
     int32 CurrentIndex = PageSwitcher->GetActiveWidgetIndex();
+    int32 TotalPages = PageSwitcher->GetNumWidgets();
 
     if (CurrentIndex > 0)
     {
         PageSwitcher->SetActiveWidgetIndex(CurrentIndex - 1);
     }
+
+    FText PageText = FText::Format(
+        FText::FromString(TEXT("{0}/{1}")),
+        FText::AsNumber(CurrentIndex + 1),
+        FText::AsNumber(TotalPages)
+    );
+
+    CurrentPageText->SetText(PageText);
 }
