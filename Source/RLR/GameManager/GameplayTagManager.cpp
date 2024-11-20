@@ -102,6 +102,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ItemInfomation"), FString(TEXT("아이템 정보창")));
 	GameplayTags.UI_NPCShop = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop"), FString(TEXT("NPC 상점")));
 	GameplayTags.UI_NPCShop_Popup_Bundle = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop.Popup.Bundle"), FString(TEXT("NPC 상점 묶음 구매")));
+	
+	GameplayTags.UI_Storage = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Storage"), FString(TEXT("창고")));
 
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat"), FString(TEXT("채팅창")));
 	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat.Option"), FString(TEXT("채팅 옵션창")));
