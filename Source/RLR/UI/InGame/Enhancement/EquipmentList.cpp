@@ -3,9 +3,11 @@
 
 #include "UI/InGame/Enhancement/EquipmentList.h"
 #include "UI/InGame/Enhancement/EquipmentButton.h"
+#include "UI/InGame/Enhancement/EnhanceStatInfo.h"
 #include "UI/InGame/Enhancement/EnhanceUI.h"
 #include "UI/InGame/Enhancement/EnhanceSlot.h"
 
+#include "Components/RichTextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/TextBlock.h"
 
@@ -36,4 +38,7 @@ void UEquipmentList::OnEquipItemClicked(FItemData& itemData)
 {
 	EnhanceUI->EnhanceSlot_Equip->SetSlot(itemData.ITEM_ID);
 	EnhanceUI->EnhanceSlot_Equip->SetItemData(itemData);
+
+	EnhanceUI->BeforeEnhanceStatInfo->ItemStatusText->SetText(itemData.TEXT);
+	/* TODO : 강화 후의 stat text도 설정하기 */
 }
