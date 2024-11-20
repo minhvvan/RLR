@@ -5,6 +5,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
 #include "Components/TextBlock.h"
+#include "Components/CheckBox.h"
 #include "Components/Button.h"
 
 

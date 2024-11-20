@@ -10,6 +10,7 @@
 DECLARE_MULTICAST_DELEGATE_TwoParams(FOnPostButtonClickDelegate, const FPostResult&, UPostButtonUI*);
 
 class UButton;
+class UCheckBox;
 class UTextBlock;
 
 UCLASS()
@@ -30,9 +31,12 @@ public:
 
     FOnPostButtonClickDelegate OnPostButtonClick;
 
-private:
+public:
     UPROPERTY(meta = (BindWidget))
     UButton* PostButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UCheckBox* SelectCheckBox;
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* PostNameText;

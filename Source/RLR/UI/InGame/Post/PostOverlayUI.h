@@ -7,6 +7,8 @@
 #include "Structs/UtilStructs.h"
 #include "PostOverlayUI.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPostUIEnd);
+
 class UButton;
 class UWidgetSwitcher;
 class UPostReceivedTabWidget;
@@ -63,6 +65,10 @@ public:
     void OnPostGetRequestComplete();
     void OnPostSentRequestComplete();
 
+    bool GetWritingPostStatus();
+    void ManageWritingPost();
+
+    FOnPostUIEnd OnPostUIEnd;
 public:
 
 	/* Bind Widget */
