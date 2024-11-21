@@ -203,7 +203,7 @@ void UQuestListUI::OnCompleteButtonClicked()
 				if (ConditionType == "item")
 				{
 					/* 필요한 아이템이 인벤토리에 얼마나 있는지 체크 */
-					CurrentAmount = GameInstance->GetInventoryManager()->GetItem(NeededID).QUANTITY;
+					CurrentAmount = GameInstance->GetInventoryManager()->GetItem(NeededID).ITEM_QUANTITY;
 				}
 				else if (ConditionType == "monster")
 				{

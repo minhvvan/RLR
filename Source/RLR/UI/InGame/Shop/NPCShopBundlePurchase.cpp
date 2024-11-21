@@ -27,20 +27,20 @@ void UNPCShopBundlePurchase::OnCancelClicked()
 
 void UNPCShopBundlePurchase::OnIncreaseClicked()
 {
-	Item.ITEM_VALUE++;
+	Item.ITEM_QUANTITY++;
 	UpdateAmountText();
 }
 
 void UNPCShopBundlePurchase::OnDecreaseClicked()
 {
-	if (Item.ITEM_VALUE == 1) return;
-	Item.ITEM_VALUE--;
+	if (Item.ITEM_QUANTITY == 1) return;
+	Item.ITEM_QUANTITY--;
 	UpdateAmountText();
 }
 
 void UNPCShopBundlePurchase::UpdateAmountText()
 {
-	EdtAmount->SetText(FText::AsNumber(Item.ITEM_VALUE));
+	EdtAmount->SetText(FText::AsNumber(Item.ITEM_QUANTITY));
 }
 
 void UNPCShopBundlePurchase::SetItemData(const FItemData& item)

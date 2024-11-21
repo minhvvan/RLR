@@ -54,14 +54,14 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	{
 		if (Cart[i].ITEM_SEQ == item.ITEM_SEQ)
 		{
-			Cart[i].ITEM_VALUE += item.ITEM_VALUE;
+			Cart[i].ITEM_MAX_COUNT += item.ITEM_MAX_COUNT;
 
 			auto entry = GetCartSlotWidget(i);
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
 
-			PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+			PurchasePrice += item.SALE_PRICE * item.ITEM_QUANTITY;
 			UpdatePrice();
 			return;
 		}
@@ -71,7 +71,7 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	if (!entry) return;
 
 	Cart.Add(item);
-	PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+	PurchasePrice += item.SALE_PRICE * item.ITEM_MAX_COUNT;
 	UpdatePrice();
 	entry->SetItemData(item);
 }
@@ -79,7 +79,7 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
 {
 	Cart.Remove(item);
-	PurchasePrice -= item.SALE_PRICE * item.ITEM_VALUE;
+	PurchasePrice -= item.SALE_PRICE * item.ITEM_MAX_COUNT;
 	UpdatePrice();
 	UpdateCart();
 }
@@ -96,7 +96,7 @@ void UNPCPurchaseTab::OnBuyClicked()
 		auto shopData = shopUI->GetShopData();
 		for (auto& item : Cart)
 		{
-			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_VALUE);
+			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_MAX_COUNT);
 		}
 	}
 

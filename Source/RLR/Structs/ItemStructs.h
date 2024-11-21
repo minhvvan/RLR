@@ -246,8 +246,7 @@ struct FItemData : public FTableRowBase
 	{
 		ITEM_SEQ = -1;
 		ITEM_ID = -1;
-		QUANTITY = 1;
-		TYPE = EItemType::NONE;
+		ITEM_QUANTITY = 1;
 		EQUIPMENT_TYPE = EEquipmentType::NONE;
 		IsEquiped = false;
 	}
@@ -265,7 +264,7 @@ struct FItemData : public FTableRowBase
 	TEnumAsByte<ECharacterSubJobType> SubJobType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TEnumAsByte<EItemType> TYPE;
+	int32 TYPE;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TEnumAsByte<EEquipmentType> EQUIPMENT_TYPE;
@@ -274,7 +273,7 @@ struct FItemData : public FTableRowBase
 	TEnumAsByte<EItemRarity> RANK;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 EQUIPMENT_LEVEL;
+	int32 USE_LEVEL;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FItemStatus ITEM_STATUS;
@@ -289,13 +288,11 @@ struct FItemData : public FTableRowBase
 	FText TEXT;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ITEM_VALUE;
+	int32 ITEM_QUANTITY;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 ITEM_MAX;
+	int32 ITEM_MAX_COUNT;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 QUANTITY; 
 
 	/*
 		Consumption
@@ -414,4 +411,13 @@ struct FUserGoods
 	}
 
 	void MakeUserGoods(const Protocol::UserGood userGood);
+};
+
+UENUM(BlueprintType)
+enum ItemType
+{
+	None,
+	Equip,
+	Consumption,
+	Etc
 };

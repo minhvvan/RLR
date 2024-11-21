@@ -21,19 +21,14 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 
     NAME = STRING_TO_FTEXT(itemData.name().c_str());
 
-    FString ItemType = UTF8_TO_TCHAR(itemData.type().c_str());
-    TYPE = StringToEItemType(ItemType);
+    TYPE = itemData.type();
 
     /*Rank는 int 형?*/
     RANK = (EItemRarity)itemData.rank();
-    EQUIPMENT_LEVEL = itemData.equiplevel();
+    USE_LEVEL = itemData.uselevel();
     SALE_PRICE = itemData.saleprice();
     USE_PERIOD = itemData.useperiod();
     TEXT = STRING_TO_FTEXT(itemData.text().c_str());
-
-    ITEM_VALUE = itemData.itemvalue();
-    ITEM_MAX = itemData.itemmax();
-    //QUANTITY = itemData.quantity();
 
     if (itemData.has_equip()) {
         auto equipData = itemData.equip();
@@ -64,11 +59,15 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
         CONSUMPTION_DURATION = consumptionData.duration();
         CONSUMPTION_STATUS_TYPE = (EStatusType)consumptionData.statustype();
         CONSUMPTION_TYPE = (EConsumptionType)consumptionData.contype();
+        ITEM_QUANTITY = consumptionData.itemquantity();
+        ITEM_MAX_COUNT = consumptionData.itemmaxcount();
     }
 
     if (itemData.has_etcitem()) {
         auto etcItemData = itemData.etcitem();
         ETC_TYPE = (EETCType)etcItemData.etctype();
+        ITEM_QUANTITY = etcItemData.itemquantity();
+        ITEM_MAX_COUNT = etcItemData.itemmaxcount();
     }
 }
 
@@ -86,18 +85,15 @@ Protocol::Item FItemData::MakeItemPacket()
     itemData.set_itemslotidx(ITEM_SLOT_IDX);
     itemData.set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
 
-    // ItemType 변환 (EItemType -> string)
-    FString ItemTypeStr = EItemTypeToString(TYPE);
-    itemData.set_type(TCHAR_TO_UTF8(*ItemTypeStr));
+    itemData.set_type(TYPE);
 
     itemData.set_rank(RANK.GetIntValue());
-    itemData.set_equiplevel(EQUIPMENT_LEVEL);
+    itemData.set_uselevel(USE_LEVEL);
     itemData.set_saleprice(SALE_PRICE);
     itemData.set_useperiod(USE_PERIOD);
     itemData.set_text(TCHAR_TO_UTF8(*TEXT.ToString()));
 
-    itemData.set_itemvalue(ITEM_VALUE);
-    itemData.set_itemmax(ITEM_MAX);
+
 
     if (EQUIPMENT_TYPE != EEquipmentType::NONE) {
         auto* equipData = itemData.mutable_equip();
@@ -128,12 +124,17 @@ Protocol::Item FItemData::MakeItemPacket()
         consumptionData->set_duration(CONSUMPTION_DURATION);
         consumptionData->set_statustype(CONSUMPTION_STATUS_TYPE.GetIntValue());
         consumptionData->set_contype(CONSUMPTION_TYPE.GetIntValue());
+        consumptionData->set_itemquantity(ITEM_QUANTITY);
+        consumptionData->set_itemmaxcount(ITEM_MAX_COUNT);
+
     }
 
     if (ETC_TYPE != EETCType::NONE) {  // 기타 아이템 데이터가 있는지 확인하는 변수
         auto* etcItemData = itemData.mutable_etcitem();
 
         etcItemData->set_etctype(ETC_TYPE.GetIntValue());
+        etcItemData->set_itemquantity(ITEM_QUANTITY);
+        etcItemData->set_itemmaxcount(ITEM_MAX_COUNT);
     }
     return itemData;
 }
@@ -148,18 +149,13 @@ Protocol::Equip FItemData::MakeEquipPacket()
     Equip_Item->set_itemslotidx(ITEM_SLOT_IDX);
     Equip_Item->set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
 
-    // ItemType 변환 (EItemType -> string)
-    FString ItemTypeStr = EItemTypeToString(TYPE);
-    Equip_Item->set_type(TCHAR_TO_UTF8(*ItemTypeStr));
+    Equip_Item->set_type(TYPE);
 
     Equip_Item->set_rank(RANK.GetIntValue());
-    Equip_Item->set_equiplevel(EQUIPMENT_LEVEL);
+    Equip_Item->set_uselevel(USE_LEVEL);
     Equip_Item->set_saleprice(SALE_PRICE);
     Equip_Item->set_useperiod(USE_PERIOD);
     Equip_Item->set_text(TCHAR_TO_UTF8(*TEXT.ToString()));
-
-    Equip_Item->set_itemvalue(ITEM_VALUE);
-    Equip_Item->set_itemmax(ITEM_MAX);
 
     if (EQUIPMENT_TYPE != EEquipmentType::NONE) {
         EquipData.set_hp(ITEM_STATUS.HP);

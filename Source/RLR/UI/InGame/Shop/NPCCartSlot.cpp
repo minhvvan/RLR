@@ -25,5 +25,5 @@ void UNPCCartSlot::RefreshUI()
 	auto itemData = GetItemData();
 	FItemResource itemResourceData = GetItemResourceData();
 	SetSlotImage(itemResourceData.ItemImage);
-	TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
+	TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_MAX_COUNT));
 }
