@@ -512,7 +512,8 @@ void UTradeUI::OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox)
 	}
 
 	// 아이템, 재화 분류
-	if(ItemData.TYPE != EItemType::TotalMoney)
+	// 재화와 아이템은 별개로 동작함 -> 따로 구분해야함
+	/*if(ItemData.TYPE != EItemType::TotalMoney)
 	{
 		if (ItemCount < 1)
 			ItemCount = 1;
@@ -522,7 +523,7 @@ void UTradeUI::OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox)
 	else if (ItemData.TYPE == EItemType::TotalMoney)
 	{
 		SendTradeAddGoodBySelf(ItemCount);
-	}
+	}*/
 }
 
 void UTradeUI::OnCancelItemCountMessageBox(UItemCountMessageBox* MessageBox)
@@ -552,7 +553,7 @@ void UTradeUI::OnClickedAddGoldButton()
 
 	FItemData DummyData = FItemData(); 
 	DummyData.ITEM_SEQ = (int32)EItemType::TotalMoney;
-	DummyData.TYPE = EItemType::TotalMoney;
+	//DummyData.TYPE = EItemType::TotalMoney;
 	DummyData.NAME = STRING_TO_FTEXT("골드");
 	ItemCountMessageBox->SetItemData(DummyData);
 	ItemCountMessageBox->RefreshUI();

@@ -34,7 +34,7 @@ void UInventorySlot::NativeConstruct()
 void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation)
 {
 	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
-	if (Inventory->CurrentFilter != EItemType::NONE)
+	if (Inventory->CurrentFilter != ItemType::None)
 		return;
 
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
@@ -47,7 +47,7 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		return false;
 
 	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
-	if (Inventory->CurrentFilter != EItemType::NONE)
+	if (Inventory->CurrentFilter != ItemType::None)
 		return false;
 
 	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::INVENTORY_SLOT);

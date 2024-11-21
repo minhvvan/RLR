@@ -51,7 +51,7 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 			{
 				//1개 구매
 				FItemData item(GetItemData());
-				item.ITEM_VALUE = 1;
+				item.ITEM_QUANTITY = 1;
 				Cast<UNPCPurchaseTab>(ParentUI)->AddToCart(item);
 			}
 			else if (ParentUI->IsA(UNPCSaleTab::StaticClass()))
@@ -120,7 +120,7 @@ void UNPCShopItemSlot::RefreshUI()
 		ImgPrice->SetVisibility(ESlateVisibility::Visible);
 
 		TxtItemName->SetText(itemData.NAME);
-		TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_VALUE));
+		TxtItemAmount->SetText(FText::AsNumber(itemData.ITEM_QUANTITY));
 		TxtPrice->SetText(FText::AsNumber(itemData.SALE_PRICE));
 		SlotImage->SetBrushFromTexture(itemResourceData.ItemImage);
 

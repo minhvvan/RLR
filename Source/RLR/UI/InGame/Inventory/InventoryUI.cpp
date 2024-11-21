@@ -17,7 +17,7 @@
 UInventoryUI::UInventoryUI(const FObjectInitializer& ObjectInitializer):
 	MaxColumm(8),
 	MaxInventorySlotCount(32),
-	CurrentFilter(EItemType::NONE)
+	CurrentFilter(ItemType::None)
 {
 }
 
@@ -70,7 +70,7 @@ void UInventoryUI::RefreshUI()
 {
 	
 	//장비창, 소모품창, 기타창 같이 따로 탭을 누르고 있는 중에는 전체 RefreshUI를 해주지 않는다.
-	if (CurrentFilter != EItemType::NONE)
+	if (CurrentFilter != ItemType::None)
 	{
 		ShowItemsByType(CurrentFilter);
 		return;
@@ -108,7 +108,7 @@ void UInventoryUI::RefreshUI()
 		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
 
 		/* 강화 장비 배열에 추가 */
-		if (ItemData.TYPE == EItemType::EQUIPMENT)
+		if (ItemData.TYPE == ItemType::Equip)
 		{
 			GameInstance->GetEnhanceManager()->EquipItemList.Add(ItemData);
 		}
@@ -128,7 +128,7 @@ void UInventoryUI::RefreshGoldAndCashUI()
 	SilberText->SetText(NewSilber);
 }
 
-void UInventoryUI::ShowItemsByType(EItemType ItemType)
+void UInventoryUI::ShowItemsByType(ItemType ItemType)
 {
 	/*
 		선택된 속성의 아이템들만 보여준다.
@@ -179,26 +179,26 @@ void UInventoryUI::SetItemData(FItemData& NewItem)
 
 void UInventoryUI::OnAllButtonClicked()
 {
-	CurrentFilter = EItemType::NONE;
+	CurrentFilter = ItemType::None;
 	RefreshUI();
 }
 
 void UInventoryUI::OnEquipmentButtonClicked()
 {
-	CurrentFilter = EItemType::EQUIPMENT;
-	ShowItemsByType(EItemType::EQUIPMENT);
+	CurrentFilter = ItemType::Equip;
+	ShowItemsByType(ItemType::Equip);
 }
 
 void UInventoryUI::OnConsumableButtonClicked()
 {
-	CurrentFilter = EItemType::CONSUMPTION;
-	ShowItemsByType(EItemType::CONSUMPTION);
+	CurrentFilter = ItemType::Consumption;
+	ShowItemsByType(ItemType::Consumption);
 }
 
 void UInventoryUI::OnEtcItemButtonClicked()
 {
-	CurrentFilter = EItemType::ETC;
-	ShowItemsByType(EItemType::ETC);
+	CurrentFilter = ItemType::Etc;
+	ShowItemsByType(ItemType::Etc);
 }
 
 void UInventoryUI::SetMaxSlotCount(int32 Count)

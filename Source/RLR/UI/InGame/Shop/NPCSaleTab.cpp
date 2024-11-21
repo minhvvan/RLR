@@ -39,7 +39,7 @@ void UNPCSaleTab::OnSellClicked()
 			{
 				for (auto& item : Cart)
 				{
-					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_VALUE);
+					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_QUANTITY);
 				}
 			});
 
@@ -76,14 +76,14 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 		//TODO: ITEM_ID vs ITEM_SEQ 어떤걸로 비교????
 		if (Cart[i].ITEM_ID == item.ITEM_ID)
 		{
-			Cart[i].ITEM_VALUE += item.ITEM_VALUE;
+			Cart[i].ITEM_QUANTITY += item.ITEM_QUANTITY;
 
 			auto entry = GetItemSlotWidget(i);
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
 			entry->SetItemAmountShow(true);
-			SellPrice += item.SALE_PRICE * item.ITEM_VALUE;
+			SellPrice += item.SALE_PRICE * item.ITEM_QUANTITY;
 			UpdatePage();
 			UpdatePrice();
 			return;
@@ -94,7 +94,7 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 	if (!entry) return;
 
 	Cart.Add(item);
-	SellPrice += item.SALE_PRICE * item.ITEM_VALUE;
+	SellPrice += item.SALE_PRICE * item.ITEM_QUANTITY;
 	UpdatePage();
 	UpdatePrice();
 	entry->SetItemData(item);
@@ -104,7 +104,7 @@ void UNPCSaleTab::AddToCart(const FItemData& item)
 void UNPCSaleTab::RemoveFromCart(const FItemData& item)
 {
 	Cart.Remove(item);
-	SellPrice -= item.ITEM_VALUE * item.SALE_PRICE;
+	SellPrice -= item.ITEM_QUANTITY * item.SALE_PRICE;
 	UpdatePrice();
 }
 

@@ -37,16 +37,14 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR Item::Item(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.itemseq_)*/0
+  , /*decltype(_impl_.type_)*/0
   , /*decltype(_impl_.rank_)*/0
-  , /*decltype(_impl_.equiplevel_)*/0
+  , /*decltype(_impl_.uselevel_)*/0
   , /*decltype(_impl_.saleprice_)*/0
   , /*decltype(_impl_.useperiod_)*/0
-  , /*decltype(_impl_.itemvalue_)*/0
   , /*decltype(_impl_.itemid_)*/int64_t{0}
-  , /*decltype(_impl_.itemmax_)*/0
   , /*decltype(_impl_.itemslotidx_)*/0
   , /*decltype(_impl_.item_detail_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
@@ -98,6 +96,8 @@ PROTOBUF_CONSTEXPR Consumption::Consumption(
   , /*decltype(_impl_.statustype_)*/0
   , /*decltype(_impl_.contype_)*/0
   , /*decltype(_impl_.conindex_)*/0
+  , /*decltype(_impl_.itemquantity_)*/0
+  , /*decltype(_impl_.itemmaxcount_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConsumptionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ConsumptionDefaultTypeInternal()
@@ -112,6 +112,8 @@ PROTOBUF_CONSTEXPR EtcItem::EtcItem(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.base_)*/nullptr
   , /*decltype(_impl_.etctype_)*/0
+  , /*decltype(_impl_.itemquantity_)*/0
+  , /*decltype(_impl_.itemmaxcount_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EtcItemDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EtcItemDefaultTypeInternal()
@@ -341,12 +343,10 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.type_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.rank_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.equiplevel_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.uselevel_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.saleprice_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.useperiod_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.text_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.itemvalue_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.itemmax_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.itemid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Item, _impl_.itemslotidx_),
   ::_pbi::kInvalidFieldOffsetTag,
@@ -389,6 +389,8 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.statustype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.contype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.conindex_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.itemquantity_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Consumption, _impl_.itemmaxcount_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -397,6 +399,8 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _impl_.base_),
   PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _impl_.etctype_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _impl_.itemquantity_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::EtcItem, _impl_.itemmaxcount_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::UserSetStatus, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -542,18 +546,18 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::Player)},
   { 7, -1, -1, sizeof(::Protocol::Item)},
-  { 29, -1, -1, sizeof(::Protocol::Equip)},
-  { 52, -1, -1, sizeof(::Protocol::Consumption)},
+  { 27, -1, -1, sizeof(::Protocol::Equip)},
+  { 50, -1, -1, sizeof(::Protocol::Consumption)},
   { 65, -1, -1, sizeof(::Protocol::EtcItem)},
-  { 73, -1, -1, sizeof(::Protocol::UserSetStatus)},
-  { 84, -1, -1, sizeof(::Protocol::UserTotalStatus)},
-  { 107, -1, -1, sizeof(::Protocol::UserCharacter)},
-  { 129, -1, -1, sizeof(::Protocol::UserPosition)},
-  { 139, -1, -1, sizeof(::Protocol::Skill)},
-  { 152, -1, -1, sizeof(::Protocol::SkillInfo)},
-  { 171, -1, -1, sizeof(::Protocol::SkillActive)},
-  { 183, -1, -1, sizeof(::Protocol::Monster)},
-  { 202, -1, -1, sizeof(::Protocol::Talent)},
+  { 75, -1, -1, sizeof(::Protocol::UserSetStatus)},
+  { 86, -1, -1, sizeof(::Protocol::UserTotalStatus)},
+  { 109, -1, -1, sizeof(::Protocol::UserCharacter)},
+  { 131, -1, -1, sizeof(::Protocol::UserPosition)},
+  { 141, -1, -1, sizeof(::Protocol::Skill)},
+  { 154, -1, -1, sizeof(::Protocol::SkillInfo)},
+  { 173, -1, -1, sizeof(::Protocol::SkillActive)},
+  { 185, -1, -1, sizeof(::Protocol::Monster)},
+  { 204, -1, -1, sizeof(::Protocol::Talent)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -575,86 +579,88 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"\025\n\006"
-  "Player\022\013\n\003seq\030\001 \001(\004\"\327\002\n\004Item\022\017\n\007itemSeq\030"
-  "\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022\014\n\004ran"
-  "k\030\004 \001(\005\022\022\n\nequipLevel\030\005 \001(\005\022\021\n\tsalePrice"
-  "\030\006 \001(\005\022\021\n\tusePeriod\030\007 \001(\005\022\014\n\004text\030\010 \001(\t\022"
-  "\021\n\titemValue\030\t \001(\005\022\017\n\007itemMax\030\n \001(\005\022\016\n\006i"
-  "temId\030\013 \001(\003\022\023\n\013itemSlotIdx\030\014 \001(\005\022 \n\005equi"
-  "p\030\r \001(\0132\017.Protocol.EquipH\000\022,\n\013consumptio"
-  "n\030\016 \001(\0132\025.Protocol.ConsumptionH\000\022$\n\007etcI"
-  "tem\030\017 \001(\0132\021.Protocol.EtcItemH\000B\r\n\013item_d"
-  "etail\"\320\002\n\005Equip\022\034\n\004base\030\001 \001(\0132\016.Protocol"
-  ".Item\022\n\n\002hp\030\002 \001(\002\022\020\n\010hpAbsorb\030\003 \001(\002\022\n\n\002m"
-  "p\030\004 \001(\002\022\020\n\010mpAbsorb\030\005 \001(\002\022\020\n\010strength\030\006 "
-  "\001(\005\022\017\n\007agility\030\007 \001(\005\022\024\n\014intelligence\030\010 \001"
-  "(\005\022\016\n\006attack\030\t \001(\002\022\017\n\007defence\030\n \001(\002\022\023\n\013a"
-  "ttackSpeed\030\013 \001(\002\022\021\n\tmoveSpeed\030\014 \001(\002\022\026\n\016c"
-  "riticalChance\030\r \001(\002\022\026\n\016criticalDamage\030\016 "
-  "\001(\002\022\r\n\005avoid\030\017 \001(\002\022\031\n\021cooldownReduction\030"
-  "\020 \001(\002\022\021\n\tequipPart\030\021 \001(\005\"\225\001\n\013Consumption"
-  "\022\034\n\004base\030\001 \001(\0132\016.Protocol.Item\022\020\n\010cooldo"
-  "wn\030\002 \001(\005\022\r\n\005value\030\003 \001(\005\022\020\n\010duration\030\004 \001("
-  "\005\022\022\n\nstatusType\030\005 \001(\005\022\017\n\007conType\030\006 \001(\005\022\020"
-  "\n\010conIndex\030\007 \001(\005\"8\n\007EtcItem\022\034\n\004base\030\001 \001("
-  "\0132\016.Protocol.Item\022\017\n\007etcType\030\002 \001(\005\"b\n\rUs"
-  "erSetStatus\022\016\n\006userHp\030\001 \001(\005\022\016\n\006userMp\030\002 "
-  "\001(\005\022\017\n\007userStr\030\003 \001(\005\022\017\n\007userAgi\030\004 \001(\005\022\017\n"
-  "\007userInt\030\005 \001(\005\"\213\003\n\017UserTotalStatus\022\016\n\006us"
-  "erHp\030\001 \001(\002\022\024\n\014userHpAbsorb\030\002 \001(\002\022\016\n\006user"
-  "Mp\030\003 \001(\002\022\024\n\014userMpAbsorb\030\004 \001(\002\022\024\n\014userSt"
-  "rength\030\005 \001(\005\022\023\n\013userAgility\030\006 \001(\005\022\030\n\020use"
-  "rIntelligence\030\007 \001(\005\022\021\n\tuserMaxHp\030\010 \001(\002\022\021"
-  "\n\tuserMaxMp\030\t \001(\002\022\022\n\nuserAttack\030\n \001(\002\022\023\n"
-  "\013userDefence\030\013 \001(\002\022\027\n\017userAttackSpeed\030\014 "
-  "\001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022userCritic"
-  "alChance\030\016 \001(\002\022\032\n\022userCriticalDamage\030\017 \001"
-  "(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userCooldownRed"
-  "uction\030\021 \001(\002\"\351\002\n\rUserCharacter\022\017\n\007userSe"
-  "q\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004name\030\003 \001(\t"
-  "\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRank\030\005 \001(\005\022\017\n"
-  "\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005\022\013\n\003exp\030\010 "
-  "\001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\016\n\006transX\030\n "
-  "\001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006transZ\030\014 \001(\002\022\r\n\005m"
-  "apId\030\r \001(\003\022*\n\tsetStatus\030\016 \001(\0132\027.Protocol"
-  ".UserSetStatus\022.\n\013totalStatus\030\017 \001(\0132\031.Pr"
-  "otocol.UserTotalStatus\022 \n\006talent\030\020 \001(\0132\020"
-  ".Protocol.Talent\"I\n\014UserPosition\022\017\n\007user"
-  "Seq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n"
-  "\004posZ\030\004 \001(\002\"\205\001\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022"
-  "\r\n\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007use"
-  "rSeq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \003(\r\022\022\n\ntargetT"
-  "ype\030\006 \001(\t\022\020\n\010skillIdx\030\007 \001(\005\"\302\002\n\tSkillInf"
-  "o\022\020\n\010skillSeq\030\001 \001(\005\022\017\n\007skillId\030\002 \001(\005\022\021\n\t"
-  "skillName\030\003 \001(\t\022\022\n\nskillLevel\030\004 \001(\005\022\020\n\010s"
-  "killIdx\030\005 \001(\005\022\014\n\004Cost\030\006 \001(\005\022\020\n\010CoolTime\030"
-  "\007 \001(\002\022\021\n\tskillText\030\010 \001(\t\022\025\n\rskillDistanc"
-  "e\030\t \001(\005\022\021\n\tskillKind\030\n \001(\005\022\025\n\rskillAbnor"
-  "mal\030\013 \001(\005\0223\n\020skilPasiveStatus\030\014 \001(\0132\031.Pr"
-  "otocol.UserTotalStatus\0220\n\021skillActiveSta"
-  "tus\030\r \001(\0132\025.Protocol.SkillActive\"\237\001\n\013Ski"
-  "llActive\022\023\n\013skillDamage\030\001 \001(\005\022\017\n\007skillMp"
-  "\030\002 \001(\005\022\024\n\014skillCasting\030\003 \001(\002\022\025\n\rskillDur"
-  "ation\030\004 \001(\002\022\025\n\rskillCoolDown\030\005 \001(\002\022&\n\tsk"
-  "illType\030\006 \001(\0162\023.Protocol.SkillType\"\242\002\n\007M"
-  "onster\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013monsterNam"
-  "e\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001(\005\022\022\n\nmonster"
-  "Exp\030\004 \001(\005\022\025\n\rmonsterDamage\030\005 \001(\005\022\026\n\016mons"
-  "terDefence\030\006 \001(\005\022\021\n\tmonsterHp\030\007 \001(\002\022\024\n\014m"
-  "onsterMaxHp\030\010 \001(\002\022\025\n\rmonsterTransX\030\t \001(\002"
-  "\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\rmonsterTransZ"
-  "\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001(\003\022\021\n\tmonsterI"
-  "d\030\r \001(\003\"\205\001\n\006Talent\022\023\n\013firstTalent\030\001 \001(\005\022"
-  "\022\n\nfirstLevel\030\002 \001(\005\022\024\n\014secondTalent\030\003 \001("
-  "\005\022\023\n\013secondLevel\030\004 \001(\005\022\023\n\013thirdTalent\030\005 "
-  "\001(\005\022\022\n\nthirdLevel\030\006 \001(\005b\006proto3"
+  "Player\022\013\n\003seq\030\001 \001(\004\"\261\002\n\004Item\022\017\n\007itemSeq\030"
+  "\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\005\022\014\n\004ran"
+  "k\030\004 \001(\005\022\020\n\010USELevel\030\005 \001(\005\022\021\n\tsalePrice\030\006"
+  " \001(\005\022\021\n\tusePeriod\030\007 \001(\005\022\014\n\004text\030\010 \001(\t\022\016\n"
+  "\006itemId\030\t \001(\003\022\023\n\013itemSlotIdx\030\n \001(\005\022 \n\005eq"
+  "uip\030\013 \001(\0132\017.Protocol.EquipH\000\022,\n\013consumpt"
+  "ion\030\014 \001(\0132\025.Protocol.ConsumptionH\000\022$\n\007et"
+  "cItem\030\r \001(\0132\021.Protocol.EtcItemH\000B\r\n\013item"
+  "_detail\"\320\002\n\005Equip\022\034\n\004base\030\001 \001(\0132\016.Protoc"
+  "ol.Item\022\n\n\002hp\030\002 \001(\002\022\020\n\010hpAbsorb\030\003 \001(\002\022\n\n"
+  "\002mp\030\004 \001(\002\022\020\n\010mpAbsorb\030\005 \001(\002\022\020\n\010strength\030"
+  "\006 \001(\005\022\017\n\007agility\030\007 \001(\005\022\024\n\014intelligence\030\010"
+  " \001(\005\022\016\n\006attack\030\t \001(\002\022\017\n\007defence\030\n \001(\002\022\023\n"
+  "\013attackSpeed\030\013 \001(\002\022\021\n\tmoveSpeed\030\014 \001(\002\022\026\n"
+  "\016criticalChance\030\r \001(\002\022\026\n\016criticalDamage\030"
+  "\016 \001(\002\022\r\n\005avoid\030\017 \001(\002\022\031\n\021cooldownReductio"
+  "n\030\020 \001(\002\022\021\n\tequipPart\030\021 \001(\005\"\301\001\n\013Consumpti"
+  "on\022\034\n\004base\030\001 \001(\0132\016.Protocol.Item\022\020\n\010cool"
+  "down\030\002 \001(\005\022\r\n\005value\030\003 \001(\005\022\020\n\010duration\030\004 "
+  "\001(\005\022\022\n\nstatusType\030\005 \001(\005\022\017\n\007conType\030\006 \001(\005"
+  "\022\020\n\010conIndex\030\007 \001(\005\022\024\n\014itemQuantity\030\010 \001(\005"
+  "\022\024\n\014itemMaxCount\030\t \001(\005\"d\n\007EtcItem\022\034\n\004bas"
+  "e\030\001 \001(\0132\016.Protocol.Item\022\017\n\007etcType\030\002 \001(\005"
+  "\022\024\n\014itemQuantity\030\003 \001(\005\022\024\n\014itemMaxCount\030\004"
+  " \001(\005\"b\n\rUserSetStatus\022\016\n\006userHp\030\001 \001(\005\022\016\n"
+  "\006userMp\030\002 \001(\005\022\017\n\007userStr\030\003 \001(\005\022\017\n\007userAg"
+  "i\030\004 \001(\005\022\017\n\007userInt\030\005 \001(\005\"\213\003\n\017UserTotalSt"
+  "atus\022\016\n\006userHp\030\001 \001(\002\022\024\n\014userHpAbsorb\030\002 \001"
+  "(\002\022\016\n\006userMp\030\003 \001(\002\022\024\n\014userMpAbsorb\030\004 \001(\002"
+  "\022\024\n\014userStrength\030\005 \001(\005\022\023\n\013userAgility\030\006 "
+  "\001(\005\022\030\n\020userIntelligence\030\007 \001(\005\022\021\n\tuserMax"
+  "Hp\030\010 \001(\002\022\021\n\tuserMaxMp\030\t \001(\002\022\022\n\nuserAttac"
+  "k\030\n \001(\002\022\023\n\013userDefence\030\013 \001(\002\022\027\n\017userAtta"
+  "ckSpeed\030\014 \001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022"
+  "userCriticalChance\030\016 \001(\002\022\032\n\022userCritical"
+  "Damage\030\017 \001(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userC"
+  "ooldownReduction\030\021 \001(\002\"\351\002\n\rUserCharacter"
+  "\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004"
+  "name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRan"
+  "k\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005"
+  "\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\016\n"
+  "\006transX\030\n \001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006transZ\030"
+  "\014 \001(\002\022\r\n\005mapId\030\r \001(\003\022*\n\tsetStatus\030\016 \001(\0132"
+  "\027.Protocol.UserSetStatus\022.\n\013totalStatus\030"
+  "\017 \001(\0132\031.Protocol.UserTotalStatus\022 \n\006tale"
+  "nt\030\020 \001(\0132\020.Protocol.Talent\"I\n\014UserPositi"
+  "on\022\017\n\007userSeq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004pos"
+  "Y\030\003 \001(\002\022\014\n\004posZ\030\004 \001(\002\"\205\001\n\005Skill\022\020\n\010skill"
+  "Seq\030\001 \001(\005\022\r\n\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 "
+  "\001(\004\022\017\n\007userSeq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \003(\r\022"
+  "\022\n\ntargetType\030\006 \001(\t\022\020\n\010skillIdx\030\007 \001(\005\"\302\002"
+  "\n\tSkillInfo\022\020\n\010skillSeq\030\001 \001(\005\022\017\n\007skillId"
+  "\030\002 \001(\005\022\021\n\tskillName\030\003 \001(\t\022\022\n\nskillLevel\030"
+  "\004 \001(\005\022\020\n\010skillIdx\030\005 \001(\005\022\014\n\004Cost\030\006 \001(\005\022\020\n"
+  "\010CoolTime\030\007 \001(\002\022\021\n\tskillText\030\010 \001(\t\022\025\n\rsk"
+  "illDistance\030\t \001(\005\022\021\n\tskillKind\030\n \001(\005\022\025\n\r"
+  "skillAbnormal\030\013 \001(\005\0223\n\020skilPasiveStatus\030"
+  "\014 \001(\0132\031.Protocol.UserTotalStatus\0220\n\021skil"
+  "lActiveStatus\030\r \001(\0132\025.Protocol.SkillActi"
+  "ve\"\237\001\n\013SkillActive\022\023\n\013skillDamage\030\001 \001(\005\022"
+  "\017\n\007skillMp\030\002 \001(\005\022\024\n\014skillCasting\030\003 \001(\002\022\025"
+  "\n\rskillDuration\030\004 \001(\002\022\025\n\rskillCoolDown\030\005"
+  " \001(\002\022&\n\tskillType\030\006 \001(\0162\023.Protocol.Skill"
+  "Type\"\242\002\n\007Monster\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013"
+  "monsterName\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001(\005\022"
+  "\022\n\nmonsterExp\030\004 \001(\005\022\025\n\rmonsterDamage\030\005 \001"
+  "(\005\022\026\n\016monsterDefence\030\006 \001(\005\022\021\n\tmonsterHp\030"
+  "\007 \001(\002\022\024\n\014monsterMaxHp\030\010 \001(\002\022\025\n\rmonsterTr"
+  "ansX\030\t \001(\002\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\rmon"
+  "sterTransZ\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001(\003\022\021"
+  "\n\tmonsterId\030\r \001(\003\"\205\001\n\006Talent\022\023\n\013firstTal"
+  "ent\030\001 \001(\005\022\022\n\nfirstLevel\030\002 \001(\005\022\024\n\014secondT"
+  "alent\030\003 \001(\005\022\023\n\013secondLevel\030\004 \001(\005\022\023\n\013thir"
+  "dTalent\030\005 \001(\005\022\022\n\nthirdLevel\030\006 \001(\005b\006proto"
+  "3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 2951, descriptor_table_protodef_Struct_2eproto,
+    false, false, 3001, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 14,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -924,16 +930,14 @@ Item::Item(const Item& from)
   Item* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
-    , decltype(_impl_.type_){}
     , decltype(_impl_.text_){}
     , decltype(_impl_.itemseq_){}
+    , decltype(_impl_.type_){}
     , decltype(_impl_.rank_){}
-    , decltype(_impl_.equiplevel_){}
+    , decltype(_impl_.uselevel_){}
     , decltype(_impl_.saleprice_){}
     , decltype(_impl_.useperiod_){}
-    , decltype(_impl_.itemvalue_){}
     , decltype(_impl_.itemid_){}
-    , decltype(_impl_.itemmax_){}
     , decltype(_impl_.itemslotidx_){}
     , decltype(_impl_.item_detail_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -946,14 +950,6 @@ Item::Item(const Item& from)
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
     _this->_impl_.name_.Set(from._internal_name(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.type_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.type_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_type().empty()) {
-    _this->_impl_.type_.Set(from._internal_type(), 
       _this->GetArenaForAllocation());
   }
   _impl_.text_.InitDefault();
@@ -997,16 +993,14 @@ inline void Item::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.name_){}
-    , decltype(_impl_.type_){}
     , decltype(_impl_.text_){}
     , decltype(_impl_.itemseq_){0}
+    , decltype(_impl_.type_){0}
     , decltype(_impl_.rank_){0}
-    , decltype(_impl_.equiplevel_){0}
+    , decltype(_impl_.uselevel_){0}
     , decltype(_impl_.saleprice_){0}
     , decltype(_impl_.useperiod_){0}
-    , decltype(_impl_.itemvalue_){0}
     , decltype(_impl_.itemid_){int64_t{0}}
-    , decltype(_impl_.itemmax_){0}
     , decltype(_impl_.itemslotidx_){0}
     , decltype(_impl_.item_detail_){}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -1015,10 +1009,6 @@ inline void Item::SharedCtor(
   _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.type_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.type_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1039,7 +1029,6 @@ Item::~Item() {
 inline void Item::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.name_.Destroy();
-  _impl_.type_.Destroy();
   _impl_.text_.Destroy();
   if (has_item_detail()) {
     clear_item_detail();
@@ -1086,7 +1075,6 @@ void Item::Clear() {
   (void) cached_has_bits;
 
   _impl_.name_.ClearToEmpty();
-  _impl_.type_.ClearToEmpty();
   _impl_.text_.ClearToEmpty();
   ::memset(&_impl_.itemseq_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.itemslotidx_) -
@@ -1119,13 +1107,11 @@ const char* Item::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // string type = 3;
+      // int32 type = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_type();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "Protocol.Item.type"));
         } else
           goto handle_unusual;
         continue;
@@ -1137,10 +1123,10 @@ const char* Item::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // int32 equipLevel = 5;
+      // int32 USELevel = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          _impl_.equiplevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.uselevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1171,57 +1157,41 @@ const char* Item::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // int32 itemValue = 9;
+      // int64 itemId = 9;
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          _impl_.itemvalue_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 itemMax = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          _impl_.itemmax_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int64 itemId = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _impl_.itemid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 itemSlotIdx = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+      // int32 itemSlotIdx = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _impl_.itemslotidx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Equip equip = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+      // .Protocol.Equip equip = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_equip(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Consumption consumption = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+      // .Protocol.Consumption consumption = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_consumption(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.EtcItem etcItem = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+      // .Protocol.EtcItem etcItem = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_etcitem(), ptr);
           CHK_(ptr);
         } else
@@ -1272,14 +1242,10 @@ uint8_t* Item::_InternalSerialize(
         2, this->_internal_name(), target);
   }
 
-  // string type = 3;
-  if (!this->_internal_type().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_type().data(), static_cast<int>(this->_internal_type().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.Item.type");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_type(), target);
+  // int32 type = 3;
+  if (this->_internal_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_type(), target);
   }
 
   // int32 rank = 4;
@@ -1288,10 +1254,10 @@ uint8_t* Item::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_rank(), target);
   }
 
-  // int32 equipLevel = 5;
-  if (this->_internal_equiplevel() != 0) {
+  // int32 USELevel = 5;
+  if (this->_internal_uselevel() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_equiplevel(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_uselevel(), target);
   }
 
   // int32 salePrice = 6;
@@ -1316,48 +1282,36 @@ uint8_t* Item::_InternalSerialize(
         8, this->_internal_text(), target);
   }
 
-  // int32 itemValue = 9;
-  if (this->_internal_itemvalue() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_itemvalue(), target);
-  }
-
-  // int32 itemMax = 10;
-  if (this->_internal_itemmax() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_itemmax(), target);
-  }
-
-  // int64 itemId = 11;
+  // int64 itemId = 9;
   if (this->_internal_itemid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(11, this->_internal_itemid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(9, this->_internal_itemid(), target);
   }
 
-  // int32 itemSlotIdx = 12;
+  // int32 itemSlotIdx = 10;
   if (this->_internal_itemslotidx() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(12, this->_internal_itemslotidx(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_itemslotidx(), target);
   }
 
-  // .Protocol.Equip equip = 13;
+  // .Protocol.Equip equip = 11;
   if (_internal_has_equip()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(13, _Internal::equip(this),
+      InternalWriteMessage(11, _Internal::equip(this),
         _Internal::equip(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.Consumption consumption = 14;
+  // .Protocol.Consumption consumption = 12;
   if (_internal_has_consumption()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(14, _Internal::consumption(this),
+      InternalWriteMessage(12, _Internal::consumption(this),
         _Internal::consumption(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.EtcItem etcItem = 15;
+  // .Protocol.EtcItem etcItem = 13;
   if (_internal_has_etcitem()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(15, _Internal::etcitem(this),
+      InternalWriteMessage(13, _Internal::etcitem(this),
         _Internal::etcitem(this).GetCachedSize(), target, stream);
   }
 
@@ -1384,13 +1338,6 @@ size_t Item::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // string type = 3;
-  if (!this->_internal_type().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_type());
-  }
-
   // string text = 8;
   if (!this->_internal_text().empty()) {
     total_size += 1 +
@@ -1403,14 +1350,19 @@ size_t Item::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemseq());
   }
 
+  // int32 type = 3;
+  if (this->_internal_type() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_type());
+  }
+
   // int32 rank = 4;
   if (this->_internal_rank() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_rank());
   }
 
-  // int32 equipLevel = 5;
-  if (this->_internal_equiplevel() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_equiplevel());
+  // int32 USELevel = 5;
+  if (this->_internal_uselevel() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_uselevel());
   }
 
   // int32 salePrice = 6;
@@ -1423,42 +1375,32 @@ size_t Item::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_useperiod());
   }
 
-  // int32 itemValue = 9;
-  if (this->_internal_itemvalue() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemvalue());
-  }
-
-  // int64 itemId = 11;
+  // int64 itemId = 9;
   if (this->_internal_itemid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_itemid());
   }
 
-  // int32 itemMax = 10;
-  if (this->_internal_itemmax() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemmax());
-  }
-
-  // int32 itemSlotIdx = 12;
+  // int32 itemSlotIdx = 10;
   if (this->_internal_itemslotidx() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemslotidx());
   }
 
   switch (item_detail_case()) {
-    // .Protocol.Equip equip = 13;
+    // .Protocol.Equip equip = 11;
     case kEquip: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.item_detail_.equip_);
       break;
     }
-    // .Protocol.Consumption consumption = 14;
+    // .Protocol.Consumption consumption = 12;
     case kConsumption: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.item_detail_.consumption_);
       break;
     }
-    // .Protocol.EtcItem etcItem = 15;
+    // .Protocol.EtcItem etcItem = 13;
     case kEtcItem: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1490,20 +1432,20 @@ void Item::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   if (!from._internal_name().empty()) {
     _this->_internal_set_name(from._internal_name());
   }
-  if (!from._internal_type().empty()) {
-    _this->_internal_set_type(from._internal_type());
-  }
   if (!from._internal_text().empty()) {
     _this->_internal_set_text(from._internal_text());
   }
   if (from._internal_itemseq() != 0) {
     _this->_internal_set_itemseq(from._internal_itemseq());
   }
+  if (from._internal_type() != 0) {
+    _this->_internal_set_type(from._internal_type());
+  }
   if (from._internal_rank() != 0) {
     _this->_internal_set_rank(from._internal_rank());
   }
-  if (from._internal_equiplevel() != 0) {
-    _this->_internal_set_equiplevel(from._internal_equiplevel());
+  if (from._internal_uselevel() != 0) {
+    _this->_internal_set_uselevel(from._internal_uselevel());
   }
   if (from._internal_saleprice() != 0) {
     _this->_internal_set_saleprice(from._internal_saleprice());
@@ -1511,14 +1453,8 @@ void Item::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   if (from._internal_useperiod() != 0) {
     _this->_internal_set_useperiod(from._internal_useperiod());
   }
-  if (from._internal_itemvalue() != 0) {
-    _this->_internal_set_itemvalue(from._internal_itemvalue());
-  }
   if (from._internal_itemid() != 0) {
     _this->_internal_set_itemid(from._internal_itemid());
-  }
-  if (from._internal_itemmax() != 0) {
-    _this->_internal_set_itemmax(from._internal_itemmax());
   }
   if (from._internal_itemslotidx() != 0) {
     _this->_internal_set_itemslotidx(from._internal_itemslotidx());
@@ -1565,10 +1501,6 @@ void Item::InternalSwap(Item* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.name_, lhs_arena,
       &other->_impl_.name_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.type_, lhs_arena,
-      &other->_impl_.type_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.text_, lhs_arena,
@@ -2352,6 +2284,8 @@ Consumption::Consumption(const Consumption& from)
     , decltype(_impl_.statustype_){}
     , decltype(_impl_.contype_){}
     , decltype(_impl_.conindex_){}
+    , decltype(_impl_.itemquantity_){}
+    , decltype(_impl_.itemmaxcount_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -2359,8 +2293,8 @@ Consumption::Consumption(const Consumption& from)
     _this->_impl_.base_ = new ::Protocol::Item(*from._impl_.base_);
   }
   ::memcpy(&_impl_.cooldown_, &from._impl_.cooldown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.conindex_) -
-    reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.conindex_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.itemmaxcount_) -
+    reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.itemmaxcount_));
   // @@protoc_insertion_point(copy_constructor:Protocol.Consumption)
 }
 
@@ -2376,6 +2310,8 @@ inline void Consumption::SharedCtor(
     , decltype(_impl_.statustype_){0}
     , decltype(_impl_.contype_){0}
     , decltype(_impl_.conindex_){0}
+    , decltype(_impl_.itemquantity_){0}
+    , decltype(_impl_.itemmaxcount_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2409,8 +2345,8 @@ void Consumption::Clear() {
   }
   _impl_.base_ = nullptr;
   ::memset(&_impl_.cooldown_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.conindex_) -
-      reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.conindex_));
+      reinterpret_cast<char*>(&_impl_.itemmaxcount_) -
+      reinterpret_cast<char*>(&_impl_.cooldown_)) + sizeof(_impl_.itemmaxcount_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2472,6 +2408,22 @@ const char* Consumption::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _impl_.conindex_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 itemQuantity = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _impl_.itemquantity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 itemMaxCount = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _impl_.itemmaxcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2548,6 +2500,18 @@ uint8_t* Consumption::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_conindex(), target);
   }
 
+  // int32 itemQuantity = 8;
+  if (this->_internal_itemquantity() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(8, this->_internal_itemquantity(), target);
+  }
+
+  // int32 itemMaxCount = 9;
+  if (this->_internal_itemmaxcount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_itemmaxcount(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2601,6 +2565,16 @@ size_t Consumption::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_conindex());
   }
 
+  // int32 itemQuantity = 8;
+  if (this->_internal_itemquantity() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemquantity());
+  }
+
+  // int32 itemMaxCount = 9;
+  if (this->_internal_itemmaxcount() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemmaxcount());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2641,6 +2615,12 @@ void Consumption::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_conindex() != 0) {
     _this->_internal_set_conindex(from._internal_conindex());
   }
+  if (from._internal_itemquantity() != 0) {
+    _this->_internal_set_itemquantity(from._internal_itemquantity());
+  }
+  if (from._internal_itemmaxcount() != 0) {
+    _this->_internal_set_itemmaxcount(from._internal_itemmaxcount());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2659,8 +2639,8 @@ void Consumption::InternalSwap(Consumption* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Consumption, _impl_.conindex_)
-      + sizeof(Consumption::_impl_.conindex_)
+      PROTOBUF_FIELD_OFFSET(Consumption, _impl_.itemmaxcount_)
+      + sizeof(Consumption::_impl_.itemmaxcount_)
       - PROTOBUF_FIELD_OFFSET(Consumption, _impl_.base_)>(
           reinterpret_cast<char*>(&_impl_.base_),
           reinterpret_cast<char*>(&other->_impl_.base_));
@@ -2695,13 +2675,17 @@ EtcItem::EtcItem(const EtcItem& from)
   new (&_impl_) Impl_{
       decltype(_impl_.base_){nullptr}
     , decltype(_impl_.etctype_){}
+    , decltype(_impl_.itemquantity_){}
+    , decltype(_impl_.itemmaxcount_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_base()) {
     _this->_impl_.base_ = new ::Protocol::Item(*from._impl_.base_);
   }
-  _this->_impl_.etctype_ = from._impl_.etctype_;
+  ::memcpy(&_impl_.etctype_, &from._impl_.etctype_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.itemmaxcount_) -
+    reinterpret_cast<char*>(&_impl_.etctype_)) + sizeof(_impl_.itemmaxcount_));
   // @@protoc_insertion_point(copy_constructor:Protocol.EtcItem)
 }
 
@@ -2712,6 +2696,8 @@ inline void EtcItem::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.base_){nullptr}
     , decltype(_impl_.etctype_){0}
+    , decltype(_impl_.itemquantity_){0}
+    , decltype(_impl_.itemmaxcount_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2744,7 +2730,9 @@ void EtcItem::Clear() {
     delete _impl_.base_;
   }
   _impl_.base_ = nullptr;
-  _impl_.etctype_ = 0;
+  ::memset(&_impl_.etctype_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.itemmaxcount_) -
+      reinterpret_cast<char*>(&_impl_.etctype_)) + sizeof(_impl_.itemmaxcount_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2766,6 +2754,22 @@ const char* EtcItem::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.etctype_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 itemQuantity = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.itemquantity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 itemMaxCount = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.itemmaxcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2812,6 +2816,18 @@ uint8_t* EtcItem::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_etctype(), target);
   }
 
+  // int32 itemQuantity = 3;
+  if (this->_internal_itemquantity() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_itemquantity(), target);
+  }
+
+  // int32 itemMaxCount = 4;
+  if (this->_internal_itemmaxcount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_itemmaxcount(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2840,6 +2856,16 @@ size_t EtcItem::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_etctype());
   }
 
+  // int32 itemQuantity = 3;
+  if (this->_internal_itemquantity() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemquantity());
+  }
+
+  // int32 itemMaxCount = 4;
+  if (this->_internal_itemmaxcount() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_itemmaxcount());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2865,6 +2891,12 @@ void EtcItem::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   if (from._internal_etctype() != 0) {
     _this->_internal_set_etctype(from._internal_etctype());
   }
+  if (from._internal_itemquantity() != 0) {
+    _this->_internal_set_itemquantity(from._internal_itemquantity());
+  }
+  if (from._internal_itemmaxcount() != 0) {
+    _this->_internal_set_itemmaxcount(from._internal_itemmaxcount());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2883,8 +2915,8 @@ void EtcItem::InternalSwap(EtcItem* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EtcItem, _impl_.etctype_)
-      + sizeof(EtcItem::_impl_.etctype_)
+      PROTOBUF_FIELD_OFFSET(EtcItem, _impl_.itemmaxcount_)
+      + sizeof(EtcItem::_impl_.itemmaxcount_)
       - PROTOBUF_FIELD_OFFSET(EtcItem, _impl_.base_)>(
           reinterpret_cast<char*>(&_impl_.base_),
           reinterpret_cast<char*>(&other->_impl_.base_));
