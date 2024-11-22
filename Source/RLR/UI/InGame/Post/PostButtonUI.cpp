@@ -26,8 +26,10 @@ void UPostButtonUI::NativePreConstruct()
 void UPostButtonUI::OnPostButtonClicked()
 {
     SetButtonState(true);
-    OnPostButtonClick.Broadcast(PostInfo, this);
     GameInstance->GetNetworkManager()->SendPostReadRequest(PostInfo);
+    PostInfo.IsRead = true;
+    OnPostButtonClick.Broadcast(PostInfo, this);
+    GameInstance->GetNetworkManager()->SendPostGetRequest();
 }
 
 void UPostButtonUI::SetPostInfo(const FPostResult& InPost, bool bIsSentPost)

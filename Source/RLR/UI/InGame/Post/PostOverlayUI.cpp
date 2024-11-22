@@ -4,6 +4,7 @@
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostTabWidget.h"
+#include "UI/InGame/Post/PostButtonUI.h"
 #include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "UI/InGame/Popup/ConfirmMessageBox.h"
@@ -16,6 +17,7 @@
 
 #include "Structs/UtilStructs.h"
 #include "Components/GridPanel.h"
+#include "Components/SizeBox.h"
 #include "Components/EditableTextBox.h"
 #include "Components/MultiLineEditableText.h"
 #include "Components/WidgetSwitcher.h"
@@ -127,6 +129,16 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
+		if (PostWidgetSwitcher->GetActiveWidget() != PostReceivedTabWidget)
+		{
+			PostReceivedTabWidget->PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+			if (PostReceivedTabWidget->SelectedPostButton != nullptr)
+			{
+				PostReceivedTabWidget->SelectedPostButton->SetButtonState(false);
+				PostReceivedTabWidget->SelectedPostButton = nullptr;
+			}
+			PostReceivedTabWidget->SelectedPost = FPostResult();
+		}
 		PostWidgetSwitcher->SetActiveWidgetIndex(0);
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 		OnPostGetRequestComplete();
@@ -145,6 +157,16 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
+		if (PostWidgetSwitcher->GetActiveWidget() != PostSentTabWidget)
+		{
+			PostSentTabWidget->PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+			if (PostSentTabWidget->SelectedPostButton != nullptr)
+			{
+				PostSentTabWidget->SelectedPostButton->SetButtonState(false);
+				PostSentTabWidget->SelectedPostButton = nullptr;
+			}
+			PostSentTabWidget->SelectedPost = FPostResult();
+		}
 		PostWidgetSwitcher->SetActiveWidgetIndex(1); // 발신함 위젯으로 전환
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 		OnPostSentRequestComplete();

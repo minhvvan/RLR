@@ -65,9 +65,6 @@ public:
     USizeBox* PostList_SizeBox;
 
     UPROPERTY(meta = (BindWidget))
-    UVerticalBox* PostVerticalBox;
-
-    UPROPERTY(meta = (BindWidget))
     UTextBlock* IdText;
 
     UPROPERTY(meta = (BindWidget))
@@ -114,13 +111,13 @@ public:
     UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PageSwitcher;
 
-    // 한 페이지에 표시할 버튼 최대 수
+    // 한 페이지에 표시할 버튼 최대 수 = 5
     UPROPERTY(EditDefaultsOnly, Category = "UI")
-    int32 MaxButtonsPerPage = 10;  
+    int32 MaxButtonsPerPage = 5;  
 
     // 현재 사용 중인 VerticalBox
     UVerticalBox* CurrentVerticalBox;
-
+    TArray<UVerticalBox*> VerticalBoxes;
 
     UPROPERTY()
     TMap<FString, UPostButtonUI*> PostButtons;
