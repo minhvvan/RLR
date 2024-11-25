@@ -5,6 +5,7 @@
 #include "UI/InGame/Post/PostButtonUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
+#include "UI/InGame/Popup/ConfirmMessageBox.h"
 #include "Components/Button.h"
 #include "Components/CheckBox.h"
 #include "Components/TextBlock.h"
@@ -14,11 +15,12 @@
 #include "Components/MultiLineEditableText.h"
 #include "Components/SizeBox.h"
 #include "Components/GridPanel.h"
-#include "Structs/UtilStructs.h"
+#include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/PostalManager.h"
 #include "GameManager/NetworkManager.h"
 
+#include "Structs/UtilStructs.h"
 
 
 void UPostTabWidget::NativeConstruct()
@@ -27,7 +29,7 @@ void UPostTabWidget::NativeConstruct()
 
     if (RemovePostButton)
     {
-        RemovePostButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnRemoveButtonClicked);
+        RemovePostButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OpenRemovePostConfirmBox);
     }
     if (AcceptAllButton)
     {
@@ -45,6 +47,10 @@ void UPostTabWidget::NativeConstruct()
     {
         PrevPageButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::SwitchPrevPage);
     }
+    if (ReplyButton)
+    {
+        ReplyButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnReplyButtonClicked);
+    }
 
     /* 우편 여러개 선택 후 첨부물 받기 or 우편 삭제 버튼 클릭 */
     if (ReceiveAttachmentsButton)
@@ -53,7 +59,7 @@ void UPostTabWidget::NativeConstruct()
     }
     if (RemoveSelectedButton)
     {
-        RemoveSelectedButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnRemoveSelectedButtonClicked);
+        RemoveSelectedButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OpenRemovePostsConfirmBox);
     }
 }
 
@@ -114,6 +120,20 @@ void UPostTabWidget::RemovePost(FPostResult Post)
                 if (UVerticalBox* ActiveVerticalBox = Cast<UVerticalBox>(ActiveWidget))
                 {
                     ActiveVerticalBox->RemoveChild(PostButton);
+
+                    /* 현재 페이지에 존재하는 우편이 없다면 */
+                    if (ActiveVerticalBox->GetChildrenCount() < 1)
+                    {
+                        PageSwitcher->RemoveChild(ActiveWidget);
+                        int32 TotalPage = PageSwitcher->GetNumWidgets() > 0 ? PageSwitcher->GetNumWidgets() : 1;
+
+                        FText PageText = FText::Format(
+                            FText::FromString(TEXT("{0}/{1}")),
+                            FText::AsNumber(PageSwitcher->GetActiveWidgetIndex() + 1),
+                            FText::AsNumber(TotalPage)
+                        );
+                        CurrentPageText->SetText(PageText);
+                    }
                 }
                 PostButton->SetButtonState(false);
             }
@@ -419,4 +439,22 @@ void UPostTabWidget::SwitchPrevPage()
     );
 
     CurrentPageText->SetText(PageText);
+}
+
+void UPostTabWidget::OpenRemovePostsConfirmBox()
+{
+    /* 삭제 팝업 띄우기 -> Yes면 아래 내용 복붙 */
+    OnRemovePostsButtonClicked.Broadcast();
+}
+
+void UPostTabWidget::OpenRemovePostConfirmBox()
+{
+    OnRemoveOnePostButtonClicked.Broadcast();
+}
+
+/* 우편 답신 기능 */
+void UPostTabWidget::OnReplyButtonClicked()
+{
+    /* 우편 보낸 사람 ID 전달 */
+    OnPostReplyButtonClicked.Broadcast(IdText->GetText());
 }

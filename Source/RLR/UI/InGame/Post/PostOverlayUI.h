@@ -57,6 +57,19 @@ public:
 	UFUNCTION()
 	void OnClickedCancelButton(UConfirmMessageBox* MessageBox);
 
+    UFUNCTION()
+    void ConfirmDeletePosts();
+    UFUNCTION()
+    void ConfirmDeletePost();
+
+    UFUNCTION()
+    void OnClickedDeletePostsConfirmButton(UConfirmMessageBox* MessageBox);
+    UFUNCTION()
+    void OnClickedDeletePostConfirmButton(UConfirmMessageBox* MessageBox);
+
+    UFUNCTION()
+    void OnReplyButtonClicked(FText SIdText);
+
     void UpdatePostWidget();
 
     void SetSentPostData(const TArray<FPostResult>& NewPostResult);

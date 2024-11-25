@@ -19,6 +19,9 @@ class UVerticalBox;
 class UPostButtonUI;
 class AGameManager;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRemovePostsButtonClicked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRemoveOnePostButtonClicked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPostReplyButtonClicked, FText, IdText);
 
 UCLASS()
 class RLR_API UPostTabWidget : public UUserWidget
@@ -54,6 +57,20 @@ public:
     UFUNCTION()
     void SwitchPrevPage();
 
+    UFUNCTION()
+    void OpenRemovePostsConfirmBox();
+
+	UFUNCTION()
+	void OpenRemovePostConfirmBox();
+
+    UFUNCTION()
+	void OnReplyButtonClicked();
+    
+    /* 우편 삭제 관련 */
+    FOnRemovePostsButtonClicked OnRemovePostsButtonClicked;
+    FOnRemoveOnePostButtonClicked OnRemoveOnePostButtonClicked;
+    /* 우편 답신 관련 */
+    FOnPostReplyButtonClicked OnPostReplyButtonClicked;
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post")
     bool bIsSentTab;
@@ -104,6 +121,9 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UButton* PostPageButton;
+    
+    UPROPERTY(meta = (BindWidgetOptional))
+    UButton* ReplyButton;
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* CurrentPageText;

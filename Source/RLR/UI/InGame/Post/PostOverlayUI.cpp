@@ -34,11 +34,28 @@ void UPostOverlayUI::NativeConstruct()
 
 	GameInstance->GetPostalManager()->PostUIClass = this;
 	if (ReceivedPostButton)
+	{
 		ReceivedPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
+	}
 	if (SentPostButton)
+	{
 		SentPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnSentPostButtonClicked);
+	}
 	if (WritePostButton)
+	{
 		WritePostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnWritePostButtonClicked);
+	}
+	if (PostReceivedTabWidget)
+	{
+		PostReceivedTabWidget->OnRemovePostsButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePosts);
+		PostReceivedTabWidget->OnRemoveOnePostButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePost);
+		PostReceivedTabWidget->OnPostReplyButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReplyButtonClicked);
+	}
+	if(PostSentTabWidget)
+	{
+		PostSentTabWidget->OnRemovePostsButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePosts);
+		PostSentTabWidget->OnRemoveOnePostButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePost);
+	}
 }
 
 void UPostOverlayUI::Init()
@@ -183,13 +200,10 @@ void UPostOverlayUI::OnPostSentRequestComplete()
 
 bool UPostOverlayUI::GetWritingPostStatus()
 {
-	if (PostWidgetSwitcher->GetActiveWidgetIndex() == 2)
+	/* 우편 작성 탭이 열려있고, 작성중인 내용이 있다면 */
+	if (!PostWriteTabWidget->RecipientIdText->GetText().IsEmpty() || !PostWriteTabWidget->PostTitleText->GetText().IsEmpty())
 	{
-		/* 우편 작성 탭이 열려있고, 작성중인 내용이 있다면 */
-		if (!PostWriteTabWidget->RecipientIdText->GetText().IsEmpty() || !PostWriteTabWidget->PostTitleText->GetText().IsEmpty())
-		{
-			return true;
-		}
+		return true;
 	}
 	return false;
 }
@@ -201,6 +215,9 @@ void UPostOverlayUI::ManageWritingPost()
 	FText MessageText = STRING_TO_FTEXT("작성중인 우편이 있습니다. 창을 종료하면 작성 중이던 편지가 삭제됩니다.");
 	ConfirmMessageBox->SetMessageText(MessageText);
 
+	/* 기존의 수락, 취소 버튼 바인딩 삭제 */
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.Clear();
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.Clear();
 	//클릭, 취소 버튼 콜백 함수 등록
 	ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
 	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
@@ -223,7 +240,7 @@ void UPostOverlayUI::SetMaxSlotCount(int32 Count)
 	Init();
 	RefreshUI();
 }
-
+/* 우편 작성 중 나가기 버튼 클릭 시 뜨는 팝업에 수락 */
 void UPostOverlayUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
 {
 	if (PostWriteTabWidget)
@@ -234,11 +251,77 @@ void UPostOverlayUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
 
 		OnPostUIEnd.Broadcast();
 	}
+
+}
+
+void UPostOverlayUI::OnClickedDeletePostsConfirmButton(UConfirmMessageBox* MessageBox)
+{
+	if (PostReceivedTabWidget)
+	{
+		PostReceivedTabWidget->OnRemoveSelectedButtonClicked();
+		ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+	if (PostSentTabWidget)
+	{
+		PostSentTabWidget->OnRemoveSelectedButtonClicked();
+		ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void UPostOverlayUI::OnClickedDeletePostConfirmButton(UConfirmMessageBox* MessageBox)
+{
+	if (PostReceivedTabWidget)
+	{
+		PostReceivedTabWidget->OnRemoveButtonClicked();
+		ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+	if (PostSentTabWidget)
+	{
+		PostSentTabWidget->OnRemoveButtonClicked();
+		ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+/* 우편 답신 기능 */
+void UPostOverlayUI::OnReplyButtonClicked(FText IdText)
+{
+	/* writeTab으로 전환, writetab의 받는 이 닉네임을 나에게 우편 보낸 이로 채우기 */
+	PostWidgetSwitcher->SetActiveWidget(PostWriteTabWidget);
+	PostWriteTabWidget->RecipientIdText->SetText(IdText);
 }
 
 void UPostOverlayUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
 {
 	ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UPostOverlayUI::ConfirmDeletePosts()
+{
+	ConfirmMessageBox->SetVisibility(ESlateVisibility::Visible);
+	/* 기존의 수락, 취소 버튼 바인딩 삭제 */
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.Clear();
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.Clear();
+	//클릭, 취소 버튼 콜백 함수 등록
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedDeletePostsConfirmButton"));
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+
+	FText MessageText = STRING_TO_FTEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
+	ConfirmMessageBox->SetMessageText(MessageText);
+}
+
+void UPostOverlayUI::ConfirmDeletePost()
+{
+	ConfirmMessageBox->SetVisibility(ESlateVisibility::Visible);
+	/* 기존의 수락, 취소 버튼 바인딩 삭제 */
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.Clear();
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.Clear();
+	//클릭, 취소 버튼 콜백 함수 등록
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedDeletePostConfirmButton"));
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+
+	FText MessageText = STRING_TO_FTEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
+	ConfirmMessageBox->SetMessageText(MessageText);
 }
 
 void UPostOverlayUI::UpdatePostWidget()
