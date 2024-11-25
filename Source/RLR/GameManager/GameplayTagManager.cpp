@@ -125,6 +125,7 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
 	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
 	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
+	GameplayTags.UI_Popup_GoodsMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.GoodsMessageBox"), FString(TEXT("재화 입력 박스")));
 	
 	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Menu"), FString(TEXT("플레이어 메뉴")));
 	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.OverHead"), FString(TEXT("타 플레이어 체력바")));
