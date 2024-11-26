@@ -4,10 +4,12 @@
 #include "ActionSystem/Action/Interaction/ActionDialogue.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/PostalManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "UI/DialogueUI.h"
+#include "UI/InGame/Post/PostOverlayUI.h"
 #include "RLR.h"
 
 UActionDialogue::UActionDialogue()
@@ -49,6 +51,13 @@ void UActionDialogue::ActivateAction()
 		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq);
 		dialogueUI->UpdateNPCFunctionality();
 	}
+
+	UPostOverlayUI* PostUI = GameInstance->GetUIManager()->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	if (PostUI)
+	{
+		PostUI->OnPostUIEnd.Clear();
+		PostUI->OnPostUIEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
+	}
 }
 
 void UActionDialogue::CancelAction()
@@ -63,6 +72,14 @@ void UActionDialogue::EndAction()
 
 void UActionDialogue::OnDialogueEnded()
 {
-	GameInstance->GetUIManager()->ClosePage();
-	EndAction();
+	UPostOverlayUI* PostUI = GameInstance->GetUIManager()->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	if (PostUI->GetWritingPostStatus())
+	{
+		PostUI->ManageWritingPost();
+	}
+	else
+	{
+		GameInstance->GetUIManager()->ClosePage();
+		EndAction();
+	}
 }
