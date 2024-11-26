@@ -6,7 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "DialogueDynamicButton.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonClickedTwoParam, int32, ButtonType, int32, ButtonIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonClickedSendType, int32, ButtonType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonClickedSendIndex, int32, ButtonIndex);
 
 class UButton;
 class UTextBlock;
@@ -41,7 +42,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* ButtonText;
 
-	FOnButtonClickedTwoParam OnButtonClickedTwoParam;
+	FOnButtonClickedSendType OnButtonClickedSendType;
+	FOnButtonClickedSendIndex OnButtonClickedSendIndex;
 
 private:
 	int32 buttonIdx;

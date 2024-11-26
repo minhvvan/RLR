@@ -20,6 +20,15 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class ENPCFunctionality : uint8
+{
+	POST = 0,
+	STORAGE,
+	SIZE
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FObjectMap
 {
@@ -209,7 +218,7 @@ struct FNPCData
 
 	/* 임시, 우편 기능을 가지고 있는지도 판별해야 함 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool hasPostFunctionality;
+	int Functionality;
 
 	FString ToString() const
 	{

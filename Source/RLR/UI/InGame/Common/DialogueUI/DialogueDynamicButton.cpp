@@ -42,5 +42,6 @@ int32 UDialogueDynamicButton::GetButtonType()
 
 void UDialogueDynamicButton::OnButtonClicked()
 {
-	OnButtonClickedTwoParam.Broadcast(buttonType, buttonIdx);
+	OnButtonClickedSendType.Broadcast(buttonType);
+	OnButtonClickedSendIndex.Broadcast(buttonIdx);
 }
