@@ -15,6 +15,7 @@ class UPostReceivedTabWidget;
 class UPostWriteTabWidget;
 class UPostSentTabWidget;
 class UPostItemSlot;
+class UPostDetailUI;
 class UPostTabWidget;
 class UConfirmMessageBox;
 
@@ -37,12 +38,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void RefreshUI() override;
-
-    UFUNCTION()
-    void CreatePostSlots();
-
-    void CreatePostSlotWriteTab(int32 SlotCount);
-    void CreatePostSlotSentTab(int32 SlotCount);
 
     UFUNCTION()
     void OnReceivedPostButtonClicked();
@@ -106,6 +101,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UConfirmMessageBox> ConfirmMessageBox;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UPostDetailUI> PostDetailUI;
 
     UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PostWidgetSwitcher;
