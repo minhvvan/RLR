@@ -5,6 +5,7 @@
 #include "UI/InGame/Post/PostButtonUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
+#include "UI/InGame/Post/PostDetailUI.h"
 #include "UI/InGame/Popup/ConfirmMessageBox.h"
 #include "Components/Button.h"
 #include "Components/CheckBox.h"
@@ -27,14 +28,6 @@ void UPostTabWidget::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    if (RemovePostButton)
-    {
-        RemovePostButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OpenRemovePostConfirmBox);
-    }
-    if (AcceptAllButton)
-    {
-        AcceptAllButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnAcceptButtonClicked);
-    }
     if (SelectAllCheckBox)
     {
         SelectAllCheckBox->OnCheckStateChanged.AddUniqueDynamic(this, &UPostTabWidget::OnSelectAllCheckBoxChanged);
@@ -46,10 +39,6 @@ void UPostTabWidget::NativeConstruct()
     if (PrevPageButton)
     {
         PrevPageButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::SwitchPrevPage);
-    }
-    if (ReplyButton)
-    {
-        ReplyButton->OnClicked.AddUniqueDynamic(this, &UPostTabWidget::OnReplyButtonClicked);
     }
 
     /* 우편 여러개 선택 후 첨부물 받기 or 우편 삭제 버튼 클릭 */
@@ -139,21 +128,14 @@ void UPostTabWidget::RemovePost(FPostResult Post)
             }
 
             /* TODO : 서버에 삭제된 우편을 제외한 post목록을 전달하여 목록 새로고침하기 */
+            postCount > 0 ? postCount-- : postCount = 0;
+            PostCountText->SetText(FText::AsNumber(postCount));
             PostButtons.Remove(SelectedPost.Title);
             SelectedPost = FPostResult();
             SelectedPostButton = nullptr;
             UpdatePostDetails(SelectedPost);
             GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
         });
-}
-
-void UPostTabWidget::OnAcceptButtonClicked()
-{
-    /*
-		인벤토리에 아이템 추가, 재화 추가
-		GameInstance->GetNetWorkManager()->SendPostReceivedRequest(Post);
-    */
-    GameInstance->GetNetworkManager()->SendPostReceivedRequest(SelectedPost);
 }
 
 void UPostTabWidget::OnRemoveButtonClicked()
@@ -216,17 +198,7 @@ void UPostTabWidget::ClearPostList()
         return;
     }
 
-    if (PostSlotGridPanel)
-    {
-        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
-        for (UWidget* slot : Slots)
-        {
-            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
-            {
-                ItemSlot->Clear();
-            }
-        }
-    }
+    PostOverlayUI->PostDetailUI->ClearPostSlots();
 
     if (PageSwitcher)
     {
@@ -242,6 +214,8 @@ void UPostTabWidget::ClearPostList()
 
     VerticalBoxes.Empty();
     PostButtons.Empty();
+    postCount = 0;
+    PostCountText->SetText(FText::AsNumber(postCount));
 }
 
 void UPostTabWidget::CreateNewPage()
@@ -293,6 +267,8 @@ void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
                         }
                     VerticalBoxes.Last()->AddChild(PostButton);
                     PostButtons.Add(Post.Title, PostButton);
+                    postCount++;
+                    PostCountText->SetText(FText::AsNumber(postCount));
                 }
             }
         });
@@ -302,62 +278,8 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 {
     SelectedPost = Post;
     
-    if (PostSlotGridPanel)
-    {
-        TArray<UWidget*> Slots = PostSlotGridPanel->GetAllChildren();
-        for (UWidget* slot : Slots)
-        {
-            if (UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(slot))
-            {
-                ItemSlot->Clear();
-            }
-        }
-    }
-
-    if (IdText)
-    {
-        IdText->SetText(FText::FromString(bIsSentTab ? Post.ReceiverName : Post.SenderName));
-    }
-    if (PostTitleText)
-    {
-        PostTitleText->SetText(FText::FromString(Post.Title));
-    }
-    if (PostContentText)
-    {
-        PostContentText->SetText(FText::FromString(Post.Content));
-    }
-    if (PostSlotGridPanel)
-    {
-        int32 SlotIndex = 0;
-
-        for (const auto& ItemValuePair : Post.ItemValues)
-        {
-            int64 ItemId = ItemValuePair.Key;
-            int32 ItemCount = ItemValuePair.Value;
-
-            for (int32 Count = 0; Count < ItemCount; Count++)
-            {
-                // 슬롯 가져오기
-                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
-                if (ItemSlot)
-                {
-                    // 아이템 데이터 설정
-                    ItemSlot->SetSlot(ItemId);
-                }
-
-                // 다음 슬롯으로 이동
-                SlotIndex++;
-            }
-        }
-    }
-    if (TotalMoney)
-    {
-        TotalMoney->SetText(FText::AsNumber(Post.TotalMoney));
-    }
-    if (ReadStatus)
-    {
-        ReadStatus->SetText(FText::FromString(bIsSentTab ? "" : "Read"));
-    }
+    PostOverlayUI->PostDetailUI->ClearPostSlots();
+    PostOverlayUI->PostDetailUI->UpdatePostDetails(Post, bIsSentTab);
 }
 
 void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI)
@@ -371,7 +293,7 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
         if (!SelectedPost.Title.IsEmpty() && PostButtons.Contains(SelectedPost.Title))
         {
             SelectedPostButton->SetButtonState(false);
-            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            PostOverlayUI->PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
             SelectedPostButton = nullptr;
             SelectedPost = FPostResult();
             UpdatePostDetails(SelectedPost);
@@ -379,7 +301,7 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
         else
         {
             SelectedPostButton->SetButtonState(false);
-            PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
+            PostOverlayUI->PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
             SelectedPostButton = nullptr;
             SelectedPost = FPostResult();
             UpdatePostDetails(SelectedPost);
@@ -391,7 +313,7 @@ void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostBu
     {
         SelectedPostButton->SetButtonState(false);
     }
-    PostList_SizeBox->SetVisibility(ESlateVisibility::Visible);
+    PostOverlayUI->PostDetailUI->SetVisibility(ESlateVisibility::Visible);
     UpdatePostDetails(ClickedPost);
     SelectedPostButton = PostButtonUI;
 }
@@ -447,14 +369,3 @@ void UPostTabWidget::OpenRemovePostsConfirmBox()
     OnRemovePostsButtonClicked.Broadcast();
 }
 
-void UPostTabWidget::OpenRemovePostConfirmBox()
-{
-    OnRemoveOnePostButtonClicked.Broadcast();
-}
-
-/* 우편 답신 기능 */
-void UPostTabWidget::OnReplyButtonClicked()
-{
-    /* 우편 보낸 사람 ID 전달 */
-    OnPostReplyButtonClicked.Broadcast(IdText->GetText());
-}
