@@ -17,6 +17,8 @@ class RLR_API UStorageSlot : public USlotUI, public IUserObjectListEntry
 	
 public:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
+	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	virtual void RefreshUI() override;
 };
