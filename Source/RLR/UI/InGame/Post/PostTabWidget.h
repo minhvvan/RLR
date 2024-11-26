@@ -17,11 +17,11 @@ class UMultiLineEditableText;
 class UGridPanel;
 class UVerticalBox;
 class UPostButtonUI;
-class UPostDetailUI;
-class UPostOverlayUI;
 class AGameManager;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRemovePostsButtonClicked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRemoveOnePostButtonClicked);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPostReplyButtonClicked, FText, IdText);
 
 UCLASS()
 class RLR_API UPostTabWidget : public UUserWidget
@@ -40,6 +40,9 @@ public:
     UFUNCTION(BlueprintCallable)
     void RemovePost(FPostResult Post);
 
+    UFUNCTION()
+    void OnAcceptButtonClicked();
+
     UFUNCTION(BlueprintCallable)
     void OnRemoveButtonClicked();
 
@@ -56,10 +59,18 @@ public:
 
     UFUNCTION()
     void OpenRemovePostsConfirmBox();
+
+	UFUNCTION()
+	void OpenRemovePostConfirmBox();
+
+    UFUNCTION()
+	void OnReplyButtonClicked();
     
     /* 우편 삭제 관련 */
     FOnRemovePostsButtonClicked OnRemovePostsButtonClicked;
-
+    FOnRemoveOnePostButtonClicked OnRemoveOnePostButtonClicked;
+    /* 우편 답신 관련 */
+    FOnPostReplyButtonClicked OnPostReplyButtonClicked;
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Post")
     bool bIsSentTab;
@@ -67,8 +78,36 @@ public:
     UPROPERTY(meta = (BindWidget))
     UCheckBox* SelectAllCheckBox;
 
+    UPROPERTY(meta = (BindWidget))
+    USizeBox* PostList_SizeBox;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* IdText;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* PostTitleText;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* TotalMoney;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* PostContentText;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* ReadStatus;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
+    UGridPanel* PostSlotGridPanel;
+
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UPostButtonUI> PostButtonUIClass;
+
+    /* 선택한 우편 내부에서 첨부물 받기 버튼*/
+    UPROPERTY(meta = (BindWidgetOptional))
+    UButton* AcceptAllButton;
+    /* 선택한 우편 내부에서 해당 우편 삭제 버튼*/
+    UPROPERTY(meta = (BindWidget))
+    UButton* RemovePostButton;
     
     /* 체크박스로 선택한 우편 첨부물 모두 받기 버튼 */
     UPROPERTY(meta = (BindWidgetOptional))
@@ -82,12 +121,12 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UButton* PostPageButton;
+    
+    UPROPERTY(meta = (BindWidgetOptional))
+    UButton* ReplyButton;
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* CurrentPageText;
-    
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* PostCountText;
 
     UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* PageSwitcher;
@@ -109,7 +148,6 @@ public:
     UPROPERTY()
     UPostButtonUI* SelectedPostButton;
 
-    TObjectPtr<UPostOverlayUI> PostOverlayUI;
 private:
     void ClearPostList();
 
@@ -123,7 +161,4 @@ private:
 
 public:
     void SetIsSentTab(bool bInIsSentTab) { bIsSentTab = bInIsSentTab; };
-
-private:
-    int32 postCount;
 };

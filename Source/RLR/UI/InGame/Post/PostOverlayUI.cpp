@@ -5,7 +5,6 @@
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostTabWidget.h"
 #include "UI/InGame/Post/PostButtonUI.h"
-#include "UI/InGame/Post/PostDetailUI.h"
 #include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/InGame/Post/InputTransactionCost.h"
 #include "UI/InGame/Popup/ConfirmMessageBox.h"
@@ -34,7 +33,6 @@ void UPostOverlayUI::NativeConstruct()
 	SetUITag(FGameplayTagManager::Get().UI_Post);
 
 	GameInstance->GetPostalManager()->PostUIClass = this;
-
 	if (ReceivedPostButton)
 	{
 		ReceivedPostButton->OnClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReceivedPostButtonClicked);
@@ -50,22 +48,20 @@ void UPostOverlayUI::NativeConstruct()
 	if (PostReceivedTabWidget)
 	{
 		PostReceivedTabWidget->OnRemovePostsButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePosts);
-		PostReceivedTabWidget->PostOverlayUI = this;
+		PostReceivedTabWidget->OnRemoveOnePostButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePost);
+		PostReceivedTabWidget->OnPostReplyButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReplyButtonClicked);
 	}
 	if(PostSentTabWidget)
 	{
 		PostSentTabWidget->OnRemovePostsButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePosts);
-		PostSentTabWidget->PostOverlayUI = this;
-	}
-	if (PostDetailUI)
-	{
-		PostDetailUI->OnRemoveOnePostButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePost);
-		PostDetailUI->OnPostReplyButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::OnReplyButtonClicked);
+		PostSentTabWidget->OnRemoveOnePostButtonClicked.AddUniqueDynamic(this, &UPostOverlayUI::ConfirmDeletePost);
 	}
 }
 
 void UPostOverlayUI::Init()
 {
+	//CreatePostSlots();
+
 	PostWidgetSwitcher->SetActiveWidgetIndex(0);
 	GameInstance->GetNetworkManager()->SendPostGetRequest();
 	OnPostGetRequestComplete();
@@ -83,16 +79,76 @@ void UPostOverlayUI::RefreshUI()
 	UpdatePostWidget();
 }
 
+void UPostOverlayUI::CreatePostSlots()
+{
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	TSubclassOf<UPostItemSlot> PostItemSlotClass = dataManager->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
+
+	//PostWriteTabWidget->PostSlotList.Empty();
+	//PostWriteTabWidget->PostSlotList.Init(nullptr, MaxPostSlotCount);
+
+	if (PostItemSlotClass == nullptr)
+	{
+		DEBUG_MESSAGE;
+		return;
+	}
+
+	for (int32 Count = 0; Count < MaxPostSlotCount; Count++)
+	{
+		// PostWriteTabWidget에 슬롯 추가
+		UPostItemSlot* WriteSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		/*PostWriteTabWidget->PostSlotList[Count] = WriteSlot;*/
+		WriteSlot->SlotIndex = Count;
+		WriteSlot->PostUI = this;
+		PostWriteTabWidget->PostSlotGridPanel->AddChildToGrid(WriteSlot, 0, Count);
+
+		if (PostReceivedTabWidget->PostSlotGridPanel->GetChildrenCount() == 0)
+		{
+			// PostReceivedTabWidget에 슬롯 추가
+			UPostItemSlot* ReceivedSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+			ReceivedSlot->SlotIndex = Count;
+			ReceivedSlot->PostUI = this;
+			PostReceivedTabWidget->PostSlotGridPanel->AddChildToGrid(ReceivedSlot, 0, Count);
+		}
+
+	}
+}
+
+void UPostOverlayUI::CreatePostSlotWriteTab(int32 SlotCount)
+{
+	TSubclassOf<UPostItemSlot> PostItemSlotClass = GameInstance->GetDataManager()->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
+	for (int32 Count = 0; Count < SlotCount; Count++)
+	{
+		// PostReceivedTabWidget에 슬롯 추가
+		UPostItemSlot* ReceivedSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		ReceivedSlot->SlotIndex = Count;
+		ReceivedSlot->PostUI = this;
+		PostReceivedTabWidget->PostSlotGridPanel->AddChildToGrid(ReceivedSlot, 0, Count);
+	}
+}
+
+void UPostOverlayUI::CreatePostSlotSentTab(int32 SlotCount)
+{
+	TSubclassOf<UPostItemSlot> PostItemSlotClass = GameInstance->GetDataManager()->GetWidgetClass<UPostItemSlot>("WBP_PostItemSlot");
+	for (int32 Count = 0; Count < SlotCount; Count++)
+	{
+		// PostSentTabWidget에 슬롯 추가
+		UPostItemSlot* SentSlot = CreateWidget<UPostItemSlot>(this, PostItemSlotClass);
+		SentSlot->SlotIndex = Count;
+		SentSlot->PostUI = this;
+		PostSentTabWidget->PostSlotGridPanel->AddChildToGrid(SentSlot, 0, Count);
+	}
+}
+
 void UPostOverlayUI::OnReceivedPostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostReceivedTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT("받은 우편함");
-			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
-			PostDetailUI->SetTabNameText(TabNameText);
-			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Visible);
+			PostReceivedTabWidget->PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
 			if (PostReceivedTabWidget->SelectedPostButton != nullptr)
 			{
 				PostReceivedTabWidget->SelectedPostButton->SetButtonState(false);
@@ -120,10 +176,7 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostSentTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT("보낸 우편함");
-			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
-			PostDetailUI->SetTabNameText(TabNameText);
-			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Hidden);
+			PostSentTabWidget->PostList_SizeBox->SetVisibility(ESlateVisibility::Hidden);
 			if (PostSentTabWidget->SelectedPostButton != nullptr)
 			{
 				PostSentTabWidget->SelectedPostButton->SetButtonState(false);
@@ -160,7 +213,6 @@ void UPostOverlayUI::OnWritePostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
-		PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
 		PostWidgetSwitcher->SetActiveWidgetIndex(2);
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 	}
