@@ -252,7 +252,11 @@ public:
 
     bool SendMoveMap();
 
+    /*
+          Content
+                   */
 
+    bool SendEnhancePacket(int itemId, int userSeq, int addItemSeq, int addItemQuantity);
 
 private:
     FSocket* LoginServerSocket;
