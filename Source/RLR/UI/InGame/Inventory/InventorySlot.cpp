@@ -90,10 +90,19 @@ void UInventorySlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	if (GetItemData() == FItemData::EmptyItemData)
+	FItemData item = GetItemData();
+	if (item == FItemData::EmptyItemData || item.QUANTITY == 0)
 	{
 		DisplayEquippedItems(false);
 		ItemNameText->SetText(FText());
+		SetSlotImage(GetDefaultSlotImage());
+
+		UUIManager* UIManager = GameInstance->GetUIManager();
+		if (UIManager == nullptr) return;
+
+		FGameplayTagManager TagManager = FGameplayTagManager::Get();
+		UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
+
 		return;
 	}
 	
@@ -157,9 +166,6 @@ void UInventorySlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
 	Super::NativeOnMouseLeave(InMouseEvent);
 	
-	if (IsEmpty() == true)
-		return;
-
 	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (UIManager == nullptr) return;
 
