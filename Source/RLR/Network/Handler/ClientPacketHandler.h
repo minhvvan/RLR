@@ -24,6 +24,7 @@
 #include "Network/Proto/Guild.pb.h"
 #include "Network/Proto/Map.pb.h"
 #include "Network/Proto/Community.pb.h"
+#include "Network/Proto/Enhance.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -237,6 +238,12 @@ enum : uint16
     PKT_CONTENT_ACCEPT_RESPONSE = 3143,
     PKT_CONTENT_CANCEL_REQUEST = 3144,
     PKT_CONTENT_CANCEL_RESPONSE = 3145,
+
+    // Add Content Enhance packet types
+    PKT_ENHANCE_REQUEST = 3201,
+    PKT_ENHANCE_SUCCESS_RESPONSE = 3202,
+    PKT_ENHANCE_FAILURE_RESPONSE = 3203,
+
     // Add Good packet types
     PKT_GOOD_USER_REQUEST = 4001,
     PKT_GOOD_USER_RESPONSE = 4002,
@@ -360,6 +367,8 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapMoveRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_MOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapContentRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_CONTENT_REQUEST); }
     
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EnhanceRequest& pkt) { return MakeSendBuffer(pkt, PKT_ENHANCE_REQUEST); }
+
   public:
     template<typename PacketType>
     bool HandlePacket(bool(*func)(TSharedPtr<PacketSession>&, PacketType&), TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)

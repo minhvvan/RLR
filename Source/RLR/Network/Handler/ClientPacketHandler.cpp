@@ -22,6 +22,7 @@
 #include "FriendPacketHandler.h"
 #include "GuildPacketHandler.h"
 #include "MapPacketHandler.h"
+#include "EnhancePacketHandler.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -313,6 +314,17 @@ void ClientPacketHandler::Init()
     GPacketHandler[PKT_MAP_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::SC_MapResponse>(&Handle_MAP_RESPONSE, session, buffer, len);
+        };
+    
+    GPacketHandler[PKT_ENHANCE_SUCCESS_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+        return instance.HandlePacket<Protocol::SC_EnhanceSuccessResponse>(&Handle_ENHANCE_SUCCESS_RESPONSE, session, buffer, len);
+
+        };
+    
+    GPacketHandler[PKT_ENHANCE_FAILURE_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_EnhanceFailureResponse>(&Handle_ENHANCE_FAILURE_RESPONSE, session, buffer, len);
         };
 }
 
