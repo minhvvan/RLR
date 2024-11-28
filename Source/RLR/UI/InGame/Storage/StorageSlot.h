@@ -21,4 +21,10 @@ public:
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	virtual void RefreshUI() override;
+
+protected:
+	UFUNCTION()
+	void StorageToInventoryMessageBoxCallback(class UMessageBoxUI* MessageBox);
+
+	void SendPktStroageToInventory(const FItemData& Item, int Amount);
 };

@@ -2,9 +2,12 @@
 
 
 #include "UI/InGame/Storage/StorageSlot.h"
-#include "Components/Image.h"
+#include "UI/InGame/Popup/ItemCountMessageBox.h"
 #include "UI/BaseDragDropOperation.h"
+#include "Components/Image.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/UIManager.h"
+#include "UI/InGame/Inventory/ItemInformation.h"
 #include "RLR.h"
 
 void UStorageSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
@@ -50,31 +53,62 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 {
 	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
-	//TODO: 인벤토리로 아이템 빼기 pkt 전송(pageIdx, slot_idx?(item_id?))
-	auto InventoryManager = GetInventoryManager();
-	if (!InventoryManager)
+	if (InMouseEvent.IsLeftShiftDown())
 	{
-		RLR_LOG(LogRLR, Log, TEXT("InventoryManager is nullptr"));
-		return result;
-	}
+		//개수 선택
+		auto UIManager = GetUIManager();
+		if (!UIManager)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("UIManager is nullptr"));
+			return result;
+		}
 
-	const FItemData& itemData = GetItemData();
-	if (itemData == FItemData::EmptyItemData)
+		auto messageBox = UIManager->GetSubUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
+		if (!messageBox)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
+			return result;
+		}
+
+		const FItemData& itemData = GetItemData();
+		if (itemData == FItemData::EmptyItemData)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("ItemData is EmptyItemData"));
+			return result;
+		}
+
+		messageBox->OpenUI();
+		messageBox->SetMessageText(TEXT("인벤토리로 옮길 개수를 입력하세요."));
+		messageBox->SetItemData(itemData);
+		messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("StorageToInventoryMessageBoxCallback"));
+	}
+	else
 	{
-		RLR_LOG(LogRLR, Log, TEXT("ItemData is EmptyItemData"));
-		return result;
-	}
+		//전체
+		const FItemData& itemData = GetItemData();
+		if (itemData == FItemData::EmptyItemData)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("ItemData is EmptyItemData"));
+			return result;
+		}
 
-	InventoryManager->AddItem(itemData);
-	Clear();
+		SendPktStroageToInventory(itemData, itemData.QUANTITY);
+	}
 
 	return result;
 }
 
 void UStorageSlot::RefreshUI()
 {
+	Super::RefreshUI();
+
 	auto itemData = GetItemData();
 	UTexture2D* itemImage = GetItemResourceData().ItemImage;
+
+	if (itemData.QUANTITY == 0)
+	{
+		itemData = FItemData::EmptyItemData;
+	}
 
 	if (itemData == FItemData::EmptyItemData)
 	{
@@ -82,4 +116,39 @@ void UStorageSlot::RefreshUI()
 	}
 
 	SlotImage->SetBrushFromTexture(itemImage);
+}
+
+void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBox)
+{
+	//TODO: 인벤토리로 아이템 빼기 pkt 전송(pageIdx, slot_idx?(item_id?)) + id어떻게 처리??
+	UItemCountMessageBox* messageBox = Cast<UItemCountMessageBox>(MessageBox);
+	if (!messageBox)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
+		return;
+	}
+
+	SendPktStroageToInventory(messageBox->GetItemData(), messageBox->GetItemCount());
+}
+
+void UStorageSlot::SendPktStroageToInventory(const FItemData& Item, int Amount)
+{
+	//TODO: 창고 -> 인벤토리 패킷 전송(pageIdx, slot_idx?(item_id?))
+	//callback에서는 inventory 개수만큼 추가 + storage에서 제거(SetSlotItem사용)
+
+	//Test
+	//==========================================================================
+	{
+		FItemData tempItem = GetItemData();
+		GetInventoryManager()->AddItem(tempItem);
+	}
+
+	{
+		FItemData tempItem = GetItemData();
+		tempItem.QUANTITY -= Amount;
+		SetItemData(tempItem);
+	}
+
+	RLR_LOG(LogRLR, Log, TEXT("Item: %d, %d"), Item.ITEM_ID, Item.QUANTITY);
+	//==========================================================================
 }

@@ -37,16 +37,19 @@ public:
 	virtual void NativeConstruct() override;
 
 public:
-	void SetStorageItems(const TArray<TArray<FItemData>>& StorageItems);
+	void SetStorageAllItems(const TArray<TArray<FItemData>>& StorageItems);
 	void SetUnLockedPageNum();
 
 	virtual void OpenUI() override;
 	virtual void CloseUI() override;
 
 	UFUNCTION()
-	void AddItem(const FItemData& Item);
-	void SetSlotItem(int TabIdx, int slotIdx, const FItemData&Item);
+	void InventorySlotClicked(const FItemData& Item);
 
+	UFUNCTION()
+	void InventorySlotShiftClicked(const FItemData& Item);
+
+	void SetSlotItem(int TabIdx, int slotIdx, const FItemData&Item);
 	void SetBalance(int Balance);
 
 protected:
@@ -72,4 +75,10 @@ protected:
 
 	UFUNCTION()
 	void RequestWithdraw(class UMessageBoxUI* MessageBox);
+
+	UFUNCTION()
+	void InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox);
+
+	void SendPktInventoryToStorage(const FItemData& Item, int Amount);
+	void SendPktGoods(bool bDeposit, int Amount);
 };
