@@ -20,6 +20,7 @@
 #include "GameManager/PartyManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/TradeManager.h"
+#include "GameManager/StorageManager.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameOptionData/GameOptionData.h"
@@ -228,6 +229,17 @@ UTradeManager* UGameManager::GetTradeManager()
     if (IsValid(TradeManager))
     {
         return TradeManager;
+    }
+    DEBUG_MESSAGE;
+    return nullptr;
+}
+
+UStorageManager* UGameManager::GetStorageManager()
+{
+    UStorageManager* StorageManager = GetSubsystem<UStorageManager>(this);
+    if (IsValid(StorageManager))
+    {
+        return StorageManager;
     }
     DEBUG_MESSAGE;
     return nullptr;

@@ -22,6 +22,7 @@
  class UDataManager;
  class UPartyManager;
  class UInventoryManager;
+ class UStorageManager;
 
 UCLASS()
 class RLR_API UBaseUI : public UUserWidget
@@ -67,6 +68,7 @@ public:
 	UInventoryManager*	GetInventoryManager();
 	UDataManager*		GetDataManager();
 	UPartyManager*		GetPartyManager();
+	UStorageManager*	GetStorageManager();
 
 protected:
 	UPROPERTY(VisibleAnywhere)

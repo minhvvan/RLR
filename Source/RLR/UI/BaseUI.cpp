@@ -230,6 +230,18 @@ UPartyManager* UBaseUI::GetPartyManager()
 	return nullptr;
 }
 
+UStorageManager* UBaseUI::GetStorageManager()
+{
+	UGameManager* GM = Cast<UGameManager>(GetGameInstance());
+
+	if (GM)
+	{
+		return GM->GetStorageManager();
+	}
+
+	return nullptr;
+}
+
 void UBaseUI::OpenOtherUI(FGameplayTag Tag)
 {
 	GetUIManager()->OpenSubUI(Tag);
