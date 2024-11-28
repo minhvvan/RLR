@@ -16,6 +16,7 @@
  DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdateInventoryManager);
  DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateItemActionTag, FGameplayTag, ActionTag);
  DECLARE_DYNAMIC_DELEGATE_OneParam(FOnInventorySlotClicked, FItemData, SlotItemData);
+ DECLARE_DYNAMIC_DELEGATE_OneParam(FOnInventorySlotShiftClicked, const FItemData&, SlotItemData);
  DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUpdateEquip, FItemData, NewEquipItem);
 
 UCLASS()
@@ -37,6 +38,7 @@ public:
 
 	FItemData GetItem(int32 Item_ID);
 	void RemoveItem(int32 Item_ID);
+	void RemoveItem(int32 Item_ID, int Amount);
 	bool EquipItem(int32 Item_ID);								//아이템 장착
 	bool UnEquipItem(int32 Item_ID);
 	void UsingItem(FGameplayTag TriggerTag);
@@ -110,4 +112,8 @@ public:
 	UPROPERTY()
 	FOnInventorySlotClicked OnInventorySlotClickedDelegate;
 	void OnInventorySlotClickedDelegateBroadcast(FItemData SlotItemData);
+
+	UPROPERTY()
+	FOnInventorySlotShiftClicked OnInventorySlotShiftClickedDelegate;
+	void OnInventorySlotShiftClickedDelegateBroadcast(const FItemData& SlotItemData);
 };

@@ -37,7 +37,8 @@ public:
 	virtual void NativeConstruct() override;
 
 public:
-	void SetStorageAllItems(const TArray<TArray<FItemData>>& StorageItems);
+	UFUNCTION()
+	void SetStorageAllItems();
 	void SetUnLockedPageNum();
 
 	virtual void OpenUI() override;
@@ -54,13 +55,9 @@ public:
 
 protected:
 	TArray<UWidget*> TabButtons;
-	TArray<TArray<FItemData>> Items;
 
-	int UnLockedPageNum = 1;
-	int MaxStoragePageNum = 5;
+	const int MaxStorageTabNum = 5;
 	const int MaxStorageSlotNum = 50;
-
-	void Init();
 
 	virtual void RefreshUI() override;
 
@@ -79,6 +76,6 @@ protected:
 	UFUNCTION()
 	void InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox);
 
-	void SendPktInventoryToStorage(const FItemData& Item, int Amount);
-	void SendPktGoods(bool bDeposit, int Amount);
+private:
+	UStorageManager* StorageManager;
 };

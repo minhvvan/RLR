@@ -5,7 +5,7 @@
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
 #include "UI/BaseDragDropOperation.h"
 #include "Components/Image.h"
-#include "GameManager/InventoryManager.h"
+#include "GameManager/StorageManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "RLR.h"
@@ -98,6 +98,34 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 	return result;
 }
 
+void UStorageSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+	RLR_LOG(LogRLR, Log, TEXT("Item: %d %d"), GetItemData().ITEM_ID, GetItemData().QUANTITY);
+
+	if (IsEmpty() == true)
+		return;
+
+	UUIManager* UIManager = GetUIManager();
+	if (UIManager == nullptr) return;
+
+	UMainUI* mainUI = UIManager->GetPage<UMainUI>(UIManager->GetActivePageTag());
+	if (mainUI == nullptr) return;
+
+	mainUI->OpenSubUINearTargetSlot(this, RLRTAG.UI_ItemInfomation);
+}
+
+void UStorageSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseLeave(InMouseEvent);
+
+	UUIManager* UIManager = GetUIManager();
+	if (UIManager == nullptr) return;
+
+	FGameplayTagManager TagManager = FGameplayTagManager::Get();
+	UIManager->CloseSubUI(TagManager.UI_ItemInfomation);
+}
+
 void UStorageSlot::RefreshUI()
 {
 	Super::RefreshUI();
@@ -133,22 +161,6 @@ void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBo
 
 void UStorageSlot::SendPktStroageToInventory(const FItemData& Item, int Amount)
 {
-	//TODO: 창고 -> 인벤토리 패킷 전송(pageIdx, slot_idx?(item_id?))
-	//callback에서는 inventory 개수만큼 추가 + storage에서 제거(SetSlotItem사용)
-
-	//Test
-	//==========================================================================
-	{
-		FItemData tempItem = GetItemData();
-		GetInventoryManager()->AddItem(tempItem);
-	}
-
-	{
-		FItemData tempItem = GetItemData();
-		tempItem.QUANTITY -= Amount;
-		SetItemData(tempItem);
-	}
-
-	RLR_LOG(LogRLR, Log, TEXT("Item: %d, %d"), Item.ITEM_ID, Item.QUANTITY);
-	//==========================================================================
+	UStorageManager* StorageManager = GetStorageManager();
+	StorageManager->SendPktStorageToInventory(Item, Amount);
 }

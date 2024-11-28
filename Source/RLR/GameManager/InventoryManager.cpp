@@ -88,6 +88,19 @@ void UInventoryManager::RemoveItem(int32 Item_ID)
 	}
 }
 
+void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
+{
+	if (InventoryItemData.Contains(Item_ID) == true)
+	{
+		InventoryItemData[Item_ID].QUANTITY -= Amount;
+		if (InventoryItemData[Item_ID].QUANTITY == 0)
+		{
+			InventoryItemData[Item_ID] = FItemData::EmptyItemData;
+		}
+		OnUpdateInventoryDelegateBroadcast();
+	}
+}
+
 bool UInventoryManager::EquipItem(int32 Item_ID)
 {
 	if (InventoryItemData.Contains(Item_ID) == false)
@@ -287,4 +300,9 @@ void UInventoryManager::OnInventorySlotClickedDelegateBroadcast(FItemData SlotIt
 			}
 			OnInventorySlotClickedDelegate.ExecuteIfBound(SlotItemData);
 		});
+}
+
+void UInventoryManager::OnInventorySlotShiftClickedDelegateBroadcast(const FItemData& SlotItemData)
+{
+	OnInventorySlotShiftClickedDelegate.ExecuteIfBound(SlotItemData);
 }

@@ -17,6 +17,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/StorageManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameplayTagManager.h"
 
@@ -29,42 +30,35 @@ void UStorageUI::NativeConstruct()
 	TabButtons.Empty();
 	WidgetTree->GetChildWidgets(BtnBox, TabButtons);
 
-	Init();
-
 	BtnDeposit->OnClicked.AddUniqueDynamic(this, &UStorageUI::OnDepositClicked);
 	BtnWithdraw->OnClicked.AddUniqueDynamic(this, &UStorageUI::OnWithdrawClicked);
+
+	if (!StorageManager) StorageManager = GetStorageManager();
+
+	//창고 아이템 요청(info 초기화에서 뿌린다면 없어도 됨)
+	StorageManager->RequestGetStorageItems();
+	StorageManager->OnStorageAllItemUpdated.RemoveDynamic(this, &UStorageUI::SetStorageAllItems);
+	StorageManager->OnStorageAllItemUpdated.AddUniqueDynamic(this, &UStorageUI::SetStorageAllItems);
+
+	SetStorageAllItems();
 }
-
-void UStorageUI::Init()
-{
-	MaxStoragePageNum = TabButtons.Num();
-
-	TArray<TArray<FItemData>> items;
-	items.SetNum(MaxStoragePageNum);
-	for (int i = 0; i < MaxStoragePageNum; i++)
-	{
-		items[i].SetNum(MaxStorageSlotNum);
-	}
-
-	SetStorageAllItems(items);
-}
-
 
 //창고 Open시 모든 아이템 Slot 설정
-void UStorageUI::SetStorageAllItems(const TArray<TArray<FItemData>>& StorageItems)
+void UStorageUI::SetStorageAllItems()
 {
-	Items = StorageItems;
 	SetUnLockedPageNum();
 	RefreshUI();
 }
 
 void UStorageUI::SetUnLockedPageNum()
 {
-	UnLockedPageNum = Items.Num();
+	if (!StorageManager) StorageManager = GetStorageManager();
+	auto items = StorageManager->GetAllItems();
 
-	for (int i = 0; i < MaxStoragePageNum; i++)
+	for (int i = 0; i < MaxStorageTabNum; i++)
 	{
-		if (i < UnLockedPageNum) TabButtons[i]->SetIsEnabled(true);
+		//TODO: 창고 확장 기능 추가 예정
+		if (i < items.Num()) TabButtons[i]->SetIsEnabled(true);
 		else TabButtons[i]->SetIsEnabled(false);
 	}
 }
@@ -85,7 +79,8 @@ void UStorageUI::CloseUI()
 
 void UStorageUI::InventorySlotClicked(const FItemData& Item)
 {
-	SendPktInventoryToStorage(Item, Item.QUANTITY);
+	if (!StorageManager) StorageManager = GetStorageManager();
+	StorageManager->SendPktInventoryToStorage(Item, Item.QUANTITY);
 }
 
 void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
@@ -111,7 +106,6 @@ void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
 
 void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item)
 {
-	Items[TabIdx][slotIdx] = Item;
 	UStorageTab* tab = Cast<UStorageTab>(WidgetSwitcher->GetWidgetAtIndex(TabIdx));
 	if (!tab)
 	{
@@ -129,7 +123,9 @@ void UStorageUI::SetBalance(int Balance)
 
 void UStorageUI::RefreshUI()
 {
-	for (int i = 0; i < Items.Num(); i++)
+	if (!StorageManager) StorageManager = GetStorageManager();
+	auto items = StorageManager->GetAllItems();
+	for (int i = 0; i < items.Num(); i++)
 	{
 		UStorageTab* CurrentTab = Cast<UStorageTab>(WidgetSwitcher->GetWidgetAtIndex(i));
 		if (!CurrentTab)
@@ -138,7 +134,7 @@ void UStorageUI::RefreshUI()
 			continue;
 		}
 
-		CurrentTab->UpdateAllItem(Items[i]);
+		CurrentTab->UpdateAllItem(items[i]);
 	}
 }
 
@@ -178,7 +174,8 @@ void UStorageUI::RequestDeposit(class UMessageBoxUI* MessageBox)
 		return;
 	}
 
-	SendPktGoods(true, messageBox->GetAmount());
+	if (!StorageManager) StorageManager = GetStorageManager();
+	StorageManager->SendPktGoods(true, messageBox->GetAmount());
 
 	messageBox->OnConfirmButtonClickedDelegate.Unbind();
 	RLR_LOG(LogRLR, Log, TEXT("req deposit %d"), messageBox->GetAmount());
@@ -193,7 +190,8 @@ void UStorageUI::RequestWithdraw(class UMessageBoxUI* MessageBox)
 		return;
 	}
 
-	SendPktGoods(false, messageBox->GetAmount());
+	if (!StorageManager) StorageManager = GetStorageManager();
+	StorageManager->SendPktGoods(false, messageBox->GetAmount());
 
 	messageBox->OnConfirmButtonClickedDelegate.Unbind();
 	RLR_LOG(LogRLR, Log, TEXT("req withdraw %d"), messageBox->GetAmount());
@@ -208,37 +206,6 @@ void UStorageUI::InventoryToStorageMessageBoxCallback(UMessageBoxUI* MessageBox)
 		return;
 	}
 
-	SendPktInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount());
-}
-
-//pkt 전송 함수
-void UStorageUI::SendPktInventoryToStorage(const FItemData& Item, int Amount)
-{
-	//TODO: pkt 전송(itemID? seq?, count)
-	//NetworkManager->SendPkt
-	//callback에서는 inventory 개수만큼 제외 + storage에 추가(SetSlotItem사용)
-
-	//Test
-	//==========================================================================
-	GetInventoryManager()->RemoveItem(Item.ITEM_ID, Amount);
-
-	auto tempItem = Item;
-	tempItem.QUANTITY = Amount;
-	SetSlotItem(WidgetSwitcher->ActiveWidgetIndex, 0, tempItem);
-
-	RLR_LOG(LogRLR, Log, TEXT("Item: %d, %d"), Item.ITEM_ID, Item.QUANTITY);
-	//==========================================================================
-}
-
-void UStorageUI::SendPktGoods(bool bDeposit, int Amount)
-{
-	//Callback에서 SetBalance 사용
-	if (bDeposit)
-	{
-		//TODO: 인벤 -> 창고 pkt 전송
-	}
-	else
-	{
-		//TODO: 창고 -> 인벤 pkt 전송
-	}
+	if (!StorageManager) StorageManager = GetStorageManager();
+	StorageManager->SendPktInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount());
 }
