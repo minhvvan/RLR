@@ -63,6 +63,30 @@ FItemData UInventoryManager::GetItem(int32 Item_ID)
 	return FItemData::EmptyItemData;
 }
 
+FItemData UInventoryManager::GetItemBySlotIndex(int32 InventoryIdx)
+{
+	// 슬롯 인덱스가 유효하지 않은 경우 EmptyItemData 반환
+	if (InventoryIdx < 0)
+	{
+		return FItemData::EmptyItemData;
+	}
+
+	// InventoryItemData에서 InventoryIdx를 기준으로 검색
+	for (const auto& ItemPair : InventoryItemData)
+	{
+		const FItemData& Item = ItemPair.Value;
+
+		// 해당 슬롯 인덱스에 있는 아이템을 찾으면 반환
+		if (Item.ITEM_SLOT_IDX == InventoryIdx)
+		{
+			return Item;
+		}
+	}
+
+	// 슬롯에 아이템이 없는 경우 EmptyItemData 반환
+	return FItemData::EmptyItemData;
+}
+
 void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
 {
 	InventoryItemData.GenerateValueArray(ItemArray);

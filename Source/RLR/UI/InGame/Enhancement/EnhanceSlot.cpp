@@ -10,7 +10,7 @@ void UEnhanceSlot::NativeConstruct()
 {
 	Super::NativeConstruct();
 	SetSlotType(ESlotType::ENHANCE_ITEM_SLOT);
-	itemId = -1;
+	ItemID = -1;
 }
 
 void UEnhanceSlot::RefreshUI()
@@ -25,12 +25,17 @@ void UEnhanceSlot::Clear()
 
 void UEnhanceSlot::SetItemID(int64 NewItemId)
 {
-	itemId = NewItemId;
+	ItemID = NewItemId;
+}
+
+int64 UEnhanceSlot::GetItemID()
+{
+	return ItemID;
 }
 
 void UEnhanceSlot::SetSlot(int64 NewitemId)
 {
-	itemId = NewitemId;
+	SetItemID(NewitemId);
 	FString name = this->GetName();
 	UTexture2D* itemTexture = GameInstance->GetDataManager()->GetItemResource(NewitemId).ItemImage;
 	SetItemData(GameInstance->GetDataManager()->GetItemData(NewitemId));

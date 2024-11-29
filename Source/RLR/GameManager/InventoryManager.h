@@ -36,6 +36,7 @@ public:
 	void AddItemList(const TArray<FItemData>& NewItemList);
 
 	FItemData GetItem(int32 Item_ID);
+	FItemData GetItemBySlotIndex(int32 InventoryIdx);
 	void RemoveItem(int32 Item_ID);
 	bool EquipItem(int32 Item_ID);								//아이템 장착
 	bool UnEquipItem(int32 Item_ID);

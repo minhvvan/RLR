@@ -20,6 +20,7 @@ public:
 	virtual void Clear() override;
 
 	void SetItemID(int64 NewItemId);
+	int64 GetItemID();
 
 	UFUNCTION()
 	void SetSlot(int64 NewitemId);
@@ -32,6 +33,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 
-	UPROPERTY(EditAnywhere)
-	int64 itemId;
+private:
+	int64 ItemID;
 };
