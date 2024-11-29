@@ -85,6 +85,7 @@ private:
 	
 	/* 실패 후 조정된 강화 성공률 */
 	FText Message1;
+	FText Message2;
 	FText adjustedStack;
 	int32 enhanceFailStack;
 };

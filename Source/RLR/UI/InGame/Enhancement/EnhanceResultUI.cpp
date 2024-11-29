@@ -20,6 +20,7 @@ void UEnhanceResultUI::NativeConstruct()
 	if (FailureVerticalBox)
 	{
 		Message1 = STRING_TO_FTEXT("제련 성공 스택 +");
+		Message2 = STRING_TO_FTEXT("상승");
 	}
 
 	if (ConfirmButton)
@@ -87,7 +88,7 @@ void UEnhanceResultUI::UpdateTextAsResult(bool bIsSuccess)
 			FText::FromString(TEXT("{0}{1}{2}")),
 			Message1,
 			adjustedStack,
-			FText::FromString("상승")
+			Message2
 		);
 		AdjustedStackText->SetText(FailureTextFormat);
 	}
