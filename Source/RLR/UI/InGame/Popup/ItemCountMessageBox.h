@@ -33,10 +33,17 @@ public:
 	virtual void OnClickedConfirmButton() override;
 	virtual void OnClickedCancelButton() override;
 
-	FItemData	GetItemData() {return ItemData;}
-	void		SetItemData(const FItemData& Data){ItemData = Data;}
-	
-	int32		GetItemCount();
+	FItemData		GetItemData() {return ItemData;}
+	void			SetItemData(const FItemData& Data){ItemData = Data;}
+	int32			GetItemCount();
+
+	FPlayerGoods	GetPlayerGoods() {return PlayerGoods;}
+	void			SetPlayerGoods(const FPlayerGoods& Data){PlayerGoods = Data;}
+	int32			GetTotalMoney(){return PlayerGoods.TotalMoney;}
+	void			SetTotalMoney(int32 Money){PlayerGoods.TotalMoney = Money;}
+	int32			GetDiamond(){return PlayerGoods.Diamond;}
+	void			SetDiamond(int32 Diamond){PlayerGoods.Diamond = Diamond;}
+
 
 public:
 
@@ -51,4 +58,7 @@ public:
 
 	UPROPERTY()
 	FItemData ItemData;
+
+	UPROPERTY()
+	FPlayerGoods PlayerGoods;
 };
