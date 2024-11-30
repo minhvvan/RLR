@@ -137,14 +137,14 @@ void USkillManager::SetSelectedSkills(TArray<FSkillData>& SelectedSkills)
 		const FSkillData& Data = SelectedSkills[i];
 		if (Data == FSkillData::EmptySkillData)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
-			return;
+			DEBUG_MESSAGE;
+			continue;
 		}
 		const FActionResource& ActionResource = GameInstance->GetDataManager()->GetActionResource(Data.SkillSeq);
 		if (ActionResource == FActionResource::EmptyActionResource)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class DataTable"));
-			return;
+			DEBUG_MESSAGE;
+			continue;
 		}
 
 		FGameplayTag SkillTag = SkillTags->GetByIndex(Data.SkillIdx);

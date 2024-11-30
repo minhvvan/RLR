@@ -34,7 +34,7 @@ public:
 	void RefreshUI();
 
 	UFUNCTION(BlueprintCallable)
-	void RefreshGoldAndCashUI();
+	void RefreshPlayerGoods();
 
 	UFUNCTION(BlueprintCallable)
 	void ShowItemsByType(ItemType ItemType);

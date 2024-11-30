@@ -54,12 +54,12 @@ void UUIManager::ToggleSubUI(FGameplayTag UITag)
 	currentMainUI->ToggleSubUI(UITag);
 }
 
-void UUIManager::OpenSubUI(FGameplayTag UITag)
+USubUI* UUIManager::OpenSubUI(FGameplayTag UITag)
 {
 	UMainUI* currentMainUI = GetPage(GetActivePageTag());
-	if (!currentMainUI) return;
+	if (!currentMainUI) return nullptr;
 
-	currentMainUI->OpenSubUI(UITag);
+	return currentMainUI->OpenSubUI(UITag);
 }
 
 void UUIManager::CloseSubUI(FGameplayTag UITag)

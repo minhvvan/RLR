@@ -229,8 +229,3 @@ UPartyManager* UBaseUI::GetPartyManager()
 
 	return nullptr;
 }
-
-void UBaseUI::OpenOtherUI(FGameplayTag Tag)
-{
-	GetUIManager()->OpenSubUI(Tag);
-}

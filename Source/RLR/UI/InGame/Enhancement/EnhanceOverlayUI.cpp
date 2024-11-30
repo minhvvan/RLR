@@ -39,10 +39,9 @@ void UEnhanceOverlayUI::RefreshUI()
 /* 강화창에서 장비 목록에 있는 장비 클릭 */
 void UEnhanceOverlayUI::OnEnhanceButtonClicked()
 {
-	UConfirmMessageBox* ConfirmMessageBox = GetSubUI<UConfirmMessageBox>(RLRTAG.UI_Popup_ConfirmMessageBox);
+	UConfirmMessageBox* ConfirmMessageBox = OpenOtherUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 	if (IsValid(ConfirmMessageBox) == false) return;
 
-	OpenOtherUI(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 	ConfirmMessageBox->Clear();
 
 	//클릭, 취소 버튼 콜백 함수 등록
