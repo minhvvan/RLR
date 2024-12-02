@@ -75,3 +75,6 @@ DerivedDataCache/*
 
 # DataTable Assets
 Content/DataTable/DT_*
+
+# IDE
+.idea/*
