@@ -11,6 +11,7 @@
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/EnhanceManager.h"
+#include "GameManager/PlayerManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
@@ -27,13 +28,11 @@ void UInventoryUI::NativeConstruct()
 
 	SetUITag(RLRTAG.UI_Inventory);
 
-	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-
-	if (IsValid(InventoryManager) == false)
-		return;
+	UInventoryManager*	InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
+	UPlayerManager*		PlayerManager = GetPlayerManager();
 
 	InventoryManager->OnUpdateInventoryDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshUI);
-	InventoryManager->OnUpdateGoldAndCashDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
+	PlayerManager->UpdatePlayerManagerDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshPlayerGoods);
 
 	AllButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnAllButtonClicked);
 	EquipmentButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnEquipmentButtonClicked);
@@ -115,16 +114,14 @@ void UInventoryUI::RefreshUI()
 	}
 }
 
-void UInventoryUI::RefreshGoldAndCashUI()
+void UInventoryUI::RefreshPlayerGoods()
 {
-	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-	if (IsValid(InventoryManager) == false)
-		return;
+	UPlayerManager* PlayerManager = GetPlayerManager();
 
-	FText NewGold = FText::FromString(FString::FromInt(InventoryManager->GetGold()));
+	FText NewGold = FText::FromString(FString::FromInt(PlayerManager->GetPlayerGood().TotalMoney));
 	GoldText->SetText(NewGold);
 
-	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilver()));
+	FText NewSilber = FText::FromString(FString::FromInt(PlayerManager->GetPlayerGood().Diamond));
 	SilberText->SetText(NewSilber);
 }
 

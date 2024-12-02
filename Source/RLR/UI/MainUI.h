@@ -38,7 +38,7 @@ public:
 	void ToggleSubUI(FGameplayTag InputTag);
 	template<typename T = USubUI>
 	T* GetSubUI(FGameplayTag InputTag);
-	virtual void OpenSubUI(FGameplayTag InputTag);
+	virtual USubUI* OpenSubUI(FGameplayTag InputTag);
 	virtual void CloseSubUI(FGameplayTag InputTag);
 	void CloseFrontSubUI();
 	void CloseAllSubUI();

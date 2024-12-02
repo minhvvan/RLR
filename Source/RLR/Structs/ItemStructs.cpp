@@ -9,6 +9,7 @@
 
 const FItemData     FItemData::EmptyItemData;
 const FItemResource FItemResource::EmptyItemResource;
+const FPlayerGoods  FPlayerGoods::EmptyPlayerGoods;
 
 void FItemData::MakeItemData(const Protocol::Item itemData)
 {

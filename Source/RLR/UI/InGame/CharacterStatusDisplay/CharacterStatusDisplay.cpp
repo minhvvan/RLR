@@ -61,7 +61,7 @@ void UCharacterStatusDisplay::SaveItemQuickSlotData()
 
 	int32 UserSeq = GetGameManager()->GetUserSeq();
 	TMap<FGameplayTag, int32>& QuickSlotList = GameOption->GetItemQuickSlotOption().ItemQuickSlotList;
-	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetInventoryManager()->GetOwnItems();
+	const FSkillDictionary<FGameplayTag, FItemData>& OwnItems = GetInventoryManager()->GetItemQuickSlots();
 
 	for (auto& [Tag, Data] : OwnItems)
 	{

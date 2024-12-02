@@ -10,6 +10,8 @@
 
 class ARLRPlayerCharacter;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpdatePlayerManager);
+
 UCLASS()
 class RLR_API UPlayerManager : public UGameInstanceSubsystem
 {
@@ -17,6 +19,9 @@ class RLR_API UPlayerManager : public UGameInstanceSubsystem
 	
 public:
 	UPlayerManager();
+    virtual void Initialize(FSubsystemCollectionBase& Collection);
+
+public:
 
     void                  SetPlayerData(FUserCharacter PlayerData);
 
@@ -57,4 +62,10 @@ private:
     FPlayerGoods PlayerGood;
 public:
     class UStatSetPlayer* GetStatSet();
+
+public:
+
+	UPROPERTY()
+    FUpdatePlayerManager UpdatePlayerManagerDelegate;
+	void UpdatePlayerManagerBroadcast();
 };

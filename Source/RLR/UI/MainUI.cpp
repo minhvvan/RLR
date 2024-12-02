@@ -107,16 +107,18 @@ void UMainUI::ToggleSubUI(FGameplayTag InputTag)
 	InvalidateLayoutAndVolatility();
 }
 
-void UMainUI::OpenSubUI(FGameplayTag InputTag)
+USubUI* UMainUI::OpenSubUI(FGameplayTag InputTag)
 {
-	if (IsOpenSubUI(InputTag)) return;
+	if (IsOpenSubUI(InputTag)) return nullptr;
 
 	USubUI* subUI = GetSubUI(InputTag);
-	if (!subUI) return;
+	if (!subUI) return nullptr;
 
 	SubUIStack.AddUnique(subUI);
 	subUI->OpenUI();
 	AdjustZOrder();
+
+	return subUI;
 }
 
 void UMainUI::CloseSubUI(FGameplayTag InputTag)
