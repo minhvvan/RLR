@@ -25,12 +25,6 @@ protected:
 	TObjectPtr<UWidgetSwitcher> WidgetSwitcher;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UButton> BtnDeposit;
-
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UButton> BtnWithdraw;	
-	
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UTextBlock> TxtBalance;
 
 public:
@@ -50,8 +44,7 @@ public:
 	UFUNCTION()
 	void InventorySlotShiftClicked(const FItemData& Item);
 
-	void SetSlotItem(int TabIdx, int slotIdx, const FItemData&Item);
-	void SetBalance(int Balance);
+	void SetSlotItem(int TabIdx, int slotIdx, const FItemData&Item) const;
 
 protected:
 	TArray<UWidget*> TabButtons;
@@ -60,18 +53,6 @@ protected:
 	const int MaxStorageSlotNum = 50;
 
 	virtual void RefreshUI() override;
-
-	UFUNCTION()
-	void OnDepositClicked();
-
-	UFUNCTION()
-	void OnWithdrawClicked();
-
-	UFUNCTION()
-	void RequestDeposit(class UMessageBoxUI* MessageBox);
-
-	UFUNCTION()
-	void RequestWithdraw(class UMessageBoxUI* MessageBox);
 
 	UFUNCTION()
 	void InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox);

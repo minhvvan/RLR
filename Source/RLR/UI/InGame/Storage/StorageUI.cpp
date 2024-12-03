@@ -30,9 +30,6 @@ void UStorageUI::NativeConstruct()
 	TabButtons.Empty();
 	WidgetTree->GetChildWidgets(BtnBox, TabButtons);
 
-	BtnDeposit->OnClicked.AddUniqueDynamic(this, &UStorageUI::OnDepositClicked);
-	BtnWithdraw->OnClicked.AddUniqueDynamic(this, &UStorageUI::OnWithdrawClicked);
-
 	if (!StorageManager) StorageManager = GetStorageManager();
 
 	//창고 아이템 요청(info 초기화에서 뿌린다면 없어도 됨)
@@ -104,7 +101,7 @@ void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
 	messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("InventoryToStorageMessageBoxCallback"));
 }
 
-void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item)
+void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item) const
 {
 	UStorageTab* tab = Cast<UStorageTab>(WidgetSwitcher->GetWidgetAtIndex(TabIdx));
 	if (!tab)
@@ -114,11 +111,6 @@ void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item)
 	}
 
 	tab->SetSlotItemData(Item, slotIdx);
-}
-
-void UStorageUI::SetBalance(int Balance)
-{
-	TxtBalance->SetText(FText::AsNumber(Balance));
 }
 
 void UStorageUI::RefreshUI()
@@ -136,65 +128,6 @@ void UStorageUI::RefreshUI()
 
 		CurrentTab->UpdateAllItem(items[i]);
 	}
-}
-
-void UStorageUI::OnDepositClicked()
-{
-	UGoodsMessageBox* messageBox = GetSubUI<UGoodsMessageBox>(RLRTAG.UI_Popup_GoodsMessageBox);
-	if (!messageBox)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
-		return;
-	}
-
-	messageBox->OpenUI();
-	messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("RequestDeposit"));
-}
-
-void UStorageUI::OnWithdrawClicked()
-{
-	UGoodsMessageBox* messageBox = GetSubUI<UGoodsMessageBox>(RLRTAG.UI_Popup_GoodsMessageBox);
-	if (!messageBox)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
-		return;
-	}
-
-	messageBox->OpenUI();
-	messageBox->SetMessageText(TEXT("창고로 옮길 개수를 입력하세요."));
-	messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("RequestDeposit"));
-}
-
-void UStorageUI::RequestDeposit(class UMessageBoxUI* MessageBox)
-{
-	UGoodsMessageBox* messageBox = Cast<UGoodsMessageBox>(MessageBox);
-	if (!messageBox)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
-		return;
-	}
-
-	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktGoods(true, messageBox->GetAmount());
-
-	messageBox->OnConfirmButtonClickedDelegate.Unbind();
-	RLR_LOG(LogRLR, Log, TEXT("req deposit %d"), messageBox->GetAmount());
-}
-
-void UStorageUI::RequestWithdraw(class UMessageBoxUI* MessageBox)
-{
-	UGoodsMessageBox* messageBox = Cast<UGoodsMessageBox>(MessageBox);
-	if (!messageBox)
-	{
-		RLR_LOG(LogRLR, Log, TEXT("messageBox is nullptr"));
-		return;
-	}
-
-	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktGoods(false, messageBox->GetAmount());
-
-	messageBox->OnConfirmButtonClickedDelegate.Unbind();
-	RLR_LOG(LogRLR, Log, TEXT("req withdraw %d"), messageBox->GetAmount());
 }
 
 void UStorageUI::InventoryToStorageMessageBoxCallback(UMessageBoxUI* MessageBox)
