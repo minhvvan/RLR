@@ -14,6 +14,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
 
 #include "Structs/UtilStructs.h"
@@ -89,7 +90,7 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostReceivedTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT("받은 우편함");
+			FText TabNameText = STRING_TO_FTEXT(RLRLITERAL.PostUI_ReceivedPost);
 			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Visible);
@@ -120,7 +121,7 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostSentTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT("보낸 우편함");
+			FText TabNameText = STRING_TO_FTEXT(RLRLITERAL.PostUI_SentPost);
 			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Hidden);
@@ -267,7 +268,7 @@ void UPostOverlayUI::ShowConfirmMessage(const FText& MessageText, FName ConfirmF
 /* 여러 우편 삭제 ConfirmMessage */
 void UPostOverlayUI::ConfirmDeletePosts()
 {
-	FText Text = STRING_TO_FTEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
+	FText Text = STRING_TO_FTEXT(RLRLITERAL.PostUI_RemovePrompt);
 	ShowConfirmMessage(
 		Text,
 		FName("OnClickedDeletePostsConfirmButton"),
@@ -278,7 +279,7 @@ void UPostOverlayUI::ConfirmDeletePosts()
 /* 한 개 우편 삭제 ConfirmMessage */
 void UPostOverlayUI::ConfirmDeletePost()
 {
-	FText Text = STRING_TO_FTEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
+	FText Text = STRING_TO_FTEXT(RLRLITERAL.PostUI_RemovePrompt);
 	ShowConfirmMessage(
 		Text,
 		FName("OnClickedDeletePostConfirmButton"),

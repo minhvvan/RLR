@@ -3,6 +3,7 @@
 
 #include "GameManager/RLRAssetManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 
 URLRAssetManager& URLRAssetManager::Get()
 {
@@ -17,5 +18,6 @@ void URLRAssetManager::StartInitialLoading()
 	Super::StartInitialLoading();
 
 	FGameplayTagManager::Init();
+	LiteralManager::Init();
 	//UAbilitySystemGlobals::Get().InitGlobalData();
 }
