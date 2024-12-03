@@ -82,6 +82,13 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
     bIsSentTab = bIsSent;
     ClearPostList();
 
+    /* 우편 개수 50개 제한 */
+    if (Posts.Num() >= 50)
+    {
+        /* 제일 오래된 우편부터 삭제 */
+        RemoveOldestPost(Posts);
+    }
+
     for (const FPostResult& Post : Posts)
     {
         AddPostButton(Post, bIsSentTab);
@@ -278,13 +285,6 @@ void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
                     PostButtons.Add(Post.Title, PostButton);
                     postCount++;
                     PostCountText->SetText(FText::AsNumber(postCount));
-
-                    /* 우편 개수 50개 제한 */
-                    if (PageSwitcher->GetChildrenCount() == 8 && VerticalBoxes.Last()->GetChildrenCount() >= 2)
-                    {
-                        /* 제일 오래된 우편부터 삭제 */
-                        RemoveOldestPost();
-                    }
                 }
             }
         });
@@ -299,18 +299,10 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 }
 
 /* 우편 개수가 50개 이상일때 기존의 가장 오래된 우편 삭제 */
-void UPostTabWidget::RemoveOldestPost()
+void UPostTabWidget::RemoveOldestPost(const TArray<FPostResult>& Posts)
 {
-    UVerticalBox* LastPage = Cast<UVerticalBox>(PageSwitcher->GetChildAt(7));
-    if (LastPage && LastPage->GetChildrenCount() > 0)
-    {
-        // 가장 오래된 버튼 삭제
-        UPostButtonUI* OldestButton = Cast<UPostButtonUI>(LastPage->GetChildAt(LastPage->GetChildrenCount() - 1));
-        if (OldestButton)
-        {
-            RemovePost(OldestButton->GetPostInfo());
-        }
-    }
+    /* TODO : Posts의 날짜를 비교하여 가장 오래된 것을 삭제함 -> 서버에 해당 기능 생기면 이 함수 제거 */
+    GameInstance->GetNetworkManager()->SendPostRemoveRequest(Posts[0]);
 }
 
 void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI)

@@ -36,8 +36,8 @@ void UPostOverlayUI::NativeConstruct()
 
 	GameInstance->GetPostalManager()->PostUIClass = this;
 
-	DeletePostsConfirmText = STRING_TO_FTEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
-	WritingPostWarningText = STRING_TO_FTEXT("작성중인 우편이 있습니다. 창을 종료하면 작성 중이던 편지가 삭제됩니다.");
+	DeletePostsConfirmText = STRING_TO_FTEXT(RLRLITERAL.PostUI_RemovePrompt);
+	WritingPostWarningText = STRING_TO_FTEXT(RLRLITERAL.PostUI_ExitPrompt);
 
 	if (ReceivedPostButton)
 	{
@@ -236,8 +236,8 @@ void UPostOverlayUI::ConfirmDeletePosts()
 {
 	ShowConfirmMessage(
 		DeletePostsConfirmText,
-		FName("OnClickedDeletePostsConfirmButton"),
-		FName("OnClickedCancelButton")
+		RLRLITERAL.PostUI_OnClickedDeletePostsConfirmButton,
+		RLRLITERAL.PostUI_OnClickedCancelButton
 	);
 }
 
@@ -246,8 +246,8 @@ void UPostOverlayUI::ManageWritingPost()
 {
 	ShowConfirmMessage(
 		WritingPostWarningText,
-		FName("OnClickedAcceptButton"),
-		FName("OnClickedCancelButton")
+		RLRLITERAL.PostUI_OnClickedAcceptButtonWhileWriting,
+		RLRLITERAL.PostUI_OnClickedCancelButton
 	);
 	ChangeTabIndex = 1;
 }

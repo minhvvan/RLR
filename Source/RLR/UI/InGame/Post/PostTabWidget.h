@@ -117,7 +117,7 @@ private:
     void CreateNewPage();
     void AddPostButton(const FPostResult& Post, bool bIsSent);
     void UpdatePostDetails(const FPostResult& Post);
-    void RemoveOldestPost();
+    void RemoveOldestPost(const TArray<FPostResult>& Posts);
 
     UFUNCTION()
     void OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI);

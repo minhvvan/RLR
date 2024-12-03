@@ -42,6 +42,8 @@ public:
 	const TCHAR* PostUI_ExitPrompt;
 	FName PostUI_OnClickedDeletePostsConfirmButton;
 	FName PostUI_OnClickedCancelButton;
+	FName PostUI_OnClickedAcceptButtonWhileWriting;
+
 	/* Player Commands */
 	const TCHAR* Playercommands_InputConfigNull;
 	const TCHAR* Playercommands_URLREnhancedInputComponentNull;
