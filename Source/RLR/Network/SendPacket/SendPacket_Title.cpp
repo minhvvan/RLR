@@ -55,3 +55,4 @@ bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 
     return false;
 }
+

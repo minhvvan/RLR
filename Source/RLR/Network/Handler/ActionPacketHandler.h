@@ -15,6 +15,6 @@ bool Handle_MONSTER_MOVE_REQUEST(TSharedPtr<PacketSession>& session, Protocol::S
 bool Handle_MONSTER_ATTACK_REQUEST(TSharedPtr<PacketSession>& session, Protocol::SS_MonsterAttackRequestPacket& pkt);
 bool Handle_DAMAGE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SS_DamageResponsePacket& pkt);
 bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MonsterStatusBroadcastPacket& pkt);
-bool Handle_MONSTER_DIE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MonsterDieBroadcast& pkt);
+bool Handle_MONSTER_DIE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MonsterDieBroadcast& pkt);
 
 bool Handle_ACTION_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_ActionBroadcastPacket& pkt);
