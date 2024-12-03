@@ -17,38 +17,38 @@ public:
 
 public:
 	/* TradeUI */
-	const TCHAR* TradeUI_Nickname;
-	const TCHAR* TradeUI_UserSeq;
-	const TCHAR* TradeUI_From;
-	const TCHAR* TradeUI_Gold;
-	const TCHAR* TradeUI_TradeRequest;
-	const TCHAR* TradeUI_TradeSuccess;
-	const TCHAR* TradeUI_TradeCanceled;
-	const TCHAR* TradeUI_TradeDenied;
-	const TCHAR* TradeUI_InputExceedsCurrentQuantity;
+	FString TradeUI_Nickname;
+	FString TradeUI_UserSeq;
+	FString TradeUI_From;
+	FString TradeUI_Gold;
+	FString TradeUI_TradeRequest;
+	FString TradeUI_TradeSuccess;
+	FString TradeUI_TradeCanceled;
+	FString TradeUI_TradeDenied;
+	FString TradeUI_InputExceedsCurrentQuantity;
 	FName TradeUI_OnClickedInventorySlot;
 	FName TradeUI_OnClickedAcceptButton;
 	FName TradeUI_OnClickedCancelButton;
 	FName TradeUI_OnConfirmItemCountMessageBox;
 	FName TradeUI_OnCancelItemCountMessageBox;
 	/* EnhanceOverlayUI */
-	const TCHAR* Enhance_EnhancePrompt;
+	FString Enhance_EnhancePrompt;
 	FName Enhance_OnClickedAcceptButton;
 	FName Enhance_OnClickedCancelButton;
 	/* PostOverlayUI */
-	const TCHAR* PostUI_ReceivedPost;
-	const TCHAR* PostUI_SentPost;
-	const TCHAR* PostUI_RemovePrompt;
-	const TCHAR* PostUI_ExitPrompt;
+	FString PostUI_ReceivedPost;
+	FString PostUI_SentPost;
+	FString PostUI_RemovePrompt;
+	FString PostUI_ExitPrompt;
 	FName PostUI_OnClickedDeletePostsConfirmButton;
 	FName PostUI_OnClickedCancelButton;
 	FName PostUI_OnClickedAcceptButtonWhileWriting;
 
 	/* Player Commands */
-	const TCHAR* Playercommands_InputConfigNull;
-	const TCHAR* Playercommands_URLREnhancedInputComponentNull;
+	FString Playercommands_InputConfigNull;
+	FString Playercommands_URLREnhancedInputComponentNull;
 	/* UItemCountMessageBox */
-	const TCHAR* ItemCountMsg_InputQuantity;
+	FString ItemCountMsg_InputQuantity;
 
 private:
 	static LiteralManager LiteralMessages;

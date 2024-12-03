@@ -50,7 +50,7 @@ void UEnhanceOverlayUI::OnEnhanceButtonClicked()
 	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, RLRLITERAL.Enhance_OnClickedCancelButton);
 
 
-	FText MessageText = STRING_TO_FTEXT(RLRLITERAL.Enhance_EnhancePrompt);
+	FText MessageText = FSTRING_TO_FTEXT(RLRLITERAL.Enhance_EnhancePrompt);
 
 	ConfirmMessageBox->SetMessageText(MessageText);
 }

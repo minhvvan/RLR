@@ -8,6 +8,7 @@
 #define FLOAT_TO_FTEXT(floatValue) FText::FromString(FString::SanitizeFloat(floatValue))
 #define INT_TO_FTEXT(Value) FText::FromString(FString::FromInt(Value))
 #define STRING_TO_FTEXT(String) FText::FromString(UTF8_TO_TCHAR(String));
+#define FSTRING_TO_FTEXT(FString) FText::FromString(FString);
 
 //Etc
 class UAction;

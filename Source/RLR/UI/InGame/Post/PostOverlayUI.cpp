@@ -36,8 +36,8 @@ void UPostOverlayUI::NativeConstruct()
 
 	GameInstance->GetPostalManager()->PostUIClass = this;
 
-	DeletePostsConfirmText = STRING_TO_FTEXT(RLRLITERAL.PostUI_RemovePrompt);
-	WritingPostWarningText = STRING_TO_FTEXT(RLRLITERAL.PostUI_ExitPrompt);
+	DeletePostsConfirmText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_RemovePrompt);
+	WritingPostWarningText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_ExitPrompt);
 
 	if (ReceivedPostButton)
 	{
@@ -93,7 +93,7 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostReceivedTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT(RLRLITERAL.PostUI_ReceivedPost);
+			FText TabNameText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_ReceivedPost);
 			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Visible);
@@ -124,7 +124,7 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostSentTabWidget)
 		{
-			FText TabNameText = STRING_TO_FTEXT(RLRLITERAL.PostUI_SentPost);
+			FText TabNameText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_SentPost);
 			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Hidden);

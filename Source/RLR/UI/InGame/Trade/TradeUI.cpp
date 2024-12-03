@@ -136,7 +136,7 @@ void UTradeUI::HandleTradeUserResponse(int32 UserSeq)
 		ConfirmMessageBox->EtcPropertyMap.Add(RLRLITERAL.TradeUI_From, FromData);
 
 		FString NickName = FromStat->GetNickName();
-		FText Text1 = STRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeRequest);
+		FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeRequest);
 		FText MessageTextFormat = FText::Format(
 			FText::FromString(TEXT("[{0}]{1}")),
 			FText::FromString(NickName),
@@ -452,7 +452,7 @@ void UTradeUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
 	FString FromNickName = FromData->EtcStringMap[RLRLITERAL.TradeUI_Nickname];
 	if (FromNickName.IsEmpty())
 		return;
-	FText Text1 = STRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeDenied);
+	FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeDenied);
 	FText MessageTextFormat = FText::Format(
 		FText::FromString(TEXT("[{0}] {1}")),
 		FText::FromString(FromNickName),
@@ -581,7 +581,7 @@ void UTradeUI::OnClickedAddGoldButton()
 	FItemData DummyData = FItemData(); 
 	DummyData.ITEM_SEQ = -10;
 	DummyData.TYPE = (int32)EItemType::NONE;
-	DummyData.NAME = STRING_TO_FTEXT(RLRLITERAL.TradeUI_Gold);
+	DummyData.NAME = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_Gold);
 	ItemCountMessageBox->SetItemData(DummyData);
 	ItemCountMessageBox->RefreshUI();
 }
