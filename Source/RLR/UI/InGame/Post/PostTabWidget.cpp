@@ -14,6 +14,7 @@
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
 #include "Components/MultiLineEditableText.h"
+#include "Components/VerticalBoxSlot.h"
 #include "Components/SizeBox.h"
 #include "Components/GridPanel.h"
 #include "GameManager/UIManager.h"
@@ -105,32 +106,38 @@ void UPostTabWidget::RemovePost(FPostResult Post)
             {
                 UPostButtonUI* PostButton = PostButtons[Post.Title];
 
-                UWidget* ActiveWidget = PageSwitcher->GetActiveWidget();
-                if (UVerticalBox* ActiveVerticalBox = Cast<UVerticalBox>(ActiveWidget))
+                for (UWidget* Page : PageSwitcher->GetAllChildren())
                 {
-                    ActiveVerticalBox->RemoveChild(PostButton);
-
-                    /* 현재 페이지에 존재하는 우편이 없다면 */
-                    if (ActiveVerticalBox->GetChildrenCount() < 1)
+                    if (UVerticalBox* VerticalBox = Cast<UVerticalBox>(Page))
                     {
-                        PageSwitcher->RemoveChild(ActiveWidget);
-                        int32 TotalPage = PageSwitcher->GetNumWidgets() > 0 ? PageSwitcher->GetNumWidgets() : 1;
+                        if (VerticalBox->RemoveChild(PostButton)) // 삭제 성공
+                        {
+                            // 페이지에 버튼이 없다면 해당 페이지도 삭제
+                            if (VerticalBox->GetChildrenCount() < 1)
+                            {
+                                PageSwitcher->RemoveChild(Page);
 
-                        FText PageText = FText::Format(
-                            FText::FromString(TEXT("{0}/{1}")),
-                            FText::AsNumber(PageSwitcher->GetActiveWidgetIndex() + 1),
-                            FText::AsNumber(TotalPage)
-                        );
-                        CurrentPageText->SetText(PageText);
+                                int32 TotalPage = PageSwitcher->GetNumWidgets() > 0 ? PageSwitcher->GetNumWidgets() : 1;
+
+                                FText PageText = FText::Format(
+                                    FText::FromString(TEXT("{0}/{1}")),
+                                    FText::AsNumber(PageSwitcher->GetActiveWidgetIndex() + 1),
+                                    FText::AsNumber(TotalPage)
+                                );
+                                CurrentPageText->SetText(PageText);
+                            }
+                            break;
+                        }
                     }
                 }
+
                 PostButton->SetButtonState(false);
             }
-
-            /* TODO : 서버에 삭제된 우편을 제외한 post목록을 전달하여 목록 새로고침하기 */
-            postCount > 0 ? postCount-- : postCount = 0;
+            PostButtons.Remove(Post.Title);
+            // PostCount 감소 및 UI 업데이트
+            postCount = FMath::Max(0, postCount - 1);
             PostCountText->SetText(FText::AsNumber(postCount));
-            PostButtons.Remove(SelectedPost.Title);
+
             SelectedPost = FPostResult();
             SelectedPostButton = nullptr;
             UpdatePostDetails(SelectedPost);
@@ -146,9 +153,7 @@ void UPostTabWidget::OnRemoveButtonClicked()
 void UPostTabWidget::OnReceiveAllAttachmentsButtonClicked()
 {
     UVerticalBox* ActiveVerticalBox = Cast<UVerticalBox>(PageSwitcher->GetActiveWidget());
-
     TArray<UWidget*> PostButtonsWidgets = ActiveVerticalBox->GetAllChildren();
-
     for (UWidget* Widget : PostButtonsWidgets)
     {
         if (UPostButtonUI* PostButton = Cast<UPostButtonUI>(Widget))
@@ -156,7 +161,6 @@ void UPostTabWidget::OnReceiveAllAttachmentsButtonClicked()
             if (PostButton->SelectCheckBox && PostButton->SelectCheckBox->IsChecked())
             {
                 FPostResult Post = PostButton->GetPostInfo();
-
                 // 첨부물 받기 로직
                 GameInstance->GetNetworkManager()->SendPostReceivedRequest(Post);
             }
@@ -166,6 +170,8 @@ void UPostTabWidget::OnReceiveAllAttachmentsButtonClicked()
 
 void UPostTabWidget::OnRemoveSelectedButtonClicked()
 {
+    bool bIsBulkDelete = false;
+    /* 체크 후 삭제 누른 경우 */
     UWidget* ActiveWidget = PageSwitcher->GetActiveWidget();
     if (UVerticalBox* ActiveVerticalBox = Cast<UVerticalBox>(ActiveWidget))
     {
@@ -177,13 +183,18 @@ void UPostTabWidget::OnRemoveSelectedButtonClicked()
             {
                 if (PostButton->SelectCheckBox && PostButton->SelectCheckBox->IsChecked())
                 {
+                    bIsBulkDelete = true;
                     FPostResult Post = PostButton->GetPostInfo();
-
                     // 삭제 로직
                     RemovePost(Post);
                 }
             }
         }
+    }
+    /* 개별 삭제 누른 경우 */
+    if (!bIsBulkDelete && SelectedPost.PostId != -1)
+    {
+        RemovePost(SelectedPost);
     }
 }
 
@@ -220,22 +231,20 @@ void UPostTabWidget::ClearPostList()
 
 void UPostTabWidget::CreateNewPage()
 {
+    /* 8 페이지 이상이라면 더 이상 생성X */
+    if(PageSwitcher->GetChildrenCount() >= 8) return;
     // 새 VerticalBox 생성
-    CurrentVerticalBox = NewObject<UVerticalBox>(this);
-    if (!CurrentVerticalBox || !PageSwitcher)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to create new page."));
-        return;
-    }
+    NewPage = NewObject<UVerticalBox>(this);
+    if (!NewPage || !PageSwitcher) return;
 
-    if (!VerticalBoxes.Contains(CurrentVerticalBox))
+    if (!VerticalBoxes.Contains(NewPage))
     {
-        VerticalBoxes.Add(CurrentVerticalBox);
+        VerticalBoxes.Add(NewPage);
     }
 
     // 새 페이지를 WidgetSwitcher에 추가
-    PageSwitcher->AddChild(CurrentVerticalBox);
-    PageSwitcher->SetActiveWidget(CurrentVerticalBox);
+    PageSwitcher->AddChild(NewPage);
+    PageSwitcher->SetActiveWidget(NewPage);
 
     int32 CurrentIndex = PageSwitcher->GetActiveWidgetIndex();
     int32 TotalPages = PageSwitcher->GetNumWidgets();
@@ -260,15 +269,22 @@ void UPostTabWidget::AddPostButton(const FPostResult& Post, bool bIsSent)
                 {
                     PostButton->SetPostInfo(Post, bIsSent);
                     PostButton->OnPostButtonClick.AddUObject(this, &UPostTabWidget::OnPostButtonClicked);
-                    
+
                     if (PageSwitcher->GetChildrenCount() == 0 || VerticalBoxes.Last()->GetChildrenCount() >= MaxButtonsPerPage)
-                        {
-                            CreateNewPage();
-                        }
+                    {
+                        CreateNewPage();
+                    }
                     VerticalBoxes.Last()->AddChild(PostButton);
                     PostButtons.Add(Post.Title, PostButton);
                     postCount++;
                     PostCountText->SetText(FText::AsNumber(postCount));
+
+                    /* 우편 개수 50개 제한 */
+                    if (PageSwitcher->GetChildrenCount() == 8 && VerticalBoxes.Last()->GetChildrenCount() >= 2)
+                    {
+                        /* 제일 오래된 우편부터 삭제 */
+                        RemoveOldestPost();
+                    }
                 }
             }
         });
@@ -280,6 +296,21 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
     
     PostOverlayUI->PostDetailUI->ClearPostSlots();
     PostOverlayUI->PostDetailUI->UpdatePostDetails(Post, bIsSentTab);
+}
+
+/* 우편 개수가 50개 이상일때 기존의 가장 오래된 우편 삭제 */
+void UPostTabWidget::RemoveOldestPost()
+{
+    UVerticalBox* LastPage = Cast<UVerticalBox>(PageSwitcher->GetChildAt(7));
+    if (LastPage && LastPage->GetChildrenCount() > 0)
+    {
+        // 가장 오래된 버튼 삭제
+        UPostButtonUI* OldestButton = Cast<UPostButtonUI>(LastPage->GetChildAt(LastPage->GetChildrenCount() - 1));
+        if (OldestButton)
+        {
+            RemovePost(OldestButton->GetPostInfo());
+        }
+    }
 }
 
 void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI)

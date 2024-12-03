@@ -94,10 +94,10 @@ public:
 
     // 한 페이지에 표시할 버튼 최대 수 = 5
     UPROPERTY(EditDefaultsOnly, Category = "UI")
-    int32 MaxButtonsPerPage = 5;  
+    int32 MaxButtonsPerPage = 7;  
 
     // 현재 사용 중인 VerticalBox
-    UVerticalBox* CurrentVerticalBox;
+    UVerticalBox* NewPage;
     TArray<UVerticalBox*> VerticalBoxes;
 
     UPROPERTY()
@@ -117,6 +117,7 @@ private:
     void CreateNewPage();
     void AddPostButton(const FPostResult& Post, bool bIsSent);
     void UpdatePostDetails(const FPostResult& Post);
+    void RemoveOldestPost();
 
     UFUNCTION()
     void OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI);

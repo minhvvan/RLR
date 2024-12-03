@@ -29,7 +29,12 @@ void LiteralManager::Init()
     LiteralMessages.Enhance_OnClickedCancelButton = FName("OnClickedCancelButton");
 
     /* PostOverlayUI */
-
+    LiteralMessages.PostUI_ReceivedPost = TEXT("받은 우편함");
+    LiteralMessages.PostUI_SentPost = TEXT("보낸 우편함");
+    LiteralMessages.PostUI_RemovePrompt = TEXT("정말 삭제하시겠습니까? 다시 되돌릴 수 없습니다.");
+    LiteralMessages.PostUI_ExitPrompt = TEXT("작성중인 우편이 있습니다. 창을 종료하면 작성 중이던 편지가 삭제됩니다.");
+    LiteralMessages.PostUI_OnClickedDeletePostsConfirmButton = FName("");
+    LiteralMessages.PostUI_OnClickedCancelButton = FName("");
 
     /* Player Commands */
     LiteralMessages.Playercommands_InputConfigNull = TEXT("InputConfig is nullptr. 값을 할당해주세요.");
