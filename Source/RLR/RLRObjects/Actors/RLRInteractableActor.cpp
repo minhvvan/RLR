@@ -10,22 +10,23 @@
 #include "ActionSystem/ActionSystemTypes.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 #include "Structs/ObjectStructs.h"
 #include "RLR.h"
 
 ARLRInteractableActor::ARLRInteractableActor()
 {
-	InteractionComp = CreateDefaultSubobject<USphereComponent>(TEXT("InteractionComp"));
+	InteractionComp = CreateDefaultSubobject<USphereComponent>(RLRLITERAL.InteractableActor_InteractionComp);
 	InteractionComp->SetupAttachment(RootComponent);
 
 	//Set Interaction Collision
 	InteractionComp->InitSphereRadius(100.f);
 	SetRootComponent(InteractionComp);
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(RLRLITERAL.InteractableActor_Mesh);
 	Mesh->SetupAttachment(RootComponent);	
 	
-	InteractUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("InteractUI"));
+	InteractUI = CreateDefaultSubobject<UWidgetComponent>(RLRLITERAL.InteractableActor_InteractUI);
 	InteractUI->SetupAttachment(RootComponent);
 	InteractUI->SetRelativeLocation({ 0.f, 0.f, 50.f });
 	InteractUI->SetVisibility(false);

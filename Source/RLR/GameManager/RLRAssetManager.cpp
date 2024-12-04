@@ -17,7 +17,7 @@ void URLRAssetManager::StartInitialLoading()
 {
 	Super::StartInitialLoading();
 
-	FGameplayTagManager::Init();
 	LiteralManager::Init();
+	FGameplayTagManager::Init();
 	//UAbilitySystemGlobals::Get().InitGlobalData();
 }
