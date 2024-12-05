@@ -5,6 +5,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
 #include "Structs/LevelStruct.h"
 
@@ -21,25 +22,25 @@ bool ULevelManager::LoadLevel(FName LevelName)
 
 			//TODO 깔끔하게 분류되게 해주기
 			FText LevelText;
-			if (LevelName == FName("Lobby"))
+			if (LevelName == RLRLITERAL.LevelName_Lobby)
 			{
-				LevelText = FText::Format(FText::FromString("/Game/Map/Lobby/{0}"), FText::FromString(LevelName.ToString()));
+				LevelText = FText::Format(FText::FromString(RLRLITERAL.LevelPath_Lobby), FText::FromString(LevelName.ToString()));
 			}
-			else if (LevelName == FName("Title"))
+			else if (LevelName == RLRLITERAL.LevelName_Title)
 			{
-				LevelText = FText::Format(FText::FromString("/Game/Map/Title/{0}"), FText::FromString(LevelName.ToString()));
+				LevelText = FText::Format(FText::FromString(RLRLITERAL.LevelPath_Title), FText::FromString(LevelName.ToString()));
 			}
-			else if (LevelName == FName("InGame"))
+			else if (LevelName == RLRLITERAL.LevelName_InGame)
 			{
-				LevelText = FText::Format(FText::FromString("/Game/Map/InGame/{0}"), FText::FromString(LevelName.ToString()));
+				LevelText = FText::Format(FText::FromString(RLRLITERAL.LevelPath_InGame), FText::FromString(LevelName.ToString()));
 			}
-			else if (LevelName == FName("Dungeon"))
+			else if (LevelName == RLRLITERAL.LevelName_Dungeon)
 			{
-				LevelText = FText::Format(FText::FromString("/Game/Map/Dungeon/{0}"), FText::FromString(LevelName.ToString()));
+				LevelText = FText::Format(FText::FromString(RLRLITERAL.LevelPath_Dungeon), FText::FromString(LevelName.ToString()));
 			}
 			else
 			{
-				LevelText = FText::FromString("/Game/StylizedProvencal/Maps/TestMap2");
+				LevelText = FText::FromString(RLRLITERAL.LevelPath_TestMap2);
 			}
 
 			FString LevelString = LevelText.ToString();
@@ -51,7 +52,7 @@ bool ULevelManager::LoadLevel(FName LevelName)
 						{
 							//여기에 들어왔다는 건 패키징된 맵이 아니라는 소리니, 패키징 해줄 것.
 							GameInstance->GetLevelManager()->LoadLevelCompleteDelegate.Unbind();
-							UGameplayStatics::OpenLevel(GameInstance->GetWorld(), "Title");
+							UGameplayStatics::OpenLevel(GameInstance->GetWorld(), RLRLITERAL.LevelName_Title);
 							DEBUG_MESSAGE;
 							return;
 						}

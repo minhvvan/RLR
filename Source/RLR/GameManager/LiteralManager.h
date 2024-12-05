@@ -82,6 +82,28 @@ public:
 	FString	DataManager_EmptyString;
 	/* EffectManageer */
 	FString DT_EffectData_Path;
+	/* LevelTransitionVolume */
+	FName	TransitionVolume_VolumeName;
+	FName	TransitionVolume_OverlapOnlyPawn;
+	/* RLRInteractableActor */
+	FName	InteractableActor_InteractionComp;
+	FName	InteractableActor_Mesh;
+	FName	InteractableActor_InteractUI;
+	/* RLRProjectile */
+	FName	Projectile_CollisionComponent;
+	FName	Projectile_Mesh;
+	FName	Projectile_Movement;
+	/* LevelManager */
+	FName LevelName_Lobby;
+	FName LevelName_Title;
+	FName LevelName_InGame;
+	FName LevelName_Dungeon;
+	FString LevelPath_Lobby;
+	FString LevelPath_Title;
+	FString LevelPath_InGame;
+	FString LevelPath_Dungeon;
+	FString LevelPath_TestMap2;
+
 	/* GameplayTagManager */
 	// Attribute_MainStat
 	FTagPair Attribute_MainStat_Health;
@@ -223,17 +245,7 @@ public:
 	FTagPair InputTag_Z;
 	FTagPair InputTag_Alt_U;
 
-	/* LevelTransitionVolume */
-	FName	TransitionVolume_VolumeName;
-	FName	TransitionVolume_OverlapOnlyPawn;
-	/* RLRInteractableActor */
-	FName	InteractableActor_InteractionComp;
-	FName	InteractableActor_Mesh;
-	FName	InteractableActor_InteractUI;
-	/* RLRProjectile */
-	FName	Projectile_CollisionComponent;
-	FName	Projectile_Mesh;
-	FName	Projectile_Movement;
+
 
 private:
 	static LiteralManager LiteralMessages;

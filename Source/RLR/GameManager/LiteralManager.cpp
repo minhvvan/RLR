@@ -70,9 +70,27 @@ void LiteralManager::Init()
     LiteralMessages.DataManager_SearchingByTag = TEXT("Searching by Tag");
     LiteralMessages.DataManager_EmptyString = TEXT("");
 
+    /* Player Commands */
+    LiteralMessages.Playercommands_InputConfigNull = TEXT("InputConfig is nullptr. 값을 할당해주세요.");
+    LiteralMessages.Playercommands_URLREnhancedInputComponentNull = TEXT("URLREnhancedInputComponent  is nullptr.");
+
+    /* UItemCountMessageBox */
+    LiteralMessages.ItemCountMsg_InputQuantity = TEXT("갯수 입력");
+
     /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health    = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
     LiteralMessages.Attribute_MainStat_MaxHealth = FTagPair(FName("Attribute.MainStat.MaxHealth"), TEXT("최대 체력"));
+
+    /* LevelManager */
+	LiteralMessages.LevelName_Lobby     = FName("Lobby");
+    LiteralMessages.LevelName_Title     = FName("Title");
+    LiteralMessages.LevelName_InGame    = FName("InGame");
+    LiteralMessages.LevelName_Dungeon   = FName("Dungeon");
+    LiteralMessages.LevelPath_Lobby     = TEXT("/Game/Map/Lobby/{0}");
+    LiteralMessages.LevelPath_Title     = TEXT("/Game/Map/Title/{0}");
+    LiteralMessages.LevelPath_InGame    = TEXT("/Game/Map/InGame/{0}");
+    LiteralMessages.LevelPath_Dungeon   = TEXT("/Game/Map/Dungeon/{0}");
+    LiteralMessages.LevelPath_TestMap2  = TEXT("/Game/StylizedProvencal/Maps/TestMap2");
     
     LiteralMessages.Action_Default_Move     = FTagPair(FName("Action.Default.Move"), TEXT("이동"));
 	LiteralMessages.Action_Default_Attack   = FTagPair(FName("Action.Default.Attack"), TEXT("기본공격"));
@@ -211,12 +229,6 @@ void LiteralManager::Init()
     LiteralMessages.InputTag_Alt_U      = FTagPair(FName("Input.Alt_U"), TEXT("KeyBoard Alt + U"));
 
 
-    /* Player Commands */
-    LiteralMessages.Playercommands_InputConfigNull = TEXT("InputConfig is nullptr. 값을 할당해주세요.");
-    LiteralMessages.Playercommands_URLREnhancedInputComponentNull = TEXT("URLREnhancedInputComponent  is nullptr.");
-
-    /* UItemCountMessageBox */
-    LiteralMessages.ItemCountMsg_InputQuantity = TEXT("갯수 입력");
 
 
 }
