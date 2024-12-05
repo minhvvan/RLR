@@ -115,6 +115,8 @@ public:
 	/* ObjectManager */
 	FString RLRNonPlayerCharacter_Path;
 	FString RLRInteractableActor_Path;
+	/* OtehrUserManager */
+
 
 	/* GameplayTagManager */
 	// Attribute_MainStat
