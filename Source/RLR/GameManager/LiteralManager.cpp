@@ -6,8 +6,7 @@
 LiteralManager LiteralManager::LiteralMessages;
 
 LiteralManager::LiteralManager()
-    :  
-        DT_EffectData_Path(TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectData.DT_EffectData'")),
+    :   DT_EffectData_Path(TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectData.DT_EffectData'")),
         TransitionVolume_VolumeName(FName("TransitionVolume")),
         TransitionVolume_OverlapOnlyPawn(FName("OverlapOnlyPawn")),
         InteractableActor_InteractionComp(FName("InteractionComp")),
@@ -15,7 +14,9 @@ LiteralManager::LiteralManager()
         InteractableActor_InteractUI(FName("InteractUI")),
         Projectile_CollisionComponent(FName("CollisionComponent")),
         Projectile_Mesh(FName("Mesh")),
-        Projectile_Movement(FName("ProjectileMovement"))
+        Projectile_Movement(FName("ProjectileMovement")),
+        RLRNonPlayerCharacter_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Character/BP_NPC.BP_NPC_C'")),
+        RLRInteractableActor_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Interactable_Tree.BP_Interactable_Tree_C'"))
 {
 }
 
@@ -96,6 +97,7 @@ void LiteralManager::Init()
     LiteralMessages.Network_MainServerReceiverThread    = TEXT("MainServerReceiverThread");
     LiteralMessages.Network_MonsterServerSocket         = TEXT("MonsterServerSocket");
     LiteralMessages.Network_MonsterServerReceiverThread = TEXT("MonsterServerReceiverThread");
+    /* ObjectManager */
 
     /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));

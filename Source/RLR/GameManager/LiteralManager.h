@@ -112,7 +112,9 @@ public:
 	FString Network_MainServerReceiverThread;
 	FString Network_MonsterServerSocket;
 	FString Network_MonsterServerReceiverThread;
-
+	/* ObjectManager */
+	FString RLRNonPlayerCharacter_Path;
+	FString RLRInteractableActor_Path;
 
 	/* GameplayTagManager */
 	// Attribute_MainStat
