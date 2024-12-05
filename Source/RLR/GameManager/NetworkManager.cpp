@@ -12,6 +12,7 @@
 #include "Network/Proto/Item.pb.h"
 #include "RLR.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 
 void UNetworkManager::SetLoadBalancer(std::string host, int32 port)
 {
@@ -44,7 +45,7 @@ void UNetworkManager::RequestServerAddresses(int32 userSeq)
 
 bool UNetworkManager::ConnectToLoginServer(const FString& serverAddress, int32 port) {
     
-    LoginServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LoginServerSocket"), false);
+    LoginServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.Network_LoginServerSocket, false);
     FIPv4Address IP;
     FIPv4Address::Parse(serverAddress, IP);
 
@@ -56,13 +57,13 @@ bool UNetworkManager::ConnectToLoginServer(const FString& serverAddress, int32 p
     if (LoginServerSocket->Connect(*Addr))
     {
         LoginServerReceiver = MakeShared<FNetworkReceiver>(LoginServerSocket);
-        LoginServerThread = FRunnableThread::Create(LoginServerReceiver.Get(), TEXT("LoginServerReceiverThread"));
+        LoginServerThread = FRunnableThread::Create(LoginServerReceiver.Get(), *RLRLITERAL.Network_LoginServerReceiverThread);
     }
     return true;
 }
 void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 Port, int32 playerSeq)
 {
-    LobbyServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LobbyServerSocket"), false);
+    LobbyServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.Network_LobbyServerSocket, false);
     FIPv4Address IP;
     FIPv4Address::Parse(ServerAddress, IP);
 
@@ -73,14 +74,14 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
     if (LobbyServerSocket->Connect(*Addr))
     {
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
-        LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), TEXT("LobbyServerReceiverThread"));
+        LobbyServerThread = FRunnableThread::Create(LobbyServerReceiver.Get(), *RLRLITERAL.LevelPath_Lobby);
         GameInstance->SetPlayerSeq(playerSeq);
         
     }
 }
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)
 {
-    MainServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("MainServerSocket"), false);
+    MainServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.Network_MainServerSocket, false);
     FIPv4Address IP;
     FIPv4Address::Parse(ServerAddress, IP);
 
@@ -91,14 +92,14 @@ void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Po
     if (MainServerSocket->Connect(*Addr))
     {
         MainServerReceiver = MakeShared<FNetworkReceiver>(MainServerSocket);
-        MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), TEXT("MainServerReceiverThread"));
+        MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), *RLRLITERAL.Network_MainServerReceiverThread);
         
     }
 }
 
 void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32 Port)
 {
-    MonsterServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("MonsterServerSocket"), false);
+    MonsterServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.Network_MonsterServerSocket, false);
     FIPv4Address IP;
     FIPv4Address::Parse(ServerAddress, IP);
 
@@ -109,7 +110,7 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     if (MonsterServerSocket->Connect(*Addr))
     {
         MonsterServerReceiver = MakeShared<FNetworkReceiver>(MonsterServerSocket);
-        MonsterServerThread = FRunnableThread::Create(MonsterServerReceiver.Get(), TEXT("MonsterServerReceiverThread"));
+        MonsterServerThread = FRunnableThread::Create(MonsterServerReceiver.Get(), *RLRLITERAL.Network_MonsterServerReceiverThread);
 
     }
 }

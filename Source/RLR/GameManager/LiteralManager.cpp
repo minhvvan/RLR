@@ -77,10 +77,6 @@ void LiteralManager::Init()
     /* UItemCountMessageBox */
     LiteralMessages.ItemCountMsg_InputQuantity = TEXT("갯수 입력");
 
-    /* GameplayTagManager */
-    LiteralMessages.Attribute_MainStat_Health    = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
-    LiteralMessages.Attribute_MainStat_MaxHealth = FTagPair(FName("Attribute.MainStat.MaxHealth"), TEXT("최대 체력"));
-
     /* LevelManager */
 	LiteralMessages.LevelName_Lobby     = FName("Lobby");
     LiteralMessages.LevelName_Title     = FName("Title");
@@ -91,7 +87,20 @@ void LiteralManager::Init()
     LiteralMessages.LevelPath_InGame    = TEXT("/Game/Map/InGame/{0}");
     LiteralMessages.LevelPath_Dungeon   = TEXT("/Game/Map/Dungeon/{0}");
     LiteralMessages.LevelPath_TestMap2  = TEXT("/Game/StylizedProvencal/Maps/TestMap2");
-    
+    /* NetworkManager */
+    LiteralMessages.Network_LoginServerSocket           = TEXT("LoginServerSocket");
+    LiteralMessages.Network_LoginServerReceiverThread   = TEXT("LoginServerReceiverThread");
+    LiteralMessages.Network_LobbyServerSocket           = TEXT("LobbyServerSocket");
+    LiteralMessages.Network_LobbyServerReceiverThread   = TEXT("LobbyServerReceiverThread");
+    LiteralMessages.Network_MainServerSocket            = TEXT("MainServerSocket");
+    LiteralMessages.Network_MainServerReceiverThread    = TEXT("MainServerReceiverThread");
+    LiteralMessages.Network_MonsterServerSocket         = TEXT("MonsterServerSocket");
+    LiteralMessages.Network_MonsterServerReceiverThread = TEXT("MonsterServerReceiverThread");
+
+    /* GameplayTagManager */
+    LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
+    LiteralMessages.Attribute_MainStat_MaxHealth = FTagPair(FName("Attribute.MainStat.MaxHealth"), TEXT("최대 체력"));
+
     LiteralMessages.Action_Default_Move     = FTagPair(FName("Action.Default.Move"), TEXT("이동"));
 	LiteralMessages.Action_Default_Attack   = FTagPair(FName("Action.Default.Attack"), TEXT("기본공격"));
 	LiteralMessages.Action_Default_Jump     = FTagPair(FName("Action.Default.Jump"), TEXT("점프"));

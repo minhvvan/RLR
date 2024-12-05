@@ -103,6 +103,16 @@ public:
 	FString LevelPath_InGame;
 	FString LevelPath_Dungeon;
 	FString LevelPath_TestMap2;
+	/* NetworkManager */
+	FString Network_LoginServerSocket;
+	FString Network_LoginServerReceiverThread;
+	FString Network_LobbyServerSocket;
+	FString Network_LobbyServerReceiverThread;
+	FString Network_MainServerSocket;
+	FString Network_MainServerReceiverThread;
+	FString Network_MonsterServerSocket;
+	FString Network_MonsterServerReceiverThread;
+
 
 	/* GameplayTagManager */
 	// Attribute_MainStat
