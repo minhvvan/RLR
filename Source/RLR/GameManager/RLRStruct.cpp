@@ -4,6 +4,7 @@
 #include "GameManager/RLRStruct.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "Structs/PlayerStructs.h"
 #include "Structs/ItemStructs.h"
@@ -16,31 +17,31 @@
 // 문자열을 EItemRarity으로 변환하는 함수
 EItemRarity StringToEItemRarity(const FString& RarityString)
 {
-    if (RarityString.Equals(TEXT("COMMON"), ESearchCase::IgnoreCase))
+    if (RarityString.Equals(RLRLITERAL.ItemRarity_Common, ESearchCase::IgnoreCase))
     {
         return EItemRarity::COMMON;
     }
-    else if (RarityString.Equals(TEXT("UNCOMMON"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_Uncommon, ESearchCase::IgnoreCase))
     {
         return EItemRarity::UNCOMMON;
     }
-    else if (RarityString.Equals(TEXT("RARE"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_Rare, ESearchCase::IgnoreCase))
     {
         return EItemRarity::RARE;
     }
-    else if (RarityString.Equals(TEXT("UNIQUE"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_Unique, ESearchCase::IgnoreCase))
     {
         return EItemRarity::UNIQUE;
     }
-    else if (RarityString.Equals(TEXT("EPIC"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_Epic, ESearchCase::IgnoreCase))
     {
         return EItemRarity::EPIC;
     }
-    else if (RarityString.Equals(TEXT("LEGEND"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_Legend, ESearchCase::IgnoreCase))
     {
         return EItemRarity::LEGEND;
     }
-    else if (RarityString.Equals(TEXT("NONE"), ESearchCase::IgnoreCase))
+    else if (RarityString.Equals(RLRLITERAL.ItemRarity_None, ESearchCase::IgnoreCase))
     {
         return EItemRarity::NONE;
     }
@@ -54,19 +55,19 @@ EItemRarity StringToEItemRarity(const FString& RarityString)
 
 EItemType StringToEItemType(const FString& ItemTypeString)
 {
-    if (ItemTypeString.Equals(TEXT("EQUIPMENT"), ESearchCase::IgnoreCase))
+    if (ItemTypeString.Equals(RLRLITERAL.ItemType_Equipment, ESearchCase::IgnoreCase))
     {
         return EItemType::EQUIPMENT;
     }
-    else if (ItemTypeString.Equals(TEXT("CONSUMPTION"), ESearchCase::IgnoreCase))
+    else if (ItemTypeString.Equals(RLRLITERAL.ItemType_Consumption, ESearchCase::IgnoreCase))
     {
         return EItemType::CONSUMPTION;
     }
-    else if (ItemTypeString.Equals(TEXT("ETC"), ESearchCase::IgnoreCase))
+    else if (ItemTypeString.Equals(RLRLITERAL.ItemType_Etc, ESearchCase::IgnoreCase))
     {
         return EItemType::ETC;
     }
-    else if (ItemTypeString.Equals(TEXT("NONE"), ESearchCase::IgnoreCase))
+    else if (ItemTypeString.Equals(RLRLITERAL.ItemType_None, ESearchCase::IgnoreCase))
     {
         return EItemType::NONE;
     }
@@ -79,27 +80,27 @@ EItemType StringToEItemType(const FString& ItemTypeString)
 
 ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeString)
 {
-    if (MainJobTypeString.Equals(TEXT("SWORDSMAN"), ESearchCase::IgnoreCase))
+    if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_Swordsman, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::SWORDSMAN;
     }
-    else if (MainJobTypeString.Equals(TEXT("THIEF"), ESearchCase::IgnoreCase))
+    else if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_Thief, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::THEIF;
     }
-    else if (MainJobTypeString.Equals(TEXT("MAGE"), ESearchCase::IgnoreCase))
+    else if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_Mage, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::MAGE;
     }
-    else if (MainJobTypeString.Equals(TEXT("ARCHER"), ESearchCase::IgnoreCase))
+    else if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_Archer, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::ARCHER;
     }
-    else if (MainJobTypeString.Equals(TEXT("PRIEST"), ESearchCase::IgnoreCase))
+    else if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_Priest, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::PRIEST;
     }
-    else if (MainJobTypeString.Equals(TEXT("NONE"), ESearchCase::IgnoreCase))
+    else if (MainJobTypeString.Equals(RLRLITERAL.CharacterMainJobType_None, ESearchCase::IgnoreCase))
     {
         return ECharacterMainJobType::NONE;
     }
@@ -111,7 +112,7 @@ ECharacterMainJobType StringToECharacterMainJobType(const FString& MainJobTypeSt
 
 ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeString)
 {
-    if (SubJobTypeString.Equals(TEXT("NONE"), ESearchCase::IgnoreCase))
+    if (SubJobTypeString.Equals(RLRLITERAL.CharacterSubJobType_None, ESearchCase::IgnoreCase))
     {
         return ECharacterSubJobType::NONE;
     }
@@ -123,51 +124,51 @@ ECharacterSubJobType StringToECharacterSubJobType(const FString& SubJobTypeStrin
 
 EEquipmentType StringToEEquipmentType(const FString& EquipmentTypeString)
 {
-    if (EquipmentTypeString.Equals(TEXT("WEAPON"), ESearchCase::IgnoreCase))
+    if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Weapon, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::WEAPON;
     }
-    else if (EquipmentTypeString.Equals(TEXT("SUBWEAPON"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_SubWeapon, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::SUBWEAPON;
     }
-    else if (EquipmentTypeString.Equals(TEXT("HELMET"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Helmet, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::HELMET;
     }
-    else if (EquipmentTypeString.Equals(TEXT("UPPERBODYARMOR"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_UpperbodyArmor, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::UPPERBODYARMOR;
     }
-    else if (EquipmentTypeString.Equals(TEXT("LOWERBODYARMOR"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_LowerboddyArmor, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::LOWERBODYARMOR;
     }
-    else if (EquipmentTypeString.Equals(TEXT("SHOES"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Shoes, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::SHOES;
     }
-    else if (EquipmentTypeString.Equals(TEXT("GLOVES"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Gloves, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::GLOVES;
     }
-    else if (EquipmentTypeString.Equals(TEXT("NECKLACE"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Necklace, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::NECKLACE;
     }
-    else if (EquipmentTypeString.Equals(TEXT("EARRING"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Earring, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::EARRING;
     }
-    else if (EquipmentTypeString.Equals(TEXT("RING"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Ring, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::RING;
     }
-    else if (EquipmentTypeString.Equals(TEXT("BRACELET"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_Bracelet, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::BRACELET;
     }
-    else if (EquipmentTypeString.Equals(TEXT("NONE"), ESearchCase::IgnoreCase))
+    else if (EquipmentTypeString.Equals(RLRLITERAL.EquipmentType_None, ESearchCase::IgnoreCase))
     {
         return EEquipmentType::NONE;
     }

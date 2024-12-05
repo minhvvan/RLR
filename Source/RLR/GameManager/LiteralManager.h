@@ -116,6 +116,47 @@ public:
 	FString RLRNonPlayerCharacter_Path;
 	FString RLRInteractableActor_Path;
 	/* OtehrUserManager */
+	FString RLRPlayerCharacter_Path;
+	/* PostalManager */
+	FString WBP_PostAlertUI;
+	/* RLRStruct */
+	FString ItemRarity_Common;
+	FString ItemRarity_Uncommon;
+	FString ItemRarity_Rare;
+	FString ItemRarity_Unique;
+	FString ItemRarity_Epic;
+	FString ItemRarity_Legend;
+	FString ItemRarity_None;
+
+	FString ItemType_Equipment;
+	FString ItemType_Consumption;
+	FString ItemType_Etc;
+	FString ItemType_None;
+
+	FString CharacterMainJobType_Swordsman;
+	FString CharacterMainJobType_Thief;
+	FString CharacterMainJobType_Mage;
+	FString CharacterMainJobType_Archer;
+	FString CharacterMainJobType_Priest;
+	FString CharacterMainJobType_None;
+
+	FString CharacterSubJobType_None;
+
+	FString EquipmentType_Weapon;
+	FString EquipmentType_SubWeapon;
+	FString EquipmentType_Helmet;
+	FString EquipmentType_UpperbodyArmor;
+	FString EquipmentType_LowerboddyArmor;
+	FString EquipmentType_Shoes;
+	FString EquipmentType_Gloves;
+	FString EquipmentType_Necklace;
+	FString EquipmentType_Earring;
+	FString EquipmentType_Ring;
+	FString EquipmentType_Bracelet;
+	FString EquipmentType_None;
+
+	FString Unknown;
+
 
 
 	/* GameplayTagManager */

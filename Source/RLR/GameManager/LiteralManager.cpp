@@ -98,7 +98,46 @@ void LiteralManager::Init()
     LiteralMessages.Network_MainServerReceiverThread    = TEXT("MainServerReceiverThread");
     LiteralMessages.Network_MonsterServerSocket         = TEXT("MonsterServerSocket");
     LiteralMessages.Network_MonsterServerReceiverThread = TEXT("MonsterServerReceiverThread");
-    
+    /* PostalManager */
+    LiteralMessages.WBP_PostAlertUI = TEXT("WBP_PostAlertUI");
+    /* RLRStruct */
+    LiteralMessages.ItemRarity_Common       = TEXT("COMMON");
+    LiteralMessages.ItemRarity_Uncommon     = TEXT("UNCOMMON");
+    LiteralMessages.ItemRarity_Rare         = TEXT("RARE");
+    LiteralMessages.ItemRarity_Unique       = TEXT("UNIQUE");
+    LiteralMessages.ItemRarity_Epic         = TEXT("EPIC");
+    LiteralMessages.ItemRarity_Legend       = TEXT("LEGEND");
+    LiteralMessages.ItemRarity_None         = TEXT("NONE");
+
+    LiteralMessages.ItemType_Equipment      = TEXT("EQUIPMENT");
+    LiteralMessages.ItemType_Consumption    = TEXT("CONSUMPTION");
+    LiteralMessages.ItemType_Etc            = TEXT("ETC");
+    LiteralMessages.ItemType_None           = TEXT("NONE");
+
+    LiteralMessages.CharacterMainJobType_Swordsman  = TEXT("SWORDSMAN");
+    LiteralMessages.CharacterMainJobType_Thief      = TEXT("THIEF");
+    LiteralMessages.CharacterMainJobType_Mage       = TEXT("MAGE");
+    LiteralMessages.CharacterMainJobType_Archer     = TEXT("ARCHER");
+    LiteralMessages.CharacterMainJobType_Priest     = TEXT("PRIEST");
+    LiteralMessages.CharacterMainJobType_None       = TEXT("NONE");
+
+    LiteralMessages.CharacterSubJobType_None        = TEXT("NONE");
+
+    LiteralMessages.EquipmentType_Weapon            = TEXT("WEAPON");
+    LiteralMessages.EquipmentType_SubWeapon         = TEXT("SUBWEAPON");
+    LiteralMessages.EquipmentType_Helmet            = TEXT("HELMET");
+    LiteralMessages.EquipmentType_UpperbodyArmor    = TEXT("UPPERBODYARMOR");
+    LiteralMessages.EquipmentType_LowerboddyArmor   = TEXT("LOWERBODYARMOR");
+    LiteralMessages.EquipmentType_Shoes             = TEXT("SHOES");
+    LiteralMessages.EquipmentType_Gloves            = TEXT("GLOVES");
+    LiteralMessages.EquipmentType_Necklace          = TEXT("NECKLACE");
+    LiteralMessages.EquipmentType_Earring           = TEXT("EARRING");
+    LiteralMessages.EquipmentType_Ring              = TEXT("RING");
+    LiteralMessages.EquipmentType_Bracelet          = TEXT("BRACELET");
+    LiteralMessages.EquipmentType_None              = TEXT("NONE");
+
+    LiteralMessages.Unknown = TEXT("UNKNOWN");
+
 
     /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
