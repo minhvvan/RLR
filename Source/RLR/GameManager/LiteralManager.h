@@ -156,7 +156,18 @@ public:
 	FString EquipmentType_None;
 
 	FString Unknown;
-
+	/* UIManager */
+	FString LevelName_Main;
+	/* ChatClient */
+	FString ChatType_Normal;
+	FString ChatType_Whisper;
+	FString ChatType_Nation;
+	FString ChatType_World;
+	FString ChatType_Guild;
+	FString ChatType_Raid;
+	FString ChatType_Party;
+	FString ChatType_Continent;
+	FString ChatType_Fellow;
 
 
 	/* GameplayTagManager */

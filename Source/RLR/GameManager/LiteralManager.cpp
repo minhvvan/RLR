@@ -137,6 +137,18 @@ void LiteralManager::Init()
     LiteralMessages.EquipmentType_None              = TEXT("NONE");
 
     LiteralMessages.Unknown = TEXT("UNKNOWN");
+    /* UIManager */
+    LiteralMessages.LevelName_Main = TEXT("Main");
+    /* ChatClient */
+    LiteralMessages.ChatType_Normal     = TEXT("일반");
+    LiteralMessages.ChatType_Whisper    = TEXT("귓속말");
+    LiteralMessages.ChatType_Nation     = TEXT("국가");
+    LiteralMessages.ChatType_World      = TEXT("세계");
+    LiteralMessages.ChatType_Guild      = TEXT("길드");
+    LiteralMessages.ChatType_Raid       = TEXT("레이드");
+    LiteralMessages.ChatType_Party      = TEXT("파티");
+    LiteralMessages.ChatType_Continent  = TEXT("대륙");
+    LiteralMessages.ChatType_Fellow     = TEXT("동료");
 
 
     /* GameplayTagManager */
