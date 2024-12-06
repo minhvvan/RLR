@@ -52,8 +52,6 @@ void UEnhanceOverlayUI::RefreshUI()
 void UEnhanceOverlayUI::OnEnhanceButtonClicked()
 {
 	ConfirmMessageBox->SetVisibility(ESlateVisibility::Visible);
-
-	OpenOtherUI(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 	ConfirmMessageBox->Clear();
 
 	//클릭, 취소 버튼 콜백 함수 등록

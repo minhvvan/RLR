@@ -17,10 +17,6 @@ enum class EItemType : uint8
 	EQUIPMENT,
 	CONSUMPTION,
 	ETC,
-	TotalMoney,
-	Diamond,
-	Reputation,
-	Contribution,
 	NONE,
 };
 
@@ -358,6 +354,12 @@ struct FPlayerGoods
 {
 	GENERATED_BODY()
 
+	FPlayerGoods()
+	{
+		TotalMoney = -1;
+		Diamond = -1;
+	}
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int TotalMoney;
 
@@ -381,6 +383,17 @@ struct FPlayerGoods
 	}
 
 	void MakePlayerGoods(const Protocol::PlayerGood playerGood);
+
+	/* 
+		Operators 
+	*/
+	static const FPlayerGoods EmptyPlayerGoods;
+	FORCEINLINE bool operator==(FPlayerGoods const& Other) const
+	{
+		if (TotalMoney != Other.TotalMoney && Diamond != Other.Diamond)
+			return false;
+		return true;
+	}
 };
 
 USTRUCT(Atomic, BlueprintType)

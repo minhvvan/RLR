@@ -59,7 +59,7 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
 	timeSinceLastMovePacket += DeltaTime;
 
-	if (timeSinceLastMovePacket >= movePacketInterval)
+	if (timeSinceLastMovePacket >= movePacketInterval && IsValid(PlayerCharacter) == true )
 	{
 		FVector CurrentPosition = PlayerCharacter->GetActorLocation();
 
@@ -274,7 +274,7 @@ void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
 	if (InventoryManager == nullptr) return;
 
-	InventoryManager->UsingItem(InputTag);
+	InventoryManager->UsingQuickSlotItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)

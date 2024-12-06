@@ -19,7 +19,6 @@ void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
 	UpdatedItemSettingDelegate.Clear();
 	UpdatedTryUsingItemAction.Clear();
 	OnUpdateInventoryDelegate.Clear();
-	OnUpdateGoldAndCashDelegate.Clear();
 	OnUpdateEquipDelegate.Clear();
 }
 
@@ -148,31 +147,7 @@ void UInventoryManager::ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex)
 	}
 }
 
-void UInventoryManager::SetGold(int32 NewGold)
-{
-	Gold = NewGold;
-	OnUpdateGoldAndCashDelegateBroadcast();
-}
-
-void UInventoryManager::SetPlatinum(int32 NewPlatinum)
-{
-	Platinum = NewPlatinum;
-	OnUpdateGoldAndCashDelegateBroadcast();
-}
-
-void UInventoryManager::SetCopper(int32 NewCopper)
-{
-	Copper = NewCopper;
-	OnUpdateGoldAndCashDelegateBroadcast();
-}
-
-void UInventoryManager::SetSilver(int32 NewSilver)
-{
-	Silver = NewSilver;
-	OnUpdateGoldAndCashDelegateBroadcast();
-}
-
-void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
+void UInventoryManager::UsingQuickSlotItem(FGameplayTag TriggerTag)
 {
 	if (HasItemTag(TriggerTag) == false)
 		return;
@@ -187,7 +162,7 @@ void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
 	UpdatedTryUsingItemAction.Broadcast(TriggerTag);
 }
 
-const FItemData* UInventoryManager::GetItemData(FGameplayTag TriggerTag)
+const FItemData* UInventoryManager::GetQuickSlotItemData(FGameplayTag TriggerTag)
 {
 	for (auto& [Tag, Data] : ItemQuickSlots)
 	{
@@ -199,7 +174,7 @@ const FItemData* UInventoryManager::GetItemData(FGameplayTag TriggerTag)
 	return nullptr;
 }
 
-const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetOwnItems()
+const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetItemQuickSlots()
 {
 	return ItemQuickSlots;
 }
@@ -268,20 +243,6 @@ void UInventoryManager::OnUpdateInventoryDelegateBroadcast()
 				return;
 			}
 			OnUpdateInventoryDelegate.Broadcast();
-		});
-}
-
-void UInventoryManager::OnUpdateGoldAndCashDelegateBroadcast()
-{
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			// 유효성 검사 추가
-			if (!IsValid(this))
-			{
-				DEBUG_MESSAGE;
-				return;
-			}
-			OnUpdateGoldAndCashDelegate.Broadcast();
 		});
 }
 

@@ -262,6 +262,7 @@ class Post final :
     kContentFieldNumber = 4,
     kSenderNameFieldNumber = 10,
     kReceiverNameFieldNumber = 11,
+    kMakeDateFieldNumber = 13,
     kReceiverSeqFieldNumber = 1,
     kSenderSeqFieldNumber = 3,
     kTotalMoneyFieldNumber = 6,
@@ -364,6 +365,20 @@ class Post final :
   std::string* _internal_mutable_receivername();
   public:
 
+  // string makeDate = 13;
+  void clear_makedate();
+  const std::string& makedate() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_makedate(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_makedate();
+  PROTOBUF_NODISCARD std::string* release_makedate();
+  void set_allocated_makedate(std::string* makedate);
+  private:
+  const std::string& _internal_makedate() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_makedate(const std::string& value);
+  std::string* _internal_mutable_makedate();
+  public:
+
   // int32 receiverSeq = 1;
   void clear_receiverseq();
   int32_t receiverseq() const;
@@ -437,6 +452,7 @@ class Post final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sendername_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr receivername_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr makedate_;
     int32_t receiverseq_;
     int32_t senderseq_;
     int64_t totalmoney_;
@@ -2416,6 +2432,56 @@ inline ::PROTOBUF_NAMESPACE_ID::Map< int64_t, int64_t >*
 Post::mutable_itemvalues() {
   // @@protoc_insertion_point(field_mutable_map:Protocol.Post.itemValues)
   return _internal_mutable_itemvalues();
+}
+
+// string makeDate = 13;
+inline void Post::clear_makedate() {
+  _impl_.makedate_.ClearToEmpty();
+}
+inline const std::string& Post::makedate() const {
+  // @@protoc_insertion_point(field_get:Protocol.Post.makeDate)
+  return _internal_makedate();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Post::set_makedate(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.makedate_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.Post.makeDate)
+}
+inline std::string* Post::mutable_makedate() {
+  std::string* _s = _internal_mutable_makedate();
+  // @@protoc_insertion_point(field_mutable:Protocol.Post.makeDate)
+  return _s;
+}
+inline const std::string& Post::_internal_makedate() const {
+  return _impl_.makedate_.Get();
+}
+inline void Post::_internal_set_makedate(const std::string& value) {
+  
+  _impl_.makedate_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Post::_internal_mutable_makedate() {
+  
+  return _impl_.makedate_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Post::release_makedate() {
+  // @@protoc_insertion_point(field_release:Protocol.Post.makeDate)
+  return _impl_.makedate_.Release();
+}
+inline void Post::set_allocated_makedate(std::string* makedate) {
+  if (makedate != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.makedate_.SetAllocated(makedate, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.makedate_.IsDefault()) {
+    _impl_.makedate_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.Post.makeDate)
 }
 
 // -------------------------------------------------------------------

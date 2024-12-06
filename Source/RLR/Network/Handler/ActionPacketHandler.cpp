@@ -97,7 +97,7 @@ bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol
 	return true;
 }
 
-bool Handle_MONSTER_DIE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::MonsterDieBroadcast& pkt)
+bool Handle_MONSTER_DIE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MonsterDieBroadcast& pkt)
 {
 	// 몬스터 매니저에 몬스터 스테이트랑 연결해서 monster 사망 처리 
 	//GameInstance->GetMonsterManager()->UpdateMonsterState(pkt.monsterid(),1);

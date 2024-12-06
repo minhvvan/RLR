@@ -40,9 +40,9 @@ public:
 	void RemoveItem(int32 Item_ID);
 	bool EquipItem(int32 Item_ID);								//아이템 장착
 	bool UnEquipItem(int32 Item_ID);
-	void UsingItem(FGameplayTag TriggerTag);
-	const FItemData* GetItemData(FGameplayTag TriggerTag);
-	const FSkillDictionary<FGameplayTag, FItemData>& GetOwnItems();
+	void UsingQuickSlotItem(FGameplayTag TriggerTag);
+	const FItemData* GetQuickSlotItemData(FGameplayTag TriggerTag);
+	const FSkillDictionary<FGameplayTag, FItemData>& GetItemQuickSlots();
 	bool HasItemTag(FGameplayTag TriggerTag);
 
 	void SetSelectedItems(TArray<FItemData>& SelectedItems);
@@ -51,31 +51,7 @@ public:
 
 	void ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex);	//슬롯 바꾸기.
 
-	int32 GetCopper() {return Copper;}
-	void SetCopper(int32 NewCopper);
-
-	int32 GetSilver() {return Silver;}
-	void SetSilver(int32 NewSilver);
-
-	int32 GetGold(){return Gold;}
-	void SetGold(int32 NewGold);
-
-	int32 GetPlatinum() {return Platinum;}
-	void SetPlatinum(int32 NewPlatinum);
-
 private:
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 Copper;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 Silver;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 Gold;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 Platinum;
 
 	//<DB Key , FItemData>		플레이어의 인벤토리 데이터
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -99,10 +75,6 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FUpdateInventoryManager OnUpdateInventoryDelegate;
 	void OnUpdateInventoryDelegateBroadcast();
-
-	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
-	FUpdateInventoryManager OnUpdateGoldAndCashDelegate;
-	void OnUpdateGoldAndCashDelegateBroadcast();
 
 	UPROPERTY()
 	FUpdateEquip OnUpdateEquipDelegate;

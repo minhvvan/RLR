@@ -31,6 +31,12 @@ UPlayerManager::UPlayerManager()
 	}
 }
 
+void UPlayerManager::Initialize(FSubsystemCollectionBase& Collection)
+{
+	Super::Initialize(Collection);
+	UpdatePlayerManagerDelegate.Clear();
+}
+
 ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 {
 	if (IsValid(PlayerCharacter) == false)
@@ -248,4 +254,18 @@ UStatSetPlayer* UPlayerManager::GetStatSet()
 	}
 
 	return nullptr;
+}
+
+void UPlayerManager::UpdatePlayerManagerBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+			UpdatePlayerManagerDelegate.Broadcast();
+		});
 }
