@@ -4,8 +4,7 @@
 #include "UI/InGame/Option/KeyOption/KeyOption.h"
 #include "UI/InGame/Option/KeyOption/KeyOptionElement.h"
 #include "UI/InGame/CharacterStatusDisplay/CharacterStatusDisplay.h"
-#include "UI/InGame/InGameMainUI.h"
-#include "UI/MainUI.h"
+#include "UI/InGame/Option/OptionUI.h"
 
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/UIManager.h"
@@ -31,8 +30,7 @@
 void UKeyOption::NativeConstruct()
 {
 	Super::NativeConstruct();
-	SetUITag(FGameplayTagManager::Get().UI_KeyOption);
-	
+
 	TArray<UWidget*> Array;
 	WidgetTree->GetAllWidgets(Array);
 
@@ -48,25 +46,24 @@ void UKeyOption::NativeConstruct()
 			KeyOptionList.Add(OptionElement->ActionTag, OptionElement);
 		}
 	}
-
-	ConfirmButton->OnClicked.AddUniqueDynamic(this, &UKeyOption::OnClickedConfirmButton);
-	CancelButton->OnClicked.AddUniqueDynamic(this, &UKeyOption::OnClickedCancelButton);
-
 }
 
 void UKeyOption::OpenUI()
 {
-	Super::OpenUI();
+	UOptionUI* OptionUI = Cast<UOptionUI>(GetParent());
+	if(IsValid(OptionUI) == false)
+		return;
+	OptionUI->ChangeTab(OptionUI_TabType::KeyOption);
+	RefreshUI();
 }
 
 void UKeyOption::RefreshUI()
 {
-	Super::RefreshUI();
-	LoadKeyOption();
+	LoadOption();
 }
 
 
-void UKeyOption::LoadKeyOption()
+void UKeyOption::LoadOption()
 {
 	/*
 		Input Config 의 설정들을 불러와서 UI에 적용한다.
@@ -93,7 +90,7 @@ void UKeyOption::LoadKeyOption()
 	}
 }
 
-void UKeyOption::ApplyKeyOption()
+void UKeyOption::ApplyOption()
 {
 	/*
 		Key Option Element 정보들을 가져와서 적용한다.
@@ -269,21 +266,4 @@ void UKeyOption::CreateDataAsset()
 #if WITH_EDITOR
 	GEditor->SyncBrowserToObjects(ObjectsToSync);
 #endif
-}
-
-
-
-void UKeyOption::OnClickedConfirmButton()
-{
-	ApplyKeyOption();
-	CloseUI();
-}
-
-void UKeyOption::OnClickedCancelButton()
-{
-	/*
-		나중에 변경 취소 생기면 그냥 RefreshUI 때리면 된다. 어차피 값을 저장하지 않았으니, 기존에 있던 걸 다시 불러오면 그만.
-	*/
-
-	CloseUI();
 }

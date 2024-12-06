@@ -45,6 +45,7 @@ void UItemCountMessageBox::Clear()
 {
 	Super::Clear();
 	SetItemData(FItemData::EmptyItemData);
+	SetPlayerGoods(FPlayerGoods::EmptyPlayerGoods);
 	InputEditableTextBox->SetText(FText());
 }
 

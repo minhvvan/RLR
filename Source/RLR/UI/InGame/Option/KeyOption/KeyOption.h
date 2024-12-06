@@ -17,47 +17,28 @@
  class UButton;
 
 UCLASS()
-class RLR_API UKeyOption : public USubUI
+class RLR_API UKeyOption : public UBaseUI
 {
 	GENERATED_BODY()
 	
-
+public:
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
 	virtual void OpenUI() override;
 	virtual void RefreshUI() override;
 
 	UFUNCTION(BlueprintCallable)
-	void LoadKeyOption();
+	void LoadOption();
 
 	UFUNCTION(BlueprintCallable)
-	void ApplyKeyOption();
+	void ApplyOption();
 
 	UFUNCTION(BlueprintCallable)
 	void CreateDataAsset();
-
-
-public:
-
-	UFUNCTION(BlueprintCallable)
-	void OnClickedConfirmButton();
-
-	UFUNCTION(BlueprintCallable)
-	void OnClickedCancelButton();
 
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FGameplayTag, UKeyOptionElement*> KeyOptionList;
-
-	/*
-		Bind
-	*/
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UButton> ConfirmButton;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Meta = (BindWidget))
-	TObjectPtr<UButton> CancelButton;
-
-
 };

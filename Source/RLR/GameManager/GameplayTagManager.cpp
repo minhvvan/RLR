@@ -106,8 +106,13 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat"), FString(TEXT("채팅창")));
 	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat.Option"), FString(TEXT("채팅 옵션창")));
 	
-	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.KeyOption"), FString(TEXT("키 옵션")));
-	
+	GameplayTags.UI_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option"), FString(TEXT("옵션")));
+	GameplayTags.UI_Option_GraphicsOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.GraphicsOption"), FString(TEXT("그래픽 옵션")));
+	GameplayTags.UI_Option_AudioOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.AudioOption"), FString(TEXT("오디오 옵션")));
+	GameplayTags.UI_Option_CommunityOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.CommunityOption"), FString(TEXT("커뮤니티 옵션")));
+	GameplayTags.UI_Option_GameplayOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.GameplayOption"), FString(TEXT("게임 플레이 옵션")));
+	GameplayTags.UI_Option_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.KeyOption"), FString(TEXT("키 옵션")));
+
 	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest"), FString(TEXT("퀘스트 정보창")));
 	GameplayTags.UI_Quest_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest.Dialogue"), FString(TEXT("퀘스트 대화창")));
 	
