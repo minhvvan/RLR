@@ -23,6 +23,9 @@ public:
 	void SetEnhanceInfo(FItemData EnhancedItemResult);	
 	FItemData GetEnhanceInfo();
 
+	void OpenSuccessUI();
+	void OpenFailUI();
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FItemData EnhancedItemData;

@@ -3,6 +3,9 @@
 
 #include "GameManager/EnhanceManager.h"
 
+#include "UI/InGame/Enhancement/EnhanceOverlayUI.h"
+#include "UI/InGame/Enhancement/EnhanceResultUI.h"
+
 void UEnhanceManager::SetEnhanceInfo(FItemData EnhancedItemResult)
 {
 	EnhancedItemData = EnhancedItemResult;
@@ -11,4 +14,20 @@ void UEnhanceManager::SetEnhanceInfo(FItemData EnhancedItemResult)
 FItemData UEnhanceManager::GetEnhanceInfo()
 {
 	return EnhancedItemData;
+}
+
+void UEnhanceManager::OpenSuccessUI()
+{
+	if (EnhanceOverlayUI)
+	{
+		EnhanceOverlayUI->OpenSuccessUI();
+	}
+}
+
+void UEnhanceManager::OpenFailUI()
+{
+	if (EnhanceOverlayUI)
+	{
+		EnhanceOverlayUI->OpenFailUI();
+	}
 }
