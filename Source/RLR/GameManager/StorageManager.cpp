@@ -14,21 +14,14 @@ const TArray<TArray<FItemData>>& UStorageManager::GetAllItems()
 	return Items;
 }
 
-void UStorageManager::RequestGetStorageItems()
+const TArray<FItemData>& UStorageManager::GetItemPage(int page)
 {
-	//TODO: Send Pkt Get Storage Items
-
-	//test==========================================
-	TArray<TArray<FItemData>> items;
-	const int MaxStoragePageNum = 5;
-	const int MaxStorageSlotNum = 50;
-	items.SetNum(MaxStoragePageNum);
-	for (int i = 0; i < MaxStoragePageNum; i++)
+	if (MaxStoragePageNum < page)
 	{
-		items[i].SetNum(MaxStorageSlotNum);
+		RLR_LOG(LogRLR, Log, TEXT("page is exceeded MaxStoragePageNum"));
 	}
-	SetStorageAllItems(items);
-	//==========================================
+	
+	return Items[page];
 }
 
 void UStorageManager::SetStorageAllItems(const TArray<TArray<FItemData>>& StorageItems)
@@ -37,40 +30,104 @@ void UStorageManager::SetStorageAllItems(const TArray<TArray<FItemData>>& Storag
 	OnStorageAllItemUpdated.Broadcast();
 }
 
-void UStorageManager::SetStorageItem(int TabIdx, int SlotIdx, const FItemData& Item)
+void UStorageManager::SetStorageItemPage(int PageIndex,const TArray<FItemData>& StorageItems)
+{
+	if (Items.Num() != MaxStoragePageNum)
+	{
+		Items.SetNum(MaxStoragePageNum);
+	}
+
+	Items[PageIndex] = StorageItems;
+	OnStoragePageItemUpdated.Broadcast(PageIndex);
+}
+
+void UStorageManager::SetStorageItem(int PageIndex, int SlotIdx, const FItemData& Item)
 {
 	auto StorageUI = GameInstance->GetUIManager()->GetSubUI<UStorageUI>(RLRTAG.UI_Storage);
-	if (!StorageUI) RLR_LOG_END(LogRLR, Log, TEXT("StorageUI is nullptr"));
-
-	FItemData data = Item.QUANTITY == 0 ? FItemData::EmptyItemData : Item;
-	StorageUI->SetSlotItem(TabIdx, SlotIdx, data);
-}
-
-void UStorageManager::SendPktInventoryToStorage(const FItemData& Item, int Amount)
-{
-	//TODO: pkt 전송(itemID? seq?, count)
-	//NetworkManager->SendPkt
-	//callback에서는 inventory 개수만큼 제외 + storage에 추가(SetSlotItem사용)
+	if (!StorageUI)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("StorageUI is nullptr"));
+		return;
+	}
 	
-	//Test
-	//==========================================================================
-	GameInstance->GetInventoryManager()->RemoveItem(Item.ITEM_ID, Amount);
+	FItemData data = Item.QUANTITY == 0 ? FItemData::EmptyItemData : Item;
+	Items[PageIndex][SlotIdx] = Item;
 
-	auto tempItem(Item);
-	tempItem.QUANTITY = Amount;
-	SetStorageItem(0, tempItem.ITEM_SLOT_IDX, tempItem);
-
-	RLR_LOG(LogRLR, Log, TEXT("Item: %d, %d"), Item.ITEM_ID, Item.QUANTITY);
-	//==========================================================================
+	StorageUI->SetSlotItem(PageIndex, SlotIdx, data);
 }
 
-void UStorageManager::SendPktStorageToInventory(const FItemData& Item, int Amount)
+void UStorageManager::RequestGetStorageItems()
 {
-	//TODO: 창고 -> 인벤토리 패킷 전송(pageIdx, slot_idx?(item_id?))
-	//callback에서는 inventory 개수만큼 추가 + storage에서 제거(SetSlotItem사용)
+	//TODO: Send Pkt Get Storage Items
 
-	//Test
-	//==========================================================================
+	//test==========================================
+	TArray<TArray<FItemData>> items;
+	items.SetNum(MaxStoragePageNum);
+	for (int i = 0; i < MaxStoragePageNum; i++)
+	{
+		items[i].SetNum(MaxStorageSlotNum);
+		for (int j = 0; j < MaxStorageSlotNum; j++)
+		{
+			items[i][j].ITEM_SLOT_IDX = i * MaxStoragePageNum + j;
+		}
+		
+		SetStorageItemPage(i, items[i]);
+	}
+	
+	//==========================================
+}
+
+void UStorageManager::SwapItems(int TabIdx, int lhsSlotIndex, const FItemData& lhs, int rhsSlotIndex, const FItemData& rhs)
+{
+	//TODO: SendPkt Swap
+	SetStorageItem(TabIdx, rhsSlotIndex, lhs);
+	SetStorageItem(TabIdx, lhsSlotIndex, rhs);
+}
+
+void UStorageManager::SendPktMoveItemInventoryToStorage(const FItemData& Item, int Amount, int PageIndex, int SlotIndex)
+{
+	//TODO: SendPkt ItemMove(Inventory -> Storage)
+
+	//TODO at Response
+	/*====================================================================
+	GameInstance->GetInventoryManager()->RemoveItem(Item.ITEM_ID, Amount);
+	SetStorageItem(PageIndex, SlotIndex, newItem);
+	====================================================================*/
+
+	//Test=============================================================
+	{
+		GameInstance->GetInventoryManager()->RemoveItem(Item.ITEM_ID, Amount);
+
+		if (SlotIndex == -1)
+		{
+			for (int i = 0; i < MaxStorageSlotNum; i++)
+			{
+				if (Items[PageIndex][i] == FItemData::EmptyItemData)
+				{
+					SlotIndex = i;
+					break;
+				}
+			}
+		}
+	
+		auto newItem(Item);
+		newItem.QUANTITY = Amount;
+		SetStorageItem(PageIndex, SlotIndex, newItem);
+	}
+	//=================================================================
+}
+
+void UStorageManager::SendPktMoveItemStorageToInventory(const FItemData& Item, int Amount, int PageIndex, int SlotIndex)
+{
+	//TODO: SendPkt ItemMove(Storage -> Inventory)
+
+	//TODO at Response
+	/*====================================================================
+	GameInstance->GetInventoryManager()->AddItem(newItem);
+	SetStorageItem(PageIndex, SlotIndex, oldItem(만약 empty => FItemData::EmptyItemData));
+	====================================================================*/
+
+	//Test=============================================================
 	{
 		FItemData tempItem(Item);
 		tempItem.QUANTITY = Amount;
@@ -80,22 +137,10 @@ void UStorageManager::SendPktStorageToInventory(const FItemData& Item, int Amoun
 	{
 		FItemData tempItem(Item);
 		tempItem.QUANTITY -= Amount;
-		SetStorageItem(0, tempItem.ITEM_SLOT_IDX, tempItem);
+		if (tempItem.QUANTITY == 0) tempItem = FItemData::EmptyItemData;
+		
+		SetStorageItem(PageIndex, SlotIndex, tempItem);
+		Items[PageIndex][SlotIndex] = tempItem;
 	}
-
-	RLR_LOG(LogRLR, Log, TEXT("Item: %d, %d"), Item.ITEM_ID, Item.QUANTITY);
-	//==========================================================================
-}
-
-void UStorageManager::SendPktGoods(bool bDeposit, int Amount)
-{
-	//Callback에서 SetBalance 사용
-	if (bDeposit)
-	{
-		//TODO: 인벤 -> 창고 pkt 전송
-	}
-	else
-	{
-		//TODO: 창고 -> 인벤 pkt 전송
-	}
+	//=================================================================
 }

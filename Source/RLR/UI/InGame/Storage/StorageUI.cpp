@@ -3,20 +3,14 @@
 
 #include "UI/InGame/Storage/StorageUI.h"
 #include "UI/InGame/Storage/StorageTab.h"
-#include "UI/InGame/Popup/GoodsMessageBox.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
-#include "UI/Components/WidgetSwitcherButton.h"
 #include "Structs/ItemStructs.h"
 #include "Components/WidgetSwitcher.h"
-#include "Components/Button.h"
-#include "Components/TextBlock.h"
 #include "Components/HorizontalBox.h"
 #include "Blueprint/WidgetTree.h"
 #include "RLR.h"
 #include "GameManager/UIManager.h"
-#include "GameManager/DataManager.h"
-#include "GameManager/GameManager.h"
 #include "GameManager/StorageManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameplayTagManager.h"
@@ -37,6 +31,14 @@ void UStorageUI::NativeConstruct()
 	StorageManager->OnStorageAllItemUpdated.RemoveDynamic(this, &UStorageUI::SetStorageAllItems);
 	StorageManager->OnStorageAllItemUpdated.AddUniqueDynamic(this, &UStorageUI::SetStorageAllItems);
 
+	for (int i = 0;i < WidgetSwitcher->GetNumWidgets(); i++)
+	{
+		auto storageTab = Cast<UStorageTab>(WidgetSwitcher->GetChildAt(i));
+		if (!storageTab) continue;
+
+		storageTab->SetPageNum(i);
+	}
+	
 	SetStorageAllItems();
 }
 
@@ -77,7 +79,7 @@ void UStorageUI::CloseUI()
 void UStorageUI::InventorySlotClicked(const FItemData& Item)
 {
 	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktInventoryToStorage(Item, Item.QUANTITY);
+	StorageManager->SendPktMoveItemInventoryToStorage(Item, Item.QUANTITY, WidgetSwitcher->GetActiveWidgetIndex());
 }
 
 void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
@@ -140,5 +142,5 @@ void UStorageUI::InventoryToStorageMessageBoxCallback(UMessageBoxUI* MessageBox)
 	}
 
 	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount());
+	StorageManager->SendPktMoveItemInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount(), WidgetSwitcher->GetActiveWidgetIndex());
 }

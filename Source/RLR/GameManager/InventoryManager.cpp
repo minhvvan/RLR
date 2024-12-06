@@ -95,7 +95,7 @@ void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
 		InventoryItemData[Item_ID].QUANTITY -= Amount;
 		if (InventoryItemData[Item_ID].QUANTITY == 0)
 		{
-			InventoryItemData[Item_ID] = FItemData::EmptyItemData;
+			InventoryItemData.Remove(Item_ID);
 		}
 		OnUpdateInventoryDelegateBroadcast();
 	}

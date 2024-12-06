@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "GameManager/DataManager.h"
-#include "UI/BaseUI.h"
 #include "UI/SlotUI.h"
 #include "InventorySlot.generated.h"
 

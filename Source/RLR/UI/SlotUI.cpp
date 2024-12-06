@@ -66,6 +66,7 @@ void USlotUI::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEv
 	CopyOperation->SetSkillData(GetSkillData());
 	CopyOperation->SetMaster(this);
 	CopyOperation->DragedSlotType = GetSlotType();
+	CopyOperation->SlotIndex = SlotIndex;
 
 	CopyOperation->Payload = this;
 
@@ -232,6 +233,13 @@ const FActionResource& USlotUI::GetActionResource()
 		return SlotData->GetActionResource();
 	}
 	return FActionResource::EmptyActionResource;
+}
+
+void USlotUI::SetSlotIndex(int32 NewIndex)
+{
+	SlotIndex = NewIndex;
+	auto* SlotData = GetSlotData();
+	SlotData->SlotIndex = NewIndex;
 }
 
 TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)

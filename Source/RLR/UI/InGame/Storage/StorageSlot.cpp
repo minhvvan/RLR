@@ -17,7 +17,12 @@ void UStorageSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 	if (itemSlot)
 	{
-		SetItemData(const_cast<FItemData&>(itemSlot->GetItemData()));
+		auto item = itemSlot->GetItemData();
+
+		PageIndex = itemSlot->PageIndex;
+		SetItemData(item);
+		SetSlotIndex(itemSlot->GetSlotIndex());
+		SetSlotType(ESlotType::STORAGE_ITEM_SLOT);
 	}
 }
 
@@ -26,7 +31,7 @@ bool UStorageSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEven
 	bool bResult = Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 	if (!bResult) return bResult;
 
-	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::INVENTORY_SLOT);
+	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
 	if (!Operation)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Dropped SameSlot"));
@@ -36,14 +41,42 @@ bool UStorageSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEven
 	if (Operation->DragedSlotType == ESlotType::INVENTORY_SLOT)
 	{
 		//Inventory->Storage
+		UStorageManager* StorageManager = GetStorageManager();
+		if (!StorageManager)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("StorageManager is nullptr"));
+			return bResult;
+		}
+
+		auto item = Operation->GetItemData();
+		if (item == FItemData::EmptyItemData)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Item is EmptyItem"));
+			return bResult;
+		}
+
+		StorageManager->SendPktMoveItemInventoryToStorage(item, item.QUANTITY, PageIndex, SlotIndex);
 	}
 	else if (Operation->DragedSlotType == ESlotType::STORAGE_ITEM_SLOT)
 	{
 		//Storage->Storage
+		UStorageManager* StorageManager = GetStorageManager();
+		if (!StorageManager)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("StorageManager is nullptr"));
+			return bResult;
+		}
 
-		//TODO: InOperation에서 slotIdx받아서 pkt 전송(swap)
-		//GetItemData().ITEM_SLOT_IDX
-		//Operation->GetItemData().ITEM_SLOT_IDX
+		auto recvItem = Operation->GetItemData();
+		if (recvItem == FItemData::EmptyItemData)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("Item is EmptyItem"));
+			return bResult;
+		}
+
+		auto currentSlotItem = GetItemData();
+
+		StorageManager->SwapItems(PageIndex, Operation->SlotIndex, recvItem, SlotIndex, currentSlotItem);
 	}
 
 	return bResult;
@@ -92,7 +125,7 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 			return result;
 		}
 
-		SendPktStroageToInventory(itemData, itemData.QUANTITY);
+		MoveStorageToInventory(itemData, itemData.QUANTITY);
 	}
 
 	return result;
@@ -101,10 +134,8 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 void UStorageSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
-	RLR_LOG(LogRLR, Log, TEXT("Item: %d %d"), GetItemData().ITEM_ID, GetItemData().QUANTITY);
 
-	if (IsEmpty() == true)
-		return;
+	if (IsEmpty() == true) return;
 
 	UUIManager* UIManager = GetUIManager();
 	if (UIManager == nullptr) return;
@@ -146,6 +177,16 @@ void UStorageSlot::RefreshUI()
 	SlotImage->SetBrushFromTexture(itemImage);
 }
 
+void UStorageSlot::SetPageNum(int page)
+{
+	PageIndex = page;
+}
+
+int UStorageSlot::GetPageNum() const
+{
+	return PageIndex;
+}
+
 void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBox)
 {
 	//TODO: 인벤토리로 아이템 빼기 pkt 전송(pageIdx, slot_idx?(item_id?)) + id어떻게 처리??
@@ -156,11 +197,11 @@ void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBo
 		return;
 	}
 
-	SendPktStroageToInventory(messageBox->GetItemData(), messageBox->GetItemCount());
+	MoveStorageToInventory(messageBox->GetItemData(), messageBox->GetItemCount());
 }
 
-void UStorageSlot::SendPktStroageToInventory(const FItemData& Item, int Amount)
+void UStorageSlot::MoveStorageToInventory(const FItemData& Item, int Amount)
 {
 	UStorageManager* StorageManager = GetStorageManager();
-	StorageManager->SendPktStorageToInventory(Item, Amount);
+	StorageManager->SendPktMoveItemStorageToInventory(Item, Amount, PageIndex, SlotIndex);
 }

@@ -108,7 +108,7 @@ public:
 	virtual void					SetSlotType(ESlotType Type){SlotType = Type;}
 	virtual const ESlotType			GetSlotType(){return SlotType;}
 
-	void							SetSlotIndex(int32 NewIndex){SlotIndex = NewIndex;}
+	void							SetSlotIndex(int32 NewIndex);
 	int32							GetSlotIndex(){return SlotIndex;}
 
 	void							SetCanDrag(bool Ret){bCanDrag = Ret;}

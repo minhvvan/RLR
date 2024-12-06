@@ -24,8 +24,16 @@ public:
 	void ClearEntry();
 	void SetSlotItemData(const FItemData& Item, int Idx);
 	void UpdateAllItem(const TArray<FItemData>& Items);
+	UFUNCTION()
+	void UpdatedStorageCallback(int PageIndex);
 
+	void SetPageNum(int page);
+	int GetPageNum() const;
+	
 protected:
+	int PageNum = -1;
+	
 	const int StorageSlotRow = 7;
 	const int StorageSlotColumn = 7;
 };
+
