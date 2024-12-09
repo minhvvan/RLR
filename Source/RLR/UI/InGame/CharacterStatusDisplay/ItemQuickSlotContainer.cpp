@@ -6,6 +6,7 @@
 
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameOptionData/GameOptionData.h"
 
 #include "Components/GridPanel.h"
@@ -20,7 +21,7 @@ void UItemQuickSlotContainer::Init()
 {
 	Super::Init();
 
-	TSubclassOf<UItemQuickSlot> SlotClass = GetWidgetClass<UItemQuickSlot>("WBP_ItemQuickSlot");
+	TSubclassOf<UItemQuickSlot> SlotClass = GetWidgetClass<UItemQuickSlot>(RLRLITERAL.WBP_ItemQuickSlot);
 	if (CHECK_VALID(SlotClass) == false)
 		return;
 

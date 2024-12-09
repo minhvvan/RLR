@@ -12,6 +12,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/EnhanceManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "Components/WidgetSwitcher.h"
 
@@ -55,11 +56,11 @@ void UEnhanceOverlayUI::OnEnhanceButtonClicked()
 	ConfirmMessageBox->Clear();
 
 	//클릭, 취소 버튼 콜백 함수 등록
-	ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
-	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+	ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, RLRLITERAL.Enhance_OnClickedAcceptButton);
+	ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, RLRLITERAL.Enhance_OnClickedCancelButton);
 
 
-	FText MessageText = STRING_TO_FTEXT("강화를 진행하겠습니까?");
+	FText MessageText = FSTRING_TO_FTEXT(RLRLITERAL.Enhance_EnhancePrompt);
 
 	ConfirmMessageBox->SetMessageText(MessageText);
 }

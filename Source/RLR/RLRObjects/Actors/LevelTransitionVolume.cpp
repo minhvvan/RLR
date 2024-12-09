@@ -6,16 +6,15 @@
 #include "Components/BoxComponent.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/LevelManager.h"
+#include "GameManager/LiteralManager.h"
 
-// Sets default values
 ALevelTransitionVolume::ALevelTransitionVolume()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	TransitionVolume = CreateDefaultSubobject<UBoxComponent>(TEXT("TransitionVolume"));
+	TransitionVolume = CreateDefaultSubobject<UBoxComponent>(RLRLITERAL.TransitionVolume_VolumeName);
 	RootComponent = TransitionVolume;
-	TransitionVolume->SetCollisionProfileName(TEXT("OverlapOnlyPawn"));
+	TransitionVolume->SetCollisionProfileName(RLRLITERAL.TransitionVolume_OverlapOnlyPawn);
 }
 
 // Called when the game starts or when spawned

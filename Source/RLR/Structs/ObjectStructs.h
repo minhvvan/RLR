@@ -208,10 +208,10 @@ struct FNPCData
 	TArray<FNPCShop> Shop;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool hasPostFunctionality;
+	bool hasPostFunctionality = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool hasEnhanceFunctionality;
+	bool hasEnhanceFunctionality = true;
 
 	FString ToString() const
 	{

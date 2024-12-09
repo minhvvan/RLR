@@ -7,6 +7,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/RLRStruct.h"
 #include "Components/PanelWidget.h"
 #include "Components/SizeBox.h"
@@ -33,7 +34,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 	UpdatedPlayerInfo.Clear();
 
 	FString CurrentLevelName = GetWorld()->GetMapName();
-	if (CurrentLevelName.Contains(TEXT("Main")))
+	if (CurrentLevelName.Contains(RLRLITERAL.LevelName_Main))
 	{
 		// UI가 완전히 로드된 후에만 네트워크 패킷 처리
 		if (GameInstance)

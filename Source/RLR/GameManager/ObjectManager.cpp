@@ -5,6 +5,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 #include "RLRObjects/Characters/RLRNonPlayerCharacter.h"
 #include "RLRObjects/Actors/RLRInteractableActor.h"
 #include "RLRObjects/Actors/RLRDropItem.h"
@@ -14,7 +15,7 @@
 UObjectManager::UObjectManager()
 {
     //NPC 
-    ConstructorHelpers::FClassFinder<ARLRNonPlayerCharacter> NPC(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Character/BP_NPC.BP_NPC_C'"));
+    ConstructorHelpers::FClassFinder<ARLRNonPlayerCharacter> NPC(*RLRLITERAL.RLRNonPlayerCharacter_Path);
     if (NPC.Succeeded())
     {
         NPCClass = NPC.Class;
@@ -22,7 +23,7 @@ UObjectManager::UObjectManager()
     
     //Object
     {
-        ConstructorHelpers::FClassFinder<ARLRInteractableActor> Object(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Interactable_Tree.BP_Interactable_Tree_C'"));
+        ConstructorHelpers::FClassFinder<ARLRInteractableActor> Object(*RLRLITERAL.RLRInteractableActor_Path);
         if (Object.Succeeded())
         {
             ObjectClasses.Add(EInteractObjectType::LOGGING, Object.Class);

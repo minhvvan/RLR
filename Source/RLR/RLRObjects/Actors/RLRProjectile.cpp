@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "GameManager/EffectManager.h"
 #include "GameManager/SkillManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/GameManager.h"
 #include "Structs/SkillStructs.h"
 
@@ -16,15 +17,15 @@ ARLRProjectile::ARLRProjectile():
 	SkillDistance(0.f),
 	MoveDistance(0.f)
 {
-	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
+	CollisionComponent = CreateDefaultSubobject<USphereComponent>(RLRLITERAL.Projectile_CollisionComponent);
 	SetRootComponent(CollisionComponent);
 
 	CollisionComponent->InitSphereRadius(100.f);
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(RLRLITERAL.Projectile_Mesh);
 	Mesh->SetupAttachment(RootComponent);
 
-	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(RLRLITERAL.Projectile_Movement);
 
 	//Temp
 	ProjectileMovement->InitialSpeed = 2000.0f;

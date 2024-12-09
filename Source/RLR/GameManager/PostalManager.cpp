@@ -6,6 +6,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/LiteralManager.h"
 #include "UI/DialogueUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Post/PostItemSlot.h"
@@ -48,7 +49,7 @@ void UPostalManager::CreateAlertPost()
 {
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
-			TSubclassOf<UPostAlertUI> PostAlertUIClass = GameInstance->GetDataManager()->GetWidgetClass<UPostAlertUI>("WBP_PostAlertUI");
+			TSubclassOf<UPostAlertUI> PostAlertUIClass = GameInstance->GetDataManager()->GetWidgetClass<UPostAlertUI>(RLRLITERAL.WBP_PostAlertUI);
 			if (PostAlertUIClass)
 			{
 				UWorld* World = GameInstance->GetWorld();

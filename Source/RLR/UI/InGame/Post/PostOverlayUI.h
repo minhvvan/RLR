@@ -19,14 +19,6 @@ class UPostDetailUI;
 class UPostTabWidget;
 class UConfirmMessageBox;
 
-UENUM()
-enum class EPostAction : uint8
-{
-    ClearWriteTab,
-    RemoveSelectedPosts,
-    RemoveSinglePost
-};
-
 UCLASS()
 class RLR_API UPostOverlayUI : public USubUI
 {
@@ -54,7 +46,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	int32 GetMaxSlotCount(){return MaxPostSlotCount;};
 
-    void HandlePostAction(UConfirmMessageBox* MessageBox, EPostAction ActionType);
     void ShowConfirmMessage(const FText& MessageText, FName ConfirmFunctionName, FName CancelFunctionName);
 
     UFUNCTION()
@@ -64,13 +55,9 @@ public:
 
     UFUNCTION()
     void ConfirmDeletePosts();
-    UFUNCTION()
-    void ConfirmDeletePost();
 
     UFUNCTION()
     void OnClickedDeletePostsConfirmButton(UConfirmMessageBox* MessageBox);
-    UFUNCTION()
-    void OnClickedDeletePostConfirmButton(UConfirmMessageBox* MessageBox);
 
     UFUNCTION()
     void OnReplyButtonClicked(FText SIdText);
@@ -132,4 +119,6 @@ public:
 
 private:
     int32 ChangeTabIndex;
+    FText DeletePostsConfirmText;
+    FText WritingPostWarningText;
 };

@@ -12,6 +12,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/EnhanceManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/LiteralManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
@@ -47,7 +48,7 @@ void UInventoryUI::Init()
 
 	//슬롯 생성
 	InventorySlotList.Init(nullptr, MaxInventorySlotCount);
-	TSubclassOf<UInventorySlot> InventorySlotClass = GetWidgetClass<UInventorySlot>("WBP_InventorySlot");
+	TSubclassOf<UInventorySlot> InventorySlotClass = GetWidgetClass<UInventorySlot>(RLRLITERAL.WBP_InventorySlot);
 	if(IsValid(InventorySlotClass) == false)
 	{ 
 		DEBUG_MESSAGE;

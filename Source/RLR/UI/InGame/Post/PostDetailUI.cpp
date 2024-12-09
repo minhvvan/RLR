@@ -72,7 +72,7 @@ void UPostDetailUI::UpdatePostDetails(const FPostResult& Post, bool bIsSentTab)
     }
     if (ReadStatus)
     {
-        ReadStatus->SetText(FText::FromString(bIsSentTab ? "" : "Read"));
+        ReadStatus->SetText(FText::FromString(bIsSentTab ? RLRLITERAL.ReadStatusNotExist : RLRLITERAL.HasReadStatus));
     }
 
     SelectedPost = Post;

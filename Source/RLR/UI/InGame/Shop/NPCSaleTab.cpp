@@ -8,6 +8,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
@@ -113,7 +114,7 @@ void UNPCSaleTab::UpdatePage()
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
-	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(TEXT("WBP_NPCItemSlot"));
+	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(RLRLITERAL.WBP_NPCItemSlot);
 	if (!itemSlotClass) return;
 
 	TVItem->ClearListItems();

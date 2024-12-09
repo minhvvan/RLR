@@ -13,7 +13,7 @@
 void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
 {
 
-	TSubclassOf<USkillSettingListSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingListSlot>("WBP_SkillSettingListSlot");
+	TSubclassOf<USkillSettingListSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingListSlot>(RLRLITERAL.WBP_SkillSettingListSlot);
 	if (IsValid(SlotClass) == false)
 		DEBUG_MESSAGE;
 

@@ -7,6 +7,7 @@
 #include "Player/RLREnhancedInputComponent.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 
 /*
 
@@ -94,9 +95,9 @@ void APlayerCommands::BindInput(TObjectPtr<ARLRPlayerController> Controller)
 		InputConfig DataAsset을 이용해서 액션 바인딩을 해준다.
 	*/
 
-	Util::Checkf(InputConfig, TEXT("InputConfig is nullptr. 값을 할당해주세요."));
+	Util::Checkf(InputConfig, RLRLITERAL.Playercommands_InputConfigNull);
 	URLREnhancedInputComponent* RLRInputComponent = CastChecked<URLREnhancedInputComponent>(Controller->InputComponent);
-	Util::Checkf(RLRInputComponent, TEXT("URLREnhancedInputComponent  is nullptr."));
+	Util::Checkf(RLRInputComponent, RLRLITERAL.Playercommands_URLREnhancedInputComponentNull);
 
 	for (const FRLRInput& Input : InputConfig->InputList)
 	{

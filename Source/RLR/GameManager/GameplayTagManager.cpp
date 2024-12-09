@@ -2,195 +2,197 @@
 
 
 #include "GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 
 FGameplayTagManager FGameplayTagManager::GameplayTags;
 
 void FGameplayTagManager::Init()
 {
-	GameplayTags.Attributes_MainStat_Health = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attribute.MainStat.Health"), FString(TEXT("체력")));
-	GameplayTags.Attributes_MainStat_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attribute.MainStat.MaxHealth"), FString(TEXT("최대 체력")));
+	GameplayTags.Attributes_MainStat_Health = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Attribute_MainStat_Health.TagName, RLRLITERAL.Attribute_MainStat_Health.TagDesc);
+	GameplayTags.Attributes_MainStat_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Attribute_MainStat_MaxHealth.TagName, RLRLITERAL.Attribute_MainStat_MaxHealth.TagDesc);
 	
 	//Action
-	GameplayTags.Action_Default_Move = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Move"), FString(TEXT("이동")));
-	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Attack"), FString(TEXT("기본공격")));
-	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.Jump"), FString(TEXT("점프")));
-	GameplayTags.Action_Default_GuildOpen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.GuildOpen"), FString(TEXT("길드창")));
-	GameplayTags.Action_Default_PlayMontage = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Default.PlayMontage"), FString(TEXT("애니메이션 실행")));
-	GameplayTags.Action_Attack_HitCheck = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Attack.HitCheck"), FString(TEXT("공격판정")));
+	GameplayTags.Action_Default_Move = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_Move.TagName, RLRLITERAL.Action_Default_Move.TagDesc);
+	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_Attack.TagName, RLRLITERAL.Action_Default_Attack.TagDesc);
+	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_Jump.TagName, RLRLITERAL.Action_Default_Jump.TagDesc);
+	GameplayTags.Action_Default_GuildOpen = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_GuildOpen.TagName, RLRLITERAL.Action_Default_GuildOpen.TagDesc);
+	GameplayTags.Action_Default_PlayMontage = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_PlayMontage.TagName, RLRLITERAL.Action_Default_PlayMontage.TagDesc);
+	GameplayTags.Action_Attack_HitCheck = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_HitCheck.TagName, RLRLITERAL.Action_Default_HitCheck.TagDesc);
 	
 	//Skill
-	GameplayTags.Action_Skill_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.1"), FString(TEXT("1스킬")));
-	GameplayTags.Action_Skill_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.2"), FString(TEXT("2스킬")));
-	GameplayTags.Action_Skill_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.3"), FString(TEXT("3스킬")));
-	GameplayTags.Action_Skill_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.4"), FString(TEXT("4스킬")));
-	GameplayTags.Action_Skill_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.5"), FString(TEXT("5스킬")));
-	GameplayTags.Action_Skill_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.6"), FString(TEXT("6스킬")));
-	GameplayTags.Action_Skill_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.7"), FString(TEXT("7스킬")));
-	GameplayTags.Action_Skill_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.8"), FString(TEXT("8스킬")));
+	GameplayTags.Action_Skill_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_1.TagName, RLRLITERAL.Action_Skill_1.TagDesc);
+	GameplayTags.Action_Skill_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_2.TagName, RLRLITERAL.Action_Skill_2.TagDesc);
+	GameplayTags.Action_Skill_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_3.TagName, RLRLITERAL.Action_Skill_3.TagDesc);
+	GameplayTags.Action_Skill_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_4.TagName, RLRLITERAL.Action_Skill_4.TagDesc);
+	GameplayTags.Action_Skill_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_5.TagName, RLRLITERAL.Action_Skill_5.TagDesc);
+	GameplayTags.Action_Skill_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_6.TagName, RLRLITERAL.Action_Skill_6.TagDesc);
+	GameplayTags.Action_Skill_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_7.TagName, RLRLITERAL.Action_Skill_7.TagDesc);
+	GameplayTags.Action_Skill_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_8.TagName, RLRLITERAL.Action_Skill_8.TagDesc);
 	
 	//Skill.Type
-	GameplayTags.Action_Skill_Type_Normal = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Normal"), FString(TEXT("Normal스킬")));
-	GameplayTags.Action_Skill_Type_Area = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Area"), FString(TEXT("Area스킬")));
-	GameplayTags.Action_Skill_Type_Holding = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Holding"), FString(TEXT("Holding스킬")));
-	GameplayTags.Action_Skill_Type_Casting = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Casting"), FString(TEXT("Casting스킬")));
-	GameplayTags.Action_Skill_Type_Movility = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Movility"), FString(TEXT("Movility스킬")));
-	GameplayTags.Action_Skill_Type_Targeting = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Targeting"), FString(TEXT("Targeting스킬")));
-	GameplayTags.Action_Skill_Type_Chain = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Type.Chain"), FString(TEXT("Chain스킬")));
+	GameplayTags.Action_Skill_Type_Normal = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Normal.TagName, RLRLITERAL.Action_Skill_Type_Normal.TagDesc);
+	GameplayTags.Action_Skill_Type_Area = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Area.TagName, RLRLITERAL.Action_Skill_Type_Area.TagDesc);
+	GameplayTags.Action_Skill_Type_Holding = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Holding.TagName, RLRLITERAL.Action_Skill_Type_Holding.TagDesc);
+	GameplayTags.Action_Skill_Type_Casting = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Casting.TagName, RLRLITERAL.Action_Skill_Type_Casting.TagDesc);
+	GameplayTags.Action_Skill_Type_Movility = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Movility.TagName, RLRLITERAL.Action_Skill_Type_Movility.TagDesc);
+	GameplayTags.Action_Skill_Type_Targeting = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Targeting.TagName, RLRLITERAL.Action_Skill_Type_Targeting.TagDesc);
+	GameplayTags.Action_Skill_Type_Chain = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Type_Chain.TagName, RLRLITERAL.Action_Skill_Type_Chain.TagDesc);
 	
-	GameplayTags.Action_Skill_SwordsMan_SwordAura = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.SwordsMan.SwordAura"), FString(TEXT("소드오러")));
-	GameplayTags.Action_Skill_MAGE_Meteor = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Mage.Meteor"), FString(TEXT("메테오")));
-	GameplayTags.Action_Skill_MAGE_TrippleCircle = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Skill.Mage.TrippleCircle"), FString(TEXT("트리플서클")));
+	GameplayTags.Action_Skill_SwordsMan_SwordAura = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_SwordsMan_SwordAura.TagName, RLRLITERAL.Action_Skill_SwordsMan_SwordAura.TagDesc);
+	GameplayTags.Action_Skill_MAGE_Meteor = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Mage_Meteor.TagName, RLRLITERAL.Action_Skill_Mage_Meteor.TagDesc);
+	GameplayTags.Action_Skill_MAGE_TrippleCircle = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Skill_Mage_TrippleCircle.TagName, RLRLITERAL.Action_Skill_Mage_TrippleCircle.TagDesc);
 
 
 	//Action.Interaction
-	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction"), FString(TEXT("상호작용")));
-	GameplayTags.Action_Interaction_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction.Dialogue"), FString(TEXT("대화")));
-	GameplayTags.Action_Interaction_Logging = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.Interaction.Logging"), FString(TEXT("벌목")));
+	GameplayTags.Action_Interaction = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Interaction.TagName, RLRLITERAL.Action_Interaction.TagDesc);
+	GameplayTags.Action_Interaction_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Interaction_Dialogue.TagName, RLRLITERAL.Action_Interaction_Dialogue.TagDesc);
+	GameplayTags.Action_Interaction_Logging = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Interaction_Logging.TagName, RLRLITERAL.Action_Interaction_Logging.TagDesc);
 	
 	//Object
-	GameplayTags.Object_State_Hittable = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Object.State.Hittable"), FString(TEXT("공격가능")));
+	GameplayTags.Object_State_Hittable = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Object_State_Hittable.TagName, RLRLITERAL.Object_State_Hittable.TagDesc);
 	
 	//Player
-	GameplayTags.Player_State_Attacking = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Player.State.Attacking"), FString(TEXT("공격중")));
+	GameplayTags.Player_State_Attacking = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Player_State_Attacking.TagName, RLRLITERAL.Player_State_Attacking.TagDesc);
 
 	//Abnormal
-	GameplayTags.Abnormal_Stun = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Stun"), FString(TEXT("기절")));
-	GameplayTags.Abnormal_Bind = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Bind"), FString(TEXT("속박")));
-	GameplayTags.Abnormal_Frozen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Frozen"), FString(TEXT("빙결")));
-	GameplayTags.Abnormal_Stiffen = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Stiffen"), FString(TEXT("경직")));
-	GameplayTags.Abnormal_Provoke = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Provoke"), FString(TEXT("도발")));
-	GameplayTags.Abnormal_Electric = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Electric"), FString(TEXT("감전")));
-	GameplayTags.Abnormal_Silence = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Silence"), FString(TEXT("침묵")));
-	GameplayTags.Abnormal_Burn = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Burn"), FString(TEXT("화상")));
-	GameplayTags.Abnormal_Poison = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Poison"), FString(TEXT("중독")));
-	GameplayTags.Abnormal_Slow = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Slow"), FString(TEXT("슬로우")));
-	GameplayTags.Abnormal_Bleeding = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Abnormal.Bleeding"), FString(TEXT("출혈")));
+	GameplayTags.Abnormal_Stun = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Stun.TagName, RLRLITERAL.Abnormal_Stun.TagDesc);
+	GameplayTags.Abnormal_Bind = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Bind.TagName, RLRLITERAL.Abnormal_Bind.TagDesc);
+	GameplayTags.Abnormal_Frozen = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Frozen.TagName, RLRLITERAL.Abnormal_Frozen.TagDesc);
+	GameplayTags.Abnormal_Stiffen = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Stiffen.TagName, RLRLITERAL.Abnormal_Stiffen.TagDesc);
+	GameplayTags.Abnormal_Provoke = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Provoke.TagName, RLRLITERAL.Abnormal_Provoke.TagDesc);
+	GameplayTags.Abnormal_Electric = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Electric.TagName, RLRLITERAL.Abnormal_Electric.TagDesc);
+	GameplayTags.Abnormal_Silence = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Silence.TagName, RLRLITERAL.Abnormal_Silence.TagDesc);
+	GameplayTags.Abnormal_Burn = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Burn.TagName, RLRLITERAL.Abnormal_Burn.TagDesc);
+	GameplayTags.Abnormal_Poison = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Poison.TagName, RLRLITERAL.Abnormal_Poison.TagDesc);
+	GameplayTags.Abnormal_Slow = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Slow.TagName, RLRLITERAL.Abnormal_Slow.TagDesc);
+	GameplayTags.Abnormal_Bleeding = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Abnormal_Bleeding.TagName, RLRLITERAL.Abnormal_Bleeding.TagDesc);
 
 
 	/*
 		Action Item Quick Slot
 	*/
 
-	GameplayTags.Action_ItemQuickSlot_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.1"), FString(TEXT("아이템 퀵 슬롯 1")));
-	GameplayTags.Action_ItemQuickSlot_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.2"), FString(TEXT("아이템 퀵 슬롯 2")));
-	GameplayTags.Action_ItemQuickSlot_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.3"), FString(TEXT("아이템 퀵 슬롯 3")));
-	GameplayTags.Action_ItemQuickSlot_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.4"), FString(TEXT("아이템 퀵 슬롯 4")));
-	GameplayTags.Action_ItemQuickSlot_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.5"), FString(TEXT("아이템 퀵 슬롯 5")));
-	GameplayTags.Action_ItemQuickSlot_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.6"), FString(TEXT("아이템 퀵 슬롯 6")));
-	GameplayTags.Action_ItemQuickSlot_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.7"), FString(TEXT("아이템 퀵 슬롯 7")));
-	GameplayTags.Action_ItemQuickSlot_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.8"), FString(TEXT("아이템 퀵 슬롯 8")));
-	GameplayTags.Action_ItemQuickSlot_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Action.ItemQuickSlot.9"), FString(TEXT("아이템 퀵 슬롯 9")));
+	GameplayTags.Action_ItemQuickSlot_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_1.TagName, RLRLITERAL.Action_ItemQuickSlot_1.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_2.TagName, RLRLITERAL.Action_ItemQuickSlot_2.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_3.TagName, RLRLITERAL.Action_ItemQuickSlot_3.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_4.TagName, RLRLITERAL.Action_ItemQuickSlot_4.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_5.TagName, RLRLITERAL.Action_ItemQuickSlot_5.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_6.TagName, RLRLITERAL.Action_ItemQuickSlot_6.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_7.TagName, RLRLITERAL.Action_ItemQuickSlot_7.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_8.TagName, RLRLITERAL.Action_ItemQuickSlot_8.TagDesc);
+	GameplayTags.Action_ItemQuickSlot_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_ItemQuickSlot_9.TagName, RLRLITERAL.Action_ItemQuickSlot_9.TagDesc);
 	
 	/*
 	Page
 	*/
-	GameplayTags.Page_InGame = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.InGame"), FString(TEXT("인게임 페이지")));
-	GameplayTags.Page_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Page.Dialogue"), FString(TEXT("대화 페이지")));
+	GameplayTags.Page_InGame = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Page_InGame.TagName, RLRLITERAL.Page_InGame.TagDesc);
+	GameplayTags.Page_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Page_Dialogue.TagName, RLRLITERAL.Page_Dialogue.TagDesc);
 
 	/*
 		Action UI
 	*/
-	GameplayTags.UI_Character_StatusDisplay = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.StatusDisplay"), FString(TEXT("캐릭터 상태창")));
-	GameplayTags.UI_Character_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Profile"), FString(TEXT("캐릭터 스탯창")));
-	GameplayTags.UI_Character_Overhead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Character.Overhead"), FString(TEXT("캐릭터 체력바")));
+	GameplayTags.UI_Character_StatusDisplay = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Character_StatusDisplay.TagName, RLRLITERAL.UI_Character_StatusDisplay.TagDesc);
+	GameplayTags.UI_Character_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Character_Profile.TagName, RLRLITERAL.UI_Character_Profile.TagDesc);
+	GameplayTags.UI_Character_Overhead = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Character_Overhead.TagName, RLRLITERAL.UI_Character_Overhead.TagDesc);
 
-	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill"), FString(TEXT("스킬창")));
-	GameplayTags.UI_Skill_Upgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill.Upgrade"), FString(TEXT("스킬 업그레이드")));
-	GameplayTags.UI_Skill_DetailInfo = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Skill.DetailInfo"), FString(TEXT("스킬 정보창")));
+	GameplayTags.UI_Skill = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Skill.TagName, RLRLITERAL.UI_Skill.TagDesc);
+	GameplayTags.UI_Skill_Upgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Skill_Upgrade.TagName, RLRLITERAL.UI_Skill_Upgrade.TagDesc);
+	GameplayTags.UI_Skill_DetailInfo = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Skill_DetailInfo.TagName, RLRLITERAL.UI_Skill_DetailInfo.TagDesc);
 
-	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Inventory"), FString(TEXT("인벤토리")));
-	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.ItemInfomation"), FString(TEXT("아이템 정보창")));
-	GameplayTags.UI_NPCShop = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop"), FString(TEXT("NPC 상점")));
-	GameplayTags.UI_NPCShop_Popup_Bundle = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.NPCShop.Popup.Bundle"), FString(TEXT("NPC 상점 묶음 구매")));
+	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Inventory.TagName, RLRLITERAL.UI_Inventory.TagDesc);
+	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_ItemInformation.TagName, RLRLITERAL.UI_ItemInformation.TagDesc);
+	GameplayTags.UI_NPCShop = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_NPCShop.TagName, RLRLITERAL.UI_NPCShop.TagDesc);
+	GameplayTags.UI_NPCShop_Popup_Bundle = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_NPCShop_Popup_Bundle.TagName, RLRLITERAL.UI_NPCShop_Popup_Bundle.TagDesc);
 
-	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat"), FString(TEXT("채팅창")));
-	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Chat.Option"), FString(TEXT("채팅 옵션창")));
+	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat.TagName, RLRLITERAL.UI_Chat.TagDesc);
+	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat_Option.TagName, RLRLITERAL.UI_Chat_Option.TagDesc);
 	
-	GameplayTags.UI_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option"), FString(TEXT("옵션")));
-	GameplayTags.UI_Option_GraphicsOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.GraphicsOption"), FString(TEXT("그래픽 옵션")));
-	GameplayTags.UI_Option_AudioOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.AudioOption"), FString(TEXT("오디오 옵션")));
-	GameplayTags.UI_Option_CommunityOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.CommunityOption"), FString(TEXT("커뮤니티 옵션")));
-	GameplayTags.UI_Option_GameplayOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.GameplayOption"), FString(TEXT("게임 플레이 옵션")));
-	GameplayTags.UI_Option_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Option.KeyOption"), FString(TEXT("키 옵션")));
+	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Quest.TagName, RLRLITERAL.UI_Quest.TagDesc);
+	GameplayTags.UI_Quest_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Quest_Dialogue.TagName, RLRLITERAL.UI_Quest_Dialogue.TagDesc);
+	
+	GameplayTags.UI_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option.TagName, RLRLITERAL.UI_Option.TagDesc);
+	GameplayTags.UI_Option_GraphicsOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_GraphicsOption.TagName, RLRLITERAL.UI_Option_GraphicsOption.TagDesc);
+	GameplayTags.UI_Option_AudioOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_AudioOption.TagName, RLRLITERAL.UI_Option_AudioOption.TagDesc);
+	GameplayTags.UI_Option_CommunityOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_CommunityOption.TagName, RLRLITERAL.UI_Option_CommunityOption.TagDesc);
+	GameplayTags.UI_Option_GameplayOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_GameplayOption.TagName, RLRLITERAL.UI_Option_GameplayOption.TagDesc);
+	GameplayTags.UI_Option_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_KeyOption.TagName, RLRLITERAL.UI_Option_KeyOption.TagDesc);
 
-	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest"), FString(TEXT("퀘스트 정보창")));
-	GameplayTags.UI_Quest_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Quest.Dialogue"), FString(TEXT("퀘스트 대화창")));
+	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post.TagName, RLRLITERAL.UI_Post.TagDesc);
+	GameplayTags.UI_Post_Alert = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post_Alert.TagName, RLRLITERAL.UI_Post_Alert.TagDesc);
+
 	
-	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post"), FString(TEXT("우편 시스템")));	
-	GameplayTags.UI_Post_Alert = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Post.Alert"), FString(TEXT("우편 알림")));
+	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Party.TagName, RLRLITERAL.UI_Party.TagDesc);
+	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Trade.TagName, RLRLITERAL.UI_Trade.TagDesc);
+	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_FriendList.TagName, RLRLITERAL.UI_FriendList.TagDesc);
+	GameplayTags.UI_Guild = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Guild.TagName, RLRLITERAL.UI_Guild.TagDesc);
+	GameplayTags.UI_Report = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Report.TagName, RLRLITERAL.UI_Report.TagDesc);
 	
-	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Party"), FString(TEXT("파티창")));
-	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Trade"), FString(TEXT("개인 거래창")));
-	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.FriendList"), FString(TEXT("친구 목록")));
-	GameplayTags.UI_Guild = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Guild"), FString(TEXT("길드창")));
-	GameplayTags.UI_Report = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Report"), FString(TEXT("신고")));
+	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ItemCountMessageBox.TagName, RLRLITERAL.UI_Popup_ItemCountMessageBox.TagDesc);
+	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_NotificationMessageBox.TagName, RLRLITERAL.UI_Popup_NotificationMessageBox.TagDesc);
+	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ConfirmMessageBox.TagName, RLRLITERAL.UI_Popup_ConfirmMessageBox.TagDesc);
 	
-	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
-	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
-	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
+	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Menu.TagName, RLRLITERAL.UI_OtherPlayer_Menu.TagDesc);
+	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_OverHead.TagName, RLRLITERAL.UI_OtherPlayer_OverHead.TagDesc);
+	GameplayTags.UI_OtherPlayer_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Profile.TagName, RLRLITERAL.UI_OtherPlayer_Profile.TagDesc);
 	
-	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Menu"), FString(TEXT("플레이어 메뉴")));
-	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.OverHead"), FString(TEXT("타 플레이어 체력바")));
-	GameplayTags.UI_OtherPlayer_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.OtherPlayer.Profile"), FString(TEXT("타 플레이어 상태창")));
+	GameplayTags.UI_MiniMap = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_MiniMap.TagName, RLRLITERAL.UI_MiniMap.TagDesc);
+	GameplayTags.UI_Badge = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Badge.TagName, RLRLITERAL.UI_Badge.TagDesc);
 	
-	GameplayTags.UI_MiniMap = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.MiniMap"), FString(TEXT("미니맵")));
-	GameplayTags.UI_Badge = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Badge"), FString(TEXT("뱃지")));
+	GameplayTags.UI_Montster_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Monster_OverHead.TagName, RLRLITERAL.UI_Monster_OverHead.TagDesc);
+	GameplayTags.UI_TimerProgressBar = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_TimerProgressBar.TagName, RLRLITERAL.UI_TimerProgressBar.TagDesc);
 	
-	GameplayTags.UI_Montster_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Monster.OverHead"), FString(TEXT("몬스터 상태")));
-	GameplayTags.UI_TimerProgressBar = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.TimeProgressBar"), FString(TEXT("프로그래스바")));
+	GameplayTags.UI_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Menu.TagName, RLRLITERAL.UI_Menu.TagDesc);
 	
-	GameplayTags.UI_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Menu"), FString(TEXT("메뉴")));
-	
-	GameplayTags.UI_Enhance = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Enhance"), FString(TEXT("강화")));
+	GameplayTags.UI_Enhance = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Enhance.TagName, RLRLITERAL.UI_Enhance.TagDesc);
 
 	/*
 		Input
 	*/
 
-	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.LMB"), FString(TEXT("마우스 왼쪽 버튼")));
-	GameplayTags.InputTag_RMB = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.RMB"), FString(TEXT("마우스 오른쪽 버튼")));
-	GameplayTags.InputTag_Shift = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Shift"), FString(TEXT("Shift")));
-	GameplayTags.InputTag_Ctrl = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Ctrl"), FString(TEXT("Ctrl")));
-	GameplayTags.InputTag_ESC = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.ESC"), FString(TEXT("ESC")));
+	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_LMB.TagName, RLRLITERAL.InputTag_LMB.TagDesc);
+	GameplayTags.InputTag_RMB = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_RMB.TagName, RLRLITERAL.InputTag_RMB.TagDesc);
+	GameplayTags.InputTag_Shift = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Shift.TagName, RLRLITERAL.InputTag_Shift.TagDesc);
+	GameplayTags.InputTag_Ctrl = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Ctrl.TagName, RLRLITERAL.InputTag_Ctrl.TagDesc);
+	GameplayTags.InputTag_ESC = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_ESC.TagName, RLRLITERAL.InputTag_ESC.TagDesc);
 
 
-	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.1"), FString(TEXT("1")));
-	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.2"), FString(TEXT("2")));
-	GameplayTags.InputTag_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.3"), FString(TEXT("3")));
-	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.4"), FString(TEXT("4")));
-	GameplayTags.InputTag_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.5"), FString(TEXT("5")));
-	GameplayTags.InputTag_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.6"), FString(TEXT("6")));
-	GameplayTags.InputTag_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.7"), FString(TEXT("7")));
-	GameplayTags.InputTag_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.8"), FString(TEXT("8")));
-	GameplayTags.InputTag_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.9"), FString(TEXT("9")));
-
-	GameplayTags.InputTag_A = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.A"), FString(TEXT("KeyBoard A")));
-	GameplayTags.InputTag_B = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.B"), FString(TEXT("KeyBoard B")));
-	GameplayTags.InputTag_C = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.C"), FString(TEXT("KeyBoard C")));
-	GameplayTags.InputTag_D = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.D"), FString(TEXT("KeyBoard D")));
-	GameplayTags.InputTag_E = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.E"), FString(TEXT("KeyBoard E")));
-	GameplayTags.InputTag_F = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.F"), FString(TEXT("KeyBoard F")));
-	GameplayTags.InputTag_G = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.G"), FString(TEXT("KeyBoard G")));
-	GameplayTags.InputTag_H = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.H"), FString(TEXT("KeyBoard H")));
-	GameplayTags.InputTag_I = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.I"), FString(TEXT("KeyBoard I")));
-	GameplayTags.InputTag_J = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.J"), FString(TEXT("KeyBoard J")));
-	GameplayTags.InputTag_K = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.K"), FString(TEXT("KeyBoard K")));
-	GameplayTags.InputTag_L = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.L"), FString(TEXT("KeyBoard L")));
-	GameplayTags.InputTag_M = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.M"), FString(TEXT("KeyBoard M")));
-	GameplayTags.InputTag_N = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.N"), FString(TEXT("KeyBoard N")));
-	GameplayTags.InputTag_O = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.O"), FString(TEXT("KeyBoard O")));
-	GameplayTags.InputTag_P = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.P"), FString(TEXT("KeyBoard P")));
-	GameplayTags.InputTag_Q = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Q"), FString(TEXT("KeyBoard Q")));
-	GameplayTags.InputTag_R = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.R"), FString(TEXT("KeyBoard R")));
-	GameplayTags.InputTag_S = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.S"), FString(TEXT("KeyBoard S")));
-	GameplayTags.InputTag_T = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.T"), FString(TEXT("KeyBoard T")));
-	GameplayTags.InputTag_U = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.U"), FString(TEXT("KeyBoard U")));
-	GameplayTags.InputTag_V = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.V"), FString(TEXT("KeyBoard V")));
-	GameplayTags.InputTag_W = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.W"), FString(TEXT("KeyBoard W")));
-	GameplayTags.InputTag_X = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.X"), FString(TEXT("KeyBoard X")));
-	GameplayTags.InputTag_Y = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Y"), FString(TEXT("KeyBoard Y")));
-	GameplayTags.InputTag_Z = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Z"), FString(TEXT("KeyBoard Z")));
-	GameplayTags.InputTag_Alt_U = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Input.Alt_U"), FString(TEXT("KeyBoard Alt + U")));
+	GameplayTags.InputTag_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_1.TagName, RLRLITERAL.InputTag_1.TagDesc);
+	GameplayTags.InputTag_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_2.TagName, RLRLITERAL.InputTag_2.TagDesc);
+	GameplayTags.InputTag_3 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_3.TagName, RLRLITERAL.InputTag_3.TagDesc);
+	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_4.TagName, RLRLITERAL.InputTag_4.TagDesc);
+	GameplayTags.InputTag_5 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_5.TagName, RLRLITERAL.InputTag_5.TagDesc);
+	GameplayTags.InputTag_6 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_6.TagName, RLRLITERAL.InputTag_6.TagDesc);
+	GameplayTags.InputTag_7 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_7.TagName, RLRLITERAL.InputTag_7.TagDesc);
+	GameplayTags.InputTag_8 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_8.TagName, RLRLITERAL.InputTag_8.TagDesc);
+	GameplayTags.InputTag_9 = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_9.TagName, RLRLITERAL.InputTag_9.TagDesc);
+																			  
+	GameplayTags.InputTag_A = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_A.TagName, RLRLITERAL.InputTag_A.TagDesc);
+	GameplayTags.InputTag_B = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_B.TagName, RLRLITERAL.InputTag_B.TagDesc);
+	GameplayTags.InputTag_C = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_C.TagName, RLRLITERAL.InputTag_C.TagDesc);
+	GameplayTags.InputTag_D = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_D.TagName, RLRLITERAL.InputTag_D.TagDesc);
+	GameplayTags.InputTag_E = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_E.TagName, RLRLITERAL.InputTag_E.TagDesc);
+	GameplayTags.InputTag_F = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_F.TagName, RLRLITERAL.InputTag_F.TagDesc);
+	GameplayTags.InputTag_G = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_G.TagName, RLRLITERAL.InputTag_G.TagDesc);
+	GameplayTags.InputTag_H = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_H.TagName, RLRLITERAL.InputTag_H.TagDesc);
+	GameplayTags.InputTag_I = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_I.TagName, RLRLITERAL.InputTag_I.TagDesc);
+	GameplayTags.InputTag_J = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_J.TagName, RLRLITERAL.InputTag_J.TagDesc);
+	GameplayTags.InputTag_K = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_K.TagName, RLRLITERAL.InputTag_K.TagDesc);
+	GameplayTags.InputTag_L = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_L.TagName, RLRLITERAL.InputTag_L.TagDesc);
+	GameplayTags.InputTag_M = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_M.TagName, RLRLITERAL.InputTag_M.TagDesc);
+	GameplayTags.InputTag_N = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_N.TagName, RLRLITERAL.InputTag_N.TagDesc);
+	GameplayTags.InputTag_O = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_O.TagName, RLRLITERAL.InputTag_O.TagDesc);
+	GameplayTags.InputTag_P = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_P.TagName, RLRLITERAL.InputTag_P.TagDesc);
+	GameplayTags.InputTag_Q = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Q.TagName, RLRLITERAL.InputTag_Q.TagDesc);
+	GameplayTags.InputTag_R = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_R.TagName, RLRLITERAL.InputTag_R.TagDesc);
+	GameplayTags.InputTag_S = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_S.TagName, RLRLITERAL.InputTag_S.TagDesc);
+	GameplayTags.InputTag_T = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_T.TagName, RLRLITERAL.InputTag_T.TagDesc);
+	GameplayTags.InputTag_U = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_U.TagName, RLRLITERAL.InputTag_U.TagDesc);
+	GameplayTags.InputTag_V = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_V.TagName, RLRLITERAL.InputTag_V.TagDesc);
+	GameplayTags.InputTag_W = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_W.TagName, RLRLITERAL.InputTag_W.TagDesc);
+	GameplayTags.InputTag_X = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_X.TagName, RLRLITERAL.InputTag_X.TagDesc);
+	GameplayTags.InputTag_Y = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Y.TagName, RLRLITERAL.InputTag_Y.TagDesc);
+	GameplayTags.InputTag_Z = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Z.TagName, RLRLITERAL.InputTag_Z.TagDesc);
+	GameplayTags.InputTag_Alt_U = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Alt_U.TagName, RLRLITERAL.InputTag_Alt_U.TagDesc);
 
 }
 

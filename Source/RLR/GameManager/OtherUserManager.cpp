@@ -5,6 +5,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
@@ -16,7 +17,7 @@
 UOtherUserManager::UOtherUserManager()
 {
 	// PlayerCharacterClass에 기본 캐릭터 클래스 설정
-	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"));
+	static ConstructorHelpers::FClassFinder<ARLRPlayerCharacter> PlayerCharacterBPClass(*RLRLITERAL.RLRPlayerCharacter_Path);
 	if (PlayerCharacterBPClass.Succeeded())
 	{
 		PlayerCharacterClass = PlayerCharacterBPClass.Class;

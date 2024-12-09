@@ -8,6 +8,7 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/LevelManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "UI/Title/TitleMainUI.h"
 #include "UI/Lobby/LobbyMainUI.h"
@@ -50,7 +51,7 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
 {
     FString serverAddress = UTF8_TO_TCHAR(pkt.gameserveraddress().c_str());
     GameInstance->GetNetworkManager()->ConnectToLobbyServer(serverAddress, pkt.gameserverport(),pkt.playerseq());
-    bool Ret = GameInstance->GetLevelManager()->LoadLevel("Lobby");
+    bool Ret = GameInstance->GetLevelManager()->LoadLevel(RLRLITERAL.LevelName_Lobby);
 
     if (Ret == false)
     {
@@ -100,7 +101,7 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
         FString MonsterServerAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
         int32 MainServerPort = pkt.mainserverport();
         int32 MonsterServerPort = pkt.monsterserverport();     
-        GameInstance->GetLevelManager()->EnterLevel("TestMap2", MainServerAddress, MainServerPort, MonsterServerAddress, MonsterServerPort);
+        GameInstance->GetLevelManager()->EnterLevel(RLRLITERAL.LevelName_TestMap2, MainServerAddress, MainServerPort, MonsterServerAddress, MonsterServerPort);
     }
     else
     {

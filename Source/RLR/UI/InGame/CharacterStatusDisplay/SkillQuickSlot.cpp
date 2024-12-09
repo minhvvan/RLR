@@ -9,6 +9,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/PlayerManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/GameplayTagManager.h"
 
 void USkillQuickSlot::NativeConstruct()
@@ -25,7 +26,7 @@ void USkillQuickSlot::RefreshUI()
 	if(Config)
 	{ 
 		FString InputString = Config->FindInputTagByActionTag(ActionTag).GetTagName().ToString();
-		FString Prefix = TEXT("Input.");
+		FString Prefix = RLRLITERAL.SkillQuickSlot_Prefix;
 
 		// 'Input.' 이후의 문자열을 추출
 		int32 PrefixLength = Prefix.Len();

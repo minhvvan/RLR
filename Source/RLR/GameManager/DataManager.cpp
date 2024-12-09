@@ -3,6 +3,7 @@
 
 #include "GameManager/DataManager.h"
 #include "GameManager/LevelManager.h"
+#include "GameManager/LiteralManager.h"
 #include "Player/PlayerCommands.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ItemStructs.h"
@@ -12,22 +13,22 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 {
 	//데이터 파일들을 읽어온다.
 
-	ItemDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemData.DT_ItemData'")));
+	ItemDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ItemData_Path));
 
 	if(IsValid(ItemDataTable) == false)
 		DEBUG_LOG("아이템 테이블 로드 실패");
 
-	ItemResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemResource.DT_ItemResource'")));
+	ItemResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ItemResource_Path));
 
 	if (IsValid(ItemResourceTable) == false)
 		DEBUG_LOG("아이템 리소스 테이블 로드 실패");
 
-	MonsterDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterDataTable.DT_MonsterDataTable'")));
+	MonsterDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_MonsterDataTable_Path));
 
 	if (IsValid(MonsterDataTable) == false)
 		DEBUG_LOG("몬스터 테이블 로드 실패");
 
-	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_SkillData.DT_SkillData'")));
+	SkillDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_SkillData_Path));
 	
 	if (IsValid(SkillDataTable) == false)
 		DEBUG_LOG("스킬 테이블 로드 실패");
@@ -35,45 +36,45 @@ void UDataManager::Initialize(FSubsystemCollectionBase& Collection)
 
 	MakeSkillDictionary();
 
-	ActionResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ActionResource.DT_ActionResource'")));
+	ActionResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ActionResource_Path));
 
 	if (IsValid(ActionResourceTable) == false)
 		DEBUG_LOG("액션 리소스 테이블 로드 실패");
 
-	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, TEXT("/Script/RLR.RLRInputConfig'/Game/Blueprints/Player/Input/RLRInputConfig.RLRInputConfig'")));
+	InputConfig = Cast<URLRInputConfig>(StaticLoadObject(URLRInputConfig::StaticClass(), NULL, *RLRLITERAL.RLRInputConfig_Path));
 	if (IsValid(InputConfig) == false)
 		DEBUG_LOG("키 입력 정보 로드 실패");
 
 
-	ResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ResourceData.DT_ResourceData'")));
+	ResourceTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ResourceData_Path));
 	if (IsValid(ResourceTable) == false)
 		DEBUG_LOG("텍스쳐 테이블 로드 실패");
 
-	WidgetClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_WidgetClassData.DT_WidgetClassData'")));
+	WidgetClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_WidgetClassData_Path));
 	if (IsValid(WidgetClassTable) == false)
 		DEBUG_LOG("위젯 클래스 테이블 로드 실패");
 
-	CharacterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_CharacterClassData.DT_CharacterClassData'")));
+	CharacterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_CharacterClassData_Path));
 	if (IsValid(CharacterClassTable) == false)
 		DEBUG_LOG("캐릭터 클래스 테이블 로드 실패");	
 	
-	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ObjectClassData.DT_ObjectClassData'")));
+	ObjectClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ObjectClassData_Path));
 	if (IsValid(ObjectClassTable) == false)
 		DEBUG_LOG("오브젝트 클래스 테이블 로드 실패");
 
-	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_LevelData.DT_LevelData'")));
+	LevelDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_LevelData_Path));
 	if (IsValid(LevelDataTable) == false)
 		DEBUG_LOG("레벨 테이블 로드 실패");
 	
-	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_MonsterClassData.DT_MonsterClassData'")));
+	MonsterClassTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_MonsterClassData_Path));
 	if (IsValid(MonsterClassTable) == false)
 		DEBUG_LOG("몬스터 클래스 테이블 로드 실패");
 
-	ExpDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ExpTable.DT_ExpTable'")));
+	ExpDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_ExpTable_Path));
 	if(IsValid(ExpDataTable))
 		DEBUG_LOG("경험치 데이터 테이블 로드 실패");
 
-	AnimDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_AnimData.DT_AnimData'")));
+	AnimDataTable = Cast<UDataTable>(StaticLoadObject(UDataTable::StaticClass(), NULL, *RLRLITERAL.DT_AnimData_Path));
 	if (IsValid(AnimDataTable))
 		DEBUG_LOG("애님 데이터 테이블 로드 실패");
 }
@@ -122,7 +123,7 @@ FItemData UDataManager::GetItemData(int32 Seq)
 		TArray<FName> RowNames = ItemDataTable->GetRowNames();
 		for (const FName& RowName : RowNames)
 		{
-			FItemData* Data = ItemDataTable->FindRow<FItemData>(RowName, TEXT("Searching by ITEM_SEQ"));
+			FItemData* Data = ItemDataTable->FindRow<FItemData>(RowName, *RLRLITERAL.DataManager_SearchingByItemSeq);
 			if (Data && Data->ITEM_SEQ == Seq)
 			{
 				return *Data;
@@ -141,7 +142,7 @@ FItemResource UDataManager::GetItemResource(int32 Seq)
 		TArray<FName> RowNames = ItemResourceTable->GetRowNames();
 		for (const FName& RowName : RowNames)
 		{
-			FItemResource* Data = ItemResourceTable->FindRow<FItemResource>(RowName, TEXT("Searching by ITEM_SEQ"));
+			FItemResource* Data = ItemResourceTable->FindRow<FItemResource>(RowName, *RLRLITERAL.DataManager_SearchingByItemSeq);
 			if (Data && Data->ITEM_SEQ == Seq) 
 			{
 				return *Data;
@@ -156,7 +157,7 @@ const FSkillData& UDataManager::GetSkillData(int32 Seq)
 {
 	if (SkillDataTable)
 	{
-		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Seq), TEXT(""));
+		FSkillData* Data = SkillDataTable->FindRow<FSkillData>(*FString::FromInt(Seq), *RLRLITERAL.DataManager_EmptyString);
 		if(Data == nullptr)
 			return FSkillData::EmptySkillData;
 
@@ -173,7 +174,7 @@ const FSkillData& UDataManager::GetSkillDataByTag(FGameplayTag Tag)
 		TArray<FName> RowNames = SkillDataTable->GetRowNames();
 		for (const FName& RowName : RowNames)
 		{
-			FSkillData* Data = SkillDataTable->FindRow<FSkillData>(RowName, TEXT("Searching by Tag"));
+			FSkillData* Data = SkillDataTable->FindRow<FSkillData>(RowName, *RLRLITERAL.DataManager_SearchingByTag);
 			if (Data && Data->SkillTag == Tag)
 			{
 				return *Data;
@@ -188,7 +189,7 @@ const FActionResource& UDataManager::GetActionResource(int32 Seq)
 {
 	if (ActionResourceTable)
 	{
-		FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(*FString::FromInt(Seq), TEXT(""));
+		FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(*FString::FromInt(Seq), *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FActionResource::EmptyActionResource;
 		return *Data;
@@ -203,7 +204,7 @@ const FActionResource& UDataManager::GetActionResourceByTag(FGameplayTag Tag)
 		TArray<FName> RowNames = ActionResourceTable->GetRowNames();
 		for (const FName& RowName : RowNames)
 		{
-			FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(RowName, TEXT("Searching by Tag"));
+			FActionResource* Data = ActionResourceTable->FindRow<FActionResource>(RowName, *RLRLITERAL.DataManager_SearchingByTag);
 			if (Data && Data->ActionTag == Tag)
 			{
 				return *Data;
@@ -226,7 +227,7 @@ const FLevelData& UDataManager::GetLevelData(int32 Seq)
 {
 	if (IsValid(LevelDataTable))
 	{
-		FLevelData* Data = LevelDataTable->FindRow<FLevelData>(*FString::FromInt(Seq), TEXT(""));
+		FLevelData* Data = LevelDataTable->FindRow<FLevelData>(*FString::FromInt(Seq), *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FLevelData::EmptyData;
 
@@ -240,7 +241,7 @@ const FExpTable& UDataManager::GetExpData(int32 Seq)
 {
 	if (IsValid(ExpDataTable))
 	{
-		FExpTable* Data = ExpDataTable->FindRow<FExpTable>(*FString::FromInt(Seq), TEXT(""));
+		FExpTable* Data = ExpDataTable->FindRow<FExpTable>(*FString::FromInt(Seq), *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FExpTable::EmptyExpData;
 
@@ -254,7 +255,7 @@ const FAnimData& UDataManager::GetAnimData(FGameplayTag Tag)
 {
 	if (AnimDataTable)
 	{
-		FAnimData* Data = AnimDataTable->FindRow<FAnimData>(*Tag.ToString(), TEXT(""));
+		FAnimData* Data = AnimDataTable->FindRow<FAnimData>(*Tag.ToString(), *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FAnimData::EmptyAnimData;
 
@@ -268,7 +269,7 @@ const FMonsterStatus& UDataManager::GetMonsterData(int32 Seq)
 {
 	if (MonsterDataTable)
 	{
-		FMonsterStatus* Data = MonsterDataTable->FindRow<FMonsterStatus>(*FString::FromInt(Seq), TEXT(""));
+		FMonsterStatus* Data = MonsterDataTable->FindRow<FMonsterStatus>(*FString::FromInt(Seq), *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FMonsterStatus::EmptyMonsterData;
 
@@ -293,7 +294,7 @@ FResourceData UDataManager::GetResource(FString Name)
 {
 	if (IsValid(ResourceTable) == true)
 	{
-		const FResourceData* Data = ResourceTable->FindRow<FResourceData>(*Name, TEXT(""));
+		const FResourceData* Data = ResourceTable->FindRow<FResourceData>(*Name, *RLRLITERAL.DataManager_EmptyString);
 		if (Data == nullptr)
 			return FResourceData();
 

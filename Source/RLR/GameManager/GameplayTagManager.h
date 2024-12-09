@@ -138,6 +138,7 @@ public:
 	FGameplayTag UI_Option_CommunityOption;
 	FGameplayTag UI_Option_GameplayOption;
 	FGameplayTag UI_Option_KeyOption;
+	FGameplayTag UI_KeyOption;
 
 	FGameplayTag UI_Quest;
 	FGameplayTag UI_Quest_Dialogue;

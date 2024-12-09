@@ -14,11 +14,11 @@ class RLR_API ALevelTransitionVolume : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+
 	ALevelTransitionVolume();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;

@@ -10,6 +10,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 #include "UI/InGame/InGameMainUI.h"
 
 #pragma comment(lib, "ws2_32.lib")
@@ -137,31 +138,31 @@ void AChatClient::ReceiveMessages()
                             TArray<FString> Path;
                             
                             Message.ParseIntoArray( Path,TEXT("]"));
-                            if (Path[0].Contains(TEXT("일반"))) {
+                            if (Path[0].Contains(RLRLITERAL.ChatType_General)) {
                                 ChatUI->AddChatMessage(Message,0);
                             }
-                            else if (Path[0].Contains(TEXT("귓속말"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Whisper)) {
                                 ChatUI->AddChatMessage(Message, 1);
                             }
-                            else if (Path[0].Contains(TEXT("국가"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Country)) {
                                 ChatUI->AddChatMessage(Message, 2);
                             }
-                            else if (Path[0].Contains(TEXT("세계"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_World)) {
                                 ChatUI->AddChatMessage(Message, 3);
                             }
-                            else if (Path[0].Contains(TEXT("길드"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Guild)) {
                                 ChatUI->AddChatMessage(Message, 4);
                             }
-                            else if (Path[0].Contains(TEXT("레이드"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Raid)) {
                                 ChatUI->AddChatMessage(Message, 5);
                             }
-                            else if (Path[0].Contains(TEXT("파티"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Party)) {
                                 ChatUI->AddChatMessage(Message, 6);
                             }
-                            else if (Path[0].Contains(TEXT("대륙"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Continent)) {
                                 ChatUI->AddChatMessage(Message, 7);
                             }
-                            else if (Path[0].Contains(TEXT("동료"))) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Fellow)) {
                                 ChatUI->AddChatMessage(Message, 8);
                             }
                          

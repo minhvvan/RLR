@@ -2,6 +2,7 @@
 
 
 #include "GameManager/EffectManager.h"
+#include "GameManager/LiteralManager.h"
 #include "RLRStruct.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Structs/UtilStructs.h"
@@ -10,7 +11,7 @@
 UEffectManager::UEffectManager()
 {
 	// TODO :  This -> DataManager 
-	UDataTable* EffectDataTable = LoadObject<UDataTable>(nullptr, TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_EffectData.DT_EffectData'"));
+	UDataTable* EffectDataTable = LoadObject<UDataTable>(nullptr, *RLRLITERAL.DT_EffectData_Path);
 
 	if (EffectDataTable)
 	{
