@@ -5,15 +5,12 @@
 #include "UI/InGame/Storage/StorageTab.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
-#include "Structs/ItemStructs.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/HorizontalBox.h"
 #include "Blueprint/WidgetTree.h"
 #include "RLR.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/StorageManager.h"
-#include "GameManager/InventoryManager.h"
-#include "GameManager/GameplayTagManager.h"
 
 
 void UStorageUI::NativeConstruct()
@@ -26,16 +23,11 @@ void UStorageUI::NativeConstruct()
 
 	if (!StorageManager) StorageManager = GetStorageManager();
 
-	//창고 아이템 요청(info 초기화에서 뿌린다면 없어도 됨)
-	StorageManager->RequestGetStorageItems();
-	StorageManager->OnStorageAllItemUpdated.RemoveDynamic(this, &UStorageUI::SetStorageAllItems);
-	StorageManager->OnStorageAllItemUpdated.AddUniqueDynamic(this, &UStorageUI::SetStorageAllItems);
-
 	for (int i = 0;i < WidgetSwitcher->GetNumWidgets(); i++)
 	{
 		auto storageTab = Cast<UStorageTab>(WidgetSwitcher->GetChildAt(i));
 		if (!storageTab) continue;
-
+		
 		storageTab->SetPageNum(i);
 	}
 	
@@ -52,7 +44,7 @@ void UStorageUI::SetStorageAllItems()
 void UStorageUI::SetUnLockedPageNum()
 {
 	if (!StorageManager) StorageManager = GetStorageManager();
-	auto items = StorageManager->GetAllItems();
+	auto items = StorageManager->GetUserStorageItems();
 
 	for (int i = 0; i < MaxStorageTabNum; i++)
 	{
@@ -60,26 +52,6 @@ void UStorageUI::SetUnLockedPageNum()
 		if (i < items.Num()) TabButtons[i]->SetIsEnabled(true);
 		else TabButtons[i]->SetIsEnabled(false);
 	}
-}
-
-void UStorageUI::OpenUI()
-{
-	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("InventorySlotClicked"));
-	GetInventoryManager()->OnInventorySlotShiftClickedDelegate.BindUFunction(this, FName("InventorySlotShiftClicked"));
-	Super::OpenUI();
-}
-
-void UStorageUI::CloseUI()
-{
-	GetInventoryManager()->OnInventorySlotClickedDelegate.Clear();
-	GetInventoryManager()->OnInventorySlotShiftClickedDelegate.Clear();
-	Super::CloseUI();
-}
-
-void UStorageUI::InventorySlotClicked(const FItemData& Item)
-{
-	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktMoveItemInventoryToStorage(Item, Item.QUANTITY, WidgetSwitcher->GetActiveWidgetIndex());
 }
 
 void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
@@ -100,6 +72,7 @@ void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
 
 	messageBox->OpenUI();
 	messageBox->SetItemData(Item);
+	messageBox->OnConfirmButtonClickedDelegate.Clear();
 	messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("InventoryToStorageMessageBoxCallback"));
 }
 
@@ -115,10 +88,15 @@ void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item) con
 	tab->SetSlotItemData(Item, slotIdx);
 }
 
+int UStorageUI::GetCurrentPage() const
+{
+	return WidgetSwitcher->GetActiveWidgetIndex();
+}
+
 void UStorageUI::RefreshUI()
 {
 	if (!StorageManager) StorageManager = GetStorageManager();
-	auto items = StorageManager->GetAllItems();
+	auto items = StorageManager->GetUserStorageItems();
 	for (int i = 0; i < items.Num(); i++)
 	{
 		UStorageTab* CurrentTab = Cast<UStorageTab>(WidgetSwitcher->GetWidgetAtIndex(i));
@@ -128,11 +106,11 @@ void UStorageUI::RefreshUI()
 			continue;
 		}
 
-		CurrentTab->UpdateAllItem(items[i]);
+		CurrentTab->UpdateAllItem(items[i], UITag);
 	}
 }
 
-void UStorageUI::InventoryToStorageMessageBoxCallback(UMessageBoxUI* MessageBox)
+void UStorageUI::InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox)
 {
 	UItemCountMessageBox* messageBox = Cast<UItemCountMessageBox>(MessageBox);
 	if (!messageBox)
@@ -142,5 +120,5 @@ void UStorageUI::InventoryToStorageMessageBoxCallback(UMessageBoxUI* MessageBox)
 	}
 
 	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktMoveItemInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount(), WidgetSwitcher->GetActiveWidgetIndex());
+	StorageManager->SendPktMoveItemInventoryToUserStorage(messageBox->GetItemData(), messageBox->GetItemCount(), WidgetSwitcher->GetActiveWidgetIndex());
 }

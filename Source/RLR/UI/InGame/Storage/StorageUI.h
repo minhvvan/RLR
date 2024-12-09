@@ -24,27 +24,18 @@ protected:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UWidgetSwitcher> WidgetSwitcher;
 
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UTextBlock> TxtBalance;
-
 public:
 	virtual void NativeConstruct() override;
 
-public:
 	UFUNCTION()
 	void SetStorageAllItems();
 	void SetUnLockedPageNum();
 
-	virtual void OpenUI() override;
-	virtual void CloseUI() override;
-
 	UFUNCTION()
-	void InventorySlotClicked(const FItemData& Item);
-
-	UFUNCTION()
-	void InventorySlotShiftClicked(const FItemData& Item);
+	virtual void InventorySlotShiftClicked(const FItemData& Item);
 
 	void SetSlotItem(int TabIdx, int slotIdx, const FItemData&Item) const;
+	int GetCurrentPage() const;
 
 protected:
 	TArray<UWidget*> TabButtons;
@@ -55,8 +46,8 @@ protected:
 	virtual void RefreshUI() override;
 
 	UFUNCTION()
-	void InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox);
+	virtual void InventoryToStorageMessageBoxCallback(class UMessageBoxUI* MessageBox);
 
-private:
+protected:
 	UStorageManager* StorageManager;
 };

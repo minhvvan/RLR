@@ -22,7 +22,7 @@ void UStorageSlot::NativeOnListItemObjectSet(UObject* ListItemObject)
 		PageIndex = itemSlot->PageIndex;
 		SetItemData(item);
 		SetSlotIndex(itemSlot->GetSlotIndex());
-		SetSlotType(ESlotType::STORAGE_ITEM_SLOT);
+		SetSlotType(itemSlot->SlotType);
 	}
 }
 
@@ -55,9 +55,10 @@ bool UStorageSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEven
 			return bResult;
 		}
 
-		StorageManager->SendPktMoveItemInventoryToStorage(item, item.QUANTITY, PageIndex, SlotIndex);
+		StorageManager->SendPktMoveItemInventoryToUserStorage(item, item.QUANTITY, SlotIndex);
 	}
-	else if (Operation->DragedSlotType == ESlotType::STORAGE_ITEM_SLOT)
+	else if (Operation->DragedSlotType == ESlotType::USER_STORAGE_ITEM_SLOT
+		|| Operation->DragedSlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
 	{
 		//Storage->Storage
 		UStorageManager* StorageManager = GetStorageManager();
@@ -189,7 +190,6 @@ int UStorageSlot::GetPageNum() const
 
 void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBox)
 {
-	//TODO: 인벤토리로 아이템 빼기 pkt 전송(pageIdx, slot_idx?(item_id?)) + id어떻게 처리??
 	UItemCountMessageBox* messageBox = Cast<UItemCountMessageBox>(MessageBox);
 	if (!messageBox)
 	{
@@ -203,5 +203,13 @@ void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBo
 void UStorageSlot::MoveStorageToInventory(const FItemData& Item, int Amount)
 {
 	UStorageManager* StorageManager = GetStorageManager();
-	StorageManager->SendPktMoveItemStorageToInventory(Item, Amount, PageIndex, SlotIndex);
+
+	if (SlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
+	{
+		StorageManager->SendPktMoveItemPlayerStorageToInventory(Item, Amount, SlotIndex);
+	}
+	else if (SlotType == ESlotType::USER_STORAGE_ITEM_SLOT)
+	{
+		StorageManager->SendPktMoveItemUserStorageToInventory(Item, Amount, SlotIndex);
+	}
 }

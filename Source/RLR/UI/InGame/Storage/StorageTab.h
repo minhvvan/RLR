@@ -23,7 +23,8 @@ protected:
 public:
 	void ClearEntry();
 	void SetSlotItemData(const FItemData& Item, int Idx);
-	void UpdateAllItem(const TArray<FItemData>& Items);
+	void UpdateAllItem(const TArray<FItemData>& Items, FGameplayTag Tag);
+	
 	UFUNCTION()
 	void UpdatedStorageCallback(int PageIndex);
 
