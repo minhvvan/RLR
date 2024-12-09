@@ -418,8 +418,6 @@ public:
 	FTagPair InputTag_Z;
 	FTagPair InputTag_Alt_U;
 
-
-
 private:
 	static LiteralManager LiteralMessages;
 	LiteralManager();

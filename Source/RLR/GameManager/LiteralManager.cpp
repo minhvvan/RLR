@@ -257,7 +257,6 @@ void LiteralManager::Init()
     LiteralMessages.WBP_DraggableWidget = TEXT("WBP_DraggableWidget");
     LiteralMessages.WBP_BaseDragDropOperation = TEXT("WBP_BaseDragDropOperation");
     LiteralMessages.GetDefaultSlotImage_DefaultSlotImage = TEXT("DefaultSlotImage");
- 
 
      /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
@@ -398,8 +397,4 @@ void LiteralManager::Init()
     LiteralMessages.InputTag_Y          = FTagPair(FName("Input.Y"), TEXT("KeyBoard Y"));
     LiteralMessages.InputTag_Z          = FTagPair(FName("Input.Z"), TEXT("KeyBoard Z"));
     LiteralMessages.InputTag_Alt_U      = FTagPair(FName("Input.Alt_U"), TEXT("KeyBoard Alt + U"));
-
-
-
-
 }
