@@ -129,7 +129,8 @@ public:
 	FGameplayTag UI_NPCShop;
 	FGameplayTag UI_NPCShop_Popup_Bundle;
 
-	FGameplayTag UI_Storage;
+	FGameplayTag UI_Storage_User;
+	FGameplayTag UI_Storage_Player;
 
 	FGameplayTag UI_Chat;
 	FGameplayTag UI_Chat_Option;
