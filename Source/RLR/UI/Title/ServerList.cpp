@@ -22,7 +22,7 @@ void UServerList::Init()
 	ServerListScrollBox->ClearChildren();
 	Clear();
 
-	TSubclassOf<UServerListElement> ElementClass = GetWidgetClass<UServerListElement>("WBP_ServerListElement");
+	TSubclassOf<UServerListElement> ElementClass = GetWidgetClass<UServerListElement>(RLRLITERAL.WBP_ServerListElement);
 	if (IsValid(ElementClass) == false)
 	{
 		DEBUG_MESSAGE;

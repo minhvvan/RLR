@@ -10,7 +10,7 @@
 
 void USkillSettingQuickSlotContainer::Init()
 {
-	TSubclassOf<USkillSettingQuickSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingQuickSlot>("WBP_SkillSettingQuickSlot");
+	TSubclassOf<USkillSettingQuickSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingQuickSlot>(RLRLITERAL.WBP_SkillSettingQuickSlot);
 	if (CHECK_VALID(SlotClass) == false)
 		return;
 

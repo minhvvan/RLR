@@ -17,7 +17,9 @@ LiteralManager::LiteralManager()
         Projectile_Movement(FName("ProjectileMovement")),
         RLRNonPlayerCharacter_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Character/BP_NPC.BP_NPC_C'")),
         RLRInteractableActor_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actors/BP_Interactable_Tree.BP_Interactable_Tree_C'")),
-        RLRPlayerCharacter_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'"))
+        RLRPlayerCharacter_Path(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Player/BP/BP_Player.BP_Player_C'")),
+        DT_AbnormalMark_Path(TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_AbnormalMark.DT_AbnormalMark'")),
+        RLRReticle_Decal(FName("Decal"))
 {
 }
 
@@ -84,6 +86,7 @@ void LiteralManager::Init()
     LiteralMessages.LevelName_Title     = FName("Title");
     LiteralMessages.LevelName_InGame    = FName("InGame");
     LiteralMessages.LevelName_Dungeon   = FName("Dungeon");
+    LiteralMessages.LevelName_TestMap2  = FName("TestMap2");
     LiteralMessages.LevelPath_Lobby     = TEXT("/Game/Map/Lobby/{0}");
     LiteralMessages.LevelPath_Title     = TEXT("/Game/Map/Title/{0}");
     LiteralMessages.LevelPath_InGame    = TEXT("/Game/Map/InGame/{0}");
@@ -137,21 +140,126 @@ void LiteralManager::Init()
     LiteralMessages.EquipmentType_None              = TEXT("NONE");
 
     LiteralMessages.Unknown = TEXT("UNKNOWN");
+    /* PlayerStructs */
+    LiteralMessages.TotalStatus_HP                  = TEXT("HP");
+    LiteralMessages.TotalStatus_HP_Absorb           = TEXT("HP_ABSORB");
+    LiteralMessages.TotalStatus_MP                  = TEXT("MP");
+    LiteralMessages.TotalStatus_MP_Absorb           = TEXT("MP_ABSORB");
+    LiteralMessages.TotalStatus_Strength            = TEXT("STRENGTH");
+    LiteralMessages.TotalStatus_Agility             = TEXT("AGILITY");
+    LiteralMessages.TotalStatus_Intelligence        = TEXT("INTELLIGENCE");
+    LiteralMessages.TotalStatus_MaxHP               = TEXT("MAX_HP");
+    LiteralMessages.TotalStatus_MaxMP               = TEXT("MAX_MP");
+    LiteralMessages.TotalStatus_Attack              = TEXT("ATTACK");
+    LiteralMessages.TotalStatus_Defence             = TEXT("DEFENCE");
+    LiteralMessages.TotalStatus_Attack_Speed        = TEXT("ATTACK_SPEED");
+    LiteralMessages.TotalStatus_Move_Speed          = TEXT("MOVE_SPEED");
+    LiteralMessages.TotalStatus_Life_Steal          = TEXT("LIFE_STEAL");
+    LiteralMessages.TotalStatus_Critical_Chance     = TEXT("CRITICAL_CHANCE");
+    LiteralMessages.TotalStatus_Critical_Damage     = TEXT("CRITICAL_DAMAGE");
+    LiteralMessages.TotalStatus_Avoid               = TEXT("AVOID");
+	LiteralMessages.TotalStatus_Cooldown_Reduction  = TEXT("COOLDOWN_REDUCTION");
+
     /* UIManager */
     LiteralMessages.LevelName_Main = TEXT("Main");
     /* ChatClient */
-    LiteralMessages.ChatType_Normal     = TEXT("일반");
+    LiteralMessages.ChatType_General    = TEXT("일반");
     LiteralMessages.ChatType_Whisper    = TEXT("귓속말");
-    LiteralMessages.ChatType_Nation     = TEXT("국가");
+    LiteralMessages.ChatType_Country    = TEXT("국가");
     LiteralMessages.ChatType_World      = TEXT("세계");
     LiteralMessages.ChatType_Guild      = TEXT("길드");
     LiteralMessages.ChatType_Raid       = TEXT("레이드");
     LiteralMessages.ChatType_Party      = TEXT("파티");
     LiteralMessages.ChatType_Continent  = TEXT("대륙");
     LiteralMessages.ChatType_Fellow     = TEXT("동료");
+    LiteralMessages.ChatType_Nearby     = TEXT("근처");
 
+	LiteralMessages.ChatType_En_General     = TEXT("General");
+	LiteralMessages.ChatType_En_Whisper     = TEXT("Whisper");
+	LiteralMessages.ChatType_En_Guild       = TEXT("Guild");
+	LiteralMessages.ChatType_En_Party       = TEXT("Party");
+	LiteralMessages.ChatType_En_Continent   = TEXT("Continent");
+	LiteralMessages.ChatType_En_Raid        = TEXT("Raid");
+	LiteralMessages.ChatType_En_Country     = TEXT("Country");
+	LiteralMessages.ChatType_En_Nearby      = TEXT("Nearby");
+	LiteralMessages.ChatType_En_World       = TEXT("World");
+    /* ActionPlayMontage */
+    LiteralMessages.ActionPlayMontage_PlayAnim = FName("PlayAnim");
+    /* ActionInteract */
+    LiteralMessages.ActionInteract_PlayInteractAnim = FName("PlayInteractAnim");
+    /* ActionSkill_Holding */
+    LiteralMessages.ActionSkill_Holding_HoldingLoop = FName("HoldingLoop");
+    LiteralMessages.ActionSkill_Holding_EndSection  = FName("EndSection");
+    /* ActionAttack */
+    LiteralMessages.ActionAttack_PlayAttackAnim = FName("PlayAttackAnim");
+    /* StatSet */
+    LiteralMessages.StatSet_EmptyString = TEXT("");
+    /* LoadBalancer */
+    LiteralMessages.LoadBalancerClient_LoadBalancerSocket = TEXT("LoadBalancerSocket");
+    /* SkillStructs */
+    LiteralMessages.SkillStructs_Name           = TEXT("Name");
+    LiteralMessages.SkillStructs_Job            = TEXT("Job");
+    LiteralMessages.SkillStructs_Level          = TEXT("Level");
+    LiteralMessages.SkillStructs_CostType       = TEXT("CostType");
+    LiteralMessages.SkillStructs_Cost           = TEXT("Cost");
+    LiteralMessages.SkillStructs_CoolTime       = TEXT("CoolTime");
+    LiteralMessages.SkillStructs_SkillInfo      = TEXT("SkillInfo");
+    /* ItemQuickSlotContainer */
+    LiteralMessages.WBP_ItemQuickSlot = TEXT("WBP_ItemQuickSlot");
+    /* SkillQuickSlot */
+    LiteralMessages.SkillQuickSlot_Prefix = TEXT("Input.");
+    /* SkillQuickSlotContainer */
+    LiteralMessages.WBP_SkillQuickSlot = TEXT("WBP_SkillQuickSlot");
+    /* ChatUI */
+	LiteralMessages.ChatUI_General  = TEXT("전체");
+    LiteralMessages.ChatUI_Guild    = TEXT("길드");
+    LiteralMessages.ChatUI_Party    = TEXT("파티");
+    LiteralMessages.ChatUI_GeneralCommand   = TEXT("");
+    LiteralMessages.ChatUI_ChatCommand      = TEXT("/chat");
+    LiteralMessages.ChatUI_WhisperCommand   = TEXT("/w");
+    LiteralMessages.WBP_ChatTabWidget       = TEXT("/Game/Blueprints/ChatTabWidget.ChatTabWidget_C");
+    /* FriendTabWidget */
+    LiteralMessages.Friend_DefaultGroup = TEXT("Default Group");
+    /* InventoryUI */
+    LiteralMessages.WBP_InventorySlot = TEXT("WBP_InventorySlot");
+    /* KeyOption */
+    LiteralMessages.AssetName   = TEXT("MyPrimaryDataAsset");
+    LiteralMessages.PackageName = TEXT("/Game/");
+    /* KeyOptionElement */
+    LiteralMessages.FirstKey_InputFormat = TEXT("Input.{0}");
+    /* ItemCountMessageBox */
+    LiteralMessages.MessageTextFormat = TEXT("[{0}] {1}");
+    /* PostDetailUI */
+    LiteralMessages.HasReadStatus      = TEXT("");
+    LiteralMessages.ReadStatusNotExist = TEXT("Read");
+    /* NPCPurchaseTab */
+    LiteralMessages.WBP_NPCItemSlot = TEXT("WBP_NPCItemSlot");
+    LiteralMessages.WBP_NPCCartSlot = TEXT("WBP_NPCCartSlot");
+    LiteralMessages.WBP_NPCBundlePurchase = TEXT("WBP_NPCBundlePurchase");
+    /* NPCShopUI */
+    LiteralMessages.FunctionName_AddSaleItem = FName("AddSaleItem");
+    /* SkillSetting */
+    LiteralMessages.FirstKey_LoadSkill_Format = TEXT("Action.Skill.{0}");
+    /* SkillSettingListSlotContainer */
+    LiteralMessages.WBP_SkillSettingListSlot = TEXT("WBP_SkillSettingListSlot");
+    /* Skill SettingQuickSlotContainer */
+    LiteralMessages.WBP_SkillSettingQuickSlot = TEXT("WBP_SkillSettingQuickSlot");
+    /* SkillTreeSlotcontainer */
+    LiteralMessages.WBP_SkillTreeSlot = TEXT("WBP_SkillTreeSlot");
+    /* TradeList */
+    LiteralMessages.WBP_TradeListElement = TEXT("WBP_TradeListElement");
+    /* CharacterListUI */
+    LiteralMessages.WBP_CharacterListElement = TEXT("WBP_CharacterListElement");
+    LiteralMessages.BP_DefaultPlayer = TEXT("BP_DefaultPlayer");
+    /* ServerList */
+    LiteralMessages.WBP_ServerListElement = TEXT("WBP_ServerListElement");
+    /* SlotUI */
+    LiteralMessages.WBP_DraggableWidget = TEXT("WBP_DraggableWidget");
+    LiteralMessages.WBP_BaseDragDropOperation = TEXT("WBP_BaseDragDropOperation");
+    LiteralMessages.GetDefaultSlotImage_DefaultSlotImage = TEXT("DefaultSlotImage");
+ 
 
-    /* GameplayTagManager */
+     /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));
     LiteralMessages.Attribute_MainStat_MaxHealth = FTagPair(FName("Attribute.MainStat.MaxHealth"), TEXT("최대 체력"));
 

@@ -8,6 +8,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "Components/ScrollBox.h"
 
@@ -22,7 +23,7 @@ void UTradeList::Init()
 	Super::Init();
 	TradeListScrollBox->ClearChildren();
 
-	TSubclassOf<UTradeListElement> ElementClass = GetWidgetClass<UTradeListElement>("WBP_TradeListElement");
+	TSubclassOf<UTradeListElement> ElementClass = GetWidgetClass<UTradeListElement>(RLRLITERAL.WBP_TradeListElement);
 	if (IsValid(ElementClass) == false)
 	{
 		DEBUG_MESSAGE;

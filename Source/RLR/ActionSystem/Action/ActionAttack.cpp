@@ -8,6 +8,7 @@
 #include "RLR.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/SkillManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/GameManager.h"
 #include "Physics/RLRCollision.h"
 #include "DrawDebugHelpers.h"
@@ -49,7 +50,7 @@ void UActionAttack::ActivateAction()
 	FVector MousePos = Controller->GetClickPosition();
 	Player->SetTargetRotation(MousePos, RotationSpeed);
 
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAttackAnim"), Player->AttackMontage);
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, RLRLITERAL.ActionAttack_PlayAttackAnim, Player->AttackMontage);
 	AT->OnCompleted.AddDynamic(this, &UActionAttack::OnCompletePlayMontage);
 	AT->ReadyForActivation();
 	

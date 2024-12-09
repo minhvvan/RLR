@@ -98,6 +98,7 @@ public:
 	FName LevelName_Title;
 	FName LevelName_InGame;
 	FName LevelName_Dungeon;
+	FName LevelName_TestMap2;
 	FString LevelPath_Lobby;
 	FString LevelPath_Title;
 	FString LevelPath_InGame;
@@ -156,19 +157,125 @@ public:
 	FString EquipmentType_None;
 
 	FString Unknown;
+	/* PlayerStructs */
+	FString TotalStatus_HP;
+	FString TotalStatus_HP_Absorb;
+	FString TotalStatus_MP;
+	FString TotalStatus_MP_Absorb;
+	FString TotalStatus_Strength;
+	FString TotalStatus_Agility;
+	FString TotalStatus_Intelligence;
+	FString TotalStatus_MaxHP;
+	FString TotalStatus_MaxMP;
+	FString TotalStatus_Attack;
+	FString TotalStatus_Defence;
+	FString TotalStatus_Attack_Speed;
+	FString TotalStatus_Move_Speed;
+	FString TotalStatus_Life_Steal;
+	FString TotalStatus_Critical_Chance;
+	FString TotalStatus_Critical_Damage;
+	FString TotalStatus_Avoid;
+	FString TotalStatus_Cooldown_Reduction;
+
 	/* UIManager */
 	FString LevelName_Main;
 	/* ChatClient */
-	FString ChatType_Normal;
+	FString ChatType_General;
 	FString ChatType_Whisper;
-	FString ChatType_Nation;
+	FString ChatType_Country;
 	FString ChatType_World;
 	FString ChatType_Guild;
 	FString ChatType_Raid;
 	FString ChatType_Party;
 	FString ChatType_Continent;
 	FString ChatType_Fellow;
-
+	FString ChatType_Nearby;
+	FString ChatType_En_General;
+	FString ChatType_En_Whisper;
+	FString ChatType_En_Guild;
+	FString ChatType_En_Party;
+	FString ChatType_En_Continent;
+	FString ChatType_En_Raid;
+	FString ChatType_En_Country;
+	FString ChatType_En_Nearby;
+	FString ChatType_En_World;
+	/* ActionPlayMontage */
+	FName ActionPlayMontage_PlayAnim;
+	/* ActionInteract */
+	FName ActionInteract_PlayInteractAnim;
+	/* ActionSkill_Holding */
+	FName ActionSkill_Holding_HoldingLoop;
+	FName ActionSkill_Holding_EndSection;
+	/* ActionAttack */
+	FName ActionAttack_PlayAttackAnim;
+	/* StatSet */
+	FString DT_AbnormalMark_Path;
+	FString StatSet_EmptyString;
+	/* RLRReticle */
+	FName RLRReticle_Decal;
+	/* LoadBalancerClient */
+	FString LoadBalancerClient_LoadBalancerSocket;
+	/* SkillStructs */
+	FString SkillStructs_Name;
+	FString SkillStructs_Job;
+	FString SkillStructs_Level;
+	FString SkillStructs_CostType;
+	FString SkillStructs_Cost;
+	FString SkillStructs_CoolTime;
+	FString SkillStructs_SkillInfo;
+	/* ItemQuickSlotcontainer */
+	FString WBP_ItemQuickSlot;
+	/* SkillQuickSlot */
+	FString SkillQuickSlot_Prefix;
+	/* SkillQuickSlotContainer */
+	FString WBP_SkillQuickSlot;
+	/* ChatUI */
+	FString ChatUI_General;
+	FString ChatUI_Guild;
+	FString ChatUI_Party;
+	FString ChatUI_GeneralCommand;
+	FString ChatUI_ChatCommand;
+	FString ChatUI_WhisperCommand;
+	FString WBP_ChatTabWidget;
+	/* FriendTabWidget */
+	FString Friend_DefaultGroup;
+	/* InventoryUI */
+	FString WBP_InventorySlot;
+	/* KeyOption */
+	FString AssetName;
+	FString PackageName;
+	/* KeyOptionElement, TEXT("Input.{0}") */
+	FString FirstKey_InputFormat;
+	/* ItemCountMessageBox, TEXT("[{0}] {1}") */
+	FString MessageTextFormat;
+	/* PostDetailUI */
+	FString HasReadStatus;
+	FString ReadStatusNotExist;
+	/* NPCPurchaseTab */
+	FString WBP_NPCItemSlot;
+	FString WBP_NPCCartSlot;
+	FString WBP_NPCBundlePurchase;
+	/* NPCShopUI */
+	FName FunctionName_AddSaleItem;
+	/* SkillSetting, TEXT("Action.Skill.{0}") */
+	FString FirstKey_LoadSkill_Format;
+	/* SkillSettingListSlotContainer */
+	FString WBP_SkillSettingListSlot;
+	/* Skill SettingQuickSlotContainer */
+	FString WBP_SkillSettingQuickSlot;
+	/* SkillTreeSlotContainer */
+	FString WBP_SkillTreeSlot;
+	/* TradList */
+	FString WBP_TradeListElement;
+	/* CharacterListUI */
+	FString WBP_CharacterListElement;
+	FString BP_DefaultPlayer;
+	/* ServerList */
+	FString WBP_ServerListElement;
+	/* SlotUI */
+	FString WBP_DraggableWidget;
+	FString WBP_BaseDragDropOperation;
+	FString GetDefaultSlotImage_DefaultSlotImage;
 
 	/* GameplayTagManager */
 	// Attribute_MainStat

@@ -11,6 +11,7 @@
 #include "ChatTabWidget.h"
 #include "ChatOptionUI.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
@@ -39,9 +40,9 @@ void UChatUI::NativeConstruct()
 		PlayerController->bShowMouseCursor = true;
 	}
 	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AChatClient::StaticClass(), FoundActors );
-	
-	if(FoundActors.Num() <= 0)
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AChatClient::StaticClass(), FoundActors);
+
+	if (FoundActors.Num() <= 0)
 		return;
 
 	AChatClient* client = Cast<AChatClient>(FoundActors[0]);
@@ -51,14 +52,14 @@ void UChatUI::NativeConstruct()
 	CbbChatType->SetDefaultOptionColor(TextColor[EChatType::General]);
 
 	//TODO: 채팅타입 추가
-	ItemType.Add({ TEXT("전체"), EChatType::General });
-	ItemType.Add({ TEXT("길드"), EChatType::Guild });
-	ItemType.Add({ TEXT("파티"), EChatType::Party });
+	ItemType.Add({ RLRLITERAL.ChatUI_General, EChatType::General });
+	ItemType.Add({ RLRLITERAL.ChatUI_Guild, EChatType::Guild });
+	ItemType.Add({ RLRLITERAL.ChatUI_Party, EChatType::Party });
 
 	//TODO: Prefix 추가
-	Prefix.Add({ EChatType::General, TEXT("")});
-	Prefix.Add({ EChatType::Guild, TEXT("/chat")});
-	Prefix.Add({ EChatType::Whisper, TEXT("/w")});
+	Prefix.Add({ EChatType::General, RLRLITERAL.ChatUI_GeneralCommand });
+	Prefix.Add({ EChatType::Guild, RLRLITERAL.ChatUI_ChatCommand });
+	Prefix.Add({ EChatType::Whisper, RLRLITERAL.ChatUI_WhisperCommand });
 
 	//TODO: Args 추가(길드 이름, 파티 이름(?)...)
 	//Args.Add()
@@ -80,27 +81,27 @@ void UChatUI::InitButton()
 
 void UChatUI::InitChatBox()
 {
-	TabFilters.Add("General", { EChatType::General });
-	TabFilters.Add("Guild", { EChatType::Guild });
-	TabFilters.Add("Party", { EChatType::Party });
-	TabFilters.Add("Continent", { EChatType::Continent });
-	TabFilters.Add("Raid", { EChatType::Raid });
-	TabFilters.Add("Whisper", { EChatType::Whisper });
-	TabFilters.Add("Country", { EChatType::Country });
-	TabFilters.Add("Nearby", { EChatType::Nearby });
-	TabFilters.Add("World", { EChatType::World });
+	TabFilters.Add(RLRLITERAL.ChatType_En_General, { EChatType::General });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Guild, { EChatType::Guild });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Party, { EChatType::Party });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Continent, { EChatType::Continent });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Raid, { EChatType::Raid });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Whisper, { EChatType::Whisper });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Country, { EChatType::Country });
+	TabFilters.Add(RLRLITERAL.ChatType_En_Nearby, { EChatType::Nearby });
+	TabFilters.Add(RLRLITERAL.ChatType_En_World, { EChatType::World });
 	// 체크박스 초기화 및 이벤트 바인딩
 
 	//인덱스값이랑 EChatType의 순서랑 맞춰주기.
-	AddChatTabWidget(FText::FromString(TEXT("일반")), (int32)EChatType::General);
-	AddChatTabWidget(FText::FromString(TEXT("귓속말")), (int32)EChatType::Whisper);
-	AddChatTabWidget(FText::FromString(TEXT("국가")), (int32)EChatType::Country);
-	AddChatTabWidget(FText::FromString(TEXT("세계")), (int32)EChatType::World);
-	AddChatTabWidget(FText::FromString(TEXT("길드")), (int32)EChatType::Guild);
-	AddChatTabWidget(FText::FromString(TEXT("레이드")), (int32)EChatType::Raid);
-	AddChatTabWidget(FText::FromString(TEXT("파티")), (int32)EChatType::Party);
-	AddChatTabWidget(FText::FromString(TEXT("대륙")), (int32)EChatType::Continent);
-	AddChatTabWidget(FText::FromString(TEXT("근처")), (int32)EChatType::Nearby);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_General), (int32)EChatType::General);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Whisper), (int32)EChatType::Whisper);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Country), (int32)EChatType::Country);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_World), (int32)EChatType::World);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Guild), (int32)EChatType::Guild);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Raid), (int32)EChatType::Raid);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Party), (int32)EChatType::Party);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Continent), (int32)EChatType::Continent);
+	AddChatTabWidget(FText::FromString(RLRLITERAL.ChatType_Nearby), (int32)EChatType::Nearby);
 
 	if (TabContentSwitcher)
 	{
@@ -134,7 +135,7 @@ void UChatUI::AddChatTabWidget(const FText& TabName, int32 TabIndex)
 	}
 
 	// Create a new tab widget and add it to the TabContainer
-	UChatTabWidget* NewTabButton = CreateWidget<UChatTabWidget>(this, LoadClass<UUserWidget>(nullptr, TEXT("/Game/Blueprints/ChatTabWidget.ChatTabWidget_C")));
+	UChatTabWidget* NewTabButton = CreateWidget<UChatTabWidget>(this, LoadClass<UUserWidget>(nullptr, *RLRLITERAL.WBP_ChatTabWidget));
 	if (NewTabButton)
 	{
 		NewTabButton->SetTabName(TabName);

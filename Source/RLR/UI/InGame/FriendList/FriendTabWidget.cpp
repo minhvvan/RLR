@@ -21,6 +21,7 @@
 #include "GameManager/NetworkManager.h"
 #include "GameManager/FriendManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "RLR.h"
 
 void ClearChildren(UWidget* Container)
@@ -252,9 +253,9 @@ void UFriendTabWidget::AddDefaultGroup(const TArray<FFriendGroupResult>& groupDa
 {
     for (const FFriendGroupResult groupDatum : groupData)
     {
-        if(groupDatum.GroupName.Equals(TEXT("Default Group"))) return;
+        if(groupDatum.GroupName.Equals(RLRLITERAL.Friend_DefaultGroup)) return;
     }
-    std::string DefaultGroupName = TCHAR_TO_UTF8(*FString(TEXT("Default Group")));
+    std::string DefaultGroupName = TCHAR_TO_UTF8(*FString(RLRLITERAL.Friend_DefaultGroup));
     GameInstance->GetNetworkManager()->SendCreateFriendGroup(DefaultGroupName);
 }
 
@@ -300,7 +301,7 @@ void UFriendTabWidget::RemoveGroup(int OldGroupSeq)
     UGroupButtonUI* defaultGroupButton = nullptr;
     for (const TPair<int32, UGroupButtonUI*>& pair : GroupButtons)
     {
-        if (pair.Value && pair.Value->GetGroupName().Equals("Default Group"))
+        if (pair.Value && pair.Value->GetGroupName().Equals(RLRLITERAL.Friend_DefaultGroup))
         {
             defaultGroupButton = pair.Value;
             break;

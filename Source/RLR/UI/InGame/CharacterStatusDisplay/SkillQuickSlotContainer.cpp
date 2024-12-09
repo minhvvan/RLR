@@ -6,6 +6,7 @@
 
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameOptionData/GameOptionData.h"
 
 #include "Components/GridPanel.h"
@@ -20,7 +21,7 @@ void USkillQuickSlotContainer::Init()
 {
 	Super::Init();
 	
-	TSubclassOf<USkillQuickSlot> SlotClass = GetWidgetClass<USkillQuickSlot>("WBP_SkillQuickSlot");
+	TSubclassOf<USkillQuickSlot> SlotClass = GetWidgetClass<USkillQuickSlot>(RLRLITERAL.WBP_SkillQuickSlot);
 	if (CHECK_VALID(SlotClass) == false)
 		return;
 

@@ -138,13 +138,13 @@ void AChatClient::ReceiveMessages()
                             TArray<FString> Path;
                             
                             Message.ParseIntoArray( Path,TEXT("]"));
-                            if (Path[0].Contains(RLRLITERAL.ChatType_Normal)) {
+                            if (Path[0].Contains(RLRLITERAL.ChatType_General)) {
                                 ChatUI->AddChatMessage(Message,0);
                             }
                             else if (Path[0].Contains(RLRLITERAL.ChatType_Whisper)) {
                                 ChatUI->AddChatMessage(Message, 1);
                             }
-                            else if (Path[0].Contains(RLRLITERAL.ChatType_Nation)) {
+                            else if (Path[0].Contains(RLRLITERAL.ChatType_Country)) {
                                 ChatUI->AddChatMessage(Message, 2);
                             }
                             else if (Path[0].Contains(RLRLITERAL.ChatType_World)) {

@@ -237,8 +237,8 @@ void UKeyOption::ApplyKeyOption()
 
 void UKeyOption::CreateDataAsset()
 {
-	FString AssetName = TEXT("MyPrimaryDataAsset");
-	FString PackageName = TEXT("/Game/");
+	FString AssetName = RLRLITERAL.AssetName;
+	FString PackageName = RLRLITERAL.PackageName;
 	PackageName += AssetName;
 
 	UPackage* Package = CreatePackage(*PackageName);

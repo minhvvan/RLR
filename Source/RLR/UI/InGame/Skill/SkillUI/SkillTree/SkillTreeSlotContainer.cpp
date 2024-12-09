@@ -13,7 +13,7 @@
 void USkillTreeSlotContainer::Init(int32 MaxSlotCount)
 {
 	ClearChildren();
-	TSubclassOf<USkillTreeSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillTreeSlot>("WBP_SkillTreeSlot");
+	TSubclassOf<USkillTreeSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillTreeSlot>(RLRLITERAL.WBP_SkillTreeSlot);
 	if (IsValid(SlotClass) == false)
 		DEBUG_MESSAGE;
 

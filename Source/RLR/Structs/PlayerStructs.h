@@ -6,6 +6,7 @@
 #include "Network/Proto/Struct.pb.h"
 #include "Network/Proto/User_2.pb.h"
 #include "Network/Proto/Player_2.pb.h"
+#include "GameManager/LiteralManager.h"
 #include "PlayerStructs.generated.h"
 
 UENUM(BlueprintType)
@@ -134,24 +135,24 @@ struct FTotalStatus
 				}
 			};
 
-		AppendStat(TEXT("HP"), HP);
-		AppendStat(TEXT("HP_ABSORB"), HP_ABSORB);
-		AppendStat(TEXT("MP"), MP);
-		AppendStat(TEXT("MP_ABSORB"), MP_ABSORB);
-		AppendStat(TEXT("STRENGTH"), STRENGTH);
-		AppendStat(TEXT("AGILITY"), AGILITY);
-		AppendStat(TEXT("INTELLIGENCE"), INTELLIGENCE);
-		AppendStat(TEXT("MAX_HP"), MAX_HP);
-		AppendStat(TEXT("MAX_MP"), MAX_MP);
-		AppendStat(TEXT("ATTACK"), ATTACK);
-		AppendStat(TEXT("DEFENCE"), DEFENCE);
-		AppendStat(TEXT("ATTACK_SPEED"), ATTACK_SPEED);
-		AppendStat(TEXT("MOVE_SPEED"), MOVE_SPEED);
-		AppendStat(TEXT("LIFE_STEAL"), LIFE_STEAL);
-		AppendStat(TEXT("CRITICAL_CHANCE"), CRITICAL_CHANCE);
-		AppendStat(TEXT("CRITICAL_DAMAGE"), CRITICAL_DAMAGE);
-		AppendStat(TEXT("AVOID"), AVOID);
-		AppendStat(TEXT("COOLDOWN_REDUCTION"), COOLDOWN_REDUCTION);
+		AppendStat(RLRLITERAL.TotalStatus_HP, HP);
+		AppendStat(RLRLITERAL.TotalStatus_HP_Absorb, HP_ABSORB);
+		AppendStat(RLRLITERAL.TotalStatus_MP, MP);
+		AppendStat(RLRLITERAL.TotalStatus_MP_Absorb, MP_ABSORB);
+		AppendStat(RLRLITERAL.TotalStatus_Strength, STRENGTH);
+		AppendStat(RLRLITERAL.TotalStatus_Agility, AGILITY);
+		AppendStat(RLRLITERAL.TotalStatus_Intelligence, INTELLIGENCE);
+		AppendStat(RLRLITERAL.TotalStatus_MaxHP, MAX_HP);
+		AppendStat(RLRLITERAL.TotalStatus_MaxMP, MAX_MP);
+		AppendStat(RLRLITERAL.TotalStatus_Attack, ATTACK);
+		AppendStat(RLRLITERAL.TotalStatus_Defence, DEFENCE);
+		AppendStat(RLRLITERAL.TotalStatus_Attack_Speed, ATTACK_SPEED);
+		AppendStat(RLRLITERAL.TotalStatus_Move_Speed, MOVE_SPEED);
+		AppendStat(RLRLITERAL.TotalStatus_Life_Steal, LIFE_STEAL);
+		AppendStat(RLRLITERAL.TotalStatus_Critical_Chance, CRITICAL_CHANCE);
+		AppendStat(RLRLITERAL.TotalStatus_Critical_Damage, CRITICAL_DAMAGE);
+		AppendStat(RLRLITERAL.TotalStatus_Avoid, AVOID);
+		AppendStat(RLRLITERAL.TotalStatus_Cooldown_Reduction, COOLDOWN_REDUCTION);
 
 		return StatString;
 	}

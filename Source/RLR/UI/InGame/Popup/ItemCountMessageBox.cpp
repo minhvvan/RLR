@@ -33,7 +33,7 @@ void UItemCountMessageBox::RefreshUI()
 		return;
 
 	FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.ItemCountMsg_InputQuantity);
-	FText MessageTextFormat = FText::Format(FText::FromString("[{0}] {1}"), ItemData.NAME, Text1);
+	FText MessageTextFormat = FText::Format(FText::FromString(RLRLITERAL.MessageTextFormat), ItemData.NAME, Text1);
 	MessageText->SetText(MessageTextFormat);
 }
 
