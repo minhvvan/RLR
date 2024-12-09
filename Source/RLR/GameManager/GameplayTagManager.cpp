@@ -119,6 +119,7 @@ void FGameplayTagManager::Init()
 
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post.TagName, RLRLITERAL.UI_Post.TagDesc);
 	GameplayTags.UI_Post_Alert = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post_Alert.TagName, RLRLITERAL.UI_Post_Alert.TagDesc);
+
 	
 	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Party.TagName, RLRLITERAL.UI_Party.TagDesc);
 	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Trade.TagName, RLRLITERAL.UI_Trade.TagDesc);

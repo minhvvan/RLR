@@ -56,21 +56,23 @@ void USkillSettingListSlot::RefreshUI()
 {
 	Super::RefreshUI();
 
-	if(GetSkillData() ==FSkillData::EmptySkillData)
+	const FSkillData& SkillData = GetSkillData();
+	if(SkillData ==FSkillData::EmptySkillData)
 		return;
-	int32 SkillSeq = GetSkillData().SkillSeq;
+	int32 SkillSeq = SkillData.SkillSeq;
 
 	FActionResource ActionResource = GameInstance->GetDataManager()->GetActionResource(SkillSeq);
-	if(ActionResource == FActionResource::EmptyActionResource)
-		return;
+	//if(ActionResource == FActionResource::EmptyActionResource)
+	//	return;
 
 	if (IsValid(ActionResource.ActionImage) == true)
 	{
 		SetSlotImage(ActionResource.ActionImage);
 	}
 
-	SkillLevelText->SetText(FText::AsNumber(GetSkillData().Level));
-	SkillNameText->SetText(GetSkillData().Name);
+	SetVisibility(ESlateVisibility::Visible);
+	SkillLevelText->SetText(FText::AsNumber(SkillData.Level));
+	SkillNameText->SetText(SkillData.Name);
 
 	if (IsEquipped == true)
 	{

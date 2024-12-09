@@ -42,7 +42,6 @@ void USkillSettingListSlotContainer::RefreshUI()
 	{
 		int32 SlotIndex = Element.Key;
 		USkillSettingListSlot* QuickSlot = Element.Value;
-		QuickSlot->SetVisibility(ESlateVisibility::Visible);
 
 		FSkillData SkillData = QuickSlot->GetSkillData();
 		if (SkillData == FSkillData::EmptySkillData)
@@ -59,7 +58,7 @@ void USkillSettingListSlotContainer::RefreshUI()
 			int
 			double
 		*/
-
+		QuickSlot->SetVisibility(ESlateVisibility::Visible);
 		bool IsEquipped = GameOption->GetSkillQuickSlotOption().IsEquippedSkill(SkillData.SkillId);
 		QuickSlot->SetEquipped(IsEquipped);
 
