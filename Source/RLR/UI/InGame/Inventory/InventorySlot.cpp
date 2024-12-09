@@ -4,23 +4,17 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
 #include "Components/Image.h"
-#include "Components/Button.h"
 #include "Components/TextBlock.h"
 
 #include "GameManager/UIManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameManager.h"
-#include "GameManager/NetworkManager.h"
+#include "GameManager/StorageManager.h"
 
-#include "UI/InGame/CharacterProfile/Equipment/EquipmentUI.h"
-#include "UI/InGame/CharacterProfile/CharacterProfile.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/DraggableWidget.h"
 #include "UI/BaseDragDropOperation.h"
-#include "UI/InGame/Inventory/ItemInformation.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
-#include "Structs/UtilStructs.h"
 
 
 
@@ -43,47 +37,57 @@ void UInventorySlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPo
 bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
 	bool Ret = Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
-	if(Ret == false)
-		return false;
-
+	if(Ret == false) return false;
+	
 	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
-	if (Inventory->CurrentFilter != EItemType::NONE)
-		return false;
-
-	UBaseDragDropOperation* Operation = CheckValidAndType(InOperation, ESlotType::INVENTORY_SLOT);
-	if(IsValid(Operation) == false)
-		return false;
-
-	UInventorySlot* DraggedSlot = Cast<UInventorySlot>(Operation->Master);
-	if(IsValid(DraggedSlot) == false)
-		return false;
-
-	/*
-		임시 코드
-		서버에 아이템 옮겼다는 패킷 보내주기.
-	*/
-
-	//만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
-	if (IsEmpty() == false)
+	if (Inventory->CurrentFilter != EItemType::NONE) return Ret;
+	
+	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
+	if (!Operation)
 	{
+		RLR_LOG(LogRLR, Log, TEXT("Operation is nullptr"));
+		return Ret;
+	}
+	
+	const auto& itemData = Operation->ItemData;
+	if (itemData == FItemData::EmptyItemData || itemData.QUANTITY == 0)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("itemData is EmptyData"));
+		return Ret; 
+	}
+	
+	if(Operation->DragedSlotType == ESlotType::INVENTORY_SLOT ||
+		Operation->DragedSlotType == ESlotType::STORAGE_INVENTORY_SLOT)
+	{
+		UInventorySlot* DraggedSlot = Cast<UInventorySlot>(Operation->Master);
+		if(IsValid(DraggedSlot) == false) return false;
 		/*
-			A->B 
-			B->A
+			임시 코드
+			서버에 아이템 옮겼다는 패킷 보내주기.
 		*/
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(GetItemData().ITEM_ID, Operation->Master->SlotIndex);
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
+
+		//만약 옮긴 슬롯에 다른 아이템이 들어가 있다면, 서로 슬롯 위치를 바꿔준다.
+		if (IsEmpty())
+		{
+			GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
+			DraggedSlot->Clear();
+		}
+		else
+		{
+			//swap
+			GetGameManager()->GetInventoryManager()->ChangeItemSlot(GetItemData().ITEM_ID, Operation->Master->SlotIndex);
+			GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
+		}
+
+		//슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
+		Inventory->RefreshUI();
 	}
-	else
+	else 
 	{
-		GetGameManager()->GetInventoryManager()->ChangeItemSlot(Operation->GetItemData().ITEM_ID, SlotIndex);
-		//SetItemData(Operation->GetItemData());
-		DraggedSlot->Clear();
+		GetStorageManager()->SendPktMoveItemStorageToInventory(itemData, itemData.QUANTITY, Operation->DragedSlotType, Operation->SlotIndex, SlotIndex);
 	}
 
-	//슬롯을 정확하게 옮겼으면, 기존 자리에 있던 슬롯은 깨끗하게 비워준다.
-	Inventory->RefreshUI();
-
-	return true;
+	return Ret;
 }
 
 void UInventorySlot::RefreshUI()
@@ -122,32 +126,36 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		return result;
 	}
 
-	const FItemData&  itemData = GetItemData();
-	UInventoryManager* InventoryManger = GetInventoryManager();
+	const FItemData& itemData = GetItemData();
 
 	if (InMouseEvent.IsLeftShiftDown())
 	{
-		InventoryManger->OnInventorySlotShiftClickedDelegateBroadcast(itemData);
+		OnSlotShiftClicked.Broadcast(SlotIndex, itemData, SlotType);
+	}
+	else if (InMouseEvent.IsAltDown())
+	{
+		OnSlotAltClicked.Broadcast(SlotIndex, itemData, SlotType);
 	}
 	else
 	{
-		bool HasCustomEvent = InventoryManger->OnInventorySlotClickedDelegate.IsBound();
-		if (HasCustomEvent == true)
-		{
-			/*
-				인벤토리 슬롯을 클릭 했을 때 다른 곳에서 클릭 이벤트를 요구하고 있는가?
-				ex) 개인 거래창이 열렸을 때는, 인벤토리 슬롯을 누르면 개인 거래창에 아이템이 올라가야 한다.
-				ex) 아이템을 강화하는 UI 같은 곳에서, 인벤토리 슬롯을 누르면 강화 슬롯 위에 아이템이 올라가야 한다.
-			*/
-			InventoryManger->OnInventorySlotClickedDelegateBroadcast(itemData);
-		}
-		else if (HasCustomEvent == false)
-		{
-			/*
-				아무런 이벤트가 없으면 아이템 장착.
-			*/
-			GameInstance->GetNetworkManager()->SendEquipChangePacket(GetItemData());
-		}
+		OnSlotClicked.Broadcast(SlotIndex, itemData, SlotType);
+		// bool HasCustomEvent = InventoryManger->OnInventorySlotClickedDelegate.IsBound();
+		// if (HasCustomEvent == true)
+		// {
+		// 	/*
+		// 		인벤토리 슬롯을 클릭 했을 때 다른 곳에서 클릭 이벤트를 요구하고 있는가?
+		// 		ex) 개인 거래창이 열렸을 때는, 인벤토리 슬롯을 누르면 개인 거래창에 아이템이 올라가야 한다.
+		// 		ex) 아이템을 강화하는 UI 같은 곳에서, 인벤토리 슬롯을 누르면 강화 슬롯 위에 아이템이 올라가야 한다.
+		// 	*/
+		// 	InventoryManger->OnInventorySlotClickedDelegateBroadcast(itemData);
+		// }
+		// else if (HasCustomEvent == false)
+		// {
+		// 	/*
+		// 		아무런 이벤트가 없으면 아이템 장착.
+		// 	*/
+		// 	GameInstance->GetNetworkManager()->SendEquipChangePacket(itemData);
+		// }
 	}
 
 	return result;

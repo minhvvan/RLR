@@ -16,25 +16,50 @@ class RLR_API UStorageManager : public UGameInstanceSubsystem
 	GENERATED_BODY()
 	
 protected:
-	TArray<TArray<FItemData>> Items;
+	TArray<TArray<FItemData>> UserStorageItems;
+	TArray<TArray<FItemData>> PlayerStorageItems;
 	int UnLockedPageNum = 1;
 	const int MaxStoragePageNum = 5;
 	const int MaxStorageSlotNum = 50;
 
 public:
-	FOnStorageAllItemUpdated OnStorageAllItemUpdated;
-	FOnStoragePageItemUpdated OnStoragePageItemUpdated;
+	FOnStorageAllItemUpdated OnUserStorageAllItemUpdated;
+	FOnStoragePageItemUpdated OnUserStoragePageItemUpdated;
+
+	FOnStorageAllItemUpdated OnPlayerStorageAllItemUpdated;
+	FOnStoragePageItemUpdated OnPlayerStoragePageItemUpdated;
 
 public:
-	const TArray<TArray<FItemData>>& GetAllItems();
-	const TArray<FItemData>& GetItemPage(int page);
+	const TArray<TArray<FItemData>>& GetUserStorageItems();
+	const TArray<FItemData>& GetUserStorageItemPage(int page);
 
-	void SetStorageAllItems(const TArray<TArray<FItemData>>& StorageItems);
-	void SetStorageItemPage(int PageIndex, const TArray<FItemData>& StorageItems);
-	void SetStorageItem(int PageIndex, int SlotIdx, const FItemData& Item);
-	
-	void RequestGetStorageItems();
-	void SwapItems(int TabIdx, int lhsSlotIndex, const FItemData& lhs, int rhsSlotIndex, const FItemData& rhs);
-	void SendPktMoveItemInventoryToStorage(const FItemData& Item, int Amount, int PageIndex, int SlotIndex=-1);
-	void SendPktMoveItemStorageToInventory(const FItemData& Item, int Amount, int PageIndex, int SlotIndex=-1);
+	//Set ItemData
+	void SetUserStorageAllItems(const TArray<TArray<FItemData>>& StorageItems);
+	void SetUserStorageItemPage(int PageIndex, const TArray<FItemData>& StorageItems);
+	void SetUserStorageItem(int PageIndex, int SlotIdx, const FItemData& Item);
+
+	void SetPlayerStorageAllItems(const TArray<TArray<FItemData>>& StorageItems);
+	void SetPlayerStorageItemPage(int PageIndex, const TArray<FItemData>& StorageItems);
+	void SetPlayerStorageItem(int PageIndex, int SlotIdx, const FItemData& Item);
+
+	//Get ItemData
+	void RequestGetUserStorageItems();
+	void RequestGetPlayerStorageItems();
+
+	//Swap in Same Storage
+	void SwapStorageItems(int PageIndex, int lhsSlotIndex, const FItemData& lhs, int rhsSlotIndex, const FItemData& rhs, ESlotType SlotType);
+
+	//Inventory <-> Storage
+	void SendPktMoveItemInventoryToStorage(const FItemData& Item, int Amount, ESlotType SlotType, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
+	void SendPktMoveItemStorageToInventory(const FItemData& Item, int Amount, ESlotType SlotType, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
+
+	//Storage <-> Storage
+	void SendPktSwapStorageItem(const FItemData& PlayerStorageItem, const FItemData& UserStorageItem, int PlayerStorageIndex, int UserStorageIndex);
+
+private:
+	void SendPktMoveItemInventoryToPlayerStorage(const FItemData& Item, int Amount, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
+	void SendPktMoveItemPlayerStorageToInventory(const FItemData& Item, int Amount, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
+
+	void SendPktMoveItemInventoryToUserStorage(const FItemData& Item, int Amount, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
+	void SendPktMoveItemUserStorageToInventory(const FItemData& Item, int Amount, int StorageSLotIndex=-1, int InventorySlotIndex = -1);
 };

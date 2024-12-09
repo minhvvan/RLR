@@ -64,6 +64,16 @@ public:
 	int32 GetPlatinum() {return Platinum;}
 	void SetPlatinum(int32 NewPlatinum);
 
+	UFUNCTION()
+	void OnInventorySlotClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
+
+	UFUNCTION()
+	void OnInventorySlotShiftClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
+
+	UFUNCTION()
+	void OnInventorySlotAltClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
+	
+	
 private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

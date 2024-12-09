@@ -2,15 +2,18 @@
 
 
 #include "GameManager/InventoryManager.h"
+
+#include "UIManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/StorageManager.h"
 #include "GameManager/GameplayTagManager.h"
 
 #include "Structs/ItemStructs.h"
 
-#include "Player/RLRPlayerController.h"
-#include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "ActionSystem/ActionSystemComponent.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-#include <Kismet/GameplayStatics.h>
+#include "UI/SlotUI.h"
+#include "UI/InGame/Storage/StorageUI.h"
 
 
 void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
@@ -147,6 +150,52 @@ void UInventoryManager::SetPlatinum(int32 NewPlatinum)
 {
 	Platinum = NewPlatinum;
 	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::INVENTORY_SLOT:
+		GameInstance->GetNetworkManager()->SendEquipChangePacket(ItemData);
+		break;
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::USER_STORAGE_ITEM_SLOT);
+		break;
+	default:
+		break;
+	}
+}
+
+void UInventoryManager::OnInventorySlotShiftClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		if (auto UIManager = GameInstance->GetUIManager())
+		{
+			if (auto storageUI = UIManager->GetSubUI<UStorageUI>(RLRTAG.UI_Storage_User))
+			{
+				storageUI->InventorySlotShiftClicked(ItemData);
+			}
+		}
+		
+		break;
+	default:
+		break;
+	}
+}
+
+void UInventoryManager::OnInventorySlotAltClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::PLAYER_STORAGE_ITEM_SLOT);
+		break;
+	default:
+		break;
+	}
 }
 
 void UInventoryManager::SetCopper(int32 NewCopper)

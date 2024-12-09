@@ -54,9 +54,14 @@ void UInventoryUI::Init()
 		return;
 	}
 
+	auto InventoryManager = GetInventoryManager();
+
 	for (int32 Count = 0; Count < MaxInventorySlotCount; Count++)
 	{
 		UInventorySlot* NewSlot = CreateWidget<UInventorySlot>(this, InventorySlotClass);
+		NewSlot->OnSlotClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotClicked);
+		NewSlot->OnSlotShiftClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftClicked);
+		NewSlot->OnSlotAltClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotAltClicked);
 		InventorySlotList[Count] = NewSlot;
 		NewSlot->SlotIndex = Count;
 		NewSlot->Inventory = this;
@@ -165,6 +170,14 @@ void UInventoryUI::SetItemData(FItemData& NewItem)
 		특정 슬로 아이템 셋
 	*/
 
+}
+
+void UInventoryUI::SetSlotType(ESlotType SlotType)
+{
+	for (auto slot : InventorySlotList)
+	{
+		slot->SetSlotType(SlotType);
+	}
 }
 
 void UInventoryUI::OnAllButtonClicked()

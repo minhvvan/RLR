@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SlotUI.h"
 #include "UI/MainUI.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -94,6 +95,8 @@ protected:
 	UFUNCTION()
 	void OnPostClicked();
 
+	void SetInventorySlotType(ESlotType SlotType);
+	
 	UFUNCTION()
 	void OnStorageClicked();
 

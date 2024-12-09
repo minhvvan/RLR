@@ -64,6 +64,7 @@ struct FEffectData;
 struct FActionResult;
 
 enum class EUIType : uint8;
+enum class ESlotType : uint8;
 
 
 

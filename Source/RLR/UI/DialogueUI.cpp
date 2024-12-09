@@ -2,6 +2,8 @@
 
 
 #include "UI/DialogueUI.h"
+
+#include "SlotUI.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Quest/Dialogue/QuestDialogue.h"
 #include "UI/InGame/Common/DialogueUI/DialogueDynamicButton.h"
@@ -14,15 +16,11 @@
 #include "Components/TextBlock.h"
 #include "Components/HorizontalBox.h"
 #include "Components/SizeBox.h"
-#include "Components/CanvasPanel.h"
-#include "Components/CanvasPanelSlot.h"
 #include "GameManager/GameManager.h"
-#include "GameManager/UIManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/InventoryManager.h"
 #include "Structs/ObjectStructs.h"
 #include "Structs/ItemStructs.h"
-#include "Kismet/GameplayStatics.h"
 
 void UDialogueUI::NativeConstruct()
 {
@@ -178,8 +176,7 @@ void UDialogueUI::RemoveFromHorizontalBox()
 
 void UDialogueUI::OpenInventory(FVector2D InventoryPosition)
 {
-	UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-	if (InventoryUI)
+	if (UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory))
 	{
 		InventoryUI->SetPosition(InventoryPosition);
 		InventoryUI->OpenUI();
@@ -324,32 +321,53 @@ void UDialogueUI::OnPostClicked()
 	}
 }
 
+void UDialogueUI::SetInventorySlotType(ESlotType SlotType)
+{
+	if (UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory))
+	{
+		InventoryUI->SetSlotType(SlotType);
+	}
+}
+
 void UDialogueUI::OnStorageClicked()
 {
-	UStorageUI* StorageUI = GetSubUI<UStorageUI>(RLRTAG.UI_Storage);
-	if (!StorageUI)
+	if (IsOpenSubUI(RLRTAG.UI_Storage_User))
 	{
-		RLR_LOG(LogRLR, Log, TEXT("StorageUI is nullptr"));
-		return;
-	}
-
-	if (IsOpenSubUI(RLRTAG.UI_Storage))
-	{
-		CloseSubUI(RLRTAG.UI_Storage);
+		CloseSubUI(RLRTAG.UI_Storage_User);
 		CloseSubUI(RLRTAG.UI_Inventory);
 		ToggleNpcButtons(true);
 	}
 	else
 	{
+		UStorageUI* UserStorageUI = GetSubUI<UStorageUI>(RLRTAG.UI_Storage_User);
+		if (!UserStorageUI)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("UserStorageUI is nullptr"));
+			return;
+		}
+
+		UStorageUI* PlayerStorageUI = GetSubUI<UStorageUI>(RLRTAG.UI_Storage_Player);
+		if (!PlayerStorageUI)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("PlayerStorageUI is nullptr"));
+			return;
+		}
+		
 		FVector2D panelPos(100.f, 100.f);
-		StorageUI->SetPosition(panelPos);
-		StorageUI->OpenUI();
+		PlayerStorageUI->SetPosition(panelPos);
+		PlayerStorageUI->OpenUI();
+		ToggleNpcButtons(false);
+
+		FVector2D userStoragePos(panelPos.X + PlayerStorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		UserStorageUI->SetPosition(userStoragePos);
+		UserStorageUI->OpenUI();
 		ToggleNpcButtons(false);
 
 		/*
 			우편함 UI가 생성될 때 인벤토리 창도 함께 열기
 		*/
-		FVector2D inventoryPos(100.f + StorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		FVector2D inventoryPos(userStoragePos.X + UserStorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		SetInventorySlotType(ESlotType::STORAGE_INVENTORY_SLOT);
 		OpenInventory(inventoryPos);
 	}
 }

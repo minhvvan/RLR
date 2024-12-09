@@ -120,5 +120,5 @@ void UStorageUI::InventoryToStorageMessageBoxCallback(class UMessageBoxUI* Messa
 	}
 
 	if (!StorageManager) StorageManager = GetStorageManager();
-	StorageManager->SendPktMoveItemInventoryToUserStorage(messageBox->GetItemData(), messageBox->GetItemCount(), WidgetSwitcher->GetActiveWidgetIndex());
+	StorageManager->SendPktMoveItemInventoryToStorage(messageBox->GetItemData(), messageBox->GetItemCount(), ESlotType::USER_STORAGE_ITEM_SLOT, WidgetSwitcher->GetActiveWidgetIndex());
 }

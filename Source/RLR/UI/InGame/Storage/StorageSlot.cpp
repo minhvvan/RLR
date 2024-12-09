@@ -37,47 +37,45 @@ bool UStorageSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEven
 		RLR_LOG(LogRLR, Log, TEXT("Dropped SameSlot"));
 		return bResult;
 	}
+	
+	UStorageManager* StorageManager = GetStorageManager();
+	if (!StorageManager)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("StorageManager is nullptr"));
+		return bResult;
+	}
 
-	if (Operation->DragedSlotType == ESlotType::INVENTORY_SLOT)
+	const auto& recvItem = Operation->GetItemData();
+	if (recvItem == FItemData::EmptyItemData)
+	{
+		RLR_LOG(LogRLR, Log, TEXT("Item is EmptyItem"));
+		return bResult;
+	}
+
+	const auto& currentSlotItem = GetItemData();
+	
+	if (Operation->DragedSlotType == ESlotType::STORAGE_INVENTORY_SLOT)
 	{
 		//Inventory->Storage
-		UStorageManager* StorageManager = GetStorageManager();
-		if (!StorageManager)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("StorageManager is nullptr"));
-			return bResult;
-		}
-
-		auto item = Operation->GetItemData();
-		if (item == FItemData::EmptyItemData)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("Item is EmptyItem"));
-			return bResult;
-		}
-
-		StorageManager->SendPktMoveItemInventoryToUserStorage(item, item.QUANTITY, SlotIndex);
+		StorageManager->SendPktMoveItemInventoryToStorage(recvItem, recvItem.QUANTITY, SlotType, SlotIndex);
 	}
-	else if (Operation->DragedSlotType == ESlotType::USER_STORAGE_ITEM_SLOT
-		|| Operation->DragedSlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
+	else if (Operation->DragedSlotType == SlotType)
 	{
-		//Storage->Storage
-		UStorageManager* StorageManager = GetStorageManager();
-		if (!StorageManager)
+		//Move Same Storage
+		StorageManager->SwapStorageItems(PageIndex, Operation->SlotIndex, recvItem, SlotIndex, currentSlotItem, SlotType);
+	}
+	else
+	{
+		if (Operation->DragedSlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("StorageManager is nullptr"));
-			return bResult;
+			//Player -> User
+			StorageManager->SendPktSwapStorageItem(recvItem, currentSlotItem, Operation->SlotIndex, SlotIndex);
 		}
-
-		auto recvItem = Operation->GetItemData();
-		if (recvItem == FItemData::EmptyItemData)
+		else if (Operation->DragedSlotType == ESlotType::USER_STORAGE_ITEM_SLOT)
 		{
-			RLR_LOG(LogRLR, Log, TEXT("Item is EmptyItem"));
-			return bResult;
+			//User -> Player
+			StorageManager->SendPktSwapStorageItem(currentSlotItem, recvItem, SlotIndex, Operation->SlotIndex);
 		}
-
-		auto currentSlotItem = GetItemData();
-
-		StorageManager->SwapItems(PageIndex, Operation->SlotIndex, recvItem, SlotIndex, currentSlotItem);
 	}
 
 	return bResult;
@@ -203,13 +201,5 @@ void UStorageSlot::StorageToInventoryMessageBoxCallback(UMessageBoxUI* MessageBo
 void UStorageSlot::MoveStorageToInventory(const FItemData& Item, int Amount)
 {
 	UStorageManager* StorageManager = GetStorageManager();
-
-	if (SlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
-	{
-		StorageManager->SendPktMoveItemPlayerStorageToInventory(Item, Amount, SlotIndex);
-	}
-	else if (SlotType == ESlotType::USER_STORAGE_ITEM_SLOT)
-	{
-		StorageManager->SendPktMoveItemUserStorageToInventory(Item, Amount, SlotIndex);
-	}
+	StorageManager->SendPktMoveItemStorageToInventory(Item, Amount, SlotType, SlotIndex);
 }

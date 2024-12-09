@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "UI/SubUI.h"
 #include "GameManager/DataManager.h"
+#include "UI/SlotUI.h"
 #include "InventoryUI.generated.h"
 
 /**
@@ -43,6 +44,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetItemData(FItemData& NewItem);
+	void SetSlotType(ESlotType SlotType);
 
 public:
 
