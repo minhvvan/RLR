@@ -107,11 +107,16 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat.TagName, RLRLITERAL.UI_Chat.TagDesc);
 	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat_Option.TagName, RLRLITERAL.UI_Chat_Option.TagDesc);
 	
-	GameplayTags.UI_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_KeyOption.TagName, RLRLITERAL.UI_KeyOption.TagDesc);
-	
 	GameplayTags.UI_Quest = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Quest.TagName, RLRLITERAL.UI_Quest.TagDesc);
 	GameplayTags.UI_Quest_Dialogue = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Quest_Dialogue.TagName, RLRLITERAL.UI_Quest_Dialogue.TagDesc);
 	
+	GameplayTags.UI_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option.TagName, RLRLITERAL.UI_Option.TagDesc);
+	GameplayTags.UI_Option_GraphicsOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_GraphicsOption.TagName, RLRLITERAL.UI_Option_GraphicsOption.TagDesc);
+	GameplayTags.UI_Option_AudioOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_AudioOption.TagName, RLRLITERAL.UI_Option_AudioOption.TagDesc);
+	GameplayTags.UI_Option_CommunityOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_CommunityOption.TagName, RLRLITERAL.UI_Option_CommunityOption.TagDesc);
+	GameplayTags.UI_Option_GameplayOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_GameplayOption.TagName, RLRLITERAL.UI_Option_GameplayOption.TagDesc);
+	GameplayTags.UI_Option_KeyOption = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Option_KeyOption.TagName, RLRLITERAL.UI_Option_KeyOption.TagDesc);
+
 	GameplayTags.UI_Post = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post.TagName, RLRLITERAL.UI_Post.TagDesc);
 	GameplayTags.UI_Post_Alert = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Post_Alert.TagName, RLRLITERAL.UI_Post_Alert.TagDesc);
 	

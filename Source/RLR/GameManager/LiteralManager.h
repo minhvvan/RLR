@@ -353,9 +353,14 @@ public:
 	FTagPair UI_NPCShop_Popup_Bundle;
 	FTagPair UI_Chat;
 	FTagPair UI_Chat_Option;
-	FTagPair UI_KeyOption;
 	FTagPair UI_Quest;
 	FTagPair UI_Quest_Dialogue;
+	FTagPair UI_Option;
+	FTagPair UI_Option_GraphicsOption;
+	FTagPair UI_Option_AudioOption;
+	FTagPair UI_Option_CommunityOption;
+	FTagPair UI_Option_GameplayOption;
+	FTagPair UI_Option_KeyOption;
 	FTagPair UI_Post;
 	FTagPair UI_Post_Alert;
 	FTagPair UI_Party;

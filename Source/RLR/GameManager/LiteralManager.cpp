@@ -333,9 +333,14 @@ void LiteralManager::Init()
     LiteralMessages.UI_NPCShop_Popup_Bundle            = FTagPair(FName("UI.NPCShop.Popup.Bundle"), TEXT("NPC 상점 묶음 구매"));
     LiteralMessages.UI_Chat                            = FTagPair(FName("UI.Chat"), TEXT("채팅창"));
     LiteralMessages.UI_Chat_Option                     = FTagPair(FName("UI.Chat.Option"), TEXT("채팅 옵션창"));
-    LiteralMessages.UI_KeyOption                       = FTagPair(FName("UI.KeyOption"), TEXT("키 옵션"));
     LiteralMessages.UI_Quest                           = FTagPair(FName("UI.Quest"), TEXT("퀘스트 정보창"));
     LiteralMessages.UI_Quest_Dialogue                  = FTagPair(FName("UI.Quest.Dialogue"), TEXT("퀘스트 대화창"));
+    LiteralMessages.UI_Option                          = FTagPair(FName("UI.Option"), TEXT("옵션"));
+    LiteralMessages.UI_Option_GraphicsOption           = FTagPair(FName("UI.Option.GraphicsOption"), TEXT("그래픽 옵션"));
+    LiteralMessages.UI_Option_AudioOption              = FTagPair(FName("UI.Option.AudioOption"), TEXT("오디오 옵션"));
+    LiteralMessages.UI_Option_CommunityOption          = FTagPair(FName("UI.Option.CommunityOption"), TEXT("커뮤니티 옵션"));
+    LiteralMessages.UI_Option_GameplayOption           = FTagPair(FName("UI.Option.GameplayOption"), TEXT("게임 플레이 옵션"));
+    LiteralMessages.UI_Option_KeyOption                = FTagPair(FName("UI.Option.KeyOption"), TEXT("키 옵션"));
     LiteralMessages.UI_Post                            = FTagPair(FName("UI.Post"), TEXT("우편 시스템"));
     LiteralMessages.UI_Post_Alert                      = FTagPair(FName("UI.Post.Alert"), TEXT("우편 알림"));
     LiteralMessages.UI_Party                           = FTagPair(FName("UI.Party"), TEXT("파티창"));

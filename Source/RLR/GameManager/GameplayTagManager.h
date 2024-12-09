@@ -132,6 +132,12 @@ public:
 	FGameplayTag UI_Chat;
 	FGameplayTag UI_Chat_Option;
 	
+	FGameplayTag UI_Option;
+	FGameplayTag UI_Option_GraphicsOption;
+	FGameplayTag UI_Option_AudioOption;
+	FGameplayTag UI_Option_CommunityOption;
+	FGameplayTag UI_Option_GameplayOption;
+	FGameplayTag UI_Option_KeyOption;
 	FGameplayTag UI_KeyOption;
 
 	FGameplayTag UI_Quest;
