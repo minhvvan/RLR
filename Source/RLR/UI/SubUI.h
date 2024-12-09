@@ -13,11 +13,12 @@
 
  */
 
- class UButton;
- class UCanvasPanelSlot;
- class UMainUI;
- class USizeBox;
- class USlotUI;
+class UTextBlock;
+class UButton;
+class UCanvasPanelSlot;
+class UMainUI;
+class USizeBox;
+class USlotUI;
 
 UCLASS()
 class RLR_API USubUI : public UBaseUI
@@ -25,7 +26,6 @@ class RLR_API USubUI : public UBaseUI
 	GENERATED_BODY()
 
 public:
-
 	virtual void NativeConstruct() override;
 	virtual void OpenUI() override;
 	virtual void CloseUI() override;
@@ -66,12 +66,17 @@ public:
 	UFUNCTION()
 	void CloseUIByManager();
 
+	void SetTitle(const FString& Title) const;
+
 public:
 	FVector2D ClickedFirstPoint;
 	FVector2D ClickedCurrentPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidgetOptional))
 	TObjectPtr<UButton> DragButton;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidgetOptional))
+	TObjectPtr<UTextBlock> TxtTitle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidgetOptional))
 	TObjectPtr<USizeBox> RootSizeBox;
