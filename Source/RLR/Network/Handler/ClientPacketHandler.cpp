@@ -131,10 +131,10 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_EquipChangeRespnse>(&Handle_EQUIP_CHANGE_RESPONSE, session, buffer, len);
         };
-    GPacketHandler[PKT_MONSTER_DIE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+ /*   GPacketHandler[PKT_MONSTER_DIE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::MonsterDieBroadcast>(&Handle_MONSTER_DIE_RESPONSE, session, buffer, len);
-        };
+        };*/
     GPacketHandler[PKT_QUEST_ADD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::SC_QuestAddResponse>(&Handle_QUEST_ADD_RESPONSE, session, buffer, len);
