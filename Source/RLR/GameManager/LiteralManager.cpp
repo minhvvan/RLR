@@ -257,6 +257,10 @@ void LiteralManager::Init()
     LiteralMessages.WBP_DraggableWidget = TEXT("WBP_DraggableWidget");
     LiteralMessages.WBP_BaseDragDropOperation = TEXT("WBP_BaseDragDropOperation");
     LiteralMessages.GetDefaultSlotImage_DefaultSlotImage = TEXT("DefaultSlotImage");
+    /* EnhanceResultUI */
+    LiteralMessages.EnhanceSuccessStack = TEXT("제련 성공 스택 +");
+    LiteralMessages.IncreaseMessage     = TEXT("상승");
+    LiteralMessages.FailureTextFormat   = TEXT("{0}{1}{2}");
 
      /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));

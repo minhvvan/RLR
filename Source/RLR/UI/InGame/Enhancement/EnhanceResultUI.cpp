@@ -7,6 +7,7 @@
 
 #include "GameManager/RLRStruct.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/InventoryManager.h"
 
 #include "Components/Button.h"
@@ -19,8 +20,8 @@ void UEnhanceResultUI::NativeConstruct()
 {
 	if (FailureVerticalBox)
 	{
-		Message1 = STRING_TO_FTEXT("제련 성공 스택 +");
-		Message2 = STRING_TO_FTEXT("상승");
+		Message1 = FSTRING_TO_FTEXT(RLRLITERAL.EnhanceSuccessStack);
+		Message2 = FSTRING_TO_FTEXT(RLRLITERAL.IncreaseMessage);
 	}
 
 	if (ConfirmButton)
@@ -85,7 +86,7 @@ void UEnhanceResultUI::UpdateTextAsResult(bool bIsSuccess)
 		adjustedStack = FText::AsNumber(enhanceFailStack);
 
 		FText FailureTextFormat = FText::Format(
-			FText::FromString(TEXT("{0}{1}{2}")),
+			FText::FromString(RLRLITERAL.FailureTextFormat),
 			Message1,
 			adjustedStack,
 			Message2
