@@ -110,7 +110,7 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 		}
 
 		messageBox->OpenUI();
-		messageBox->SetMessageText(TEXT("인벤토리로 옮길 개수를 입력하세요."));
+		messageBox->SetMessageText(TEXT("인벤토리로 옮길 아이템 개수를 입력하세요."));
 		messageBox->SetItemData(itemData);
 		messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("StorageToInventoryMessageBoxCallback"));
 	}

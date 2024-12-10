@@ -212,7 +212,7 @@ void UStorageManager::SendPktMoveItemUserStorageToInventory(const FItemData& Ite
 
 	//TODO at Response
 	/*====================================================================
-	GameInstance->GetInventoryManager()->AddItem(newItem);
+	GameInstance->GetInventoryManager()->AddItem(newItem, InventorySlotIndex);
 	SetUserStorageItem(PageIndex, SlotIndex, oldItem(만약 empty => FItemData::EmptyItemData));
 	====================================================================*/
 
@@ -221,7 +221,7 @@ void UStorageManager::SendPktMoveItemUserStorageToInventory(const FItemData& Ite
 		FItemData tempItem(Item);
 		tempItem.QUANTITY = Amount;
 		//TODO: Inventory.SlotIndex를 Item으로 변경
-		GameInstance->GetInventoryManager()->AddItem(tempItem);
+		GameInstance->GetInventoryManager()->AddItem(tempItem, InventorySlotIndex);
 	}
 
 	auto userStorageUI = GameInstance->GetUIManager()->GetSubUI<UStorageUI>(RLRTAG.UI_Storage_User);
@@ -321,7 +321,7 @@ void UStorageManager::SendPktMoveItemPlayerStorageToInventory(const FItemData& I
 	{
 		FItemData tempItem(Item);
 		tempItem.QUANTITY = Amount;
-		GameInstance->GetInventoryManager()->AddItem(tempItem);
+		GameInstance->GetInventoryManager()->AddItem(tempItem, InventorySlotIndex);
 	}
 
 	auto playerStorageUI = GameInstance->GetUIManager()->GetSubUI<UStorageUI>(RLRTAG.UI_Storage_Player);

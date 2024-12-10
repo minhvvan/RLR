@@ -72,6 +72,7 @@ void UStorageUI::InventorySlotShiftClicked(const FItemData& Item)
 
 	messageBox->OpenUI();
 	messageBox->SetItemData(Item);
+	messageBox->SetMessageText(TEXT("인벤토리로 옮길 아이템 개수를 입력하세요."));
 	messageBox->OnConfirmButtonClickedDelegate.Clear();
 	messageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("InventoryToStorageMessageBoxCallback"));
 }

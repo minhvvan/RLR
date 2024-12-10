@@ -6,7 +6,7 @@
 #include "GameManager/DataManager.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameplayTagContainer.h"
-#include "Structs/ItemStructs.h"
+#include "RLRStruct.h"
 #include "InventoryManager.generated.h"
 
 /**
@@ -30,27 +30,27 @@ public:
 
 
 public:
-
 	void Update();
 
-	void AddItem(const FItemData& NewItem);
+	void AddItem(const FItemData& NewItem, int SlotIndex = -1);
 	void AddItemList(const TArray<FItemData>& NewItemList);
 
-	FItemData GetItem(int32 Item_ID);
+	const FItemData& GetItem(int32 Item_ID);
+	const TArray<FItemData>& GetItemList() const;
+	
 	void RemoveItem(int32 Item_ID);
 	void RemoveItem(int32 Item_ID, int Amount);
+
+	void SetItemSlot(const FItemData& NewItem, int32 NewSlotIndex);	//슬롯 바꾸기.
+	
 	bool EquipItem(int32 Item_ID);								//아이템 장착
 	bool UnEquipItem(int32 Item_ID);
 	void UsingItem(FGameplayTag TriggerTag);
-	const FItemData* GetItemData(FGameplayTag TriggerTag);
+	const FItemData* GetQuickSlotItemData(FGameplayTag TriggerTag);
 	const FSkillDictionary<FGameplayTag, FItemData>& GetOwnItems();
 	bool HasItemTag(FGameplayTag TriggerTag);
 
 	void SetSelectedItems(TArray<FItemData>& SelectedItems);
-	void SetItemList(TArray<FItemData>& ItemArray);
-	void GetItemList(UPARAM(ref) TArray<FItemData>& ItemArray);
-
-	void ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex);	//슬롯 바꾸기.
 
 	int32 GetCopper() {return Copper;}
 	void SetCopper(int32 NewCopper);
@@ -75,7 +75,6 @@ public:
 	
 	
 private:
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int32 Copper;
 
@@ -89,8 +88,7 @@ private:
 	int32 Platinum;
 
 	//<DB Key , FItemData>		플레이어의 인벤토리 데이터
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	TMap<int32, FItemData> InventoryItemData;
+	TArray<FItemData> InventoryItemData;
 
 	//<Input Key, FItemData>	아이템 퀵 슬롯
 	FSkillDictionary<FGameplayTag, FItemData> ItemQuickSlots;

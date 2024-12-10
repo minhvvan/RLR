@@ -24,6 +24,8 @@ void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
 	OnUpdateInventoryDelegate.Clear();
 	OnUpdateGoldAndCashDelegate.Clear();
 	OnUpdateEquipDelegate.Clear();
+
+	InventoryItemData.SetNum(50);
 }
 
 void UInventoryManager::Update()
@@ -31,15 +33,30 @@ void UInventoryManager::Update()
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-void UInventoryManager::AddItem(const FItemData& NewItem)
+void UInventoryManager::AddItem(const FItemData& NewItem, int SlotIndex)
 {
 	if (NewItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 		return;
 	}
+
+	if (SlotIndex == -1)
+	{
+		for (int i = 0; i < InventoryItemData.Num(); i++)
+		{
+			if (InventoryItemData[i] == FItemData::EmptyItemData)
+			{
+				InventoryItemData[i] = NewItem;
+				break;
+			}
+		}
+	}
+	else
+	{
+		InventoryItemData[SlotIndex] = NewItem;
+	}
 	
-	InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
 	OnUpdateInventoryDelegateBroadcast();
 }
 
@@ -52,67 +69,67 @@ void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList)
 			DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 			return;
 		}
-		InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
+		
+		AddItem(NewItem);
 	}
+	
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-FItemData UInventoryManager::GetItem(int32 Item_ID)
+const FItemData& UInventoryManager::GetItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID))
+	for (auto& item : InventoryItemData)
 	{
-		return InventoryItemData[Item_ID];
+		if (item.ITEM_ID == Item_ID)
+		{
+			return item;
+		}
 	}
+
 	return FItemData::EmptyItemData;
 }
 
-void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
+const TArray<FItemData>& UInventoryManager::GetItemList() const
 {
-	InventoryItemData.GenerateValueArray(ItemArray);
-}
-void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
-	InventoryItemData.Empty();
-
-	for (const FItemData& Item : ItemArray)
-	{
-		InventoryItemData.Add(Item.ITEM_ID, Item);
-	}
-
-	Update();
+	return InventoryItemData;
 }
 
 void UInventoryManager::RemoveItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == true)
+	for (auto& item : InventoryItemData)
 	{
-		FItemData RemoveItem;
-		InventoryItemData.RemoveAndCopyValue(Item_ID, RemoveItem);
-		OnUpdateInventoryDelegateBroadcast();
+		if (item.ITEM_ID == Item_ID)
+		{
+			InventoryItemData.Remove(item);
+			break;
+		}
 	}
 }
 
 void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
 {
-	if (InventoryItemData.Contains(Item_ID) == true)
+	for (auto& item : InventoryItemData)
 	{
-		InventoryItemData[Item_ID].QUANTITY -= Amount;
-		if (InventoryItemData[Item_ID].QUANTITY == 0)
+		if ( item.ITEM_ID == Item_ID)
 		{
-			InventoryItemData.Remove(Item_ID);
+			item.QUANTITY -= Amount;
+			if (item.QUANTITY == 0) item = FItemData::EmptyItemData;
+			break;
 		}
-		OnUpdateInventoryDelegateBroadcast();
 	}
+	
+	OnUpdateInventoryDelegateBroadcast();
 }
 
 bool UInventoryManager::EquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == false)
+	FItemData EquipedItem = GetItem(Item_ID);
+	if (EquipedItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
-
-	FItemData& EquipedItem = InventoryItemData[Item_ID];
+	
 	EquipedItem.IsEquiped = true;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
@@ -120,24 +137,22 @@ bool UInventoryManager::EquipItem(int32 Item_ID)
 
 bool UInventoryManager::UnEquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == false)
+	FItemData EquipedItem = GetItem(Item_ID);
+	if (EquipedItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
-
-	FItemData& EquipedItem = InventoryItemData[Item_ID];
+	
 	EquipedItem.IsEquiped = false;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
-void UInventoryManager::ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex)
+void UInventoryManager::SetItemSlot(const FItemData& NewItem, int32 NewSlotIndex)
 {
-	if (InventoryItemData.Contains(Item_ID))
-	{
-		InventoryItemData[Item_ID].ITEM_SLOT_IDX = NewSlotIndex;
-	}
+	InventoryItemData[NewSlotIndex] = NewItem;
+	OnUpdateInventoryDelegateBroadcast();
 }
 
 void UInventoryManager::SetGold(int32 NewGold)
@@ -225,7 +240,7 @@ void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
 	UpdatedTryUsingItemAction.Broadcast(TriggerTag);
 }
 
-const FItemData* UInventoryManager::GetItemData(FGameplayTag TriggerTag)
+const FItemData* UInventoryManager::GetQuickSlotItemData(FGameplayTag TriggerTag)
 {
 	for (auto& [Tag, Data] : ItemQuickSlots)
 	{
