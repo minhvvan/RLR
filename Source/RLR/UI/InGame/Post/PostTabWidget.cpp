@@ -87,10 +87,18 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
     SortPostsByDate(MutablePosts);
 
     /* 우편 개수 50개 제한 */
-    if (MutablePosts.Num() >= 50)
+    if (MutablePosts.Num() > 50)
     {
+        // 50번째 이후의 요소 추출
+        TArray<FPostResult> ExcessPosts;
+        for (int32 i = 50; i < MutablePosts.Num(); i++)
+        {
+            ExcessPosts.Add(MutablePosts[i]);
+        }
+
         /* 제일 오래된 우편부터 삭제 */
-        RemoveOldestPost(MutablePosts.Last());
+        RemoveOldestPost(ExcessPosts);
+        MutablePosts.RemoveAt(50, MutablePosts.Num()-50);
     }
 
     for (const FPostResult& Post : MutablePosts)
@@ -107,6 +115,8 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
             //RemovePost(PostData);
         }
     }
+
+    PageSwitcher->SetActiveWidgetIndex(0);
 }
 
 void UPostTabWidget::SortPostsByDate(TArray<FPostResult>& Posts)
@@ -274,7 +284,7 @@ void UPostTabWidget::CreateNewPage()
 
     // 새 페이지를 WidgetSwitcher에 추가
     PageSwitcher->AddChild(NewPage);
-    PageSwitcher->SetActiveWidget(NewPage);
+    //PageSwitcher->SetActiveWidget(NewPage);
 
     int32 CurrentIndex = PageSwitcher->GetActiveWidgetIndex();
     int32 TotalPages = PageSwitcher->GetNumWidgets();
@@ -322,9 +332,12 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 }
 
 /* 우편 개수가 50개 이상일때 기존의 가장 오래된 우편 삭제 */
-void UPostTabWidget::RemoveOldestPost(const FPostResult& Post)
+void UPostTabWidget::RemoveOldestPost(const TArray<FPostResult>& Posts)
 {
-    GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
+    for (const FPostResult& Post : Posts)
+    {
+        GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
+    }
 }
 
 void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI)
