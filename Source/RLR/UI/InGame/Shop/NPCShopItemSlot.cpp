@@ -57,18 +57,9 @@ FReply UNPCShopItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, co
 			else if (ParentUI->IsA(UNPCSaleTab::StaticClass()))
 			{
 				//판매 취소
-				Cast<UNPCSaleTab>(ParentUI)->RemoveFromCart(GetItemData());
-
-				UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-				if (!Inventory)
-				{
-					RLR_LOG(LogRLR, Log, TEXT("InventoryUI Is Null"));
-					return result;
-				}
-
-				Inventory->CancelSelectSlot(GetItemData());
+				auto NPCSaleTab = Cast<UNPCSaleTab>(ParentUI);
+				NPCSaleTab->RemoveFromCart(GetItemData());
 				SetItemData(FItemData::EmptyItemData);
-				RefreshUI();
 			}
 		}
 	}

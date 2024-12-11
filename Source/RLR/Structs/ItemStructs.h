@@ -324,7 +324,6 @@ struct FItemData : public FTableRowBase
 	TEnumAsByte<EETCType> ETC_TYPE;
 
 	//DB에 저장되어야할 정보
-	int32 ITEM_SLOT_IDX;
 	int64 ITEM_ID;
 	bool IsEquiped;
 
@@ -332,11 +331,9 @@ struct FItemData : public FTableRowBase
 	void MakeItemData(const Protocol::Item itemData);
 	void MakeItemData(const Protocol::Equip EquipData);
 	Protocol::Item MakeItemPacket();
-	Protocol::Equip MakeEquipPacket();
+	Protocol::Equip MakeEquipPacket(int SlotIndex);
 	static const FItemData EmptyItemData;
 	FItemResource GetItemResource();
-
-	void SetItemSlotIndex(int32 Id) { ITEM_SLOT_IDX = Id; }
 
 	/** Operators */
 	FORCEINLINE bool operator==(FItemData const& Other) const

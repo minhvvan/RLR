@@ -13,6 +13,7 @@
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/SlotUI.h"
+#include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Storage/StorageUI.h"
 
 
@@ -172,10 +173,17 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 	switch (SlotType)
 	{
 	case ESlotType::INVENTORY_SLOT:
-		GameInstance->GetNetworkManager()->SendEquipChangePacket(ItemData);
+		GameInstance->GetNetworkManager()->SendEquipChangePacket(ItemData, SlotIndex);
 		break;
 	case ESlotType::STORAGE_INVENTORY_SLOT:
 		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::USER_STORAGE_ITEM_SLOT);
+		break;
+	case ESlotType::NPCSHOP_INVENTORY_SLOT:
+		{
+			auto UIManager = GameInstance->GetUIManager();
+			auto NPCShop = UIManager->GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+			NPCShop->AddSaleItem(ItemData, SlotIndex);
+		}
 		break;
 	default:
 		break;
@@ -272,7 +280,7 @@ bool UInventoryManager::HasItemTag(FGameplayTag TriggerTag)
 	return bResult;
 }
 
-void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
+void UInventoryManager::SetQuickSlotItems(TArray<FItemData>& SelectedItems)
 {
 	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
@@ -282,14 +290,10 @@ void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
 	for (int i = 0; i < SelectedItems.Num(); i++)
 	{
 		const FItemData& Data = SelectedItems[i];
-		if (Data == FItemData::EmptyItemData)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
-			return;
-		}
+		if (Data == FItemData::EmptyItemData) continue;
 
-		//아이템 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> ItemQuickSlot.{퀵 슬롯 인덱스 번호}
-		FGameplayTag ItemTag = ItemTags->GetByIndex(Data.ITEM_SLOT_IDX);
+		//TODO: SelectedItems는 QuickSlot개수와 동일하게(비어있는 Item은 EmptyItem으로)
+		FGameplayTag ItemTag = ItemTags->GetByIndex(i);
 		ItemQuickSlots.Add(ItemTag, SelectedItems[i]);
 	}
 

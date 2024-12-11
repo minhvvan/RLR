@@ -61,7 +61,7 @@ void UStorageTab::UpdateAllItem(const TArray<FItemData>& Items, FGameplayTag Tag
 		if (Items.IsValidIndex(i))
 		{
 			itemWidget->SetItemData(Items[i]);
-			itemWidget->SetSlotIndex(Items[i].ITEM_SLOT_IDX);
+			itemWidget->SetSlotIndex(i);
 			itemWidget->SetPageNum(PageNum);
 			itemWidget->SetSlotType(SlotType);
 		}

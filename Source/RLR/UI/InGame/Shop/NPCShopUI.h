@@ -47,7 +47,7 @@ public:
 	UPanelSlot* AddChild(UUserWidget* Child);
 
 	UFUNCTION()
-	void AddSaleItem(const FItemData& Item);
+	void AddSaleItem(const FItemData& Item, int32 SlotIndex);
 
 protected:
 	UFUNCTION()

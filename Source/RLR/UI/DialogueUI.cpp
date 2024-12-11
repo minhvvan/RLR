@@ -220,6 +220,7 @@ void UDialogueUI::ToggleNpcButtons(bool bOpen)
 
 void UDialogueUI::OnDialogueEnded()
 {
+	SetInventorySlotType(ESlotType::INVENTORY_SLOT);
 	OnDialogueEnd.Broadcast();
 }
 
@@ -268,6 +269,8 @@ void UDialogueUI::OnShopClicked(int32 ButtonIndex)
 	}
 	else
 	{
+		SetInventorySlotType(ESlotType::NPCSHOP_INVENTORY_SLOT);
+		
 		auto ObjectManager = GameInstance->GetObjectManager();
 		const auto& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
 

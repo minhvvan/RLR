@@ -153,11 +153,10 @@ void UUtilBlueprintFunctionLibrary::TestItemQuickSlot()
 	for (int32 i = 1; i <= 3; i++)
 	{
 		FItemData Data = GameInstance->GetDataManager()->GetItemData(i);
-		Data.ITEM_SLOT_IDX = i-1;
 		TestArray.Add(Data);
 	}
 
-	GameInstance->GetInventoryManager()->SetSelectedItems(TestArray);
+	GameInstance->GetInventoryManager()->SetQuickSlotItems(TestArray);
 }
 
 void UUtilBlueprintFunctionLibrary::TestServerList()

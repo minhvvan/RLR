@@ -185,17 +185,17 @@ void UInventoryUI::SetMaxSlotCount(int32 Count)
 	RefreshUI();
 }
 
-void UInventoryUI::SelectSlot(const FItemData& Item)
+void UInventoryUI::SelectSlot(int32 SlotIndex)
 {
-	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	auto slot = Cast<UInventorySlot>(InventorySlotList[SlotIndex]);
 	if (!slot) return;
 
 	slot->OnSelected();
 }
 
-void UInventoryUI::CancelSelectSlot(const FItemData& Item)
+void UInventoryUI::CancelSelectSlot(int32 SlotIndex)
 {
-	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	auto slot = Cast<UInventorySlot>(InventorySlotList[SlotIndex]);
 	if (!slot) return;
 
 	slot->CancelSelected();

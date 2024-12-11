@@ -10,10 +10,7 @@
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
-#include "GameManager/GameManager.h"
-#include "GameManager/ObjectManager.h"
 #include "GameManager/InventoryManager.h"
-#include "GameManager/UIManager.h"
 
 void UNPCShopUI::NativeConstruct()
 {
@@ -49,17 +46,33 @@ UPanelSlot* UNPCShopUI::AddChild(UUserWidget* Child)
 	return Canvas->AddChild(Child);
 }
 
-void UNPCShopUI::AddSaleItem(const FItemData& Item)
+void UNPCShopUI::AddSaleItem(const FItemData& Item, int32 SlotIndex)
 {
-	if (TabSwitcher->GetActiveWidgetIndex() != TabIndex::ESale) return;
-	auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
-	if (!saleTab) return;
+	if (TabSwitcher->GetActiveWidgetIndex() == TabIndex::ESale)
+	{
+		auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
+		if (!saleTab) return;
+				
+		saleTab->AddToCart(Item, SlotIndex);
+	}
+	else
+	{
+		TabSwitcher->SetActiveWidgetIndex(TabIndex::ESale);
 
-	UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-	if (!Inventory) return;
-
-	Inventory->SelectSlot(Item);
-	saleTab->AddToCart(Item);
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(
+			TimerHandle,
+			FTimerDelegate::CreateLambda([this, Item, SlotIndex]()
+			{
+				auto saleTab = Cast<UNPCSaleTab>(TabSwitcher->GetActiveWidget());
+				if (!saleTab) return;
+				
+				saleTab->AddToCart(Item, SlotIndex);
+			}),
+			.1f,
+			false 
+		);
+	}
 }
 
 void UNPCShopUI::OnPurchaseClicked()

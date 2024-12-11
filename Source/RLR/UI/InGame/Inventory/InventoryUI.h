@@ -115,6 +115,6 @@ public:
 	EItemType CurrentFilter;
 
 public:
-	void SelectSlot(const FItemData& Item);
-	void CancelSelectSlot(const FItemData& Item);
+	void SelectSlot(int32 SlotIndex);
+	void CancelSelectSlot(int32 SlotIndex);
 };

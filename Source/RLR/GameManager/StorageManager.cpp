@@ -100,11 +100,6 @@ void UStorageManager::RequestGetUserStorageItems()
 	for (int i = 0; i < MaxStoragePageNum; i++)
 	{
 		items[i].SetNum(MaxStorageSlotNum);
-		for (int j = 0; j < MaxStorageSlotNum; j++)
-		{
-			items[i][j].ITEM_SLOT_IDX = i * MaxStoragePageNum + j;
-		}
-		
 		SetUserStorageItemPage(i, items[i]);
 	}
 	
@@ -121,11 +116,6 @@ void UStorageManager::RequestGetPlayerStorageItems()
 	for (int i = 0; i < MaxStoragePageNum; i++)
 	{
 		items[i].SetNum(MaxStorageSlotNum);
-		for (int j = 0; j < MaxStorageSlotNum; j++)
-		{
-			items[i][j].ITEM_SLOT_IDX = i * MaxStoragePageNum + j;
-		}
-		
 		SetPlayerStorageItemPage(i, items[i]);
 	}
 	//==========================================
