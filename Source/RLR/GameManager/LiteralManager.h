@@ -276,6 +276,11 @@ public:
 	FString WBP_DraggableWidget;
 	FString WBP_BaseDragDropOperation;
 	FString GetDefaultSlotImage_DefaultSlotImage;
+	/* EnhanceResultUI */
+	FString EnhanceSuccessStack;
+	FString IncreaseMessage;
+	FString FailureTextFormat;
+
 
 	/* GameplayTagManager */
 	// Attribute_MainStat

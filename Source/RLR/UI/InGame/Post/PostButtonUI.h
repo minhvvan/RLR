@@ -42,6 +42,9 @@ public:
     UTextBlock* PostNameText;
 
     UPROPERTY(meta = (BindWidget))
+    UTextBlock* PostDateText;
+
+    UPROPERTY(meta = (BindWidget))
     UTextBlock* PostTitleText;
 
     FPostResult PostInfo;

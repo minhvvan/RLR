@@ -56,7 +56,7 @@ public:
 
     UFUNCTION()
     void OpenRemovePostsConfirmBox();
-    
+
     /* 우편 삭제 관련 */
     FOnRemovePostsButtonClicked OnRemovePostsButtonClicked;
 
@@ -118,6 +118,7 @@ private:
     void AddPostButton(const FPostResult& Post, bool bIsSent);
     void UpdatePostDetails(const FPostResult& Post);
     void RemoveOldestPost(const TArray<FPostResult>& Posts);
+    void SortPostsByDate(TArray<FPostResult>& Posts);
 
     UFUNCTION()
     void OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI);

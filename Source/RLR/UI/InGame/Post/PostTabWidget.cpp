@@ -82,14 +82,26 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
     bIsSentTab = bIsSent;
     ClearPostList();
 
+    /* 날짜 파싱 및 최신 날짜가 먼저 오도록 정렬 */
+    TArray<FPostResult> MutablePosts = Posts;
+    SortPostsByDate(MutablePosts);
+
     /* 우편 개수 50개 제한 */
-    if (Posts.Num() >= 50)
+    if (MutablePosts.Num() > 50)
     {
+        // 50번째 이후의 요소 추출
+        TArray<FPostResult> ExcessPosts;
+        for (int32 i = 50; i < MutablePosts.Num(); i++)
+        {
+            ExcessPosts.Add(MutablePosts[i]);
+        }
+
         /* 제일 오래된 우편부터 삭제 */
-        RemoveOldestPost(Posts);
+        RemoveOldestPost(ExcessPosts);
+        MutablePosts.RemoveAt(50, MutablePosts.Num()-50);
     }
 
-    for (const FPostResult& Post : Posts)
+    for (const FPostResult& Post : MutablePosts)
     {
         AddPostButton(Post, bIsSentTab);
     }
@@ -101,6 +113,27 @@ void UPostTabWidget::UpdatePostList(const TArray<FPostResult>& Posts, bool bIsSe
         {
             /* TODO : 현재 postId가 1로 통일이라 우편 순서대로 삭제되는 중 나중에 고쳐질 것임*/
             //RemovePost(PostData);
+        }
+    }
+
+    PageSwitcher->SetActiveWidgetIndex(0);
+}
+
+void UPostTabWidget::SortPostsByDate(TArray<FPostResult>& Posts)
+{
+    for (int32 i = 0; i < Posts.Num() - 1; ++i)
+    {
+        for (int32 j = 0; j < Posts.Num() - i - 1; ++j)
+        {
+            FDateTime DateA, DateB;
+
+            if (FDateTime::Parse(Posts[j].PostDate, DateA) && FDateTime::Parse(Posts[j + 1].PostDate, DateB))
+            {
+                if (DateA < DateB) 
+                {
+                    Posts.Swap(j, j + 1);
+                }
+            }
         }
     }
 }
@@ -251,7 +284,7 @@ void UPostTabWidget::CreateNewPage()
 
     // 새 페이지를 WidgetSwitcher에 추가
     PageSwitcher->AddChild(NewPage);
-    PageSwitcher->SetActiveWidget(NewPage);
+    //PageSwitcher->SetActiveWidget(NewPage);
 
     int32 CurrentIndex = PageSwitcher->GetActiveWidgetIndex();
     int32 TotalPages = PageSwitcher->GetNumWidgets();
@@ -301,8 +334,10 @@ void UPostTabWidget::UpdatePostDetails(const FPostResult& Post)
 /* 우편 개수가 50개 이상일때 기존의 가장 오래된 우편 삭제 */
 void UPostTabWidget::RemoveOldestPost(const TArray<FPostResult>& Posts)
 {
-    /* TODO : Posts의 날짜를 비교하여 가장 오래된 것을 삭제함 -> 서버에 해당 기능 생기면 이 함수 제거 */
-    GameInstance->GetNetworkManager()->SendPostRemoveRequest(Posts[0]);
+    for (const FPostResult& Post : Posts)
+    {
+        GameInstance->GetNetworkManager()->SendPostRemoveRequest(Post);
+    }
 }
 
 void UPostTabWidget::OnPostButtonClicked(const FPostResult& ClickedPost, UPostButtonUI* PostButtonUI)

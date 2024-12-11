@@ -52,6 +52,10 @@ void UPostButtonUI::SetPostInfo(const FPostResult& InPost, bool bIsSentPost)
         }
         PostNameText->SetText(FText::FromString(Name));
     }
+    if (PostDateText)
+    {
+        PostDateText->SetText(FText::FromString(InPost.PostDate));
+    }
 }
 
 void UPostButtonUI::SetReceivedPostInfo(const FPostResult& InPost)
