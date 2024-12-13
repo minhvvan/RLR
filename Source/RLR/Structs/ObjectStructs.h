@@ -20,6 +20,15 @@ enum class EInteractObjectType : uint8
 	NONE
 };
 
+UENUM(BlueprintType)
+enum class ENPCFunctionality : uint8
+{
+	POST = 0,
+	STORAGE,
+	SIZE
+};
+
+
 USTRUCT(Atomic, BlueprintType)
 struct FObjectMap
 {
@@ -208,6 +217,7 @@ struct FNPCData
 	TArray<FNPCShop> Shop;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Functionality;
 	bool hasPostFunctionality = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

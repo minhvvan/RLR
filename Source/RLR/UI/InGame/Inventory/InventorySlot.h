@@ -4,19 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "GameManager/DataManager.h"
-#include "UI/BaseUI.h"
 #include "UI/SlotUI.h"
 #include "InventorySlot.generated.h"
 
 /**
  * 
  */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotShiftClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotAltClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
 
  class UImage;
  class UButton;
  class UInventoryUI;
  class UTextBlock;
+
+
 
 UCLASS()
 class RLR_API UInventorySlot : public USlotUI
@@ -49,7 +52,10 @@ public:
 	virtual void SetIsEnabled(bool bInIsEnabled) override;
 
 public:
-
+	FOnSlotClicked OnSlotClicked;
+	FOnSlotShiftClicked OnSlotShiftClicked;
+	FOnSlotAltClicked OnSlotAltClicked;
+	
 	/*
 		슬롯 이미지
 	*/

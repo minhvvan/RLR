@@ -2,12 +2,15 @@
 
 
 #include "UI/DialogueUI.h"
+
+#include "SlotUI.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Quest/Dialogue/QuestDialogue.h"
 #include "UI/InGame/Common/DialogueUI/DialogueDynamicButton.h"
 #include "UI/InGame/Inventory/ItemInformation.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/Storage/StorageUI.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Enhancement/EnhanceOverlayUI.h"
 
@@ -17,46 +20,39 @@
 #include "Components/SizeBox.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
-
 #include "GameManager/GameManager.h"
-#include "GameManager/UIManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/InventoryManager.h"
 
 #include "Structs/ObjectStructs.h"
 #include "Structs/ItemStructs.h"
-#include "Kismet/GameplayStatics.h"
 
 void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
 	BtnExit->OnClicked.AddDynamic(this, &UDialogueUI::OnDialogueEnded);
-	bOpenShop = false;
 }
 
 void UDialogueUI::UpdateNPCFunctionality()
 {
 	UObjectManager* ObjectManager = GameInstance->GetObjectManager();
 	const FNPCData& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
+	CreateShopButtons(npcData.Shop);
+	CreateQuestButtons(npcData.NPCQuests);
 
-	if (!npcData.Shop.IsEmpty())
+	int npcFuntions = npcData.Functionality;
+	for (int i = 0; i < (int)ENPCFunctionality::SIZE; i++)
 	{
-		for (int i = 0; i < npcData.Shop.Num(); i++)
+		//기능 소유 확인
+		if (npcFuntions & (1 << i))
 		{
-			CreateDynamicButton(0, TEXT("Shop"), i);
-		}
-	}
-	if (npcData.hasPostFunctionality)
-	{
-		/* 우편 기능은 한개밖에 없으니 0으로 ButtonIdx 고정 */
-		CreateDynamicButton(1, TEXT("Post"), 0);
-	}
-	if (!npcData.NPCQuests.IsEmpty())
-	{
-		for (int i = 0; i < npcData.NPCQuests.Num(); i++)
-		{
-			CreateDynamicButton(2, TEXT("Quest"), i, npcData.NPCQuests[i].QuestSeq);
+			UDialogueDynamicButton* NewButton = CreateDynamicButton();
+			NewButton->SetButtonType(i);
+			NewButton->SetButtonText(ButtonText[(ENPCFunctionality)i]);
+			NewButton->OnButtonClickedSendType.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
+
+			BtnBox->AddChildToHorizontalBox(NewButton);
 		}
 	}
 	if (npcData.hasEnhanceFunctionality)
@@ -95,41 +91,54 @@ void UDialogueUI::CloseItemInfo()
 	ItemInformationUI->CloseUI();
 }
 
-/* NPC 기능들 동적 생성 */
-void UDialogueUI::CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq)
+void UDialogueUI::CreateShopButtons(const TArray<FNPCShop>& ShopData)
 {
-	if(!DialogueDynamicButtonClass) return;
-	UDialogueDynamicButton* NewButton = CreateWidget<UDialogueDynamicButton>(GetWorld(), DialogueDynamicButtonClass);
-
-	if(!NewButton) return;
-	NewButton->SetButtonType(ButtonType);
-	NewButton->SetButtonText(ButtonText);
-	NewButton->SetButtonIndex(ButtonIndex);
-	NewButton->OnButtonClickedTwoParam.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
-
-	BtnBox->AddChildToHorizontalBox(NewButton);
-
-	// Quest 버튼인 경우 배열에 추가
-	if (ButtonType == 2) // Quest 버튼 타입
+	for (int i = 0; i < ShopData.Num(); i++)
 	{
-		NewButton->SetQuestSeq(QuestSeq);
-		QuestButtons.Add(NewButton);
+		UDialogueDynamicButton* NewButton = CreateDynamicButton();
+		NewButton->SetButtonText("Shop");
+		NewButton->SetButtonIndex(i);
+		NewButton->OnButtonClickedSendIndex.AddUniqueDynamic(this, &UDialogueUI::OnShopClicked);
+
+		BtnBox->AddChildToHorizontalBox(NewButton);
 	}
 }
 
-/* 클릭 이벤트 */
-void UDialogueUI::HandleButtonClicked(int32 ButtonType, int32 ButtonIdx)
+void UDialogueUI::CreateQuestButtons(const TArray<FQuest>& QuestData)
+{
+	for (int i = 0; i < QuestData.Num(); i++)
+	{
+		UDialogueDynamicButton* NewButton = CreateDynamicButton();
+		NewButton->SetButtonText("Quest");
+		NewButton->SetButtonIndex(i);
+		NewButton->OnButtonClickedSendIndex.AddUniqueDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
+
+		NewButton->SetQuestSeq(QuestData[i].QuestSeq);
+		QuestButtons.Add(NewButton);
+
+		BtnBox->AddChildToHorizontalBox(NewButton);
+	}
+}
+
+/* NPC 기능들 동적 생성 */
+UDialogueDynamicButton* UDialogueUI::CreateDynamicButton()
+{
+	if (!DialogueDynamicButtonClass) return nullptr;
+	UDialogueDynamicButton* NewButton = CreateWidget<UDialogueDynamicButton>(GetWorld(), DialogueDynamicButtonClass);
+
+	return NewButton;
+}
+
+/* 클릭 이벤트(Shop, Quest 제외) */
+void UDialogueUI::HandleButtonClicked(int32 ButtonType)
 {
 	switch (ButtonType)
 	{
-	case 0 :
-		OnShopClicked(ButtonIdx);
-		break;
-	case 1 : 
+	case (int)ENPCFunctionality::POST:
 		OnPostClicked();
 		break;
-	case 2 : 
-		OnQuestDialogueBegins(ButtonIdx);
+	case (int)ENPCFunctionality::STORAGE:
+		OnStorageClicked();
 		break;
 	case 3 : 
 		OnEnhanceClicked();
@@ -141,7 +150,7 @@ void UDialogueUI::HandleButtonClicked(int32 ButtonType, int32 ButtonIdx)
 
 void UDialogueUI::CloseQuestDialogue()
 {
-	bOpenQuestDialogue = false;
+	//bOpenQuestDialogue = false;
 	CloseSubUI(RLRTAG.UI_Quest_Dialogue);
 	ToggleNpcButtons(true);
 }
@@ -177,6 +186,15 @@ void UDialogueUI::RemoveFromHorizontalBox()
 	}
 }
 
+void UDialogueUI::OpenInventory(FVector2D InventoryPosition)
+{
+	if (UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory))
+	{
+		InventoryUI->SetPosition(InventoryPosition);
+		InventoryUI->OpenUI();
+	}
+}
+
 void UDialogueUI::ReAddQuestButton(int32 QuestSeq)
 {
 	for (UDialogueDynamicButton* QuestButton : QuestButtons)
@@ -185,7 +203,7 @@ void UDialogueUI::ReAddQuestButton(int32 QuestSeq)
 		{
 			// BtnBox에 버튼 다시 추가
 			BtnBox->AddChildToHorizontalBox(QuestButton);
-			QuestButton->OnButtonClickedTwoParam.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
+			QuestButton->OnButtonClickedSendIndex.AddUniqueDynamic(this, &UDialogueUI::OnQuestDialogueBegins);
 			break;
 		}
 	}
@@ -214,111 +232,158 @@ void UDialogueUI::ToggleNpcButtons(bool bOpen)
 
 void UDialogueUI::OnDialogueEnded()
 {
+	SetInventorySlotType(ESlotType::INVENTORY_SLOT);
 	OnDialogueEnd.Broadcast();
 }
 
 void UDialogueUI::OnQuestDialogueBegins(int32 ButtonIndex)
 {
-	if (bOpenQuestDialogue)
+	UQuestDialogue* QuestDialogueUI = GetSubUI<UQuestDialogue>(RLRTAG.UI_Quest_Dialogue);
+	if (!QuestDialogueUI)
 	{
-		bOpenQuestDialogue = false;
+		RLR_LOG(LogRLR, Log, TEXT("QuestDialogueUI is nullptr"));
+		return;
+	}
+
+	if (IsOpenSubUI(RLRTAG.UI_Quest_Dialogue))
+	{
 		CloseSubUI(RLRTAG.UI_Quest_Dialogue);
 		ToggleNpcButtons(true);
 	}
 	else
 	{
-		bOpenQuestDialogue = true;
+		FVector2D panelPos(100.f, 100.f);
+		QuestDialogueUI->SetPosition(panelPos);
+		QuestDialogueUI->OpenUI();
+
+		QuestDialogueUI->OnQuestDialogueEnd.AddUniqueDynamic(this, &UDialogueUI::CloseQuestDialogue);
+		QuestDialogueUI->OnQuestAccept.AddUniqueDynamic(this, &UDialogueUI::RemoveFromHorizontalBox);
+
+		ToggleNpcButtons(false);
+
 		CurrentOpenQuest = ButtonIndex;
-
-		UQuestDialogue* QuestDialogueUI = GetSubUI<UQuestDialogue>(RLRTAG.UI_Quest_Dialogue);
-		if (QuestDialogueUI)
-		{
-			FVector2D panelPos(100.f, 100.f);
-			QuestDialogueUI->SetPosition(panelPos);
-			QuestDialogueUI->OpenUI();
-
-			QuestDialogueUI->OnQuestDialogueEnd.AddUniqueDynamic(this, &UDialogueUI::CloseQuestDialogue);
-			QuestDialogueUI->OnQuestAccept.AddUniqueDynamic(this, &UDialogueUI::RemoveFromHorizontalBox);
-		
-			ToggleNpcButtons(false);
-		}
 	}
 }
 
 void UDialogueUI::OnShopClicked(int32 ButtonIndex)
 {
-	if (bOpenShop)
+	UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+	if (!NPCShopUI)
 	{
-		bOpenShop = false;
+		RLR_LOG(LogRLR, Log, TEXT("NPCShopUI is nullptr"));
+		return;
+	}
+
+	if (IsOpenSubUI(RLRTAG.UI_NPCShop))
+	{
 		CloseSubUI(RLRTAG.UI_NPCShop);
 		CloseSubUI(RLRTAG.UI_Inventory);
 	}
 	else
 	{
-		bOpenShop = true;
+		SetInventorySlotType(ESlotType::NPCSHOP_INVENTORY_SLOT);
+		
 		auto ObjectManager = GameInstance->GetObjectManager();
 		const auto& npcData = ObjectManager->GetNPCDataBySeq(CurrentNPCSeq);
 
-		UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
-		if (NPCShopUI)
+		FVector2D panelPos(100.f, 100.f);
+
+		TArray<FItemResource> ItemResources;
+		for (const FItemData& item : npcData.Shop[ButtonIndex].Items)
 		{
-			FVector2D panelPos(100.f, 100.f);
-
-			TArray<FItemResource> ItemResources;
-			for (const FItemData& item : npcData.Shop[ButtonIndex].Items)
-			{
-				FItemResource itemResource;
-				itemResource.MakeShopItemResource(item);
-				ItemResources.Add(itemResource);
-			}
-
-			NPCShopUI->SetItemData(npcData.Shop[ButtonIndex].Items);
-			NPCShopUI->SetShopData(npcData.Shop[ButtonIndex]);
-			NPCShopUI->SetPosition(panelPos);
-			NPCShopUI->OpenUI();
+			FItemResource itemResource;
+			itemResource.MakeShopItemResource(item);
+			ItemResources.Add(itemResource);
 		}
 
-		UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-		if (InventoryUI)
-		{
-			FVector2D panelPos(100.f + NPCShopUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
-			InventoryUI->SetPosition(panelPos);
-			InventoryUI->OpenUI();
-		}
+		NPCShopUI->SetItemData(npcData.Shop[ButtonIndex].Items);
+		NPCShopUI->SetShopData(npcData.Shop[ButtonIndex]);
+		NPCShopUI->SetPosition(panelPos);
+		NPCShopUI->OpenUI();
+
+		FVector2D inventoryPos(100.f + NPCShopUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		OpenInventory(inventoryPos);
 	}
 }
 
 void UDialogueUI::OnPostClicked()
 {
-	if (bOpenPost)
+	UPostOverlayUI* PostOverlayUI = GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	if (!PostOverlayUI)
 	{
-		bOpenPost = false;
+		RLR_LOG(LogRLR, Log, TEXT("PostOverlayUI is nullptr"));
+		return;
+	}
+
+	if(IsOpenSubUI(RLRTAG.UI_Post))
+	{
 		CloseSubUI(RLRTAG.UI_NPCShop);
 		CloseSubUI(RLRTAG.UI_Inventory);
 		ToggleNpcButtons(true);
 	}
 	else
 	{
-		bOpenPost = true;
+		FVector2D panelPos(100.f, 100.f);
+		PostOverlayUI->SetPosition(panelPos);
+		PostOverlayUI->OpenUI();
+		ToggleNpcButtons(false);
 
-		UPostOverlayUI* PostOverlayUI = GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
-		if (PostOverlayUI)
-		{
-			FVector2D panelPos(100.f, 100.f);
-			PostOverlayUI->SetPosition(panelPos);
-			PostOverlayUI->OpenUI();
-			ToggleNpcButtons(false);
-		}
 		/*
 			우편함 UI가 생성될 때 인벤토리 창도 함께 열기
 		*/
-		UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
-		if (InventoryUI)
+		FVector2D inventoryPos(100.f + PostOverlayUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		OpenInventory(inventoryPos);
+	}
+}
+
+void UDialogueUI::SetInventorySlotType(ESlotType SlotType)
+{
+	if (UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory))
+	{
+		InventoryUI->SetSlotType(SlotType);
+	}
+}
+
+void UDialogueUI::OnStorageClicked()
+{
+	if (IsOpenSubUI(RLRTAG.UI_Storage_User))
+	{
+		CloseSubUI(RLRTAG.UI_Storage_User);
+		CloseSubUI(RLRTAG.UI_Inventory);
+		ToggleNpcButtons(true);
+	}
+	else
+	{
+		UStorageUI* UserStorageUI = GetSubUI<UStorageUI>(RLRTAG.UI_Storage_User);
+		if (!UserStorageUI)
 		{
-			FVector2D panelPos(100.f + PostOverlayUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
-			InventoryUI->SetPosition(panelPos);
-			InventoryUI->OpenUI();
+			RLR_LOG(LogRLR, Log, TEXT("UserStorageUI is nullptr"));
+			return;
 		}
+
+		UStorageUI* PlayerStorageUI = GetSubUI<UStorageUI>(RLRTAG.UI_Storage_Player);
+		if (!PlayerStorageUI)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("PlayerStorageUI is nullptr"));
+			return;
+		}
+		
+		FVector2D panelPos(100.f, 100.f);
+		PlayerStorageUI->SetPosition(panelPos);
+		PlayerStorageUI->OpenUI();
+		ToggleNpcButtons(false);
+
+		FVector2D userStoragePos(panelPos.X + PlayerStorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		UserStorageUI->SetPosition(userStoragePos);
+		UserStorageUI->OpenUI();
+		ToggleNpcButtons(false);
+
+		/*
+			우편함 UI가 생성될 때 인벤토리 창도 함께 열기
+		*/
+		FVector2D inventoryPos(userStoragePos.X + UserStorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
+		SetInventorySlotType(ESlotType::STORAGE_INVENTORY_SLOT);
+		OpenInventory(inventoryPos);
 	}
 }
 

@@ -2,15 +2,19 @@
 
 
 #include "GameManager/InventoryManager.h"
+
+#include "UIManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
+#include "GameManager/StorageManager.h"
 #include "GameManager/GameplayTagManager.h"
 
 #include "Structs/ItemStructs.h"
 
-#include "Player/RLRPlayerController.h"
-#include "RLRObjects/Characters/RLRPlayerCharacter.h"
-#include "ActionSystem/ActionSystemComponent.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
-#include <Kismet/GameplayStatics.h>
+#include "UI/SlotUI.h"
+#include "UI/InGame/Shop/NPCShopUI.h"
+#include "UI/InGame/Storage/StorageUI.h"
 
 
 void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
@@ -20,6 +24,8 @@ void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
 	UpdatedTryUsingItemAction.Clear();
 	OnUpdateInventoryDelegate.Clear();
 	OnUpdateEquipDelegate.Clear();
+
+	InventoryItemData.SetNum(50);
 }
 
 void UInventoryManager::Update()
@@ -27,15 +33,30 @@ void UInventoryManager::Update()
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-void UInventoryManager::AddItem(const FItemData& NewItem)
+void UInventoryManager::AddItem(const FItemData& NewItem, int SlotIndex)
 {
 	if (NewItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 		return;
 	}
+
+	if (SlotIndex == -1)
+	{
+		for (int i = 0; i < InventoryItemData.Num(); i++)
+		{
+			if (InventoryItemData[i] == FItemData::EmptyItemData)
+			{
+				InventoryItemData[i] = NewItem;
+				break;
+			}
+		}
+	}
+	else
+	{
+		InventoryItemData[SlotIndex] = NewItem;
+	}
 	
-	InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
 	OnUpdateInventoryDelegateBroadcast();
 }
 
@@ -48,78 +69,67 @@ void UInventoryManager::AddItemList(const TArray<FItemData>& NewItemList)
 			DEBUG_LOG("Add Item Warning Message. NewItem is empty.");
 			return;
 		}
-		InventoryItemData.Add(NewItem.ITEM_ID, NewItem);
+		
+		AddItem(NewItem);
 	}
+	
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-FItemData UInventoryManager::GetItem(int32 Item_ID)
+const FItemData& UInventoryManager::GetItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID))
+	for (auto& item : InventoryItemData)
 	{
-		return InventoryItemData[Item_ID];
-	}
-	return FItemData::EmptyItemData;
-}
-
-FItemData UInventoryManager::GetItemBySlotIndex(int32 InventoryIdx)
-{
-	// 슬롯 인덱스가 유효하지 않은 경우 EmptyItemData 반환
-	if (InventoryIdx < 0)
-	{
-		return FItemData::EmptyItemData;
-	}
-
-	// InventoryItemData에서 InventoryIdx를 기준으로 검색
-	for (const auto& ItemPair : InventoryItemData)
-	{
-		const FItemData& Item = ItemPair.Value;
-
-		// 해당 슬롯 인덱스에 있는 아이템을 찾으면 반환
-		if (Item.ITEM_SLOT_IDX == InventoryIdx)
+		if (item.ITEM_ID == Item_ID)
 		{
-			return Item;
+			return item;
 		}
 	}
 
-	// 슬롯에 아이템이 없는 경우 EmptyItemData 반환
 	return FItemData::EmptyItemData;
 }
 
-void UInventoryManager::GetItemList(TArray<FItemData>& ItemArray)
+const TArray<FItemData>& UInventoryManager::GetItemList() const
 {
-	InventoryItemData.GenerateValueArray(ItemArray);
-}
-void UInventoryManager::SetItemList(TArray<FItemData>& ItemArray) {
-	InventoryItemData.Empty();
-
-	for (const FItemData& Item : ItemArray)
-	{
-		InventoryItemData.Add(Item.ITEM_ID, Item);
-	}
-
-	Update();
+	return InventoryItemData;
 }
 
 void UInventoryManager::RemoveItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == true)
+	for (auto& item : InventoryItemData)
 	{
-		FItemData RemoveItem;
-		InventoryItemData.RemoveAndCopyValue(Item_ID, RemoveItem);
-		OnUpdateInventoryDelegateBroadcast();
+		if (item.ITEM_ID == Item_ID)
+		{
+			InventoryItemData.Remove(item);
+			break;
+		}
 	}
+}
+
+void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
+{
+	for (auto& item : InventoryItemData)
+	{
+		if ( item.ITEM_ID == Item_ID)
+		{
+			item.QUANTITY -= Amount;
+			if (item.QUANTITY == 0) item = FItemData::EmptyItemData;
+			break;
+		}
+	}
+	
+	OnUpdateInventoryDelegateBroadcast();
 }
 
 bool UInventoryManager::EquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == false)
+	FItemData EquipedItem = GetItem(Item_ID);
+	if (EquipedItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
-
-	FItemData& EquipedItem = InventoryItemData[Item_ID];
+	
 	EquipedItem.IsEquiped = true;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
@@ -127,26 +137,102 @@ bool UInventoryManager::EquipItem(int32 Item_ID)
 
 bool UInventoryManager::UnEquipItem(int32 Item_ID)
 {
-	if (InventoryItemData.Contains(Item_ID) == false)
+	FItemData EquipedItem = GetItem(Item_ID);
+	if (EquipedItem == FItemData::EmptyItemData)
 	{
 		DEBUG_LOG("EquipItem Error. ItemData is Null");
 		return false;
 	}
-
-	FItemData& EquipedItem = InventoryItemData[Item_ID];
+	
 	EquipedItem.IsEquiped = false;
 	OnUpdateEquipDelegateBroadcast(EquipedItem);
 	return true;
 }
 
-void UInventoryManager::ChangeItemSlot(int32 Item_ID, int32 NewSlotIndex)
+void UInventoryManager::SetItemSlot(const FItemData& NewItem, int32 NewSlotIndex)
 {
-	if (InventoryItemData.Contains(Item_ID))
+	InventoryItemData[NewSlotIndex] = NewItem;
+	OnUpdateInventoryDelegateBroadcast();
+}
+
+void UInventoryManager::SetGold(int32 NewGold)
+{
+	Gold = NewGold;
+	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::SetPlatinum(int32 NewPlatinum)
+{
+	Platinum = NewPlatinum;
+	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
 	{
-		InventoryItemData[Item_ID].ITEM_SLOT_IDX = NewSlotIndex;
+	case ESlotType::INVENTORY_SLOT:
+		GameInstance->GetNetworkManager()->SendEquipChangePacket(ItemData, SlotIndex);
+		break;
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::USER_STORAGE_ITEM_SLOT);
+		break;
+	case ESlotType::NPCSHOP_INVENTORY_SLOT:
+		{
+			auto UIManager = GameInstance->GetUIManager();
+			auto NPCShop = UIManager->GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+			NPCShop->AddSaleItem(ItemData, SlotIndex);
+		}
+		break;
+	default:
+		break;
 	}
 }
 
+void UInventoryManager::OnInventorySlotShiftClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		if (auto UIManager = GameInstance->GetUIManager())
+		{
+			if (auto storageUI = UIManager->GetSubUI<UStorageUI>(RLRTAG.UI_Storage_User))
+			{
+				storageUI->InventorySlotShiftClicked(ItemData);
+			}
+		}
+		
+		break;
+	default:
+		break;
+	}
+}
+
+void UInventoryManager::OnInventorySlotAltClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::STORAGE_INVENTORY_SLOT:
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::PLAYER_STORAGE_ITEM_SLOT);
+		break;
+	default:
+		break;
+	}
+}
+
+void UInventoryManager::SetCopper(int32 NewCopper)
+{
+	Copper = NewCopper;
+	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::SetSilver(int32 NewSilver)
+{
+	Silver = NewSilver;
+	OnUpdateGoldAndCashDelegateBroadcast();
+}
+
+void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
 void UInventoryManager::UsingQuickSlotItem(FGameplayTag TriggerTag)
 {
 	if (HasItemTag(TriggerTag) == false)
@@ -194,7 +280,7 @@ bool UInventoryManager::HasItemTag(FGameplayTag TriggerTag)
 	return bResult;
 }
 
-void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
+void UInventoryManager::SetQuickSlotItems(TArray<FItemData>& SelectedItems)
 {
 	// GameplayTagManager
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
@@ -204,14 +290,10 @@ void UInventoryManager::SetSelectedItems(TArray<FItemData>& SelectedItems)
 	for (int i = 0; i < SelectedItems.Num(); i++)
 	{
 		const FItemData& Data = SelectedItems[i];
-		if (Data == FItemData::EmptyItemData)
-		{
-			RLR_LOG(LogRLR, Log, TEXT("Not Found Skill Class"));
-			return;
-		}
+		if (Data == FItemData::EmptyItemData) continue;
 
-		//아이템 태그는 퀵 슬롯 인덱스 번호로 맞춰야 함  -> ItemQuickSlot.{퀵 슬롯 인덱스 번호}
-		FGameplayTag ItemTag = ItemTags->GetByIndex(Data.ITEM_SLOT_IDX);
+		//TODO: SelectedItems는 QuickSlot개수와 동일하게(비어있는 Item은 EmptyItem으로)
+		FGameplayTag ItemTag = ItemTags->GetByIndex(i);
 		ItemQuickSlots.Add(ItemTag, SelectedItems[i]);
 	}
 
@@ -272,4 +354,9 @@ void UInventoryManager::OnInventorySlotClickedDelegateBroadcast(FItemData SlotIt
 			}
 			OnInventorySlotClickedDelegate.ExecuteIfBound(SlotItemData);
 		});
+}
+
+void UInventoryManager::OnInventorySlotShiftClickedDelegateBroadcast(const FItemData& SlotItemData)
+{
+	OnInventorySlotShiftClickedDelegate.ExecuteIfBound(SlotItemData);
 }

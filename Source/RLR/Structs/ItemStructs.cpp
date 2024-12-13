@@ -15,10 +15,8 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 {
     ITEM_SEQ = itemData.itemseq();
     ITEM_ID = itemData.itemid();
-    ITEM_SLOT_IDX = itemData.itemslotidx();
     UE_LOG(LogTemp, Log, TEXT("ITEM_SEQ : %d"), ITEM_SEQ);
     UE_LOG(LogTemp, Log, TEXT("ITEM_ID : %lld"), ITEM_ID);
-    UE_LOG(LogTemp, Log, TEXT("ITEM_SLOT_IDX : %d"), ITEM_SLOT_IDX);
 
     NAME = STRING_TO_FTEXT(itemData.name().c_str());
 
@@ -83,7 +81,8 @@ Protocol::Item FItemData::MakeItemPacket()
 
     itemData.set_itemseq(ITEM_SEQ);
     itemData.set_itemid(ITEM_ID);
-    itemData.set_itemslotidx(ITEM_SLOT_IDX);
+    //TODO: ItemSlotIndex 처리
+    // itemData.set_itemslotidx(ITEM_SLOT_IDX);
     itemData.set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
 
     itemData.set_type(TYPE);
@@ -140,14 +139,14 @@ Protocol::Item FItemData::MakeItemPacket()
     return itemData;
 }
 
-Protocol::Equip FItemData::MakeEquipPacket()
+Protocol::Equip FItemData::MakeEquipPacket(int SlotIndex)
 {
     Protocol::Equip EquipData;
     Protocol::Item* Equip_Item = EquipData.mutable_base();
 
     Equip_Item->set_itemseq(ITEM_SEQ);
     Equip_Item->set_itemid(ITEM_ID);
-    Equip_Item->set_itemslotidx(ITEM_SLOT_IDX);
+    Equip_Item->set_itemslotidx(SlotIndex);
     Equip_Item->set_name(TCHAR_TO_UTF8(*NAME.ToString()));  // FString -> std::string
 
     Equip_Item->set_type(TYPE);

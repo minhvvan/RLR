@@ -87,7 +87,7 @@ FReply UEquipmentSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 		서버에 착용 해제 요청을 보낸다.
 	*/
 
-	GetNetworkManager()->SendUnEquipChangePacket(GetItemData());
+	GetNetworkManager()->SendUnEquipChangePacket(GetItemData(), SlotIndex);
 
 	return result;
 }

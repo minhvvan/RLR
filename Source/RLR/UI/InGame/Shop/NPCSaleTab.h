@@ -41,7 +41,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
-	void AddToCart(const FItemData& item);
+	void AddToCart(const FItemData& newItem, int32 InventorySlotIndex);
 	void RemoveFromCart(const FItemData& item);
 
 protected:
@@ -55,7 +55,7 @@ protected:
 	UNPCShopItemSlot* GetItemSlotWidget(int idx);
 	void UpdatePrice();
 
-	TArray<FItemData> Cart;
+	TArray<TPair<int32, FItemData>> Cart;
 	int SellPrice = 0;
 	const int MaxCartNum = 12;
 };

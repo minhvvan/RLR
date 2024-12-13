@@ -3,8 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SlotUI.h"
 #include "UI/MainUI.h"
 #include "Structs/ItemStructs.h"
+#include "Structs/ObjectStructs.h"
 #include "DialogueUI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDialogueEnd);
@@ -69,7 +71,9 @@ public:
 	void OpenItemInfo(USlotUI* Target);
 	void CloseItemInfo();
 
-	void CreateDynamicButton(int32 ButtonType, FString ButtonText, int32 ButtonIndex, int32 QuestSeq = -1);
+	void CreateShopButtons(const TArray<FNPCShop>& ShopData);
+	void CreateQuestButtons(const TArray<FQuest>& QuestData);
+	UDialogueDynamicButton* CreateDynamicButton();
 	
 	virtual void OnPageActivated() override;
 
@@ -91,8 +95,16 @@ protected:
 	UFUNCTION()
 	void OnPostClicked();
 
+	void SetInventorySlotType(ESlotType SlotType);
+	
 	UFUNCTION()
-	void OnEnhanceClicked();
+	void OnStorageClicked();
+
+	UFUNCTION()
+	void HandleButtonClicked(int32 ButtonType);
+	
+  UFUNCTION()
+  void OnEnhanceClicked();
 
 	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
@@ -102,7 +114,12 @@ protected:
 	
 	UFUNCTION()
 	void RemoveFromHorizontalBox();
+
+	void OpenInventory(FVector2D InventoryPosition);
+
 private:
+	UPROPERTY(EditAnywhere, Category = DynamicButton)
+	TMap<ENPCFunctionality, FString> ButtonText;
 	TArray<UDialogueDynamicButton*> QuestButtons;
 
 	int32 CurrentNPCSeq;

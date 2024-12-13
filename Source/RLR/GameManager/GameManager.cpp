@@ -20,6 +20,7 @@
 #include "GameManager/PartyManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/TradeManager.h"
+#include "GameManager/StorageManager.h"
 #include "GameManager/EnhanceManager.h"
 
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
@@ -234,7 +235,17 @@ UTradeManager* UGameManager::GetTradeManager()
     return nullptr;
 }
 
-UEnhanceManager* UGameManager::GetEnhanceManager()
+UStorageManager* UGameManager::GetStorageManager()
+{
+    UStorageManager* StorageManager = GetSubsystem<UStorageManager>(this);
+    if (IsValid(StorageManager))
+    {
+        return StorageManager;
+    }
+    DEBUG_MESSAGE;
+    return nullptr;
+
+  UEnhanceManager* UGameManager::GetEnhanceManager()
 {
     UEnhanceManager* EnhanceManager = GetSubsystem<UEnhanceManager>(this);
     if (IsValid(EnhanceManager))

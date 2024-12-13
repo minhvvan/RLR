@@ -86,9 +86,9 @@ public:
 
     bool SendInventoryPacket();
 
-    bool SendEquipChangePacket(const FItemData& ItemData);      //아이템 장착 패킷.
+    bool SendEquipChangePacket(const FItemData& ItemData, int SlotIndex);      //아이템 장착 패킷.
 
-    bool SendUnEquipChangePacket(const FItemData& ItemData);    //아이템 해제 패킷.
+    bool SendUnEquipChangePacket(const FItemData& ItemData, int SlotIndex);    //아이템 해제 패킷.
 
     bool SendAddItemPacket(int64 itemId, int32 value); // 아이템 획득 패킷
 

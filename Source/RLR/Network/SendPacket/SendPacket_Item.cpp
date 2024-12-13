@@ -20,7 +20,7 @@
 */
 
 
-bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
+bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData, int SlotIndex)
 {
     if (!MainServerSocket) return false;
 
@@ -38,7 +38,7 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
     Protocol::Equip* EquipItem = packet.mutable_item();
 
     FItemData temp = ItemData;
-    Protocol::Equip CopyData = temp.MakeEquipPacket();
+    Protocol::Equip CopyData = temp.MakeEquipPacket(SlotIndex);
     EquipItem->CopyFrom(CopyData);
 
 
@@ -47,7 +47,7 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData)
     return false;
 }
 
-bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
+bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData, int SlotIndex)
 {
     if (!MainServerSocket) return false;
 
@@ -66,7 +66,7 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData)
     Protocol::Equip* EquipItem = packet.mutable_item();
 
     FItemData temp = ItemData;
-    Protocol::Equip CopyData = temp.MakeEquipPacket();
+    Protocol::Equip CopyData = temp.MakeEquipPacket(SlotIndex);
     EquipItem->CopyFrom(CopyData);
 
 

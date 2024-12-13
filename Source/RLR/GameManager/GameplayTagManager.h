@@ -129,6 +129,9 @@ public:
 	FGameplayTag UI_NPCShop;
 	FGameplayTag UI_NPCShop_Popup_Bundle;
 
+	FGameplayTag UI_Storage_User;
+	FGameplayTag UI_Storage_Player;
+
 	FGameplayTag UI_Chat;
 	FGameplayTag UI_Chat_Option;
 	
@@ -155,6 +158,7 @@ public:
 	FGameplayTag UI_Popup_ItemCountMessageBox;
 	FGameplayTag UI_Popup_NotificationMessageBox;
 	FGameplayTag UI_Popup_ConfirmMessageBox;
+	FGameplayTag UI_Popup_GoodsMessageBox;
 
 	FGameplayTag UI_OtherPlayer_Menu;
 	FGameplayTag UI_OtherPlayer_OverHead;

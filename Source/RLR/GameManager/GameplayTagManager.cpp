@@ -99,10 +99,14 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Skill_Upgrade = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Skill_Upgrade.TagName, RLRLITERAL.UI_Skill_Upgrade.TagDesc);
 	GameplayTags.UI_Skill_DetailInfo = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Skill_DetailInfo.TagName, RLRLITERAL.UI_Skill_DetailInfo.TagDesc);
 
-	GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Inventory.TagName, RLRLITERAL.UI_Inventory.TagDesc);
+  GameplayTags.UI_Inventory = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Inventory.TagName, RLRLITERAL.UI_Inventory.TagDesc);
 	GameplayTags.UI_ItemInfomation = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_ItemInformation.TagName, RLRLITERAL.UI_ItemInformation.TagDesc);
 	GameplayTags.UI_NPCShop = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_NPCShop.TagName, RLRLITERAL.UI_NPCShop.TagDesc);
 	GameplayTags.UI_NPCShop_Popup_Bundle = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_NPCShop_Popup_Bundle.TagName, RLRLITERAL.UI_NPCShop_Popup_Bundle.TagDesc);
+  
+  // 리터럴매니저에 추가
+  GameplayTags.UI_Storage_User = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Storage.User"), FString(TEXT("유저 창고")));
+	GameplayTags.UI_Storage_Player = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Storage.Player"), FString(TEXT("플레이어 창고")));
 
 	GameplayTags.UI_Chat = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat.TagName, RLRLITERAL.UI_Chat.TagDesc);
 	GameplayTags.UI_Chat_Option = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Chat_Option.TagName, RLRLITERAL.UI_Chat_Option.TagDesc);
@@ -131,7 +135,13 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_NotificationMessageBox.TagName, RLRLITERAL.UI_Popup_NotificationMessageBox.TagDesc);
 	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ConfirmMessageBox.TagName, RLRLITERAL.UI_Popup_ConfirmMessageBox.TagDesc);
 	
-	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Menu.TagName, RLRLITERAL.UI_OtherPlayer_Menu.TagDesc);
+  // 리터럴 매니저 추가
+	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
+	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
+	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
+	GameplayTags.UI_Popup_GoodsMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.GoodsMessageBox"), FString(TEXT("재화 입력 박스")));
+
+  GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Menu.TagName, RLRLITERAL.UI_OtherPlayer_Menu.TagDesc);
 	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_OverHead.TagName, RLRLITERAL.UI_OtherPlayer_OverHead.TagDesc);
 	GameplayTags.UI_OtherPlayer_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Profile.TagName, RLRLITERAL.UI_OtherPlayer_Profile.TagDesc);
 	

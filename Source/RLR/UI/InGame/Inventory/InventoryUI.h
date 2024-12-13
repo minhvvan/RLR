@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "UI/SubUI.h"
 #include "GameManager/DataManager.h"
+#include "UI/SlotUI.h"
 #include "InventoryUI.generated.h"
 
 /**
@@ -44,6 +45,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetItemData(FItemData& NewItem);
+	void SetSlotType(ESlotType SlotType);
 
 public:
 
@@ -114,6 +116,6 @@ public:
 	ItemType CurrentFilter;
 
 public:
-	void SelectSlot(const FItemData& Item);
-	void CancelSelectSlot(const FItemData& Item);
+	void SelectSlot(int32 SlotIndex);
+	void CancelSelectSlot(int32 SlotIndex);
 };

@@ -67,4 +67,7 @@ public:
 	//옮기고 있는 슬롯의 타입.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESlotType DragedSlotType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SlotIndex;
 };

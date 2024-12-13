@@ -55,9 +55,14 @@ void UInventoryUI::Init()
 		return;
 	}
 
+	auto InventoryManager = GetInventoryManager();
+
 	for (int32 Count = 0; Count < MaxInventorySlotCount; Count++)
 	{
 		UInventorySlot* NewSlot = CreateWidget<UInventorySlot>(this, InventorySlotClass);
+		NewSlot->OnSlotClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotClicked);
+		NewSlot->OnSlotShiftClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftClicked);
+		NewSlot->OnSlotAltClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotAltClicked);
 		InventorySlotList[Count] = NewSlot;
 		NewSlot->SlotIndex = Count;
 		NewSlot->Inventory = this;
@@ -68,7 +73,6 @@ void UInventoryUI::Init()
 
 void UInventoryUI::RefreshUI()
 {
-	
 	//장비창, 소모품창, 기타창 같이 따로 탭을 누르고 있는 중에는 전체 RefreshUI를 해주지 않는다.
 	if (CurrentFilter != ItemType::None)
 	{
@@ -87,12 +91,12 @@ void UInventoryUI::RefreshUI()
 	}
 
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
-	TArray<FItemData> ItemList;
-	InventoryManager->GetItemList(ItemList);
-
-	int32 ItemCount = 0;
-	for (FItemData& ItemData : ItemList)
+	const auto& ItemList = InventoryManager->GetItemList();
+	for (int i = 0; i < ItemList.Num(); i++)
 	{
+		if(i >= MaxInventorySlotCount || i < 0 ) continue;
+		
+		InventorySlotList[i]->SetItemData(ItemList[i]);
 		//설정된 값보다 아이템 수가 많으면 에러
 		if (MaxInventorySlotCount <= ItemCount)
 		{
@@ -101,11 +105,6 @@ void UInventoryUI::RefreshUI()
 		}
 
 		ItemCount++;
-
-		int32 ItemSlotIndex = ItemData.ITEM_SLOT_IDX;
-		if(ItemSlotIndex >= MaxInventorySlotCount || ItemSlotIndex < 0 )
-			continue;
-		InventorySlotList[ItemData.ITEM_SLOT_IDX]->SetItemData(ItemData);
 
 		/* 강화 장비 배열에 추가 */
 		if (ItemData.TYPE == ItemType::Equip)
@@ -137,26 +136,14 @@ void UInventoryUI::ShowItemsByType(ItemType ItemType)
 		ItemSlot->Clear();
 	}
 
-	TArray<FItemData> ItemList;
 	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
 	if (IsValid(InventoryManager) == false)
 		return;
-	InventoryManager->GetItemList(ItemList);
-
-	int32 ItemCount = 0;
-	for (FItemData ItemData : ItemList)
+	const auto& ItemList = InventoryManager->GetItemList();
+	for (int i = 0; i < ItemList.Num(); i++)
 	{
-		if(ItemType != ItemData.TYPE)
-			continue;
-		
-		//설정된 값보다 아이템 숫가 많으면 에러
-		if (MaxInventorySlotCount <= ItemCount)
-		{
-
-			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
-			break;
-		}
-		InventorySlotList[ItemCount]->SetItemData(ItemData);
+		if(ItemType != ItemList[i].TYPE) continue;
+		InventorySlotList[i]->SetItemData(ItemList[i]);
 	}
 }
 
@@ -173,6 +160,14 @@ void UInventoryUI::SetItemData(FItemData& NewItem)
 		특정 슬로 아이템 셋
 	*/
 
+}
+
+void UInventoryUI::SetSlotType(ESlotType SlotType)
+{
+	for (auto slot : InventorySlotList)
+	{
+		slot->SetSlotType(SlotType);
+	}
 }
 
 void UInventoryUI::OnAllButtonClicked()
@@ -206,17 +201,17 @@ void UInventoryUI::SetMaxSlotCount(int32 Count)
 	RefreshUI();
 }
 
-void UInventoryUI::SelectSlot(const FItemData& Item)
+void UInventoryUI::SelectSlot(int32 SlotIndex)
 {
-	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	auto slot = Cast<UInventorySlot>(InventorySlotList[SlotIndex]);
 	if (!slot) return;
 
 	slot->OnSelected();
 }
 
-void UInventoryUI::CancelSelectSlot(const FItemData& Item)
+void UInventoryUI::CancelSelectSlot(int32 SlotIndex)
 {
-	auto slot = Cast<UInventorySlot>(InventorySlotList[Item.ITEM_SLOT_IDX]);
+	auto slot = Cast<UInventorySlot>(InventorySlotList[SlotIndex]);
 	if (!slot) return;
 
 	slot->CancelSelected();

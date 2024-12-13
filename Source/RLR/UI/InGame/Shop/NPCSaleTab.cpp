@@ -38,7 +38,7 @@ void UNPCSaleTab::OnSellClicked()
 		auto shopData = shopUI->GetShopData();
 		AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
 			{
-				for (auto& item : Cart)
+				for (auto& [slotIndex, item] : Cart)
 				{
 					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_QUANTITY);
 				}
@@ -57,9 +57,9 @@ void UNPCSaleTab::OnEmptyClicked()
 		return;
 	}
 
-	for (auto item : Cart)
+	for (auto& [slotIndex, item] : Cart)
 	{
-		Inventory->CancelSelectSlot(item);
+		Inventory->CancelSelectSlot(slotIndex);
 	}
 
 	Cart.Empty();
@@ -68,45 +68,55 @@ void UNPCSaleTab::OnEmptyClicked()
 	UpdatePage();
 }
 
-void UNPCSaleTab::AddToCart(const FItemData& item)
+void UNPCSaleTab::AddToCart(const FItemData& newItem, int32 InventorySlotIndex)
 {
-	if (Cart.Num() == MaxCartNum) return;
-
-	for (int i = 0; i < Cart.Num(); i++)
+	UNPCShopItemSlot* entry = GetItemSlotWidget(Cart.Num());
+	if (entry == nullptr)
 	{
-		//TODO: ITEM_ID vs ITEM_SEQ 어떤걸로 비교????
-		if (Cart[i].ITEM_ID == item.ITEM_ID)
-		{
-			Cart[i].ITEM_QUANTITY += item.ITEM_QUANTITY;
-
-			auto entry = GetItemSlotWidget(i);
-			if (!entry) return;
-
-			entry->SetItemData(Cart[i]);
-			entry->SetItemAmountShow(true);
-			SellPrice += item.SALE_PRICE * item.ITEM_QUANTITY;
-			UpdatePage();
-			UpdatePrice();
-			return;
-		}
+		RLR_LOG(LogRLR, Log, TEXT("entry is nullptr"));
+		return;
 	}
+	
+	Cart.Add({InventorySlotIndex, newItem});
+	SellPrice += newItem.SALE_PRICE * newItem.QUANTITY;
 
-	auto entry = GetItemSlotWidget(Cart.Num());
-	if (!entry) return;
-
-	Cart.Add(item);
-	SellPrice += item.SALE_PRICE * item.ITEM_QUANTITY;
 	UpdatePage();
 	UpdatePrice();
-	entry->SetItemData(item);
+	entry->SetItemData(newItem);
 	entry->SetItemAmountShow(true);
+
+	UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (!Inventory) return;
+
+	Inventory->SelectSlot(InventorySlotIndex);
 }
 
 void UNPCSaleTab::RemoveFromCart(const FItemData& item)
 {
-	Cart.Remove(item);
-	SellPrice -= item.ITEM_QUANTITY * item.SALE_PRICE;
-	UpdatePrice();
+	int removeIndex = -1;
+	for (int i = 0; i < Cart.Num(); i++)
+	{
+		if (item != Cart[i].Value) continue;
+
+		removeIndex = i;
+		SellPrice -= item.ITEM_VALUE * item.SALE_PRICE;
+		UpdatePrice();
+		break;
+	}
+
+	if (removeIndex != -1)
+	{
+		UInventoryUI* Inventory = GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+		if (!Inventory)
+		{
+			RLR_LOG(LogRLR, Log, TEXT("InventoryUI Is Null"));
+			return;
+		}
+
+		Inventory->CancelSelectSlot(Cart[removeIndex].Key);
+		Cart.RemoveAt(removeIndex);
+	}
+
 }
 
 void UNPCSaleTab::UpdatePage()
@@ -121,7 +131,7 @@ void UNPCSaleTab::UpdatePage()
 	for (int i = 0; i < Cart.Num(); i++)
 	{
 		auto itemWidget = Cast<UNPCShopItemSlot>(CreateWidget<UNPCShopItemSlot>(GetWorld(), itemSlotClass));
-		itemWidget->SetItemData(Cart[i]);
+		itemWidget->SetItemData(Cart[i].Value);
 		itemWidget->SetParent(this);
 		TVItem->AddItem(itemWidget);
 	}
@@ -137,11 +147,8 @@ void UNPCSaleTab::UpdatePage()
 
 UNPCShopItemSlot* UNPCSaleTab::GetItemSlotWidget(int idx)
 {
-	auto listItem = TVItem->GetItemAt(idx);
-	if (!listItem) return nullptr;
-
-	auto entry = Cast<UNPCShopItemSlot>(TVItem->GetEntryWidgetFromItem(listItem));
-	return entry;
+	auto DisplayedWidget = TVItem->GetEntryWidgetFromItem(TVItem->GetItemAt(idx));
+	return Cast<UNPCShopItemSlot>(DisplayedWidget);
 }
 
 void UNPCSaleTab::UpdatePrice()

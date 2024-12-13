@@ -38,7 +38,9 @@
 		LobbyManager
 			Lobby 관리
 		PartyManager
-			Party 관리(생성, 조회, 참가, 탈퇴)
+			Party 관리(생성, 조회, 참가, 탈퇴)		
+		StorageManager
+			창고 관리(추가, 제거, 이동)
  */
 
 class UDataManager;
@@ -60,6 +62,7 @@ class UFriendManager;
 class UPartyManager;
 class UGuildManager;
 class UTradeManager;
+class UStorageManager;
 class UEnhanceManager;
 
 UCLASS()
@@ -134,7 +137,10 @@ public:
 	UGuildManager*		GetGuildManager();
 
 	UFUNCTION(BlueprintCallable)
-	UTradeManager*		GetTradeManager();
+	UTradeManager*		GetTradeManager();	
+	
+	UFUNCTION(BlueprintCallable)
+	UStorageManager*	GetStorageManager();
 
 	UFUNCTION(BlueprintCallable)
 	UEnhanceManager*	GetEnhanceManager();

@@ -9,6 +9,7 @@
 #include "Components/Button.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Components/TextBlock.h"
 #include "Structs/UtilStructs.h"
 
 void USubUI::NativeConstruct()
@@ -88,4 +89,9 @@ void USubUI::SetPosition(FVector2D pos)
 void USubUI::CloseUIByManager()
 {
 	GetUIManager()->CloseSubUI(UITag);
+}
+
+void USubUI::SetTitle(const FString& Title) const
+{
+	TxtTitle->SetText(FText::FromString(Title));
 }
