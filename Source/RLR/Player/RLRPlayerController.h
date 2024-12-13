@@ -9,6 +9,7 @@
 #include "GameplayTagContainer.h"
 #include "RLRPlayerController.generated.h"
 
+class UAction;
 class ARLRPlayerCharacter;
 class UPlayerManager;
 class APlayerCommands;
@@ -37,6 +38,9 @@ public:
 	FVector GetClickPosition();
 
 	void InitBinding();
+
+	void StopOtherAction(FGameplayTag TriggerTag);
+	void RecoverOtherAction(FGameplayTag TriggerTag);
 
 private:
 	void OnInput();
@@ -83,4 +87,6 @@ private:
 	bool IsMove();
 
 	friend class APlayerCommands;
+
+	TWeakObjectPtr<UAction> actionSpec = nullptr;
 };

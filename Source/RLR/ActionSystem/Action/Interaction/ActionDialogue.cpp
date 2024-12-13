@@ -8,6 +8,7 @@
 #include "GameManager/GameplayTagManager.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "Player/RLRPlayerController.h"
 #include "UI/DialogueUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "RLR.h"
@@ -36,6 +37,12 @@ void UActionDialogue::ActivateAction()
 	if (Controller)
 	{
 		Controller->StopMovement();
+
+		ARLRPlayerController* PlayerController = Cast<ARLRPlayerController>(Controller);
+		if (PlayerController)
+		{
+			PlayerController->StopOtherAction(RLRTAG.Action_Default_Move);
+		}
 	}
 
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();
@@ -81,5 +88,18 @@ void UActionDialogue::OnDialogueEnded()
 	{
 		GameInstance->GetUIManager()->ClosePage();
 		EndAction();
+	}
+	
+	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
+	if (!Player) return;
+
+	AController* Controller = Player->GetController();
+	if (Controller)
+	{
+		ARLRPlayerController* PlayerController = Cast<ARLRPlayerController>(Controller);
+		if (PlayerController)
+		{
+			PlayerController->RecoverOtherAction(RLRTAG.Action_Default_Move);
+		}
 	}
 }
