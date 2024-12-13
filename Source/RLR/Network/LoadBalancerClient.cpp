@@ -3,6 +3,7 @@
 #include "SocketSubsystem.h"
 #include <Networking.h>
 #include "Handler/ClientPacketHandler.h"
+#include "GameManager/LiteralManager.h"
 
 LoadBalancerClient::LoadBalancerClient(const std::string& host, int port)
     : host(host), port(port), responseReceived(false), mainServerPort(0), monsterServerPort(0)
@@ -30,7 +31,7 @@ void LoadBalancerClient::Connect()
     Addr->SetIp(IP.Value);
     Addr->SetPort(port);
 
-    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LoadBalancerSocket"), false);
+    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.LoadBalancerClient_LoadBalancerSocket, false);
 
     if (Socket->Connect(*Addr))
     {
@@ -80,7 +81,7 @@ void LoadBalancerClient::SendRequest(int32 userSeq)
     Addr->SetIp(IP.Value);
     Addr->SetPort(port);
 
-    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, TEXT("LoadBalancerSocket"), false);
+    FSocket* Socket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.LoadBalancerClient_LoadBalancerSocket, false);
 
     if (Socket->Connect(*Addr))
     {

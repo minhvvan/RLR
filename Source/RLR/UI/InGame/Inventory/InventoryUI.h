@@ -14,6 +14,7 @@
  */
 
  class UGridPanel;
+ enum ItemType;
  class UButton;
  class UTextBlock;
  class UInventorySlot;
@@ -34,10 +35,10 @@ public:
 	void RefreshUI();
 
 	UFUNCTION(BlueprintCallable)
-	void RefreshGoldAndCashUI();
+	void RefreshPlayerGoods();
 
 	UFUNCTION(BlueprintCallable)
-	void ShowItemsByType(EItemType ItemType);
+	void ShowItemsByType(ItemType ItemType);
 
 	UFUNCTION(BlueprintCallable)
 	void SortItem();
@@ -112,7 +113,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (AllowPrivateAccess = "true"))
 	TArray<TObjectPtr<UInventorySlot>> InventorySlotList;
 
-	EItemType CurrentFilter;
+	ItemType CurrentFilter;
 
 public:
 	void SelectSlot(int32 SlotIndex);

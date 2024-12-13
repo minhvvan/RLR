@@ -4,6 +4,7 @@
 #include "ActionSystem/RLRReticle.h"
 #include "Player/RLRPlayerController.h"
 #include "Components/DecalComponent.h"
+#include "GameManager/LiteralManager.h"
 
 // Sets default values
 ARLRReticle::ARLRReticle()
@@ -11,7 +12,7 @@ ARLRReticle::ARLRReticle()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	Decal = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal"));
+	Decal = CreateDefaultSubobject<UDecalComponent>(RLRLITERAL.RLRReticle_Decal);
 	SetRootComponent(Decal);
 
 	FRotator Rot(90.f, 0.f, 0.f);

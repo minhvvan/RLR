@@ -10,6 +10,7 @@
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/NetworkManager.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -54,14 +55,14 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	{
 		if (Cart[i].ITEM_SEQ == item.ITEM_SEQ)
 		{
-			Cart[i].ITEM_VALUE += item.ITEM_VALUE;
+			Cart[i].ITEM_MAX_COUNT += item.ITEM_MAX_COUNT;
 
 			auto entry = GetCartSlotWidget(i);
 			if (!entry) return;
 
 			entry->SetItemData(Cart[i]);
 
-			PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+			PurchasePrice += item.SALE_PRICE * item.ITEM_QUANTITY;
 			UpdatePrice();
 			return;
 		}
@@ -71,7 +72,7 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 	if (!entry) return;
 
 	Cart.Add(item);
-	PurchasePrice += item.SALE_PRICE * item.ITEM_VALUE;
+	PurchasePrice += item.SALE_PRICE * item.ITEM_MAX_COUNT;
 	UpdatePrice();
 	entry->SetItemData(item);
 }
@@ -79,7 +80,7 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
 {
 	Cart.Remove(item);
-	PurchasePrice -= item.SALE_PRICE * item.ITEM_VALUE;
+	PurchasePrice -= item.SALE_PRICE * item.ITEM_MAX_COUNT;
 	UpdatePrice();
 	UpdateCart();
 }
@@ -96,7 +97,7 @@ void UNPCPurchaseTab::OnBuyClicked()
 		auto shopData = shopUI->GetShopData();
 		for (auto& item : Cart)
 		{
-			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_VALUE);
+			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_MAX_COUNT);
 		}
 	}
 
@@ -152,7 +153,7 @@ void UNPCPurchaseTab::UpdatePage()
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
-	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(TEXT("WBP_NPCItemSlot"));
+	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(RLRLITERAL.WBP_NPCItemSlot);
 	if (!itemSlotClass) return;
 
 	int idx = (CurrentPage - 1) * ItemNumPerPage;
@@ -190,7 +191,7 @@ void UNPCPurchaseTab::UpdateCart()
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
-	auto cartSlotClass = dataManager->GetWidgetClass<UNPCCartSlot>(TEXT("WBP_NPCCartSlot"));
+	auto cartSlotClass = dataManager->GetWidgetClass<UNPCCartSlot>(RLRLITERAL.WBP_NPCCartSlot);
 	if (!cartSlotClass) return;
 
 	TVCart->ClearListItems();
@@ -224,7 +225,7 @@ void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item)
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
-	auto bundlePurchaseClass = dataManager->GetWidgetClass<UNPCShopBundlePurchase>(TEXT("WBP_NPCBundlePurchase"));
+	auto bundlePurchaseClass = dataManager->GetWidgetClass<UNPCShopBundlePurchase>(RLRLITERAL.WBP_NPCBundlePurchase);
 	if (!bundlePurchaseClass) return;
 
 	auto bundleUI = CreateWidget<UNPCShopBundlePurchase>(GetWorld(), bundlePurchaseClass);

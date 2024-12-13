@@ -179,6 +179,9 @@ struct FPostResult
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FString SenderName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString PostDate;
+
 	void MakePostData(const Protocol::Post post);
 };
 

@@ -16,6 +16,7 @@
 #include "Structs/UtilStructs.h"
 #include "UI/InGame/OtherUser/OtherPlayerMenu.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "ActionSystem/Action/Action.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "RLR.h"
@@ -59,7 +60,7 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
 	timeSinceLastMovePacket += DeltaTime;
 
-	if (timeSinceLastMovePacket >= movePacketInterval)
+	if (timeSinceLastMovePacket >= movePacketInterval && IsValid(PlayerCharacter) == true )
 	{
 		FVector CurrentPosition = PlayerCharacter->GetActorLocation();
 
@@ -162,6 +163,32 @@ void ARLRPlayerController::OnMoveCompleted(FGameplayTag TriggerTag)
 	ASC->AddActionData(TriggerTag, actionData);
 
 	ASC->TryActivateAction(TriggerTag);
+}
+/* 다른 액션 중에 입력이 계속되는 액션이 있다면 아래 함수 이용하여 중지 */
+void ARLRPlayerController::StopOtherAction(FGameplayTag TriggerTag)
+{
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+
+	if (TriggerTag.MatchesTag(RLRTAG.Action_Default_Move))
+	{
+		actionSpec = ASC->GetActionInstance(TriggerTag);
+		ASC->RemoveAction(TriggerTag);
+	}
+}
+/* Action 회복 */
+void ARLRPlayerController::RecoverOtherAction(FGameplayTag TriggerTag)
+{
+	UActionSystemComponent* ASC = PlayerCharacter->GetActionSystemComponent();
+	if (!ASC) return;
+	
+
+	if (TriggerTag.MatchesTag(RLRTAG.Action_Default_Move))
+	{
+		TSubclassOf<UAction> actionClass = actionSpec->GetClass();
+		FActionSpec spec(actionClass);
+		ASC->GiveAction(TriggerTag, spec);
+	}
 }
 
 void ARLRPlayerController::OnUserClick()
@@ -274,7 +301,7 @@ void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
 	if (InventoryManager == nullptr) return;
 
-	InventoryManager->UsingItem(InputTag);
+	InventoryManager->UsingQuickSlotItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)

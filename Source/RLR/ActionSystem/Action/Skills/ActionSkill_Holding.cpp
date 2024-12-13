@@ -9,6 +9,7 @@
 #include "UI/InGame/Skill/TimerProgressBar.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/SkillManager.h"
+#include "GameManager/LiteralManager.h"
 #include "RLR.h"
 #include <ActionSystem/AnimNotify_ActivateAction.h>
 #include "Structs/SkillStructs.h"
@@ -123,12 +124,12 @@ void UActionSkill_Holding::OnAnimNotified()
 		if (TimerWidget->GetRemainingTime() > 1)
 		{
 			// HoldingLoop 섹션을 다시 반복
-			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("HoldingLoop"), ActionMontage);
+			AnimInstance->Montage_SetNextSection(RLRLITERAL.ActionSkill_Holding_HoldingLoop, RLRLITERAL.ActionSkill_Holding_HoldingLoop, ActionMontage);
 		}
 		else
 		{
 			// 남은 시간이 없으면 EndSection으로 이동
-			AnimInstance->Montage_SetNextSection(FName("HoldingLoop"), FName("EndSection"), ActionMontage);
+			AnimInstance->Montage_SetNextSection(RLRLITERAL.ActionSkill_Holding_HoldingLoop, RLRLITERAL.ActionSkill_Holding_EndSection, ActionMontage);
 		}
 	}
 }

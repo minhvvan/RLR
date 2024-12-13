@@ -12,13 +12,18 @@
 #include "UI/InGame/Post/PostOverlayUI.h"
 #include "UI/InGame/Storage/StorageUI.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Enhancement/EnhanceOverlayUI.h"
+
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/HorizontalBox.h"
 #include "Components/SizeBox.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/InventoryManager.h"
+
 #include "Structs/ObjectStructs.h"
 #include "Structs/ItemStructs.h"
 
@@ -49,6 +54,10 @@ void UDialogueUI::UpdateNPCFunctionality()
 
 			BtnBox->AddChildToHorizontalBox(NewButton);
 		}
+	}
+	if (npcData.hasEnhanceFunctionality)
+	{
+		CreateDynamicButton(3, TEXT("Enhance"), 0);
 	}
 }
 
@@ -130,6 +139,9 @@ void UDialogueUI::HandleButtonClicked(int32 ButtonType)
 		break;
 	case (int)ENPCFunctionality::STORAGE:
 		OnStorageClicked();
+		break;
+	case 3 : 
+		OnEnhanceClicked();
 		break;
 	default:
 		break;
@@ -372,5 +384,28 @@ void UDialogueUI::OnStorageClicked()
 		FVector2D inventoryPos(userStoragePos.X + UserStorageUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
 		SetInventorySlotType(ESlotType::STORAGE_INVENTORY_SLOT);
 		OpenInventory(inventoryPos);
+	}
+}
+
+void UDialogueUI::OnEnhanceClicked()
+{
+	if (bOpenEnhance)
+	{
+		bOpenEnhance = false;
+		CloseSubUI(RLRTAG.UI_Enhance);
+		ToggleNpcButtons(true);
+	}
+	else
+	{
+		bOpenEnhance = true;
+
+		UEnhanceOverlayUI* EnhanceOverlayUI = GetSubUI<UEnhanceOverlayUI>(RLRTAG.UI_Enhance);
+		if (EnhanceOverlayUI)
+		{
+			FVector2D panelPos(100.f, 100.f);
+			EnhanceOverlayUI->SetPosition(panelPos);
+			EnhanceOverlayUI->OpenUI();
+			ToggleNpcButtons(false);
+		}
 	}
 }

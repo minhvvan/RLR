@@ -42,6 +42,8 @@ void FPostResult::MakePostData(const Protocol::Post post)
 
 	PostId = post.postid();
 
+	PostDate = UTF8_TO_TCHAR(post.makedate().c_str());
+
 	SenderName = UTF8_TO_TCHAR(post.sendername().c_str());
 	ReceiverName = UTF8_TO_TCHAR(post.receivername().c_str());
 }

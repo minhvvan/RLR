@@ -4,6 +4,7 @@
 #include "Structs/SkillStructs.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/RLRStruct.h"
 
 const FSkillData FSkillData::EmptySkillData;
@@ -41,13 +42,13 @@ FString FSkillData::ToString() const
         나중에 UI에서 보여줄 정보에 따라 코드를 수정할 예정
     */
 
-    AppendString(TEXT("Name"), Name.ToString());
-    AppendString(TEXT("Job"), ECharacterMainJobTypeToString(MainJobType));
-    AppendInt(TEXT("Level"), Level);
-    AppendString(TEXT("CostType"), UEnum::GetValueAsString(CostType));
-    AppendInt(TEXT("Cost"), CostValue);
-    AppendFloat(TEXT("CoolTime"), DefaultCoolDown);
-    AppendString(TEXT("SkillInfo"), SkillInfo.ToString());
+    AppendString(RLRLITERAL.SkillStructs_Name, Name.ToString());
+    AppendString(RLRLITERAL.SkillStructs_Job, ECharacterMainJobTypeToString(MainJobType));
+    AppendInt(RLRLITERAL.SkillStructs_Level, Level);
+    AppendString(RLRLITERAL.SkillStructs_CostType, UEnum::GetValueAsString(CostType));
+    AppendInt(RLRLITERAL.SkillStructs_Cost, CostValue);
+    AppendFloat(RLRLITERAL.SkillStructs_CoolTime, DefaultCoolDown);
+    AppendString(RLRLITERAL.SkillStructs_SkillInfo, SkillInfo.ToString());
 
     return SkillString;
 }

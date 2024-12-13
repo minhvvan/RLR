@@ -4,6 +4,7 @@
 #include "UI/InGame/Popup/ItemCountMessageBox.h"
 
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 
 #include "Components/EditableTextBox.h"
 #include "Components/Button.h"
@@ -31,8 +32,8 @@ void UItemCountMessageBox::RefreshUI()
 	if(ItemData == FItemData::EmptyItemData)
 		return;
 
-	FText Text1 = STRING_TO_FTEXT("갯수 입력");
-	FText MessageTextFormat = FText::Format(FText::FromString("[{0}] {1}"), ItemData.NAME, Text1);
+	FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.ItemCountMsg_InputQuantity);
+	FText MessageTextFormat = FText::Format(FText::FromString(RLRLITERAL.MessageTextFormat), ItemData.NAME, Text1);
 	MessageText->SetText(MessageTextFormat);
 }
 
@@ -45,6 +46,7 @@ void UItemCountMessageBox::Clear()
 {
 	Super::Clear();
 	SetItemData(FItemData::EmptyItemData);
+	SetPlayerGoods(FPlayerGoods::EmptyPlayerGoods);
 	InputEditableTextBox->SetText(FText());
 }
 

@@ -80,7 +80,8 @@ public:
 	template<typename T>
 	TSubclassOf<T> GetWidgetClass(FString Name);
 
-	void OpenOtherUI(FGameplayTag Tag);
+	template<typename T>
+	TObjectPtr<T> OpenOtherUI(FGameplayTag Tag);
 
 	template<typename T>
 	TObjectPtr<T> GetSubUI(FGameplayTag Tag);
@@ -99,4 +100,10 @@ template<typename T>
 inline TObjectPtr<T> UBaseUI::GetSubUI(FGameplayTag Tag)
 {
 	return GetUIManager()->GetSubUI<T>(Tag);
+}
+
+template<typename T>
+inline TObjectPtr<T> UBaseUI::OpenOtherUI(FGameplayTag Tag)
+{
+	return Cast<T>(GetUIManager()->OpenSubUI(Tag));
 }

@@ -216,9 +216,12 @@ struct FNPCData
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TArray<FNPCShop> Shop;
 
-	/* 임시, 우편 기능을 가지고 있는지도 판별해야 함 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Functionality;
+	bool hasPostFunctionality = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool hasEnhanceFunctionality = true;
 
 	FString ToString() const
 	{

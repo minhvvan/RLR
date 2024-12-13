@@ -11,6 +11,7 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 
+#include "GameManager/LiteralManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
@@ -246,7 +247,7 @@ TSubclassOf<UDraggableWidget> USlotUI::GetDraggableWidgetClass(FString Name)
 {
 	if(Name.IsEmpty())
 	{ 
-		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UDraggableWidget>(TEXT("WBP_DraggableWidget"));
+		TSubclassOf<UDraggableWidget> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UDraggableWidget>(RLRLITERAL.WBP_DraggableWidget);
 		return RLRClass;
 	}
 	else
@@ -260,7 +261,7 @@ TSubclassOf<UBaseDragDropOperation> USlotUI::GetDragDropOperationClass(FString N
 {
 	if (Name.IsEmpty())
 	{
-		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseDragDropOperation>(TEXT("WBP_BaseDragDropOperation"));
+		TSubclassOf<UBaseDragDropOperation> RLRClass = GameInstance->GetDataManager()->GetWidgetClass<UBaseDragDropOperation>(RLRLITERAL.WBP_BaseDragDropOperation);
 		return RLRClass;
 	}
 	else
@@ -298,5 +299,5 @@ UBaseDragDropOperation* USlotUI::CheckValidAndType(UDragDropOperation* InOperati
 
 UTexture2D* USlotUI::GetDefaultSlotImage()
 {
-	return GetGameManager()->GetDataManager()->GetResource("DefaultSlotImage").Texture;
+	return GetGameManager()->GetDataManager()->GetResource(RLRLITERAL.GetDefaultSlotImage_DefaultSlotImage).Texture;
 }

@@ -15,23 +15,23 @@ void UPlayerGuildUI::NativeConstruct()
 
 	if (GuildMainButton)
 	{
-		GuildMainButton->OnClicked.AddDynamic(this, &UPlayerGuildUI::SwitchToGuildInfo);
+		GuildMainButton->OnClicked.AddUniqueDynamic(this, &UPlayerGuildUI::SwitchToGuildInfo);
 	}
 	if (GuildMemberButton)
 	{
-		GuildMemberButton->OnClicked.AddDynamic(this, &UPlayerGuildUI::SwitchToGuildMember);
+		GuildMemberButton->OnClicked.AddUniqueDynamic(this, &UPlayerGuildUI::SwitchToGuildMember);
 	}
 	if (ManageGuildButton)
 	{
-		ManageGuildButton->OnClicked.AddDynamic(this, &UPlayerGuildUI::SwitchToGuildManagement);
+		ManageGuildButton->OnClicked.AddUniqueDynamic(this, &UPlayerGuildUI::SwitchToGuildManagement);
 	}
 	if (CloseButton)
 	{
-		CloseButton->OnClicked.AddDynamic(this, &UPlayerGuildUI::CloseGuildWidget);
+		CloseButton->OnClicked.AddUniqueDynamic(this, &UPlayerGuildUI::CloseGuildWidget);
 	}
 	if (GuildReportButton)
 	{
-		GuildReportButton->OnClicked.AddDynamic(this, &UPlayerGuildUI::OpenGuildReportUI);
+		GuildReportButton->OnClicked.AddUniqueDynamic(this, &UPlayerGuildUI::OpenGuildReportUI);
 	}
 }
 

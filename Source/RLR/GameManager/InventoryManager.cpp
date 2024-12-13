@@ -23,7 +23,6 @@ void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
 	UpdatedItemSettingDelegate.Clear();
 	UpdatedTryUsingItemAction.Clear();
 	OnUpdateInventoryDelegate.Clear();
-	OnUpdateGoldAndCashDelegate.Clear();
 	OnUpdateEquipDelegate.Clear();
 
 	InventoryItemData.SetNum(50);
@@ -234,6 +233,7 @@ void UInventoryManager::SetSilver(int32 NewSilver)
 }
 
 void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
+void UInventoryManager::UsingQuickSlotItem(FGameplayTag TriggerTag)
 {
 	if (HasItemTag(TriggerTag) == false)
 		return;
@@ -260,7 +260,7 @@ const FItemData* UInventoryManager::GetQuickSlotItemData(FGameplayTag TriggerTag
 	return nullptr;
 }
 
-const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetOwnItems()
+const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetItemQuickSlots()
 {
 	return ItemQuickSlots;
 }
@@ -325,20 +325,6 @@ void UInventoryManager::OnUpdateInventoryDelegateBroadcast()
 				return;
 			}
 			OnUpdateInventoryDelegate.Broadcast();
-		});
-}
-
-void UInventoryManager::OnUpdateGoldAndCashDelegateBroadcast()
-{
-	AsyncTask(ENamedThreads::GameThread, [this]()
-		{
-			// 유효성 검사 추가
-			if (!IsValid(this))
-			{
-				DEBUG_MESSAGE;
-				return;
-			}
-			OnUpdateGoldAndCashDelegate.Broadcast();
 		});
 }
 

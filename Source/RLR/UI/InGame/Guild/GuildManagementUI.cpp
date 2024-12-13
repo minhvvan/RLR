@@ -12,15 +12,15 @@ void UGuildManagementUI::NativeConstruct()
 {
 	if (ChangeGuildNameButton)
 	{
-		ChangeGuildNameButton->OnClicked.AddDynamic(this, &UGuildManagementUI::ChangeNameButtonClicked);
+		ChangeGuildNameButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ChangeNameButtonClicked);
 	}
 	if (InviteToGuildButton)
 	{
-		InviteToGuildButton->OnClicked.AddDynamic(this, &UGuildManagementUI::InviteButtonClicked);
+		InviteToGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::InviteButtonClicked);
 	}
 	if (QuitGuildButton)
 	{
-		QuitGuildButton->OnClicked.AddDynamic(this, &UGuildManagementUI::QuitGuldButtonClicked);
+		QuitGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::QuitGuldButtonClicked);
 	}
 
 
@@ -34,7 +34,7 @@ void UGuildManagementUI::NativeConstruct()
 				DeleteGuildButton->SetVisibility(ESlateVisibility::Visible);
 				if (DeleteGuildButton)
 				{
-					DeleteGuildButton->OnClicked.AddDynamic(this, &UGuildManagementUI::DeleteGuildButtonClicked);
+					DeleteGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::DeleteGuildButtonClicked);
 				}
 			}
 			else

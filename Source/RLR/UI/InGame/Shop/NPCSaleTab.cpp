@@ -8,6 +8,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/DataManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
@@ -39,7 +40,7 @@ void UNPCSaleTab::OnSellClicked()
 			{
 				for (auto& [slotIndex, item] : Cart)
 				{
-					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_VALUE);
+					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_QUANTITY);
 				}
 			});
 
@@ -78,6 +79,7 @@ void UNPCSaleTab::AddToCart(const FItemData& newItem, int32 InventorySlotIndex)
 	
 	Cart.Add({InventorySlotIndex, newItem});
 	SellPrice += newItem.SALE_PRICE * newItem.QUANTITY;
+
 	UpdatePage();
 	UpdatePrice();
 	entry->SetItemData(newItem);
@@ -114,6 +116,7 @@ void UNPCSaleTab::RemoveFromCart(const FItemData& item)
 		Inventory->CancelSelectSlot(Cart[removeIndex].Key);
 		Cart.RemoveAt(removeIndex);
 	}
+
 }
 
 void UNPCSaleTab::UpdatePage()
@@ -121,7 +124,7 @@ void UNPCSaleTab::UpdatePage()
 	auto dataManager = GameInstance->GetDataManager();
 	if (!dataManager) return;
 
-	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(TEXT("WBP_NPCItemSlot"));
+	auto itemSlotClass = dataManager->GetWidgetClass<UNPCShopItemSlot>(RLRLITERAL.WBP_NPCItemSlot);
 	if (!itemSlotClass) return;
 
 	TVItem->ClearListItems();

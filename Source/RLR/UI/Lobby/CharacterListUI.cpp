@@ -28,7 +28,7 @@ void UCharacterListUI::Init()
 {
 	Super::Init();
 
-	TSubclassOf<UCharacterListElement> ListElementClass = GetWidgetClass<UCharacterListElement>("WBP_CharacterListElement");
+	TSubclassOf<UCharacterListElement> ListElementClass = GetWidgetClass<UCharacterListElement>(RLRLITERAL.WBP_CharacterListElement);
 	if (IsValid(ListElementClass) == false)
 	{
 		DEBUG_MESSAGE;
@@ -114,7 +114,7 @@ void UCharacterListUI::SpawnSelectedElementCharacter(const FUserCharacter& Data)
 		하지만 지금은 알 수 없으므로 일단 기본 캐릭터 소환.
 	*/
 
-	TSubclassOf<ARLRCharacter> SpawnCharacterClass = GameInstance->GetDataManager()->GetObjectClass<ARLRCharacter>("BP_DefaultPlayer");
+	TSubclassOf<ARLRCharacter> SpawnCharacterClass = GameInstance->GetDataManager()->GetObjectClass<ARLRCharacter>(RLRLITERAL.BP_DefaultPlayer);
 	if (IsValid(SpawnCharacterClass) == false)
 	{
 		DEBUG_MESSAGE;

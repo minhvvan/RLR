@@ -58,7 +58,7 @@ void UEquipmentUI::EquipItem(FItemData ItemData)
 {
 
 	//장비 아이템이 아니면 리턴한다.
-	if(ItemData.TYPE != EItemType::EQUIPMENT)
+	if(ItemData.TYPE != ItemType::Equip)
 		return;
 
 	EEquipmentType EquipType = ItemData.EQUIPMENT_TYPE;

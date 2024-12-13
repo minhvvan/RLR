@@ -63,6 +63,7 @@ class UPartyManager;
 class UGuildManager;
 class UTradeManager;
 class UStorageManager;
+class UEnhanceManager;
 
 UCLASS()
 class RLR_API UGameManager : public UGameInstance
@@ -140,6 +141,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	UStorageManager*	GetStorageManager();
+
+	UFUNCTION(BlueprintCallable)
+	UEnhanceManager*	GetEnhanceManager();
 
 	UFUNCTION(BlueprintCallable)
 	void SaveGameOption();

@@ -5,6 +5,7 @@
 #include "ActionSystem/ActionTask/ActionTask_PlayMontage.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Player/RLRPlayerController.h"
+#include "GameManager/LiteralManager.h"
 
 UActionPlayMontage::UActionPlayMontage()
 {
@@ -29,7 +30,7 @@ void UActionPlayMontage::ActivateAction()
 
 	Controller->StopMovement();
 
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayAnim"), ActionMontage);
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, RLRLITERAL.ActionPlayMontage_PlayAnim, ActionMontage);
 	AT->OnCompleted.AddDynamic(this, &UActionPlayMontage::OnCompletePlayMontage);
 
 	AT->ReadyForActivation();

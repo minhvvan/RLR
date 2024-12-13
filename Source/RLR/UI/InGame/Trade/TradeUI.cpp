@@ -15,7 +15,8 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/InventoryManager.h"
 #include "GameManager/NetworkManager.h"
-#include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
+#include "GameManager/PlayerManager.h"
 #include "GameManager/OtherUserManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/TradeManager.h"
@@ -65,7 +66,7 @@ void UTradeUI::OpenUI()
 	/*
 		개인 거래 UI가 열렸을 때, 인벤토리에서 아이템을 누르면 아이템 올라가게 이벤트를 추가해준다.
 	*/
-	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("OnClickedInventorySlot"));
+	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnClickedInventorySlot);
 }
 
 void UTradeUI::Clear()
@@ -111,15 +112,14 @@ void UTradeUI::HandleTradeUserResponse(int32 UserSeq)
 	*/
 	AsyncTask(ENamedThreads::GameThread, [this, UserSeq]()
 	{
-		UConfirmMessageBox* ConfirmMessageBox = GetSubUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
+		UConfirmMessageBox* ConfirmMessageBox = OpenOtherUI<UConfirmMessageBox>(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		if (IsValid(ConfirmMessageBox) == false) return;
 			
-		OpenOtherUI(FGameplayTagManager::Get().UI_Popup_ConfirmMessageBox);
 		ConfirmMessageBox->Clear();
 
 		//클릭, 취소 버튼 콜백 함수 등록
-		ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnClickedAcceptButton"));
-		ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnClickedCancelButton"));
+		ConfirmMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnClickedAcceptButton);
+		ConfirmMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnClickedCancelButton);
 
 		ARLRPlayerCharacter* From = GameInstance->GetOtherUserManager()->GetPlayer(UserSeq);
 		if(IsValid(From) == false)
@@ -131,12 +131,12 @@ void UTradeUI::HandleTradeUserResponse(int32 UserSeq)
 
 		//데이터 저장
 		FEtcPropertyData FromData;
-		FromData.EtcStringMap.Add("NickName", FromStat->GetNickName());
-		FromData.EtcIntMap.Add("UserSeq", FromStat->GetUserSeq());
-		ConfirmMessageBox->EtcPropertyMap.Add("From", FromData);
+		FromData.EtcStringMap.Add(RLRLITERAL.TradeUI_Nickname, FromStat->GetNickName());
+		FromData.EtcIntMap.Add(RLRLITERAL.TradeUI_UserSeq, FromStat->GetUserSeq());
+		ConfirmMessageBox->EtcPropertyMap.Add(RLRLITERAL.TradeUI_From, FromData);
 
 		FString NickName = FromStat->GetNickName();
-		FText Text1 = STRING_TO_FTEXT("가 거래를 신청했습니다");
+		FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeRequest);
 		FText MessageTextFormat = FText::Format(
 			FText::FromString(TEXT("[{0}]{1}")),
 			FText::FromString(NickName),
@@ -165,7 +165,7 @@ void UTradeUI::HandleTradeStartResponse(int32 UserSeq1, FString UserName1, int32
 
 			Clear();
 			GetUIManager()->OpenSubUI(FGameplayTagManager::Get().UI_Trade);
-			GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("OnClickedInventorySlot"));
+			GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnClickedInventorySlot);
 		});
 }
 
@@ -260,12 +260,12 @@ void UTradeUI::HandleTradeCompleteResponse()
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
 			//거래가 성공했다는 알림을 띄운다.
-			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
-			if (IsValid(NotificationMessageBox) == false) return;
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
+			if (IsValid(NotificationMessageBox) == false) 
+				return;
 
-			OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 			NotificationMessageBox->Clear();
-			NotificationMessageBox->SetMessageText(TEXT("거래를 성공했습니다"));
+			NotificationMessageBox->SetMessageText(RLRLITERAL.TradeUI_TradeSuccess);
 
 			CloseUI();
 		});
@@ -391,12 +391,12 @@ void UTradeUI::HandleTradeCanceledByTarget()
 	AsyncTask(ENamedThreads::GameThread, [this]()
 		{
 			//거래가 취소 되었다는 알림 UI를 띄운다.
-			UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
-			if (IsValid(NotificationMessageBox) == false) return;
-
-			OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
+			if(IsValid(NotificationMessageBox) == false)
+				return;
+			
 			NotificationMessageBox->Clear();
-			NotificationMessageBox->SetMessageText(TEXT("상대가 거래를 취소했습니다"));
+			NotificationMessageBox->SetMessageText(RLRLITERAL.TradeUI_TradeCanceled);
 
 			CloseUI();
 		});
@@ -430,10 +430,10 @@ void UTradeUI::SetTradeUnLock(bool IsSelf)
 
 void UTradeUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
 {
-	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find("From");
+	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find(RLRLITERAL.TradeUI_From);
 	if(FromData == nullptr)
 		return;
-	int32* FromUserSeq = FromData->EtcIntMap.Find("UserSeq");
+	int32* FromUserSeq = FromData->EtcIntMap.Find(RLRLITERAL.TradeUI_UserSeq);
 	if(FromUserSeq == nullptr)
 		return;
 	GetNetworkManager()->SendTradeStartReqeust(*FromUserSeq);
@@ -441,19 +441,18 @@ void UTradeUI::OnClickedAcceptButton(UConfirmMessageBox* MessageBox)
 
 void UTradeUI::OnClickedCancelButton(UConfirmMessageBox* MessageBox)
 {
-	UNotificationMessageBox* NotificationMessageBox = GetSubUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
+	UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
 	if (IsValid(NotificationMessageBox) == false) return;
 
-	OpenOtherUI(RLRTAG.UI_Popup_NotificationMessageBox);
 	NotificationMessageBox->Clear();
 
-	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find("From");
+	FEtcPropertyData* FromData = MessageBox->EtcPropertyMap.Find(RLRLITERAL.TradeUI_From);
 	if (FromData == nullptr)
 		return;
-	FString FromNickName = FromData->EtcStringMap["NickName"];
+	FString FromNickName = FromData->EtcStringMap[RLRLITERAL.TradeUI_Nickname];
 	if (FromNickName.IsEmpty())
 		return;
-	FText Text1 = STRING_TO_FTEXT("거래를 거절했습니다");
+	FText Text1 = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_TradeDenied);
 	FText MessageTextFormat = FText::Format(
 		FText::FromString(TEXT("[{0}] {1}")),
 		FText::FromString(FromNickName),
@@ -477,18 +476,16 @@ void UTradeUI::OnClickedInventorySlot(const FItemData& NewTradeItem)
 	/*
 		아이템 갯수를 입력 받는 메시지 박스를 띄운다.
 	*/
-	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
+	UItemCountMessageBox* ItemCountMessageBox = OpenOtherUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	OpenOtherUI(RLRTAG.UI_Popup_ItemCountMessageBox);
-
 	ItemCountMessageBox->Clear();
-	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
-	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnCancelItemCountMessageBox"));
+	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnConfirmItemCountMessageBox);
+	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnCancelItemCountMessageBox);
 
 	ItemCountMessageBox->SetItemData(NewTradeItem);
 	ItemCountMessageBox->RefreshUI();
@@ -504,24 +501,56 @@ void UTradeUI::OnConfirmItemCountMessageBox(UItemCountMessageBox* MessageBox)
 
 	const FItemData& ItemData = MessageBox->GetItemData();
 	int32 ItemCount = MessageBox->GetItemCount();
+	const FPlayerGoods& PlayerGoods = MessageBox->GetPlayerManager()->GetPlayerGood();
+	int32 TotalMoney = PlayerGoods.TotalMoney;
 
 	//아무런 정보도 없으면 리턴
-	if (ItemData == FItemData::EmptyItemData)
+	if (ItemData == FItemData::EmptyItemData && PlayerGoods == FPlayerGoods::EmptyPlayerGoods)
 	{
 		return;
 	}
 
-	// 아이템, 재화 분류
-	if(ItemData.TYPE != EItemType::TotalMoney)
+
+	// 아이템 
+	if (ItemData != FItemData::EmptyItemData)
 	{
 		if (ItemCount < 1)
 			ItemCount = 1;
 
+		//입력된 수량이 현재 내가 소유한 수량보다 많은지 클라이언트 단계에서 확인
+		const FItemData& MyItemData = GetInventoryManager()->GetItem(ItemData.ITEM_ID);
+		if (MyItemData == FItemData::EmptyItemData || ItemCount > MyItemData.ITEM_QUANTITY)
+		{
+			//보낼 수 없는 수량을 입력할 경우 경고 메시지
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
+			if (IsValid(NotificationMessageBox) == false)
+				return;
+
+			NotificationMessageBox->Clear();
+			NotificationMessageBox->SetMessageText(RLRLITERAL.TradeUI_InputExceedsCurrentQuantity);
+			return;
+		}
+
 		SendTradeAddItemBySelf(ItemData, ItemCount);
 	}
-	else if (ItemData.TYPE == EItemType::TotalMoney)
+
+	// 재화
+	if (PlayerGoods != FPlayerGoods::EmptyPlayerGoods)
 	{
-		SendTradeAddGoodBySelf(ItemCount);
+		//입력된 수량이 현재 내가 소유한 수량보다 많은지 클라이언트 단계에서 확인
+		const FPlayerGoods& MyPlayerGoods = GetPlayerManager()->GetPlayerGood();
+		if (TotalMoney > MyPlayerGoods.TotalMoney)
+		{
+			//보낼 수 없는 수량을 입력할 경우 경고 메시지
+			UNotificationMessageBox* NotificationMessageBox = OpenOtherUI<UNotificationMessageBox>(RLRTAG.UI_Popup_NotificationMessageBox);
+			if (IsValid(NotificationMessageBox) == false)
+				return;
+			NotificationMessageBox->Clear();
+			NotificationMessageBox->SetMessageText(RLRLITERAL.TradeUI_InputExceedsCurrentQuantity);
+			return;
+		}
+
+		SendTradeAddGoodBySelf(TotalMoney);
 	}
 }
 
@@ -537,23 +566,22 @@ void UTradeUI::OnClickedAddGoldButton()
 	/*
 		얼마나 입력할지 수량 입력 박스 띄우기
 	*/
-	UItemCountMessageBox* ItemCountMessageBox = GetSubUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
+	UItemCountMessageBox* ItemCountMessageBox = OpenOtherUI<UItemCountMessageBox>(RLRTAG.UI_Popup_ItemCountMessageBox);
 	if (IsValid(ItemCountMessageBox) == false)
 	{
 		DEBUG_MESSAGE;
 		return;
 	}
 
-	OpenOtherUI(RLRTAG.UI_Popup_ItemCountMessageBox);
-
 	ItemCountMessageBox->Clear();
-	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, FName("OnConfirmItemCountMessageBox"));
-	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, FName("OnCancelItemCountMessageBox"));
+	ItemCountMessageBox->OnConfirmButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnConfirmItemCountMessageBox);
+	ItemCountMessageBox->OnCancelButtonClickedDelegate.BindUFunction(this, RLRLITERAL.TradeUI_OnCancelItemCountMessageBox);
 
+	//UI 출력을 위한 더미 데이터.
 	FItemData DummyData = FItemData(); 
-	DummyData.ITEM_SEQ = (int32)EItemType::TotalMoney;
-	DummyData.TYPE = EItemType::TotalMoney;
-	DummyData.NAME = STRING_TO_FTEXT("골드");
+	DummyData.ITEM_SEQ = -10;
+	DummyData.TYPE = (int32)EItemType::NONE;
+	DummyData.NAME = FSTRING_TO_FTEXT(RLRLITERAL.TradeUI_Gold);
 	ItemCountMessageBox->SetItemData(DummyData);
 	ItemCountMessageBox->RefreshUI();
 }

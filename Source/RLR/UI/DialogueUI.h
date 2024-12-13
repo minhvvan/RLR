@@ -102,6 +102,12 @@ protected:
 
 	UFUNCTION()
 	void HandleButtonClicked(int32 ButtonType);
+	
+  UFUNCTION()
+  void OnEnhanceClicked();
+
+	UFUNCTION()
+	void HandleButtonClicked(int32 ButtonType, int32 ButtonIdx);
 
 	UFUNCTION()
 	void CloseQuestDialogue();
@@ -118,4 +124,9 @@ private:
 
 	int32 CurrentNPCSeq;
 	int32 CurrentOpenQuest;
+
+	bool bOpenShop;
+	bool bOpenPost;
+	bool bOpenEnhance;
+	bool bOpenQuestDialogue;
 };

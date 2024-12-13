@@ -37,7 +37,6 @@ public:
 
 	const FItemData& GetItem(int32 Item_ID);
 	const TArray<FItemData>& GetItemList() const;
-	
 	void RemoveItem(int32 Item_ID);
 	void RemoveItem(int32 Item_ID, int Amount);
 
@@ -87,6 +86,7 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	int32 Platinum;
 
+
 	//<DB Key , FItemData>		플레이어의 인벤토리 데이터
 	TArray<FItemData> InventoryItemData;
 
@@ -108,10 +108,6 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FUpdateInventoryManager OnUpdateInventoryDelegate;
 	void OnUpdateInventoryDelegateBroadcast();
-
-	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
-	FUpdateInventoryManager OnUpdateGoldAndCashDelegate;
-	void OnUpdateGoldAndCashDelegateBroadcast();
 
 	UPROPERTY()
 	FUpdateEquip OnUpdateEquipDelegate;

@@ -5,6 +5,7 @@
 #include "RLRObjects/Characters/RLRCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 #include "Structs/SkillStructs.h"
 #include "RLR.h"
 
@@ -15,7 +16,7 @@ static bool SortByEndtime(const FAbnormalTimer& a, const FAbnormalTimer& b)
 
 UStatSet::UStatSet()
 {
-	ConstructorHelpers::FObjectFinder<UDataTable> TABLE(TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_AbnormalMark.DT_AbnormalMark'"));
+	ConstructorHelpers::FObjectFinder<UDataTable> TABLE(*RLRLITERAL.DT_AbnormalMark_Path);
 	if (TABLE.Succeeded())
 	{
 		AbnoramlMarkTable = TABLE.Object;
@@ -102,7 +103,7 @@ FAbnormalTimer* UStatSet::GetTimerTop()
 
 const FAbnormalMark* UStatSet::GetAbnormalMark(int AbnormalType)
 {
-	const FAbnormalMark* Data = AbnoramlMarkTable->FindRow<FAbnormalMark>(*FString::FromInt(AbnormalType), TEXT(""));
+	const FAbnormalMark* Data = AbnoramlMarkTable->FindRow<FAbnormalMark>(*FString::FromInt(AbnormalType), RLRLITERAL.StatSet_EmptyString);
 	if (Data == nullptr)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("Not Found AbnormalMark"));

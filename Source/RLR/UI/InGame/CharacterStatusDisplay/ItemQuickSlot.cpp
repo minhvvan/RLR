@@ -79,7 +79,7 @@ bool UItemQuickSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 		return false;
 
 	//받은 아이템 정보가 소모품이 아닐 경우, 응답하지 않는다.
-	if(Operation->ItemData.TYPE != EItemType::CONSUMPTION)
+	if(Operation->ItemData.TYPE != ItemType::Consumption)
 		return false;
 
 	//인벤토리에서 드래그 된 거면 아이템 정보만 설정해주고,

@@ -10,13 +10,16 @@
 #include "GameManager/InventoryManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/EnhanceManager.h"
+#include "GameManager/PlayerManager.h"
+#include "GameManager/LiteralManager.h"
 #include "Structs/UtilStructs.h"
 #include "Structs/ItemStructs.h"
 
 UInventoryUI::UInventoryUI(const FObjectInitializer& ObjectInitializer):
 	MaxColumm(8),
 	MaxInventorySlotCount(32),
-	CurrentFilter(EItemType::NONE)
+	CurrentFilter(ItemType::None)
 {
 }
 
@@ -26,13 +29,11 @@ void UInventoryUI::NativeConstruct()
 
 	SetUITag(RLRTAG.UI_Inventory);
 
-	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-
-	if (IsValid(InventoryManager) == false)
-		return;
+	UInventoryManager*	InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
+	UPlayerManager*		PlayerManager = GetPlayerManager();
 
 	InventoryManager->OnUpdateInventoryDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshUI);
-	InventoryManager->OnUpdateGoldAndCashDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshGoldAndCashUI);
+	PlayerManager->UpdatePlayerManagerDelegate.AddUniqueDynamic(this, &UInventoryUI::RefreshPlayerGoods);
 
 	AllButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnAllButtonClicked);
 	EquipmentButton->OnClicked.AddUniqueDynamic(this, &UInventoryUI::OnEquipmentButtonClicked);
@@ -47,7 +48,7 @@ void UInventoryUI::Init()
 
 	//슬롯 생성
 	InventorySlotList.Init(nullptr, MaxInventorySlotCount);
-	TSubclassOf<UInventorySlot> InventorySlotClass = GetWidgetClass<UInventorySlot>("WBP_InventorySlot");
+	TSubclassOf<UInventorySlot> InventorySlotClass = GetWidgetClass<UInventorySlot>(RLRLITERAL.WBP_InventorySlot);
 	if(IsValid(InventorySlotClass) == false)
 	{ 
 		DEBUG_MESSAGE;
@@ -73,7 +74,7 @@ void UInventoryUI::Init()
 void UInventoryUI::RefreshUI()
 {
 	//장비창, 소모품창, 기타창 같이 따로 탭을 누르고 있는 중에는 전체 RefreshUI를 해주지 않는다.
-	if (CurrentFilter != EItemType::NONE)
+	if (CurrentFilter != ItemType::None)
 	{
 		ShowItemsByType(CurrentFilter);
 		return;
@@ -84,6 +85,9 @@ void UInventoryUI::RefreshUI()
 	for (UInventorySlot* ItemSlot : InventorySlotList)
 	{
 		ItemSlot->Clear();
+
+		/* 강화 장비 배열도 초기화 */
+		GameInstance->GetEnhanceManager()->EquipItemList.Empty();
 	}
 
 	//인벤토리 매니저가 들고 있는 데이터를  UI로 출력한다.
@@ -93,23 +97,35 @@ void UInventoryUI::RefreshUI()
 		if(i >= MaxInventorySlotCount || i < 0 ) continue;
 		
 		InventorySlotList[i]->SetItemData(ItemList[i]);
+		//설정된 값보다 아이템 수가 많으면 에러
+		if (MaxInventorySlotCount <= ItemCount)
+		{
+			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
+			break;
+		}
+
+		ItemCount++;
+
+		/* 강화 장비 배열에 추가 */
+		if (ItemData.TYPE == ItemType::Equip)
+		{
+			GameInstance->GetEnhanceManager()->EquipItemList.Add(ItemData);
+		}
 	}
 }
 
-void UInventoryUI::RefreshGoldAndCashUI()
+void UInventoryUI::RefreshPlayerGoods()
 {
-	UInventoryManager* InventoryManager = GetGameInstance()->GetSubsystem<UInventoryManager>();
-	if (IsValid(InventoryManager) == false)
-		return;
+	UPlayerManager* PlayerManager = GetPlayerManager();
 
-	FText NewGold = FText::FromString(FString::FromInt(InventoryManager->GetGold()));
+	FText NewGold = FText::FromString(FString::FromInt(PlayerManager->GetPlayerGood().TotalMoney));
 	GoldText->SetText(NewGold);
 
-	FText NewSilber = FText::FromString(FString::FromInt(InventoryManager->GetSilver()));
+	FText NewSilber = FText::FromString(FString::FromInt(PlayerManager->GetPlayerGood().Diamond));
 	SilberText->SetText(NewSilber);
 }
 
-void UInventoryUI::ShowItemsByType(EItemType ItemType)
+void UInventoryUI::ShowItemsByType(ItemType ItemType)
 {
 	/*
 		선택된 속성의 아이템들만 보여준다.
@@ -156,26 +172,26 @@ void UInventoryUI::SetSlotType(ESlotType SlotType)
 
 void UInventoryUI::OnAllButtonClicked()
 {
-	CurrentFilter = EItemType::NONE;
+	CurrentFilter = ItemType::None;
 	RefreshUI();
 }
 
 void UInventoryUI::OnEquipmentButtonClicked()
 {
-	CurrentFilter = EItemType::EQUIPMENT;
-	ShowItemsByType(EItemType::EQUIPMENT);
+	CurrentFilter = ItemType::Equip;
+	ShowItemsByType(ItemType::Equip);
 }
 
 void UInventoryUI::OnConsumableButtonClicked()
 {
-	CurrentFilter = EItemType::CONSUMPTION;
-	ShowItemsByType(EItemType::CONSUMPTION);
+	CurrentFilter = ItemType::Consumption;
+	ShowItemsByType(ItemType::Consumption);
 }
 
 void UInventoryUI::OnEtcItemButtonClicked()
 {
-	CurrentFilter = EItemType::ETC;
-	ShowItemsByType(EItemType::ETC);
+	CurrentFilter = ItemType::Etc;
+	ShowItemsByType(ItemType::Etc);
 }
 
 void UInventoryUI::SetMaxSlotCount(int32 Count)

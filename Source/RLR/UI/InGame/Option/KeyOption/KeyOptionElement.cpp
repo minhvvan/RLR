@@ -6,6 +6,7 @@
 #include "Components/TextBlock.h"
 #include "Components/InputKeySelector.h"
 #include "GameManager/GameplayTagManager.h"
+#include "GameManager/LiteralManager.h"
 
 /*
 
@@ -62,7 +63,7 @@ void UKeyOptionElement::ApplyInputTagOptions()
 	*/
 
 
-	FText FirstKey = FText::Format(FText::FromString("Input.{0}"), InputTagKeySelector_1->GetSelectedKey().GetKeyText(true));
+	FText FirstKey = FText::Format(FText::FromString(RLRLITERAL.FirstKey_InputFormat), InputTagKeySelector_1->GetSelectedKey().GetKeyText(true));
 	//FText SecondKey = FText::Format(FText::FromString("Input.{0}"), InputTagKeySelector_2->GetKeySelectionText());
 
 	FGameplayTag FindTag = UGameplayTagsManager::Get().RequestGameplayTag(FName(*FirstKey.ToString()), false);

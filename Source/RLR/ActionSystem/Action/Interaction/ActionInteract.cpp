@@ -7,6 +7,7 @@
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "Player/RLRPlayerController.h"
 #include "UI/InGame/Skill/TimerProgressBar.h"
+#include "GameManager/LiteralManager.h"
 #include "RLR.h"
 
 UActionInteract::UActionInteract()
@@ -88,7 +89,7 @@ void UActionInteract::PlayActionMontage()
 	float montageLength = InteractAnim->GetPlayLength();
 	float startTime = montageLength - 2.f;
 
-	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, TEXT("PlayInteractAnim"), InteractAnim, 1.f, NAME_None, true, 1.f, startTime);
+	UActionTask_PlayMontage* AT = UActionTask_PlayMontage::CreatePlayMontageTask(this, RLRLITERAL.ActionInteract_PlayInteractAnim, InteractAnim, 1.f, NAME_None, true, 1.f, startTime);
 	AT->OnCompleted.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
 	AT->OnCancelled.AddDynamic(this, &ThisClass::OnCompletePlayMontage);
 

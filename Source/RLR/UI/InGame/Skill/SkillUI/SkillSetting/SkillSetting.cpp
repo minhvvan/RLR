@@ -103,7 +103,7 @@ void USkillSetting::LoadQuickSlotData()
 	for(int32 CurrentSlotIndex = 0; CurrentSlotIndex < QuickSlotMaxCount; CurrentSlotIndex++ )
 	{
 
-		FText FirstKey = FText::Format(FText::FromString("Action.Skill.{0}"), CurrentSlotIndex+1);
+		FText FirstKey = FText::Format(FText::FromString(RLRLITERAL.FirstKey_LoadSkill_Format), CurrentSlotIndex+1);
 		//현재는 그냥 Q,W,E,R 키만 되어 있는데, 나중에 필요하면 Shift + Q 이런거 필요할 때를 위해 SecondKey 흔적만 남겨둔다..
 		//FText SecondKey = FText::Format(FText::FromString("Input.{0}"), InputTagKeySelector_2->GetKeySelectionText());
 

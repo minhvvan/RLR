@@ -44,7 +44,7 @@ public:
 	template<typename T>
 	TObjectPtr<T> GetSubUI(FGameplayTag UITag);
 
-	void OpenSubUI(FGameplayTag UITag);
+	USubUI* OpenSubUI(FGameplayTag UITag);
 	void CloseSubUI(FGameplayTag UITag);
 
 	template<typename T>

@@ -11,6 +11,8 @@
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
 #include "GameManager/InventoryManager.h"
+#include "GameManager/LiteralManager.h"
+#include "GameManager/UIManager.h"
 
 void UNPCShopUI::NativeConstruct()
 {
@@ -84,5 +86,5 @@ void UNPCShopUI::OnPurchaseClicked()
 void UNPCShopUI::OnSaleClicked()
 {
 	TabSwitcher->SetActiveWidgetIndex(TabIndex::ESale);
-	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, FName("AddSaleItem"));
+	GetInventoryManager()->OnInventorySlotClickedDelegate.BindUFunction(this, RLRLITERAL.FunctionName_AddSaleItem);
 }

@@ -301,9 +301,9 @@ class Item final :
     return *internal_default_instance();
   }
   enum ItemDetailCase {
-    kEquip = 13,
-    kConsumption = 14,
-    kEtcItem = 15,
+    kEquip = 11,
+    kConsumption = 12,
+    kEtcItem = 13,
     ITEM_DETAIL_NOT_SET = 0,
   };
 
@@ -386,20 +386,18 @@ class Item final :
 
   enum : int {
     kNameFieldNumber = 2,
-    kTypeFieldNumber = 3,
     kTextFieldNumber = 8,
     kItemSeqFieldNumber = 1,
+    kTypeFieldNumber = 3,
     kRankFieldNumber = 4,
-    kEquipLevelFieldNumber = 5,
+    kUSELevelFieldNumber = 5,
     kSalePriceFieldNumber = 6,
     kUsePeriodFieldNumber = 7,
-    kItemValueFieldNumber = 9,
-    kItemIdFieldNumber = 11,
-    kItemMaxFieldNumber = 10,
-    kItemSlotIdxFieldNumber = 12,
-    kEquipFieldNumber = 13,
-    kConsumptionFieldNumber = 14,
-    kEtcItemFieldNumber = 15,
+    kItemIdFieldNumber = 9,
+    kItemSlotIdxFieldNumber = 10,
+    kEquipFieldNumber = 11,
+    kConsumptionFieldNumber = 12,
+    kEtcItemFieldNumber = 13,
   };
   // string name = 2;
   void clear_name();
@@ -413,20 +411,6 @@ class Item final :
   const std::string& _internal_name() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
   std::string* _internal_mutable_name();
-  public:
-
-  // string type = 3;
-  void clear_type();
-  const std::string& type() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_type(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_type();
-  PROTOBUF_NODISCARD std::string* release_type();
-  void set_allocated_type(std::string* type);
-  private:
-  const std::string& _internal_type() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_type(const std::string& value);
-  std::string* _internal_mutable_type();
   public:
 
   // string text = 8;
@@ -452,6 +436,15 @@ class Item final :
   void _internal_set_itemseq(int32_t value);
   public:
 
+  // int32 type = 3;
+  void clear_type();
+  int32_t type() const;
+  void set_type(int32_t value);
+  private:
+  int32_t _internal_type() const;
+  void _internal_set_type(int32_t value);
+  public:
+
   // int32 rank = 4;
   void clear_rank();
   int32_t rank() const;
@@ -461,13 +454,13 @@ class Item final :
   void _internal_set_rank(int32_t value);
   public:
 
-  // int32 equipLevel = 5;
-  void clear_equiplevel();
-  int32_t equiplevel() const;
-  void set_equiplevel(int32_t value);
+  // int32 USELevel = 5;
+  void clear_uselevel();
+  int32_t uselevel() const;
+  void set_uselevel(int32_t value);
   private:
-  int32_t _internal_equiplevel() const;
-  void _internal_set_equiplevel(int32_t value);
+  int32_t _internal_uselevel() const;
+  void _internal_set_uselevel(int32_t value);
   public:
 
   // int32 salePrice = 6;
@@ -488,16 +481,7 @@ class Item final :
   void _internal_set_useperiod(int32_t value);
   public:
 
-  // int32 itemValue = 9;
-  void clear_itemvalue();
-  int32_t itemvalue() const;
-  void set_itemvalue(int32_t value);
-  private:
-  int32_t _internal_itemvalue() const;
-  void _internal_set_itemvalue(int32_t value);
-  public:
-
-  // int64 itemId = 11;
+  // int64 itemId = 9;
   void clear_itemid();
   int64_t itemid() const;
   void set_itemid(int64_t value);
@@ -506,16 +490,7 @@ class Item final :
   void _internal_set_itemid(int64_t value);
   public:
 
-  // int32 itemMax = 10;
-  void clear_itemmax();
-  int32_t itemmax() const;
-  void set_itemmax(int32_t value);
-  private:
-  int32_t _internal_itemmax() const;
-  void _internal_set_itemmax(int32_t value);
-  public:
-
-  // int32 itemSlotIdx = 12;
+  // int32 itemSlotIdx = 10;
   void clear_itemslotidx();
   int32_t itemslotidx() const;
   void set_itemslotidx(int32_t value);
@@ -524,7 +499,7 @@ class Item final :
   void _internal_set_itemslotidx(int32_t value);
   public:
 
-  // .Protocol.Equip equip = 13;
+  // .Protocol.Equip equip = 11;
   bool has_equip() const;
   private:
   bool _internal_has_equip() const;
@@ -542,7 +517,7 @@ class Item final :
       ::Protocol::Equip* equip);
   ::Protocol::Equip* unsafe_arena_release_equip();
 
-  // .Protocol.Consumption consumption = 14;
+  // .Protocol.Consumption consumption = 12;
   bool has_consumption() const;
   private:
   bool _internal_has_consumption() const;
@@ -560,7 +535,7 @@ class Item final :
       ::Protocol::Consumption* consumption);
   ::Protocol::Consumption* unsafe_arena_release_consumption();
 
-  // .Protocol.EtcItem etcItem = 15;
+  // .Protocol.EtcItem etcItem = 13;
   bool has_etcitem() const;
   private:
   bool _internal_has_etcitem() const;
@@ -595,16 +570,14 @@ class Item final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr type_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
     int32_t itemseq_;
+    int32_t type_;
     int32_t rank_;
-    int32_t equiplevel_;
+    int32_t uselevel_;
     int32_t saleprice_;
     int32_t useperiod_;
-    int32_t itemvalue_;
     int64_t itemid_;
-    int32_t itemmax_;
     int32_t itemslotidx_;
     union ItemDetailUnion {
       constexpr ItemDetailUnion() : _constinit_{} {}
@@ -1083,6 +1056,8 @@ class Consumption final :
     kStatusTypeFieldNumber = 5,
     kConTypeFieldNumber = 6,
     kConIndexFieldNumber = 7,
+    kItemQuantityFieldNumber = 8,
+    kItemMaxCountFieldNumber = 9,
   };
   // .Protocol.Item base = 1;
   bool has_base() const;
@@ -1156,6 +1131,24 @@ class Consumption final :
   void _internal_set_conindex(int32_t value);
   public:
 
+  // int32 itemQuantity = 8;
+  void clear_itemquantity();
+  int32_t itemquantity() const;
+  void set_itemquantity(int32_t value);
+  private:
+  int32_t _internal_itemquantity() const;
+  void _internal_set_itemquantity(int32_t value);
+  public:
+
+  // int32 itemMaxCount = 9;
+  void clear_itemmaxcount();
+  int32_t itemmaxcount() const;
+  void set_itemmaxcount(int32_t value);
+  private:
+  int32_t _internal_itemmaxcount() const;
+  void _internal_set_itemmaxcount(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.Consumption)
  private:
   class _Internal;
@@ -1171,6 +1164,8 @@ class Consumption final :
     int32_t statustype_;
     int32_t contype_;
     int32_t conindex_;
+    int32_t itemquantity_;
+    int32_t itemmaxcount_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1301,6 +1296,8 @@ class EtcItem final :
   enum : int {
     kBaseFieldNumber = 1,
     kEtcTypeFieldNumber = 2,
+    kItemQuantityFieldNumber = 3,
+    kItemMaxCountFieldNumber = 4,
   };
   // .Protocol.Item base = 1;
   bool has_base() const;
@@ -1329,6 +1326,24 @@ class EtcItem final :
   void _internal_set_etctype(int32_t value);
   public:
 
+  // int32 itemQuantity = 3;
+  void clear_itemquantity();
+  int32_t itemquantity() const;
+  void set_itemquantity(int32_t value);
+  private:
+  int32_t _internal_itemquantity() const;
+  void _internal_set_itemquantity(int32_t value);
+  public:
+
+  // int32 itemMaxCount = 4;
+  void clear_itemmaxcount();
+  int32_t itemmaxcount() const;
+  void set_itemmaxcount(int32_t value);
+  private:
+  int32_t _internal_itemmaxcount() const;
+  void _internal_set_itemmaxcount(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.EtcItem)
  private:
   class _Internal;
@@ -1339,6 +1354,8 @@ class EtcItem final :
   struct Impl_ {
     ::Protocol::Item* base_;
     int32_t etctype_;
+    int32_t itemquantity_;
+    int32_t itemmaxcount_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3723,54 +3740,24 @@ inline void Item::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Item.name)
 }
 
-// string type = 3;
+// int32 type = 3;
 inline void Item::clear_type() {
-  _impl_.type_.ClearToEmpty();
+  _impl_.type_ = 0;
 }
-inline const std::string& Item::type() const {
+inline int32_t Item::_internal_type() const {
+  return _impl_.type_;
+}
+inline int32_t Item::type() const {
   // @@protoc_insertion_point(field_get:Protocol.Item.type)
   return _internal_type();
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void Item::set_type(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.type_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+inline void Item::_internal_set_type(int32_t value) {
+  
+  _impl_.type_ = value;
+}
+inline void Item::set_type(int32_t value) {
+  _internal_set_type(value);
   // @@protoc_insertion_point(field_set:Protocol.Item.type)
-}
-inline std::string* Item::mutable_type() {
-  std::string* _s = _internal_mutable_type();
-  // @@protoc_insertion_point(field_mutable:Protocol.Item.type)
-  return _s;
-}
-inline const std::string& Item::_internal_type() const {
-  return _impl_.type_.Get();
-}
-inline void Item::_internal_set_type(const std::string& value) {
-  
-  _impl_.type_.Set(value, GetArenaForAllocation());
-}
-inline std::string* Item::_internal_mutable_type() {
-  
-  return _impl_.type_.Mutable(GetArenaForAllocation());
-}
-inline std::string* Item::release_type() {
-  // @@protoc_insertion_point(field_release:Protocol.Item.type)
-  return _impl_.type_.Release();
-}
-inline void Item::set_allocated_type(std::string* type) {
-  if (type != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.type_.SetAllocated(type, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.type_.IsDefault()) {
-    _impl_.type_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.Item.type)
 }
 
 // int32 rank = 4;
@@ -3793,24 +3780,24 @@ inline void Item::set_rank(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Item.rank)
 }
 
-// int32 equipLevel = 5;
-inline void Item::clear_equiplevel() {
-  _impl_.equiplevel_ = 0;
+// int32 USELevel = 5;
+inline void Item::clear_uselevel() {
+  _impl_.uselevel_ = 0;
 }
-inline int32_t Item::_internal_equiplevel() const {
-  return _impl_.equiplevel_;
+inline int32_t Item::_internal_uselevel() const {
+  return _impl_.uselevel_;
 }
-inline int32_t Item::equiplevel() const {
-  // @@protoc_insertion_point(field_get:Protocol.Item.equipLevel)
-  return _internal_equiplevel();
+inline int32_t Item::uselevel() const {
+  // @@protoc_insertion_point(field_get:Protocol.Item.USELevel)
+  return _internal_uselevel();
 }
-inline void Item::_internal_set_equiplevel(int32_t value) {
+inline void Item::_internal_set_uselevel(int32_t value) {
   
-  _impl_.equiplevel_ = value;
+  _impl_.uselevel_ = value;
 }
-inline void Item::set_equiplevel(int32_t value) {
-  _internal_set_equiplevel(value);
-  // @@protoc_insertion_point(field_set:Protocol.Item.equipLevel)
+inline void Item::set_uselevel(int32_t value) {
+  _internal_set_uselevel(value);
+  // @@protoc_insertion_point(field_set:Protocol.Item.USELevel)
 }
 
 // int32 salePrice = 6;
@@ -3903,47 +3890,7 @@ inline void Item::set_allocated_text(std::string* text) {
   // @@protoc_insertion_point(field_set_allocated:Protocol.Item.text)
 }
 
-// int32 itemValue = 9;
-inline void Item::clear_itemvalue() {
-  _impl_.itemvalue_ = 0;
-}
-inline int32_t Item::_internal_itemvalue() const {
-  return _impl_.itemvalue_;
-}
-inline int32_t Item::itemvalue() const {
-  // @@protoc_insertion_point(field_get:Protocol.Item.itemValue)
-  return _internal_itemvalue();
-}
-inline void Item::_internal_set_itemvalue(int32_t value) {
-  
-  _impl_.itemvalue_ = value;
-}
-inline void Item::set_itemvalue(int32_t value) {
-  _internal_set_itemvalue(value);
-  // @@protoc_insertion_point(field_set:Protocol.Item.itemValue)
-}
-
-// int32 itemMax = 10;
-inline void Item::clear_itemmax() {
-  _impl_.itemmax_ = 0;
-}
-inline int32_t Item::_internal_itemmax() const {
-  return _impl_.itemmax_;
-}
-inline int32_t Item::itemmax() const {
-  // @@protoc_insertion_point(field_get:Protocol.Item.itemMax)
-  return _internal_itemmax();
-}
-inline void Item::_internal_set_itemmax(int32_t value) {
-  
-  _impl_.itemmax_ = value;
-}
-inline void Item::set_itemmax(int32_t value) {
-  _internal_set_itemmax(value);
-  // @@protoc_insertion_point(field_set:Protocol.Item.itemMax)
-}
-
-// int64 itemId = 11;
+// int64 itemId = 9;
 inline void Item::clear_itemid() {
   _impl_.itemid_ = int64_t{0};
 }
@@ -3963,7 +3910,7 @@ inline void Item::set_itemid(int64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Item.itemId)
 }
 
-// int32 itemSlotIdx = 12;
+// int32 itemSlotIdx = 10;
 inline void Item::clear_itemslotidx() {
   _impl_.itemslotidx_ = 0;
 }
@@ -3983,7 +3930,7 @@ inline void Item::set_itemslotidx(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Item.itemSlotIdx)
 }
 
-// .Protocol.Equip equip = 13;
+// .Protocol.Equip equip = 11;
 inline bool Item::_internal_has_equip() const {
   return item_detail_case() == kEquip;
 }
@@ -4057,7 +4004,7 @@ inline ::Protocol::Equip* Item::mutable_equip() {
   return _msg;
 }
 
-// .Protocol.Consumption consumption = 14;
+// .Protocol.Consumption consumption = 12;
 inline bool Item::_internal_has_consumption() const {
   return item_detail_case() == kConsumption;
 }
@@ -4131,7 +4078,7 @@ inline ::Protocol::Consumption* Item::mutable_consumption() {
   return _msg;
 }
 
-// .Protocol.EtcItem etcItem = 15;
+// .Protocol.EtcItem etcItem = 13;
 inline bool Item::_internal_has_etcitem() const {
   return item_detail_case() == kEtcItem;
 }
@@ -4842,6 +4789,46 @@ inline void Consumption::set_conindex(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Consumption.conIndex)
 }
 
+// int32 itemQuantity = 8;
+inline void Consumption::clear_itemquantity() {
+  _impl_.itemquantity_ = 0;
+}
+inline int32_t Consumption::_internal_itemquantity() const {
+  return _impl_.itemquantity_;
+}
+inline int32_t Consumption::itemquantity() const {
+  // @@protoc_insertion_point(field_get:Protocol.Consumption.itemQuantity)
+  return _internal_itemquantity();
+}
+inline void Consumption::_internal_set_itemquantity(int32_t value) {
+  
+  _impl_.itemquantity_ = value;
+}
+inline void Consumption::set_itemquantity(int32_t value) {
+  _internal_set_itemquantity(value);
+  // @@protoc_insertion_point(field_set:Protocol.Consumption.itemQuantity)
+}
+
+// int32 itemMaxCount = 9;
+inline void Consumption::clear_itemmaxcount() {
+  _impl_.itemmaxcount_ = 0;
+}
+inline int32_t Consumption::_internal_itemmaxcount() const {
+  return _impl_.itemmaxcount_;
+}
+inline int32_t Consumption::itemmaxcount() const {
+  // @@protoc_insertion_point(field_get:Protocol.Consumption.itemMaxCount)
+  return _internal_itemmaxcount();
+}
+inline void Consumption::_internal_set_itemmaxcount(int32_t value) {
+  
+  _impl_.itemmaxcount_ = value;
+}
+inline void Consumption::set_itemmaxcount(int32_t value) {
+  _internal_set_itemmaxcount(value);
+  // @@protoc_insertion_point(field_set:Protocol.Consumption.itemMaxCount)
+}
+
 // -------------------------------------------------------------------
 
 // EtcItem
@@ -4954,6 +4941,46 @@ inline void EtcItem::_internal_set_etctype(int32_t value) {
 inline void EtcItem::set_etctype(int32_t value) {
   _internal_set_etctype(value);
   // @@protoc_insertion_point(field_set:Protocol.EtcItem.etcType)
+}
+
+// int32 itemQuantity = 3;
+inline void EtcItem::clear_itemquantity() {
+  _impl_.itemquantity_ = 0;
+}
+inline int32_t EtcItem::_internal_itemquantity() const {
+  return _impl_.itemquantity_;
+}
+inline int32_t EtcItem::itemquantity() const {
+  // @@protoc_insertion_point(field_get:Protocol.EtcItem.itemQuantity)
+  return _internal_itemquantity();
+}
+inline void EtcItem::_internal_set_itemquantity(int32_t value) {
+  
+  _impl_.itemquantity_ = value;
+}
+inline void EtcItem::set_itemquantity(int32_t value) {
+  _internal_set_itemquantity(value);
+  // @@protoc_insertion_point(field_set:Protocol.EtcItem.itemQuantity)
+}
+
+// int32 itemMaxCount = 4;
+inline void EtcItem::clear_itemmaxcount() {
+  _impl_.itemmaxcount_ = 0;
+}
+inline int32_t EtcItem::_internal_itemmaxcount() const {
+  return _impl_.itemmaxcount_;
+}
+inline int32_t EtcItem::itemmaxcount() const {
+  // @@protoc_insertion_point(field_get:Protocol.EtcItem.itemMaxCount)
+  return _internal_itemmaxcount();
+}
+inline void EtcItem::_internal_set_itemmaxcount(int32_t value) {
+  
+  _impl_.itemmaxcount_ = value;
+}
+inline void EtcItem::set_itemmaxcount(int32_t value) {
+  _internal_set_itemmaxcount(value);
+  // @@protoc_insertion_point(field_set:Protocol.EtcItem.itemMaxCount)
 }
 
 // -------------------------------------------------------------------
