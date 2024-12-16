@@ -9,6 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFriendInfoClicked, int32, FriendSeq);
 
 class UExistingGroupList;
+class UComboBoxString;
 class UButton;
 
 /**
@@ -48,6 +49,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* MoveGroupButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UComboBoxString* GroupListDropDownBox;
 
 	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UExistingGroupList> GroupListUI;
