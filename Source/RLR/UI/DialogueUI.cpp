@@ -55,10 +55,6 @@ void UDialogueUI::UpdateNPCFunctionality()
 			BtnBox->AddChildToHorizontalBox(NewButton);
 		}
 	}
-	if (npcData.hasEnhanceFunctionality)
-	{
-		CreateDynamicButton(3, TEXT("Enhance"), 0);
-	}
 }
 
 void UDialogueUI::SetDialogueData(FString DialogueString)

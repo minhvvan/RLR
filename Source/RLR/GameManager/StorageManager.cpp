@@ -52,7 +52,7 @@ void UStorageManager::SetUserStorageItem(int PageIndex, int SlotIdx, const FItem
 		return;
 	}
 	
-	FItemData data = Item.QUANTITY == 0 ? FItemData::EmptyItemData : Item;
+	FItemData data = Item.ITEM_QUANTITY == 0 ? FItemData::EmptyItemData : Item;
 	UserStorageItems[PageIndex][SlotIdx] = Item;
 
 	UserStorageUI->SetSlotItem(PageIndex, SlotIdx, data);
@@ -84,7 +84,7 @@ void UStorageManager::SetPlayerStorageItem(int PageIndex, int SlotIdx, const FIt
 		return;
 	}
 	
-	FItemData data = Item.QUANTITY == 0 ? FItemData::EmptyItemData : Item;
+	FItemData data = Item.ITEM_QUANTITY == 0 ? FItemData::EmptyItemData : Item;
 	PlayerStorageItems[PageIndex][SlotIdx] = Item;
 
 	PlayerStorageUI->SetSlotItem(PageIndex, SlotIdx, data);
@@ -190,7 +190,7 @@ void UStorageManager::SendPktMoveItemInventoryToUserStorage(const FItemData& Ite
 		}
 	
 		auto newItem(Item);
-		newItem.QUANTITY = Amount;
+		newItem.ITEM_QUANTITY = Amount;
 		SetUserStorageItem(PageIndex, StorageSLotIndex, newItem);
 	}
 	//=================================================================
@@ -209,7 +209,7 @@ void UStorageManager::SendPktMoveItemUserStorageToInventory(const FItemData& Ite
 	//Test=============================================================
 	{
 		FItemData tempItem(Item);
-		tempItem.QUANTITY = Amount;
+		tempItem.ITEM_QUANTITY = Amount;
 		//TODO: Inventory.SlotIndex를 Item으로 변경
 		GameInstance->GetInventoryManager()->AddItem(tempItem, InventorySlotIndex);
 	}
@@ -224,8 +224,8 @@ void UStorageManager::SendPktMoveItemUserStorageToInventory(const FItemData& Ite
 	{
 		int32 PageIndex = userStorageUI->GetCurrentPage();
 		FItemData tempItem(Item);
-		tempItem.QUANTITY -= Amount;
-		if (tempItem.QUANTITY == 0) tempItem = FItemData::EmptyItemData;
+		tempItem.ITEM_QUANTITY -= Amount;
+		if (tempItem.ITEM_QUANTITY == 0) tempItem = FItemData::EmptyItemData;
 		
 		SetUserStorageItem(PageIndex, StorageSLotIndex, tempItem);
 	}
@@ -291,7 +291,7 @@ void UStorageManager::SendPktMoveItemInventoryToPlayerStorage(const FItemData& I
 		}
 	
 		auto newItem(Item);
-		newItem.QUANTITY = Amount;
+		newItem.ITEM_QUANTITY = Amount;
 		SetPlayerStorageItem(PageIndex, StorageSLotIndex, newItem);
 	}
 	//=================================================================
@@ -310,7 +310,7 @@ void UStorageManager::SendPktMoveItemPlayerStorageToInventory(const FItemData& I
 	//Test=============================================================
 	{
 		FItemData tempItem(Item);
-		tempItem.QUANTITY = Amount;
+		tempItem.ITEM_QUANTITY = Amount;
 		GameInstance->GetInventoryManager()->AddItem(tempItem, InventorySlotIndex);
 	}
 
@@ -324,8 +324,8 @@ void UStorageManager::SendPktMoveItemPlayerStorageToInventory(const FItemData& I
 	{
 		int32 PageIndex = playerStorageUI->GetCurrentPage();
 		FItemData tempItem(Item);
-		tempItem.QUANTITY -= Amount;
-		if (tempItem.QUANTITY == 0) tempItem = FItemData::EmptyItemData;
+		tempItem.ITEM_QUANTITY -= Amount;
+		if (tempItem.ITEM_QUANTITY == 0) tempItem = FItemData::EmptyItemData;
 		
 		SetPlayerStorageItem(PageIndex, StorageSLotIndex, tempItem);
 		PlayerStorageItems[PageIndex][StorageSLotIndex] = tempItem;

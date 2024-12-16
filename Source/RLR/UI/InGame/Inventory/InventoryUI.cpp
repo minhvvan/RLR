@@ -97,19 +97,11 @@ void UInventoryUI::RefreshUI()
 		if(i >= MaxInventorySlotCount || i < 0 ) continue;
 		
 		InventorySlotList[i]->SetItemData(ItemList[i]);
-		//설정된 값보다 아이템 수가 많으면 에러
-		if (MaxInventorySlotCount <= ItemCount)
-		{
-			UUtilBlueprintFunctionLibrary::DebugLog(TEXT("UInventoryUI::RefreshUI Error. 인벤토리 슬롯보다 아이템 정보가 많습니다."));
-			break;
-		}
-
-		ItemCount++;
 
 		/* 강화 장비 배열에 추가 */
-		if (ItemData.TYPE == ItemType::Equip)
+		if (ItemList[i].TYPE == ItemType::Equip)
 		{
-			GameInstance->GetEnhanceManager()->EquipItemList.Add(ItemData);
+			GameInstance->GetEnhanceManager()->EquipItemList.Add(ItemList[i]);
 		}
 	}
 }

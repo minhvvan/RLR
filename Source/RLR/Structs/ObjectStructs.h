@@ -25,6 +25,7 @@ enum class ENPCFunctionality : uint8
 {
 	POST = 0,
 	STORAGE,
+	ENHNACE,
 	SIZE
 };
 
@@ -218,10 +219,6 @@ struct FNPCData
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int Functionality;
-	bool hasPostFunctionality = true;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool hasEnhanceFunctionality = true;
 
 	FString ToString() const
 	{

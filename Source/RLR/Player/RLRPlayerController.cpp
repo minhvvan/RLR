@@ -301,7 +301,7 @@ void ARLRPlayerController::OnConsumeItem(FGameplayTag InputTag)
 	UInventoryManager* InventoryManager = GameInstance->GetInventoryManager();
 	if (InventoryManager == nullptr) return;
 
-	InventoryManager->UsingQuickSlotItem(InputTag);
+	InventoryManager->UsingItem(InputTag);
 }
 
 void ARLRPlayerController::OnOpenUI(FGameplayTag InputTag)

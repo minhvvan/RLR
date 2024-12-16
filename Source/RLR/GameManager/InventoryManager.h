@@ -108,6 +108,11 @@ public:
 	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FUpdateInventoryManager OnUpdateInventoryDelegate;
 	void OnUpdateInventoryDelegateBroadcast();
+	
+	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
+	FUpdateInventoryManager OnUpdateGoldAndCashDelegate;
+
+	void OnUpdateGoldAndCashDelegateBroadcast();
 
 	UPROPERTY()
 	FUpdateEquip OnUpdateEquipDelegate;

@@ -78,7 +78,7 @@ void UNPCSaleTab::AddToCart(const FItemData& newItem, int32 InventorySlotIndex)
 	}
 	
 	Cart.Add({InventorySlotIndex, newItem});
-	SellPrice += newItem.SALE_PRICE * newItem.QUANTITY;
+	SellPrice += newItem.SALE_PRICE * newItem.ITEM_QUANTITY;
 
 	UpdatePage();
 	UpdatePrice();
@@ -99,7 +99,7 @@ void UNPCSaleTab::RemoveFromCart(const FItemData& item)
 		if (item != Cart[i].Value) continue;
 
 		removeIndex = i;
-		SellPrice -= item.ITEM_VALUE * item.SALE_PRICE;
+		SellPrice -= item.ITEM_QUANTITY * item.SALE_PRICE;
 		UpdatePrice();
 		break;
 	}

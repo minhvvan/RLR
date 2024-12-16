@@ -133,7 +133,7 @@ void ClientPacketHandler::Init()
         };
     GPacketHandler[PKT_MONSTER_DIE_REQUEST] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
-            return instance.HandlePacket<Protocol::MonsterDieBroadcast>(&Handle_MONSTER_DIE_RESPONSE, session, buffer, len);
+            return instance.HandlePacket<Protocol::SC_MonsterDieBroadcast>(&Handle_MONSTER_DIE_RESPONSE, session, buffer, len);
         };
     GPacketHandler[PKT_QUEST_ADD_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {

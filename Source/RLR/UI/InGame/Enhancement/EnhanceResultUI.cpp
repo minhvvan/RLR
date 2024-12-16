@@ -35,7 +35,7 @@ void UEnhanceResultUI::ShowEnhanceResult(bool bIsSuccess)
 	itemData = EnhanceUI->EnhanceSlot_Equip->GetItemData();
 	if (itemData.ITEM_ID != -1)
 	{
-		enhancedItemData = GameInstance->GetInventoryManager()->GetItemBySlotIndex(itemData.ITEM_SLOT_IDX);
+		enhancedItemData = GameInstance->GetInventoryManager()->GetItem(itemData.ITEM_ID);
 	}
 
 	if (ResultSwitcher)

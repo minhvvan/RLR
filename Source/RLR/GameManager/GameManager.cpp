@@ -244,8 +244,9 @@ UStorageManager* UGameManager::GetStorageManager()
     }
     DEBUG_MESSAGE;
     return nullptr;
+}
 
-  UEnhanceManager* UGameManager::GetEnhanceManager()
+ UEnhanceManager* UGameManager::GetEnhanceManager()
 {
     UEnhanceManager* EnhanceManager = GetSubsystem<UEnhanceManager>(this);
     if (IsValid(EnhanceManager))

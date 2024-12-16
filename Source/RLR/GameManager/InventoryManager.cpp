@@ -112,11 +112,12 @@ void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
 	{
 		if ( item.ITEM_ID == Item_ID)
 		{
-			item.QUANTITY -= Amount;
-			if (item.QUANTITY == 0) item = FItemData::EmptyItemData;
+			item.ITEM_QUANTITY -= Amount;
+			if (item.ITEM_QUANTITY == 0) item = FItemData::EmptyItemData;
 			break;
 		}
 	}
+	
 	
 	OnUpdateInventoryDelegateBroadcast();
 }
@@ -175,7 +176,7 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 		GameInstance->GetNetworkManager()->SendEquipChangePacket(ItemData, SlotIndex);
 		break;
 	case ESlotType::STORAGE_INVENTORY_SLOT:
-		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::USER_STORAGE_ITEM_SLOT);
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.ITEM_QUANTITY, ESlotType::USER_STORAGE_ITEM_SLOT);
 		break;
 	case ESlotType::NPCSHOP_INVENTORY_SLOT:
 		{
@@ -213,7 +214,7 @@ void UInventoryManager::OnInventorySlotAltClicked(int32 SlotIndex, const FItemDa
 	switch (SlotType)
 	{
 	case ESlotType::STORAGE_INVENTORY_SLOT:
-		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.QUANTITY, ESlotType::PLAYER_STORAGE_ITEM_SLOT);
+		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.ITEM_QUANTITY, ESlotType::PLAYER_STORAGE_ITEM_SLOT);
 		break;
 	default:
 		break;
@@ -233,7 +234,6 @@ void UInventoryManager::SetSilver(int32 NewSilver)
 }
 
 void UInventoryManager::UsingItem(FGameplayTag TriggerTag)
-void UInventoryManager::UsingQuickSlotItem(FGameplayTag TriggerTag)
 {
 	if (HasItemTag(TriggerTag) == false)
 		return;
@@ -260,7 +260,7 @@ const FItemData* UInventoryManager::GetQuickSlotItemData(FGameplayTag TriggerTag
 	return nullptr;
 }
 
-const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetItemQuickSlots()
+const FSkillDictionary<FGameplayTag, FItemData>& UInventoryManager::GetOwnItems()
 {
 	return ItemQuickSlots;
 }
@@ -325,6 +325,20 @@ void UInventoryManager::OnUpdateInventoryDelegateBroadcast()
 				return;
 			}
 			OnUpdateInventoryDelegate.Broadcast();
+		});
+}
+
+void UInventoryManager::OnUpdateGoldAndCashDelegateBroadcast()
+{
+	AsyncTask(ENamedThreads::GameThread, [this]()
+		{
+			// 유효성 검사 추가
+			if (!IsValid(this))
+			{
+				DEBUG_MESSAGE;
+				return;
+			}
+	OnUpdateGoldAndCashDelegate.Broadcast();
 		});
 }
 

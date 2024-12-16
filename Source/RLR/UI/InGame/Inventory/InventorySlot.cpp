@@ -40,7 +40,8 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	if(Ret == false) return false;
 	
 	//따로 분류탭에 들어가 있으면 슬롯은 옮길 수 없다.
-	if (Inventory->CurrentFilter != EItemType::NONE) return Ret;
+	if (Inventory->CurrentFilter != ItemType::None) 
+		return Ret;
 	
 	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
 	if (!Operation)
@@ -51,7 +52,7 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	}
 	
 	const auto& itemData = Operation->ItemData;
-	if (itemData == FItemData::EmptyItemData || itemData.QUANTITY == 0)
+	if (itemData == FItemData::EmptyItemData || itemData.ITEM_QUANTITY == 0)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("itemData is EmptyData"));
 		return Ret; 
@@ -74,7 +75,7 @@ bool UInventorySlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEv
 	else if (Operation->DragedSlotType == ESlotType::USER_STORAGE_ITEM_SLOT
 		|| Operation->DragedSlotType == ESlotType::PLAYER_STORAGE_ITEM_SLOT)
 	{
-		GetStorageManager()->SendPktMoveItemStorageToInventory(itemData, itemData.QUANTITY, Operation->DragedSlotType, Operation->SlotIndex, SlotIndex);
+		GetStorageManager()->SendPktMoveItemStorageToInventory(itemData, itemData.ITEM_QUANTITY, Operation->DragedSlotType, Operation->SlotIndex, SlotIndex);
 	}
 
 	return Ret;
@@ -85,7 +86,7 @@ void UInventorySlot::RefreshUI()
 	Super::RefreshUI();
 
 	FItemData item = GetItemData();
-	if (item == FItemData::EmptyItemData || item.QUANTITY == 0)
+	if (item == FItemData::EmptyItemData || item.ITEM_QUANTITY == 0)
 	{
 		DisplayEquippedItems(false);
 		ItemNameText->SetText(FText());

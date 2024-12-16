@@ -57,7 +57,7 @@ bool UStorageSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEven
 	if (Operation->DragedSlotType == ESlotType::STORAGE_INVENTORY_SLOT)
 	{
 		//Inventory->Storage
-		StorageManager->SendPktMoveItemInventoryToStorage(recvItem, recvItem.QUANTITY, SlotType, SlotIndex);
+		StorageManager->SendPktMoveItemInventoryToStorage(recvItem, recvItem.ITEM_QUANTITY, SlotType, SlotIndex);
 	}
 	else if (Operation->DragedSlotType == SlotType)
 	{
@@ -124,7 +124,7 @@ FReply UStorageSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const 
 			return result;
 		}
 
-		MoveStorageToInventory(itemData, itemData.QUANTITY);
+		MoveStorageToInventory(itemData, itemData.ITEM_QUANTITY);
 	}
 
 	return result;
@@ -163,7 +163,7 @@ void UStorageSlot::RefreshUI()
 	auto itemData = GetItemData();
 	UTexture2D* itemImage = GetItemResourceData().ItemImage;
 
-	if (itemData.QUANTITY == 0)
+	if (itemData.ITEM_QUANTITY == 0)
 	{
 		itemData = FItemData::EmptyItemData;
 	}
