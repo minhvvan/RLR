@@ -350,6 +350,7 @@ void UFriendTabWidget::RemoveGroup(int OldGroupSeq)
     {
         GroupOrderScrollBox->RemoveChild(GroupRemoved);
     }
+    FriendListUI->OpenGroupMenuUI();
 }
 
 void UFriendTabWidget::SearchFriend(const FText& Text)
