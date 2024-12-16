@@ -73,7 +73,11 @@ public:
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
 
+    UFUNCTION()
+    void MoveGroup();
+
     void SetFriendRequestMessageBox(FString& PlayerName);
+    void SetMoveGroupMessageOpenState(bool bOpen);
 
 public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
@@ -121,6 +125,7 @@ private:
     bool bOpenGroupMenuUI;
     bool bOpenFriendInfoUI;
     bool bOpenGroupCreationUI;
+    bool bIsMoveGroupMessageBoxOpen;
     int32 SelectedFriend;
     int32 SelectedGroup;
 

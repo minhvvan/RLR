@@ -2,11 +2,14 @@
 
 
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
-#include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/FriendListUI.h"
+#include "UI/InGame/FriendList/FriendTabWidget.h"
+#include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
 #include "Structs/UtilStructs.h"
 #include "Components/Button.h"
+#include "Components/ComboBoxString.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/FriendManager.h"
 
@@ -42,17 +45,5 @@ void UFriendButtonMenu::RemoveFriend()
 // 그룹 이동(그룹 리스트 Open)
 void UFriendButtonMenu::MoveGroup()
 {
-	if (bIsGroupListOpen)
-	{
-		bIsGroupListOpen = false;
-		GroupListUI->SetVisibility(ESlateVisibility::Hidden);
-	}
-	else
-	{
-		bIsGroupListOpen = true;
-		if (GroupListUI)
-		{
-			GroupListUI->SetVisibility(ESlateVisibility::Visible);
-		}
-	}
+	OnMoveGroupClicked.Broadcast();
 }

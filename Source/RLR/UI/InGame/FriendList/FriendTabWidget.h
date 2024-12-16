@@ -9,6 +9,7 @@
 
 
 class UFriendConnectionStatusUI;
+class UMoveGroupMessageBox;
 class UGorupButtonDragDrop;
 class UExistingGroupList;
 class UFriendInformation;
@@ -18,6 +19,7 @@ class UFriendButtonUI;
 class UGroupButtonUI;
 class UFriendListUI;
 class UEditableText;
+class UComboBoxString;
 class UVerticalBox;
 class UTextBlock;
 class UScrollBox;
@@ -72,6 +74,12 @@ public:
 
     UFUNCTION()
     void ReorderGroups(UGroupButtonUI* DraggedButton, UGroupButtonUI* TargetButton);
+    
+    UFUNCTION()
+    void UpdateGroupInfoUI();
+
+    UFUNCTION()
+    void CancelMoveGroup();
 
     void AddFriendButton(int friendSeq, int groupSeq, FString friendName);
     void AddGroupButton(int groupSeq, FString groupName);
@@ -108,6 +116,9 @@ public:
     UPROPERTY(meta = (BindWidgetOptional))
     UButton* FriendRequestButton;
 
+    UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UMoveGroupMessageBox> MoveGroupMessageBox;
+
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UFriendButtonUI> FriendButtonUIClass;
 
@@ -136,7 +147,6 @@ public:
 
     UPROPERTY()
     TArray<UGroupButtonUI*> OrderedGroupButtons;
-
 private:
     bool bGroupOrderOpen;
 };

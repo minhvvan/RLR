@@ -7,14 +7,15 @@
 #include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendRequestMessageBox.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
-#include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/GroupButtonMenu.h"
 #include "UI/InGame/FriendList/FriendInformation.h"
 #include "UI/InGame/FriendList/FriendButtonUI.h"
 #include "UI/InGame/FriendList/GroupCreationUI.h"
 #include "UI/InGame/FriendList/GroupButtonUI.h"
+#include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
+#include "Components/ComboBoxString.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
@@ -185,6 +186,7 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
             FriendMenuUI->SetRenderTransform(position);
             FriendMenuUI->SetVisibility(ESlateVisibility::Visible);
             FriendMenuUI->SetFriendSeq(SelectedFriend);
+            FriendMenuUI->OnMoveGroupClicked.AddUniqueDynamic(this, &UFriendListUI::MoveGroup);
         }
     }
 }
@@ -236,18 +238,27 @@ void UFriendListUI::OpenGroupMenuUI()
 void UFriendListUI::RemoveGroup(int OldGroupSeq)
 {
     FriendTabWidget->RemoveGroup(OldGroupSeq);
+}
 
-	for (UWidget* Child : FriendMenuUI->GroupListUI->GroupListBox->GetAllChildren())
+void UFriendListUI::MoveGroup()
+{
+    OpenFriendMenuUI(true);
+	if (bIsMoveGroupMessageBoxOpen)
 	{
-		if (UGroupButtonUI* GroupButton = Cast<UGroupButtonUI>(Child))
-		{
-			if (GroupButton->GetGroupSeq() == OldGroupSeq)
-			{
-				FriendMenuUI->GroupListUI->GroupListBox->RemoveChild(GroupButton);
-				break;
-			}
-		}
+        if (FriendTabWidget->MoveGroupMessageBox)
+        {
+            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
+        }
+        bIsMoveGroupMessageBoxOpen = false;
 	}
+    else
+    {
+        if (FriendTabWidget->MoveGroupMessageBox)
+        {
+            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
+        }
+        bIsMoveGroupMessageBoxOpen = true;
+    }
 }
 
 void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)
@@ -275,6 +286,11 @@ void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)
                 );
             }
         });
+}
+
+void UFriendListUI::SetMoveGroupMessageOpenState(bool bOpen)
+{
+    bIsMoveGroupMessageBoxOpen = bOpen;
 }
 
 void UFriendListUI::OpenFriendInfoUI(int FriendSeq)

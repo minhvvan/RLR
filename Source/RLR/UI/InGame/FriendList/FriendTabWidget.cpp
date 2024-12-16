@@ -7,12 +7,12 @@
 #include "UI/InGame/FriendList/FriendInformation.h"
 #include "UI/InGame/FriendList/FriendButtonUI.h"
 #include "UI/InGame/FriendList/GroupButtonUI.h"
-#include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/FriendListUI.h"
-#include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/FriendConnectionStatusUI.h"
+#include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Components/EditableText.h"
+#include "Components/ComboBoxString.h"
 #include "Components/VerticalBox.h"
 #include "Components/ScrollBox.h"
 #include "Components/TextBlock.h"
@@ -71,6 +71,11 @@ void UFriendTabWidget::NativeConstruct()
     {
         ChangeGroupOrderButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::ChangeGroupOrder);
     }
+    if (MoveGroupMessageBox)
+    {
+        MoveGroupMessageBox->OnConfirmButtonClicked.AddUniqueDynamic(this, &UFriendTabWidget::UpdateGroupInfoUI);
+        MoveGroupMessageBox->OnCancelButtonClicked.AddUniqueDynamic(this, &UFriendTabWidget::CancelMoveGroup);
+    }
 }
 
 void UFriendTabWidget::RequestFriendButtonClicked()
@@ -82,7 +87,6 @@ void UFriendTabWidget::RequestFriendButtonClicked()
     }
 }
 
-/* TODO : 지금은 요청시 요청탭이 아닌 친구탭으로 바로 추가됨. 핸들러가 만들어지면 요청탭으로 추가되도록 변경 */
 void UFriendTabWidget::UpdateFriendTab(const TArray<FFriendGroupResult>& groupData)
 {
     ClearFriendList();
@@ -228,13 +232,9 @@ void UFriendTabWidget::AddGroupButton(int groupSeq, FString groupName)
                 FriendScrollBox->AddChild(GroupButtonUI);
                 GroupButtons.Add(groupSeq, GroupButtonUI);
 
-                if (FriendListUI->FriendMenuUI->GroupListUI)
+                if (MoveGroupMessageBox->GroupListDropDownBox)
 				{
-                    UGroupButtonUI* GroupListBoxGroupButtonUI = CreateWidget<UGroupButtonUI>(this, GroupButtonInGroupListClass);
-                    GroupListBoxGroupButtonUI->FriendListUI = FriendListUI;
-                    GroupListBoxGroupButtonUI->SetGroupInfo(groupSeq, groupName);
-                    GroupListBoxGroupButtonUI->GroupClickedOnList.BindUObject(this, &UFriendTabWidget::GroupClickedOnGroupList);
-                    FriendListUI->FriendMenuUI->GroupListUI->GroupListBox->AddChild(GroupListBoxGroupButtonUI);
+                    MoveGroupMessageBox->GroupListDropDownBox->AddOption(groupName);
                 }
 
                 if (GroupOrderScrollBox)
@@ -283,6 +283,14 @@ void UFriendTabWidget::OnFriendRightClick(FVector2D AbsolutePosition, UFriendBut
         FriendListUI->OnFriendRightMouseClicked(AbsolutePosition, FriendButtonUI);
     }
     SelectedFriend = FriendButtonUI->GetFriendSeq();
+
+    if (MoveGroupMessageBox->GroupListDropDownBox)
+    {
+        UFriendButtonUI* SelectedFriendButton = FriendButtons.FindRef(SelectedFriend);
+        UGroupButtonUI* SelectedGroupButton = GroupButtons.FindRef(SelectedFriendButton->GetGroupSeq());
+        MoveGroupMessageBox->GroupListDropDownBox->SetSelectedOption(SelectedGroupButton->GetName());
+        MoveGroupMessageBox->PlayerNameInputText->SetText(FText::FromString(SelectedFriendButton->GetFriendName()));
+    }
 }
 
 void UFriendTabWidget::OnGroupRightClick(FVector2D AbsolutePosition,UGroupButtonUI* GroupButtonUI)
@@ -332,8 +340,9 @@ void UFriendTabWidget::RemoveGroup(int OldGroupSeq)
 
     // 그룹 버튼 삭제
     FriendScrollBox->RemoveChild(GroupRemoved);
-    if (FriendListUI->FriendMenuUI->GroupListUI->GroupListBox)
+    if (MoveGroupMessageBox->GroupListDropDownBox)
     {
+        MoveGroupMessageBox->GroupListDropDownBox->RemoveOption(GroupRemoved->GetGroupName());
         GroupButtons.Remove(OldGroupSeq);
     }
 
@@ -430,16 +439,43 @@ void UFriendTabWidget::ClearFriendList()
     }
 
     // FriendMenuUI의 GroupListBox 자식 제거
-    if (FriendListUI->FriendMenuUI->GroupListUI && FriendListUI->FriendMenuUI->GroupListUI->GroupListBox)
-    {
-        ClearChildren(FriendListUI->FriendMenuUI->GroupListUI->GroupListBox);
-    }
+    MoveGroupMessageBox->GroupListDropDownBox->ClearOptions();
 
     GroupButtons.Empty();
     FriendButtons.Empty();
     OrderedGroupButtons.Empty();
 }
 
+void UFriendTabWidget::UpdateGroupInfoUI()
+{
+    FString SelectedGroupName = MoveGroupMessageBox->GroupListDropDownBox->GetSelectedOption();
+    UGroupButtonUI* SelectedGroupButton =  nullptr;
+    for (const TPair<int32, UGroupButtonUI*>& Pair : GroupButtons)
+    {
+        if (Pair.Value && Pair.Value->GetGroupName() == SelectedGroupName)
+        {
+            SelectedGroupButton = Pair.Value;
+            break;
+        }
+    }
+
+    for (const TPair<int32, UGroupButtonUI*>& Pair : GroupButtons)
+    {
+        if (SelectedGroupButton->GetGroupSeq() == Pair.Key)
+        {
+            GroupClickedOnGroupList(Pair.Value);
+            break;
+        }
+    }
+    MoveGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
+    FriendListUI->SetMoveGroupMessageOpenState(false);
+}
+
+void UFriendTabWidget::CancelMoveGroup()
+{
+    MoveGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
+    FriendListUI->SetMoveGroupMessageOpenState(true);
+}
 
 void UFriendTabWidget::ReorderGroups(UGroupButtonUI* DraggedButton, UGroupButtonUI* TargetButton)
 {

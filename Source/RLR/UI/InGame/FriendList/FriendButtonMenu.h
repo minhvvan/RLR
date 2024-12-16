@@ -7,8 +7,10 @@
 #include "FriendButtonMenu.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFriendInfoClicked, int32, FriendSeq);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMoveGroupClicked);
 
 class UExistingGroupList;
+class UMoveGroupMessageBox;
 class UComboBoxString;
 class UButton;
 
@@ -39,7 +41,7 @@ public:
 	int GetFriendSeq() const {return FriendSeq;};
 
 	FOnFriendInfoClicked OnFriendInfoClicked;
-
+	FOnMoveGroupClicked OnMoveGroupClicked;
 public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* PlayerInfoButton;
@@ -50,13 +52,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* MoveGroupButton;
 
-	UPROPERTY(meta = (BindWidget))
-	UComboBoxString* GroupListDropDownBox;
-
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-    TObjectPtr<UExistingGroupList> GroupListUI;
-
 private:
 	int FriendSeq;
 	bool bIsGroupListOpen;
+	UMoveGroupMessageBox* MoveGroupMessageBox;
 };
