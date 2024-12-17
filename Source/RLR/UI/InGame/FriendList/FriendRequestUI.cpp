@@ -44,7 +44,7 @@ void UFriendRequestUI::OnSendRequestClicked()
 
 void UFriendRequestUI::OnCancelClicked()
 {
-	OnCloseRequestUISignature.Broadcast(true);
+	//OnCloseRequestUISignature.Broadcast(true);
 }
 
 /* 유저가 존재하면 버튼 추가 */

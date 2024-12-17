@@ -261,6 +261,8 @@ void LiteralManager::Init()
     LiteralMessages.EnhanceSuccessStack = TEXT("제련 성공 스택 +");
     LiteralMessages.IncreaseMessage     = TEXT("상승");
     LiteralMessages.FailureTextFormat   = TEXT("{0}{1}{2}");
+    /* AddFriendMessageBox & MoveGroupMessageBox */
+    LiteralMessages.NullptrOption       = TEXT("");
 
      /* GameplayTagManager */
     LiteralMessages.Attribute_MainStat_Health = FTagPair(FName("Attribute.MainStat.Health"), TEXT("체력"));

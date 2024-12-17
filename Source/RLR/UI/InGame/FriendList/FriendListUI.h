@@ -9,6 +9,7 @@
 
 class UFriendRequestMessageBox;
 class UFriendRequestTabWidget;
+class UAddFriendMessageBox;
 class UExistingGroupList;
 class UFriendRequestUI;
 class UFriendButtonMenu;
@@ -100,6 +101,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendRequestTabWidget> FriendRequestTabWidget;
+
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<UAddFriendMessageBox> AddFriendMessageBox;
 
 	UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* FriendWidgetSwitcher;

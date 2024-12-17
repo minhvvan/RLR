@@ -45,7 +45,7 @@ void UMoveGroupMessageBox::CancelButtonClicked()
 	GroupListDropDownBox->RemoveOption(CurrentSelected);
 	GroupListDropDownBox->AddOption(CurrentSelected);
 
-	GroupListDropDownBox->SetSelectedOption(TEXT(""));
+	GroupListDropDownBox->SetSelectedOption(RLRLITERAL.NullptrOption);
 	Placeholder->SetVisibility(ESlateVisibility::Visible);
 }
 

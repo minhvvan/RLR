@@ -280,7 +280,8 @@ public:
 	FString EnhanceSuccessStack;
 	FString IncreaseMessage;
 	FString FailureTextFormat;
-
+	/* AddFriendMessageBox & MoveGroupMessageBox */
+	FString NullptrOption;
 
 	/* GameplayTagManager */
 	// Attribute_MainStat

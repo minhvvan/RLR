@@ -13,6 +13,7 @@
 #include "UI/InGame/FriendList/GroupCreationUI.h"
 #include "UI/InGame/FriendList/GroupButtonUI.h"
 #include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
+#include "UI/InGame/FriendList/Popup/AddFriendMessageBox.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
 #include "Components/ComboBoxString.h"
@@ -57,11 +58,11 @@ void UFriendListUI::RefreshUI()
 {
     // UI 새로고침 로직
     GameInstance->GetFriendManager()->InitializeFriendManager();
-    if (FriendRequestUI)
+    if (AddFriendMessageBox)
     {
-        FriendRequestUI->OnCloseRequestUISignature.RemoveAll(this);
+        AddFriendMessageBox->OnCloseRequestUISignature.RemoveAll(this);
         // FriendRequestUI가 닫힐 때 호출될 델리게이트에 바인딩
-        FriendRequestUI->OnCloseRequestUISignature.AddDynamic(this, &UFriendListUI::OpenFriendRequestUI);
+        AddFriendMessageBox->OnCloseRequestUISignature.AddUniqueDynamic(this, &UFriendListUI::OpenFriendRequestUI);
     }
     if (FriendTabWidget)
     {
@@ -153,14 +154,14 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     if (bOpenRequestUI)
     {
         bOpenRequestUI = false;
-        FriendRequestUI->SetVisibility(ESlateVisibility::Hidden);
+        AddFriendMessageBox->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
         bOpenRequestUI = true;
-        if (FriendRequestUI)
+        if (AddFriendMessageBox)
         {
-            FriendRequestUI->SetVisibility(ESlateVisibility::Visible);
+            AddFriendMessageBox->SetVisibility(ESlateVisibility::Visible);
         }
     }
 }

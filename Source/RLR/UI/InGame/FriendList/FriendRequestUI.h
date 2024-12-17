@@ -6,7 +6,7 @@
 #include "UI/SubUI.h"
 #include "FriendRequestUI.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCloseRequestUISignature, bool, bIsClosed);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCloseRequestUISignature, bool, bIsClosed);
 
 class UFriendButtonUI;
 class UEditableText;
@@ -53,7 +53,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UFriendButtonUI> UFriendButtonUIClass;
 
-	FOnCloseRequestUISignature OnCloseRequestUISignature;
+	//FOnCloseRequestUISignature OnCloseRequestUISignature;
 
 	UPROPERTY()
 	int FriendSeq;

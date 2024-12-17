@@ -10,6 +10,7 @@
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendConnectionStatusUI.h"
 #include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
+#include "UI/InGame/FriendList/Popup/AddFriendMessageBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Components/EditableText.h"
 #include "Components/ComboBoxString.h"
@@ -235,6 +236,11 @@ void UFriendTabWidget::AddGroupButton(int groupSeq, FString groupName)
                 if (MoveGroupMessageBox->GroupListDropDownBox)
 				{
                     MoveGroupMessageBox->GroupListDropDownBox->AddOption(groupName);
+                }
+
+                if (FriendListUI->AddFriendMessageBox->GroupListDropDownBox)
+                {
+                    FriendListUI->AddFriendMessageBox->GroupListDropDownBox->AddOption(groupName);
                 }
 
                 if (GroupOrderScrollBox)
