@@ -27,6 +27,9 @@ public:
 	UFUNCTION()
 	void CancelButtonClicked();
 
+	UFUNCTION()
+	void ChangedSelection(FString SelectedOption, ESelectInfo::Type SelectionType);
+
 	FOnConfirmButtonClicked OnConfirmButtonClicked;
 	FOnCancelButtonClicked OnCancelButtonClicked;
 public:
@@ -35,6 +38,9 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* PlayerNameInputText;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* Placeholder;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* ConfirmButton;

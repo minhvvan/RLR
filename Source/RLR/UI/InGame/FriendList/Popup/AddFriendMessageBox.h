@@ -23,6 +23,6 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UComboBoxString* GroupListDropDownBox;
 
-	UPROPERTY(meat = (BindWidget))
+	UPROPERTY(meta = (BindWidget))
 	UEditableText* PlayerNameInputText;
 };

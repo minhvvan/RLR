@@ -475,7 +475,7 @@ void UFriendTabWidget::UpdateGroupInfoUI()
 void UFriendTabWidget::CancelMoveGroup()
 {
     MoveGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
-    FriendListUI->SetMoveGroupMessageOpenState(true);
+    FriendListUI->SetMoveGroupMessageOpenState(false);
 }
 
 void UFriendTabWidget::ReorderGroups(UGroupButtonUI* DraggedButton, UGroupButtonUI* TargetButton)

@@ -77,7 +77,6 @@ void UFriendListUI::RefreshUI()
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
 {
     SelectedFriend = FriendButtonUI->GetFriendSeq();
-    //FriendRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
     FriendRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         FriendButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -94,7 +93,6 @@ void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, 
 void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, UGroupButtonUI* GroupButtonUI)
 {
     SelectedGroup = GroupButtonUI->GetGroupSeq();
-    //GroupRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
     GroupRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -247,7 +245,7 @@ void UFriendListUI::MoveGroup()
 	{
         if (FriendTabWidget->MoveGroupMessageBox)
         {
-            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
+            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
         }
         bIsMoveGroupMessageBoxOpen = false;
 	}
