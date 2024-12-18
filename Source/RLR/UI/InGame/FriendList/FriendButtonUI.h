@@ -13,7 +13,7 @@ class UButton;
 class UTextBlock;
 
 /*
-    친구가 추가되면 동적으로 생성되는 버튼
+	친구가 추가되면 동적으로 생성되는 버튼
 */
 
 UCLASS()
@@ -22,46 +22,55 @@ class RLR_API UFriendButtonUI : public UUserWidget
 	GENERATED_BODY()
 
 public:
-    virtual void NativeConstruct() override;
+	virtual void NativeConstruct() override;
 
-    void SetFriendInfo(int NewFriendSeq, FString NewFriendName);
-    FString GetFriendName();
-    UFUNCTION()
-    int32 GetFriendSeq() const { return FriendSeq; }
+	void SetFriendInfo(int NewFriendSeq, FString NewFriendName);
+	FString GetFriendName();
+	UFUNCTION()
+	int32 GetFriendSeq() const { return FriendSeq; }
 
-    void SetGroupSeq(int32 NewGroupSeq) {GroupSeq = NewGroupSeq;};
-    int32 GetGroupSeq() {return GroupSeq;};
+	void SetGroupSeq(int32 NewGroupSeq) { GroupSeq = NewGroupSeq; };
+	int32 GetGroupSeq() { return GroupSeq; };
 
-    UFUNCTION()
-    void OnFriendButtonClicked();
+	UFUNCTION()
+	void OnFriendButtonClicked();
 
-    UFUNCTION()
-    void OnAcceptRequestClicked();
+	UFUNCTION()
+	void OnAcceptRequestClicked();
 
-    void SetButtonState(bool isPressed);
+	void SetButtonState(bool isPressed);
 
-    FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
+	FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
 
-    FOnFriendButtonClickDelegate OnFriendRequestButtonClick;
-    FOnFriendRightClickedSignature OnFriendRightClicked;
+	FOnFriendButtonClickDelegate OnFriendRequestButtonClick;
+	FOnFriendRightClickedSignature OnFriendRightClicked;
 public:
-    /* TODO : 친구목록의 플레이어 정보 더 추가하기 */
-    UPROPERTY(meta = (BindWidget))
-    UButton* FriendButton;
+	/* TODO : 친구목록의 플레이어 정보 더 추가하기 */
+	UPROPERTY(meta = (BindWidget))
+	UButton* FriendButton;
 
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* FriendNameText;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* FriendNameText;
 
-    /* 친구 요청 탭 */
-    UPROPERTY(meta = (BindWidgetOptional))
-    UButton* AcceptRequestButton;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerLevelText;
 
-    /* 친구목록 or 친구요청탭 구분 */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Group")
-    bool bIsFriendRequestTab = false;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerLocation;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* CurrentConnectDate;
+
+	/* 친구 요청 탭 */
+	UPROPERTY(meta = (BindWidgetOptional))
+	UButton* AcceptRequestButton;
+
+	/* 친구목록 or 친구요청탭 구분 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Group")
+	bool bIsFriendRequestTab = false;
 
 private:
-    int FriendSeq;
-    FString FriendName;
-    int GroupSeq;
+	int FriendSeq;
+	FString FriendName;
+	int GroupSeq;
 };

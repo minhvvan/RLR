@@ -29,9 +29,6 @@ public:
 	UFUNCTION()
 	void OnCancelButtonClicked();
 
-	UFUNCTION()
-	void ChangedSelection(FString SelectedOption, ESelectInfo::Type SelectionType);
-
 	void InitComponents();
 
 	FOnCloseRequestUISignature OnCloseRequestUISignature;
@@ -41,9 +38,6 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	UEditableText* PlayerNameInputText;
-
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* Placeholder;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* ConfirmButton;

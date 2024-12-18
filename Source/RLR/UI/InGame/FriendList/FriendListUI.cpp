@@ -78,6 +78,7 @@ void UFriendListUI::RefreshUI()
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
 {
     SelectedFriend = FriendButtonUI->GetFriendSeq();
+    SelectedFriendName = FriendButtonUI->GetFriendName();
     FriendRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         FriendButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -184,7 +185,8 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
             position.Translation.Y = FriendRelativePosition.Y + 13.f;
             FriendMenuUI->SetRenderTransform(position);
             FriendMenuUI->SetVisibility(ESlateVisibility::Visible);
-            FriendMenuUI->SetFriendSeq(SelectedFriend);
+            FriendMenuUI->SetPlayerNameText(SelectedFriendName);
+            FriendMenuUI->SetFriendInfo(SelectedFriend, SelectedFriendName);
             FriendMenuUI->OnMoveGroupClicked.AddUniqueDynamic(this, &UFriendListUI::MoveGroup);
         }
     }

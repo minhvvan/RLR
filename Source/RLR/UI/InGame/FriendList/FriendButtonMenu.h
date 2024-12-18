@@ -12,6 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMoveGroupClicked);
 class UExistingGroupList;
 class UMoveGroupMessageBox;
 class UComboBoxString;
+class UTextBlock;
 class UButton;
 
 /**
@@ -21,7 +22,7 @@ UCLASS()
 class RLR_API UFriendButtonMenu : public USubUI
 {
 	GENERATED_BODY()
-	
+
 public:
 	virtual void NativeConstruct() override;
 
@@ -30,21 +31,40 @@ public:
 
 	UFUNCTION()
 	void RemoveFriend();
-	
+
 	UFUNCTION()
 	void MoveGroup();
 
 	UFUNCTION()
-	void SetFriendSeq(int CurrentFriendSeq) {FriendSeq = CurrentFriendSeq;};
+	void SetFriendInfo(int CurrentFriendSeq, FString CurrentFriendName) { friendSeq = CurrentFriendSeq; friendName = CurrentFriendName;};
 
 	UFUNCTION()
-	int GetFriendSeq() const {return FriendSeq;};
+	int GetFriendSeq() const { return friendSeq; };
 
+	UFUNCTION()
+	void OpenWhisperChat();
+
+	UFUNCTION()
+	void SendTradeRequest();
+
+	void SetPlayerNameText(FString CurrentFriendName);
 	FOnFriendInfoClicked OnFriendInfoClicked;
 	FOnMoveGroupClicked OnMoveGroupClicked;
 public:
 	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerNameText;
+
+	UPROPERTY(meta = (BindWidget))
 	UButton* PlayerInfoButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* InviteButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* TradeButton;
+	
+	UPROPERTY(meta = (BindWidget))
+	UButton* WhisperChatButton;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* RemoveFriendButton;
@@ -53,7 +73,8 @@ public:
 	UButton* MoveGroupButton;
 
 private:
-	int FriendSeq;
+	int friendSeq;
+	FString friendName;
 	bool bIsGroupListOpen;
 	UMoveGroupMessageBox* MoveGroupMessageBox;
 };

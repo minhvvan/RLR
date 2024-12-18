@@ -84,7 +84,7 @@ public:
     void AddFriendButton(int friendSeq, int groupSeq, FString friendName);
     void AddGroupButton(int groupSeq, FString groupName);
     void AddDefaultGroup(const TArray<FFriendGroupResult>& groupData);
-
+    bool IsComboBoxOptionExtist(UComboBoxString* ComboBox, const FString& OptionToCheck);
 private:
     void ClearFriendList();
 

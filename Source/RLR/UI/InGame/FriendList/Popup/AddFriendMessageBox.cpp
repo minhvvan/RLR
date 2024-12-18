@@ -26,10 +26,6 @@ void UAddFriendMessageBox::NativeConstruct()
 	{
 		CancelButton->OnClicked.AddUniqueDynamic(this, &UAddFriendMessageBox::OnCancelButtonClicked);
 	}
-	if (GroupListDropDownBox)
-	{
-		GroupListDropDownBox->OnSelectionChanged.AddUniqueDynamic(this, &UAddFriendMessageBox::ChangedSelection);
-	}
 }
 
 void UAddFriendMessageBox::OnFriendNameTextChanged(const FText& Text)
@@ -59,19 +55,10 @@ void UAddFriendMessageBox::OnCancelButtonClicked()
 
 void UAddFriendMessageBox::InitComponents()
 {
-	PlayerNameInputText->SetText(FText::FromString(""));
+	PlayerNameInputText->SetText(FText::FromString(RLRLITERAL.NullptrOption));
 	FString CurrentSelected = GroupListDropDownBox->GetSelectedOption();
 	GroupListDropDownBox->RemoveOption(CurrentSelected);
 	GroupListDropDownBox->AddOption(CurrentSelected);
 
-	GroupListDropDownBox->SetSelectedOption(RLRLITERAL.NullptrOption);
-	Placeholder->SetVisibility(ESlateVisibility::Visible);
-}
-
-void UAddFriendMessageBox::ChangedSelection(FString SelectedOption, ESelectInfo::Type SelectionType)
-{
-	if (!SelectedOption.IsEmpty())
-	{
-		Placeholder->SetVisibility(ESlateVisibility::Collapsed);
-	}
+	GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
 }

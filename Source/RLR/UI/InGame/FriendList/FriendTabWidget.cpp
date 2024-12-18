@@ -233,12 +233,12 @@ void UFriendTabWidget::AddGroupButton(int groupSeq, FString groupName)
                 FriendScrollBox->AddChild(GroupButtonUI);
                 GroupButtons.Add(groupSeq, GroupButtonUI);
 
-                if (MoveGroupMessageBox->GroupListDropDownBox)
+                if (MoveGroupMessageBox->GroupListDropDownBox && !IsComboBoxOptionExtist(MoveGroupMessageBox->GroupListDropDownBox, groupName))
 				{
                     MoveGroupMessageBox->GroupListDropDownBox->AddOption(groupName);
                 }
 
-                if (FriendListUI->AddFriendMessageBox->GroupListDropDownBox)
+                if (FriendListUI->AddFriendMessageBox->GroupListDropDownBox && !IsComboBoxOptionExtist(FriendListUI->AddFriendMessageBox->GroupListDropDownBox, groupName))
                 {
                     FriendListUI->AddFriendMessageBox->GroupListDropDownBox->AddOption(groupName);
                 }
@@ -263,6 +263,18 @@ void UFriendTabWidget::AddDefaultGroup(const TArray<FFriendGroupResult>& groupDa
     }
     std::string DefaultGroupName = TCHAR_TO_UTF8(*FString(RLRLITERAL.Friend_DefaultGroup));
     GameInstance->GetNetworkManager()->SendCreateFriendGroup(DefaultGroupName);
+}
+
+bool UFriendTabWidget::IsComboBoxOptionExtist(UComboBoxString* ComboBox, const FString& OptionToCheck)
+{
+    if(!ComboBox) return false;
+    int32 OptionCount = ComboBox->GetOptionCount();
+
+    for (int32 i = 0; i < OptionCount; i++)
+    {
+        if(ComboBox->GetOptionAtIndex(i) == OptionToCheck) return true;
+    }
+    return false;
 }
 
 void UFriendTabWidget::OnFriendButtonClicked(int friendSeq, UFriendButtonUI* FriendButtonUI)
@@ -447,6 +459,13 @@ void UFriendTabWidget::ClearFriendList()
 
     // FriendMenuUI의 GroupListBox 자식 제거
     MoveGroupMessageBox->GroupListDropDownBox->ClearOptions();
+    MoveGroupMessageBox->GroupListDropDownBox->AddOption(RLRLITERAL.Friend_DefaultGroup);
+    MoveGroupMessageBox->GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
+
+    FriendListUI->AddFriendMessageBox->GroupListDropDownBox->ClearOptions();
+    FriendListUI->AddFriendMessageBox->GroupListDropDownBox->AddOption(RLRLITERAL.Friend_DefaultGroup);
+    FriendListUI->AddFriendMessageBox->GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
+
 
     GroupButtons.Empty();
     FriendButtons.Empty();

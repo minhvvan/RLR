@@ -4,12 +4,15 @@
 #include "UI/InGame/FriendList/FriendButtonUI.h"
 #include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendListUI.h"
+#include "RLRObjects/Characters/RLRPlayerCharacter.h"
+#include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "GameManager/GameManager.h"
-#include "GameManager/NetworkManager.h"
 #include "GameManager/FriendManager.h"
+#include "GameManager/NetworkManager.h"
 
+#include "GameManager/OtherUserManager.h"
 
 void UFriendButtonUI::NativeConstruct()
 {
@@ -31,6 +34,28 @@ void UFriendButtonUI::SetFriendInfo(int NewFriendSeq, FString NewFriendName)
     FriendName = NewFriendName;
     if(FriendNameText)
         FriendNameText->SetText(FText::FromString(FriendName));
+	if (PlayerLevelText)
+	{
+        auto Player = GameInstance->GetOtherUserManager()->GetPlayer(FriendSeq);
+        if (Player)
+        {
+            auto Stat = Player->GetStat();
+            if (Stat)
+            {
+                int32 playerLevel = Stat->GetLevel();
+                PlayerLevelText->SetText(FText::AsNumber(playerLevel));
+            }
+
+        }
+	}
+    if (PlayerLocation)
+    {
+        /* player 위치 받아오기 */
+    }
+    if (CurrentConnectDate)
+    {
+        /* 최근 접속 일자 받아오기 */
+    }
 }
 
 void UFriendButtonUI::OnFriendButtonClicked()

@@ -131,6 +131,7 @@ private:
     bool bOpenGroupCreationUI;
     bool bIsMoveGroupMessageBoxOpen;
     int32 SelectedFriend;
+    FString SelectedFriendName;
     int32 SelectedGroup;
 
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);

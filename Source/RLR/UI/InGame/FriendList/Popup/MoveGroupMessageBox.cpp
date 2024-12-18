@@ -19,12 +19,6 @@ void UMoveGroupMessageBox::NativeConstruct()
 	{
 		CancelButton->OnClicked.AddUniqueDynamic(this, &UMoveGroupMessageBox::CancelButtonClicked);
 	}
-	if (GroupListDropDownBox)
-	{
-		GroupListDropDownBox->AddOption(RLRLITERAL.Friend_DefaultGroup);
-		GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
-		GroupListDropDownBox->OnSelectionChanged.AddUniqueDynamic(this, &UMoveGroupMessageBox::ChangedSelection);
-	}
 }
 
 void UMoveGroupMessageBox::ConfirmButtonClicked()
@@ -34,7 +28,6 @@ void UMoveGroupMessageBox::ConfirmButtonClicked()
 		GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
 	}
 	OnConfirmButtonClicked.Broadcast();
-	Placeholder->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UMoveGroupMessageBox::CancelButtonClicked()
@@ -45,14 +38,5 @@ void UMoveGroupMessageBox::CancelButtonClicked()
 	GroupListDropDownBox->RemoveOption(CurrentSelected);
 	GroupListDropDownBox->AddOption(CurrentSelected);
 
-	GroupListDropDownBox->SetSelectedOption(RLRLITERAL.NullptrOption);
-	Placeholder->SetVisibility(ESlateVisibility::Visible);
-}
-
-void UMoveGroupMessageBox::ChangedSelection(FString SelectedOption, ESelectInfo::Type SelectionType)
-{
-	if (!SelectedOption.IsEmpty())
-	{
-		Placeholder->SetVisibility(ESlateVisibility::Collapsed);
-	}
+	GroupListDropDownBox->SetSelectedOption(RLRLITERAL.Friend_DefaultGroup);
 }
