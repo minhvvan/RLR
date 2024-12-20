@@ -8,6 +8,7 @@
 #include "ActionSystem/StatSet/StatSetPlayer.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Components/EditableText.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/FriendManager.h"
 #include "GameManager/NetworkManager.h"
@@ -25,6 +26,12 @@ void UFriendButtonUI::NativeConstruct()
     if (bIsFriendRequestTab && AcceptRequestButton)
     {
         AcceptRequestButton->OnClicked.AddDynamic(this, &UFriendButtonUI::OnAcceptRequestClicked);
+    }
+    if (EditableFriendMemoText)
+    {
+        FString Memo = GameInstance->GetFriendManager()->GetFriendMemo(FriendSeq);
+        EditableFriendMemoText->SetText(FText::FromString(Memo));
+        EditableFriendMemoText->OnTextChanged.AddUniqueDynamic(this, &UFriendButtonUI::OnMemoTextChanged);
     }
 }
 
@@ -50,11 +57,11 @@ void UFriendButtonUI::SetFriendInfo(int NewFriendSeq, FString NewFriendName)
 	}
     if (PlayerLocation)
     {
-        /* player 위치 받아오기 */
+        /* TODO : player 위치 받아오기 */
     }
     if (CurrentConnectDate)
     {
-        /* 최근 접속 일자 받아오기 */
+        /* TODO : 최근 접속 일자 받아오기 */
     }
 }
 
@@ -70,6 +77,14 @@ void UFriendButtonUI::OnAcceptRequestClicked()
     if (GameInstance->GetFriendManager()->FriendListUI && GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget)
     {
         GameInstance->GetFriendManager()->FriendListUI->FriendRequestTabWidget->UpdateFriendRequestTab(GameInstance->GetFriendManager()->GetRequestFriendData());
+    }
+}
+
+void UFriendButtonUI::OnMemoTextChanged(const FText& NewText)
+{
+    if (GameInstance->GetFriendManager())
+    {
+        GameInstance->GetFriendManager()->SetFriendMemo(FriendSeq, NewText.ToString());
     }
 }
 

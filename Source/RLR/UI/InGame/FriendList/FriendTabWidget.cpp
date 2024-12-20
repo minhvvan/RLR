@@ -2,7 +2,6 @@
 
 
 #include "UI/InGame/FriendList/FriendTabWidget.h"
-#include "UI/InGame/FriendList/FriendRequestUI.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
 #include "UI/InGame/FriendList/FriendInformation.h"
 #include "UI/InGame/FriendList/FriendButtonUI.h"
@@ -59,10 +58,6 @@ void UFriendTabWidget::NativeConstruct()
     if (PlayerStatusSetting)
     {
         PlayerStatusSetting->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::OnPlayerStatusSettingClicked);
-    }
-    if (GroupCreationButton)
-    {
-        GroupCreationButton->OnClicked.AddUniqueDynamic(this, &UFriendTabWidget::AddGroupButtonClicked);
     }
     if (SearchFriendUI)
     {
@@ -124,15 +119,6 @@ void UFriendTabWidget::OnPlayerStatusSettingClicked()
         });
 }
 
-void UFriendTabWidget::AddGroupButtonClicked()
-{
-    // 그룹 명 입력할 위젯 open하도록 friendlistui에 전달    
-    if (FriendListUI)
-    {
-        FriendListUI->OpenAddGroupUI(false);
-    }
-
-}
 // 그룹 이동
 void UFriendTabWidget::GroupClickedOnGroupList(UGroupButtonUI* GroupButtonUI)
 {
@@ -185,6 +171,17 @@ void UFriendTabWidget::UpdatePlayerConnectionStatus(FText StatusText)
     PlayerStatusText->SetText(StatusText);
 }
 
+void UFriendTabWidget::UpdateFriendCount()
+{
+    if(!FriendCountText) return;
+
+	FText FriendCountFormattedText = FText::Format(
+		FriendCountFormat,
+		FText::AsNumber(friendCount)
+	);
+	FriendCountText->SetText(FriendCountFormattedText);
+}
+
 void UFriendTabWidget::AddFriendButton(int friendSeq, int groupSeq, FString friendName)
 {
     AsyncTask(ENamedThreads::GameThread, [this, friendSeq, groupSeq, friendName]()
@@ -209,6 +206,8 @@ void UFriendTabWidget::AddFriendButton(int friendSeq, int groupSeq, FString frie
                     FriendButtonUI->SetGroupSeq(groupSeq);
                     GroupButton->GroupContainer->AddChild(FriendButtonUI);
                 }
+                friendCount++;
+                UpdateFriendCount();
             }
         });
 }
@@ -470,6 +469,12 @@ void UFriendTabWidget::ClearFriendList()
     GroupButtons.Empty();
     FriendButtons.Empty();
     OrderedGroupButtons.Empty();
+    friendCount = 0;
+    FText FriendCountFormattedText = FText::Format(
+        FriendCountFormat,
+        FText::AsNumber(friendCount)
+    );
+    FriendCountText->SetText(FriendCountFormattedText);
 }
 
 void UFriendTabWidget::UpdateGroupInfoUI()

@@ -11,6 +11,7 @@ DECLARE_DELEGATE_TwoParams(FOnFriendRightClickedSignature, FVector2D, UFriendBut
 
 class UButton;
 class UTextBlock;
+class UEditableText;
 
 /*
 	친구가 추가되면 동적으로 생성되는 버튼
@@ -38,6 +39,9 @@ public:
 	UFUNCTION()
 	void OnAcceptRequestClicked();
 
+	UFUNCTION()
+	void OnMemoTextChanged(const FText& NewText);
+
 	void SetButtonState(bool isPressed);
 
 	FReply NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
@@ -55,11 +59,14 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* PlayerLevelText;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidgetOptional))
 	UTextBlock* PlayerLocation;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidgetOptional))
 	UTextBlock* CurrentConnectDate;
+
+	UPROPERTY(meta = (BindWidgetOptional))
+	UEditableText* EditableFriendMemoText;
 
 	/* 친구 요청 탭 */
 	UPROPERTY(meta = (BindWidgetOptional))

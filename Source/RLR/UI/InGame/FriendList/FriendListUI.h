@@ -9,6 +9,7 @@
 
 class UFriendRequestMessageBox;
 class UFriendRequestTabWidget;
+class URenameGroupMessageBox;
 class UAddFriendMessageBox;
 class UExistingGroupList;
 class UFriendRequestUI;
@@ -65,9 +66,11 @@ public:
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
+    void OpenGroupRenameUI(bool bOpen);
+    UFUNCTION()
     void OpenFriendMenuUI(bool bOpen);
     UFUNCTION()
-    void OpenAddGroupUI(bool bOpen);
+    void OpenCreateGroupUI(bool bOpen);
     UFUNCTION()
     void OpenGroupMenuUI();
 
@@ -77,12 +80,12 @@ public:
     UFUNCTION()
     void MoveGroup();
 
+    UFUNCTION()
+    void OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq);
     void SetFriendRequestMessageBox(FString& PlayerName);
     void SetMoveGroupMessageOpenState(bool bOpen);
 
 public:
-    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-    TObjectPtr<UFriendRequestUI> FriendRequestUI;
 
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendButtonMenu> FriendMenuUI;
@@ -104,6 +107,9 @@ public:
 
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UAddFriendMessageBox> AddFriendMessageBox;
+    
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<URenameGroupMessageBox> RenameGroupMessageBox;
 
 	UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* FriendWidgetSwitcher;
@@ -129,10 +135,12 @@ private:
     bool bOpenGroupMenuUI;
     bool bOpenFriendInfoUI;
     bool bOpenGroupCreationUI;
+    bool bOpenGroupRenameUI;
     bool bIsMoveGroupMessageBoxOpen;
     int32 SelectedFriend;
     FString SelectedFriendName;
     int32 SelectedGroup;
+    FString SelectedGroupName;
 
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
 	FVector2D FriendRelativePosition;

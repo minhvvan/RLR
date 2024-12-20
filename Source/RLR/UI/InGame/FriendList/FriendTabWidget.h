@@ -47,8 +47,6 @@ public:
     void OnPlayerStatusSettingClicked();
 
     UFUNCTION()
-	void AddGroupButtonClicked();    
-    UFUNCTION()
 	void GroupClickedOnGroupList(UGroupButtonUI* GroupButtonUI);
 
     UFUNCTION()
@@ -81,6 +79,7 @@ public:
     UFUNCTION()
     void CancelMoveGroup();
 
+    void UpdateFriendCount();
     void AddFriendButton(int friendSeq, int groupSeq, FString friendName);
     void AddGroupButton(int groupSeq, FString groupName);
     void AddDefaultGroup(const TArray<FFriendGroupResult>& groupData);
@@ -96,6 +95,9 @@ public:
     UTextBlock* PlayerStatusText;
 
     UPROPERTY(meta = (BindWidget))
+    UTextBlock* FriendCountText;
+
+    UPROPERTY(meta = (BindWidget))
     UScrollBox* FriendScrollBox;
 
     UPROPERTY(meta = (BindWigetOptional))
@@ -106,9 +108,6 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UEditableText* SearchFriendUI;
-    
-    UPROPERTY(meta = (BindWidgetOptional))
-    UButton* GroupCreationButton;
 
     UPROPERTY(meta = (BindWidgetOptional))
     UButton* ChangeGroupOrderButton;
@@ -148,5 +147,7 @@ public:
     UPROPERTY()
     TArray<UGroupButtonUI*> OrderedGroupButtons;
 private:
+    const FText FriendCountFormat = NSLOCTEXT("", "FriendCountFormat", "{0} 명");
     bool bGroupOrderOpen;
+    int32 friendCount;
 };

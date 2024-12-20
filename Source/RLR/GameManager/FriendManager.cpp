@@ -63,4 +63,24 @@ TArray<FFriendGroupResult> UFriendManager::GetAndClearFriendDeletionList()
 void UFriendManager::DeleteFromRequestList(int friendSeq)
 {
 	RequestFriendData.Remove(friendSeq);
-}	
+}
+void UFriendManager::SetFriendMemo(int32 FriendSeq, const FString& Memo)
+{
+	if (FriendMemoMap.Contains(FriendSeq))
+	{
+		FriendMemoMap[FriendSeq] = Memo;
+	}
+	else
+	{
+		FriendMemoMap.Add(FriendSeq, Memo);
+	}
+}
+
+FString UFriendManager::GetFriendMemo(int32 FriendSeq) const
+{
+	if (FriendMemoMap.Contains(FriendSeq))
+	{
+		return FriendMemoMap[FriendSeq];
+	}
+	return FString();
+}

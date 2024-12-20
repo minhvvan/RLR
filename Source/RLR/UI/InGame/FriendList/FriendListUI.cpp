@@ -3,7 +3,6 @@
 
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendTabWidget.h"
-#include "UI/InGame/FriendList/FriendRequestUI.h"
 #include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendRequestMessageBox.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
@@ -14,12 +13,14 @@
 #include "UI/InGame/FriendList/GroupButtonUI.h"
 #include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
 #include "UI/InGame/FriendList/Popup/AddFriendMessageBox.h"
+#include "UI/InGame/FriendList/Popup/RenameGroupMessageBox.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
 #include "Components/ComboBoxString.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/FriendManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "Structs/UtilStructs.h"
@@ -64,6 +65,10 @@ void UFriendListUI::RefreshUI()
         // FriendRequestUI가 닫힐 때 호출될 델리게이트에 바인딩
         AddFriendMessageBox->OnCloseRequestUISignature.AddUniqueDynamic(this, &UFriendListUI::OpenFriendRequestUI);
     }
+    if (RenameGroupMessageBox)
+    {
+        RenameGroupMessageBox->OnCloseRenameGroupSignature.AddUniqueDynamic(this, &UFriendListUI::OpenGroupRenameUI);
+    }
     if (FriendTabWidget)
     {
         GameInstance->GetNetworkManager()->SendInfoFriend();
@@ -71,8 +76,18 @@ void UFriendListUI::RefreshUI()
 	if (GroupCreationUI)
 	{
         GroupCreationUI->OnGroupCreationOpen.RemoveAll(this);
-		GroupCreationUI->OnGroupCreationOpen.AddDynamic(this, &UFriendListUI::OpenAddGroupUI);
+		GroupCreationUI->OnGroupCreationOpen.AddDynamic(this, &UFriendListUI::OpenCreateGroupUI);
 	}
+    /* 열려있던 UI 닫기 */
+    if (FriendMenuUI)
+    {
+        OpenFriendMenuUI(true);
+    }
+    if (GroupMenuUI)
+    {
+        bOpenGroupMenuUI = true;
+        OpenGroupMenuUI();
+    }
 }
 
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
@@ -95,6 +110,7 @@ void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, 
 void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, UGroupButtonUI* GroupButtonUI)
 {
     SelectedGroup = GroupButtonUI->GetGroupSeq();
+    SelectedGroupName = GroupButtonUI->GetGroupName();
     GroupRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -167,6 +183,24 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     }
 }
 
+void UFriendListUI::OpenGroupRenameUI(bool bOpen)
+{
+    bOpenGroupRenameUI = bOpen;
+    if (bOpenGroupRenameUI)
+    {
+        bOpenGroupRenameUI = false;
+        RenameGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
+    }
+    else
+    {
+        bOpenGroupRenameUI = true;
+        if (RenameGroupMessageBox)
+        {
+            RenameGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
+        }
+    }
+}
+
 void UFriendListUI::OpenFriendMenuUI(bool bOpen)
 {
     bOpenFriendMenuUI = bOpen;
@@ -192,7 +226,7 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
     }
 }
 
-void UFriendListUI::OpenAddGroupUI(bool bOpen)
+void UFriendListUI::OpenCreateGroupUI(bool bOpen)
 {
     bOpenGroupCreationUI = bOpen;
 
@@ -221,6 +255,7 @@ void UFriendListUI::OpenGroupMenuUI()
         GroupCreationUI->CloseUI();
         GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
         GroupMenuUI->GroupRemovedSignature.Unbind();
+        GroupMenuUI->GroupCreateSignature.Unbind();
     }
     else
     {
@@ -232,7 +267,19 @@ void UFriendListUI::OpenGroupMenuUI()
         GroupMenuUI->SetRenderTransform(position);
         GroupMenuUI->SetVisibility(ESlateVisibility::Visible);
         GroupMenuUI->SetGroupSeq(SelectedGroup);
+        GroupMenuUI->SetGroupName(SelectedGroupName);
         GroupMenuUI->GroupRemovedSignature.BindUObject(this, &UFriendListUI::RemoveGroup);
+        GroupMenuUI->GroupCreateSignature.BindUObject(this, &UFriendListUI::OpenCreateGroupUI);
+        GroupMenuUI->GroupRenameSignature.BindUObject(this, &UFriendListUI::OpenAndSetRenameUI);
+
+        if (SelectedGroupName == RLRLITERAL.Friend_DefaultGroup)
+        {
+            GroupMenuUI->RenameGroupButton->SetIsEnabled(false);
+        }
+        else
+        {
+            GroupMenuUI->RenameGroupButton->SetIsEnabled(true);
+        }
     }
 }
 
@@ -260,6 +307,17 @@ void UFriendListUI::MoveGroup()
         }
         bIsMoveGroupMessageBoxOpen = true;
     }
+}
+
+void UFriendListUI::OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq)
+{
+    OpenGroupRenameUI(bOpen);
+
+    bOpenGroupMenuUI = true;
+    OpenGroupMenuUI();
+    
+    RenameGroupMessageBox->SetGroupSeq(CurrentGroupSeq);
+    RenameGroupMessageBox->SetCurrentGroupName(FText::FromString(CurrentGroupName));
 }
 
 void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)

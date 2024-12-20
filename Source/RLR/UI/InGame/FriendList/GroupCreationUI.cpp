@@ -20,6 +20,10 @@ void UGroupCreationUI::NativeConstruct()
 	{
 		CancelButton->OnClicked.AddUniqueDynamic(this, &UGroupCreationUI::CancelButtonClicked);
 	}
+	if (GroupNameText)
+	{
+		GroupNameText->OnTextChanged.AddUniqueDynamic(this, &UGroupCreationUI::HandleTextChanged);
+	}
 }
 
 void UGroupCreationUI::ConfirmButtonClicked()
@@ -31,4 +35,14 @@ void UGroupCreationUI::ConfirmButtonClicked()
 void UGroupCreationUI::CancelButtonClicked()
 {
 	OnGroupCreationOpen.Broadcast(true);
+}
+
+void UGroupCreationUI::HandleTextChanged(const FText& Text)
+{
+	FString CurrentText = Text.ToString();
+
+	if (CurrentText.Len() > maxCharacters)
+	{
+		GroupNameText->SetText(FText::FromString(CurrentText.Left(maxCharacters)));
+	}
 }
