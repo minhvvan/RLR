@@ -83,8 +83,6 @@ void USkillUI::UpdateSkillDetailInfo(FSkillData NewSkillData)
 	{
 		SkillTree->SkillPropertyContainer->CloseUI();
 	}
-
-
 }
 
 void USkillUI::ClearSkillDetailInfo()

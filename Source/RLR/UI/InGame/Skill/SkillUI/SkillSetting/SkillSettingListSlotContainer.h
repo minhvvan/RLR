@@ -25,9 +25,10 @@ public:
 	virtual void Clear();
 	virtual void AddChild(FSkillData SkillData);
 
-public:
-
+private:
 	UPROPERTY()
 	TMap<int32, USkillSettingListSlot*> SlotMap;
 
+
+	
 };

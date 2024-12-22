@@ -12,10 +12,11 @@
 
 void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
 {
-
 	TSubclassOf<USkillSettingListSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingListSlot>(RLRLITERAL.WBP_SkillSettingListSlot);
 	if (IsValid(SlotClass) == false)
 		DEBUG_MESSAGE;
+
+	if (SlotMap.Num() == MaxSlotCount) return;
 
 	for(int32 i = 0 ; i < MaxSlotCount; i++)
 	{ 
