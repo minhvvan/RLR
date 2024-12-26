@@ -14,11 +14,13 @@
 #include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
 #include "UI/InGame/FriendList/Popup/AddFriendMessageBox.h"
 #include "UI/InGame/FriendList/Popup/RenameGroupMessageBox.h"
+#include "UI/InGame/OtherUser/PartyUI.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
 #include "Components/ComboBoxString.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/LiteralManager.h"
 #include "GameManager/FriendManager.h"
@@ -30,7 +32,7 @@ void UFriendListUI::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    SetUITag(FGameplayTagManager::Get().UI_FriendList);
+    SetUITag(FGameplayTagManager::Get().Action_Default_FriendOpen);
 
     bOpenRequestUI = false;
     bOpenFriendMenuUI = false;
@@ -49,6 +51,11 @@ void UFriendListUI::NativeConstruct()
 
     // 타이머 제거 
     GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+
+    if (GameInstance->GetUIManager()->GetSubUI<UPartyUI>(RLRTAG.UI_Party))
+    {
+        PartyUI = GetSubUI<UPartyUI>(RLRTAG.UI_Party);
+    }
 }
 
 void UFriendListUI::Init()
@@ -222,6 +229,7 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
             FriendMenuUI->SetPlayerNameText(SelectedFriendName);
             FriendMenuUI->SetFriendInfo(SelectedFriend, SelectedFriendName);
             FriendMenuUI->OnMoveGroupClicked.AddUniqueDynamic(this, &UFriendListUI::MoveGroup);
+            FriendMenuUI->OnInvitePartyClicked.AddUniqueDynamic(this, &UFriendListUI::AddToParty);
         }
     }
 }
@@ -243,6 +251,11 @@ void UFriendListUI::OpenCreateGroupUI(bool bOpen)
         if (GroupCreationUI)
         {
             GroupCreationUI->SetVisibility(ESlateVisibility::Visible);
+        }
+        if (GroupMenuUI)
+        {
+            GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
+            bOpenGroupMenuUI = false;
         }
     }
 }
@@ -307,6 +320,11 @@ void UFriendListUI::MoveGroup()
         }
         bIsMoveGroupMessageBoxOpen = true;
     }
+}
+
+void UFriendListUI::AddToParty(FUserCharacter UserData)
+{
+    PartyUI->AddPlayer(UserData);
 }
 
 void UFriendListUI::OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq)

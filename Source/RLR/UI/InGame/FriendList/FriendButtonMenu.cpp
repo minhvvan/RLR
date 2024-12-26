@@ -5,6 +5,7 @@
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendTabWidget.h"
 #include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
+#include "UI/InGame/OtherUser/PartyUI.h"
 #include "UI/InGame/Chat/ChatUI.h"
 #include "Structs/UtilStructs.h"
 #include "Components/TextBlock.h"
@@ -13,6 +14,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/PlayerManager.h"
 #include "GameManager/FriendManager.h"
 
 void UFriendButtonMenu::NativeConstruct()
@@ -33,7 +35,8 @@ void UFriendButtonMenu::NativeConstruct()
 	}
 	if (InviteButton)
 	{
-		/* TODO : 초대하기, 어떤 초대인지 모름 */
+		/* 파티 초대하기, 현재 파티에 추가하는 기능만 존재 */
+		InviteButton->OnClicked.AddUniqueDynamic(this, &UFriendButtonMenu::InviteParty);
 	}
 	if (WhisperChatButton)
 	{
@@ -81,6 +84,12 @@ void UFriendButtonMenu::SendTradeRequest()
 {
 	/* 상대에게 거래 요청 패킷 전송 */
 	GameInstance->GetNetworkManager()->SendTradeUserRequest(friendSeq);
+}
+
+void UFriendButtonMenu::InviteParty()
+{
+	FUserCharacter UserData = GameInstance->GetPlayerManager()->GetPlayerData();
+	OnInvitePartyClicked.Broadcast(UserData);
 }
 
 void UFriendButtonMenu::SetPlayerNameText(FString CurrentFriendName)

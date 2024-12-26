@@ -113,7 +113,7 @@ void UFriendButtonUI::SetButtonState(bool isPressed)
 FReply UFriendButtonUI::NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
     // 우클릭 감지
-    if (MouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+    if (MouseEvent.IsControlDown() && MouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
     {
         // 우클릭 시 메뉴 표시
         if (OnFriendRightClicked.IsBound())

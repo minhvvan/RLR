@@ -12,7 +12,7 @@ void UFriendManager::InitializeFriendManager()
 	UUIManager* UIManager = GameInstance->GetUIManager();
 	if (!UIManager) return;
 
-	UFriendListUI* FriendUI = UIManager->GetSubUI<UFriendListUI>(RLRTAG.UI_FriendList);
+	UFriendListUI* FriendUI = UIManager->GetSubUI<UFriendListUI>(RLRTAG.Action_Default_FriendOpen);
 	if (!FriendUI) return;
 
 	FriendListUI = FriendUI;

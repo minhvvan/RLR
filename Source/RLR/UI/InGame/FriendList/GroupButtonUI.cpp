@@ -85,15 +85,18 @@ FReply UGroupButtonUI::NativeOnPreviewMouseButtonDown(const FGeometry& InGeometr
 
 FReply UGroupButtonUI::NativeOnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent)
 {
-    if (MouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+    if (MouseEvent.IsControlDown() && MouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
     {
-        // friendScrollBox에 있는 그룹 버튼을 우클릭 시 메뉴 표시
-        if (OnGroupRightClicked.IsBound() && GroupContainer)
+        if (GroupButton && GroupButton->GetCachedGeometry().IsUnderLocation(MouseEvent.GetScreenSpacePosition()))
         {
-            FVector2D AbsolutePosition = GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
-            OnGroupRightClicked.Execute(AbsolutePosition, this);  // 델리게이트 호출
+            // friendScrollBox에 있는 그룹 버튼을 우클릭 시 메뉴 표시
+            if (OnGroupRightClicked.IsBound() && GroupContainer)
+            {
+                FVector2D AbsolutePosition = GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+                OnGroupRightClicked.Execute(AbsolutePosition, this);  // 델리게이트 호출
+            }
+            return FReply::Handled();
         }
-        return FReply::Handled();
     }
 
     return FReply::Unhandled();

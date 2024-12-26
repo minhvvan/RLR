@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/PlayerStructs.h"
 #include "FriendListUI.generated.h"
 
 class UFriendRequestMessageBox;
@@ -20,6 +21,7 @@ class UFriendTabWidget;
 class UFriendButtonUI;
 class UGroupCreationUI;
 class UWidgetSwitcher;
+class UPartyUI;
 
 /*
 	친구목록의 모든 Tab이 존재하는 UI
@@ -81,6 +83,9 @@ public:
     void MoveGroup();
 
     UFUNCTION()
+    void AddToParty(FUserCharacter UserData);
+
+    UFUNCTION()
     void OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq);
     void SetFriendRequestMessageBox(FString& PlayerName);
     void SetMoveGroupMessageOpenState(bool bOpen);
@@ -128,6 +133,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<int32, FString> FriendRequestData;
+
+    // PartyUI
+    TObjectPtr<UPartyUI> PartyUI;
 
 private:
     bool bOpenRequestUI;

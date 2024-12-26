@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameManager/RLRStruct.h"
 #include "Structs/ObjectStructs.h"
+#include "Structs/PlayerStructs.h"
 #include "PlayerManager.generated.h"
 
 class ARLRPlayerCharacter;
@@ -24,8 +25,9 @@ public:
 public:
 
     void                  SetPlayerData(FUserCharacter PlayerData);
-
+    
     ARLRPlayerCharacter*  GetPlayerCharacter();
+    FUserCharacter        GetPlayerData();
 
     //UpdateStat
     void UpdatePlayerTotalStatus(const FTotalStatus& NewTotalStatus);
@@ -60,6 +62,8 @@ private:
     FUserGoods UserGood;
 
     FPlayerGoods PlayerGood;
+
+    FUserCharacter UserData;
 public:
     class UStatSetPlayer* GetStatSet();
 

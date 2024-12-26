@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "Structs/PlayerStructs.h"
 #include "FriendButtonMenu.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFriendInfoClicked, int32, FriendSeq);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInvitePartyClicked, FUserCharacter, UserData);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMoveGroupClicked);
 
 class UExistingGroupList;
@@ -47,8 +49,12 @@ public:
 	UFUNCTION()
 	void SendTradeRequest();
 
+	UFUNCTION()
+	void InviteParty();
+
 	void SetPlayerNameText(FString CurrentFriendName);
 	FOnFriendInfoClicked OnFriendInfoClicked;
+	FOnInvitePartyClicked OnInvitePartyClicked;
 	FOnMoveGroupClicked OnMoveGroupClicked;
 public:
 	UPROPERTY(meta = (BindWidget))

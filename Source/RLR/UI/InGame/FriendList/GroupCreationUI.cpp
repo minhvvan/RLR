@@ -28,6 +28,7 @@ void UGroupCreationUI::NativeConstruct()
 
 void UGroupCreationUI::ConfirmButtonClicked()
 {
+	OnGroupCreationOpen.Broadcast(true);
 	std::string GroupName = TCHAR_TO_UTF8(*GroupNameText->GetText().ToString());
 	GameInstance->GetNetworkManager()->SendCreateFriendGroup(GroupName);
 }

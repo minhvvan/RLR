@@ -272,6 +272,7 @@ void LiteralManager::Init()
 	LiteralMessages.Action_Default_Attack   = FTagPair(FName("Action.Default.Attack"), TEXT("기본공격"));
 	LiteralMessages.Action_Default_Jump     = FTagPair(FName("Action.Default.Jump"), TEXT("점프"));
 	LiteralMessages.Action_Default_GuildOpen = FTagPair(FName("Action.Default.GuildOpen"), TEXT("길드창"));
+	LiteralMessages.Action_Default_FriendOpen = FTagPair(FName("Action.Default.FriendOpen"), TEXT("친구창"));
 	LiteralMessages.Action_Default_PlayMontage = FTagPair(FName("Action.Default.PlayMontage"), TEXT("애니메이션 실행"));
 	LiteralMessages.Action_Default_HitCheck = FTagPair(FName("Action.Attack.HitCheck"), TEXT("공격판정"));
 	
@@ -408,4 +409,5 @@ void LiteralManager::Init()
     LiteralMessages.InputTag_Y          = FTagPair(FName("Input.Y"), TEXT("KeyBoard Y"));
     LiteralMessages.InputTag_Z          = FTagPair(FName("Input.Z"), TEXT("KeyBoard Z"));
     LiteralMessages.InputTag_Alt_U      = FTagPair(FName("Input.Alt_U"), TEXT("KeyBoard Alt + U"));
+    LiteralMessages.InputTag_LCtrl_C    = FTagPair(FName("Input.LCtrl_C"), TEXT("KeyBoard LCtrl + C"));
 }
