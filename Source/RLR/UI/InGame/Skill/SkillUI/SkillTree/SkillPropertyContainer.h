@@ -7,6 +7,7 @@
 #include "Structs/SkillStructs.h"
 #include "SkillPropertyContainer.generated.h"
 
+class UImage;
 /**
  * 
  */
@@ -24,7 +25,10 @@ public:
 	virtual void RefreshUI();
 	virtual void SetSkillData(FSkillData NewSkillData);
 
+private:
+	UPROPERTY(VisibleAnywhere, Meta = (BindWidget))
+	TObjectPtr<UImage> ImgSkill;
+	
 public:
-
 	FSkillData SkillData;
 };

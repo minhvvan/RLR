@@ -2,6 +2,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UI/InGame/Skill/SkillUI/SkillTree/SkillPropertyContainer.h"
+#include "Components/Image.h"
+#include "GameManager/DataManager.h"
 
 
 void USkillPropertyContainer::NativeConstruct()
@@ -32,9 +34,8 @@ void USkillPropertyContainer::RefreshUI()
 		return;
 	}
 
-	/*
-		스킬 데이터에 스킬 속성이 생기면 추가로 작업해주기.
-	*/
+	auto actionResource = GetDataManager()->GetActionResource(SkillData.SkillSeq);
+	ImgSkill->SetBrushFromTexture(actionResource.ActionImage);
 }
 
 void USkillPropertyContainer::SetSkillData(FSkillData NewSkillData)

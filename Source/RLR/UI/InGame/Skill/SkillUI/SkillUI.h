@@ -56,22 +56,21 @@ public:
 		Bind
 
 	*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<USkillDetailInfo> SkillDetailInfo;
 
-	   UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	   TObjectPtr<USkillDetailInfo> SkillDetailInfo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> SkillTreeTabButton;
 
-	    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-		TObjectPtr<UButton> SkillTreeTabButton;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> SkillSettingTabButton;
 
-	    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-		TObjectPtr<UButton> SkillSettingTabButton;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UWidgetSwitcher> SkillWidgetSwitcher;
 
-		 UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-		 TObjectPtr<UWidgetSwitcher> SkillWidgetSwitcher;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<USkillTree> SkillTree;
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-		TObjectPtr<USkillTree> SkillTree;
-
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-		TObjectPtr<USkillSetting> SkillSetting;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<USkillSetting> SkillSetting;
 };

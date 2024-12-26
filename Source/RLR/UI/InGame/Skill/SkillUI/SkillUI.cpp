@@ -73,16 +73,8 @@ void USkillUI::UpdateSkillDetailInfo(FSkillData NewSkillData)
 		return;
 	}
 
-	//고유기만 스킬 프로퍼티를 보여준다.
-	if (NewSkillData.SkillGroup == ESkillGroup::UNIQUE)
-	{
-		SkillTree->SkillPropertyContainer->SetSkillData(NewSkillData);
-		SkillTree->SkillPropertyContainer->OpenUI();
-	}
-	else
-	{
-		SkillTree->SkillPropertyContainer->CloseUI();
-	}
+	SkillTree->SkillPropertyContainer->SetSkillData(NewSkillData);
+	SkillTree->SkillPropertyContainer->OpenUI();
 }
 
 void USkillUI::ClearSkillDetailInfo()

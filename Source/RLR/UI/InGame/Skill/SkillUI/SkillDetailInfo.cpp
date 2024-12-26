@@ -13,6 +13,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "GameManager/DataManager.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/UtilStructs.h"
 
@@ -37,8 +38,7 @@ void USkillDetailInfo::RefreshUI()
 
 	if (ActionResource == FActionResource::EmptyActionResource)
 	{
-		Clear();
-		return;
+		ActionResource = GetDataManager()->GetActionResource(SkillData.SkillSeq);
 	}
 
 	SetVisibility(ESlateVisibility::Visible);
@@ -93,7 +93,6 @@ void USkillDetailInfo::OnClickedShowChainSkillButton()
 
 void USkillDetailInfo::SetSkillData(FSkillData NewSkillData)
 {
-
 	//만약 스킬 정보가 비어 있다면 그냥 비워준다.
 	if (NewSkillData == FSkillData::EmptySkillData)
 	{
@@ -101,7 +100,6 @@ void USkillDetailInfo::SetSkillData(FSkillData NewSkillData)
 		return;
 	}
 		
-
 	SkillData = NewSkillData;
 	RefreshUI();
 }
