@@ -336,18 +336,35 @@ struct FGuildResult
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildSeq;
+	/* 길드 이름 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString  guildName;
+	/* 길드 레벨 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildLevel;
+	/* 길드 최대 획득 가능 경험치 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildMaxExp;
+	/* 길드 경험치 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildExp;
+	/* 길드 최대 수용가능 인원 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildMaxUser;
-
-	// GuildRank 배열 추가
+	/* 길드 포인트 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildPoint;
+	/* 길드 랭크 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildRank;
+	/* 길드 신설일 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildCreationDate;
+	/* 길드 기여도 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildContribution;
+	
+	// GuildRank : 길드 각 멤버 정보, 배열 길이 == 길드 멤버 수
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FGuildRank> GuildRanks;
 
