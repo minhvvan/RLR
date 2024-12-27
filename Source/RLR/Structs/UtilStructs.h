@@ -30,6 +30,16 @@ enum class ESlotType : uint8
 	NONE,
 };
 
+UENUM(BlueprintType)
+enum class EGuildRole : uint8 
+{
+	NONE = 0,
+	MEMBER = 1,
+	OFFICER = 2,
+	VICEMASTER = 3,
+	MASTER = 4
+};
+
 USTRUCT(Atomic, BlueprintType)
 struct FAttackResult
 {
@@ -305,7 +315,7 @@ struct FGuildRank
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 GuildRankSeq;
+    TEnumAsByte<EGuildRole> GuildRankSeq;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 UserSeq;

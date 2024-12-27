@@ -12,6 +12,15 @@
 void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 {
 	GuildData = guildData;
+	
+	for (const FGuildRank& guildRank : GuildData.GuildRanks)
+	{
+		if (guildRank.UserSeq == GameInstance->GetUserSeq())
+		{
+			CurrentUserRole = guildRank.GuildRankSeq;
+			break;
+		}
+	}
 
 	/* 길드에 속하지 않았다면 */
     AsyncTask(ENamedThreads::GameThread, [this]()
@@ -33,4 +42,9 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 FGuildResult UGuildManager::GetGuildInfo()
 {
 	return GuildData;
+}
+
+bool UGuildManager::HasPermission(EGuildRole Role)
+{
+	return CurrentUserRole == Role;
 }

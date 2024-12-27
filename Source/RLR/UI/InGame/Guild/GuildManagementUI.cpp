@@ -29,7 +29,7 @@ void UGuildManagementUI::NativeConstruct()
 		if (guildRank.UserSeq == GameInstance->GetUserSeq())
 		{
 			/* 길드장에게만 보이도록 하기 */
-			if (guildRank.GuildRankSeq == 4)
+			if (guildRank.GuildRankSeq == EGuildRole::MASTER)
 			{
 				DeleteGuildButton->SetVisibility(ESlateVisibility::Visible);
 				if (DeleteGuildButton)
@@ -42,6 +42,7 @@ void UGuildManagementUI::NativeConstruct()
 				DeleteGuildButton->SetVisibility(ESlateVisibility::Hidden);
 			}
 		}
+		break;
 	}
 }
 
