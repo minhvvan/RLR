@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Guild/GuildManagementUI.h"
+#include "UI/InGame/Guild/GuildManagement/GuildManagementUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/NetworkManager.h"

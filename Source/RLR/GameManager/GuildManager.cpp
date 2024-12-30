@@ -6,6 +6,7 @@
 #include "GameManager/UIManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Guild/GuildUI.h"
+#include "UI/InGame/Guild/PlayerGuildUI.h"
 #include "Components/WidgetSwitcher.h"
 
 
@@ -30,6 +31,10 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 				if (GuildData.guildSeq != 0)
 				{
 					GuildOverlayUI->WidgetSwitcher->SetActiveWidgetIndex(1);
+					if (GuildOverlayUI->PlayerGuildUI)
+					{
+						GuildOverlayUI->PlayerGuildUI->RefreshUI();
+					}
 				}
 				else
 				{
