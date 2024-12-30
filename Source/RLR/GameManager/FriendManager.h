@@ -31,6 +31,9 @@ public:
 
     void DeleteFromRequestList(int friendSeq);
 
+    void SetFriendMemo(int32 FriendSeq, const FString& Memo);
+    FString GetFriendMemo(int32 FriendSeq) const;
+
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FFriendGroupResult> FriendDeletionList;
@@ -43,4 +46,7 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TMap<int32, FString> RequestFriendData;
+
+private:
+    TMap<int32, FString> FriendMemoMap;
 };

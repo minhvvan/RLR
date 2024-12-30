@@ -7,12 +7,14 @@
 #include "GroupButtonMenu.generated.h"
 
 DECLARE_DELEGATE_OneParam(FGroupRemovedSignature, int32);
+DECLARE_DELEGATE_OneParam(FGroupCreateSignature, bool);
+DECLARE_DELEGATE_ThreeParams(FGroupRenameSignature, bool, FString, int32);
 
 UCLASS()
 class RLR_API UGroupButtonMenu : public USubUI
 {
 	GENERATED_BODY()
-	
+
 public:
 	virtual void NativeConstruct() override;
 
@@ -20,17 +22,34 @@ public:
 	void RemoveGroup();
 
 	UFUNCTION()
-	void SetGroupSeq(int CurrentFriendSeq) { GroupSeq = CurrentFriendSeq;};
+	void CreateGroup();
 
 	UFUNCTION()
-	int GetGroupSeq() const {return GroupSeq;};
+	void RenameGroup();
+
+	UFUNCTION()
+	void SetGroupSeq(int CurrentFriendSeq) { groupSeq = CurrentFriendSeq; };
+
+	UFUNCTION()
+	int GetGroupSeq() const { return groupSeq; };
+
+	void SetGroupName(FString CurrentGroupName); 
 
 	FGroupRemovedSignature GroupRemovedSignature;
+	FGroupCreateSignature GroupCreateSignature;
+	FGroupRenameSignature GroupRenameSignature;
 
 public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* RemoveGroupButton;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* CreateGroupButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* RenameGroupButton;
+
 private:
-	int GroupSeq;
+	int groupSeq;
+	FString groupName;
 };

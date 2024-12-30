@@ -9,6 +9,7 @@
 
 
 class UFriendConnectionStatusUI;
+class UMoveGroupMessageBox;
 class UGorupButtonDragDrop;
 class UExistingGroupList;
 class UFriendInformation;
@@ -18,6 +19,7 @@ class UFriendButtonUI;
 class UGroupButtonUI;
 class UFriendListUI;
 class UEditableText;
+class UComboBoxString;
 class UVerticalBox;
 class UTextBlock;
 class UScrollBox;
@@ -45,8 +47,6 @@ public:
     void OnPlayerStatusSettingClicked();
 
     UFUNCTION()
-	void AddGroupButtonClicked();    
-    UFUNCTION()
 	void GroupClickedOnGroupList(UGroupButtonUI* GroupButtonUI);
 
     UFUNCTION()
@@ -72,11 +72,18 @@ public:
 
     UFUNCTION()
     void ReorderGroups(UGroupButtonUI* DraggedButton, UGroupButtonUI* TargetButton);
+    
+    UFUNCTION()
+    void UpdateGroupInfoUI();
 
+    UFUNCTION()
+    void CancelMoveGroup();
+
+    void UpdateFriendCount();
     void AddFriendButton(int friendSeq, int groupSeq, FString friendName);
     void AddGroupButton(int groupSeq, FString groupName);
     void AddDefaultGroup(const TArray<FFriendGroupResult>& groupData);
-
+    bool IsComboBoxOptionExtist(UComboBoxString* ComboBox, const FString& OptionToCheck);
 private:
     void ClearFriendList();
 
@@ -86,6 +93,9 @@ public:
 
     UPROPERTY(meta = (BindWidgetOptional))
     UTextBlock* PlayerStatusText;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* FriendCountText;
 
     UPROPERTY(meta = (BindWidget))
     UScrollBox* FriendScrollBox;
@@ -98,15 +108,15 @@ public:
 
     UPROPERTY(meta = (BindWidget))
     UEditableText* SearchFriendUI;
-    
-    UPROPERTY(meta = (BindWidgetOptional))
-    UButton* GroupCreationButton;
 
     UPROPERTY(meta = (BindWidgetOptional))
     UButton* ChangeGroupOrderButton;
 
     UPROPERTY(meta = (BindWidgetOptional))
     UButton* FriendRequestButton;
+
+    UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UMoveGroupMessageBox> MoveGroupMessageBox;
 
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     TSubclassOf<UFriendButtonUI> FriendButtonUIClass;
@@ -136,7 +146,8 @@ public:
 
     UPROPERTY()
     TArray<UGroupButtonUI*> OrderedGroupButtons;
-
 private:
+    const FText FriendCountFormat = NSLOCTEXT("", "FriendCountFormat", "{0} 명");
     bool bGroupOrderOpen;
+    int32 friendCount;
 };

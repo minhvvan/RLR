@@ -3,21 +3,26 @@
 
 #include "UI/InGame/FriendList/FriendListUI.h"
 #include "UI/InGame/FriendList/FriendTabWidget.h"
-#include "UI/InGame/FriendList/FriendRequestUI.h"
 #include "UI/InGame/FriendList/FriendRequestTabWidget.h"
 #include "UI/InGame/FriendList/FriendRequestMessageBox.h"
 #include "UI/InGame/FriendList/FriendButtonMenu.h"
-#include "UI/InGame/FriendList/ExistingGroupList.h"
 #include "UI/InGame/FriendList/GroupButtonMenu.h"
 #include "UI/InGame/FriendList/FriendInformation.h"
 #include "UI/InGame/FriendList/FriendButtonUI.h"
 #include "UI/InGame/FriendList/GroupCreationUI.h"
 #include "UI/InGame/FriendList/GroupButtonUI.h"
+#include "UI/InGame/FriendList/Popup/MoveGroupMessageBox.h"
+#include "UI/InGame/FriendList/Popup/AddFriendMessageBox.h"
+#include "UI/InGame/FriendList/Popup/RenameGroupMessageBox.h"
+#include "UI/InGame/OtherUser/PartyUI.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/VerticalBox.h"
+#include "Components/ComboBoxString.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
+#include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/LiteralManager.h"
 #include "GameManager/FriendManager.h"
 #include "GameManager/GameplayTagManager.h"
 #include "Structs/UtilStructs.h"
@@ -27,7 +32,7 @@ void UFriendListUI::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    SetUITag(FGameplayTagManager::Get().UI_FriendList);
+    SetUITag(FGameplayTagManager::Get().Action_Default_FriendOpen);
 
     bOpenRequestUI = false;
     bOpenFriendMenuUI = false;
@@ -46,6 +51,11 @@ void UFriendListUI::NativeConstruct()
 
     // 타이머 제거 
     GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+
+    if (GameInstance->GetUIManager()->GetSubUI<UPartyUI>(RLRTAG.UI_Party))
+    {
+        PartyUI = GetSubUI<UPartyUI>(RLRTAG.UI_Party);
+    }
 }
 
 void UFriendListUI::Init()
@@ -56,11 +66,15 @@ void UFriendListUI::RefreshUI()
 {
     // UI 새로고침 로직
     GameInstance->GetFriendManager()->InitializeFriendManager();
-    if (FriendRequestUI)
+    if (AddFriendMessageBox)
     {
-        FriendRequestUI->OnCloseRequestUISignature.RemoveAll(this);
+        AddFriendMessageBox->OnCloseRequestUISignature.RemoveAll(this);
         // FriendRequestUI가 닫힐 때 호출될 델리게이트에 바인딩
-        FriendRequestUI->OnCloseRequestUISignature.AddDynamic(this, &UFriendListUI::OpenFriendRequestUI);
+        AddFriendMessageBox->OnCloseRequestUISignature.AddUniqueDynamic(this, &UFriendListUI::OpenFriendRequestUI);
+    }
+    if (RenameGroupMessageBox)
+    {
+        RenameGroupMessageBox->OnCloseRenameGroupSignature.AddUniqueDynamic(this, &UFriendListUI::OpenGroupRenameUI);
     }
     if (FriendTabWidget)
     {
@@ -69,14 +83,24 @@ void UFriendListUI::RefreshUI()
 	if (GroupCreationUI)
 	{
         GroupCreationUI->OnGroupCreationOpen.RemoveAll(this);
-		GroupCreationUI->OnGroupCreationOpen.AddDynamic(this, &UFriendListUI::OpenAddGroupUI);
+		GroupCreationUI->OnGroupCreationOpen.AddDynamic(this, &UFriendListUI::OpenCreateGroupUI);
 	}
+    /* 열려있던 UI 닫기 */
+    if (FriendMenuUI)
+    {
+        OpenFriendMenuUI(true);
+    }
+    if (GroupMenuUI)
+    {
+        bOpenGroupMenuUI = true;
+        OpenGroupMenuUI();
+    }
 }
 
 void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, UFriendButtonUI* FriendButtonUI)
 {
     SelectedFriend = FriendButtonUI->GetFriendSeq();
-    //FriendRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+    SelectedFriendName = FriendButtonUI->GetFriendName();
     FriendRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         FriendButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -93,7 +117,7 @@ void UFriendListUI::OnFriendRightMouseClicked(FVector2D ButtonAbsolutePosition, 
 void UFriendListUI::OnGroupRightMouseClicked(FVector2D ButtonAbsolutePosition, UGroupButtonUI* GroupButtonUI)
 {
     SelectedGroup = GroupButtonUI->GetGroupSeq();
-    //GroupRelativePosition = ButtonAbsolutePosition - GetCachedGeometry().LocalToAbsolute(FVector2D::ZeroVector);
+    SelectedGroupName = GroupButtonUI->GetGroupName();
     GroupRelativePosition = GetCachedGeometry().AbsoluteToLocal(
         GroupButtonUI->GetCachedGeometry().LocalToAbsolute(FVector2D::Zero())
     );
@@ -154,14 +178,32 @@ void UFriendListUI::OpenFriendRequestUI(bool bOpen)
     if (bOpenRequestUI)
     {
         bOpenRequestUI = false;
-        FriendRequestUI->SetVisibility(ESlateVisibility::Hidden);
+        AddFriendMessageBox->SetVisibility(ESlateVisibility::Hidden);
     }
     else
     {
         bOpenRequestUI = true;
-        if (FriendRequestUI)
+        if (AddFriendMessageBox)
         {
-            FriendRequestUI->SetVisibility(ESlateVisibility::Visible);
+            AddFriendMessageBox->SetVisibility(ESlateVisibility::Visible);
+        }
+    }
+}
+
+void UFriendListUI::OpenGroupRenameUI(bool bOpen)
+{
+    bOpenGroupRenameUI = bOpen;
+    if (bOpenGroupRenameUI)
+    {
+        bOpenGroupRenameUI = false;
+        RenameGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
+    }
+    else
+    {
+        bOpenGroupRenameUI = true;
+        if (RenameGroupMessageBox)
+        {
+            RenameGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
         }
     }
 }
@@ -184,12 +226,15 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
             position.Translation.Y = FriendRelativePosition.Y + 13.f;
             FriendMenuUI->SetRenderTransform(position);
             FriendMenuUI->SetVisibility(ESlateVisibility::Visible);
-            FriendMenuUI->SetFriendSeq(SelectedFriend);
+            FriendMenuUI->SetPlayerNameText(SelectedFriendName);
+            FriendMenuUI->SetFriendInfo(SelectedFriend, SelectedFriendName);
+            FriendMenuUI->OnMoveGroupClicked.AddUniqueDynamic(this, &UFriendListUI::MoveGroup);
+            FriendMenuUI->OnInvitePartyClicked.AddUniqueDynamic(this, &UFriendListUI::AddToParty);
         }
     }
 }
 
-void UFriendListUI::OpenAddGroupUI(bool bOpen)
+void UFriendListUI::OpenCreateGroupUI(bool bOpen)
 {
     bOpenGroupCreationUI = bOpen;
 
@@ -207,6 +252,11 @@ void UFriendListUI::OpenAddGroupUI(bool bOpen)
         {
             GroupCreationUI->SetVisibility(ESlateVisibility::Visible);
         }
+        if (GroupMenuUI)
+        {
+            GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
+            bOpenGroupMenuUI = false;
+        }
     }
 }
 
@@ -218,6 +268,7 @@ void UFriendListUI::OpenGroupMenuUI()
         GroupCreationUI->CloseUI();
         GroupMenuUI->SetVisibility(ESlateVisibility::Hidden);
         GroupMenuUI->GroupRemovedSignature.Unbind();
+        GroupMenuUI->GroupCreateSignature.Unbind();
     }
     else
     {
@@ -229,25 +280,62 @@ void UFriendListUI::OpenGroupMenuUI()
         GroupMenuUI->SetRenderTransform(position);
         GroupMenuUI->SetVisibility(ESlateVisibility::Visible);
         GroupMenuUI->SetGroupSeq(SelectedGroup);
+        GroupMenuUI->SetGroupName(SelectedGroupName);
         GroupMenuUI->GroupRemovedSignature.BindUObject(this, &UFriendListUI::RemoveGroup);
+        GroupMenuUI->GroupCreateSignature.BindUObject(this, &UFriendListUI::OpenCreateGroupUI);
+        GroupMenuUI->GroupRenameSignature.BindUObject(this, &UFriendListUI::OpenAndSetRenameUI);
+
+        if (SelectedGroupName == RLRLITERAL.Friend_DefaultGroup)
+        {
+            GroupMenuUI->RenameGroupButton->SetIsEnabled(false);
+        }
+        else
+        {
+            GroupMenuUI->RenameGroupButton->SetIsEnabled(true);
+        }
     }
 }
 
 void UFriendListUI::RemoveGroup(int OldGroupSeq)
 {
     FriendTabWidget->RemoveGroup(OldGroupSeq);
+}
 
-	for (UWidget* Child : FriendMenuUI->GroupListUI->GroupListBox->GetAllChildren())
+void UFriendListUI::MoveGroup()
+{
+    OpenFriendMenuUI(true);
+	if (bIsMoveGroupMessageBoxOpen)
 	{
-		if (UGroupButtonUI* GroupButton = Cast<UGroupButtonUI>(Child))
-		{
-			if (GroupButton->GetGroupSeq() == OldGroupSeq)
-			{
-				FriendMenuUI->GroupListUI->GroupListBox->RemoveChild(GroupButton);
-				break;
-			}
-		}
+        if (FriendTabWidget->MoveGroupMessageBox)
+        {
+            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Hidden);
+        }
+        bIsMoveGroupMessageBoxOpen = false;
 	}
+    else
+    {
+        if (FriendTabWidget->MoveGroupMessageBox)
+        {
+            FriendTabWidget->MoveGroupMessageBox->SetVisibility(ESlateVisibility::Visible);
+        }
+        bIsMoveGroupMessageBoxOpen = true;
+    }
+}
+
+void UFriendListUI::AddToParty(FUserCharacter UserData)
+{
+    PartyUI->AddPlayer(UserData);
+}
+
+void UFriendListUI::OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq)
+{
+    OpenGroupRenameUI(bOpen);
+
+    bOpenGroupMenuUI = true;
+    OpenGroupMenuUI();
+    
+    RenameGroupMessageBox->SetGroupSeq(CurrentGroupSeq);
+    RenameGroupMessageBox->SetCurrentGroupName(FText::FromString(CurrentGroupName));
 }
 
 void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)
@@ -275,6 +363,11 @@ void UFriendListUI::SetFriendRequestMessageBox(FString& PlayerName)
                 );
             }
         });
+}
+
+void UFriendListUI::SetMoveGroupMessageOpenState(bool bOpen)
+{
+    bIsMoveGroupMessageBoxOpen = bOpen;
 }
 
 void UFriendListUI::OpenFriendInfoUI(int FriendSeq)

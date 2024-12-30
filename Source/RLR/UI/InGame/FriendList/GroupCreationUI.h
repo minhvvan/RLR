@@ -29,6 +29,9 @@ public:
 	void CancelButtonClicked();
 
 	UFUNCTION()
+	void HandleTextChanged(const FText& Text);
+
+	UFUNCTION()
 	bool GetVisibilityStatus() {return bIsOpen;};
 
 	UFUNCTION()
@@ -48,4 +51,5 @@ public:
 
 private:
 	bool bIsOpen;	
+	const int32 maxCharacters = 12;
 };

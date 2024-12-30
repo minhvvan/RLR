@@ -16,6 +16,7 @@ void FGameplayTagManager::Init()
 	GameplayTags.Action_Default_Attack = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_Attack.TagName, RLRLITERAL.Action_Default_Attack.TagDesc);
 	GameplayTags.Action_Default_Jump = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_Jump.TagName, RLRLITERAL.Action_Default_Jump.TagDesc);
 	GameplayTags.Action_Default_GuildOpen = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_GuildOpen.TagName, RLRLITERAL.Action_Default_GuildOpen.TagDesc);
+	GameplayTags.Action_Default_FriendOpen = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_FriendOpen.TagName, RLRLITERAL.Action_Default_FriendOpen.TagDesc);
 	GameplayTags.Action_Default_PlayMontage = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_PlayMontage.TagName, RLRLITERAL.Action_Default_PlayMontage.TagDesc);
 	GameplayTags.Action_Attack_HitCheck = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.Action_Default_HitCheck.TagName, RLRLITERAL.Action_Default_HitCheck.TagDesc);
 	
@@ -127,7 +128,6 @@ void FGameplayTagManager::Init()
 	
 	GameplayTags.UI_Party = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Party.TagName, RLRLITERAL.UI_Party.TagDesc);
 	GameplayTags.UI_Trade = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Trade.TagName, RLRLITERAL.UI_Trade.TagDesc);
-	GameplayTags.UI_FriendList = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_FriendList.TagName, RLRLITERAL.UI_FriendList.TagDesc);
 	GameplayTags.UI_Guild = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Guild.TagName, RLRLITERAL.UI_Guild.TagDesc);
 	GameplayTags.UI_Report = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Report.TagName, RLRLITERAL.UI_Report.TagDesc);
 	
@@ -202,7 +202,8 @@ void FGameplayTagManager::Init()
 	GameplayTags.InputTag_X = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_X.TagName, RLRLITERAL.InputTag_X.TagDesc);
 	GameplayTags.InputTag_Y = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Y.TagName, RLRLITERAL.InputTag_Y.TagDesc);
 	GameplayTags.InputTag_Z = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Z.TagName, RLRLITERAL.InputTag_Z.TagDesc);
-	GameplayTags.InputTag_Alt_U = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Alt_U.TagName, RLRLITERAL.InputTag_Alt_U.TagDesc);
+	GameplayTags.InputTag_Alt_U	  = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_Alt_U.TagName, RLRLITERAL.InputTag_Alt_U.TagDesc);
+	GameplayTags.InputTag_LCtrl_C = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.InputTag_LCtrl_C.TagName, RLRLITERAL.InputTag_LCtrl_C.TagDesc);
 
 }
 

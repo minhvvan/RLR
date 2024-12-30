@@ -5,10 +5,13 @@
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/PlayerStructs.h"
 #include "FriendListUI.generated.h"
 
 class UFriendRequestMessageBox;
 class UFriendRequestTabWidget;
+class URenameGroupMessageBox;
+class UAddFriendMessageBox;
 class UExistingGroupList;
 class UFriendRequestUI;
 class UFriendButtonMenu;
@@ -18,6 +21,7 @@ class UFriendTabWidget;
 class UFriendButtonUI;
 class UGroupCreationUI;
 class UWidgetSwitcher;
+class UPartyUI;
 
 /*
 	친구목록의 모든 Tab이 존재하는 UI
@@ -64,20 +68,29 @@ public:
     UFUNCTION()
     void OpenFriendRequestUI(bool bOpen);
     UFUNCTION()
+    void OpenGroupRenameUI(bool bOpen);
+    UFUNCTION()
     void OpenFriendMenuUI(bool bOpen);
     UFUNCTION()
-    void OpenAddGroupUI(bool bOpen);
+    void OpenCreateGroupUI(bool bOpen);
     UFUNCTION()
     void OpenGroupMenuUI();
 
     UFUNCTION()
     void RemoveGroup(int OldGroupSeq);
 
+    UFUNCTION()
+    void MoveGroup();
+
+    UFUNCTION()
+    void AddToParty(FUserCharacter UserData);
+
+    UFUNCTION()
+    void OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq);
     void SetFriendRequestMessageBox(FString& PlayerName);
+    void SetMoveGroupMessageOpenState(bool bOpen);
 
 public:
-    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-    TObjectPtr<UFriendRequestUI> FriendRequestUI;
 
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendButtonMenu> FriendMenuUI;
@@ -97,6 +110,12 @@ public:
     UPROPERTY(VisibleAnywhere, meta = (BindWidget))
     TObjectPtr<UFriendRequestTabWidget> FriendRequestTabWidget;
 
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<UAddFriendMessageBox> AddFriendMessageBox;
+    
+    UPROPERTY(VisibleAnywhere, meta = (BindWidget))
+    TObjectPtr<URenameGroupMessageBox> RenameGroupMessageBox;
+
 	UPROPERTY(meta = (BindWidget))
     UWidgetSwitcher* FriendWidgetSwitcher;
 
@@ -115,14 +134,21 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<int32, FString> FriendRequestData;
 
+    // PartyUI
+    TObjectPtr<UPartyUI> PartyUI;
+
 private:
     bool bOpenRequestUI;
     bool bOpenFriendMenuUI;
     bool bOpenGroupMenuUI;
     bool bOpenFriendInfoUI;
     bool bOpenGroupCreationUI;
+    bool bOpenGroupRenameUI;
+    bool bIsMoveGroupMessageBoxOpen;
     int32 SelectedFriend;
+    FString SelectedFriendName;
     int32 SelectedGroup;
+    FString SelectedGroupName;
 
     FVector2D GetButtonRightCenter(FVector2D ViewportSize);
 	FVector2D FriendRelativePosition;
