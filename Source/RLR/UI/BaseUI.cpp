@@ -16,7 +16,9 @@
 #include "Components/Widget.h"
 #include "Components/PanelWidget.h"
 #include "ActionSystem/ActionSystemInterface.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Blueprint/WidgetTree.h"
+#include "Components/CanvasPanelSlot.h"
 
 void UBaseUI::NativeOnInitialized()
 {
@@ -132,6 +134,12 @@ void UBaseUI::ChangeInputModeUIOnly()
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock); // 마우스 잠금 설정
 	PlayerController->SetInputMode(InputMode);
 	PlayerController->SetShowMouseCursor(true);
+}
+
+FVector2d UBaseUI::GetUIPosition()
+{
+	UCanvasPanelSlot* canvasSlot = UWidgetLayoutLibrary::SlotAsCanvasSlot(this);
+	return canvasSlot->GetPosition();
 }
 
 UUIManager* UBaseUI::GetUIManager()

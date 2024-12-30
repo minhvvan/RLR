@@ -2,17 +2,17 @@
 
 
 #include "UI/InGame/Skill/SkillUI/SkillDetailInfo.h"
-#include "UI/InGame/Skill/SkillUI/SkillTree/SkillUpgrade.h"
-#include "UI/InGame/InGameMainUI.h"
 
+#include "SkillUI.h"
+#include "UI/InGame/Skill/SkillUI/SkillTree/SkillUpgrade.h"
 
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
 #include "Components/Button.h"
 
-#include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
+#include "Components/SizeBox.h"
 #include "GameManager/DataManager.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/UtilStructs.h"
@@ -74,11 +74,19 @@ void USkillDetailInfo::OnClickedUpgradeSkillButton()
 {
 	if (SkillData == FSkillData::EmptySkillData)
 	{
-		GameInstance->GetUIManager()->CloseSubUI(RLRTAG.UI_Skill_Upgrade);
+		GetUIManager()->CloseSubUI(RLRTAG.UI_Skill_Upgrade);
 		return;
 	}
 
-	GameInstance->GetUIManager()->ToggleSubUI(RLRTAG.UI_Skill_Upgrade);
+	auto UIManager = GetUIManager();
+	auto skillUpgradeUI = UIManager->GetSubUI<USkillUpgrade>(RLRTAG.UI_Skill_Upgrade);
+	auto skillUI = UIManager->GetSubUI<USkillUI>(RLRTAG.UI_Skill);
+	if (!skillUpgradeUI || !skillUI) return;
+
+	auto parnetPos = skillUI->GetUIPosition();
+	auto pos = FVector2d(parnetPos.X + skillUI->RootSizeBox->GetWidthOverride()/2, parnetPos.Y + skillUI->RootSizeBox->GetHeightOverride()/2);
+	skillUpgradeUI->SetPosition(pos);
+	skillUpgradeUI->OpenUI();
 }
 
 void USkillDetailInfo::OnClickedShowChainSkillButton()
