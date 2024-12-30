@@ -4,6 +4,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillUI.h"
 #include "SkillUI.h"
 
+#include "RLR.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 
@@ -82,5 +83,3 @@ void USkillUI::ClearSkillDetailInfo()
 	SkillDetailInfo->SetVisibility(ESlateVisibility::Hidden);
 
 }
-
-

@@ -68,6 +68,10 @@ public:
 
 	void SetTitle(const FString& Title) const;
 
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	
+
 public:
 	FVector2D ClickedFirstPoint;
 	FVector2D ClickedCurrentPoint;

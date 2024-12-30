@@ -95,3 +95,15 @@ void USubUI::SetTitle(const FString& Title) const
 {
 	TxtTitle->SetText(FText::FromString(Title));
 }
+
+FReply USubUI::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+	return FReply::Handled();
+}
+
+FReply USubUI::NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	Super::NativeOnMouseButtonDoubleClick(InGeometry, InMouseEvent);
+	return FReply::Handled();
+}

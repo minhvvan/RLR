@@ -44,7 +44,6 @@ public:
 	void OnClickedSkillSettingTab();
 	void ChangeTab(SKillUI_TabType TabType);
 
-
 	void UpdateSkillDetailInfo(FSkillData NewSkillData);
 	void ClearSkillDetailInfo();
 
