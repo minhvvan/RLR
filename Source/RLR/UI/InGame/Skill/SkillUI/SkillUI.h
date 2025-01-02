@@ -44,7 +44,7 @@ public:
 	void OnClickedSkillSettingTab();
 	void ChangeTab(SKillUI_TabType TabType);
 
-	void UpdateSkillDetailInfo(const FSkillData& NewSkillData, bool bIsLearned) const;
+	void UpdateSkillDetailInfo(const FSkillData& NewSkillData, bool bLearned) const;
 	void ClearSkillDetailInfo();
 
 public:

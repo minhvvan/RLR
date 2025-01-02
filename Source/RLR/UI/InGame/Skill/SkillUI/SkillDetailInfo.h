@@ -29,7 +29,8 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 
-	void SetSkillData(const FSkillData& SkillData, bool bIsLearned);
+	void SetSkillData(const FSkillData& SkillData);
+	void SetSkillLearned(bool bLearned);
 	void Clear();
 
 	UFUNCTION()

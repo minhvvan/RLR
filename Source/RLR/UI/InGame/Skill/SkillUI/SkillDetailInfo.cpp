@@ -65,6 +65,22 @@ void USkillDetailInfo::RefreshUI()
 	SkillImage->SetBrushFromTexture(Texture, true);
 }
 
+void USkillDetailInfo::SetSkillLearned(bool bLearned)
+{
+	if (bLearned)
+	{
+		UpgradeSkillButtonText->SetText(FText::FromString(RLRLITERAL.SkillUI_Upgrade));
+		//TODO: 임시 -> 기능 구현후 해제 필요
+		UpgradeSkillButton->SetIsEnabled(false);
+	}
+	else
+	{
+		UpgradeSkillButtonText->SetText(FText::FromString(RLRLITERAL.SkillUI_Learn));
+		//TODO: 임시 -> 스킬 배우기 구현 필요(현재 기획을 모름)
+		UpgradeSkillButton->SetIsEnabled(true);
+	}
+}
+
 void USkillDetailInfo::Clear()
 {
 	SkillData = FSkillData::EmptySkillData;
@@ -99,26 +115,13 @@ void USkillDetailInfo::OnClickedShowChainSkillButton()
 	*/
 }
 
-void USkillDetailInfo::SetSkillData(const FSkillData& NewSkillData, bool bIsLearned)
+void USkillDetailInfo::SetSkillData(const FSkillData& NewSkillData)
 {
 	//만약 스킬 정보가 비어 있다면 그냥 비워준다.
 	if (NewSkillData == FSkillData::EmptySkillData)
 	{
 		Clear();
 		return;
-	}
-
-	if (bIsLearned)
-	{
-		UpgradeSkillButtonText->SetText(FText::FromString(RLRLITERAL.SkillUI_Upgrade));
-		//TODO: 임시 -> 기능 구현후 해제 필요
-		UpgradeSkillButton->SetIsEnabled(false);
-	}
-	else
-	{
-		UpgradeSkillButtonText->SetText(FText::FromString(RLRLITERAL.SkillUI_Learn));
-		//TODO: 임시 -> 스킬 배우기 구현 필요(현재 기획을 모름)
-		UpgradeSkillButton->SetIsEnabled(true);
 	}
 	
 	SkillData = NewSkillData;
