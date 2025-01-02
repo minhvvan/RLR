@@ -44,17 +44,10 @@ public:
 	void OnClickedSkillSettingTab();
 	void ChangeTab(SKillUI_TabType TabType);
 
-	void UpdateSkillDetailInfo(FSkillData NewSkillData);
+	void UpdateSkillDetailInfo(const FSkillData& NewSkillData, bool bIsLearned) const;
 	void ClearSkillDetailInfo();
 
-
 public:
-
-	/*
-		
-		Bind
-
-	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USkillDetailInfo> SkillDetailInfo;
 

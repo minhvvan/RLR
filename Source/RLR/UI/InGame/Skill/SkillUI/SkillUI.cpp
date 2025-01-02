@@ -64,15 +64,11 @@ void USkillUI::ChangeTab(SKillUI_TabType TabType)
 	RefreshUI();
 }
 
-void USkillUI::UpdateSkillDetailInfo(FSkillData NewSkillData)
+void USkillUI::UpdateSkillDetailInfo(const FSkillData& NewSkillData, bool bIsLearned) const
 {
-	SkillDetailInfo->SetSkillData(NewSkillData);
-
-	if (NewSkillData == FSkillData::EmptySkillData)
-	{
-		SkillTree->SkillPropertyContainer->CloseUI();
-		return;
-	}
+	if (NewSkillData == FSkillData::EmptySkillData) return;
+	
+	SkillDetailInfo->SetSkillData(NewSkillData, bIsLearned);
 
 	SkillTree->SkillPropertyContainer->SetSkillData(NewSkillData);
 	SkillTree->SkillPropertyContainer->OpenUI();

@@ -29,8 +29,7 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 
-
-	void SetSkillData(FSkillData NewSkillData);
+	void SetSkillData(const FSkillData& SkillData, bool bIsLearned);
 	void Clear();
 
 	UFUNCTION()
@@ -59,6 +58,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> ShowChainSkillButton;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> UpgradeSkillButtonText;
 
 public:
 	UPROPERTY()

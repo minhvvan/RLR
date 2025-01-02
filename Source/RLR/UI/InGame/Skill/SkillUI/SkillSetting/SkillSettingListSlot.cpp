@@ -46,7 +46,7 @@ FReply USkillSettingListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 	if (IsValid(SkillUI) == false)
 		return result;
 
-	SkillUI->UpdateSkillDetailInfo(GetSkillData());
+	SkillUI->UpdateSkillDetailInfo(GetSkillData(), IsLearned);
 
 	return result;
 }

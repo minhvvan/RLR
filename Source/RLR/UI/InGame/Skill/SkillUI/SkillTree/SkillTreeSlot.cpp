@@ -33,10 +33,6 @@ FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 {
 	FReply result = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
-	/*
-	스킬 디테일 창에 정보를 넘긴다.
-	*/
-
 	auto UIManager = GetUIManager();
 	if (!UIManager) return result;
 
@@ -44,7 +40,7 @@ FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 	if (IsValid(SkillUI) == false) 
 		return result;
 
-	SkillUI->UpdateSkillDetailInfo(GetSkillData());
+	SkillUI->UpdateSkillDetailInfo(GetSkillData(), IsLearned);
 	return result;
 }
 
