@@ -40,7 +40,6 @@ void USkillTreeSlotContainer::RefreshUI()
 	{
 		int32 SlotIndex = Element.Key;
 		USkillTreeSlot* QuickSlot = Element.Value;
-		QuickSlot->SetVisibility(ESlateVisibility::Visible);
 
 		FSkillData SkillData = QuickSlot->GetSkillData();
 		if (SkillData == FSkillData::EmptySkillData)
@@ -49,6 +48,8 @@ void USkillTreeSlotContainer::RefreshUI()
 			continue;
 		}
 
+		QuickSlot->SetVisibility(ESlateVisibility::Visible);
+		
 		/*
 			옵션 정보에서 퀵 슬롯 데이터를 가져와 스킬이 장착 중인지 확인한다.
 			장착이 되어 있으면 -장착됨- UI가 뜬다.
@@ -57,9 +58,7 @@ void USkillTreeSlotContainer::RefreshUI()
 			double
 		*/
 
-		/*
-			아직 배우지 않은 스킬이면, 배우지 않은 스킬이라고 표시해준다.
-		*/
+		//아직 배우지 않은 스킬이면, 배우지 않은 스킬이라고 표시해준다.
 		bool HasLearned = SkillManager->HasLearnedSkill(SkillData.SkillSeq);
 		QuickSlot->SetLearned(HasLearned);
 		QuickSlot->RefreshUI();

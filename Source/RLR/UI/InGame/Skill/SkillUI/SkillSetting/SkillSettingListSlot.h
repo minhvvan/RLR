@@ -39,9 +39,6 @@ public:
 	TObjectPtr<UTextBlock> EquipStateText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> SkillLevelText;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UTextBlock> SkillNameText;
 
 

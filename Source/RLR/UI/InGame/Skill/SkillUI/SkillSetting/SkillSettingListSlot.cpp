@@ -71,7 +71,6 @@ void USkillSettingListSlot::RefreshUI()
 	}
 
 	SetVisibility(ESlateVisibility::Visible);
-	SkillLevelText->SetText(FText::AsNumber(SkillData.Level));
 	SkillNameText->SetText(SkillData.Name);
 
 	if (IsEquipped == true)
