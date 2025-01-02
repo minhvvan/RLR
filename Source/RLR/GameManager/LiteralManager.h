@@ -55,6 +55,9 @@ public:
 	FName	PostUI_OnClickedDeletePostsConfirmButton;
 	FName	PostUI_OnClickedCancelButton;
 	FName	PostUI_OnClickedAcceptButtonWhileWriting;
+	/* SkillUI */
+	FString SkillUI_Learn;
+	FString SkillUI_Upgrade;
 
 	/* Player Commands */
 	FString Playercommands_InputConfigNull;

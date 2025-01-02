@@ -54,6 +54,11 @@ void LiteralManager::Init()
     LiteralMessages.PostUI_OnClickedDeletePostsConfirmButton = FName("OnClickedDeletePostsConfirmButton");
     LiteralMessages.PostUI_OnClickedAcceptButtonWhileWriting = FName("OnClickedAcceptButton");
     LiteralMessages.PostUI_OnClickedCancelButton = FName("OnClickedCancelButton");
+	
+	/* SKillUI */
+	LiteralMessages.SkillUI_Learn = TEXT("스킬 배우기");
+	LiteralMessages.SkillUI_Upgrade = TEXT("스킬 업그레이드");
+
 
     /* DataManager */
     LiteralMessages.DT_ItemData_Path = TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemData.DT_ItemData'");
