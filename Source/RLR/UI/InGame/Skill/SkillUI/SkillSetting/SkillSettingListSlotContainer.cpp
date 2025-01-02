@@ -24,13 +24,12 @@ void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
 		NewSlot->Clear();
 		SlotMap.Add(i, NewSlot);
 		AddChildToWrapBox(NewSlot);
-		NewSlot->SetVisibility(ESlateVisibility::Hidden);
+		// NewSlot->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 
 void USkillSettingListSlotContainer::RefreshUI()
 {
-
 	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
 	if (IsValid(GameOption) == false)
 	{
@@ -79,7 +78,7 @@ void USkillSettingListSlotContainer::Clear()
 		int32 SlotIndex = Element.Key;
 		USkillSettingListSlot* QuickSlot = Element.Value;
 		QuickSlot->Clear();
-		QuickSlot->SetVisibility(ESlateVisibility::Hidden);
+		// QuickSlot->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 

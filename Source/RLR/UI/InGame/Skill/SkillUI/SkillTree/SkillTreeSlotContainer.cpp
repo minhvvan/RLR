@@ -23,13 +23,11 @@ void USkillTreeSlotContainer::Init(int32 MaxSlotCount)
 		NewSlot->Clear();
 		SlotMap.Add(i, NewSlot);
 		AddChildToWrapBox(NewSlot);
-		NewSlot->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 
 void USkillTreeSlotContainer::RefreshUI()
 {
-
 	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
 	if (IsValid(GameOption) == false)
 	{
@@ -48,7 +46,6 @@ void USkillTreeSlotContainer::RefreshUI()
 		if (SkillData == FSkillData::EmptySkillData)
 		{
 			QuickSlot->Clear();
-			QuickSlot->SetVisibility(ESlateVisibility::Hidden);
 			continue;
 		}
 

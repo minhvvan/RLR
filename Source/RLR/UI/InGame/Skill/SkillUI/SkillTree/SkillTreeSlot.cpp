@@ -40,12 +40,8 @@ FReply USkillTreeSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 	auto UIManager = GetUIManager();
 	if (!UIManager) return result;
 
-	UInGameMainUI* InGameMainUI = UIManager->GetPage<UInGameMainUI>(RLRTAG.Page_InGame);
-	if (IsValid(InGameMainUI) == false)
-		return result;
-
 	USkillUI* SkillUI = UIManager->GetSubUI<USkillUI>(RLRTAG.UI_Skill);
-	if (IsValid(SkillUI) == false)
+	if (IsValid(SkillUI) == false) 
 		return result;
 
 	SkillUI->UpdateSkillDetailInfo(GetSkillData());
@@ -58,6 +54,7 @@ void USkillTreeSlot::RefreshUI()
 
 	if (GetSkillData() == FSkillData::EmptySkillData)
 	{
+		SetSlotImage(GetDefaultSlotImage());
 		SetVisibility(ESlateVisibility::Hidden);
 		return;
 	}
@@ -73,7 +70,7 @@ void USkillTreeSlot::RefreshUI()
 		FLinearColor DefaultColor = FLinearColor::White;
 		SlotImage->SetColorAndOpacity(DefaultColor);
 	}
-	else if (IsLearned == false)
+	else
 	{
 		FLinearColor DarkColor = FLinearColor(1, 1, 1, 0.5f); // 반투명한 검정색
 		SlotImage->SetColorAndOpacity(DarkColor);
