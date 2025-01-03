@@ -325,6 +325,9 @@ struct FGuildRank
 	/* 길드 명성치 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildReputation;
+	/* 개인 길드 포인트 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int userGuildPoint;
 
     FGuildRank()
         : GuildRankSeq(0), UserSeq(0), UserName(TEXT("")) {}
