@@ -14,10 +14,6 @@ void UGuildManagementUI::NativeConstruct()
 	{
 		ChangeGuildNameButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ChangeNameButtonClicked);
 	}
-	if (InviteToGuildButton)
-	{
-		InviteToGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::InviteButtonClicked);
-	}
 	if (QuitGuildButton)
 	{
 		QuitGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::QuitGuldButtonClicked);
@@ -47,10 +43,6 @@ void UGuildManagementUI::NativeConstruct()
 }
 
 void UGuildManagementUI::ChangeNameButtonClicked()
-{
-}
-
-void UGuildManagementUI::InviteButtonClicked()
 {
 }
 

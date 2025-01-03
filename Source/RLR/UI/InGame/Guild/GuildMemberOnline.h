@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "GuildMemberButton.generated.h"
+#include "UI/InGame/Guild/BaseGuildMember.h"
+#include "GuildMemberOnline.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class RLR_API UGuildMemberButton : public UUserWidget
+class RLR_API UGuildMemberOnline : public UBaseGuildMember
 {
 	GENERATED_BODY()
 	

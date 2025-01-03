@@ -24,9 +24,6 @@ public:
 	void ChangeNameButtonClicked();
 	
 	UFUNCTION()
-	void InviteButtonClicked();
-	
-	UFUNCTION()
 	void QuitGuldButtonClicked();
 
 	UFUNCTION()
@@ -40,8 +37,8 @@ public:
 	/* 길드 관리 탭  - 길드 이름 변경, 길드 초대, 길드 탈퇴 */
 	UPROPERTY(meta = (BindWidget))
 	UButton* ChangeGuildNameButton;
-	UPROPERTY(meta = (BindWidget))
-	UButton* InviteToGuildButton;
+	/* TODO : 길드 가입 신청한 플레이어 버튼 생성(승인 버튼 포함) */
+	
 	UPROPERTY(meta = (BindWidget))
 	UButton* QuitGuildButton;
 

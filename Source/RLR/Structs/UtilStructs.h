@@ -313,15 +313,18 @@ USTRUCT(BlueprintType)
 struct FGuildRank
 {
     GENERATED_BODY()
-
+	/* 길드 내 직급 */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TEnumAsByte<EGuildRole> GuildRankSeq;
-
+	/* UserSeq */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 UserSeq;
-
+	/* UserName */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString UserName;
+	/* 길드 명성치 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildReputation;
 
     FGuildRank()
         : GuildRankSeq(0), UserSeq(0), UserName(TEXT("")) {}
