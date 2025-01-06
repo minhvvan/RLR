@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Guild/GuildMemberUI.h"
+#include "UI/InGame/Guild/GuildJoinUser.h"
 

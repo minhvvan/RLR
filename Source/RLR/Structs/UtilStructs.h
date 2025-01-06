@@ -30,6 +30,16 @@ enum class ESlotType : uint8
 	NONE,
 };
 
+UENUM(BlueprintType)
+enum class EGuildRole : uint8 
+{
+	NONE = 0,
+	MEMBER = 1,
+	OFFICER = 2,
+	VICEMASTER = 3,
+	MASTER = 4
+};
+
 USTRUCT(Atomic, BlueprintType)
 struct FAttackResult
 {
@@ -303,15 +313,21 @@ USTRUCT(BlueprintType)
 struct FGuildRank
 {
     GENERATED_BODY()
-
+	/* 길드 내 직급 */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 GuildRankSeq;
-
+    TEnumAsByte<EGuildRole> GuildRankSeq;
+	/* UserSeq */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 UserSeq;
-
+	/* UserName */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString UserName;
+	/* 길드 명성치 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildReputation;
+	/* 개인 길드 포인트 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int userGuildPoint;
 
     FGuildRank()
         : GuildRankSeq(0), UserSeq(0), UserName(TEXT("")) {}
@@ -326,18 +342,35 @@ struct FGuildResult
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildSeq;
+	/* 길드 이름 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString  guildName;
+	/* 길드 레벨 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildLevel;
+	/* 길드 최대 획득 가능 경험치 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildMaxExp;
+	/* 길드 경험치 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildExp;
+	/* 길드 최대 수용가능 인원 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int guildMaxUser;
-
-	// GuildRank 배열 추가
+	/* 길드 포인트 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildPoint;
+	/* 길드 랭크 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildRank;
+	/* 길드 신설일 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildCreationDate;
+	/* 길드 기여도 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int guildContribution;
+	
+	// GuildRank : 길드 각 멤버 정보, 배열 길이 == 길드 멤버 수
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FGuildRank> GuildRanks;
 

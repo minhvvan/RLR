@@ -2,6 +2,7 @@
 
 
 #include "UI/InGame/Guild/GuildUI.h"
+#include "UI/InGame/Guild/PlayerGuildUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/NetworkManager.h"
@@ -17,7 +18,11 @@ void UGuildUI::NativeConstruct()
 
 	SetUITag(RLRTAG.Action_Default_GuildOpen);
 	GameInstance->GetGuildManager()->GuildOverlayUI = this;
-  
+	
+	if (PlayerGuildUI)
+	{
+		PlayerGuildUI->CloseGuildButtonCLicked.AddUniqueDynamic(this, &UGuildUI::OnCloseButtonClicked);
+	}
 }
 
 void UGuildUI::Init()
@@ -49,4 +54,9 @@ bool UGuildUI::IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseE
 {
 	FVector2D LocalMousePosition = InGeometry.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
 	return InGeometry.IsUnderLocation(InMouseEvent.GetScreenSpacePosition());
+}
+
+void UGuildUI::OnCloseButtonClicked()
+{
+	CloseUI();
 }

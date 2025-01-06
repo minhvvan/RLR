@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GuildDetailUI.generated.h"
 
+class UScrollBox;
 /**
  * 길드 상세 정보 (버프, 접속 길드원, 출첵, 기부, 영지)
  */
@@ -13,5 +14,8 @@ UCLASS()
 class RLR_API UGuildDetailUI : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+
+public:
+	UScrollBox* BuffScrollBox;
 };
