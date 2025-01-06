@@ -89,7 +89,7 @@ void USkillDetailInfo::Clear()
 
 void USkillDetailInfo::OnClickedUpgradeSkillButton()
 {
-	if (SkillData == FSkillData::EmptySkillData)
+	if (SkillData == FSkillData::EmptySkillData && !SkillData.CanLearn)
 	{
 		GetUIManager()->CloseSubUI(RLRTAG.UI_Skill_Upgrade);
 		return;
@@ -100,8 +100,8 @@ void USkillDetailInfo::OnClickedUpgradeSkillButton()
 	auto skillUI = UIManager->GetSubUI<USkillUI>(RLRTAG.UI_Skill);
 	if (!skillUpgradeUI || !skillUI) return;
 
-	auto parnetPos = skillUI->GetUIPosition();
-	auto pos = FVector2d(parnetPos.X + skillUI->RootSizeBox->GetWidthOverride()/2, parnetPos.Y + skillUI->RootSizeBox->GetHeightOverride()/2);
+	auto parentPos = skillUI->GetUIPosition();
+	auto pos = FVector2d(parentPos.X + skillUI->RootSizeBox->GetWidthOverride()/2, parentPos.Y + skillUI->RootSizeBox->GetHeightOverride()/2);
 	skillUpgradeUI->SetPosition(pos);
 	skillUpgradeUI->OpenUI();
 }
