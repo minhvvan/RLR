@@ -21,7 +21,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	void SetColorAsQuestType(FGuildQuest NewGuildQuestDatum);
-	FQuest GetGuildQuestType();
+	FGuildQuest GetGuildQuestData();
 public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UBorder> Border;

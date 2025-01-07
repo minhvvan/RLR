@@ -54,7 +54,7 @@ void UGuildManager::SetGuildQuestData(const TArray<FGuildQuest>& NewGuildQuestDa
 {
 	GuildQuestData.Empty();
 	
-	for (const FQuest& GuildQuestDatum : NewGuildQuestData)
+	for (const FGuildQuest& GuildQuestDatum : NewGuildQuestData)
 	{
 		GuildQuestData.Add(GuildQuestDatum);
 	}

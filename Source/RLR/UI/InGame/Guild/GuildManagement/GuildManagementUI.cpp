@@ -2,48 +2,152 @@
 
 
 #include "UI/InGame/Guild/GuildManagement/GuildManagementUI.h"
+#include "UI/InGame/Guild/GuildManagement/GuildIconImage.h"
+
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/NetworkManager.h"
+
 #include "Components/WidgetSwitcher.h"
+#include "Components/EditableText.h"
+#include "Components/GridPanel.h"
+#include "Components/GridSlot.h"
+#include "Components/Border.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
+
 
 void UGuildManagementUI::NativeConstruct()
 {
-	if (ChangeGuildNameButton)
+	if (ChangeGuildInfoButton)
 	{
-		ChangeGuildNameButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ChangeNameButtonClicked);
+		ChangeGuildInfoButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ChangeInfoButtonClicked);
 	}
-	if (QuitGuildButton)
+	if (ConfirmButton)
 	{
-		QuitGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::QuitGuldButtonClicked);
+		ConfirmButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ConfirmButtonClicked);
 	}
-
-
-	for (const FGuildRank& guildRank : GameInstance->GetGuildManager()->GetGuildInfo().GuildRanks)
+	if (CancelButton)
 	{
-		if (guildRank.UserSeq == GameInstance->GetUserSeq())
+		CancelButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::CancelButtonClicked);
+	}
+	if (CloseChangeGuildInfoButton)
+	{
+		CloseChangeGuildInfoButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::CloseChangeGuildInfoButtonClicked);
+	}
+	if (NewGuildImage)
+	{
+		NewGuildImage->OnMouseButtonDownEvent.BindUFunction(this, FName("ChangeImageButtonClicked"));
+	}
+	/* Master 권한이 있다면 */
+	if (GameInstance->GetGuildManager()->HasPermission(EGuildRole::MASTER))
+	{
+		EnableButtons(true);
+
+		if (DeleteGuildButton)
 		{
-			/* 길드장에게만 보이도록 하기 */
-			if (guildRank.GuildRankSeq == EGuildRole::MASTER)
-			{
-				DeleteGuildButton->SetVisibility(ESlateVisibility::Visible);
-				if (DeleteGuildButton)
-				{
-					DeleteGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::DeleteGuildButtonClicked);
-				}
-			}
-			else
-			{
-				DeleteGuildButton->SetVisibility(ESlateVisibility::Hidden);
-			}
+			DeleteGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::DeleteGuildButtonClicked);
 		}
-		break;
+	}
+	else
+	{
+		EnableButtons(true);
 	}
 }
 
-void UGuildManagementUI::ChangeNameButtonClicked()
+void UGuildManagementUI::ChangeInfoButtonClicked()
 {
+	if (bIsChangeGuildNameOpen)
+	{
+		bIsChangeGuildNameOpen = false;
+		ChangeGuildInfoBorder->SetVisibility(ESlateVisibility::Hidden);
+	}
+	else
+	{
+		bIsChangeGuildNameOpen = true;
+		ChangeGuildInfoBorder->SetVisibility(ESlateVisibility::Visible);
+	}
+
+	if (!IconGridPanel || !GuildIconImageClass) return;
+
+	IconGridPanel->ClearChildren();
+
+	TArray<FString> IconPaths;
+	const FString FolderPath = FPaths::ProjectContentDir() + "Resource/ItemIcon/";
+	IFileManager::Get().FindFilesRecursive(IconPaths, *FolderPath, TEXT("*.uasset"), true, false);
+
+	int32 Row = 0;
+	int32 Column = 0;
+
+	for (const FString& Path : IconPaths)
+	{
+		UTexture2D* IconTexture = LoadTextureFromPath(Path);
+		if (!IconTexture) continue;
+
+		UGuildIconImage* IconImageWidget = CreateWidget<UGuildIconImage>(this, GuildIconImageClass);
+		if (!IconImageWidget) continue;
+
+		IconImageWidget->SetImage(IconTexture);
+		IconImageWidget->GuildIconImageClicked.AddUniqueDynamic(this, &UGuildManagementUI::OnIconSelected);
+
+		UGridSlot* GridSlot = IconGridPanel->AddChildToGrid(IconImageWidget, Row, Column);
+
+		Column++;
+		if (Column >= 6)
+		{
+			Column = 0;
+			Row++;
+		}
+	}
+
+	IconGridPanel->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UGuildManagementUI::OnIconSelected(UGuildIconImage* ClickedGuildIconImage)
+{
+	if (!ClickedGuildIconImage) return;
+
+	if (LastClickedImage && LastClickedImage != ClickedGuildIconImage)
+	{
+		LastClickedImage->UnHighlight();
+	}
+
+	LastClickedImage = ClickedGuildIconImage;
+	LastClickedImage->Highlight();
+
+	SelectedIconTexture = ClickedGuildIconImage->GetIconTexture();
+
+	if (NewGuildImage && SelectedIconTexture)
+	{
+		NewGuildImage->SetBrushFromTexture(SelectedIconTexture);
+	}
+}
+
+void UGuildManagementUI::ConfirmButtonClicked()
+{
+	ChangeGuildInfoBorder->SetVisibility(ESlateVisibility::Hidden);
+
+	if (!NewGuildNameText->GetText().IsEmpty())
+	{
+		int32 guildSeq = GameInstance->GetGuildManager()->GetGuildInfo().guildSeq;
+		GameInstance->GetNetworkManager()->SendChangeNameGuild(guildSeq, NewGuildNameText->GetText());
+	}
+	if (GuildIconImageClass != nullptr)
+	{
+		/* TODO : 이미지 설정하는 send 함수 만들어지면 호출해주기 */
+	}
+}
+
+void UGuildManagementUI::CancelButtonClicked()
+{
+	ChangeGuildInfoBorder->SetVisibility(ESlateVisibility::Hidden);
+	NewGuildNameText->SetText(FText::FromString(""));
+}
+
+void UGuildManagementUI::CloseChangeGuildInfoButtonClicked()
+{
+	ChangeGuildInfoBorder->SetVisibility(ESlateVisibility::Hidden);
+	NewGuildNameText->SetText(FText::FromString(""));
 }
 
 /* 길드 탈퇴 */
@@ -59,4 +163,29 @@ void UGuildManagementUI::DeleteGuildButtonClicked()
 {
 	int32 GuildSeq = GameInstance->GetGuildManager()->GetGuildInfo().guildSeq;
 	GameInstance->GetNetworkManager()->SendDeleteGuild(GuildSeq);
+}
+
+/* 관리자 탭의 버튼들 모두 비활성화 */
+void UGuildManagementUI::EnableButtons(bool bEnabled)
+{
+	ChangeGuildInfoButton->SetIsEnabled(bEnabled);
+	ExpandGuildButton->SetIsEnabled(bEnabled);
+	GrantPermissionButton->SetIsEnabled(bEnabled);
+	UserRankUpgradeButton->SetIsEnabled(bEnabled);
+	GuildRewardPayoutButton->SetIsEnabled(bEnabled);
+	DeleteGuildButton->SetIsEnabled(bEnabled);
+}
+
+UTexture2D* UGuildManagementUI::LoadTextureFromPath(const FString& Path)
+{
+	if (Path.IsEmpty()) return nullptr;
+
+	// 파일 경로를 Unreal Engine의 가상 경로로 변환
+	FString GamePath = Path;
+	GamePath.RemoveFromStart(FPaths::ProjectContentDir());
+	GamePath = "/Game/" + GamePath;
+	GamePath = FPaths::ChangeExtension(GamePath, "");
+
+	UTexture2D* Texture2D = Cast<UTexture2D>(StaticLoadObject(UTexture2D::StaticClass(), nullptr, *GamePath));
+	return Cast<UTexture2D>(StaticLoadObject(UTexture2D::StaticClass(), nullptr, *GamePath));
 }

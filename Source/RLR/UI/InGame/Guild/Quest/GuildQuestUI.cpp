@@ -36,7 +36,7 @@ void UGuildQuestUI::RefreshUI()
 /* 퀘스트 보드에 퀘스트카드 랜덤 배치(서로 겹치지않음), 퀘스트카드 정보 */
 void UGuildQuestUI::InitQuestBoard()
 {
-	if(!GuildQuestCardUI) return;
+	if(!GuildQuestCardUI || !QuestBoard) return;
 
 	QuestBoard->ClearChildren();
 
@@ -86,11 +86,11 @@ void UGuildQuestUI::InitQuestBoard()
             OccupiedPosition.Add(RandomPosition);
 
             // Slot 설정
-            UCanvasPanelSlot* Slot = Cast<UCanvasPanelSlot>(QuestBoard->AddChild(NewCard));
-            if (Slot)
+            UCanvasPanelSlot* NewSlot = Cast<UCanvasPanelSlot>(QuestBoard->AddChild(NewCard));
+            if (NewSlot)
             {
-                Slot->SetPosition(RandomPosition);
-                Slot->SetSize(CardSize); // 카드 크기 설정
+                NewSlot->SetPosition(RandomPosition);
+                NewSlot->SetSize(CardSize); // 카드 크기 설정
             }
 
             // 초기화 시 추가로 사용 가능

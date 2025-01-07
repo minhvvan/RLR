@@ -16,6 +16,7 @@ class UGuildQuestUI;
 class UGuildMemberUI;
 class UGuildMainUI;
 class UWidgetSwitcher;
+class UTextBlock;
 class UButton;
 
 /**
@@ -60,6 +61,9 @@ public:
 public:
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* WidgetSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* GuildNameText;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* GuildMainButton;
