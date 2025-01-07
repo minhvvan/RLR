@@ -44,25 +44,13 @@ void USkillDetailInfo::RefreshUI()
 
 	SetVisibility(ESlateVisibility::Visible);
 
-
-	/*
-	* TODO
-		지금은 스킬 이미지를 띄워주고 있지만, 나중에는 미리보기 영상이 나오게 해주기
-	*/
-
 	SkillNameText->SetText(SkillData.Name);
-
-	FString SkillInfoString = SkillData.ToString();
-	SkillInfoText->SetText(FText::FromString(SkillInfoString));
-
-
-	UTexture2D* Texture = ActionResource.ActionImage;
-	if (IsValid(Texture) == false)
-	{
-		UUtilBlueprintFunctionLibrary::DebugLog(TEXT("USkillDetailInfo::RefreshUI Error. 스킬 이미지 정보가 없습니다."));
-	}
-
-	SkillImage->SetBrushFromTexture(Texture, true);
+	SkillTypeText->SetText(FText::FromString(RLRLITERAL.GetSkillTypeText(SkillData.SkillType)));
+	SkillCooldownText->SetText(FText::AsNumber(SkillData.FinalCoolDown));
+	SkillLevelText->SetText(FText::AsNumber(SkillData.Level));
+	SkillCostText->SetText(FText::FromString(RLRLITERAL.GetSkillCostText(SkillData.CostType)));
+	SkillCostValueText->SetText(FText::AsNumber(SkillData.CostValue));
+	SkillDescriptionText->SetText(SkillData.SkillInfo);
 }
 
 void USkillDetailInfo::SetSkillLearned(bool bLearned)
