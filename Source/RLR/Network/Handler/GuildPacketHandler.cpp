@@ -6,6 +6,13 @@
 #include "GameManager/GameManager.h"
 #include "Structs/UtilStructs.h"
 
+/*
+	GuildQeustInfoResponse가 추가된다면
+	FGuildQuest questData;
+	questData.MakeQuestData(pkt.quests());
+
+	GameInstance->GetGuildManager()->SetGuildQuestData(questData);
+*/
 bool Handle_INFO_GUILD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildinfoResponse& pkt)
 {
 	FGuildResult Guild;

@@ -116,6 +116,13 @@ bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_N
     return false;
 }
 
+/*
+    Handle_GUILD_QUEST_INFO_RESPONSE 가 추가된다면
+    FGuildQuest questData;
+    questData.MakeQuestData(pkt.quests());
+
+    GameInstance->GetGuildManager()->SetGuildQuestData(questData);
+*/
 bool Handle_USER_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserQuestInfoResponse& pkt)
 {
     FQuest questData;

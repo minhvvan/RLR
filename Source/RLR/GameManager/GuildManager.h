@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Structs/UtilStructs.h"
+#include "Structs/ObjectStructs.h"
 #include "GuildManager.generated.h"
 
 class UGuildUI;
@@ -20,7 +21,11 @@ public:
 	void SetGuildInfo(const FGuildResult& guildData);	
 	FGuildResult GetGuildInfo();
 
+	void SetGuildQuestData(const TArray<FGuildQuest>& NewGuildQuestData);
+	TArray<FGuildQuest> GetGuildQuestData();
+
 	bool HasPermission(EGuildRole Role);
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGuildResult GuildData;
@@ -30,4 +35,5 @@ public:
 private:
 	bool bBelongToGuild;
 	EGuildRole CurrentUserRole;
+	TArray<FGuildQuest> GuildQuestData;
 };

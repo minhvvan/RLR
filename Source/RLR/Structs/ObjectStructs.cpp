@@ -51,6 +51,33 @@ void FQuest::MakeQuestData(const Protocol::Quest quest)
     UserGoods = uGoods;
 }
 
+void FGuildQuest::MakeGuildQuestData(const Protocol::Quest guildQuest)
+{
+    /* 기본 퀘스트 설정 */
+    FQuest::MakeQuestData(guildQuest);
+
+    /*
+        GuildContribution = guildQuest.guildContribution();
+		GuildLevel = guildQuest.guildLevel();
+		GuildExp = guildQuest.guildExp();
+
+		GuildQuestType = (EGuildQuestType)guildQuest.questkind();
+    */
+}
+
+void FAdventurerQuest::MakeAdventureQuestData(const Protocol::Quest adventureQuest)
+{
+    /* 기본 퀘스트 설정 */
+    FQuest::MakeQuestData(adventureQuest);
+
+    /*
+        AdventurerExp = adventureQuest.adventurerExp();
+        QuestRank = adventureQuest.questRank();
+
+        AdventureQuestType = (EAdventureQuestType)adventureQuest.questkind();
+    */
+}
+
 void FNPCData::MakeNPCData(const Protocol::NPC npc)
 {
     //TODO: NPCData 생성
