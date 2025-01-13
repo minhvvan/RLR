@@ -28,7 +28,20 @@ enum class ENPCFunctionality : uint8
 	ENHNACE,
 	SIZE
 };
+/* TODO : EGuildQuestType, EAdventureQuestType는 서버와 값을 맞춰줘야 함 */
+UENUM(BlueprintType)
+enum class EGuildQuestType : uint8 
+{
+	Normal = 0,
+	Dungeon = 1,
+	Raid = 2,
+};
 
+UENUM(BlueprintType)
+enum class EAdventureQuestType : uint8 
+{
+	Normal = 0,
+};
 
 USTRUCT(Atomic, BlueprintType)
 struct FObjectMap
@@ -160,6 +173,49 @@ struct FQuest
 	}
 
 	void MakeQuestData(const Protocol::Quest quest);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FAdventurerQuest : public FQuest
+{
+    GENERATED_BODY()
+
+    FAdventurerQuest() : FQuest() {}
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int AdventurerExp;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int QuestRank;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EAdventureQuestType> AdventureQuestType;
+
+	/* TODO : 필요에 따라 Protocol::AdventurerQeust로 바꿔줘야 할 수도 있음 */
+	void MakeAdventureQuestData(const Protocol::Quest adventureQuest);
+};
+
+USTRUCT(Atomic, BlueprintType)
+struct FGuildQuest : public FQuest
+{
+    GENERATED_BODY()
+
+    FGuildQuest() : FQuest() {}
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int GuildContribution;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int GuildLevel;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int GuildExp;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EGuildQuestType> GuildQuestType;
+
+	/* TODO : 필요에 따라 Protocol::GuildQuest로 바꿔줘야 할 수도 있음 */
+	void MakeGuildQuestData(const Protocol::Quest guildQuest);
 };
 
 USTRUCT(Atomic, BlueprintType)

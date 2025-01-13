@@ -83,9 +83,6 @@ public:
     void MoveGroup();
 
     UFUNCTION()
-    void AddToParty(FUserCharacter UserData);
-
-    UFUNCTION()
     void OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq);
     void SetFriendRequestMessageBox(FString& PlayerName);
     void SetMoveGroupMessageOpenState(bool bOpen);

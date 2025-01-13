@@ -18,6 +18,10 @@ class RLR_API UGuildMainUI : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	virtual void NativeConstruct() override;
+	void RefreshUI();
+
+public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UGuildInfoUI> GuildInfoUI;
 	

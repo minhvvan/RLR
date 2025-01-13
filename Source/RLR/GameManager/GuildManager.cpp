@@ -13,7 +13,7 @@
 void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 {
 	GuildData = guildData;
-	
+
 	/* TODO : 길드원탭에 길드원 버튼 동적생성하기 */
 	for (const FGuildRank& guildRank : GuildData.GuildRanks)
 	{
@@ -48,6 +48,21 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 FGuildResult UGuildManager::GetGuildInfo()
 {
 	return GuildData;
+}
+
+void UGuildManager::SetGuildQuestData(const TArray<FGuildQuest>& NewGuildQuestData)
+{
+	GuildQuestData.Empty();
+	
+	for (const FGuildQuest& GuildQuestDatum : NewGuildQuestData)
+	{
+		GuildQuestData.Add(GuildQuestDatum);
+	}
+}
+
+TArray<FGuildQuest> UGuildManager::GetGuildQuestData()
+{
+	return GuildQuestData;
 }
 
 bool UGuildManager::HasPermission(EGuildRole Role)
