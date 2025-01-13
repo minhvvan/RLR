@@ -20,6 +20,7 @@ public:
 	void SetGuildInfo(const FGuildResult& guildData);	
 	FGuildResult GetGuildInfo();
 
+	bool HasPermission(EGuildRole Role);
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGuildResult GuildData;
@@ -28,4 +29,5 @@ public:
 
 private:
 	bool bBelongToGuild;
+	EGuildRole CurrentUserRole;
 };

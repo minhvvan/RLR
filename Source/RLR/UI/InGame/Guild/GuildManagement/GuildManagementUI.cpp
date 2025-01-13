@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/InGame/Guild/GuildManagementUI.h"
+#include "UI/InGame/Guild/GuildManagement/GuildManagementUI.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/GuildManager.h"
 #include "GameManager/NetworkManager.h"
@@ -14,10 +14,6 @@ void UGuildManagementUI::NativeConstruct()
 	{
 		ChangeGuildNameButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::ChangeNameButtonClicked);
 	}
-	if (InviteToGuildButton)
-	{
-		InviteToGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::InviteButtonClicked);
-	}
 	if (QuitGuildButton)
 	{
 		QuitGuildButton->OnClicked.AddUniqueDynamic(this, &UGuildManagementUI::QuitGuldButtonClicked);
@@ -29,7 +25,7 @@ void UGuildManagementUI::NativeConstruct()
 		if (guildRank.UserSeq == GameInstance->GetUserSeq())
 		{
 			/* 길드장에게만 보이도록 하기 */
-			if (guildRank.GuildRankSeq == 4)
+			if (guildRank.GuildRankSeq == EGuildRole::MASTER)
 			{
 				DeleteGuildButton->SetVisibility(ESlateVisibility::Visible);
 				if (DeleteGuildButton)
@@ -42,14 +38,11 @@ void UGuildManagementUI::NativeConstruct()
 				DeleteGuildButton->SetVisibility(ESlateVisibility::Hidden);
 			}
 		}
+		break;
 	}
 }
 
 void UGuildManagementUI::ChangeNameButtonClicked()
-{
-}
-
-void UGuildManagementUI::InviteButtonClicked()
 {
 }
 

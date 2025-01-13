@@ -25,6 +25,8 @@ public:
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	bool IsInUI(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
+	UFUNCTION()
+	void OnCloseButtonClicked();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void RefreshUI() override;

@@ -298,7 +298,8 @@ public:
 	FString EnhanceSuccessStack;
 	FString IncreaseMessage;
 	FString FailureTextFormat;
-
+	/* AddFriendMessageBox & MoveGroupMessageBox */
+	FString NullptrOption;
 
 	/* GameplayTagManager */
 	// Attribute_MainStat
@@ -309,6 +310,7 @@ public:
 	FTagPair Action_Default_Attack;
 	FTagPair Action_Default_Jump;
 	FTagPair Action_Default_GuildOpen;
+	FTagPair Action_Default_FriendOpen;
 	FTagPair Action_Default_PlayMontage;
 	FTagPair Action_Default_HitCheck;
 	// Skill
@@ -445,6 +447,7 @@ public:
 	FTagPair InputTag_Y;
 	FTagPair InputTag_Z;
 	FTagPair InputTag_Alt_U;
+	FTagPair InputTag_LCtrl_C;
 
 private:
 	static LiteralManager LiteralMessages;

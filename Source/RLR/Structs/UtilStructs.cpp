@@ -80,9 +80,9 @@ void FGuildResult::MakeGuildData(const Protocol::Guild guild)
 FGuildRank FGuildRank::MakeGuildRankData(const Protocol::GuildRank& guildRank)
 {
 	FGuildRank NewRank;
-	NewRank.GuildRankSeq = guildRank.guildrankseq();
+	NewRank.GuildRankSeq = (EGuildRole)guildRank.guildrankseq();
 	NewRank.UserSeq = guildRank.userseq();
 	NewRank.UserName = UTF8_TO_TCHAR(guildRank.username().c_str());
 	
-	return FGuildRank();
+	return NewRank;
 }

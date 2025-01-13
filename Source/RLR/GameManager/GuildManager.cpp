@@ -6,12 +6,23 @@
 #include "GameManager/UIManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Guild/GuildUI.h"
+#include "UI/InGame/Guild/PlayerGuildUI.h"
 #include "Components/WidgetSwitcher.h"
 
 
 void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 {
 	GuildData = guildData;
+	
+	/* TODO : 길드원탭에 길드원 버튼 동적생성하기 */
+	for (const FGuildRank& guildRank : GuildData.GuildRanks)
+	{
+		if (guildRank.UserSeq == GameInstance->GetUserSeq())
+		{
+			CurrentUserRole = guildRank.GuildRankSeq;
+			break;
+		}
+	}
 
 	/* 길드에 속하지 않았다면 */
     AsyncTask(ENamedThreads::GameThread, [this]()
@@ -21,6 +32,10 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 				if (GuildData.guildSeq != 0)
 				{
 					GuildOverlayUI->WidgetSwitcher->SetActiveWidgetIndex(1);
+					if (GuildOverlayUI->PlayerGuildUI)
+					{
+						GuildOverlayUI->PlayerGuildUI->RefreshUI();
+					}
 				}
 				else
 				{
@@ -33,4 +48,9 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 FGuildResult UGuildManager::GetGuildInfo()
 {
 	return GuildData;
+}
+
+bool UGuildManager::HasPermission(EGuildRole Role)
+{
+	return CurrentUserRole == Role;
 }

@@ -49,6 +49,11 @@ ARLRPlayerCharacter* UPlayerManager::GetPlayerCharacter()
 	return PlayerCharacter;
 }
 
+FUserCharacter UPlayerManager::GetPlayerData()
+{
+	return UserData;
+}
+
 void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 {
 	if (UWorld* World = GetWorld())
@@ -62,6 +67,7 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 			{
 				AsyncTask(ENamedThreads::GameThread, [this, PlayerData, World]()
 					{
+				UserData = PlayerData;
 				// 스폰할 위치와 회전 값이 PlayerData에 있다고 가정
 				FVector SpawnLocation(PlayerData.Transform);
 				FRotator SpawnRotation(0.0f, 0.0f, 0.0f);  // 정면 회전

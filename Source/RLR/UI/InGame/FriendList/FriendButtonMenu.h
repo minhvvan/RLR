@@ -4,11 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "UI/SubUI.h"
+#include "Structs/PlayerStructs.h"
 #include "FriendButtonMenu.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFriendInfoClicked, int32, FriendSeq);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnInvitePartyClicked, FUserCharacter, UserData);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMoveGroupClicked);
 
 class UExistingGroupList;
+class UMoveGroupMessageBox;
+class UComboBoxString;
+class UTextBlock;
 class UButton;
 
 /**
@@ -18,7 +24,7 @@ UCLASS()
 class RLR_API UFriendButtonMenu : public USubUI
 {
 	GENERATED_BODY()
-	
+
 public:
 	virtual void NativeConstruct() override;
 
@@ -27,21 +33,44 @@ public:
 
 	UFUNCTION()
 	void RemoveFriend();
-	
+
 	UFUNCTION()
 	void MoveGroup();
 
 	UFUNCTION()
-	void SetFriendSeq(int CurrentFriendSeq) {FriendSeq = CurrentFriendSeq;};
+	void SetFriendInfo(int CurrentFriendSeq, FString CurrentFriendName) { friendSeq = CurrentFriendSeq; friendName = CurrentFriendName;};
 
 	UFUNCTION()
-	int GetFriendSeq() const {return FriendSeq;};
+	int GetFriendSeq() const { return friendSeq; };
 
+	UFUNCTION()
+	void OpenWhisperChat();
+
+	UFUNCTION()
+	void SendTradeRequest();
+
+	UFUNCTION()
+	void InviteParty();
+
+	void SetPlayerNameText(FString CurrentFriendName);
 	FOnFriendInfoClicked OnFriendInfoClicked;
-
+	FOnInvitePartyClicked OnInvitePartyClicked;
+	FOnMoveGroupClicked OnMoveGroupClicked;
 public:
 	UPROPERTY(meta = (BindWidget))
+	UTextBlock* PlayerNameText;
+
+	UPROPERTY(meta = (BindWidget))
 	UButton* PlayerInfoButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* InviteButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* TradeButton;
+	
+	UPROPERTY(meta = (BindWidget))
+	UButton* WhisperChatButton;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* RemoveFriendButton;
@@ -49,10 +78,9 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* MoveGroupButton;
 
-	UPROPERTY(VisibleAnywhere, meta = (BindWidget))
-    TObjectPtr<UExistingGroupList> GroupListUI;
-
 private:
-	int FriendSeq;
+	int friendSeq;
+	FString friendName;
 	bool bIsGroupListOpen;
+	UMoveGroupMessageBox* MoveGroupMessageBox;
 };
