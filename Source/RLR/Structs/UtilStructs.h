@@ -316,7 +316,8 @@ struct FGuildRank
 	/* 길드 내 직급 */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TEnumAsByte<EGuildRole> GuildRankSeq;
-	/* UserSeq */
+
+  /* UserSeq */
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 UserSeq;
 	/* UserName */

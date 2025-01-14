@@ -2,14 +2,18 @@
 
 
 #include "UI/InGame/Guild/PlayerGuildUI.h"
+#include "UI/InGame/Guild/GuildMainUI.h"
 #include "UI/InGame/Guild/Quest/GuildQuestUI.h"
 #include "UI/InGame/Guild/Shop/GuildShopTabWidget.h"
 #include "UI/InGame/Guild/ActivityLog/GuildActivityLogUI.h"
 #include "UI/InGame/Guild/GuildReportAndExitUI.h"
+#include "UI/InGame/Guild/GuildMember/GuildMemberUI.h"
 
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/GuildManager.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/TextBlock.h"
 #include "Components/Button.h"
 
 void UPlayerGuildUI::NativeConstruct()
@@ -58,6 +62,15 @@ void UPlayerGuildUI::RefreshUI()
 	if (WidgetSwitcher)
 	{
 		WidgetSwitcher->SetActiveWidgetIndex(0);
+		if (GuildMainUI)
+		{
+			GuildMainUI->RefreshUI();
+		}
+	}
+	if (GuildNameText)
+	{
+		FString guildName = GameInstance->GetGuildManager()->GetGuildInfo().guildName;
+		GuildNameText->SetText(FText::FromString(guildName));
 	}
 }
 
@@ -68,7 +81,7 @@ void UPlayerGuildUI::SwitchToGuildMainUI()
 		WidgetSwitcher->SetActiveWidgetIndex(0);
 		if (GuildMainUI)
 		{
-
+			GuildMainUI->RefreshUI();
 		}
 	}
 }
@@ -116,7 +129,9 @@ void UPlayerGuildUI::SwitchToGuildMember()
 		WidgetSwitcher->SetActiveWidgetIndex(4);
 		if (GuildMemberUI)
 		{
-
+			if(GuildMemberUI->GetGuildMembers().Num() > 0) return;
+			FGuildResult GuildData = GameInstance->GetGuildManager()->GetGuildInfo();
+			GuildMemberUI->UpdateGuildMemberUI(GuildData);
 		}
 	}
 }

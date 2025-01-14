@@ -14,6 +14,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/PartyManager.h"
 #include "GameManager/PlayerManager.h"
 #include "GameManager/FriendManager.h"
 
@@ -88,8 +89,10 @@ void UFriendButtonMenu::SendTradeRequest()
 
 void UFriendButtonMenu::InviteParty()
 {
-	FUserCharacter UserData = GameInstance->GetPlayerManager()->GetPlayerData();
-	OnInvitePartyClicked.Broadcast(UserData);
+	if (GameInstance->GetPartyManager()->GetHasParty())
+	{
+		GameInstance->GetPartyManager()->InviteParty(friendSeq);
+	}
 }
 
 void UFriendButtonMenu::SetPlayerNameText(FString CurrentFriendName)

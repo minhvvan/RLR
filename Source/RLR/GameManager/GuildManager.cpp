@@ -24,6 +24,16 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 		}
 	}
 
+	/* TODO : 길드원탭에 길드원 버튼 동적생성하기 */
+	for (const FGuildRank& guildRank : GuildData.GuildRanks)
+	{
+		if (guildRank.UserSeq == GameInstance->GetUserSeq())
+		{
+			CurrentUserRole = guildRank.GuildRankSeq;
+			break;
+		}
+	}
+
 	/* 길드에 속하지 않았다면 */
     AsyncTask(ENamedThreads::GameThread, [this]()
         {
@@ -48,6 +58,21 @@ void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 FGuildResult UGuildManager::GetGuildInfo()
 {
 	return GuildData;
+}
+
+void UGuildManager::SetGuildQuestData(const TArray<FGuildQuest>& NewGuildQuestData)
+{
+	GuildQuestData.Empty();
+	
+	for (const FGuildQuest& GuildQuestDatum : NewGuildQuestData)
+	{
+		GuildQuestData.Add(GuildQuestDatum);
+	}
+}
+
+TArray<FGuildQuest> UGuildManager::GetGuildQuestData()
+{
+	return GuildQuestData;
 }
 
 bool UGuildManager::HasPermission(EGuildRole Role)
