@@ -29,8 +29,8 @@ public:
 	virtual void NativeConstruct() override;
 	virtual void RefreshUI() override;
 
-
-	void SetSkillData(FSkillData NewSkillData);
+	void SetSkillData(const FSkillData& SkillData);
+	void SetSkillLearned(bool bLearned);
 	void Clear();
 
 	UFUNCTION()
@@ -49,16 +49,31 @@ public:
 	TObjectPtr<UTextBlock> SkillNameText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UTextBlock> SkillInfoText;
+	TObjectPtr<UTextBlock> SkillTypeText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UImage> SkillImage;
+	TObjectPtr<UTextBlock> SkillCooldownText;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> SkillLevelText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UButton> UpgradeSkillButton;
+	TObjectPtr<UTextBlock> SkillCostText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> SkillCostValueText;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> SkillDescriptionText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
+	TObjectPtr<UButton> UpgradeSkillButton;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UButton> ShowChainSkillButton;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UTextBlock> UpgradeSkillButtonText;
 
 public:
 	UPROPERTY()

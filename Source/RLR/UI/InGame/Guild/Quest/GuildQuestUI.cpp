@@ -97,5 +97,4 @@ void UGuildQuestUI::InitQuestBoard()
             CreatedQuestCards.Add(NewCard);
         }
     }
-
 }

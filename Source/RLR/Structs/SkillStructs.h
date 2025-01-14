@@ -158,15 +158,13 @@ struct FSkillData : public FTableRowBase
 	float Duration;
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
+	bool CanLearn = true;
+
+	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	TArray<FAbnormal> Abnormals;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTotalStatus PassiveStatus = FTotalStatus();
-
-	/*
-		UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-		스킬 미리보기
-	*/
 
 	void MakeSkillData(Protocol::SkillInfo skill);
 	static const FSkillData EmptySkillData;

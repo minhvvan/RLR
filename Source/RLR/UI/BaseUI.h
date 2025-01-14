@@ -59,6 +59,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void UnHighlight();
 
+	FVector2d GetUIPosition();
+	
 public:
 	UUIManager*			GetUIManager();
 	UGameManager*		GetGameManager();

@@ -20,9 +20,8 @@ UCLASS()
 class RLR_API USkillTree : public UBaseUI
 {
 	GENERATED_BODY()
+
 public:
-
-
 	virtual void NativeConstruct() override;
 	virtual void Init() override;
 	virtual void RefreshUI() override;

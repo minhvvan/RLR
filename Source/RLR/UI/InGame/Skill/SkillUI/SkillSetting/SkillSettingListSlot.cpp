@@ -46,7 +46,7 @@ FReply USkillSettingListSlot::NativeOnMouseButtonDown(const FGeometry& InGeometr
 	if (IsValid(SkillUI) == false)
 		return result;
 
-	SkillUI->UpdateSkillDetailInfo(GetSkillData());
+	SkillUI->UpdateSkillDetailInfo(GetSkillData(), IsLearned);
 
 	return result;
 }
@@ -71,7 +71,6 @@ void USkillSettingListSlot::RefreshUI()
 	}
 
 	SetVisibility(ESlateVisibility::Visible);
-	SkillLevelText->SetText(FText::AsNumber(SkillData.Level));
 	SkillNameText->SetText(SkillData.Name);
 
 	if (IsEquipped == true)

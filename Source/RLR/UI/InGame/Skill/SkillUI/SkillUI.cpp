@@ -4,6 +4,7 @@
 #include "UI/InGame/Skill/SkillUI/SkillUI.h"
 #include "SkillUI.h"
 
+#include "RLR.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 
@@ -63,28 +64,16 @@ void USkillUI::ChangeTab(SKillUI_TabType TabType)
 	RefreshUI();
 }
 
-void USkillUI::UpdateSkillDetailInfo(FSkillData NewSkillData)
+void USkillUI::UpdateSkillDetailInfo(const FSkillData& NewSkillData, bool bLearned) const
 {
+	if (NewSkillData == FSkillData::EmptySkillData) return;
+	
 	SkillDetailInfo->SetSkillData(NewSkillData);
+	SkillDetailInfo->SetSkillLearned(bLearned);
 
-	if (NewSkillData == FSkillData::EmptySkillData)
-	{
-		SkillTree->SkillPropertyContainer->CloseUI();
-		return;
-	}
-
-	//고유기만 스킬 프로퍼티를 보여준다.
-	if (NewSkillData.SkillGroup == ESkillGroup::UNIQUE)
-	{
-		SkillTree->SkillPropertyContainer->SetSkillData(NewSkillData);
-		SkillTree->SkillPropertyContainer->OpenUI();
-	}
-	else
-	{
-		SkillTree->SkillPropertyContainer->CloseUI();
-	}
-
-
+	SkillTree->SkillPropertyContainer->SetSkillData(NewSkillData);
+	SkillTree->SkillPropertyContainer->SetSkillLearned(bLearned);
+	SkillTree->SkillPropertyContainer->RefreshUI();
 }
 
 void USkillUI::ClearSkillDetailInfo()
@@ -92,5 +81,3 @@ void USkillUI::ClearSkillDetailInfo()
 	SkillDetailInfo->SetVisibility(ESlateVisibility::Hidden);
 
 }
-
-

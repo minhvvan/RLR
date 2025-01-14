@@ -170,7 +170,7 @@ void USkillSetting::LoadSkillList()
 		ESkillGroup SkillGroup = SkillData.SkillGroup;
 		if (SkillGroup == ESkillGroup::NONE)
 			continue;
-
+		
 		switch (SkillGroup)
 		{
 		case ESkillGroup::NORMAL:

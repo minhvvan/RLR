@@ -3,6 +3,8 @@
 
 #include "GameManager/LiteralManager.h"
 
+#include "Structs/SkillStructs.h"
+
 LiteralManager LiteralManager::LiteralMessages;
 
 LiteralManager::LiteralManager()
@@ -54,6 +56,19 @@ void LiteralManager::Init()
     LiteralMessages.PostUI_OnClickedDeletePostsConfirmButton = FName("OnClickedDeletePostsConfirmButton");
     LiteralMessages.PostUI_OnClickedAcceptButtonWhileWriting = FName("OnClickedAcceptButton");
     LiteralMessages.PostUI_OnClickedCancelButton = FName("OnClickedCancelButton");
+	
+	/* SKillUI */
+	LiteralMessages.SkillUI_Learn = TEXT("스킬 배우기");
+	LiteralMessages.SkillUI_Upgrade = TEXT("스킬 업그레이드");
+	LiteralMessages.SkillType_Normal = TEXT("일반");
+	LiteralMessages.SkillType_Area = TEXT("지역");
+	LiteralMessages.SkillType_Holding = TEXT("홀딩");
+	LiteralMessages.SkillType_Casting = TEXT("캐스팅");
+	LiteralMessages.SkillType_Mobility = TEXT("이동");
+	LiteralMessages.SkillType_Targeting = TEXT("타게팅");
+	LiteralMessages.SkillType_Chain = TEXT("연계");
+	LiteralMessages.CostType_MP = TEXT("MP");
+	LiteralMessages.CostType_HP = TEXT("HP");
 
     /* DataManager */
     LiteralMessages.DT_ItemData_Path = TEXT("/Script/Engine.DataTable'/Game/DataTable/DT_ItemData.DT_ItemData'");
@@ -410,4 +425,51 @@ void LiteralManager::Init()
     LiteralMessages.InputTag_Z          = FTagPair(FName("Input.Z"), TEXT("KeyBoard Z"));
     LiteralMessages.InputTag_Alt_U      = FTagPair(FName("Input.Alt_U"), TEXT("KeyBoard Alt + U"));
     LiteralMessages.InputTag_LCtrl_C    = FTagPair(FName("Input.LCtrl_C"), TEXT("KeyBoard LCtrl + C"));
+}
+
+FString LiteralManager::GetSkillTypeText(ESkillType type)
+{
+	FString result;
+	switch (type)
+	{
+	case ESkillType::NORMAL:
+		result = SkillType_Normal;
+		break;
+	case ESkillType::AREA:
+		result = SkillType_Area;
+		break;
+	case ESkillType::HOLDING:
+		result = SkillType_Holding;
+		break;
+	case ESkillType::CASTING:
+		result = SkillType_Casting;
+		break;
+	case ESkillType::MOVILITY:
+		result = SkillType_Mobility;
+		break;
+	case ESkillType::TARGETING:
+		result = SkillType_Targeting;
+		break;
+	case ESkillType::CHAIN:
+		result = SkillType_Chain;
+		break;
+	}
+
+	return result;
+}
+
+FString LiteralManager::GetSkillCostText(ECostType type)
+{
+	FString result;
+	switch (type)
+	{
+	case ECostType::MP:
+		result = CostType_MP;
+		break;
+	case ECostType::HP:
+		result = CostType_HP;
+		break;
+	}
+
+	return result;
 }

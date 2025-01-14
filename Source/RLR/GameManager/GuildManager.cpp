@@ -13,6 +13,16 @@
 void UGuildManager::SetGuildInfo(const FGuildResult& guildData)
 {
 	GuildData = guildData;
+	
+	/* TODO : 길드원탭에 길드원 버튼 동적생성하기 */
+	for (const FGuildRank& guildRank : GuildData.GuildRanks)
+	{
+		if (guildRank.UserSeq == GameInstance->GetUserSeq())
+		{
+			CurrentUserRole = guildRank.GuildRankSeq;
+			break;
+		}
+	}
 
 	/* TODO : 길드원탭에 길드원 버튼 동적생성하기 */
 	for (const FGuildRank& guildRank : GuildData.GuildRanks)

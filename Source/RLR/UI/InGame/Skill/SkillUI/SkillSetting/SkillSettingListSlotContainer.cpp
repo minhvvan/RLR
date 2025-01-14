@@ -12,10 +12,11 @@
 
 void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
 {
-
 	TSubclassOf<USkillSettingListSlot> SlotClass = GameInstance->GetDataManager()->GetWidgetClass<USkillSettingListSlot>(RLRLITERAL.WBP_SkillSettingListSlot);
 	if (IsValid(SlotClass) == false)
 		DEBUG_MESSAGE;
+
+	if (SlotMap.Num() == MaxSlotCount) return;
 
 	for(int32 i = 0 ; i < MaxSlotCount; i++)
 	{ 
@@ -23,13 +24,12 @@ void USkillSettingListSlotContainer::Init(int32 MaxSlotCount)
 		NewSlot->Clear();
 		SlotMap.Add(i, NewSlot);
 		AddChildToWrapBox(NewSlot);
-		NewSlot->SetVisibility(ESlateVisibility::Hidden);
+		// NewSlot->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 
 void USkillSettingListSlotContainer::RefreshUI()
 {
-
 	UGameOptionData* GameOption = GameInstance->GetGameOptionData();
 	if (IsValid(GameOption) == false)
 	{
@@ -78,7 +78,7 @@ void USkillSettingListSlotContainer::Clear()
 		int32 SlotIndex = Element.Key;
 		USkillSettingListSlot* QuickSlot = Element.Value;
 		QuickSlot->Clear();
-		QuickSlot->SetVisibility(ESlateVisibility::Hidden);
+		// QuickSlot->SetVisibility(ESlateVisibility::Hidden);
 	}
 }
 

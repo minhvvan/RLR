@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 
+enum class ECostType : uint8;
+enum class ESkillType : uint8;
+
 /* GameplayTagManager */
 struct FTagPair
 {
@@ -24,8 +27,11 @@ struct FTagPair
 class RLR_API LiteralManager
 {
 public:
-	static const LiteralManager& Get() { return LiteralMessages; }
+	static LiteralManager& Get() { return LiteralMessages; }
 	static void Init();
+
+	FString GetSkillTypeText(ESkillType type);
+	FString GetSkillCostText(ECostType type);
 
 public:
 	/* TradeUI */
@@ -55,6 +61,18 @@ public:
 	FName	PostUI_OnClickedDeletePostsConfirmButton;
 	FName	PostUI_OnClickedCancelButton;
 	FName	PostUI_OnClickedAcceptButtonWhileWriting;
+	/* SkillUI */
+	FString SkillUI_Learn;
+	FString SkillUI_Upgrade;
+	FString SkillType_Normal;
+	FString SkillType_Area;
+	FString SkillType_Holding;
+	FString SkillType_Casting;
+	FString SkillType_Mobility;
+	FString SkillType_Targeting;
+	FString SkillType_Chain;
+	FString CostType_MP;
+	FString CostType_HP;
 
 	/* Player Commands */
 	FString Playercommands_InputConfigNull;

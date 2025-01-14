@@ -26,9 +26,9 @@ public:
 	virtual void RefreshUI() override;
 
 	virtual void SetLearned(bool Value);
+	virtual bool GetLearned() { return IsLearned; }
 
 private:
-
 	UPROPERTY()
 	bool IsLearned = false;
 };

@@ -229,6 +229,7 @@ void UFriendListUI::OpenFriendMenuUI(bool bOpen)
             FriendMenuUI->SetPlayerNameText(SelectedFriendName);
             FriendMenuUI->SetFriendInfo(SelectedFriend, SelectedFriendName);
             FriendMenuUI->OnMoveGroupClicked.AddUniqueDynamic(this, &UFriendListUI::MoveGroup);
+            FriendMenuUI->OnInvitePartyClicked.AddUniqueDynamic(this, &UFriendListUI::AddToParty);
         }
     }
 }
@@ -319,6 +320,11 @@ void UFriendListUI::MoveGroup()
         }
         bIsMoveGroupMessageBoxOpen = true;
     }
+}
+
+void UFriendListUI::AddToParty(FUserCharacter UserData)
+{
+    PartyUI->AddPlayer(UserData);
 }
 
 void UFriendListUI::OpenAndSetRenameUI(bool bOpen, FString CurrentGroupName, int32 CurrentGroupSeq)

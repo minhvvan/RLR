@@ -37,8 +37,8 @@ public:
 
 	UFUNCTION()
 	void DeleteGuildButtonClicked();
-	
-	UFUNCTION()
+
+UFUNCTION()
 	void OnIconSelected(UGuildIconImage* ClickedGuildIconImage);
 	
 	UFUNCTION()

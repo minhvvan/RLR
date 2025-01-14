@@ -2,7 +2,6 @@
 
 
 #include "UI/InGame/Guild/BaseGuildMember.h"
-
 #include "Components/TextBlock.h"
 
 void UBaseGuildMember::NativeConstruct()
