@@ -234,10 +234,14 @@ void UPlayerManager::UpdatePlayerGood(FPlayerGoods playerGood)
 		silver = 56
 		copper = 78
 	*/
-	int32 platinum = PlayerGood.TotalMoney / (100 * 100 * 100);
-	int32 gold = (PlayerGood.TotalMoney % (100 * 100 * 100)) / (100 * 100);
-	int32 silver = (PlayerGood.TotalMoney % (100 * 100)) / 100;
-	int32 copper = PlayerGood.TotalMoney % 100;
+	int32 platinumUnit = 1'000'000;
+	int32 goldUnit = 10'000;
+	int32 silverUnit = 1'00;
+
+	int32 platinum	= PlayerGood.TotalMoney / platinumUnit;
+	int32 gold		= (PlayerGood.TotalMoney % platinumUnit) / goldUnit;
+	int32 silver	= (PlayerGood.TotalMoney % goldUnit) / silverUnit;
+	int32 copper	= PlayerGood.TotalMoney % silverUnit;
 
 	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
 	GameInstance->GetInventoryManager()->SetGold(gold);
