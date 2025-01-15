@@ -19,6 +19,7 @@ struct FMonsterStatus
 		MonsterAttackRate(0),
 		MonsterDefence(0),
 		MonsterHp(0),
+		MonsterMaxHp(0),
 		MonsterAttackRange(0.f),
 		MonsterTransform({ 0.f, 0.f, 0.f }),
 		MonsterId(0),

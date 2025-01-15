@@ -36,7 +36,7 @@ bool UNetworkManager::SendServerListRequest()
 bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 {
 
-    if (ConnectToLoginServer("127.0.0.1", 27010)) {
+    if (ConnectToLoginServer("3.37.172.19", 27014)) {
         Protocol::CS_LoginRequestPacket packet;
         FString PlayerIdString = ID.ToString();
 
