@@ -83,7 +83,12 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 					if (PlayerController)
 					{
 						PlayerController->Possess(SpawnedCharacter);
-					}
+						
+						
+						PlayerController->SetbAwaitingTrue();
+							
+						
+					}	
 				}
 					});
 			}
@@ -205,17 +210,8 @@ void UPlayerManager::SpawnPlayerTransform(const FVector& NewTransform)
 			PlayerCharacter = player;
 		}
 	}
-
 	PlayerCharacter->SpawnTransform(NewTransform);
-	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (Controller)
-	{
-		ARLRPlayerController* RLRController = Cast<ARLRPlayerController>(Controller);
-		if (RLRController)
-		{
-			RLRController->SetbAwaitingTrue();
-		}
-	}
+	
 }
 
 bool UPlayerManager::RequestTalent(int TalentOrder)

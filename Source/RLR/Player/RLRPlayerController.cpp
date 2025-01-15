@@ -58,7 +58,7 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
 	if (!PlayerManager || !Player) return;
 
-	if (bAwaitingServerResponse) return;
+	if (!bAwaitingServerResponse) return;
 
 	timeSinceLastMovePacket += DeltaTime;
 

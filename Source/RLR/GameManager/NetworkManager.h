@@ -117,6 +117,13 @@ public:
     bool SendBuyPacket(int itemSeq, int shopSeq, int quantity); // 상점 구매 패킷
 
     bool SendSellPacket(int64 itemId, int shopSeq, int quantity); // 상점 판매 패킷
+    /*
+            Good
+                        */
+
+    bool SendUserGoodPacket(); // 상점 구매 패킷
+
+    bool SendPlayerGoodPacket(); // 상점 판매 패킷
 
     /*
             Quest
