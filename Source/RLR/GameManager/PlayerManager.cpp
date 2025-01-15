@@ -5,6 +5,7 @@
 #include "GameManager.h"
 #include "GameManager/NetworkManager.h"
 #include "GameManager/LiteralManager.h"
+#include "GameManager/InventoryManager.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
@@ -74,6 +75,7 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 				// 플레이어 캐릭터 스폰
 				FActorSpawnParameters SpawnParams;
 				ARLRPlayerCharacter* SpawnedCharacter = World->SpawnActor<ARLRPlayerCharacter>(PlayerCharacterClass, SpawnLocation, SpawnRotation, SpawnParams);
+
 				if (SpawnedCharacter)
 				{
 					PlayerCharacter = SpawnedCharacter;
@@ -225,6 +227,22 @@ void UPlayerManager::UpdatePlayerGood(FPlayerGoods playerGood)
 {
 	PlayerGood.TotalMoney = playerGood.TotalMoney;
 	PlayerGood.Diamond = playerGood.Diamond;
+	/* 
+		12,345,678 일 경우, 
+		platinum = 12
+		gold = 34
+		silver = 56
+		copper = 78
+	*/
+	int32 platinum = PlayerGood.TotalMoney / (100 * 100 * 100);
+	int32 gold = (PlayerGood.TotalMoney % (100 * 100 * 100)) / (100 * 100);
+	int32 silver = (PlayerGood.TotalMoney % (100 * 100)) / 100;
+	int32 copper = PlayerGood.TotalMoney % 100;
+
+	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
+	GameInstance->GetInventoryManager()->SetGold(gold);
+	GameInstance->GetInventoryManager()->SetSilver(silver);
+	GameInstance->GetInventoryManager()->SetCopper(copper);
 }
 FUserGoods UPlayerManager::GetUserGood() const
 {
