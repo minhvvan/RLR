@@ -3,11 +3,13 @@
 
 #include "UI/Title/TitleMainUI.h"
 #include "UI/Title/ServerList.h"
+#include "UI/Title/TitleRegisterUI.h"
 #include "UI/Title/ServerListElement.h"
 
 #include "Components/EditableTextBox.h"
 #include "Components/Button.h"
 
+#include "GameManager/UIManager.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
 
@@ -19,6 +21,13 @@ void UTitleMainUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	ConnectServerButton->OnClicked.AddUniqueDynamic(this, &UTitleMainUI::OnClickedConnectServerButton);
+	RegisterButton->OnClicked.AddUniqueDynamic(this, &UTitleMainUI::OnClickedRegisterButton);
+
+	if (TitleRegisterUI)
+	{
+		TitleRegisterUI->OnRegisterCancelButtonClicked.AddUniqueDynamic(this, &UTitleMainUI::OnRegisterCancelButtonClicked);
+		TitleRegisterUI->OnRegisterConfirmButtonClicked.AddUniqueDynamic(this, &UTitleMainUI::OnRegisterConfirmButtonClicked);
+	}
 }
 
 void UTitleMainUI::RefreshUI()
@@ -69,4 +78,29 @@ void UTitleMainUI::OnClickedConnectServerButton()
 
 	int32 ServerSeq = Element->GetServerData().ServerSeq;
 	GameInstance->GetNetworkManager()->SendLoginRequest(ServerSeq, ID, PW);
+}
+
+void UTitleMainUI::OnClickedRegisterButton()
+{
+	if (TitleRegisterUI)
+	{
+		TitleRegisterUI->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void UTitleMainUI::OnRegisterCancelButtonClicked()
+{
+	if (TitleRegisterUI)
+	{
+		TitleRegisterUI->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void UTitleMainUI::OnRegisterConfirmButtonClicked()
+{
+	if (TitleRegisterUI)
+	{
+		/* 서버에 회원가입 완료 전달하기 */
+		TitleRegisterUI->SetVisibility(ESlateVisibility::Hidden);
+	}
 }

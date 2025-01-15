@@ -136,12 +136,12 @@ void FGameplayTagManager::Init()
 	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ConfirmMessageBox.TagName, RLRLITERAL.UI_Popup_ConfirmMessageBox.TagDesc);
 	
   // 리터럴 매니저 추가
-	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ItemCountMessageBox"), FString(TEXT("아이템 갯수 입력")));
-	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.NotificationMessageBox"), FString(TEXT("알림 박스")));
-	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.ConfirmMessageBox"), FString(TEXT("확인 입력 박스")));
-	GameplayTags.UI_Popup_GoodsMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("UI.Popup.GoodsMessageBox"), FString(TEXT("재화 입력 박스")));
+	GameplayTags.UI_Popup_ItemCountMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ItemCountMessageBox.TagName, RLRLITERAL.UI_Popup_ItemCountMessageBox.TagDesc);
+	GameplayTags.UI_Popup_NotificationMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_NotificationMessageBox.TagName, RLRLITERAL.UI_Popup_NotificationMessageBox.TagDesc);
+	GameplayTags.UI_Popup_ConfirmMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_ConfirmMessageBox.TagName, RLRLITERAL.UI_Popup_ConfirmMessageBox.TagDesc);
+	GameplayTags.UI_Popup_GoodsMessageBox = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_Popup_GoodsMessageBox.TagName, RLRLITERAL.UI_Popup_GoodsMessageBox.TagDesc);
 
-  GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Menu.TagName, RLRLITERAL.UI_OtherPlayer_Menu.TagDesc);
+	GameplayTags.UI_OtherPlayer_Menu = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Menu.TagName, RLRLITERAL.UI_OtherPlayer_Menu.TagDesc);
 	GameplayTags.UI_OtherPlayer_OverHead = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_OverHead.TagName, RLRLITERAL.UI_OtherPlayer_OverHead.TagDesc);
 	GameplayTags.UI_OtherPlayer_Profile = UGameplayTagsManager::Get().AddNativeGameplayTag(RLRLITERAL.UI_OtherPlayer_Profile.TagName, RLRLITERAL.UI_OtherPlayer_Profile.TagDesc);
 	

@@ -373,6 +373,7 @@ void LiteralManager::Init()
     LiteralMessages.UI_Popup_ItemCountMessageBox       = FTagPair(FName("UI.Popup.ItemCountMessageBox"), TEXT("아이템 갯수 입력"));
     LiteralMessages.UI_Popup_NotificationMessageBox    = FTagPair(FName("UI.Popup.NotificationMessageBox"), TEXT("알림 박스"));
     LiteralMessages.UI_Popup_ConfirmMessageBox         = FTagPair(FName("UI.Popup.ConfirmMessageBox"), TEXT("확인 입력 박스"));
+    LiteralMessages.UI_Popup_GoodsMessageBox           = FTagPair(FName("UI.Popup.GoodsMessageBox"), TEXT("재화 입력 박스"));
     LiteralMessages.UI_OtherPlayer_Menu                = FTagPair(FName("UI.OtherPlayer.Menu"), TEXT("플레이어 메뉴"));
     LiteralMessages.UI_OtherPlayer_OverHead            = FTagPair(FName("UI.OtherPlayer.OverHead"), TEXT("타 플레이어 체력바"));
     LiteralMessages.UI_OtherPlayer_Profile             = FTagPair(FName("UI.OtherPlayer.Profile"), TEXT("타 플레이어 상태창"));
