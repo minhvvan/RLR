@@ -50,6 +50,8 @@ public:
     bool SendServerListRequest();                               //접속 가능한 서버 목록을 요청한다.
     bool SendLoginRequest(int32 ServerSeq, FText ID, FText PW); //선택한 서버, 아디, 비번을 담아 로그인 시도 패킷을 보낸다.
 
+    bool SendSignRequest(string playerId);
+
     /*
         Lobby
     */

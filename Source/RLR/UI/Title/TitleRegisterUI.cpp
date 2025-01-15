@@ -3,7 +3,8 @@
 
 #include "UI/Title/TitleRegisterUI.h"
 #include "GameManager/UIManager.h"
-
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 #include "Components/Button.h"
 #include "Components/EditableTextBox.h"
 
@@ -24,7 +25,11 @@ void UTitleRegisterUI::OnCancelButtonClicked()
 void UTitleRegisterUI::OnConfirmButtonClicked()
 {
 	if (IDEditableTextBox->GetText().IsEmpty() || PWEditableTextBox->GetText().IsEmpty()) return;
+	FString signFString = IDEditableTextBox->GetText().ToString();
 
+	// FString을 std::string으로 변환
+	std::string signStdString(TCHAR_TO_UTF8(*signFString));
+	GameInstance->GetNetworkManager()->SendSignRequest(signStdString);
 	/* 회원가입 완료 전달 */
 	OnRegisterConfirmButtonClicked.Broadcast();
 }

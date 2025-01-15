@@ -55,4 +55,19 @@ bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 
     return false;
 }
+bool UNetworkManager::SendSignRequest(string playerId)
+{
+    
+    if (ConnectToLoginServer("3.37.172.19", 27014)) {
+        Protocol::CS_NewPlayerRequest packet;
+        packet.set_playerid(playerId);
+        TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+        int32 BytesSent = 0;
+        bool bSuccess = LoginServerSocket->Send(sendBuffer->GetBuffer(), sendBuffer->Capacity(), BytesSent);
+    }
+
+    DEBUG_INCOMPLETE;
+
+    return false;
+}
 
