@@ -49,6 +49,8 @@ public:
 	const FSkillDictionary<FGameplayTag, FItemData>& GetOwnItems();
 	bool HasItemTag(FGameplayTag TriggerTag);
 
+	void ResetItemList();
+
 	void SetQuickSlotItems(TArray<FItemData>& SelectedItems);
 
 	int32 GetCopper() {return Copper;}

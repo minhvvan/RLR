@@ -279,7 +279,17 @@ bool UInventoryManager::HasItemTag(FGameplayTag TriggerTag)
 
 	return bResult;
 }
+void UInventoryManager::ResetItemList()
+{
+	// 모든 슬롯을 EmptyItemData로 초기화
+	for (int i = 0; i < InventoryItemData.Num(); i++)
+	{
+		InventoryItemData[i] = FItemData::EmptyItemData;
+	}
 
+	// UI 업데이트
+	OnUpdateInventoryDelegateBroadcast();
+}
 void UInventoryManager::SetQuickSlotItems(TArray<FItemData>& SelectedItems)
 {
 	// GameplayTagManager

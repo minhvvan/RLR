@@ -30,19 +30,22 @@ void UNPCSaleTab::OnSellClicked()
 {
 	auto NetworkManager = GetNetworkManager();
 	auto UIManager = GetUIManager();
+	UE_LOG(LogTemp, Log, TEXT("Sell Packet Request Start 1!!"));
 	if (NetworkManager && UIManager)
 	{
-		auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+		auto shopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+		UE_LOG(LogTemp, Log, TEXT("Sell Packet Request Start 2!!"));
 		if (!shopUI) return;
 
 		auto shopData = shopUI->GetShopData();
-		AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
-			{
+		UE_LOG(LogTemp, Log, TEXT("Sell Packet Request Start 3!!"));
+		/*AsyncTask(ENamedThreads::GameThread, [this, shopData, NetworkManager]()
+			{*/
 				for (auto& [slotIndex, item] : Cart)
 				{
 					NetworkManager->SendSellPacket(item.ITEM_ID, shopData.ShopSeq, item.ITEM_QUANTITY);
 				}
-			});
+			//});
 
 		OnEmptyClicked();
 	}

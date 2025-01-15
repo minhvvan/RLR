@@ -38,6 +38,7 @@ bool Handle_MAP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_M
 }
 bool Handle_INVENTORY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_InventoryResponsePacket& pkt)
 {
+    GameInstance->GetInventoryManager()->ResetItemList();
     if (pkt.userseq() == 0) {
         return false;
     }

@@ -36,7 +36,7 @@ bool UNetworkManager::SendSellPacket(int64 itemId, int shopSeq, int quantity) {
     if (!MainServerSocket) return false;
 
     Protocol::CS_SellRequest packet;
-
+    UE_LOG(LogTemp, Log, TEXT("Sell Packet Request Start!!"));
     packet.set_userseq(GameInstance->GetUserSeq());
     packet.set_itemid(itemId);
     packet.set_shopseq(shopSeq);
