@@ -13,6 +13,7 @@
  class UServerList;
  class UButton;
  class UEditableTextBox;
+ class UTitleRegisterUI;
 
  USTRUCT(Atomic, BlueprintType)
 struct FServerData
@@ -49,6 +50,15 @@ public:
 
 	UFUNCTION()
 	void OnClickedConnectServerButton();
+	
+	UFUNCTION()
+	void OnClickedRegisterButton();
+
+	UFUNCTION()
+	void OnRegisterCancelButtonClicked();
+	
+	UFUNCTION()
+	void OnRegisterConfirmButtonClicked();
 
 public:
 
@@ -67,5 +77,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UButton> ConnectServerButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UButton> RegisterButton;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UTitleRegisterUI> TitleRegisterUI;
 };

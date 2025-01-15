@@ -396,6 +396,7 @@ public:
 	FTagPair UI_Popup_ItemCountMessageBox;
 	FTagPair UI_Popup_NotificationMessageBox;
 	FTagPair UI_Popup_ConfirmMessageBox;
+	FTagPair UI_Popup_GoodsMessageBox;
 	FTagPair UI_OtherPlayer_Menu;
 	FTagPair UI_OtherPlayer_OverHead;
 	FTagPair UI_OtherPlayer_Profile;
