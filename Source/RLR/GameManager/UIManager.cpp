@@ -41,7 +41,7 @@ void UUIManager::OpenMainUI(TSubclassOf<UBaseUI> UIClass)
 		{
 			GameInstance->GetNetworkManager()->SendServerRequest();
 			GameInstance->GetNetworkManager()->SendUserQuestPacket();
-			GameInstance->GetNetworkManager()->SendInventoryPacket();
+			
 		}
 	}
 }

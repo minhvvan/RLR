@@ -81,8 +81,10 @@ bool ULevelManager::LoadLevel(int32 LevelSeq)
 
 bool ULevelManager::EnterLevel(FName LevelName, FString MainServerAddress, int32 MainPort, FString MonsterServerAddress, int32 MonsterPort)
 {
+	UE_LOG(LogTemp, Log, TEXT("Level Manager In Main Address : %s  , Port : %d"), *MainServerAddress, MainPort);
 	LoadLevelCompleteDelegate.BindLambda([MainServerAddress, MainPort, MonsterServerAddress, MonsterPort]()
 		{
+			UE_LOG(LogTemp, Log, TEXT("Delegater In Main Address : %s  , Port : %d"), *MainServerAddress, MainPort);
 			GameInstance->GetNetworkManager()->ConnectToMonsterServer(MonsterServerAddress, MonsterPort);
 			GameInstance->GetNetworkManager()->ConnectToMainServer(MainServerAddress, MainPort);
 			GameInstance->GetNetworkManager()->SendServerRequest();

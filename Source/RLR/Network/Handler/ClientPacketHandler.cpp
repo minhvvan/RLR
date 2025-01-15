@@ -45,6 +45,10 @@ void ClientPacketHandler::Init()
         {
             return instance.HandlePacket<Protocol::SC_LoginResponsePacket>(&Handle_LOGIN_RESPONSE, session, buffer, len);
         };
+    GPacketHandler[PKT_NEW_PLAYER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
+        {
+            return instance.HandlePacket<Protocol::SC_NewPlayerRequest>(&Handle_NEW_PLAYER_RESPONSE, session, buffer, len);
+        };
     GPacketHandler[PKT_CHARACTER_RESPONSE] = [](TSharedPtr<PacketSession>& session, uint8* buffer, int32 len)
         {
             return instance.HandlePacket<Protocol::SC_UserResponsePacket>(&Handle_CHARACTER_RESPONSE, session, buffer, len);

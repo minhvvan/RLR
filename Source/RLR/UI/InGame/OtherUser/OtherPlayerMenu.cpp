@@ -57,6 +57,8 @@ void UOtherPlayerMenu::OnInvitePartyClicked()
 	auto partyManager = GetPartyManager();
 	if (!partyManager) return;
 
+
+	GetNetworkManager()->SendRequestParty(OtherUserData->UserSeq);
 	if (!partyManager->GetHasParty())
 	{
 		//Single 유지

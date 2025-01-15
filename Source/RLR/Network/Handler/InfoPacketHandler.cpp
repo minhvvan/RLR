@@ -12,6 +12,7 @@
 #include "GameManager/PlayerManager.h"
 #include "GameManager/ObjectManager.h"
 #include "GameManager/QuestManager.h"
+#include "GameManager/GuildManager.h"
 #include "UI/InGame/InGameMainUI.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
@@ -77,7 +78,9 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     GameInstance->SetUserSeq(pkt.usercharacter().userseq());
     GameInstance->GetNetworkManager()->SendGetSkillPacket();
     GameInstance->GetNetworkManager()->SendNPCInfoPacket();
-
+    GameInstance->GetNetworkManager()->SendInventoryPacket();
+    GameInstance->GetNetworkManager()->SendUserGoodPacket();
+    GameInstance->GetNetworkManager()->SendPlayerGoodPacket();
     // item 이미지 없어서 로드 안됌 로드 완료시 연결예정
    
     return true;
@@ -115,7 +118,17 @@ bool Handle_NPC_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_N
 
     return false;
 }
+bool Handle_GUILD_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildQuestInfoResponse& pkt) {
+    
+    /*Tarray<FGuildQuest> guildQuests;
+    
+    FGuildQuest questData;
+    questData.MakeQuestData(pkt.quests());
 
+    GameInstance->GetGuildManager()->SetGuildQuestData(questData);
+    return false;*/
+    return false;
+}
 /*
     Handle_GUILD_QUEST_INFO_RESPONSE 가 추가된다면
     FGuildQuest questData;
@@ -185,16 +198,20 @@ bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::S
 
 bool Handle_USER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_UserGoodResponse& pkt)
 {
+    UE_LOG(LogTemp, Log, TEXT("User Good Response Start "));
     FUserGoods userGood;
     userGood.MakeUserGoods(pkt.usergood());
+    UE_LOG(LogTemp, Log, TEXT("User Contribution : %d "),pkt.usergood().contribution());
     GameInstance->GetPlayerManager()->UpdateUserGood(userGood);
     return true;
 }
 
 bool Handle_PLAYER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_PlayerGoodResponse& pkt)
 {
+    UE_LOG(LogTemp, Log, TEXT("Player Good Response Start "));
     FPlayerGoods playerGood;
     playerGood.MakePlayerGoods(pkt.playergood());
+    UE_LOG(LogTemp, Log, TEXT("Player Total Money : %d "), pkt.playergood().totalmoney());
     GameInstance->GetPlayerManager()->UpdatePlayerGood(playerGood);
     return true;
 }

@@ -122,7 +122,7 @@ void UChatUI::AddPrefix(FString& Message)
 	}
 	else
 	{
-		Message = FString::Printf(TEXT("%s %s %s"), *Prefix[chatType], *Args[chatType], *Message);
+		Message = FString::Printf(TEXT("%s %s"), *Prefix[chatType], *Message);
 	}
 }
 

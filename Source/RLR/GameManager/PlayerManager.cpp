@@ -85,7 +85,12 @@ void UPlayerManager::SetPlayerData(FUserCharacter PlayerData)
 					if (PlayerController)
 					{
 						PlayerController->Possess(SpawnedCharacter);
-					}
+						
+						
+						PlayerController->SetbAwaitingTrue();
+							
+						
+					}	
 				}
 					});
 			}
@@ -207,8 +212,8 @@ void UPlayerManager::SpawnPlayerTransform(const FVector& NewTransform)
 			PlayerCharacter = player;
 		}
 	}
-
 	PlayerCharacter->SpawnTransform(NewTransform);
+	
 }
 
 bool UPlayerManager::RequestTalent(int TalentOrder)

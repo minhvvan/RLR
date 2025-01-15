@@ -12,7 +12,7 @@
 
 bool Handle_SERVERLIST_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt);	
 bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_LoginResponsePacket& pkt);		
-
+bool Handle_NEW_PLAYER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NewPlayerRequest& pkt);
 /*
 	Lobby
 */

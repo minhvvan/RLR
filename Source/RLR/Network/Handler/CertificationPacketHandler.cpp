@@ -63,7 +63,15 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
 
    return true;
 }
-
+bool Handle_NEW_PLAYER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NewPlayerRequest& pkt) {
+    // 회원가입 성공시 1 else 0
+    int success = pkt.success();
+    if (success != 0) {
+        return true;
+    }
+    return false;
+    
+}
 bool Handle_ENTER_GAME_FROM_LOBBY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_EnterGameResponsePacket& pkt)
 {
     /*
@@ -97,8 +105,15 @@ bool Handle_ENTER_GAME_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
     if (pkt.success())
     {
         //레벨 이름은 Main을 사용하지 말것. 왠지 모르지만 로딩이 안됨.
-        FString MainServerAddress = UTF8_TO_TCHAR(pkt.mainserveraddress().c_str());
-        FString MonsterServerAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
+        FString MainAddress = UTF8_TO_TCHAR(pkt.mainserveraddress().c_str());
+        FString MainServerAddress;
+        FString MainPort;
+        MainAddress.Split(TEXT(":"),&MainServerAddress,&MainPort);
+        UE_LOG(LogTemp, Log, TEXT("Main Address : %s"),*MainServerAddress);
+        FString MonsterAddress = UTF8_TO_TCHAR(pkt.monsterserveraddress().c_str());
+        FString MonsterServerAddress;
+        FString MonsterPort;
+        MonsterAddress.Split(TEXT(":"), &MonsterServerAddress, &MonsterPort);
         int32 MainServerPort = pkt.mainserverport();
         int32 MonsterServerPort = pkt.monsterserverport();     
         GameInstance->GetLevelManager()->EnterLevel(RLRLITERAL.LevelName_TestMap2, MainServerAddress, MainServerPort, MonsterServerAddress, MonsterServerPort);

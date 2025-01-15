@@ -58,6 +58,8 @@ void ARLRPlayerController::Tick(float DeltaTime)
 
 	if (!PlayerManager || !Player) return;
 
+	if (!bAwaitingServerResponse) return;
+
 	timeSinceLastMovePacket += DeltaTime;
 
 	if (timeSinceLastMovePacket >= movePacketInterval && IsValid(PlayerCharacter) == true )
@@ -120,6 +122,14 @@ void ARLRPlayerController::InitBinding()
 	}
 }
 
+void ARLRPlayerController::SetbAwaitingTrue()
+{
+	bAwaitingServerResponse = true;
+}
+void ARLRPlayerController::SetbAwaitingFalse()
+{
+	bAwaitingServerResponse = false;
+}
 void ARLRPlayerController::OnInput()
 {
 	FGameplayTagManager TagManager = FGameplayTagManager::Get();

@@ -70,7 +70,7 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
     TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     Addr->SetIp(IP.Value);
     Addr->SetPort(Port);
-
+    
     if (LobbyServerSocket->Connect(*Addr))
     {
         LobbyServerReceiver = MakeShared<FNetworkReceiver>(LobbyServerSocket);
@@ -82,20 +82,28 @@ void UNetworkManager::ConnectToLobbyServer(const FString& ServerAddress, int32 P
 void UNetworkManager::ConnectToMainServer(const FString& ServerAddress, int32 Port)
 {
     MainServerSocket = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(NAME_Stream, RLRLITERAL.Network_MainServerSocket, false);
+
     FIPv4Address IP;
     FIPv4Address::Parse(ServerAddress, IP);
 
     TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     Addr->SetIp(IP.Value);
     Addr->SetPort(Port);
-    MainServerSocket->SetNonBlocking(true);
+    /*MainServerSocket->SetReuseAddr(true);
+    MainServerSocket->SetNonBlocking(true);*/
+    UE_LOG(LogTemp, Log, TEXT("Main Address : %s  , Port : %d"), *ServerAddress,Port);
     if (MainServerSocket->Connect(*Addr))
     {
+        UE_LOG(LogTemp, Log, TEXT("Successfully connected to Main Server."));
         MainServerReceiver = MakeShared<FNetworkReceiver>(MainServerSocket);
         MainServerThread = FRunnableThread::Create(MainServerReceiver.Get(), *RLRLITERAL.Network_MainServerReceiverThread);
-        
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to connect to Main Server."));
     }
 }
+
 
 void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32 Port)
 {
@@ -106,9 +114,11 @@ void UNetworkManager::ConnectToMonsterServer(const FString& ServerAddress, int32
     TSharedRef<FInternetAddr> Addr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     Addr->SetIp(IP.Value);
     Addr->SetPort(Port);
-    MonsterServerSocket->SetNonBlocking(true);
+    /*MonsterServerSocket->SetReuseAddr(true);
+    MonsterServerSocket->SetNonBlocking(true);*/
     if (MonsterServerSocket->Connect(*Addr))
     {
+        UE_LOG(LogTemp, Log, TEXT("몬스터 서버 연결 성공"));
         MonsterServerReceiver = MakeShared<FNetworkReceiver>(MonsterServerSocket);
         MonsterServerThread = FRunnableThread::Create(MonsterServerReceiver.Get(), *RLRLITERAL.Network_MonsterServerReceiverThread);
 
@@ -147,13 +157,16 @@ bool UNetworkManager::SendMapInfoRequest(int64 channelId) {
     packet.set_channelid(channelId);
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMonsterSocket(sendBuffer);
-
+    if (!MonsterServerSocket || MonsterServerSocket->GetConnectionState() != ESocketConnectionState::SCS_Connected) {
+        UE_LOG(LogTemp, Error, TEXT("MonsterServerSocket is invalid or disconnected!"));
+        return false;
+    }
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Map Info 패킷 송신 실패"));
         return false;
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Map Info 패킷 송신 성공"));
         return true;
     }
 }
@@ -168,7 +181,7 @@ bool UNetworkManager::SendPlayerPacket()
     bool bSuccess = SendToLobbySocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Character Request 패킷 송신 실패"));
 
     }
     else {
@@ -188,11 +201,11 @@ bool UNetworkManager::SendStatusPacket()
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Status 패킷 송신 실패"));
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Status 패킷 송신 성공"));
     }
     return bSuccess;
 
@@ -208,11 +221,11 @@ bool UNetworkManager::SendInventoryPacket()
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Inventory 패킷 송신 실패"));
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Inventory 패킷 송신 성공"));
     }
     return bSuccess;
 }
@@ -252,11 +265,11 @@ bool UNetworkManager::SendGetSkillPacket() {
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Skill 패킷 송신 실패"));
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Skill 패킷 송신 성공"));
     }
     return bSuccess;
 }
@@ -270,13 +283,16 @@ bool UNetworkManager::SendServerRequest() {
 
     TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
     bool bSuccess = SendToMainSocket(sendBuffer);
-
+    if (!MainServerSocket || MainServerSocket->GetConnectionState() != ESocketConnectionState::SCS_Connected) {
+        UE_LOG(LogTemp, Error, TEXT("MainServerSocket is invalid or disconnected!"));
+        return false;
+    }
     if (!bSuccess) {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Log, TEXT("Server 패킷 송신 실패"));
 
     }
     else {
-        UE_LOG(LogTemp, Log, TEXT("패킷 송신 성공"));
+        UE_LOG(LogTemp, Log, TEXT("Server 패킷 송신 성공"));
     }
     return bSuccess;
 }
@@ -338,7 +354,7 @@ bool UNetworkManager::SendNPCInfoPacket() {
     bool bSuccess = SendToMainSocket(sendBuffer);
 
     if (!bSuccess) {
-        UE_LOG(LogTemp, Error, TEXT("패킷 송신 실패"));
+        UE_LOG(LogTemp, Error, TEXT("NPC 패킷 송신 실패"));
     }
     else {
         UE_LOG(LogTemp, Log, TEXT("NPC 패킷 송신 성공"));

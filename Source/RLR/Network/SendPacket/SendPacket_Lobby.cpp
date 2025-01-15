@@ -67,11 +67,23 @@ bool UNetworkManager::SendCharacterDeleteRequest(const FUserCharacter& DeleteCha
 }
 
 
-bool UNetworkManager::SendCreateCharacterRequest(const FText NewCharacterName, int32 NewCharacterID)
+bool UNetworkManager::SendCreateCharacterRequest()
 {
 	/*
 		캐릭터 생성 요청.
 	*/
+	
+	Protocol::CS_NewCharacterPacket packet;
+	packet.set_playerseq(GameInstance->GetPlayerSeq());
+
+	TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);
+	bool bSuccess = SendToLobbySocket(sendBuffer);
+	if (!bSuccess) {
+		UE_LOG(LogTemp, Error, TEXT("New Character 패킷 송신 실패"));
+	}
+	else {
+		UE_LOG(LogTemp, Log, TEXT("New Character 패킷 송신 성공"));
+	}
 	DEBUG_INCOMPLETE;
 	return false;
 }

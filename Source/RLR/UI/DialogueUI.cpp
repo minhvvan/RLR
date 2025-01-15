@@ -41,18 +41,29 @@ void UDialogueUI::UpdateNPCFunctionality()
 	CreateShopButtons(npcData.Shop);
 	CreateQuestButtons(npcData.NPCQuests);
 
-	int npcFuntions = npcData.Functionality;
+	int npcFuntions = 7;
 	for (int i = 0; i < (int)ENPCFunctionality::SIZE; i++)
 	{
 		//기능 소유 확인
 		if (npcFuntions & (1 << i))
 		{
-			UDialogueDynamicButton* NewButton = CreateDynamicButton();
-			NewButton->SetButtonType(i);
-			NewButton->SetButtonText(ButtonText[(ENPCFunctionality)i]);
-			NewButton->OnButtonClickedSendType.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
+			if (ButtonText.Contains((ENPCFunctionality)i))
+			{
+				//enum 쉬프트 연산 으로 사이즈 재조정
 
-			BtnBox->AddChildToHorizontalBox(NewButton);
+				UDialogueDynamicButton* NewButton = CreateDynamicButton();
+				NewButton->SetButtonType(i);
+				NewButton->SetButtonText(ButtonText[(ENPCFunctionality)i]);
+				NewButton->OnButtonClickedSendType.AddUniqueDynamic(this, &UDialogueUI::HandleButtonClicked);
+				BtnBox->AddChildToHorizontalBox(NewButton);
+
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Button text for functionality %d is missing"), i);
+			}
+
+
 		}
 	}
 }

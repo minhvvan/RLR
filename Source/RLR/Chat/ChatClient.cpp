@@ -65,8 +65,8 @@ void AChatClient::ConnectToServer()
 
     sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(6000); // Server port
-    inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
+    serverAddr.sin_port = htons(27014); // Server port
+    inet_pton(AF_INET, "3.36.19.57", &serverAddr.sin_addr);
 
     if (connect(ClientSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
     {
