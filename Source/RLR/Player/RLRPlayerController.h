@@ -38,7 +38,8 @@ public:
 	FVector GetClickPosition();
 
 	void InitBinding();
-
+	void SetbAwaitingTrue();
+	void SetbAwaitingFalse();
 	void StopOtherAction(FGameplayTag TriggerTag);
 	void RecoverOtherAction(FGameplayTag TriggerTag);
 
@@ -83,7 +84,7 @@ private:
 	float movePacketInterval;
 	float timeSinceLastMovePacket;
 	FVector lastSentPosition;
-
+    bool bAwaitingServerResponse = false; // 서버 응답 대기 상태 플래그
 	bool IsMove();
 
 	friend class APlayerCommands;

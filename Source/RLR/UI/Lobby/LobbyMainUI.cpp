@@ -48,11 +48,6 @@ void ULobbyMainUI::AddUserCharacter(TArray<FUserCharacter> UserCharacterList)
 }
 
 void ULobbyMainUI::OpenCreateCharacterUI()
-{
-	FUserCharacter character;
-	character.UserSeq = 2;
-	//character.MapId = 1;
-	
-	GameInstance->GetLevelManager()->LoadLevel("Main");
-	GameInstance->GetNetworkManager()->SendEnterGameFromLobbyReqeust(character);
+{	
+	GameInstance->GetNetworkManager()->SendCreateCharacterRequest();
 }

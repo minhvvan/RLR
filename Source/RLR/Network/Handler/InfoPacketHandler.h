@@ -17,6 +17,7 @@ bool Handle_USER_SPAWN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 bool Handle_QUEST_ADD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestAddResponse& pkt);
 bool Handle_QUEST_CHECK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCheckResponse& pkt);
 bool Handle_QUEST_COMPLETE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_QuestCompleteResponse& pkt);
+bool Handle_GUILD_QUEST_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_GuildQuestInfoResponse& pkt);
 bool Handle_SHOP_BUY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_BuyResponse& pkt);
 bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_SellResponse& pkt);
 bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt);

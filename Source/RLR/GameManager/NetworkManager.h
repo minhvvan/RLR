@@ -57,7 +57,7 @@ public:
     bool SendCharacterListReuest(int32 playerSeq);                                //로비의 캐릭터 리스트에 띄울 정보 요청
     bool SendEnterGameFromLobbyReqeust(const FUserCharacter& EnterCharacter);   //선택한 캐릭터 입장
     bool SendCharacterDeleteRequest(const FUserCharacter& DeleteCharacter);     //선택한 캐릭터 삭제
-    bool SendCreateCharacterRequest(const FText NewCharacterName, int32 NewCharacterID);    //캐릭터 생성
+    bool SendCreateCharacterRequest();    //캐릭터 생성
 
     /*
         InGame

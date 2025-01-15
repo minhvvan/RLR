@@ -63,7 +63,15 @@ bool Handle_LOGIN_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Logi
 
    return true;
 }
-
+bool Handle_NEW_PLAYER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_NewPlayerRequest& pkt) {
+    // 회원가입 성공시 1 else 0
+    int success = pkt.success();
+    if (success != 0) {
+        return true;
+    }
+    return false;
+    
+}
 bool Handle_ENTER_GAME_FROM_LOBBY_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_EnterGameResponsePacket& pkt)
 {
     /*

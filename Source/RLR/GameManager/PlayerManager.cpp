@@ -207,6 +207,15 @@ void UPlayerManager::SpawnPlayerTransform(const FVector& NewTransform)
 	}
 
 	PlayerCharacter->SpawnTransform(NewTransform);
+	APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (Controller)
+	{
+		ARLRPlayerController* RLRController = Cast<ARLRPlayerController>(Controller);
+		if (RLRController)
+		{
+			RLRController->SetbAwaitingTrue();
+		}
+	}
 }
 
 bool UPlayerManager::RequestTalent(int TalentOrder)

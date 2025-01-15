@@ -25,6 +25,8 @@
 #include "Network/Proto/Map.pb.h"
 #include "Network/Proto/Community.pb.h"
 #include "Network/Proto/Enhance.pb.h"
+#include "Network/Proto/Login.pb.h"
+#include "Network/Proto/Quest.pb.h"
 
 class PacketMessage;
 class PacketSession;
@@ -37,9 +39,12 @@ enum : uint16
     // Add login Packet types
     PKT_LOGIN_REQUEST = 1001,
     PKT_LOGIN_RESPONSE = 1002,
+    PKT_NEW_PLAYER_REQUEST = 1003,
+    PKT_NEW_PLAYER_RESPONSE = 1004,
     // Add lobby Paket types
     PKT_CHARACTER_REQUSET = 1101,
     PKT_CHARACTER_RESPONSE = 1102,
+    PKT_NEW_CHARACTER_REQUEST = 1103,
     //Add loadBalancer Packet types
     PKT_ENTER_GAME_REQUEST = 1201,
     PKT_ENTER_GAME_RESPONSE = 1202,
@@ -287,6 +292,8 @@ public:
 
     
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NewPlayerRequest& pkt) { return MakeSendBuffer(pkt, PKT_NEW_PLAYER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NewCharacterPacket& pkt) { return MakeSendBuffer(pkt, PKT_NEW_CHARACTER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ItemUseRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
