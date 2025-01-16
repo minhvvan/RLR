@@ -24,6 +24,4 @@ protected:
 protected:
 	virtual void OnAnimNotifyTriggered() override;
 
-	UFUNCTION()
-	void OnFinishSkill(TArray<AActor*> OverlappedActor);
 };

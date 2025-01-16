@@ -41,28 +41,17 @@ void UActionSkill_Normal_SwordAura::OnAnimNotifyTriggered()
 	}
 
 	FVector SkillDir = (MousePos - StartPos);
+	SkillDir.Z = 0;
 	FRotator Rotator = SkillDir.ToOrientationRotator();
 	Rotator.Pitch = 0.f;
 
 	ARLRProjectile* Aura = Player->GetWorld()->SpawnActorDeferred<ARLRProjectile>(SwordAuraProjectile, FTransform::Identity, Player);
 	
 	Aura->SetSkillData(MakeShared<FSkillData>(*SkillData));
-	Aura->OnFinishSkill.AddDynamic(this, &UActionSkill_Normal_SwordAura::OnFinishSkill);
-
+	Aura->SetFireDirection(SkillDir);
+	
 	FTransform SpawnLoc(Player->GetActorLocation() + Player->GetActorForwardVector() * 50);
 	SpawnLoc.SetRotation(Rotator.Quaternion());
 
 	Aura->FinishSpawning(SpawnLoc);
-}
-
-void UActionSkill_Normal_SwordAura::OnFinishSkill(TArray<AActor*> OverlappedActor)
-{
-	if (!IsOtherUserAction())
-	{
-		USkillManager* SkillManager = GameInstance->GetSkillManager();
-		if (SkillManager)
-		{
-			SkillManager->RequestSkillResult(SkillData, OverlappedActor);
-		}
-	}
 }
