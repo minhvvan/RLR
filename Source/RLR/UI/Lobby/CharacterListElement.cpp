@@ -22,19 +22,18 @@ void UCharacterListElement::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 
+	// 강제로 데이터와 연결
 	UCharacterListElement* ListItem = Cast<UCharacterListElement>(ListItemObject);
-	if (IsValid(ListItem) == false)
+	if (!IsValid(ListItem))
 	{
 		DEBUG_MESSAGE;
+		return;
 	}
 
-	CharacterSlotIndex = ListItem->CharacterSlotIndex;
-	UCharacterListUI* CharacterListUI = Cast<UCharacterListUI>(ListItem->GetParent());
-	if(IsValid(CharacterListUI) == false)
-		return;
-
-	CharacterListUI->CharacterListElementMap.Add(CharacterSlotIndex, this);
-	SetVisibility(ESlateVisibility::Hidden);
+	// 데이터와 동기화
+	SetUserCharacterData(ListItem->GetUserCharacterData());
+	RefreshUI();
+	SetVisibility(ESlateVisibility::Visible);
 }
 
 void UCharacterListElement::NativeConstruct()

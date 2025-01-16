@@ -12,6 +12,7 @@
 
 #include "Components/Button.h"
 #include "Components/ListView.h"
+#include "Components/TextBlock.h"
 
 #include "GameManager/RLRStruct.h"
 #include "RLRObjects/Characters/RLRCharacter.h"
@@ -35,14 +36,8 @@ void UCharacterListUI::Init()
 		return;
 	}
 
-	for (int32 i = 0 ; i < CharacterElementMaxCount; i++)
-	{
-		UCharacterListElement* NewElement = Cast<UCharacterListElement>(CreateWidget(this, ListElementClass));
-		NewElement->Clear();
-		NewElement->CharacterSlotIndex = i;
-		NewElement->SetParent(this);
-		CharacterListView->AddItem(NewElement);
-	}
+	CharacterListElementMap.Empty();
+	CharacterListView->ClearListItems();
 }
 
 void UCharacterListUI::RefreshUI()
@@ -50,46 +45,19 @@ void UCharacterListUI::RefreshUI()
 	Super::RefreshUI();
 	Clear();
 
-	if (startCharacterSeq != 0)
-	{
-		TMap<int32, UCharacterListElement*> UpdatedMap;
-		for (int32 i = 0; i < CharacterElementMaxCount; i++)
-		{
-			UObject* ListItemObject = CharacterListView->GetItemAt(i);
-			if (!ListItemObject) continue;
-
-			// ListItemObject가 UCharacterListElement로 연결된 위젯을 찾습니다.
-			UCharacterListElement* CharacterElement = Cast<UCharacterListElement>(CharacterListView->GetEntryWidgetFromItem(ListItemObject));
-			if (!CharacterElement) continue;
-
-			CharacterElement->CharacterSlotIndex = startCharacterSeq + i;
-			CharacterListElementMap[i]->CharacterSlotIndex = startCharacterSeq + i;
-
-			if (CharacterListElementMap.Contains(i))
-			{
-				UpdatedMap.Add(startCharacterSeq + i, CharacterListElementMap[i]);
-			}
-		}
-
-		CharacterListElementMap = MoveTemp(UpdatedMap);
-	}
-
 	for (const TTuple<int32, FUserCharacter>& Iter : UserCharacterList)
 	{
 		FUserCharacter Data = Iter.Value;
-		
-		/*
-			캐릭터 슬롯 인덱스 번호가 필요하다.
-			하지만 지금은 받고 있지 않으므로, 일단 임시로 구현.
-		*/
+
 		int32 CharacterSlotIndex = Data.UserSeq;
-		if (CharacterListElementMap.Contains(CharacterSlotIndex) == false)
+		if (!CharacterListElementMap.Contains(CharacterSlotIndex))
 		{
-			continue;
+			AddUserCharacter(Data);
 		}
 
 		UCharacterListElement* Element = CharacterListElementMap[CharacterSlotIndex];
 		Element->SetUserCharacterData(Data);
+		Element->CharacterNameText->SetText(FText::FromString(Data.NickName));
 		Element->RefreshUI();
 	}
 }
@@ -97,7 +65,7 @@ void UCharacterListUI::RefreshUI()
 void UCharacterListUI::Clear()
 {
 	Super::Clear();
-	
+
 	for (TTuple<int32, UCharacterListElement*> Iter : CharacterListElementMap)
 	{
 		int32 CharacterSlotIndex = Iter.Key;
@@ -109,10 +77,10 @@ void UCharacterListUI::Clear()
 
 void UCharacterListUI::SetSelectedElement(UCharacterListElement* Element)
 {
-	if(IsValid(Element) == false)
+	if (IsValid(Element) == false)
 		return;
 
-	if(SelectedElement == Element)
+	if (SelectedElement == Element)
 		return;
 
 	SelectedElement = Element;
@@ -124,8 +92,8 @@ void UCharacterListUI::SpawnSelectedElementCharacter(const FUserCharacter& Data)
 {
 	if (IsValid(SelectedCharacter) == true)
 	{
-	/*	if (SelectedCharacter->CurrentUseWeapon.IsValid() == true)
-			SelectedCharacter->CurrentUseWeapon->Destroy();*/
+		/*	if (SelectedCharacter->CurrentUseWeapon.IsValid() == true)
+				SelectedCharacter->CurrentUseWeapon->Destroy();*/
 
 		SelectedCharacter->Destroy();
 		SelectedCharacter = nullptr;
@@ -166,16 +134,46 @@ void UCharacterListUI::OnClickedCreateCharacterButton()
 
 void UCharacterListUI::OnClickedDeleteCharacterButton()
 {
-	if(IsValid(SelectedElement) == false)
+	if (IsValid(SelectedElement) == false)
 		return;
 
 	/*
 		캐릭터 삭제 패킷 보내기
 	*/
-	GetNetworkManager()->SendCharacterDeleteRequest(SelectedElement->GetUserCharacterData());	
+	GetNetworkManager()->SendCharacterDeleteRequest(SelectedElement->GetUserCharacterData());
 }
 
 void UCharacterListUI::AddUserCharacter(FUserCharacter NewCharacter)
 {
+	if (CharacterListElementMap.Num() >= CharacterElementMaxCount)
+	{
+		DEBUG_MESSAGE;
+		return;
+	}
+
+	int32 CharacterSlotIndex = NewCharacter.UserSeq;
+
+	if (CharacterListElementMap.Contains(CharacterSlotIndex))
+	{
+		return;
+	}
+
+	TSubclassOf<UCharacterListElement> ListElementClass = GetWidgetClass<UCharacterListElement>(RLRLITERAL.WBP_CharacterListElement);
+	if (!ListElementClass) return;
+
+	UCharacterListElement* NewElement = Cast<UCharacterListElement>(CreateWidget(this, ListElementClass));
+	if (!NewElement) return;
+
+	NewElement->CharacterSlotIndex = CharacterSlotIndex;
+	NewElement->SetParent(this);
+	NewElement->SetUserCharacterData(NewCharacter);
+
+	// UI 갱신을 강제
+	NewElement->RefreshUI();
+	CharacterListView->AddItem(NewElement);
+	CharacterListElementMap.Add(CharacterSlotIndex, NewElement);
 	UserCharacterList.Add(NewCharacter.UserSeq, NewCharacter);
+
+	// ListView 강제 갱신
+	CharacterListView->RequestRefresh();
 }
