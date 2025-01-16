@@ -64,6 +64,7 @@ public:
 	FOnDialogueEnd OnDialogueEnd;
 	FOnQuestDialogueBegin OnQuestDialogueBegin;
 	void UpdateNPCFunctionality();
+	void SetNPCNameData(FString NPCString);
 	//Test
 	void SetDialogueData(FString DialogueString);
 	void SetNPCData(int32 NPCSeq);

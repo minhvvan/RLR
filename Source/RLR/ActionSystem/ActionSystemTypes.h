@@ -245,6 +245,9 @@ struct RLR_API FInteractionData
 	/* TODO : 임시 데이터 저장용 */
 	int32 NPCSeq;
 	int32 QuestSeq;
+
+	UPROPERTY(VisibleAnywhere, Category = "Interaction")
+	FString NPCName;
 };
 
 USTRUCT(Atomic, BlueprintType)

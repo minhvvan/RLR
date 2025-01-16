@@ -190,6 +190,7 @@ bool Handle_SHOP_SELL_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
 
 bool Handle_EXP_INCREASE_REPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_ExpIncreaseResponse& pkt)
 {
+    UE_LOG(LogTemp, Log, TEXT("Exp Increase Start "));
     GameInstance->GetPlayerManager()->UpdatePlayerExp(pkt.exp());
     GameInstance->GetPlayerManager()->UpdatePlayerLevel(pkt.level());
     

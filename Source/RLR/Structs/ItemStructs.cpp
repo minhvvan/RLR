@@ -49,6 +49,8 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
         ITEM_STATUS.AVOID = equipData.avoid();
         ITEM_STATUS.COOLDOWN_REDUCTION = equipData.cooldownreduction();
         EQUIPMENT_TYPE = (EEquipmentType)equipData.equippart();
+        ITEM_QUANTITY = 1;
+        ITEM_MAX_COUNT = 1;
     }
 
     if (itemData.has_consumption()) {

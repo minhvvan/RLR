@@ -12,6 +12,7 @@
 #include "GameManager/GameManager.h"
 #include "GameManager/LiteralManager.h"
 #include "GameManager/NetworkManager.h"
+#include "GameManager/PlayerManager.h"
 #include "Structs/ItemStructs.h"
 #include "Structs/ObjectStructs.h"
 #include "UI/InGame/Shop/NPCCartSlot.h"
@@ -183,7 +184,8 @@ void UNPCPurchaseTab::UpdateLastPageText()
 void UNPCPurchaseTab::UpdatePrice()
 {
 	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
-	//TODO: 잔액 update
+	int safePrice =  GameInstance->GetPlayerManager()->GetPlayerGood().TotalMoney- PurchasePrice;
+	TxtSafe->SetText(FText::AsNumber(safePrice));
 }
 
 void UNPCPurchaseTab::UpdateCart()

@@ -67,6 +67,11 @@ void UDialogueUI::UpdateNPCFunctionality()
 		}
 	}
 }
+void UDialogueUI::SetNPCNameData(FString NPCString)
+{
+	
+	TxtNPCName->SetText(FText::FromString(NPCString));
+}
 
 void UDialogueUI::SetDialogueData(FString DialogueString)
 {
@@ -223,6 +228,7 @@ void UDialogueUI::OpenInventory(FVector2D InventoryPosition)
 	{
 		InventoryUI->SetPosition(InventoryPosition);
 		InventoryUI->OpenUI();
+		InventoryUI->RefreshPlayerGoods();
 	}
 }
 

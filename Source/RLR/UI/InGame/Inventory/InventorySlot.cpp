@@ -102,7 +102,12 @@ void UInventorySlot::RefreshUI()
 	}
 	
 	SetSlotImage(GetItemResourceData().ItemImage);
-	ItemNameText->SetText(GetItemData().NAME);
+	FText FullText = FText::Format(
+		FText::FromString("{0} x{1}"),
+		GetItemData().NAME,
+		FText::AsNumber(GetItemData().ITEM_QUANTITY)
+	);
+	ItemNameText->SetText(FullText);
 
 	DisplayEquippedItems(GetItemData().IsEquiped);
 }

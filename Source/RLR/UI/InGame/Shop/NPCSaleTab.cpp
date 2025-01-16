@@ -10,6 +10,7 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/LiteralManager.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/PlayerManager.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
@@ -157,4 +158,6 @@ UNPCShopItemSlot* UNPCSaleTab::GetItemSlotWidget(int idx)
 void UNPCSaleTab::UpdatePrice()
 {
 	TxtSellPrice->SetText(FText::AsNumber(SellPrice));
+	int safePrice = SellPrice + GameInstance->GetPlayerManager()->GetPlayerGood().TotalMoney;
+	TxtSafe->SetText(FText::AsNumber(safePrice));
 }

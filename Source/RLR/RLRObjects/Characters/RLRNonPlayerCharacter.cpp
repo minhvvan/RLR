@@ -57,6 +57,7 @@ void ARLRNonPlayerCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedCompo
 
 	FInteractionData interactionData;
 	interactionData.DialogueString = NPCData->NPCTalk;
+	interactionData.NPCName = NPCData->NPCName;
 	interactionData.NPCSeq = NPCData->NPCSeq;
 	data.InteractionData = interactionData;
 

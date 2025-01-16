@@ -55,6 +55,7 @@ void UActionDialogue::ActivateAction()
 		dialogueUI->OnDialogueEnd.Clear();
 		dialogueUI->OnDialogueEnd.AddDynamic(this, &UActionDialogue::OnDialogueEnded);
 		dialogueUI->SetDialogueData(actionData.InteractionData.DialogueString);
+		dialogueUI->SetNPCNameData(actionData.InteractionData.NPCName);
 		dialogueUI->SetNPCData(actionData.InteractionData.NPCSeq);
 		dialogueUI->UpdateNPCFunctionality();
 	}
