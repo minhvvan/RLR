@@ -112,8 +112,11 @@ protected:
 	UFUNCTION()
 	void RemoveFromHorizontalBox();
 
+	void ToggleUI();
+
 	void OpenInventory(FVector2D InventoryPosition);
 
+	FGameplayTag CurrentOpenedWidget;
 private:
 	UPROPERTY(EditAnywhere, Category = DynamicButton)
 	TMap<ENPCFunctionality, FString> ButtonText;
@@ -121,6 +124,7 @@ private:
 
 	int32 CurrentNPCSeq;
 	int32 CurrentOpenQuest;
+	int32 CurrentOpenShop;
 
 	bool bOpenShop;
 	bool bOpenPost;
