@@ -193,6 +193,30 @@ void UDialogueUI::RemoveFromHorizontalBox()
 	}
 }
 
+void UDialogueUI::ToggleUI()
+{
+	if (CurrentOpenedWidget == RLRTAG.UI_NPCShop)
+	{
+		OnShopClicked(CurrentOpenShop);
+	}
+	else if (CurrentOpenedWidget == RLRTAG.UI_Quest)
+	{
+		OnQuestDialogueBegins(CurrentOpenQuest);
+	}
+	else if (CurrentOpenedWidget == RLRTAG.UI_Post)
+	{
+		OnPostClicked();
+	}
+	else if (CurrentOpenedWidget == RLRTAG.UI_Enhance)
+	{
+		OnEnhanceClicked();
+	}
+	else if (CurrentOpenedWidget == RLRTAG.UI_Storage_User)
+	{
+		OnStorageClicked();
+	}
+}
+
 void UDialogueUI::OpenInventory(FVector2D InventoryPosition)
 {
 	if (UInventoryUI* InventoryUI = GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory))
@@ -219,6 +243,8 @@ void UDialogueUI::ReAddQuestButton(int32 QuestSeq)
 void UDialogueUI::OnPageActivated()
 {
 	ChangeInputModeUIOnly();
+
+	CurrentOpenedWidget = RLRTAG.None;
 }
 
 void UDialogueUI::ToggleNpcButtons(bool bOpen)
@@ -240,12 +266,23 @@ void UDialogueUI::ToggleNpcButtons(bool bOpen)
 void UDialogueUI::OnDialogueEnded()
 {
 	SetInventorySlotType(ESlotType::INVENTORY_SLOT);
+
+	if (CurrentOpenedWidget != RLRTAG.None)
+	{
+		ToggleUI();
+
+		CurrentOpenedWidget = RLRTAG.None;
+		return;
+	}
+
 	OnDialogueEnd.Broadcast();
+	CurrentOpenedWidget = RLRTAG.None;
 }
 
 void UDialogueUI::OnQuestDialogueBegins(int32 ButtonIndex)
 {
 	UQuestDialogue* QuestDialogueUI = GetSubUI<UQuestDialogue>(RLRTAG.UI_Quest_Dialogue);
+	CurrentOpenedWidget = RLRTAG.UI_Quest_Dialogue;
 	if (!QuestDialogueUI)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("QuestDialogueUI is nullptr"));
@@ -275,6 +312,7 @@ void UDialogueUI::OnQuestDialogueBegins(int32 ButtonIndex)
 void UDialogueUI::OnShopClicked(int32 ButtonIndex)
 {
 	UNPCShopUI* NPCShopUI = GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+	CurrentOpenedWidget = RLRTAG.UI_NPCShop;
 	if (!NPCShopUI)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("NPCShopUI is nullptr"));
@@ -310,12 +348,15 @@ void UDialogueUI::OnShopClicked(int32 ButtonIndex)
 
 		FVector2D inventoryPos(100.f + NPCShopUI->RootSizeBox->GetWidthOverride() + 10.f, 100.f);
 		OpenInventory(inventoryPos);
+
+		CurrentOpenShop = ButtonIndex;
 	}
 }
 
 void UDialogueUI::OnPostClicked()
 {
 	UPostOverlayUI* PostOverlayUI = GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	CurrentOpenedWidget = RLRTAG.UI_Post;
 	if (!PostOverlayUI)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("PostOverlayUI is nullptr"));
@@ -324,7 +365,7 @@ void UDialogueUI::OnPostClicked()
 
 	if(IsOpenSubUI(RLRTAG.UI_Post))
 	{
-		CloseSubUI(RLRTAG.UI_NPCShop);
+		CloseSubUI(RLRTAG.UI_Post);
 		CloseSubUI(RLRTAG.UI_Inventory);
 		ToggleNpcButtons(true);
 	}
@@ -353,9 +394,11 @@ void UDialogueUI::SetInventorySlotType(ESlotType SlotType)
 
 void UDialogueUI::OnStorageClicked()
 {
+	CurrentOpenedWidget = RLRTAG.UI_Storage_User;
 	if (IsOpenSubUI(RLRTAG.UI_Storage_User))
 	{
 		CloseSubUI(RLRTAG.UI_Storage_User);
+		CloseSubUI(RLRTAG.UI_Storage_Player);
 		CloseSubUI(RLRTAG.UI_Inventory);
 		ToggleNpcButtons(true);
 	}
@@ -396,6 +439,7 @@ void UDialogueUI::OnStorageClicked()
 
 void UDialogueUI::OnEnhanceClicked()
 {
+	CurrentOpenedWidget = RLRTAG.UI_Enhance;
 	if (bOpenEnhance)
 	{
 		bOpenEnhance = false;
