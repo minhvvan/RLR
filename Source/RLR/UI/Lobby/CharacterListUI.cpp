@@ -50,6 +50,30 @@ void UCharacterListUI::RefreshUI()
 	Super::RefreshUI();
 	Clear();
 
+	if (startCharacterSeq != 0)
+	{
+		TMap<int32, UCharacterListElement*> UpdatedMap;
+		for (int32 i = 0; i < CharacterElementMaxCount; i++)
+		{
+			UObject* ListItemObject = CharacterListView->GetItemAt(i);
+			if (!ListItemObject) continue;
+
+			// ListItemObject가 UCharacterListElement로 연결된 위젯을 찾습니다.
+			UCharacterListElement* CharacterElement = Cast<UCharacterListElement>(CharacterListView->GetEntryWidgetFromItem(ListItemObject));
+			if (!CharacterElement) continue;
+
+			CharacterElement->CharacterSlotIndex = startCharacterSeq + i;
+			CharacterListElementMap[i]->CharacterSlotIndex = startCharacterSeq + i;
+
+			if (CharacterListElementMap.Contains(i))
+			{
+				UpdatedMap.Add(startCharacterSeq + i, CharacterListElementMap[i]);
+			}
+		}
+
+		CharacterListElementMap = MoveTemp(UpdatedMap);
+	}
+
 	for (const TTuple<int32, FUserCharacter>& Iter : UserCharacterList)
 	{
 		FUserCharacter Data = Iter.Value;
@@ -61,8 +85,6 @@ void UCharacterListUI::RefreshUI()
 		int32 CharacterSlotIndex = Data.UserSeq;
 		if (CharacterListElementMap.Contains(CharacterSlotIndex) == false)
 		{
-			//플레이어가 가질 수 있는 캐릭터 슬롯 최대 갯수 초과.
-			DEBUG_MESSAGE;
 			continue;
 		}
 

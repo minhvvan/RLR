@@ -12,6 +12,7 @@
 
 #include "UI/Title/TitleMainUI.h"
 #include "UI/Lobby/LobbyMainUI.h"
+#include "UI/Lobby/CharacterListUI.h"
 
 #include "RLRObjects/Characters/RLRPlayerCharacter.h"
 #include "ActionSystem/ActionSystemComponent.h"
@@ -139,7 +140,7 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         UserChracter.MakeUserCharacter(user);
         users.Add(UserChracter);
     }
-
+    LobbyMainUI->CharacterListUI->startCharacterSeq = users[0].UserSeq;
     LobbyMainUI->AddUserCharacter(users);
     return true;
 }
