@@ -83,7 +83,7 @@ public:
 	TMap<int32, FUserCharacter> UserCharacterList;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 CharacterElementMaxCount = 30;
+	int32 CharacterElementMaxCount = 1000;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 startCharacterSeq = 0;
