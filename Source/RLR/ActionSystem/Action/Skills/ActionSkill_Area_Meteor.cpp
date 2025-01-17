@@ -11,14 +11,15 @@
 #include "Physics/RLRCollision.h"
 #include "GameManager/SkillManager.h"
 #include <Player/RLRPlayerController.h>
+
+#include "NiagaraFunctionLibrary.h"
 #include "Structs/SkillStructs.h"
 
 void UActionSkill_Area_Meteor::OnAnimNotifyTriggered()
 {
 	//Callback 제거
 	Super::OnAnimNotifyTriggered();
-
-	//TODO: Spawn Projectile || 판정
+	
 	ARLRPlayerCharacter* Player = Cast<ARLRPlayerCharacter>(GetAvatarActorFromActorInfo());
 	if (!Player) return;
 
@@ -31,14 +32,11 @@ void UActionSkill_Area_Meteor::OnAnimNotifyTriggered()
 	FActionData ActionData;
 	ASC->GetActionData(TriggerTag, ActionData);
 
-	FVector StartPos = ActionData.MousePos;
 	FVector EndPos = ActionData.MousePos;
-	EndPos.Z += 500.f;
+	HitPoint = EndPos;
+	EndPos.Z += SkillData->SkillDistance;
 
-	//Test
 	if (!SkillData) return;
-	float SkillRange = SkillData->SkillRange.X;
-
 	USkillManager* SkillManager = GameInstance->GetSkillManager();
 	if (!SkillManager)
 	{
@@ -46,35 +44,18 @@ void UActionSkill_Area_Meteor::OnAnimNotifyTriggered()
 		return;
 	}
 
-	//사거리에 맞게 Collision 생성(Test = 100)
-	TArray<AActor*> OverlappedActor;
-	AActor* Owner = GetAvatarActorFromActorInfo();
-	TArray<FOverlapResult> OverlapResults;
-	FCollisionQueryParams params(NAME_None, false, Owner);
+	ARLRProjectile* meteor = Player->GetWorld()->SpawnActorDeferred<ARLRProjectile>(MeteorProjectile, FTransform::Identity, Player);
+	
+	meteor->SetSkillData(MakeShared<FSkillData>(*SkillData));
+	meteor->OnFinishSkill.AddDynamic(this, &UActionSkill_Area_Meteor::OnFinishSkill);
+	meteor->SetFireDirection(FVector::DownVector);
+	
+	FTransform SpawnLoc(EndPos);
+	meteor->FinishSpawning(SpawnLoc);
+}
 
-	if (GetWorld()->OverlapMultiByChannel(OverlapResults,				/*Result*/
-		Owner->GetActorLocation(),										/*Center*/
-		FQuat::Identity,												/*Rotate*/
-		CCHANNEL_RLRATTACK,												/*Channel*/
-		FCollisionShape::MakeCapsule(SkillData->SkillRange),		/*AttackRange*/
-		params))
-	{
-		for (auto result : OverlapResults)
-		{
-			IActionSystemInterface* HitActor = Cast<IActionSystemInterface>(result.GetActor());
-			if (!HitActor) continue;
 
-			////Hittable Tag가 없으면 제외
-			//if (!ASC->HasMatchingGameplayTag(HittableTag))
-			//{
-			//	RLR_LOG(LogRLR, Log, TEXT("This Actor Non-Hittable"));
-			//	continue;
-			//}
-
-			OverlappedActor.Add(result.GetActor());
-		}
-	}
-
-	//Req to Server(result)
-	SkillManager->RequestSkillResult(SkillData, OverlappedActor);
+void UActionSkill_Area_Meteor::OnFinishSkill()
+{
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), GroundHitFX, HitPoint);
 }

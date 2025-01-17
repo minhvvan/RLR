@@ -27,14 +27,11 @@ ARLRProjectile::ARLRProjectile():
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(RLRLITERAL.Projectile_Movement);
 
-	//Temp
-	ProjectileMovement->InitialSpeed = 2000.0f;
+	FireDir = GetActorForwardVector();
+
 	ProjectileMovement->MaxSpeed = 3000.0f;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f;
-	ProjectileMovement->Velocity = GetActorForwardVector() * ProjectileMovement->InitialSpeed;
-
-
 }
 
 void ARLRProjectile::BeginPlay()
@@ -48,12 +45,19 @@ void ARLRProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	MoveDistance += ProjectileMovement->InitialSpeed * DeltaTime;
+	MoveDistance += ProjectileMovement->Velocity.Length() * DeltaTime;
 
 	if (MoveDistance >= SkillDistance)
 	{
 		FinishSkill();
 	}
+}
+
+void ARLRProjectile::SetFireDirection(FVector dir)
+{
+	FireDir = dir;
+	ProjectileMovement->Velocity = FVector::Zero();
+	ProjectileMovement->AddForce(FireDir * MoveSpeed);
 }
 
 void ARLRProjectile::SetSkillData(TSharedPtr<FSkillData> Data)
@@ -93,5 +97,6 @@ void ARLRProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor*
 
 void ARLRProjectile::FinishSkill()
 {
+	OnFinishSkill.Broadcast();
 	Destroy();
 }

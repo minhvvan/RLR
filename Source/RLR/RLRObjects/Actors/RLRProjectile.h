@@ -6,7 +6,7 @@
 #include "RLRObjects/Actors/RLRActor.h"
 #include "RLRProjectile.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFinishSkill, TArray<AActor*>, OverlappedActors);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFinishSkill);
 
 struct FSkillData;
 
@@ -28,10 +28,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UProjectileMovementComponent> ProjectileMovement;
 
-	//FX
-	//UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Default")
-	//TObjectPtr<class UNiagaraComponent> NiagaraComponent;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,6 +35,7 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	void SetFireDirection(FVector dir);
 
 	void SetSkillData(TSharedPtr<FSkillData> Data);
 	FOnFinishSkill OnFinishSkill;
@@ -53,6 +50,10 @@ protected:
 protected:
 	float SkillDistance;
 	float MoveDistance;
+
+	UPROPERTY(EditAnywhere)
+	float MoveSpeed = 2000;
+	FVector FireDir;
 
 	TSharedPtr<FSkillData> SkillData;
 	TArray<AActor*> OverlappedActors;
