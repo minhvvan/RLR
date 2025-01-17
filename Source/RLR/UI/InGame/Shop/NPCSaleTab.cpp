@@ -82,7 +82,7 @@ void UNPCSaleTab::AddToCart(const FItemData& newItem, int32 InventorySlotIndex)
 	}
 	
 	Cart.Add({InventorySlotIndex, newItem});
-	SellPrice += newItem.SALE_PRICE * newItem.ITEM_QUANTITY;
+	SellPrice += (newItem.SALE_PRICE / 10 )* newItem.ITEM_QUANTITY ;
 
 	UpdatePage();
 	UpdatePrice();

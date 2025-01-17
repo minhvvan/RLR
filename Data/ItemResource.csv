@@ -1,5 +1,8 @@
 ---,ITEM_SEQ,Model,ItemImage
 1,"1","None","/Script/Engine.Texture2D'/Game/Resource/ItemIcon/Axe.Axe'"
 2,"2","None","/Script/Engine.Texture2D'/Game/Resource/ItemIcon/Icon_333.Icon_333'"
-3,"3","None","/Script/Engine.Texture2D'/Game/Resource/ItemIcon/CraftResourcesIcons/Textures/Tex_wood_10.Tex_wood_10'"
-4,"0","None","/Script/Engine.Texture2D'/Game/Resource/ItemIcon/Axe.Axe'"
+3,"3","None","/Script/Engine.Texture2D'/Game/Resource/SkillIcon/Skills/255.255'"
+4,"4","None","/Script/Engine.Texture2D'/Game/Resource/Texture/Buttons/cursorSword_silver.cursorSword_silver'"
+5,"5","None","/Script/Engine.Texture2D'/Game/Resource/SkillIcon/Skills/2.2'"
+6,"6","None","/Script/Engine.Texture2D'/Game/Resource/SkillIcon/Skills/222.222'"
+7,"7","None","/Script/Engine.Texture2D'/Game/Resource/SkillIcon/Skills/5.5'"
