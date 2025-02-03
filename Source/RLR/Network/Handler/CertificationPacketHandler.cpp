@@ -140,6 +140,9 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
         UserChracter.MakeUserCharacter(user);
         users.Add(UserChracter);
     }
+
+    if(users.IsEmpty()) return false;
+
     LobbyMainUI->CharacterListUI->startCharacterSeq = users[0].UserSeq;
     LobbyMainUI->AddUserCharacter(users);
     return true;
