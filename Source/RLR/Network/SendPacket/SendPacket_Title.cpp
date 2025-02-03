@@ -36,7 +36,7 @@ bool UNetworkManager::SendServerListRequest()
 bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 {
 
-    if (ConnectToLoginServer("3.37.172.19", 27014)) {
+    if (ConnectToLoginServer("127.0.0.1", 27013)) {
         Protocol::CS_LoginRequestPacket packet;
         FString PlayerIdString = ID.ToString();
 
@@ -58,7 +58,7 @@ bool UNetworkManager::SendLoginRequest(int32 ServerSeq, FText ID, FText PW)
 bool UNetworkManager::SendSignRequest(string playerId)
 {
     
-    if (ConnectToLoginServer("3.37.172.19", 27014)) {
+    if (ConnectToLoginServer("127.0.0.1", 27013)) {
         Protocol::CS_NewPlayerRequest packet;
         packet.set_playerid(playerId);
         TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);

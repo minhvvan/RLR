@@ -22,6 +22,7 @@ bool Handle_ATTACK_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_Att
 bool Handle_MOVE_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_MoveResponsePacket& pkt) {
 	return true;
 }
+
 bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_MoveBroadcastPacket& pkt) {
 
 	UOtherUserManager* OtherManager = GameInstance->GetOtherUserManager();
@@ -94,7 +95,6 @@ bool Handle_MONSTER_STATUS_RESPONSE(TSharedPtr<PacketSession>& session, Protocol
 	UE_LOG(LogTemp, Log, TEXT("monster Id : %lld"), pkt.monsterid());
 	UE_LOG(LogTemp, Log, TEXT("monster hp : %f"), pkt.hp());
 	GameInstance->GetMonsterManager()->UpdateMonsterHp(pkt.monsterid(), pkt.hp());
-
 	return true;
 }
 
