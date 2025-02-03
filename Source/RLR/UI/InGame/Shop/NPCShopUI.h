@@ -16,6 +16,7 @@ enum TabIndex
 class UButton;
 class UWidgetSwitcher;
 class UCanvasPanel;
+class UNPCPurchaseTab;
 struct FNPCShop;
 
 UCLASS()
@@ -32,9 +33,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	TObjectPtr<UButton> BtnSale;	
-	
+
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	TObjectPtr<UWidgetSwitcher> TabSwitcher;	
+	TObjectPtr<UWidgetSwitcher> TabSwitcher;
 
 public:
 	virtual void NativeConstruct() override;
@@ -49,6 +50,8 @@ public:
 	UFUNCTION()
 	void AddSaleItem(const FItemData& Item, int32 SlotIndex);
 
+	UNPCPurchaseTab* GetPurchaseTab();
+
 protected:
 	UFUNCTION()
 	void OnPurchaseClicked();
@@ -57,6 +60,7 @@ protected:
 	void OnSaleClicked();
 
 protected:
+	TObjectPtr<UNPCPurchaseTab> NPCPurchaseTab;
 	TSharedPtr<TArray<FItemData>> ItemData;
 	FNPCShop NPCShopData;
 };

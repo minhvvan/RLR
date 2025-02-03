@@ -74,8 +74,8 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 
 	Cart.Add(item);
 	PurchasePrice += item.SALE_PRICE * item.ITEM_MAX_COUNT;
-	UpdatePrice();
 	entry->SetItemData(item);
+	UpdatePrice();
 }
 
 void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
@@ -183,8 +183,12 @@ void UNPCPurchaseTab::UpdateLastPageText()
 
 void UNPCPurchaseTab::UpdatePrice()
 {
-	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
-	int safePrice =  GameInstance->GetPlayerManager()->GetPlayerGood().TotalMoney- PurchasePrice;
+	if (!IsValid(TxtPurchasePrice) || !IsValid(TxtSafe)) return;
+
+ 	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
+
+	FPlayerGoods PlayerGood = GameInstance->GetPlayerManager()->GetPlayerGood();
+	int safePrice = PlayerGood.TotalMoney - PurchasePrice;
 	TxtSafe->SetText(FText::AsNumber(safePrice));
 }
 

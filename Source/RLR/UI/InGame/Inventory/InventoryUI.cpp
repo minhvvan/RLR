@@ -71,6 +71,33 @@ void UInventoryUI::Init()
 
 }
 
+void UInventoryUI::InitGoods()
+{
+	UPlayerManager* PlayerManager = GetPlayerManager();
+	int TotalMoney = PlayerManager->GetPlayerGood().TotalMoney;
+	int32 platinumUnit = 1'000'000;
+	int32 goldUnit = 10'000;
+	int32 silverUnit = 1'00;
+
+	int32 platinum = TotalMoney / platinumUnit;
+	int32 gold = (TotalMoney % platinumUnit) / goldUnit;
+	int32 silver = (TotalMoney % goldUnit) / silverUnit;
+	int32 copper = TotalMoney % silverUnit;
+
+	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
+	GameInstance->GetInventoryManager()->SetGold(gold);
+	GameInstance->GetInventoryManager()->SetSilver(silver);
+	GameInstance->GetInventoryManager()->SetCopper(copper);
+	FText copperText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetCopper()));
+	CopperText->SetText(copperText);
+	FText silverText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetSilver()));
+	SilberText->SetText(silverText);
+	FText goldText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetGold()));
+	GoldText->SetText(goldText);
+	FText platinumText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetPlatinum()));
+	PlatinumText->SetText(platinumText);
+}
+
 void UInventoryUI::RefreshUI()
 {
 	//장비창, 소모품창, 기타창 같이 따로 탭을 누르고 있는 중에는 전체 RefreshUI를 해주지 않는다.
@@ -108,29 +135,7 @@ void UInventoryUI::RefreshUI()
 
 void UInventoryUI::RefreshPlayerGoods()
 {
-	UPlayerManager* PlayerManager = GetPlayerManager();
-	int TotalMoney = PlayerManager->GetPlayerGood().TotalMoney;
-	int32 platinumUnit = 1'000'000;
-	int32 goldUnit = 10'000;
-	int32 silverUnit = 1'00;
-
-	int32 platinum = TotalMoney / platinumUnit;
-	int32 gold = (TotalMoney % platinumUnit) / goldUnit;
-	int32 silver = (TotalMoney % goldUnit) / silverUnit;
-	int32 copper = TotalMoney % silverUnit;
-
-	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
-	GameInstance->GetInventoryManager()->SetGold(gold);
-	GameInstance->GetInventoryManager()->SetSilver(silver);
-	GameInstance->GetInventoryManager()->SetCopper(copper);
-	FText copperText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetCopper()));
-	CopperText->SetText(copperText);
-	FText silverText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetSilver()));
-	SilberText->SetText(silverText);
-	FText goldText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetGold()));
-	GoldText->SetText(goldText);
-	FText platinumText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetPlatinum()));
-	PlatinumText->SetText(platinumText);
+	InitGoods();
 }
 
 void UInventoryUI::ShowItemsByType(ItemType ItemType)

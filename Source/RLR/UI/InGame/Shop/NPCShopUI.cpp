@@ -77,6 +77,13 @@ void UNPCShopUI::AddSaleItem(const FItemData& Item, int32 SlotIndex)
 	}
 }
 
+UNPCPurchaseTab* UNPCShopUI::GetPurchaseTab()
+{
+	if(!TabSwitcher) return nullptr;
+	NPCPurchaseTab = Cast<UNPCPurchaseTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::EPurchase));
+	return NPCPurchaseTab;
+}
+
 void UNPCShopUI::OnPurchaseClicked()
 {
 	TabSwitcher->SetActiveWidgetIndex(TabIndex::EPurchase);
