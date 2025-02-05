@@ -30,18 +30,12 @@ bool UNetworkManager::SendEquipChangePacket(const FItemData& ItemData, int SlotI
 
     Protocol::CS_EquipChangeRequest packet;
 
-    int32 OjbectId = ItemData.ITEM_ID;
+    int64 ObjectId = ItemData.ITEM_ID;
     int32 EquipUserSeq = GameInstance->GetUserSeq();
 
-    packet.set_objectid(OjbectId);
+    packet.set_objectid(ObjectId);
     packet.set_userseq(EquipUserSeq);
-    Protocol::Equip* EquipItem = packet.mutable_item();
-
-    FItemData temp = ItemData;
-    Protocol::Equip CopyData = temp.MakeEquipPacket(SlotIndex);
-    EquipItem->CopyFrom(CopyData);
-
-
+  
     SEND_PACKET(packet);
 
     return false;
@@ -56,18 +50,14 @@ bool UNetworkManager::SendUnEquipChangePacket(const FItemData& ItemData, int Slo
         아직 proto에 만들어진 패킷이 없어서 임시 구현
     */
 
-    Protocol::CS_EquipChangeRequest packet;
+    Protocol::CS_UnequipChangeRequest packet;
 
-    int32 OjbectId = ItemData.ITEM_ID;
+    int64 ObjectId = ItemData.ITEM_ID;
     int32 UnEquipUserSeq = GameInstance->GetUserSeq();
 
-    packet.set_objectid(OjbectId);
+    packet.set_objectid(ObjectId);
     packet.set_userseq(UnEquipUserSeq);
-    Protocol::Equip* EquipItem = packet.mutable_item();
-
-    FItemData temp = ItemData;
-    Protocol::Equip CopyData = temp.MakeEquipPacket(SlotIndex);
-    EquipItem->CopyFrom(CopyData);
+   
 
 
     SEND_PACKET(packet);

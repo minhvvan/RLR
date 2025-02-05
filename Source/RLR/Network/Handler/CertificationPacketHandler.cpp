@@ -137,7 +137,7 @@ bool Handle_CHARACTER_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC_
     TArray<FUserCharacter> users;
     for (auto& user : pkt.users()) {
         FUserCharacter UserChracter;
-        UserChracter.MakeUserCharacter(user);
+        UserChracter.MakeUserCharacterToLobby(user);
         users.Add(UserChracter);
     }
     LobbyMainUI->CharacterListUI->startCharacterSeq = users[0].UserSeq;

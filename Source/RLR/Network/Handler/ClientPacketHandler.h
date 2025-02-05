@@ -69,6 +69,7 @@ enum : uint16
     PKT_EQUIP_INFO_RESPONSE = 1342,
     PKT_EQUIP_CHANGE_REQUEST = 1351,
     PKT_EQUIP_CHANGE_RESPONSE = 1352,
+    PKT_UNEQUIP_CHANGE_REQUEST = 1353,
     PKT_NPC_INFO_REQUEST = 1361,
     PKT_NPC_INFO_RESPONSE = 1362,
     PKT_USER_QUEST_REQUEST = 1371,
@@ -290,14 +291,22 @@ public:
 
     bool HandlePacket(TSharedPtr<PacketSession>& session, uint8* buffer, int32 len);
 
-    
+    // Login & Sign
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LoginRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_LOGIN_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NewPlayerRequest& pkt) { return MakeSendBuffer(pkt, PKT_NEW_PLAYER_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NewCharacterPacket& pkt) { return MakeSendBuffer(pkt, PKT_NEW_CHARACTER_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ItemUseRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
+
+    // Character
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NewCharacterRequest& pkt) { return MakeSendBuffer(pkt, PKT_NEW_CHARACTER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CharacterRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHARACTER_REQUSET); }
+    // Info
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_InventoryRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_INVENTORY_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_StatusRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_STATUS_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
+
+    
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MonsterMoveResponsePacket& pkt) { return MakeSendBuffer(pkt, PKT_MONSTER_MOVE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapMonsterInfoRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_MONTSER_MAPINFO_REQUEST); }
@@ -305,39 +314,55 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AttackRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ATTACK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GetSkillRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_GET_SKILL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SkillChangeRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_CHANGE_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ServerReqeustPacket& pkt) { return MakeSendBuffer(pkt, PKT_SERVER_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UserQuestInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_USER_QUEST_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_NPCInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_NPC_INFO_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_INFO_REQUEST); }
+
+
+    // Item
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EquipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_EQUIP_CHANGE_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ItemUseRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ITEM_USE_RESPONSE); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_ITEM_REQUEST); }
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UnequipChangeRequest& pkt) { return MakeSendBuffer(pkt, PKT_UNEQUIP_CHANGE_REQUEST); }
+    // Shop
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_BuyRequest& pkt) { return MakeSendBuffer(pkt, PKT_SHOP_BUY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SellRequest& pkt) { return MakeSendBuffer(pkt, PKT_SHOP_SELL_REQUEST); }
+
+    // Quest
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestAddRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_ADD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCheckRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_CHECK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_QuestCompleteRequest& pkt) { return MakeSendBuffer(pkt, PKT_QUEST_COMPLETE_REQUEST); }
+
+    // Cheat
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateItemCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_ITEM_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateSkillCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_SKILL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreateMonsterCheatPacket& pkt) { return MakeSendBuffer(pkt, PKT_CHEAT_MONSTER_REQUEST); }
+
+    // Skill
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_SkillAddRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_SKILL_ADD_REQUEST); }
-    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MatchMakingRequest& pkt) { return MakeSendBuffer(pkt, PKT_MATCH_MAKING_REQUEST); }
+
+
+    // Party
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CreatePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_CREATE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_JoinPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_JOIN_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_LeavePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_LEAVE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ExilePartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_EXILE_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RequestPartyRequest& pkt) { return MakeSendBuffer(pkt, PKT_REQUEST_PARTY_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ActionRequestPacket& pkt) { return MakeSendBuffer(pkt, PKT_ACTION_REQUEST); }
+
+    // Post
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_SEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostRead& pkt) { return MakeSendBuffer(pkt, PKT_POST_READ_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostGetRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_GET_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PostReceived& pkt) { return MakeSendBuffer(pkt, PKT_POST_RECEIVED_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemovePostRequest& pkt) { return MakeSendBuffer(pkt, PKT_POST_REMOVE_REQUEST); }
+
+    // Trade
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeStartRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_START_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeUserRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_USER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeLockRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_LOCK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_CANCEL_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddItemRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_ITEM_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_TradeAddGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_TRADE_ADD_GOOD_REQUEST); }
+
+    // Friend
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_FriendInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_FRIEND_INFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_AddFriendRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_FRIEND_REQUEST); }
@@ -346,9 +371,12 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_RemoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_GROUP_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MoveFriendInGroupRequest& pkt) { return MakeSendBuffer(pkt, PKT_MOVE_FRIEND_IN_GROUP_REQUEST); }
+
+    // Good
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_PlayerGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_GOOD_PLAYER_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_UserGoodRequest& pkt) { return MakeSendBuffer(pkt, PKT_GOOD_USER_REQUEST); }
 
+    // Guild
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildInfoRequest& pkt) { return MakeSendBuffer(pkt, PKT_GUILD_INFO_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildAddRequest& pkt) { return MakeSendBuffer(pkt, PKT_ADD_GUILD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildRemoveRequest& pkt) { return MakeSendBuffer(pkt, PKT_REMOVE_GUILD_REQUEST); }
@@ -358,22 +386,29 @@ public:
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildInviteRequest& pkt) { return MakeSendBuffer(pkt, PKT_INVITE_GUILD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildChangeNameRequest& pkt) { return MakeSendBuffer(pkt, PKT_CHANGE_NAME_GUILD_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_GuildChangeRankRequest& pkt) { return MakeSendBuffer(pkt, PKT_CHANGE_RANK_GUILD_REQUEST); }
+
+    // Other
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_OtherStatusRequest& pkt) { return MakeSendBuffer(pkt, PKT_OTHER_STATUS_REQUEST); }
+    // Community
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityListRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_LIST_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityAcceptRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_ACCEPT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityCreateRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_CREATE_REQUEST); }
-
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityInviteRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_INVITE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityKickRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_KICK_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityExitRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_EXIT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityContentRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_CONTENT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_CommunityEnterRequest& pkt) { return MakeSendBuffer(pkt, PKT_COMMUNITY_ENTER_REQUEST); }
+
+    // Content
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ContentAcceptRequest& pkt) { return MakeSendBuffer(pkt, PKT_CONTENT_ACCEPT_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_ContentCancelRequest& pkt) { return MakeSendBuffer(pkt, PKT_CONTENT_CANCEL_REQUEST); }
 
+    // Map
+    static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MatchMakingRequest& pkt) { return MakeSendBuffer(pkt, PKT_MATCH_MAKING_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapMoveRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_MOVE_REQUEST); }
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_MapContentRequest& pkt) { return MakeSendBuffer(pkt, PKT_MAP_CONTENT_REQUEST); }
     
+    // Enhance
     static TSharedPtr<SendBuffer> MakeSendBuffer(Protocol::CS_EnhanceRequest& pkt) { return MakeSendBuffer(pkt, PKT_ENHANCE_REQUEST); }
 
   public:

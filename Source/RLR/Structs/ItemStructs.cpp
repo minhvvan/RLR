@@ -28,7 +28,7 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
     SALE_PRICE = itemData.saleprice();
     USE_PERIOD = itemData.useperiod();
     TEXT = STRING_TO_FTEXT(itemData.text().c_str());
-
+    
     if (itemData.has_equip()) {
         auto equipData = itemData.equip();
 
@@ -75,6 +75,7 @@ void FItemData::MakeItemData(const Protocol::Item itemData)
 void FItemData::MakeItemData(const Protocol::Equip EquipData)
 {
     MakeItemData(EquipData.base());
+    
 }
 
 Protocol::Item FItemData::MakeItemPacket()

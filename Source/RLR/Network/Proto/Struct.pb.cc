@@ -184,10 +184,13 @@ PROTOBUF_CONSTEXPR UserCharacter::UserCharacter(
   , /*decltype(_impl_.subjob_)*/0
   , /*decltype(_impl_.exp_)*/0
   , /*decltype(_impl_.adventurerrank_)*/0
+  , /*decltype(_impl_.adventurerexp_)*/0
+  , /*decltype(_impl_.skillpoints_)*/0
+  , /*decltype(_impl_.statpoints_)*/0
   , /*decltype(_impl_.transx_)*/0
   , /*decltype(_impl_.transy_)*/0
-  , /*decltype(_impl_.mapid_)*/int64_t{0}
   , /*decltype(_impl_.transz_)*/0
+  , /*decltype(_impl_.mapid_)*/int64_t{0}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UserCharacterDefaultTypeInternal {
   PROTOBUF_CONSTEXPR UserCharacterDefaultTypeInternal()
@@ -450,6 +453,9 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.subjob_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.exp_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.adventurerrank_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.adventurerexp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.skillpoints_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.statpoints_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.transx_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.transy_),
   PROTOBUF_FIELD_OFFSET(::Protocol::UserCharacter, _impl_.transz_),
@@ -552,12 +558,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 75, -1, -1, sizeof(::Protocol::UserSetStatus)},
   { 86, -1, -1, sizeof(::Protocol::UserTotalStatus)},
   { 109, -1, -1, sizeof(::Protocol::UserCharacter)},
-  { 131, -1, -1, sizeof(::Protocol::UserPosition)},
-  { 141, -1, -1, sizeof(::Protocol::Skill)},
-  { 154, -1, -1, sizeof(::Protocol::SkillInfo)},
-  { 173, -1, -1, sizeof(::Protocol::SkillActive)},
-  { 185, -1, -1, sizeof(::Protocol::Monster)},
-  { 204, -1, -1, sizeof(::Protocol::Talent)},
+  { 134, -1, -1, sizeof(::Protocol::UserPosition)},
+  { 144, -1, -1, sizeof(::Protocol::Skill)},
+  { 157, -1, -1, sizeof(::Protocol::SkillInfo)},
+  { 176, -1, -1, sizeof(::Protocol::SkillActive)},
+  { 188, -1, -1, sizeof(::Protocol::Monster)},
+  { 207, -1, -1, sizeof(::Protocol::Talent)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -615,52 +621,53 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "ckSpeed\030\014 \001(\002\022\025\n\ruserMoveSpeed\030\r \001(\002\022\032\n\022"
   "userCriticalChance\030\016 \001(\002\022\032\n\022userCritical"
   "Damage\030\017 \001(\002\022\021\n\tuserAvoid\030\020 \001(\002\022\035\n\025userC"
-  "ooldownReduction\030\021 \001(\002\"\351\002\n\rUserCharacter"
+  "ooldownReduction\030\021 \001(\002\"\251\003\n\rUserCharacter"
   "\022\017\n\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004"
   "name\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRan"
   "k\030\005 \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005"
-  "\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\016\n"
-  "\006transX\030\n \001(\002\022\016\n\006transY\030\013 \001(\002\022\016\n\006transZ\030"
-  "\014 \001(\002\022\r\n\005mapId\030\r \001(\003\022*\n\tsetStatus\030\016 \001(\0132"
-  "\027.Protocol.UserSetStatus\022.\n\013totalStatus\030"
-  "\017 \001(\0132\031.Protocol.UserTotalStatus\022 \n\006tale"
-  "nt\030\020 \001(\0132\020.Protocol.Talent\"I\n\014UserPositi"
-  "on\022\017\n\007userSeq\030\001 \001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004pos"
-  "Y\030\003 \001(\002\022\014\n\004posZ\030\004 \001(\002\"\205\001\n\005Skill\022\020\n\010skill"
-  "Seq\030\001 \001(\005\022\r\n\005level\030\002 \001(\005\022\021\n\ttimestamp\030\003 "
-  "\001(\004\022\017\n\007userSeq\030\004 \001(\r\022\021\n\ttargetSeq\030\005 \003(\r\022"
-  "\022\n\ntargetType\030\006 \001(\t\022\020\n\010skillIdx\030\007 \001(\005\"\302\002"
-  "\n\tSkillInfo\022\020\n\010skillSeq\030\001 \001(\005\022\017\n\007skillId"
-  "\030\002 \001(\005\022\021\n\tskillName\030\003 \001(\t\022\022\n\nskillLevel\030"
-  "\004 \001(\005\022\020\n\010skillIdx\030\005 \001(\005\022\014\n\004Cost\030\006 \001(\005\022\020\n"
-  "\010CoolTime\030\007 \001(\002\022\021\n\tskillText\030\010 \001(\t\022\025\n\rsk"
-  "illDistance\030\t \001(\005\022\021\n\tskillKind\030\n \001(\005\022\025\n\r"
-  "skillAbnormal\030\013 \001(\005\0223\n\020skilPasiveStatus\030"
-  "\014 \001(\0132\031.Protocol.UserTotalStatus\0220\n\021skil"
-  "lActiveStatus\030\r \001(\0132\025.Protocol.SkillActi"
-  "ve\"\237\001\n\013SkillActive\022\023\n\013skillDamage\030\001 \001(\005\022"
-  "\017\n\007skillMp\030\002 \001(\005\022\024\n\014skillCasting\030\003 \001(\002\022\025"
-  "\n\rskillDuration\030\004 \001(\002\022\025\n\rskillCoolDown\030\005"
-  " \001(\002\022&\n\tskillType\030\006 \001(\0162\023.Protocol.Skill"
-  "Type\"\242\002\n\007Monster\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013"
-  "monsterName\030\002 \001(\t\022\024\n\014monsterLevel\030\003 \001(\005\022"
-  "\022\n\nmonsterExp\030\004 \001(\005\022\025\n\rmonsterDamage\030\005 \001"
-  "(\005\022\026\n\016monsterDefence\030\006 \001(\005\022\021\n\tmonsterHp\030"
-  "\007 \001(\002\022\024\n\014monsterMaxHp\030\010 \001(\002\022\025\n\rmonsterTr"
-  "ansX\030\t \001(\002\022\025\n\rmonsterTransY\030\n \001(\002\022\025\n\rmon"
-  "sterTransZ\030\013 \001(\002\022\024\n\014monsterMapId\030\014 \001(\003\022\021"
-  "\n\tmonsterId\030\r \001(\003\"\205\001\n\006Talent\022\023\n\013firstTal"
-  "ent\030\001 \001(\005\022\022\n\nfirstLevel\030\002 \001(\005\022\024\n\014secondT"
-  "alent\030\003 \001(\005\022\023\n\013secondLevel\030\004 \001(\005\022\023\n\013thir"
-  "dTalent\030\005 \001(\005\022\022\n\nthirdLevel\030\006 \001(\005b\006proto"
-  "3"
+  "\022\013\n\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\025\n"
+  "\radventurerExp\030\n \001(\005\022\023\n\013skillPoints\030\013 \001("
+  "\005\022\022\n\nstatPoints\030\014 \001(\005\022\016\n\006transX\030\r \001(\002\022\016\n"
+  "\006transY\030\016 \001(\002\022\016\n\006transZ\030\017 \001(\002\022\r\n\005mapId\030\020"
+  " \001(\003\022*\n\tsetStatus\030\021 \001(\0132\027.Protocol.UserS"
+  "etStatus\022.\n\013totalStatus\030\022 \001(\0132\031.Protocol"
+  ".UserTotalStatus\022 \n\006talent\030\023 \001(\0132\020.Proto"
+  "col.Talent\"I\n\014UserPosition\022\017\n\007userSeq\030\001 "
+  "\001(\r\022\014\n\004posX\030\002 \001(\002\022\014\n\004posY\030\003 \001(\002\022\014\n\004posZ\030"
+  "\004 \001(\002\"\205\001\n\005Skill\022\020\n\010skillSeq\030\001 \001(\005\022\r\n\005lev"
+  "el\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\004\022\017\n\007userSeq\030\004"
+  " \001(\r\022\021\n\ttargetSeq\030\005 \003(\r\022\022\n\ntargetType\030\006 "
+  "\001(\t\022\020\n\010skillIdx\030\007 \001(\005\"\302\002\n\tSkillInfo\022\020\n\010s"
+  "killSeq\030\001 \001(\005\022\017\n\007skillId\030\002 \001(\005\022\021\n\tskillN"
+  "ame\030\003 \001(\t\022\022\n\nskillLevel\030\004 \001(\005\022\020\n\010skillId"
+  "x\030\005 \001(\005\022\014\n\004Cost\030\006 \001(\005\022\020\n\010CoolTime\030\007 \001(\002\022"
+  "\021\n\tskillText\030\010 \001(\t\022\025\n\rskillDistance\030\t \001("
+  "\005\022\021\n\tskillKind\030\n \001(\005\022\025\n\rskillAbnormal\030\013 "
+  "\001(\005\0223\n\020skilPasiveStatus\030\014 \001(\0132\031.Protocol"
+  ".UserTotalStatus\0220\n\021skillActiveStatus\030\r "
+  "\001(\0132\025.Protocol.SkillActive\"\237\001\n\013SkillActi"
+  "ve\022\023\n\013skillDamage\030\001 \001(\005\022\017\n\007skillMp\030\002 \001(\005"
+  "\022\024\n\014skillCasting\030\003 \001(\002\022\025\n\rskillDuration\030"
+  "\004 \001(\002\022\025\n\rskillCoolDown\030\005 \001(\002\022&\n\tskillTyp"
+  "e\030\006 \001(\0162\023.Protocol.SkillType\"\242\002\n\007Monster"
+  "\022\022\n\nmonsterSeq\030\001 \001(\005\022\023\n\013monsterName\030\002 \001("
+  "\t\022\024\n\014monsterLevel\030\003 \001(\005\022\022\n\nmonsterExp\030\004 "
+  "\001(\005\022\025\n\rmonsterDamage\030\005 \001(\005\022\026\n\016monsterDef"
+  "ence\030\006 \001(\005\022\021\n\tmonsterHp\030\007 \001(\002\022\024\n\014monster"
+  "MaxHp\030\010 \001(\002\022\025\n\rmonsterTransX\030\t \001(\002\022\025\n\rmo"
+  "nsterTransY\030\n \001(\002\022\025\n\rmonsterTransZ\030\013 \001(\002"
+  "\022\024\n\014monsterMapId\030\014 \001(\003\022\021\n\tmonsterId\030\r \001("
+  "\003\"\205\001\n\006Talent\022\023\n\013firstTalent\030\001 \001(\005\022\022\n\nfir"
+  "stLevel\030\002 \001(\005\022\024\n\014secondTalent\030\003 \001(\005\022\023\n\013s"
+  "econdLevel\030\004 \001(\005\022\023\n\013thirdTalent\030\005 \001(\005\022\022\n"
+  "\nthirdLevel\030\006 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 3001, descriptor_table_protodef_Struct_2eproto,
+    false, false, 3065, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 14,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -3993,10 +4000,13 @@ UserCharacter::UserCharacter(const UserCharacter& from)
     , decltype(_impl_.subjob_){}
     , decltype(_impl_.exp_){}
     , decltype(_impl_.adventurerrank_){}
+    , decltype(_impl_.adventurerexp_){}
+    , decltype(_impl_.skillpoints_){}
+    , decltype(_impl_.statpoints_){}
     , decltype(_impl_.transx_){}
     , decltype(_impl_.transy_){}
-    , decltype(_impl_.mapid_){}
     , decltype(_impl_.transz_){}
+    , decltype(_impl_.mapid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -4018,8 +4028,8 @@ UserCharacter::UserCharacter(const UserCharacter& from)
     _this->_impl_.talent_ = new ::Protocol::Talent(*from._impl_.talent_);
   }
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transz_) -
-    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mapid_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.UserCharacter)
 }
 
@@ -4040,10 +4050,13 @@ inline void UserCharacter::SharedCtor(
     , decltype(_impl_.subjob_){0}
     , decltype(_impl_.exp_){0}
     , decltype(_impl_.adventurerrank_){0}
+    , decltype(_impl_.adventurerexp_){0}
+    , decltype(_impl_.skillpoints_){0}
+    , decltype(_impl_.statpoints_){0}
     , decltype(_impl_.transx_){0}
     , decltype(_impl_.transy_){0}
-    , decltype(_impl_.mapid_){int64_t{0}}
     , decltype(_impl_.transz_){0}
+    , decltype(_impl_.mapid_){int64_t{0}}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.name_.InitDefault();
@@ -4093,8 +4106,8 @@ void UserCharacter::Clear() {
   }
   _impl_.talent_ = nullptr;
   ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.transz_) -
-      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
+      reinterpret_cast<char*>(&_impl_.mapid_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4178,57 +4191,81 @@ const char* UserCharacter::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
-      // float transX = 10;
+      // int32 adventurerExp = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 85)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _impl_.adventurerexp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skillPoints = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _impl_.skillpoints_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 statPoints = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          _impl_.statpoints_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
           _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transY = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 93)) {
+      // float transY = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
           _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transZ = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
+      // float transZ = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
           _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // int64 mapId = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+      // int64 mapId = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
           _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.UserSetStatus setStatus = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
+      // .Protocol.UserSetStatus setStatus = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
           ptr = ctx->ParseMessage(_internal_mutable_setstatus(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.UserTotalStatus totalStatus = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+      // .Protocol.UserTotalStatus totalStatus = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
           ptr = ctx->ParseMessage(_internal_mutable_totalstatus(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Talent talent = 16;
-      case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+      // .Protocol.Talent talent = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 154)) {
           ptr = ctx->ParseMessage(_internal_mutable_talent(), ptr);
           CHK_(ptr);
         } else
@@ -4321,60 +4358,78 @@ uint8_t* UserCharacter::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_adventurerrank(), target);
   }
 
-  // float transX = 10;
+  // int32 adventurerExp = 10;
+  if (this->_internal_adventurerexp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_adventurerexp(), target);
+  }
+
+  // int32 skillPoints = 11;
+  if (this->_internal_skillpoints() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(11, this->_internal_skillpoints(), target);
+  }
+
+  // int32 statPoints = 12;
+  if (this->_internal_statpoints() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(12, this->_internal_statpoints(), target);
+  }
+
+  // float transX = 13;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
   memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
   if (raw_transx != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(10, this->_internal_transx(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(13, this->_internal_transx(), target);
   }
 
-  // float transY = 11;
+  // float transY = 14;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
   memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
   if (raw_transy != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(11, this->_internal_transy(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(14, this->_internal_transy(), target);
   }
 
-  // float transZ = 12;
+  // float transZ = 15;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
   memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
   if (raw_transz != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(12, this->_internal_transz(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(15, this->_internal_transz(), target);
   }
 
-  // int64 mapId = 13;
+  // int64 mapId = 16;
   if (this->_internal_mapid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(13, this->_internal_mapid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(16, this->_internal_mapid(), target);
   }
 
-  // .Protocol.UserSetStatus setStatus = 14;
+  // .Protocol.UserSetStatus setStatus = 17;
   if (this->_internal_has_setstatus()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(14, _Internal::setstatus(this),
+      InternalWriteMessage(17, _Internal::setstatus(this),
         _Internal::setstatus(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.UserTotalStatus totalStatus = 15;
+  // .Protocol.UserTotalStatus totalStatus = 18;
   if (this->_internal_has_totalstatus()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(15, _Internal::totalstatus(this),
+      InternalWriteMessage(18, _Internal::totalstatus(this),
         _Internal::totalstatus(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.Talent talent = 16;
+  // .Protocol.Talent talent = 19;
   if (this->_internal_has_talent()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(16, _Internal::talent(this),
+      InternalWriteMessage(19, _Internal::talent(this),
         _Internal::talent(this).GetCachedSize(), target, stream);
   }
 
@@ -4401,21 +4456,21 @@ size_t UserCharacter::ByteSizeLong() const {
         this->_internal_name());
   }
 
-  // .Protocol.UserSetStatus setStatus = 14;
+  // .Protocol.UserSetStatus setStatus = 17;
   if (this->_internal_has_setstatus()) {
-    total_size += 1 +
+    total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.setstatus_);
   }
 
-  // .Protocol.UserTotalStatus totalStatus = 15;
+  // .Protocol.UserTotalStatus totalStatus = 18;
   if (this->_internal_has_totalstatus()) {
-    total_size += 1 +
+    total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.totalstatus_);
   }
 
-  // .Protocol.Talent talent = 16;
+  // .Protocol.Talent talent = 19;
   if (this->_internal_has_talent()) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -4462,7 +4517,22 @@ size_t UserCharacter::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_adventurerrank());
   }
 
-  // float transX = 10;
+  // int32 adventurerExp = 10;
+  if (this->_internal_adventurerexp() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_adventurerexp());
+  }
+
+  // int32 skillPoints = 11;
+  if (this->_internal_skillpoints() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skillpoints());
+  }
+
+  // int32 statPoints = 12;
+  if (this->_internal_statpoints() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_statpoints());
+  }
+
+  // float transX = 13;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
@@ -4471,7 +4541,7 @@ size_t UserCharacter::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float transY = 11;
+  // float transY = 14;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
@@ -4480,18 +4550,20 @@ size_t UserCharacter::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // int64 mapId = 13;
-  if (this->_internal_mapid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_mapid());
-  }
-
-  // float transZ = 12;
+  // float transZ = 15;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
   memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
   if (raw_transz != 0) {
     total_size += 1 + 4;
+  }
+
+  // int64 mapId = 16;
+  if (this->_internal_mapid() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_mapid());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -4551,6 +4623,15 @@ void UserCharacter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (from._internal_adventurerrank() != 0) {
     _this->_internal_set_adventurerrank(from._internal_adventurerrank());
   }
+  if (from._internal_adventurerexp() != 0) {
+    _this->_internal_set_adventurerexp(from._internal_adventurerexp());
+  }
+  if (from._internal_skillpoints() != 0) {
+    _this->_internal_set_skillpoints(from._internal_skillpoints());
+  }
+  if (from._internal_statpoints() != 0) {
+    _this->_internal_set_statpoints(from._internal_statpoints());
+  }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = from._internal_transx();
   uint32_t raw_transx;
@@ -4565,15 +4646,15 @@ void UserCharacter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (raw_transy != 0) {
     _this->_internal_set_transy(from._internal_transy());
   }
-  if (from._internal_mapid() != 0) {
-    _this->_internal_set_mapid(from._internal_mapid());
-  }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = from._internal_transz();
   uint32_t raw_transz;
   memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
   if (raw_transz != 0) {
     _this->_internal_set_transz(from._internal_transz());
+  }
+  if (from._internal_mapid() != 0) {
+    _this->_internal_set_mapid(from._internal_mapid());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -4599,8 +4680,8 @@ void UserCharacter::InternalSwap(UserCharacter* other) {
       &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UserCharacter, _impl_.transz_)
-      + sizeof(UserCharacter::_impl_.transz_)
+      PROTOBUF_FIELD_OFFSET(UserCharacter, _impl_.mapid_)
+      + sizeof(UserCharacter::_impl_.mapid_)
       - PROTOBUF_FIELD_OFFSET(UserCharacter, _impl_.setstatus_)>(
           reinterpret_cast<char*>(&_impl_.setstatus_),
           reinterpret_cast<char*>(&other->_impl_.setstatus_));

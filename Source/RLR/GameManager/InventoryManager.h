@@ -42,8 +42,8 @@ public:
 
 	void SetItemSlot(const FItemData& NewItem, int32 NewSlotIndex);	//슬롯 바꾸기.
 	
-	bool EquipItem(int32 Item_ID);								//아이템 장착
-	bool UnEquipItem(int32 Item_ID);
+	bool EquipItem(FItemData& equipItem);								//아이템 장착
+	bool UnEquipItem(FItemData& equipItem);
 	void UsingItem(FGameplayTag TriggerTag);
 	const FItemData* GetQuickSlotItemData(FGameplayTag TriggerTag);
 	const FSkillDictionary<FGameplayTag, FItemData>& GetOwnItems();
