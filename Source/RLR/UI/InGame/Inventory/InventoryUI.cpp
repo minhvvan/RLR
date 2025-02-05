@@ -63,6 +63,7 @@ void UInventoryUI::Init()
 		NewSlot->OnSlotClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotClicked);
 		NewSlot->OnSlotShiftClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftClicked);
 		NewSlot->OnSlotAltClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotAltClicked);
+		NewSlot->OnSlotShiftRightClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftRightClicked);
 		InventorySlotList[Count] = NewSlot;
 		NewSlot->SlotIndex = Count;
 		NewSlot->Inventory = this;

@@ -251,6 +251,7 @@ void LiteralManager::Init()
     LiteralMessages.WBP_NPCItemSlot = TEXT("WBP_NPCItemSlot");
     LiteralMessages.WBP_NPCCartSlot = TEXT("WBP_NPCCartSlot");
     LiteralMessages.WBP_NPCBundlePurchase = TEXT("WBP_NPCBundlePurchase");
+    LiteralMessages.WBP_NPCBundleSell = TEXT("WBP_NPCBundleSell");
     /* NPCShopUI */
     LiteralMessages.FunctionName_AddSaleItem = FName("AddSaleItem");
     /* SkillSetting */

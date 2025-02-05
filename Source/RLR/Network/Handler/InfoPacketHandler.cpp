@@ -16,6 +16,7 @@
 #include "UI/InGame/InGameMainUI.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCPurchaseTab.h"
+#include "UI/InGame/Shop/NPCSaleTab.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -227,6 +228,12 @@ bool Handle_PLAYER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
             if (!IsValid(NPCPurchaseTab)) return;
 
             NPCPurchaseTab->UpdatePrice();
+
+            UNPCSaleTab* NPCSaleTab = NPCShopUI->GetSaleTab();
+            if(!IsValid(NPCSaleTab)) return;
+
+            NPCSaleTab->UpdatePrice();
+
         });
     return true;
 }

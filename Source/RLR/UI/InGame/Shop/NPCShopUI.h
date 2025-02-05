@@ -17,6 +17,7 @@ class UButton;
 class UWidgetSwitcher;
 class UCanvasPanel;
 class UNPCPurchaseTab;
+class UNPCSaleTab;
 struct FNPCShop;
 
 UCLASS()
@@ -52,6 +53,8 @@ public:
 
 	UNPCPurchaseTab* GetPurchaseTab();
 
+	UNPCSaleTab*	 GetSaleTab();
+
 protected:
 	UFUNCTION()
 	void OnPurchaseClicked();
@@ -61,6 +64,7 @@ protected:
 
 protected:
 	TObjectPtr<UNPCPurchaseTab> NPCPurchaseTab;
+	TObjectPtr<UNPCSaleTab> NPCSaleTab;
 	TSharedPtr<TArray<FItemData>> ItemData;
 	FNPCShop NPCShopData;
 };

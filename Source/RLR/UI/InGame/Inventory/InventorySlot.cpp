@@ -126,6 +126,12 @@ FReply UInventorySlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, cons
 
 	if (InMouseEvent.IsLeftShiftDown())
 	{
+		if (InMouseEvent.IsMouseButtonDown(EKeys::RightMouseButton))
+		{
+			/* 판매 개수 조정 */
+			OnSlotShiftRightClicked.Broadcast(SlotIndex, itemData, SlotType);
+			return result;
+		}
 		OnSlotShiftClicked.Broadcast(SlotIndex, itemData, SlotType);
 	}
 	else if (InMouseEvent.IsAltDown())

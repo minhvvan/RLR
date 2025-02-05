@@ -74,6 +74,8 @@ public:
 	UFUNCTION()
 	void OnInventorySlotAltClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
 	
+	UFUNCTION()
+	void OnInventorySlotShiftRightClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
 	
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

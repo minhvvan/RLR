@@ -84,6 +84,13 @@ UNPCPurchaseTab* UNPCShopUI::GetPurchaseTab()
 	return NPCPurchaseTab;
 }
 
+UNPCSaleTab* UNPCShopUI::GetSaleTab()
+{
+	if (!TabSwitcher) return nullptr;
+	NPCSaleTab = Cast<UNPCSaleTab>(TabSwitcher->GetWidgetAtIndex(TabIndex::ESale));
+	return NPCSaleTab;
+}
+
 void UNPCShopUI::OnPurchaseClicked()
 {
 	TabSwitcher->SetActiveWidgetIndex(TabIndex::EPurchase);

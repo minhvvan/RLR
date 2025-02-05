@@ -273,6 +273,7 @@ public:
 	FString WBP_NPCItemSlot;
 	FString WBP_NPCCartSlot;
 	FString WBP_NPCBundlePurchase;
+	FString WBP_NPCBundleSell;
 	/* NPCShopUI */
 	FName FunctionName_AddSaleItem;
 	/* SkillSetting, TEXT("Action.Skill.{0}") */

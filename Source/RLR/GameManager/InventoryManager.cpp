@@ -14,6 +14,7 @@
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/SlotUI.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
+#include "UI/InGame/Shop/NPCSaleTab.h"
 #include "UI/InGame/Storage/StorageUI.h"
 
 
@@ -180,9 +181,17 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 		break;
 	case ESlotType::NPCSHOP_INVENTORY_SLOT:
 		{
+			/* 아이템 개수가 2개 이상이라면, shift+우클릭을 하지 않더라도 번들 판매 UI 출력 */
 			auto UIManager = GameInstance->GetUIManager();
 			auto NPCShop = UIManager->GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
-			NPCShop->AddSaleItem(ItemData, SlotIndex);
+			if (ItemData.ITEM_QUANTITY > 1)
+			{
+				NPCShop->GetSaleTab()->OpenBundleSell(ItemData, SlotIndex);
+			}
+			else
+			{
+				NPCShop->AddSaleItem(ItemData, SlotIndex);
+			}
 		}
 		break;
 	default:
@@ -217,6 +226,18 @@ void UInventoryManager::OnInventorySlotAltClicked(int32 SlotIndex, const FItemDa
 		GameInstance->GetStorageManager()->SendPktMoveItemInventoryToStorage(ItemData, ItemData.ITEM_QUANTITY, ESlotType::PLAYER_STORAGE_ITEM_SLOT);
 		break;
 	default:
+		break;
+	}
+}
+
+void UInventoryManager::OnInventorySlotShiftRightClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
+{
+	switch (SlotType)
+	{
+	case ESlotType::NPCSHOP_INVENTORY_SLOT:
+		auto UIManager = GameInstance->GetUIManager();
+		auto NPCShop = UIManager->GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+		NPCShop->GetSaleTab()->OpenBundleSell(ItemData, SlotIndex);
 		break;
 	}
 }
