@@ -86,6 +86,19 @@ const FPostResult& UPostalManager::GetAlertPostData() const
 	return PostAlertData;
 }
 
+FItemData UPostalManager::GetItemDataById(int64 ItemId)
+{
+	if (ItemData.Contains(ItemId))
+	{
+		return ItemData[ItemId];
+	}
+	return FItemData::EmptyItemData;
+}
+
+//void UPostalManager::SetItemData(int64 ItemId, const FItemData& ItemData)
+//{
+//}
+
 void UPostalManager::AddToPostDeletionList(const FPostResult& PostData, bool IsSent)
 {
 	if (IsSent)

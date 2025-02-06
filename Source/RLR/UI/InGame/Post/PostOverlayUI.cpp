@@ -19,6 +19,7 @@
 
 #include "Structs/UtilStructs.h"
 #include "Components/GridPanel.h"
+#include "Components/CanvasPanel.h"
 #include "Components/SizeBox.h"
 #include "Components/EditableTextBox.h"
 #include "Components/MultiLineEditableText.h"
@@ -85,6 +86,20 @@ void UPostOverlayUI::RefreshUI()
 	SetRecvPostData(NewRecvPostData);
 
 	UpdatePostWidget();
+}
+
+bool UPostOverlayUI::CanSendItem()
+{
+	if (UPostWriteTabWidget* WriteTab = Cast<UPostWriteTabWidget>(PostWidgetSwitcher->GetActiveWidget()))
+	{
+		return true;
+	}
+	return false;
+}
+
+UPanelSlot* UPostOverlayUI::AddChild(UUserWidget* Child)
+{
+	return Canvas->AddChild(Child);
 }
 
 void UPostOverlayUI::OnReceivedPostButtonClicked()

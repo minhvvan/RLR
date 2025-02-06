@@ -185,7 +185,7 @@ void UNPCSaleTab::OpenBundleSell(const FItemData& item, int32 InventorySlotIndex
 	auto bundleUI = CreateWidget<UNPCShopBundleSell>(GetWorld(), bundleSellClass);
 	bundleUI->SetSlotIndex(InventorySlotIndex);
 	bundleUI->SetItemData(item);
-	bundleUI->OnConfirmSell.AddDynamic(this, &UNPCSaleTab::AddToCart);
+	bundleUI->OnConfirmSell.AddUniqueDynamic(this, &UNPCSaleTab::AddToCart);
 
 	auto shopUI = Cast<UNPCShopUI>(GetParent());
 	if (!shopUI) return;

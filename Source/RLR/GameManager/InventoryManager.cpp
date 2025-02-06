@@ -16,6 +16,9 @@
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCSaleTab.h"
 #include "UI/InGame/Storage/StorageUI.h"
+#include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/Post/PostWriteTabWidget.h"
+#include "UI/InGame/Inventory/InventoryUI.h"
 
 
 void UInventoryManager::Initialize(FSubsystemCollectionBase& Collection)
@@ -169,6 +172,13 @@ void UInventoryManager::SetPlatinum(int32 NewPlatinum)
 	OnUpdateGoldAndCashDelegateBroadcast();
 }
 
+UInventorySlot* UInventoryManager::GetInventorySlot(int32 InventorySlotIndex)
+{
+	UInventoryUI* Inventory = GameInstance->GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (InventorySlotIndex + 1 >= Inventory->InventorySlotList.Num()) return nullptr;
+	return Inventory->InventorySlotList[InventorySlotIndex];
+}
+
 void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType)
 {
 	switch (SlotType)
@@ -191,6 +201,22 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 			else
 			{
 				NPCShop->AddSaleItem(ItemData, SlotIndex);
+			}
+		}
+		break;
+	case ESlotType::POST_INVENTORY_SLOT:
+		{
+			/* Post 에서 인벤토리 슬롯 우클릭 시 첨부아이템 슬롯으로 아이템 이동 */
+			auto UIManager = GameInstance->GetUIManager();
+			auto PostUI = UIManager->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+			if (ItemData.ITEM_QUANTITY > 1)
+			{
+				/* 아이템 개수가 2개 이상이라면, 번들 첨부 UI 출력 */
+				PostUI->PostWriteTabWidget->OpenBundleItemSend(ItemData, SlotIndex);
+			}
+			else
+			{
+				PostUI->PostWriteTabWidget->AddItemToPostSlot(ItemData, SlotIndex);
 			}
 		}
 		break;

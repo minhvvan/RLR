@@ -49,7 +49,7 @@ bool UPostItemSlot::HandleInventoryItemDrop(const FGeometry& InGeometry, const F
 	// PostItemSlot에 데이터 설정
 	SetItemData(DraggedSlot->GetItemData());
 	SetSlotImage(DraggedSlot->GetItemResourceData().ItemImage);
-	ItemNameText->SetText(DraggedSlot->GetItemData().NAME);
+	//ItemNameText->SetText(DraggedSlot->GetItemData().NAME);
 
 	// 드래그된 인벤토리 슬롯 비우기
 	DraggedSlot->Clear();
@@ -62,7 +62,7 @@ void UPostItemSlot::SetSlot(int64 NewitemId)
 	UTexture2D* itemTexture = GameInstance->GetDataManager()->GetItemResource(NewitemId).ItemImage;
 	FText itemName = GameInstance->GetDataManager()->GetItemData(NewitemId).NAME;
 	SetSlotImage(itemTexture);
-	ItemNameText->SetText(itemName);
+	/*ItemNameText->SetText(itemName);*/
 }
 
 void UPostItemSlot::Clear()
@@ -73,6 +73,9 @@ void UPostItemSlot::Clear()
 void UPostItemSlot::RefreshUI()
 {
 	Super::RefreshUI();
+
+	FItemData itemData = GetItemData();
+	TxtItemCount->SetText(FText::AsNumber(itemData.ITEM_QUANTITY));
 }
 
 void UPostItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -117,4 +120,20 @@ FReply UPostItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const
 	}
 	FItemData itemData = GetItemData();
 	return result;
+}
+
+void UPostItemSlot::SetItemAmountShow(bool bVisible)
+{
+	if (bVisible) TxtItemCount->SetVisibility(ESlateVisibility::Visible);
+	else TxtItemCount->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UPostItemSlot::SetInventorySlotIndex(int32 index)
+{
+	inventorySlotIndex = index;
+}
+
+int32 UPostItemSlot::GetInventorySlotIndex()
+{
+	return inventorySlotIndex;
 }

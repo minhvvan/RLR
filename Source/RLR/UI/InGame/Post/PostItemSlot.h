@@ -35,6 +35,11 @@ public:
 	void SetSlot(int64 NewitemId);
 
 	virtual void Clear() override;
+
+	void SetItemAmountShow(bool bVisible);
+
+	void SetInventorySlotIndex(int32 index);
+	int32 GetInventorySlotIndex();
 public:
 
 	/*
@@ -44,10 +49,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UImage> ItemRarityImage;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
-	TObjectPtr<UTextBlock> ItemNameText;
+	TObjectPtr<UTextBlock> TxtItemCount;
 
 	UPROPERTY(EditAnywhere)
 	int64 itemId;
+
+	int32 inventorySlotIndex;
 
 public:
 	UPostOverlayUI* PostUI;

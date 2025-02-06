@@ -11,6 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPostUIEnd);
 
 class UButton;
 class UWidgetSwitcher;
+class UCanvasPanel;
 class UPostReceivedTabWidget;
 class UPostWriteTabWidget;
 class UPostSentTabWidget;
@@ -73,10 +74,16 @@ public:
     bool GetWritingPostStatus();
     void ManageWritingPost();
 
+    bool CanSendItem();
+    UPanelSlot* AddChild(UUserWidget* Child);
+
     FOnPostUIEnd OnPostUIEnd;
 public:
 
 	/* Bind Widget */
+    UPROPERTY(EditAnywhere, meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> Canvas;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (BindWidget))
 	TObjectPtr<UPostWriteTabWidget> PostWriteTabWidget;
 

@@ -56,6 +56,7 @@ void LiteralManager::Init()
     LiteralMessages.PostUI_OnClickedDeletePostsConfirmButton = FName("OnClickedDeletePostsConfirmButton");
     LiteralMessages.PostUI_OnClickedAcceptButtonWhileWriting = FName("OnClickedAcceptButton");
     LiteralMessages.PostUI_OnClickedCancelButton = FName("OnClickedCancelButton");
+    LiteralMessages.WBP_PostBundleSend = TEXT("WBP_PostBundleSend");
 	
 	/* SKillUI */
 	LiteralMessages.SkillUI_Learn = TEXT("스킬 배우기");
@@ -273,6 +274,7 @@ void LiteralManager::Init()
     LiteralMessages.WBP_DraggableWidget = TEXT("WBP_DraggableWidget");
     LiteralMessages.WBP_BaseDragDropOperation = TEXT("WBP_BaseDragDropOperation");
     LiteralMessages.GetDefaultSlotImage_DefaultSlotImage = TEXT("DefaultSlotImage");
+    LiteralMessages.WBP_PostItemSlot = TEXT("WBP_PostItemSlot");
     /* EnhanceResultUI */
     LiteralMessages.EnhanceSuccessStack = TEXT("제련 성공 스택 +");
     LiteralMessages.IncreaseMessage     = TEXT("상승");

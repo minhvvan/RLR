@@ -56,6 +56,7 @@ public:
 	/* PostOverlayUI */
 	FString PostUI_ReceivedPost;
 	FString PostUI_SentPost;
+	FString WBP_PostBundleSend;
 	FString PostUI_RemovePrompt;
 	FString PostUI_ExitPrompt;
 	FName	PostUI_OnClickedDeletePostsConfirmButton;
@@ -295,6 +296,7 @@ public:
 	FString WBP_DraggableWidget;
 	FString WBP_BaseDragDropOperation;
 	FString GetDefaultSlotImage_DefaultSlotImage;
+	FString WBP_PostItemSlot;
 	/* EnhanceResultUI */
 	FString EnhanceSuccessStack;
 	FString IncreaseMessage;
