@@ -377,6 +377,7 @@ void UDialogueUI::OnPostClicked()
 	}
 	else
 	{
+		SetInventorySlotType(ESlotType::POST_INVENTORY_SLOT);
 		FVector2D panelPos(100.f, 100.f);
 		PostOverlayUI->SetPosition(panelPos);
 		PostOverlayUI->OpenUI();
