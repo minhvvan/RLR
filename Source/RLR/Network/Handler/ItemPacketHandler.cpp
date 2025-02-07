@@ -51,15 +51,10 @@ bool Handle_EQUIP_INFO_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::SC
 
    
 
-    for (const FItemData& ItemData : ItemDataList)
+    for (FItemData& ItemData : ItemDataList)
     {
-       bool Ret = GameInstance->GetInventoryManager()->EquipItem(ItemData.ITEM_SEQ);
-       if (Ret == false)
-       {
-            //false 가 나왔다는 건 인벤토리에 없는데 아이템 장착을 시도했다는 소리.
-            //즉, false가 나오면 안된다.
-           DEBUG_MESSAGE;
-       }
+        GameInstance->GetInventoryManager()->EquipItem(ItemData);
+
     }
 
 

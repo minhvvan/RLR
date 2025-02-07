@@ -122,31 +122,17 @@ void UInventoryManager::RemoveItem(int32 Item_ID, int Amount)
 	OnUpdateInventoryDelegateBroadcast();
 }
 
-bool UInventoryManager::EquipItem(int32 Item_ID)
+bool UInventoryManager::EquipItem( FItemData& equipItem)
 {
-	FItemData EquipedItem = GetItem(Item_ID);
-	if (EquipedItem == FItemData::EmptyItemData)
-	{
-		DEBUG_LOG("EquipItem Error. ItemData is Null");
-		return false;
-	}
-	
-	EquipedItem.IsEquiped = true;
-	OnUpdateEquipDelegateBroadcast(EquipedItem);
+	equipItem.IsEquiped = true;
+	OnUpdateEquipDelegateBroadcast(equipItem);
 	return true;
 }
 
-bool UInventoryManager::UnEquipItem(int32 Item_ID)
+bool UInventoryManager::UnEquipItem( FItemData& equipItem)
 {
-	FItemData EquipedItem = GetItem(Item_ID);
-	if (EquipedItem == FItemData::EmptyItemData)
-	{
-		DEBUG_LOG("EquipItem Error. ItemData is Null");
-		return false;
-	}
-	
-	EquipedItem.IsEquiped = false;
-	OnUpdateEquipDelegateBroadcast(EquipedItem);
+	equipItem.IsEquiped = false;
+	OnUpdateEquipDelegateBroadcast(equipItem);
 	return true;
 }
 

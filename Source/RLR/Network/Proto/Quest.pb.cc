@@ -67,10 +67,22 @@ struct Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_NeedSeqsEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR Quest_BeforeNeedSeqsEntry_DoNotUse::Quest_BeforeNeedSeqsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Quest_BeforeNeedSeqsEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_BeforeNeedSeqsEntry_DoNotUse_default_instance_;
 PROTOBUF_CONSTEXPR Quest::Quest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.rewardseqs_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_.needseqs_)*/{::_pbi::ConstantInitialized()}
+  , /*decltype(_impl_.beforeneedseqs_)*/{::_pbi::ConstantInitialized()}
   , /*decltype(_impl_.questtitle_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.questtext_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.questdescription_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
@@ -320,7 +332,7 @@ struct SC_GuildQuestInfoResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_GuildQuestInfoResponseDefaultTypeInternal _SC_GuildQuestInfoResponse_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Quest_2eproto[21];
+static ::_pb::Metadata file_level_metadata_Quest_2eproto[22];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Quest_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Quest_2eproto = nullptr;
 
@@ -362,6 +374,16 @@ const uint32_t TableStruct_Quest_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest_NeedSeqsEntry_DoNotUse, value_),
   0,
   1,
+  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse, value_),
+  0,
+  1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -378,6 +400,7 @@ const uint32_t TableStruct_Quest_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.isclear_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardseqs_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.needseqs_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.beforeneedseqs_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardusergoods_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.rewardplayergoods_),
   PROTOBUF_FIELD_OFFSET(::Protocol::Quest, _impl_.questrank_),
@@ -518,23 +541,24 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 10, -1, -1, sizeof(::Protocol::Values)},
   { 17, 25, -1, sizeof(::Protocol::Quest_RewardSeqsEntry_DoNotUse)},
   { 27, 35, -1, sizeof(::Protocol::Quest_NeedSeqsEntry_DoNotUse)},
-  { 37, -1, -1, sizeof(::Protocol::Quest)},
-  { 59, -1, -1, sizeof(::Protocol::CS_AdventurerQuestAddRequest)},
-  { 68, -1, -1, sizeof(::Protocol::CS_AdventurerQuestCompleteRequest)},
-  { 77, -1, -1, sizeof(::Protocol::CS_GuildQuestAddRequest)},
-  { 86, -1, -1, sizeof(::Protocol::CS_GuildQuestCompleteRequest)},
-  { 95, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
-  { 102, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
-  { 110, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
-  { 118, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
-  { 126, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
-  { 135, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
-  { 142, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
-  { 150, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
-  { 157, -1, -1, sizeof(::Protocol::CS_AdventurerQuestInfoRequest)},
-  { 164, -1, -1, sizeof(::Protocol::SC_AdventurerQuestInfoResponse)},
-  { 172, -1, -1, sizeof(::Protocol::CS_GuildQuestInfoRequest)},
-  { 179, -1, -1, sizeof(::Protocol::SC_GuildQuestInfoResponse)},
+  { 37, 45, -1, sizeof(::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse)},
+  { 47, -1, -1, sizeof(::Protocol::Quest)},
+  { 70, -1, -1, sizeof(::Protocol::CS_AdventurerQuestAddRequest)},
+  { 79, -1, -1, sizeof(::Protocol::CS_AdventurerQuestCompleteRequest)},
+  { 88, -1, -1, sizeof(::Protocol::CS_GuildQuestAddRequest)},
+  { 97, -1, -1, sizeof(::Protocol::CS_GuildQuestCompleteRequest)},
+  { 106, -1, -1, sizeof(::Protocol::CS_UserQuestInfoRequest)},
+  { 113, -1, -1, sizeof(::Protocol::SC_UserQuestInfoResponse)},
+  { 121, -1, -1, sizeof(::Protocol::CS_QuestCheckRequest)},
+  { 129, -1, -1, sizeof(::Protocol::SC_QuestCheckResponse)},
+  { 137, -1, -1, sizeof(::Protocol::CS_QuestAddRequest)},
+  { 146, -1, -1, sizeof(::Protocol::SC_QuestAddResponse)},
+  { 153, -1, -1, sizeof(::Protocol::CS_QuestCompleteRequest)},
+  { 161, -1, -1, sizeof(::Protocol::SC_QuestCompleteResponse)},
+  { 168, -1, -1, sizeof(::Protocol::CS_AdventurerQuestInfoRequest)},
+  { 175, -1, -1, sizeof(::Protocol::SC_AdventurerQuestInfoResponse)},
+  { 183, -1, -1, sizeof(::Protocol::CS_GuildQuestInfoRequest)},
+  { 190, -1, -1, sizeof(::Protocol::SC_GuildQuestInfoResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -542,6 +566,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_Values_default_instance_._instance,
   &::Protocol::_Quest_RewardSeqsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_NeedSeqsEntry_DoNotUse_default_instance_._instance,
+  &::Protocol::_Quest_BeforeNeedSeqsEntry_DoNotUse_default_instance_._instance,
   &::Protocol::_Quest_default_instance_._instance,
   &::Protocol::_CS_AdventurerQuestAddRequest_default_instance_._instance,
   &::Protocol::_CS_AdventurerQuestCompleteRequest_default_instance_._instance,
@@ -566,49 +591,52 @@ const char descriptor_table_protodef_Quest_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\014User_2.proto\032\nEnum.proto\"e\n\006Values\022,\n\006v"
   "alues\030\001 \003(\0132\034.Protocol.Values.ValuesEntr"
   "y\032-\n\013ValuesEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002"
-  " \001(\005:\0028\001\"\276\004\n\005Quest\022\020\n\010questSeq\030\001 \001(\005\022\016\n\006"
+  " \001(\005:\0028\001\"\304\005\n\005Quest\022\020\n\010questSeq\030\001 \001(\005\022\016\n\006"
   "npcSeq\030\002 \001(\005\022\022\n\nquestTitle\030\003 \001(\t\022\021\n\tques"
   "tText\030\004 \001(\t\022\030\n\020questDescription\030\005 \001(\t\022\021\n"
   "\tquestKind\030\006 \001(\005\022\022\n\nisProgress\030\007 \001(\010\022\017\n\007"
   "isClear\030\010 \001(\010\0223\n\nrewardSeqs\030\t \003(\0132\037.Prot"
   "ocol.Quest.RewardSeqsEntry\022/\n\010needSeqs\030\n"
-  " \003(\0132\035.Protocol.Quest.NeedSeqsEntry\022+\n\017r"
-  "ewardUserGoods\030\013 \001(\0132\022.Protocol.UserGood"
-  "\022/\n\021rewardPlayerGoods\030\014 \001(\0132\024.Protocol.P"
-  "layerGood\022\021\n\tquestRank\030\r \001(\005\022\025\n\radventur"
-  "erExp\030\016 \001(\005\022\020\n\010guildExp\030\017 \001(\005\022\022\n\nguildLe"
-  "vel\030\020 \001(\005\032C\n\017RewardSeqsEntry\022\013\n\003key\030\001 \001("
-  "\t\022\037\n\005value\030\002 \001(\0132\020.Protocol.Values:\0028\001\032A"
-  "\n\rNeedSeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 "
-  "\001(\0132\020.Protocol.Values:\0028\001\"Y\n\034CS_Adventur"
-  "erQuestAddRequest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007u"
-  "serSeq\030\002 \001(\005\022\026\n\016adventurerRank\030\003 \001(\005\"T\n!"
-  "CS_AdventurerQuestCompleteRequest\022\020\n\010que"
-  "stSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\014\n\004rank\030\003 \001"
-  "(\005\"P\n\027CS_GuildQuestAddRequest\022\020\n\010questSe"
-  "q\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\022\n\nguildLevel\030\003"
-  " \001(\005\"U\n\034CS_GuildQuestCompleteRequest\022\020\n\010"
-  "questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\022\n\nguild"
-  "Level\030\003 \001(\005\"*\n\027CS_UserQuestInfoRequest\022\017"
-  "\n\007userSeq\030\001 \001(\005\"O\n\030SC_UserQuestInfoRespo"
-  "nse\022\022\n\nquestCount\030\001 \001(\005\022\037\n\006quests\030\002 \001(\0132"
-  "\017.Protocol.Quest\"9\n\024CS_QuestCheckRequest"
-  "\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\"S\n\025S"
-  "C_QuestCheckResponse\022\020\n\010questSeq\030\001 \001(\005\022("
-  "\n\nqueststate\030\002 \001(\0162\024.Protocol.QuestState"
-  "\"G\n\022CS_QuestAddRequest\022\020\n\010questSeq\030\001 \001(\005"
-  "\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006npcSeq\030\003 \001(\005\"&\n\023SC_"
-  "QuestAddResponse\022\017\n\007success\030\001 \001(\005\"<\n\027CS_"
-  "QuestCompleteRequest\022\020\n\010questSeq\030\001 \001(\005\022\017"
-  "\n\007userSeq\030\002 \001(\005\"+\n\030SC_QuestCompleteRespo"
-  "nse\022\017\n\007success\030\001 \001(\005\"0\n\035CS_AdventurerQue"
-  "stInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"U\n\036SC_Adv"
-  "enturerQuestInfoResponse\022\022\n\nquestCount\030\001"
-  " \001(\005\022\037\n\006quests\030\002 \001(\0132\017.Protocol.Quest\",\n"
-  "\030CS_GuildQuestInfoRequest\022\020\n\010guildSeq\030\001 "
-  "\001(\005\"P\n\031SC_GuildQuestInfoResponse\022\022\n\nques"
-  "tCount\030\001 \001(\005\022\037\n\006quests\030\002 \001(\0132\017.Protocol."
-  "Questb\006proto3"
+  " \003(\0132\035.Protocol.Quest.NeedSeqsEntry\022;\n\016b"
+  "eforeNeedSeqs\030\013 \003(\0132#.Protocol.Quest.Bef"
+  "oreNeedSeqsEntry\022+\n\017rewardUserGoods\030\014 \001("
+  "\0132\022.Protocol.UserGood\022/\n\021rewardPlayerGoo"
+  "ds\030\r \001(\0132\024.Protocol.PlayerGood\022\021\n\tquestR"
+  "ank\030\016 \001(\005\022\025\n\radventurerExp\030\017 \001(\005\022\020\n\010guil"
+  "dExp\030\020 \001(\005\022\022\n\nguildLevel\030\021 \001(\005\032C\n\017Reward"
+  "SeqsEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020."
+  "Protocol.Values:\0028\001\032A\n\rNeedSeqsEntry\022\013\n\003"
+  "key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.Protocol.Valu"
+  "es:\0028\001\032G\n\023BeforeNeedSeqsEntry\022\013\n\003key\030\001 \001"
+  "(\t\022\037\n\005value\030\002 \001(\0132\020.Protocol.Values:\0028\001\""
+  "Y\n\034CS_AdventurerQuestAddRequest\022\020\n\010quest"
+  "Seq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\026\n\016adventurer"
+  "Rank\030\003 \001(\005\"T\n!CS_AdventurerQuestComplete"
+  "Request\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001"
+  "(\005\022\014\n\004rank\030\003 \001(\005\"P\n\027CS_GuildQuestAddRequ"
+  "est\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\022"
+  "\n\nguildLevel\030\003 \001(\005\"U\n\034CS_GuildQuestCompl"
+  "eteRequest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007userSeq\030"
+  "\002 \001(\005\022\022\n\nguildLevel\030\003 \001(\005\"*\n\027CS_UserQues"
+  "tInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"O\n\030SC_User"
+  "QuestInfoResponse\022\022\n\nquestCount\030\001 \001(\005\022\037\n"
+  "\006quests\030\002 \001(\0132\017.Protocol.Quest\"9\n\024CS_Que"
+  "stCheckRequest\022\020\n\010questSeq\030\001 \001(\005\022\017\n\007user"
+  "Seq\030\002 \001(\005\"S\n\025SC_QuestCheckResponse\022\020\n\010qu"
+  "estSeq\030\001 \001(\005\022(\n\nqueststate\030\002 \001(\0162\024.Proto"
+  "col.QuestState\"G\n\022CS_QuestAddRequest\022\020\n\010"
+  "questSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\022\016\n\006npcSe"
+  "q\030\003 \001(\005\"&\n\023SC_QuestAddResponse\022\017\n\007succes"
+  "s\030\001 \001(\005\"<\n\027CS_QuestCompleteRequest\022\020\n\010qu"
+  "estSeq\030\001 \001(\005\022\017\n\007userSeq\030\002 \001(\005\"+\n\030SC_Ques"
+  "tCompleteResponse\022\017\n\007success\030\001 \001(\005\"0\n\035CS"
+  "_AdventurerQuestInfoRequest\022\017\n\007userSeq\030\001"
+  " \001(\005\"U\n\036SC_AdventurerQuestInfoResponse\022\022"
+  "\n\nquestCount\030\001 \001(\005\022\037\n\006quests\030\002 \001(\0132\017.Pro"
+  "tocol.Quest\",\n\030CS_GuildQuestInfoRequest\022"
+  "\020\n\010guildSeq\030\001 \001(\005\"P\n\031SC_GuildQuestInfoRe"
+  "sponse\022\022\n\nquestCount\030\001 \001(\005\022\037\n\006quests\030\002 \001"
+  "(\0132\017.Protocol.Questb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Quest_2eproto_deps[3] = {
   &::descriptor_table_Enum_2eproto,
@@ -617,9 +645,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Quest_2eproto_deps[
 };
 static ::_pbi::once_flag descriptor_table_Quest_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Quest_2eproto = {
-    false, false, 1853, descriptor_table_protodef_Quest_2eproto,
+    false, false, 1987, descriptor_table_protodef_Quest_2eproto,
     "Quest.proto",
-    &descriptor_table_Quest_2eproto_once, descriptor_table_Quest_2eproto_deps, 3, 21,
+    &descriptor_table_Quest_2eproto_once, descriptor_table_Quest_2eproto_deps, 3, 22,
     schemas, file_default_instances, TableStruct_Quest_2eproto::offsets,
     file_level_metadata_Quest_2eproto, file_level_enum_descriptors_Quest_2eproto,
     file_level_service_descriptors_Quest_2eproto,
@@ -882,6 +910,20 @@ void Quest_NeedSeqsEntry_DoNotUse::MergeFrom(const Quest_NeedSeqsEntry_DoNotUse&
 
 // ===================================================================
 
+Quest_BeforeNeedSeqsEntry_DoNotUse::Quest_BeforeNeedSeqsEntry_DoNotUse() {}
+Quest_BeforeNeedSeqsEntry_DoNotUse::Quest_BeforeNeedSeqsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Quest_BeforeNeedSeqsEntry_DoNotUse::MergeFrom(const Quest_BeforeNeedSeqsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Quest_BeforeNeedSeqsEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
+      file_level_metadata_Quest_2eproto[4]);
+}
+
+// ===================================================================
+
 class Quest::_Internal {
  public:
   static const ::Protocol::UserGood& rewardusergoods(const Quest* msg);
@@ -923,6 +965,7 @@ Quest::Quest(const Quest& from)
   new (&_impl_) Impl_{
       /*decltype(_impl_.rewardseqs_)*/{}
     , /*decltype(_impl_.needseqs_)*/{}
+    , /*decltype(_impl_.beforeneedseqs_)*/{}
     , decltype(_impl_.questtitle_){}
     , decltype(_impl_.questtext_){}
     , decltype(_impl_.questdescription_){}
@@ -942,6 +985,7 @@ Quest::Quest(const Quest& from)
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.rewardseqs_.MergeFrom(from._impl_.rewardseqs_);
   _this->_impl_.needseqs_.MergeFrom(from._impl_.needseqs_);
+  _this->_impl_.beforeneedseqs_.MergeFrom(from._impl_.beforeneedseqs_);
   _impl_.questtitle_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.questtitle_.Set("", GetArenaForAllocation());
@@ -985,6 +1029,7 @@ inline void Quest::SharedCtor(
   new (&_impl_) Impl_{
       /*decltype(_impl_.rewardseqs_)*/{::_pbi::ArenaInitialized(), arena}
     , /*decltype(_impl_.needseqs_)*/{::_pbi::ArenaInitialized(), arena}
+    , /*decltype(_impl_.beforeneedseqs_)*/{::_pbi::ArenaInitialized(), arena}
     , decltype(_impl_.questtitle_){}
     , decltype(_impl_.questtext_){}
     , decltype(_impl_.questdescription_){}
@@ -1031,6 +1076,8 @@ inline void Quest::SharedDtor() {
   _impl_.rewardseqs_.~MapField();
   _impl_.needseqs_.Destruct();
   _impl_.needseqs_.~MapField();
+  _impl_.beforeneedseqs_.Destruct();
+  _impl_.beforeneedseqs_.~MapField();
   _impl_.questtitle_.Destroy();
   _impl_.questtext_.Destroy();
   _impl_.questdescription_.Destroy();
@@ -1042,6 +1089,7 @@ void Quest::ArenaDtor(void* object) {
   Quest* _this = reinterpret_cast< Quest* >(object);
   _this->_impl_.rewardseqs_.Destruct();
   _this->_impl_.needseqs_.Destruct();
+  _this->_impl_.beforeneedseqs_.Destruct();
 }
 void Quest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
@@ -1055,6 +1103,7 @@ void Quest::Clear() {
 
   _impl_.rewardseqs_.Clear();
   _impl_.needseqs_.Clear();
+  _impl_.beforeneedseqs_.Clear();
   _impl_.questtitle_.ClearToEmpty();
   _impl_.questtext_.ClearToEmpty();
   _impl_.questdescription_.ClearToEmpty();
@@ -1135,7 +1184,7 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isProgress = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.isprogress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1143,7 +1192,7 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       // bool isClear = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr) > 0 ? 1 : 0;
+          _impl_.isclear_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1174,49 +1223,62 @@ const char* Quest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.UserGood rewardUserGoods = 11;
+      // map<string, .Protocol.Values> beforeNeedSeqs = 11;
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.beforeneedseqs_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.UserGood rewardUserGoods = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_rewardusergoods(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.PlayerGood rewardPlayerGoods = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+      // .Protocol.PlayerGood rewardPlayerGoods = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr = ctx->ParseMessage(_internal_mutable_rewardplayergoods(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 questRank = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+      // int32 questRank = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
           _impl_.questrank_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 adventurerExp = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+      // int32 adventurerExp = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
           _impl_.adventurerexp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 guildExp = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+      // int32 guildExp = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
           _impl_.guildexp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // int32 guildLevel = 16;
-      case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+      // int32 guildLevel = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
           _impl_.guildlevel_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
@@ -1363,42 +1425,68 @@ uint8_t* Quest::_InternalSerialize(
     }
   }
 
-  // .Protocol.UserGood rewardUserGoods = 11;
+  // map<string, .Protocol.Values> beforeNeedSeqs = 11;
+  if (!this->_internal_beforeneedseqs().empty()) {
+    using MapType = ::_pb::Map<std::string, ::Protocol::Values>;
+    using WireHelper = Quest_BeforeNeedSeqsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_beforeneedseqs();
+    auto check_utf8 = [](const MapType::value_type& entry) {
+      (void)entry;
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.first.data(), static_cast<int>(entry.first.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "Protocol.Quest.BeforeNeedSeqsEntry.key");
+    };
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(11, entry.first, entry.second, target, stream);
+        check_utf8(entry);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(11, entry.first, entry.second, target, stream);
+        check_utf8(entry);
+      }
+    }
+  }
+
+  // .Protocol.UserGood rewardUserGoods = 12;
   if (this->_internal_has_rewardusergoods()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(11, _Internal::rewardusergoods(this),
+      InternalWriteMessage(12, _Internal::rewardusergoods(this),
         _Internal::rewardusergoods(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 12;
+  // .Protocol.PlayerGood rewardPlayerGoods = 13;
   if (this->_internal_has_rewardplayergoods()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(12, _Internal::rewardplayergoods(this),
+      InternalWriteMessage(13, _Internal::rewardplayergoods(this),
         _Internal::rewardplayergoods(this).GetCachedSize(), target, stream);
   }
 
-  // int32 questRank = 13;
+  // int32 questRank = 14;
   if (this->_internal_questrank() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(13, this->_internal_questrank(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(14, this->_internal_questrank(), target);
   }
 
-  // int32 adventurerExp = 14;
+  // int32 adventurerExp = 15;
   if (this->_internal_adventurerexp() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(14, this->_internal_adventurerexp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(15, this->_internal_adventurerexp(), target);
   }
 
-  // int32 guildExp = 15;
+  // int32 guildExp = 16;
   if (this->_internal_guildexp() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(15, this->_internal_guildexp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(16, this->_internal_guildexp(), target);
   }
 
-  // int32 guildLevel = 16;
+  // int32 guildLevel = 17;
   if (this->_internal_guildlevel() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(16, this->_internal_guildlevel(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(17, this->_internal_guildlevel(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1435,6 +1523,15 @@ size_t Quest::ByteSizeLong() const {
     total_size += Quest_NeedSeqsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
+  // map<string, .Protocol.Values> beforeNeedSeqs = 11;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_beforeneedseqs_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >::const_iterator
+      it = this->_internal_beforeneedseqs().begin();
+      it != this->_internal_beforeneedseqs().end(); ++it) {
+    total_size += Quest_BeforeNeedSeqsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
   // string questTitle = 3;
   if (!this->_internal_questtitle().empty()) {
     total_size += 1 +
@@ -1456,14 +1553,14 @@ size_t Quest::ByteSizeLong() const {
         this->_internal_questdescription());
   }
 
-  // .Protocol.UserGood rewardUserGoods = 11;
+  // .Protocol.UserGood rewardUserGoods = 12;
   if (this->_internal_has_rewardusergoods()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rewardusergoods_);
   }
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 12;
+  // .Protocol.PlayerGood rewardPlayerGoods = 13;
   if (this->_internal_has_rewardplayergoods()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1495,22 +1592,24 @@ size_t Quest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // int32 questRank = 13;
+  // int32 questRank = 14;
   if (this->_internal_questrank() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_questrank());
   }
 
-  // int32 adventurerExp = 14;
+  // int32 adventurerExp = 15;
   if (this->_internal_adventurerexp() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_adventurerexp());
   }
 
-  // int32 guildExp = 15;
+  // int32 guildExp = 16;
   if (this->_internal_guildexp() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_guildexp());
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_guildexp());
   }
 
-  // int32 guildLevel = 16;
+  // int32 guildLevel = 17;
   if (this->_internal_guildlevel() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
@@ -1537,6 +1636,7 @@ void Quest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF
 
   _this->_impl_.rewardseqs_.MergeFrom(from._impl_.rewardseqs_);
   _this->_impl_.needseqs_.MergeFrom(from._impl_.needseqs_);
+  _this->_impl_.beforeneedseqs_.MergeFrom(from._impl_.beforeneedseqs_);
   if (!from._internal_questtitle().empty()) {
     _this->_internal_set_questtitle(from._internal_questtitle());
   }
@@ -1602,6 +1702,7 @@ void Quest::InternalSwap(Quest* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.rewardseqs_.InternalSwap(&other->_impl_.rewardseqs_);
   _impl_.needseqs_.InternalSwap(&other->_impl_.needseqs_);
+  _impl_.beforeneedseqs_.InternalSwap(&other->_impl_.beforeneedseqs_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.questtitle_, lhs_arena,
       &other->_impl_.questtitle_, rhs_arena
@@ -1625,7 +1726,7 @@ void Quest::InternalSwap(Quest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Quest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[4]);
+      file_level_metadata_Quest_2eproto[5]);
 }
 
 // ===================================================================
@@ -1860,7 +1961,7 @@ void CS_AdventurerQuestAddRequest::InternalSwap(CS_AdventurerQuestAddRequest* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_AdventurerQuestAddRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[5]);
+      file_level_metadata_Quest_2eproto[6]);
 }
 
 // ===================================================================
@@ -2095,7 +2196,7 @@ void CS_AdventurerQuestCompleteRequest::InternalSwap(CS_AdventurerQuestCompleteR
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_AdventurerQuestCompleteRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[6]);
+      file_level_metadata_Quest_2eproto[7]);
 }
 
 // ===================================================================
@@ -2330,7 +2431,7 @@ void CS_GuildQuestAddRequest::InternalSwap(CS_GuildQuestAddRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_GuildQuestAddRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[7]);
+      file_level_metadata_Quest_2eproto[8]);
 }
 
 // ===================================================================
@@ -2565,7 +2666,7 @@ void CS_GuildQuestCompleteRequest::InternalSwap(CS_GuildQuestCompleteRequest* ot
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_GuildQuestCompleteRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[8]);
+      file_level_metadata_Quest_2eproto[9]);
 }
 
 // ===================================================================
@@ -2743,7 +2844,7 @@ void CS_UserQuestInfoRequest::InternalSwap(CS_UserQuestInfoRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_UserQuestInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[9]);
+      file_level_metadata_Quest_2eproto[10]);
 }
 
 // ===================================================================
@@ -2967,7 +3068,7 @@ void SC_UserQuestInfoResponse::InternalSwap(SC_UserQuestInfoResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_UserQuestInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[10]);
+      file_level_metadata_Quest_2eproto[11]);
 }
 
 // ===================================================================
@@ -3178,7 +3279,7 @@ void CS_QuestCheckRequest::InternalSwap(CS_QuestCheckRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestCheckRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[11]);
+      file_level_metadata_Quest_2eproto[12]);
 }
 
 // ===================================================================
@@ -3392,7 +3493,7 @@ void SC_QuestCheckResponse::InternalSwap(SC_QuestCheckResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestCheckResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[12]);
+      file_level_metadata_Quest_2eproto[13]);
 }
 
 // ===================================================================
@@ -3627,7 +3728,7 @@ void CS_QuestAddRequest::InternalSwap(CS_QuestAddRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestAddRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[13]);
+      file_level_metadata_Quest_2eproto[14]);
 }
 
 // ===================================================================
@@ -3805,7 +3906,7 @@ void SC_QuestAddResponse::InternalSwap(SC_QuestAddResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestAddResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[14]);
+      file_level_metadata_Quest_2eproto[15]);
 }
 
 // ===================================================================
@@ -4016,7 +4117,7 @@ void CS_QuestCompleteRequest::InternalSwap(CS_QuestCompleteRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_QuestCompleteRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[15]);
+      file_level_metadata_Quest_2eproto[16]);
 }
 
 // ===================================================================
@@ -4194,7 +4295,7 @@ void SC_QuestCompleteResponse::InternalSwap(SC_QuestCompleteResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_QuestCompleteResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[16]);
+      file_level_metadata_Quest_2eproto[17]);
 }
 
 // ===================================================================
@@ -4372,7 +4473,7 @@ void CS_AdventurerQuestInfoRequest::InternalSwap(CS_AdventurerQuestInfoRequest* 
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_AdventurerQuestInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[17]);
+      file_level_metadata_Quest_2eproto[18]);
 }
 
 // ===================================================================
@@ -4596,7 +4697,7 @@ void SC_AdventurerQuestInfoResponse::InternalSwap(SC_AdventurerQuestInfoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_AdventurerQuestInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[18]);
+      file_level_metadata_Quest_2eproto[19]);
 }
 
 // ===================================================================
@@ -4774,7 +4875,7 @@ void CS_GuildQuestInfoRequest::InternalSwap(CS_GuildQuestInfoRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_GuildQuestInfoRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[19]);
+      file_level_metadata_Quest_2eproto[20]);
 }
 
 // ===================================================================
@@ -4998,7 +5099,7 @@ void SC_GuildQuestInfoResponse::InternalSwap(SC_GuildQuestInfoResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_GuildQuestInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Quest_2eproto_getter, &descriptor_table_Quest_2eproto_once,
-      file_level_metadata_Quest_2eproto[20]);
+      file_level_metadata_Quest_2eproto[21]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -5019,6 +5120,10 @@ Arena::CreateMaybeMessage< ::Protocol::Quest_RewardSeqsEntry_DoNotUse >(Arena* a
 template<> PROTOBUF_NOINLINE ::Protocol::Quest_NeedSeqsEntry_DoNotUse*
 Arena::CreateMaybeMessage< ::Protocol::Quest_NeedSeqsEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::Quest_NeedSeqsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::Quest*
 Arena::CreateMaybeMessage< ::Protocol::Quest >(Arena* arena) {

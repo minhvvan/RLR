@@ -73,7 +73,7 @@ bool UNetworkManager::SendCreateCharacterRequest()
 		캐릭터 생성 요청.
 	*/
 	
-	Protocol::CS_NewCharacterPacket packet;
+	Protocol::CS_NewCharacterRequest packet;
 	packet.set_playerseq(GameInstance->GetPlayerSeq());
 
 	TSharedPtr<SendBuffer> sendBuffer = ClientPacketHandler::MakeSendBuffer(packet);

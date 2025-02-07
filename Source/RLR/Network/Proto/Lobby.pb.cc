@@ -21,6 +21,34 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace Protocol {
+PROTOBUF_CONSTEXPR LobbyUser::LobbyUser(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.userseq_)*/0
+  , /*decltype(_impl_.playerseq_)*/0
+  , /*decltype(_impl_.level_)*/0
+  , /*decltype(_impl_.nobilityrank_)*/0
+  , /*decltype(_impl_.mainjob_)*/0
+  , /*decltype(_impl_.subjob_)*/0
+  , /*decltype(_impl_.exp_)*/0
+  , /*decltype(_impl_.adventurerrank_)*/0
+  , /*decltype(_impl_.adventurerexp_)*/0
+  , /*decltype(_impl_.skillpoints_)*/0
+  , /*decltype(_impl_.statpoints_)*/0
+  , /*decltype(_impl_.transx_)*/0
+  , /*decltype(_impl_.transy_)*/0
+  , /*decltype(_impl_.transz_)*/0
+  , /*decltype(_impl_.mapid_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct LobbyUserDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LobbyUserDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LobbyUserDefaultTypeInternal() {}
+  union {
+    LobbyUser _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LobbyUserDefaultTypeInternal _LobbyUser_default_instance_;
 PROTOBUF_CONSTEXPR CS_UserRequestPacket::CS_UserRequestPacket(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.playerseq_)*/0u
@@ -48,25 +76,47 @@ struct SC_UserResponsePacketDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_UserResponsePacketDefaultTypeInternal _SC_UserResponsePacket_default_instance_;
-PROTOBUF_CONSTEXPR CS_NewCharacterPacket::CS_NewCharacterPacket(
+PROTOBUF_CONSTEXPR CS_NewCharacterRequest::CS_NewCharacterRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.playerseq_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct CS_NewCharacterPacketDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR CS_NewCharacterPacketDefaultTypeInternal()
+struct CS_NewCharacterRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CS_NewCharacterRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~CS_NewCharacterPacketDefaultTypeInternal() {}
+  ~CS_NewCharacterRequestDefaultTypeInternal() {}
   union {
-    CS_NewCharacterPacket _instance;
+    CS_NewCharacterRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_NewCharacterPacketDefaultTypeInternal _CS_NewCharacterPacket_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CS_NewCharacterRequestDefaultTypeInternal _CS_NewCharacterRequest_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Lobby_2eproto[3];
+static ::_pb::Metadata file_level_metadata_Lobby_2eproto[4];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Lobby_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Lobby_2eproto = nullptr;
 
 const uint32_t TableStruct_Lobby_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.playerseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.name_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.level_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.nobilityrank_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.mainjob_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.subjob_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.exp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.adventurerrank_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.adventurerexp_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.skillpoints_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.statpoints_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.transx_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.transy_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.transz_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::LobbyUser, _impl_.mapid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_UserRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -83,41 +133,47 @@ const uint32_t TableStruct_Lobby_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pr
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserResponsePacket, _impl_.playerseq_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_UserResponsePacket, _impl_.users_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NewCharacterPacket, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NewCharacterRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NewCharacterPacket, _impl_.playerseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::CS_NewCharacterRequest, _impl_.playerseq_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::Protocol::CS_UserRequestPacket)},
-  { 7, -1, -1, sizeof(::Protocol::SC_UserResponsePacket)},
-  { 15, -1, -1, sizeof(::Protocol::CS_NewCharacterPacket)},
+  { 0, -1, -1, sizeof(::Protocol::LobbyUser)},
+  { 22, -1, -1, sizeof(::Protocol::CS_UserRequestPacket)},
+  { 29, -1, -1, sizeof(::Protocol::SC_UserResponsePacket)},
+  { 37, -1, -1, sizeof(::Protocol::CS_NewCharacterRequest)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
+  &::Protocol::_LobbyUser_default_instance_._instance,
   &::Protocol::_CS_UserRequestPacket_default_instance_._instance,
   &::Protocol::_SC_UserResponsePacket_default_instance_._instance,
-  &::Protocol::_CS_NewCharacterPacket_default_instance_._instance,
+  &::Protocol::_CS_NewCharacterRequest_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Lobby_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013Lobby.proto\022\010Protocol\032\014Struct.proto\")\n"
-  "\024CS_UserRequestPacket\022\021\n\tplayerSeq\030\001 \001(\r"
-  "\"R\n\025SC_UserResponsePacket\022\021\n\tplayerSeq\030\001"
-  " \001(\r\022&\n\005users\030\002 \003(\0132\027.Protocol.UserChara"
-  "cter\"*\n\025CS_NewCharacterPacket\022\021\n\tplayerS"
-  "eq\030\001 \001(\005b\006proto3"
+  "\n\013Lobby.proto\022\010Protocol\"\247\002\n\tLobbyUser\022\017\n"
+  "\007userSeq\030\001 \001(\005\022\021\n\tplayerSeq\030\002 \001(\005\022\014\n\004nam"
+  "e\030\003 \001(\t\022\r\n\005level\030\004 \001(\005\022\024\n\014nobilityRank\030\005"
+  " \001(\005\022\017\n\007mainJob\030\006 \001(\005\022\016\n\006subJob\030\007 \001(\005\022\013\n"
+  "\003exp\030\010 \001(\005\022\026\n\016adventurerRank\030\t \001(\005\022\025\n\rad"
+  "venturerExp\030\n \001(\005\022\023\n\013skillPoints\030\013 \001(\005\022\022"
+  "\n\nstatPoints\030\014 \001(\005\022\016\n\006transX\030\r \001(\002\022\016\n\006tr"
+  "ansY\030\016 \001(\002\022\016\n\006transZ\030\017 \001(\002\022\r\n\005mapId\030\020 \001("
+  "\003\")\n\024CS_UserRequestPacket\022\021\n\tplayerSeq\030\001"
+  " \001(\r\"N\n\025SC_UserResponsePacket\022\021\n\tplayerS"
+  "eq\030\001 \001(\r\022\"\n\005users\030\002 \003(\0132\023.Protocol.Lobby"
+  "User\"+\n\026CS_NewCharacterRequest\022\021\n\tplayer"
+  "Seq\030\001 \001(\005b\006proto3"
   ;
-static const ::_pbi::DescriptorTable* const descriptor_table_Lobby_2eproto_deps[1] = {
-  &::descriptor_table_Struct_2eproto,
-};
 static ::_pbi::once_flag descriptor_table_Lobby_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Lobby_2eproto = {
-    false, false, 216, descriptor_table_protodef_Lobby_2eproto,
+    false, false, 497, descriptor_table_protodef_Lobby_2eproto,
     "Lobby.proto",
-    &descriptor_table_Lobby_2eproto_once, descriptor_table_Lobby_2eproto_deps, 1, 3,
+    &descriptor_table_Lobby_2eproto_once, nullptr, 0, 4,
     schemas, file_default_instances, TableStruct_Lobby_2eproto::offsets,
     file_level_metadata_Lobby_2eproto, file_level_enum_descriptors_Lobby_2eproto,
     file_level_service_descriptors_Lobby_2eproto,
@@ -129,6 +185,619 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_Lobby_2e
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_Lobby_2eproto(&descriptor_table_Lobby_2eproto);
 namespace Protocol {
+
+// ===================================================================
+
+class LobbyUser::_Internal {
+ public:
+};
+
+LobbyUser::LobbyUser(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:Protocol.LobbyUser)
+}
+LobbyUser::LobbyUser(const LobbyUser& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  LobbyUser* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.userseq_){}
+    , decltype(_impl_.playerseq_){}
+    , decltype(_impl_.level_){}
+    , decltype(_impl_.nobilityrank_){}
+    , decltype(_impl_.mainjob_){}
+    , decltype(_impl_.subjob_){}
+    , decltype(_impl_.exp_){}
+    , decltype(_impl_.adventurerrank_){}
+    , decltype(_impl_.adventurerexp_){}
+    , decltype(_impl_.skillpoints_){}
+    , decltype(_impl_.statpoints_){}
+    , decltype(_impl_.transx_){}
+    , decltype(_impl_.transy_){}
+    , decltype(_impl_.transz_){}
+    , decltype(_impl_.mapid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mapid_) -
+    reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+  // @@protoc_insertion_point(copy_constructor:Protocol.LobbyUser)
+}
+
+inline void LobbyUser::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.userseq_){0}
+    , decltype(_impl_.playerseq_){0}
+    , decltype(_impl_.level_){0}
+    , decltype(_impl_.nobilityrank_){0}
+    , decltype(_impl_.mainjob_){0}
+    , decltype(_impl_.subjob_){0}
+    , decltype(_impl_.exp_){0}
+    , decltype(_impl_.adventurerrank_){0}
+    , decltype(_impl_.adventurerexp_){0}
+    , decltype(_impl_.skillpoints_){0}
+    , decltype(_impl_.statpoints_){0}
+    , decltype(_impl_.transx_){0}
+    , decltype(_impl_.transy_){0}
+    , decltype(_impl_.transz_){0}
+    , decltype(_impl_.mapid_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+LobbyUser::~LobbyUser() {
+  // @@protoc_insertion_point(destructor:Protocol.LobbyUser)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LobbyUser::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.name_.Destroy();
+}
+
+void LobbyUser::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void LobbyUser::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.LobbyUser)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.name_.ClearToEmpty();
+  ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.mapid_) -
+      reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.mapid_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* LobbyUser::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 userSeq = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.userseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 playerSeq = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.playerseq_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string name = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.LobbyUser.name"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 level = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 nobilityRank = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.nobilityrank_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 mainJob = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.mainjob_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 subJob = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.subjob_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 exp = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          _impl_.exp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 adventurerRank = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          _impl_.adventurerrank_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 adventurerExp = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _impl_.adventurerexp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 skillPoints = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _impl_.skillpoints_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 statPoints = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          _impl_.statpoints_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 109)) {
+          _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transY = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 117)) {
+          _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float transZ = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 125)) {
+          _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 mapId = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          _impl_.mapid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LobbyUser::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.LobbyUser)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_userseq(), target);
+  }
+
+  // int32 playerSeq = 2;
+  if (this->_internal_playerseq() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_playerseq(), target);
+  }
+
+  // string name = 3;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.LobbyUser.name");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_name(), target);
+  }
+
+  // int32 level = 4;
+  if (this->_internal_level() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_level(), target);
+  }
+
+  // int32 nobilityRank = 5;
+  if (this->_internal_nobilityrank() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_nobilityrank(), target);
+  }
+
+  // int32 mainJob = 6;
+  if (this->_internal_mainjob() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_mainjob(), target);
+  }
+
+  // int32 subJob = 7;
+  if (this->_internal_subjob() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_subjob(), target);
+  }
+
+  // int32 exp = 8;
+  if (this->_internal_exp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(8, this->_internal_exp(), target);
+  }
+
+  // int32 adventurerRank = 9;
+  if (this->_internal_adventurerrank() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(9, this->_internal_adventurerrank(), target);
+  }
+
+  // int32 adventurerExp = 10;
+  if (this->_internal_adventurerexp() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_adventurerexp(), target);
+  }
+
+  // int32 skillPoints = 11;
+  if (this->_internal_skillpoints() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(11, this->_internal_skillpoints(), target);
+  }
+
+  // int32 statPoints = 12;
+  if (this->_internal_statpoints() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(12, this->_internal_statpoints(), target);
+  }
+
+  // float transX = 13;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(13, this->_internal_transx(), target);
+  }
+
+  // float transY = 14;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(14, this->_internal_transy(), target);
+  }
+
+  // float transZ = 15;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(15, this->_internal_transz(), target);
+  }
+
+  // int64 mapId = 16;
+  if (this->_internal_mapid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(16, this->_internal_mapid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.LobbyUser)
+  return target;
+}
+
+size_t LobbyUser::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.LobbyUser)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 3;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // int32 userSeq = 1;
+  if (this->_internal_userseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_userseq());
+  }
+
+  // int32 playerSeq = 2;
+  if (this->_internal_playerseq() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_playerseq());
+  }
+
+  // int32 level = 4;
+  if (this->_internal_level() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_level());
+  }
+
+  // int32 nobilityRank = 5;
+  if (this->_internal_nobilityrank() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_nobilityrank());
+  }
+
+  // int32 mainJob = 6;
+  if (this->_internal_mainjob() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_mainjob());
+  }
+
+  // int32 subJob = 7;
+  if (this->_internal_subjob() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_subjob());
+  }
+
+  // int32 exp = 8;
+  if (this->_internal_exp() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_exp());
+  }
+
+  // int32 adventurerRank = 9;
+  if (this->_internal_adventurerrank() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_adventurerrank());
+  }
+
+  // int32 adventurerExp = 10;
+  if (this->_internal_adventurerexp() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_adventurerexp());
+  }
+
+  // int32 skillPoints = 11;
+  if (this->_internal_skillpoints() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_skillpoints());
+  }
+
+  // int32 statPoints = 12;
+  if (this->_internal_statpoints() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_statpoints());
+  }
+
+  // float transX = 13;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = this->_internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float transY = 14;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = this->_internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float transZ = 15;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = this->_internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    total_size += 1 + 4;
+  }
+
+  // int64 mapId = 16;
+  if (this->_internal_mapid() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int64Size(
+        this->_internal_mapid());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LobbyUser::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    LobbyUser::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LobbyUser::GetClassData() const { return &_class_data_; }
+
+
+void LobbyUser::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<LobbyUser*>(&to_msg);
+  auto& from = static_cast<const LobbyUser&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.LobbyUser)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _this->_internal_set_name(from._internal_name());
+  }
+  if (from._internal_userseq() != 0) {
+    _this->_internal_set_userseq(from._internal_userseq());
+  }
+  if (from._internal_playerseq() != 0) {
+    _this->_internal_set_playerseq(from._internal_playerseq());
+  }
+  if (from._internal_level() != 0) {
+    _this->_internal_set_level(from._internal_level());
+  }
+  if (from._internal_nobilityrank() != 0) {
+    _this->_internal_set_nobilityrank(from._internal_nobilityrank());
+  }
+  if (from._internal_mainjob() != 0) {
+    _this->_internal_set_mainjob(from._internal_mainjob());
+  }
+  if (from._internal_subjob() != 0) {
+    _this->_internal_set_subjob(from._internal_subjob());
+  }
+  if (from._internal_exp() != 0) {
+    _this->_internal_set_exp(from._internal_exp());
+  }
+  if (from._internal_adventurerrank() != 0) {
+    _this->_internal_set_adventurerrank(from._internal_adventurerrank());
+  }
+  if (from._internal_adventurerexp() != 0) {
+    _this->_internal_set_adventurerexp(from._internal_adventurerexp());
+  }
+  if (from._internal_skillpoints() != 0) {
+    _this->_internal_set_skillpoints(from._internal_skillpoints());
+  }
+  if (from._internal_statpoints() != 0) {
+    _this->_internal_set_statpoints(from._internal_statpoints());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transx = from._internal_transx();
+  uint32_t raw_transx;
+  memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
+  if (raw_transx != 0) {
+    _this->_internal_set_transx(from._internal_transx());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transy = from._internal_transy();
+  uint32_t raw_transy;
+  memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
+  if (raw_transy != 0) {
+    _this->_internal_set_transy(from._internal_transy());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_transz = from._internal_transz();
+  uint32_t raw_transz;
+  memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
+  if (raw_transz != 0) {
+    _this->_internal_set_transz(from._internal_transz());
+  }
+  if (from._internal_mapid() != 0) {
+    _this->_internal_set_mapid(from._internal_mapid());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LobbyUser::CopyFrom(const LobbyUser& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.LobbyUser)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LobbyUser::IsInitialized() const {
+  return true;
+}
+
+void LobbyUser::InternalSwap(LobbyUser* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(LobbyUser, _impl_.mapid_)
+      + sizeof(LobbyUser::_impl_.mapid_)
+      - PROTOBUF_FIELD_OFFSET(LobbyUser, _impl_.userseq_)>(
+          reinterpret_cast<char*>(&_impl_.userseq_),
+          reinterpret_cast<char*>(&other->_impl_.userseq_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata LobbyUser::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Lobby_2eproto_getter, &descriptor_table_Lobby_2eproto_once,
+      file_level_metadata_Lobby_2eproto[0]);
+}
 
 // ===================================================================
 
@@ -305,7 +974,7 @@ void CS_UserRequestPacket::InternalSwap(CS_UserRequestPacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CS_UserRequestPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Lobby_2eproto_getter, &descriptor_table_Lobby_2eproto_once,
-      file_level_metadata_Lobby_2eproto[0]);
+      file_level_metadata_Lobby_2eproto[1]);
 }
 
 // ===================================================================
@@ -314,9 +983,6 @@ class SC_UserResponsePacket::_Internal {
  public:
 };
 
-void SC_UserResponsePacket::clear_users() {
-  _impl_.users_.Clear();
-}
 SC_UserResponsePacket::SC_UserResponsePacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -390,7 +1056,7 @@ const char* SC_UserResponsePacket::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
-      // repeated .Protocol.UserCharacter users = 2;
+      // repeated .Protocol.LobbyUser users = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
@@ -438,7 +1104,7 @@ uint8_t* SC_UserResponsePacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_playerseq(), target);
   }
 
-  // repeated .Protocol.UserCharacter users = 2;
+  // repeated .Protocol.LobbyUser users = 2;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_users_size()); i < n; i++) {
     const auto& repfield = this->_internal_users(i);
@@ -462,7 +1128,7 @@ size_t SC_UserResponsePacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.UserCharacter users = 2;
+  // repeated .Protocol.LobbyUser users = 2;
   total_size += 1UL * this->_internal_users_size();
   for (const auto& msg : this->_impl_.users_) {
     total_size +=
@@ -520,34 +1186,34 @@ void SC_UserResponsePacket::InternalSwap(SC_UserResponsePacket* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SC_UserResponsePacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Lobby_2eproto_getter, &descriptor_table_Lobby_2eproto_once,
-      file_level_metadata_Lobby_2eproto[1]);
+      file_level_metadata_Lobby_2eproto[2]);
 }
 
 // ===================================================================
 
-class CS_NewCharacterPacket::_Internal {
+class CS_NewCharacterRequest::_Internal {
  public:
 };
 
-CS_NewCharacterPacket::CS_NewCharacterPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+CS_NewCharacterRequest::CS_NewCharacterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:Protocol.CS_NewCharacterPacket)
+  // @@protoc_insertion_point(arena_constructor:Protocol.CS_NewCharacterRequest)
 }
-CS_NewCharacterPacket::CS_NewCharacterPacket(const CS_NewCharacterPacket& from)
+CS_NewCharacterRequest::CS_NewCharacterRequest(const CS_NewCharacterRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  CS_NewCharacterPacket* const _this = this; (void)_this;
+  CS_NewCharacterRequest* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.playerseq_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.playerseq_ = from._impl_.playerseq_;
-  // @@protoc_insertion_point(copy_constructor:Protocol.CS_NewCharacterPacket)
+  // @@protoc_insertion_point(copy_constructor:Protocol.CS_NewCharacterRequest)
 }
 
-inline void CS_NewCharacterPacket::SharedCtor(
+inline void CS_NewCharacterRequest::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -557,8 +1223,8 @@ inline void CS_NewCharacterPacket::SharedCtor(
   };
 }
 
-CS_NewCharacterPacket::~CS_NewCharacterPacket() {
-  // @@protoc_insertion_point(destructor:Protocol.CS_NewCharacterPacket)
+CS_NewCharacterRequest::~CS_NewCharacterRequest() {
+  // @@protoc_insertion_point(destructor:Protocol.CS_NewCharacterRequest)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -566,16 +1232,16 @@ CS_NewCharacterPacket::~CS_NewCharacterPacket() {
   SharedDtor();
 }
 
-inline void CS_NewCharacterPacket::SharedDtor() {
+inline void CS_NewCharacterRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void CS_NewCharacterPacket::SetCachedSize(int size) const {
+void CS_NewCharacterRequest::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void CS_NewCharacterPacket::Clear() {
-// @@protoc_insertion_point(message_clear_start:Protocol.CS_NewCharacterPacket)
+void CS_NewCharacterRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:Protocol.CS_NewCharacterRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -584,7 +1250,7 @@ void CS_NewCharacterPacket::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CS_NewCharacterPacket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* CS_NewCharacterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -621,9 +1287,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* CS_NewCharacterPacket::_InternalSerialize(
+uint8_t* CS_NewCharacterRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_NewCharacterPacket)
+  // @@protoc_insertion_point(serialize_to_array_start:Protocol.CS_NewCharacterRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -637,12 +1303,12 @@ uint8_t* CS_NewCharacterPacket::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_NewCharacterPacket)
+  // @@protoc_insertion_point(serialize_to_array_end:Protocol.CS_NewCharacterRequest)
   return target;
 }
 
-size_t CS_NewCharacterPacket::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_NewCharacterPacket)
+size_t CS_NewCharacterRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Protocol.CS_NewCharacterRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -657,17 +1323,17 @@ size_t CS_NewCharacterPacket::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_NewCharacterPacket::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CS_NewCharacterRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    CS_NewCharacterPacket::MergeImpl
+    CS_NewCharacterRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_NewCharacterPacket::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CS_NewCharacterRequest::GetClassData() const { return &_class_data_; }
 
 
-void CS_NewCharacterPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<CS_NewCharacterPacket*>(&to_msg);
-  auto& from = static_cast<const CS_NewCharacterPacket&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_NewCharacterPacket)
+void CS_NewCharacterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CS_NewCharacterRequest*>(&to_msg);
+  auto& from = static_cast<const CS_NewCharacterRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:Protocol.CS_NewCharacterRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -678,32 +1344,36 @@ void CS_NewCharacterPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void CS_NewCharacterPacket::CopyFrom(const CS_NewCharacterPacket& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_NewCharacterPacket)
+void CS_NewCharacterRequest::CopyFrom(const CS_NewCharacterRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Protocol.CS_NewCharacterRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool CS_NewCharacterPacket::IsInitialized() const {
+bool CS_NewCharacterRequest::IsInitialized() const {
   return true;
 }
 
-void CS_NewCharacterPacket::InternalSwap(CS_NewCharacterPacket* other) {
+void CS_NewCharacterRequest::InternalSwap(CS_NewCharacterRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_.playerseq_, other->_impl_.playerseq_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata CS_NewCharacterPacket::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata CS_NewCharacterRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Lobby_2eproto_getter, &descriptor_table_Lobby_2eproto_once,
-      file_level_metadata_Lobby_2eproto[2]);
+      file_level_metadata_Lobby_2eproto[3]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::Protocol::LobbyUser*
+Arena::CreateMaybeMessage< ::Protocol::LobbyUser >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::LobbyUser >(arena);
+}
 template<> PROTOBUF_NOINLINE ::Protocol::CS_UserRequestPacket*
 Arena::CreateMaybeMessage< ::Protocol::CS_UserRequestPacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::CS_UserRequestPacket >(arena);
@@ -712,9 +1382,9 @@ template<> PROTOBUF_NOINLINE ::Protocol::SC_UserResponsePacket*
 Arena::CreateMaybeMessage< ::Protocol::SC_UserResponsePacket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::SC_UserResponsePacket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Protocol::CS_NewCharacterPacket*
-Arena::CreateMaybeMessage< ::Protocol::CS_NewCharacterPacket >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Protocol::CS_NewCharacterPacket >(arena);
+template<> PROTOBUF_NOINLINE ::Protocol::CS_NewCharacterRequest*
+Arena::CreateMaybeMessage< ::Protocol::CS_NewCharacterRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::CS_NewCharacterRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

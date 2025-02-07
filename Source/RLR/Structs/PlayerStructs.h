@@ -6,6 +6,7 @@
 #include "Network/Proto/Struct.pb.h"
 #include "Network/Proto/User_2.pb.h"
 #include "Network/Proto/Player_2.pb.h"
+#include "Network/Proto/Lobby.pb.h"
 #include "GameManager/LiteralManager.h"
 #include "PlayerStructs.generated.h"
 
@@ -261,7 +262,7 @@ struct FUserCharacter
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	FVector Transform;
 	void MakeUserCharacter(Protocol::UserCharacter Data);
-
+	void MakeUserCharacterToLobby(Protocol::LobbyUser Data);
 	/*임시 및 테스트 용*/
 	Protocol::UserCharacter UserCharacterData;
 

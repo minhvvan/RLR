@@ -333,6 +333,7 @@ void UStorageManager::SendPktMoveItemPlayerStorageToInventory(const FItemData& I
 	//=================================================================
 }
 
+
 void UStorageManager::SendPktSwapStorageItem(const FItemData& PlayerStorageItem, const FItemData& UserStorageItem, int PlayerStorageIndex, int UserStorageIndex)
 {
 	//TODO: SendPkt ItemSwap(PlayerStorage <-> UserStorage)
@@ -354,3 +355,4 @@ void UStorageManager::SendPktSwapStorageItem(const FItemData& PlayerStorageItem,
 	SetUserStorageItem(UserStorageUI->GetCurrentPage(), UserStorageIndex, PlayerStorageItem);
 	SetPlayerStorageItem(playerStorageUI->GetCurrentPage(), PlayerStorageIndex, tempItem);
 }
+

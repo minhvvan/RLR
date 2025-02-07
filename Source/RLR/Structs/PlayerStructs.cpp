@@ -4,6 +4,7 @@
 #include "Structs/PlayerStructs.h"
 #include "Network/Proto/Packet.pb.h"
 
+
 void FSetStatus::MakeSetStatus(Protocol::UserSetStatus Data)
 {
     UserHP = Data.userhp();
@@ -63,3 +64,18 @@ void FUserCharacter::MakeUserCharacter(Protocol::UserCharacter Data)
     Transform = FVector(Data.transx(), Data.transy(), Data.transz());
 }
 
+void FUserCharacter::MakeUserCharacterToLobby(Protocol::LobbyUser Data)
+{
+    UserSeq = Data.userseq();
+    NickName = UTF8_TO_TCHAR(Data.name().c_str());
+    Level = Data.level();
+    NobilityRank = Data.nobilityrank();
+
+    MainJob = (ECharacterMainJobType)Data.mainjob();
+    SubJob = (ECharacterSubJobType)Data.subjob();
+
+    Exp = Data.exp();
+    AdventureRank = Data.adventurerrank();
+
+   
+}

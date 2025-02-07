@@ -84,6 +84,9 @@ extern CS_UserQuestInfoRequestDefaultTypeInternal _CS_UserQuestInfoRequest_defau
 class Quest;
 struct QuestDefaultTypeInternal;
 extern QuestDefaultTypeInternal _Quest_default_instance_;
+class Quest_BeforeNeedSeqsEntry_DoNotUse;
+struct Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal;
+extern Quest_BeforeNeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_BeforeNeedSeqsEntry_DoNotUse_default_instance_;
 class Quest_NeedSeqsEntry_DoNotUse;
 struct Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal;
 extern Quest_NeedSeqsEntry_DoNotUseDefaultTypeInternal _Quest_NeedSeqsEntry_DoNotUse_default_instance_;
@@ -127,6 +130,7 @@ template<> ::Protocol::CS_QuestCheckRequest* Arena::CreateMaybeMessage<::Protoco
 template<> ::Protocol::CS_QuestCompleteRequest* Arena::CreateMaybeMessage<::Protocol::CS_QuestCompleteRequest>(Arena*);
 template<> ::Protocol::CS_UserQuestInfoRequest* Arena::CreateMaybeMessage<::Protocol::CS_UserQuestInfoRequest>(Arena*);
 template<> ::Protocol::Quest* Arena::CreateMaybeMessage<::Protocol::Quest>(Arena*);
+template<> ::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_BeforeNeedSeqsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Quest_NeedSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_NeedSeqsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::Quest_RewardSeqsEntry_DoNotUse* Arena::CreateMaybeMessage<::Protocol::Quest_RewardSeqsEntry_DoNotUse>(Arena*);
 template<> ::Protocol::SC_AdventurerQuestInfoResponse* Arena::CreateMaybeMessage<::Protocol::SC_AdventurerQuestInfoResponse>(Arena*);
@@ -381,6 +385,32 @@ public:
 
 // -------------------------------------------------------------------
 
+class Quest_BeforeNeedSeqsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_BeforeNeedSeqsEntry_DoNotUse, 
+    std::string, ::Protocol::Values,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Quest_BeforeNeedSeqsEntry_DoNotUse, 
+    std::string, ::Protocol::Values,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
+  Quest_BeforeNeedSeqsEntry_DoNotUse();
+  explicit PROTOBUF_CONSTEXPR Quest_BeforeNeedSeqsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Quest_BeforeNeedSeqsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Quest_BeforeNeedSeqsEntry_DoNotUse& other);
+  static const Quest_BeforeNeedSeqsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Quest_BeforeNeedSeqsEntry_DoNotUse*>(&_Quest_BeforeNeedSeqsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "Protocol.Quest.BeforeNeedSeqsEntry.key");
+ }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  friend struct ::TableStruct_Quest_2eproto;
+};
+
+// -------------------------------------------------------------------
+
 class Quest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.Quest) */ {
  public:
@@ -429,7 +459,7 @@ class Quest final :
                &_Quest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(Quest& a, Quest& b) {
     a.Swap(&b);
@@ -507,20 +537,21 @@ class Quest final :
   enum : int {
     kRewardSeqsFieldNumber = 9,
     kNeedSeqsFieldNumber = 10,
+    kBeforeNeedSeqsFieldNumber = 11,
     kQuestTitleFieldNumber = 3,
     kQuestTextFieldNumber = 4,
     kQuestDescriptionFieldNumber = 5,
-    kRewardUserGoodsFieldNumber = 11,
-    kRewardPlayerGoodsFieldNumber = 12,
+    kRewardUserGoodsFieldNumber = 12,
+    kRewardPlayerGoodsFieldNumber = 13,
     kQuestSeqFieldNumber = 1,
     kNpcSeqFieldNumber = 2,
     kQuestKindFieldNumber = 6,
     kIsProgressFieldNumber = 7,
     kIsClearFieldNumber = 8,
-    kQuestRankFieldNumber = 13,
-    kAdventurerExpFieldNumber = 14,
-    kGuildExpFieldNumber = 15,
-    kGuildLevelFieldNumber = 16,
+    kQuestRankFieldNumber = 14,
+    kAdventurerExpFieldNumber = 15,
+    kGuildExpFieldNumber = 16,
+    kGuildLevelFieldNumber = 17,
   };
   // map<string, .Protocol.Values> rewardSeqs = 9;
   int rewardseqs_size() const;
@@ -555,6 +586,23 @@ class Quest final :
       needseqs() const;
   ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
       mutable_needseqs();
+
+  // map<string, .Protocol.Values> beforeNeedSeqs = 11;
+  int beforeneedseqs_size() const;
+  private:
+  int _internal_beforeneedseqs_size() const;
+  public:
+  void clear_beforeneedseqs();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >&
+      _internal_beforeneedseqs() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
+      _internal_mutable_beforeneedseqs();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >&
+      beforeneedseqs() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
+      mutable_beforeneedseqs();
 
   // string questTitle = 3;
   void clear_questtitle();
@@ -598,7 +646,7 @@ class Quest final :
   std::string* _internal_mutable_questdescription();
   public:
 
-  // .Protocol.UserGood rewardUserGoods = 11;
+  // .Protocol.UserGood rewardUserGoods = 12;
   bool has_rewardusergoods() const;
   private:
   bool _internal_has_rewardusergoods() const;
@@ -616,7 +664,7 @@ class Quest final :
       ::Protocol::UserGood* rewardusergoods);
   ::Protocol::UserGood* unsafe_arena_release_rewardusergoods();
 
-  // .Protocol.PlayerGood rewardPlayerGoods = 12;
+  // .Protocol.PlayerGood rewardPlayerGoods = 13;
   bool has_rewardplayergoods() const;
   private:
   bool _internal_has_rewardplayergoods() const;
@@ -679,7 +727,7 @@ class Quest final :
   void _internal_set_isclear(bool value);
   public:
 
-  // int32 questRank = 13;
+  // int32 questRank = 14;
   void clear_questrank();
   int32_t questrank() const;
   void set_questrank(int32_t value);
@@ -688,7 +736,7 @@ class Quest final :
   void _internal_set_questrank(int32_t value);
   public:
 
-  // int32 adventurerExp = 14;
+  // int32 adventurerExp = 15;
   void clear_adventurerexp();
   int32_t adventurerexp() const;
   void set_adventurerexp(int32_t value);
@@ -697,7 +745,7 @@ class Quest final :
   void _internal_set_adventurerexp(int32_t value);
   public:
 
-  // int32 guildExp = 15;
+  // int32 guildExp = 16;
   void clear_guildexp();
   int32_t guildexp() const;
   void set_guildexp(int32_t value);
@@ -706,7 +754,7 @@ class Quest final :
   void _internal_set_guildexp(int32_t value);
   public:
 
-  // int32 guildLevel = 16;
+  // int32 guildLevel = 17;
   void clear_guildlevel();
   int32_t guildlevel() const;
   void set_guildlevel(int32_t value);
@@ -733,6 +781,11 @@ class Quest final :
         std::string, ::Protocol::Values,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> needseqs_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+        Quest_BeforeNeedSeqsEntry_DoNotUse,
+        std::string, ::Protocol::Values,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> beforeneedseqs_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questtitle_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questtext_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr questdescription_;
@@ -802,7 +855,7 @@ class CS_AdventurerQuestAddRequest final :
                &_CS_AdventurerQuestAddRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(CS_AdventurerQuestAddRequest& a, CS_AdventurerQuestAddRequest& b) {
     a.Swap(&b);
@@ -972,7 +1025,7 @@ class CS_AdventurerQuestCompleteRequest final :
                &_CS_AdventurerQuestCompleteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(CS_AdventurerQuestCompleteRequest& a, CS_AdventurerQuestCompleteRequest& b) {
     a.Swap(&b);
@@ -1142,7 +1195,7 @@ class CS_GuildQuestAddRequest final :
                &_CS_GuildQuestAddRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(CS_GuildQuestAddRequest& a, CS_GuildQuestAddRequest& b) {
     a.Swap(&b);
@@ -1312,7 +1365,7 @@ class CS_GuildQuestCompleteRequest final :
                &_CS_GuildQuestCompleteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(CS_GuildQuestCompleteRequest& a, CS_GuildQuestCompleteRequest& b) {
     a.Swap(&b);
@@ -1482,7 +1535,7 @@ class CS_UserQuestInfoRequest final :
                &_CS_UserQuestInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(CS_UserQuestInfoRequest& a, CS_UserQuestInfoRequest& b) {
     a.Swap(&b);
@@ -1630,7 +1683,7 @@ class SC_UserQuestInfoResponse final :
                &_SC_UserQuestInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(SC_UserQuestInfoResponse& a, SC_UserQuestInfoResponse& b) {
     a.Swap(&b);
@@ -1798,7 +1851,7 @@ class CS_QuestCheckRequest final :
                &_CS_QuestCheckRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(CS_QuestCheckRequest& a, CS_QuestCheckRequest& b) {
     a.Swap(&b);
@@ -1957,7 +2010,7 @@ class SC_QuestCheckResponse final :
                &_SC_QuestCheckResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(SC_QuestCheckResponse& a, SC_QuestCheckResponse& b) {
     a.Swap(&b);
@@ -2116,7 +2169,7 @@ class CS_QuestAddRequest final :
                &_CS_QuestAddRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(CS_QuestAddRequest& a, CS_QuestAddRequest& b) {
     a.Swap(&b);
@@ -2286,7 +2339,7 @@ class SC_QuestAddResponse final :
                &_SC_QuestAddResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(SC_QuestAddResponse& a, SC_QuestAddResponse& b) {
     a.Swap(&b);
@@ -2434,7 +2487,7 @@ class CS_QuestCompleteRequest final :
                &_CS_QuestCompleteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(CS_QuestCompleteRequest& a, CS_QuestCompleteRequest& b) {
     a.Swap(&b);
@@ -2593,7 +2646,7 @@ class SC_QuestCompleteResponse final :
                &_SC_QuestCompleteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(SC_QuestCompleteResponse& a, SC_QuestCompleteResponse& b) {
     a.Swap(&b);
@@ -2741,7 +2794,7 @@ class CS_AdventurerQuestInfoRequest final :
                &_CS_AdventurerQuestInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(CS_AdventurerQuestInfoRequest& a, CS_AdventurerQuestInfoRequest& b) {
     a.Swap(&b);
@@ -2889,7 +2942,7 @@ class SC_AdventurerQuestInfoResponse final :
                &_SC_AdventurerQuestInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(SC_AdventurerQuestInfoResponse& a, SC_AdventurerQuestInfoResponse& b) {
     a.Swap(&b);
@@ -3057,7 +3110,7 @@ class CS_GuildQuestInfoRequest final :
                &_CS_GuildQuestInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(CS_GuildQuestInfoRequest& a, CS_GuildQuestInfoRequest& b) {
     a.Swap(&b);
@@ -3205,7 +3258,7 @@ class SC_GuildQuestInfoResponse final :
                &_SC_GuildQuestInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(SC_GuildQuestInfoResponse& a, SC_GuildQuestInfoResponse& b) {
     a.Swap(&b);
@@ -3364,6 +3417,8 @@ Values::mutable_values() {
   // @@protoc_insertion_point(field_mutable_map:Protocol.Values.values)
   return _internal_mutable_values();
 }
+
+// -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
 
@@ -3681,7 +3736,36 @@ Quest::mutable_needseqs() {
   return _internal_mutable_needseqs();
 }
 
-// .Protocol.UserGood rewardUserGoods = 11;
+// map<string, .Protocol.Values> beforeNeedSeqs = 11;
+inline int Quest::_internal_beforeneedseqs_size() const {
+  return _impl_.beforeneedseqs_.size();
+}
+inline int Quest::beforeneedseqs_size() const {
+  return _internal_beforeneedseqs_size();
+}
+inline void Quest::clear_beforeneedseqs() {
+  _impl_.beforeneedseqs_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >&
+Quest::_internal_beforeneedseqs() const {
+  return _impl_.beforeneedseqs_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >&
+Quest::beforeneedseqs() const {
+  // @@protoc_insertion_point(field_map:Protocol.Quest.beforeNeedSeqs)
+  return _internal_beforeneedseqs();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
+Quest::_internal_mutable_beforeneedseqs() {
+  return _impl_.beforeneedseqs_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::Values >*
+Quest::mutable_beforeneedseqs() {
+  // @@protoc_insertion_point(field_mutable_map:Protocol.Quest.beforeNeedSeqs)
+  return _internal_mutable_beforeneedseqs();
+}
+
+// .Protocol.UserGood rewardUserGoods = 12;
 inline bool Quest::_internal_has_rewardusergoods() const {
   return this != internal_default_instance() && _impl_.rewardusergoods_ != nullptr;
 }
@@ -3766,7 +3850,7 @@ inline void Quest::set_allocated_rewardusergoods(::Protocol::UserGood* rewarduse
   // @@protoc_insertion_point(field_set_allocated:Protocol.Quest.rewardUserGoods)
 }
 
-// .Protocol.PlayerGood rewardPlayerGoods = 12;
+// .Protocol.PlayerGood rewardPlayerGoods = 13;
 inline bool Quest::_internal_has_rewardplayergoods() const {
   return this != internal_default_instance() && _impl_.rewardplayergoods_ != nullptr;
 }
@@ -3851,7 +3935,7 @@ inline void Quest::set_allocated_rewardplayergoods(::Protocol::PlayerGood* rewar
   // @@protoc_insertion_point(field_set_allocated:Protocol.Quest.rewardPlayerGoods)
 }
 
-// int32 questRank = 13;
+// int32 questRank = 14;
 inline void Quest::clear_questrank() {
   _impl_.questrank_ = 0;
 }
@@ -3871,7 +3955,7 @@ inline void Quest::set_questrank(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Quest.questRank)
 }
 
-// int32 adventurerExp = 14;
+// int32 adventurerExp = 15;
 inline void Quest::clear_adventurerexp() {
   _impl_.adventurerexp_ = 0;
 }
@@ -3891,7 +3975,7 @@ inline void Quest::set_adventurerexp(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Quest.adventurerExp)
 }
 
-// int32 guildExp = 15;
+// int32 guildExp = 16;
 inline void Quest::clear_guildexp() {
   _impl_.guildexp_ = 0;
 }
@@ -3911,7 +3995,7 @@ inline void Quest::set_guildexp(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.Quest.guildExp)
 }
 
-// int32 guildLevel = 16;
+// int32 guildLevel = 17;
 inline void Quest::clear_guildlevel() {
   _impl_.guildlevel_ = 0;
 }
@@ -4848,6 +4932,8 @@ inline void SC_GuildQuestInfoResponse::set_allocated_quests(::Protocol::Quest* q
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
