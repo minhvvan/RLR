@@ -71,6 +71,8 @@ public:
 
 	void OpenBundlePurchase(const FItemData& item);
 
+	void UpdatePrice();
+
 protected:
 	UFUNCTION()
 	void OnBuyClicked();
@@ -93,7 +95,6 @@ protected:
 	void UpdatePage();
 	void UpdateCurrentPageText();
 	void UpdateLastPageText();
-	void UpdatePrice();
 	void UpdateCart();
 
 	UNPCCartSlot* GetCartSlotWidget(int idx);

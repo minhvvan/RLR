@@ -43,6 +43,9 @@ public:
 	UFUNCTION()
 	void AddToCart(const FItemData& newItem, int32 InventorySlotIndex);
 	void RemoveFromCart(const FItemData& item);
+	void UpdatePrice();
+
+	void OpenBundleSell(const FItemData& item, int32 InventorySlotIndex);
 
 protected:
 	UFUNCTION()
@@ -53,7 +56,6 @@ protected:
 
 	void UpdatePage();
 	UNPCShopItemSlot* GetItemSlotWidget(int idx);
-	void UpdatePrice();
 
 	TArray<TPair<int32, FItemData>> Cart;
 	int SellPrice = 0;

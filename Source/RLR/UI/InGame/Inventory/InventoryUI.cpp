@@ -63,12 +63,40 @@ void UInventoryUI::Init()
 		NewSlot->OnSlotClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotClicked);
 		NewSlot->OnSlotShiftClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftClicked);
 		NewSlot->OnSlotAltClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotAltClicked);
+		NewSlot->OnSlotShiftRightClicked.AddUniqueDynamic(InventoryManager, &UInventoryManager::OnInventorySlotShiftRightClicked);
 		InventorySlotList[Count] = NewSlot;
 		NewSlot->SlotIndex = Count;
 		NewSlot->Inventory = this;
 		InventoryGridPanel->AddChildToGrid(NewSlot, Count/MaxColumm, Count % MaxColumm);
 	}
 
+}
+
+void UInventoryUI::InitGoods()
+{
+	UPlayerManager* PlayerManager = GetPlayerManager();
+	int TotalMoney = PlayerManager->GetPlayerGood().TotalMoney;
+	int32 platinumUnit = 1'000'000;
+	int32 goldUnit = 10'000;
+	int32 silverUnit = 1'00;
+
+	int32 platinum = TotalMoney / platinumUnit;
+	int32 gold = (TotalMoney % platinumUnit) / goldUnit;
+	int32 silver = (TotalMoney % goldUnit) / silverUnit;
+	int32 copper = TotalMoney % silverUnit;
+
+	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
+	GameInstance->GetInventoryManager()->SetGold(gold);
+	GameInstance->GetInventoryManager()->SetSilver(silver);
+	GameInstance->GetInventoryManager()->SetCopper(copper);
+	FText copperText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetCopper()));
+	CopperText->SetText(copperText);
+	FText silverText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetSilver()));
+	SilberText->SetText(silverText);
+	FText goldText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetGold()));
+	GoldText->SetText(goldText);
+	FText platinumText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetPlatinum()));
+	PlatinumText->SetText(platinumText);
 }
 
 void UInventoryUI::RefreshUI()
@@ -108,29 +136,7 @@ void UInventoryUI::RefreshUI()
 
 void UInventoryUI::RefreshPlayerGoods()
 {
-	UPlayerManager* PlayerManager = GetPlayerManager();
-	int TotalMoney = PlayerManager->GetPlayerGood().TotalMoney;
-	int32 platinumUnit = 1'000'000;
-	int32 goldUnit = 10'000;
-	int32 silverUnit = 1'00;
-
-	int32 platinum = TotalMoney / platinumUnit;
-	int32 gold = (TotalMoney % platinumUnit) / goldUnit;
-	int32 silver = (TotalMoney % goldUnit) / silverUnit;
-	int32 copper = TotalMoney % silverUnit;
-
-	GameInstance->GetInventoryManager()->SetPlatinum(platinum);
-	GameInstance->GetInventoryManager()->SetGold(gold);
-	GameInstance->GetInventoryManager()->SetSilver(silver);
-	GameInstance->GetInventoryManager()->SetCopper(copper);
-	FText copperText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetCopper()));
-	CopperText->SetText(copperText);
-	FText silverText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetSilver()));
-	SilberText->SetText(silverText);
-	FText goldText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetGold()));
-	GoldText->SetText(goldText);
-	FText platinumText = FText::FromString(FString::FromInt(GameInstance->GetInventoryManager()->GetPlatinum()));
-	PlatinumText->SetText(platinumText);
+	InitGoods();
 }
 
 void UInventoryUI::ShowItemsByType(ItemType ItemType)

@@ -51,12 +51,25 @@ void UNPCPurchaseTab::SetItemList(const TArray<FItemData>* ItemData)
 void UNPCPurchaseTab::AddToCart(const FItemData& item)
 {
 	if (Cart.Num() == MaxCartNum) return;
+	/* Cart가 비어있는 상태였다면 */
+	if (Cart.Num() == 0)
+	{
+		Cart.Add(item);
 
+		auto entry = GetCartSlotWidget(0);
+		if (!entry) return;
+
+		entry->SetItemData(Cart[0]);
+
+		PurchasePrice += item.SALE_PRICE * item.ITEM_QUANTITY;
+		UpdatePrice();
+		return;
+	}
 	for (int i = 0 ; i < Cart.Num(); i++)
 	{
 		if (Cart[i].ITEM_SEQ == item.ITEM_SEQ)
 		{
-			Cart[i].ITEM_MAX_COUNT += item.ITEM_MAX_COUNT;
+			Cart[i].ITEM_QUANTITY += item.ITEM_QUANTITY;
 
 			auto entry = GetCartSlotWidget(i);
 			if (!entry) return;
@@ -74,8 +87,8 @@ void UNPCPurchaseTab::AddToCart(const FItemData& item)
 
 	Cart.Add(item);
 	PurchasePrice += item.SALE_PRICE * item.ITEM_MAX_COUNT;
-	UpdatePrice();
 	entry->SetItemData(item);
+	UpdatePrice();
 }
 
 void UNPCPurchaseTab::RemoveFromCart(const FItemData& item)
@@ -98,7 +111,7 @@ void UNPCPurchaseTab::OnBuyClicked()
 		auto shopData = shopUI->GetShopData();
 		for (auto& item : Cart)
 		{
-			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_MAX_COUNT);
+			NetworkManager->SendBuyPacket(item.ITEM_SEQ, shopData.ShopSeq, item.ITEM_QUANTITY);
 		}
 	}
 
@@ -183,8 +196,12 @@ void UNPCPurchaseTab::UpdateLastPageText()
 
 void UNPCPurchaseTab::UpdatePrice()
 {
-	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
-	int safePrice =  GameInstance->GetPlayerManager()->GetPlayerGood().TotalMoney- PurchasePrice;
+	if (!IsValid(TxtPurchasePrice) || !IsValid(TxtSafe)) return;
+
+ 	TxtPurchasePrice->SetText(FText::AsNumber(PurchasePrice));
+
+	FPlayerGoods PlayerGood = GameInstance->GetPlayerManager()->GetPlayerGood();
+	int safePrice = PlayerGood.TotalMoney - PurchasePrice;
 	TxtSafe->SetText(FText::AsNumber(safePrice));
 }
 
@@ -234,7 +251,7 @@ void UNPCPurchaseTab::OpenBundlePurchase(const FItemData& item)
 	bundleUI->SetItemData(item);
 	bundleUI->OnConfirmPurchase.AddDynamic(this, &UNPCPurchaseTab::AddToCart);
 
-	auto shopUI = Cast<UNPCShopUI>(GetParent()->GetOuter()->GetOuter());
+	auto shopUI = Cast<UNPCShopUI>(GetParent());
 	if (!shopUI) return;
 
 	auto slot = Cast<UCanvasPanelSlot>(shopUI->AddChild(bundleUI));

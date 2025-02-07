@@ -30,6 +30,8 @@ public:
 
 	virtual void NativeConstruct() override;
 	virtual void Init();
+	
+	void InitGoods();
 
 	UFUNCTION(BlueprintCallable)
 	void RefreshUI();

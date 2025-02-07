@@ -29,7 +29,9 @@ public:
     const TArray<FPostResult>& GetSentPostData() const;
     const TArray<FPostResult>& GetReceivedPostData() const;
     const FPostResult& GetAlertPostData() const;
-    
+    FItemData GetItemDataById(int64 ItemId);
+    //void SetItemData(int64 ItemId, const FItemData& ItemData);
+
     void AddToPostDeletionList(const FPostResult& PostData, bool IsSent);
     void ClearPostDeletionList(bool IsSent);
     TArray<FPostResult> GetAndClearPostDeletionList(bool IsSent);

@@ -4,6 +4,8 @@
 #include "UI/InGame/Shop/NPCSaleTab.h"
 #include "Components/TileView.h"
 #include "Components/TextBlock.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/SizeBox.h"
 #include "Components/Button.h"
 #include "GameManager/GameManager.h"
 #include "GameManager/NetworkManager.h"
@@ -12,6 +14,7 @@
 #include "GameManager/UIManager.h"
 #include "GameManager/PlayerManager.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
+#include "UI/InGame/Shop/NPCShopBundleSell.h"
 #include "UI/InGame/Shop/NPCShopItemSlot.h"
 #include "UI/InGame/Inventory/InventoryUI.h"
 #include "Structs/ItemStructs.h"
@@ -80,9 +83,10 @@ void UNPCSaleTab::AddToCart(const FItemData& newItem, int32 InventorySlotIndex)
 		RLR_LOG(LogRLR, Log, TEXT("entry is nullptr"));
 		return;
 	}
-	
-	Cart.Add({InventorySlotIndex, newItem});
-	SellPrice += (newItem.SALE_PRICE / 10 )* newItem.ITEM_QUANTITY ;
+	FItemData newPriceItem = newItem;
+	newPriceItem.SALE_PRICE /= 10;
+	Cart.Add({InventorySlotIndex, newPriceItem});
+	SellPrice += (newPriceItem.SALE_PRICE) * newPriceItem.ITEM_QUANTITY ;
 
 	UpdatePage();
 	UpdatePrice();
@@ -102,8 +106,11 @@ void UNPCSaleTab::RemoveFromCart(const FItemData& item)
 	{
 		if (item != Cart[i].Value) continue;
 
+		FItemData newPriceItem = item;
+		newPriceItem.SALE_PRICE /= 10;
+
 		removeIndex = i;
-		SellPrice -= item.ITEM_QUANTITY * item.SALE_PRICE;
+		SellPrice -= item.ITEM_QUANTITY * (newPriceItem.SALE_PRICE);
 		UpdatePrice();
 		break;
 	}
@@ -157,7 +164,33 @@ UNPCShopItemSlot* UNPCSaleTab::GetItemSlotWidget(int idx)
 
 void UNPCSaleTab::UpdatePrice()
 {
+	if (!IsValid(TxtSellPrice) || !IsValid(TxtSafe)) return;
+
 	TxtSellPrice->SetText(FText::AsNumber(SellPrice));
+
+	FPlayerGoods PlayerGood = GameInstance->GetPlayerManager()->GetPlayerGood();
+
 	int safePrice = SellPrice + GameInstance->GetPlayerManager()->GetPlayerGood().TotalMoney;
 	TxtSafe->SetText(FText::AsNumber(safePrice));
+}
+
+void UNPCSaleTab::OpenBundleSell(const FItemData& item, int32 InventorySlotIndex)
+{
+	auto dataManager = GameInstance->GetDataManager();
+	if (!dataManager) return;
+
+	auto bundleSellClass = dataManager->GetWidgetClass<UNPCShopBundleSell>(RLRLITERAL.WBP_NPCBundleSell);
+	if (!bundleSellClass) return;
+
+	auto bundleUI = CreateWidget<UNPCShopBundleSell>(GetWorld(), bundleSellClass);
+	bundleUI->SetSlotIndex(InventorySlotIndex);
+	bundleUI->SetItemData(item);
+	bundleUI->OnConfirmSell.AddUniqueDynamic(this, &UNPCSaleTab::AddToCart);
+
+	auto shopUI = Cast<UNPCShopUI>(GetParent());
+	if (!shopUI) return;
+
+	auto slot = Cast<UCanvasPanelSlot>(shopUI->AddChild(bundleUI));
+	FVector2D panelSize(shopUI->RootSizeBox->WidthOverride, shopUI->RootSizeBox->HeightOverride);
+	slot->SetSize(panelSize);
 }

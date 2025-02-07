@@ -83,7 +83,14 @@ public:
 
     //UFUNCTION()
     //void UpdatePostCost();
+    UFUNCTION()
+    void AddItemToPostSlot(const FItemData& ItemData, int32 InventorySlotIndex);
 
-private:
-    void AddItemToPostSlot(const FItemData& ItemData);
+public:
+    void OpenBundleItemSend(const FItemData& ItemData, int32 InventorySlotIndex);
+    void UpdatePage();
+
+protected:
+    UPostItemSlot* GetItemSlotWidget(int32 idx);
+    void AddEmptySlotsToGridPanel();
 };

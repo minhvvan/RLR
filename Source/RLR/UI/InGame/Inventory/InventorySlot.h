@@ -13,6 +13,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotShiftClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotAltClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotShiftRightClicked, int32, SlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
 
  class UImage;
  class UButton;
@@ -55,6 +56,7 @@ public:
 	FOnSlotClicked OnSlotClicked;
 	FOnSlotShiftClicked OnSlotShiftClicked;
 	FOnSlotAltClicked OnSlotAltClicked;
+	FOnSlotShiftRightClicked OnSlotShiftRightClicked;
 	
 	/*
 		슬롯 이미지

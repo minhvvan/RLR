@@ -9,6 +9,7 @@
 #include "RLRStruct.h"
 #include "InventoryManager.generated.h"
 
+class UInventorySlot;
 /**
 	아이템 정보를 관리하는 매니저
  */
@@ -65,6 +66,8 @@ public:
 	int32 GetPlatinum() {return Platinum;}
 	void SetPlatinum(int32 NewPlatinum);
 
+	UInventorySlot* GetInventorySlot(int32 InventorySlotIndex);
+
 	UFUNCTION()
 	void OnInventorySlotClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
 
@@ -74,6 +77,8 @@ public:
 	UFUNCTION()
 	void OnInventorySlotAltClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
 	
+	UFUNCTION()
+	void OnInventorySlotShiftRightClicked(int32 SlotIndex, const FItemData& ItemData, ESlotType SlotType);
 	
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))

@@ -14,6 +14,9 @@
 #include "GameManager/QuestManager.h"
 #include "GameManager/GuildManager.h"
 #include "UI/InGame/InGameMainUI.h"
+#include "UI/InGame/Shop/NPCShopUI.h"
+#include "UI/InGame/Shop/NPCPurchaseTab.h"
+#include "UI/InGame/Shop/NPCSaleTab.h"
 #include "Structs/SkillStructs.h"
 #include "Structs/PlayerStructs.h"
 #include "Structs/ObjectStructs.h"
@@ -215,6 +218,22 @@ bool Handle_PLAYER_GOOD_RESPONSE(TSharedPtr<PacketSession>& session, Protocol::S
     playerGood.MakePlayerGoods(pkt.playergood());
     UE_LOG(LogTemp, Log, TEXT("Player Total Money : %d "), pkt.playergood().totalmoney());
     GameInstance->GetPlayerManager()->UpdatePlayerGood(playerGood);
+
+    AsyncTask(ENamedThreads::GameThread, [playerGood]() -> void
+        {
+            UNPCShopUI* NPCShopUI = GameInstance->GetUIManager()->GetSubUI<UNPCShopUI>(RLRTAG.UI_NPCShop);
+            if (!IsValid(NPCShopUI)) return;
+
+            UNPCPurchaseTab* NPCPurchaseTab = NPCShopUI->GetPurchaseTab();
+            if (!IsValid(NPCPurchaseTab)) return;
+
+            NPCPurchaseTab->UpdatePrice();
+
+            UNPCSaleTab* NPCSaleTab = NPCShopUI->GetSaleTab();
+            if(!IsValid(NPCSaleTab)) return;
+
+            NPCSaleTab->UpdatePrice();
+
+        });
     return true;
 }
-
