@@ -11,7 +11,7 @@ void FAttackResult::MakeAttackData()
 {
 }
 
-void FPostResult::MakePostData(const Protocol::Post post, const Protocol::ItemList items)
+void FPostResult::MakePostData(const Protocol::Post& post, const Protocol::ItemList& items)
 {
 	ReceiverSeq = post.receiverseq();
 

@@ -199,7 +199,7 @@ struct FPostResult
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString PostDate;
 
-	void MakePostData(const Protocol::Post post, const Protocol::ItemList items);
+	void MakePostData(const Protocol::Post& post, const Protocol::ItemList& items);
 };
 
 USTRUCT(Atomic, BlueprintType)
