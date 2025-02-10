@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "Network/Proto/Friend.pb.h"
 #include "Network/Proto/Guild.pb.h"
+#include "Structs/ItemStructs.h"
 #include "UtilStructs.generated.h"
 
 class UAction;
@@ -176,6 +177,10 @@ struct FPostResult
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<int64, int64> ItemValues;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FItemData> ItemList;
+
+
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	int64 TotalMoney;
 
@@ -194,7 +199,7 @@ struct FPostResult
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString PostDate;
 
-	void MakePostData(const Protocol::Post post);
+	void MakePostData(const Protocol::Post post, const Protocol::ItemList items);
 };
 
 USTRUCT(Atomic, BlueprintType)

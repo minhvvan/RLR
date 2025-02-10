@@ -11,7 +11,7 @@ void FAttackResult::MakeAttackData()
 {
 }
 
-void FPostResult::MakePostData(const Protocol::Post post)
+void FPostResult::MakePostData(const Protocol::Post post, const Protocol::ItemList items)
 {
 	ReceiverSeq = post.receiverseq();
 
@@ -20,19 +20,10 @@ void FPostResult::MakePostData(const Protocol::Post post)
 	SenderSeq = post.senderseq();
 
 	Content = UTF8_TO_TCHAR(post.content().c_str());
-
+	
 	for (auto& itemId : post.itemid()) {
 		ItemId.Add(itemId);
-	}
-	for (auto& itemId : post.itemid()) {
-		if (ItemValues.Contains(itemId))
-		{
-			ItemValues[itemId]++;
-		}
-		else
-		{
-			ItemValues.Add(itemId, 1);
-		}
+		ItemValues.FindOrAdd(itemId)++;
 	}
 	TotalMoney = post.totalmoney();
 
@@ -41,7 +32,14 @@ void FPostResult::MakePostData(const Protocol::Post post)
 	IsReceived = post.isreceived();
 
 	PostId = post.postid();
-
+	for (const auto& item : items.items()) // itemList의 items() 순회
+	{
+		FItemData itemData;
+		itemData.MakeItemData(item);
+		ItemList.Add(itemData);
+	}
+	
+	
 	PostDate = UTF8_TO_TCHAR(post.makedate().c_str());
 
 	SenderName = UTF8_TO_TCHAR(post.sendername().c_str());
