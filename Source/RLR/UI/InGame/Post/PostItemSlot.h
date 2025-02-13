@@ -7,6 +7,8 @@
 #include "UI/BaseUI.h"
 #include "PostItemSlot.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnPostItemSlotClicked, int32, InventorySlotIndex, int32, PostSlotIndex, const FItemData&, ItemData, ESlotType, SlotType);
+
 class UTextBlock;
 class UTImage;
 class UPostWriteTabWidget;
@@ -28,9 +30,6 @@ public:
 	virtual void NativeOnMouseLeave( const FPointerEvent& InMouseEvent ) override;
 	virtual FReply NativeOnMouseButtonDown( const FGeometry& InGeometry, const FPointerEvent& InMouseEvent ) override;
 
-	// 인벤토리에서 드래그된 아이템을 처리하는 함수
-	bool HandleInventoryItemDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation);
-
 	UFUNCTION()
 	void SetSlot(int64 NewitemId);
 
@@ -40,6 +39,9 @@ public:
 
 	void SetInventorySlotIndex(int32 index);
 	int32 GetInventorySlotIndex();
+
+	UPROPERTY(BlueprintAssignable, Category = "Post Item")
+	FOnPostItemSlotClicked OnPostItemSlotClicked;
 public:
 
 	/*

@@ -85,7 +85,7 @@ public:
     //void UpdatePostCost();
     UFUNCTION()
     void AddItemToPostSlot(const FItemData& ItemData, int32 InventorySlotIndex);
-
+    int32 GetPostItemSlotEmpty();
 public:
     void OpenBundleItemSend(const FItemData& ItemData, int32 InventorySlotIndex);
     void UpdatePage();

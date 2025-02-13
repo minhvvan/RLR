@@ -87,6 +87,7 @@ void UActionDialogue::OnDialogueEnded()
 	}
 	else
 	{
+		PostUI->SetButtonsEnable();
 		GameInstance->GetUIManager()->ClosePage();
 		EndAction();
 	}

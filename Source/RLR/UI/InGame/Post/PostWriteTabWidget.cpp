@@ -49,8 +49,7 @@ void UPostWriteTabWidget::OnSpecialPostButtonClicked()
 
 void UPostWriteTabWidget::AddItemToPostSlot(const FItemData& ItemData, int32 InventorySlotIndex)
 {
-	
-	UPostItemSlot* entry = GetItemSlotWidget(GetAttachedItemsFromSlots().Num());
+	UPostItemSlot* entry = GetItemSlotWidget(GetPostItemSlotEmpty());
 	if (entry == nullptr)
 	{
 		RLR_LOG(LogRLR, Log, TEXT("entry is nullptr"));
@@ -69,6 +68,24 @@ void UPostWriteTabWidget::AddItemToPostSlot(const FItemData& ItemData, int32 Inv
 	Inventory->SelectSlot(InventorySlotIndex);
 
 	//UpdatePage();
+}
+
+int32 UPostWriteTabWidget::GetPostItemSlotEmpty()
+{
+	if (PostSlotGridPanel)
+	{
+		for (int32 i = 0; PostSlotGridPanel->GetChildrenCount(); i++)
+		{	
+			if(UPostItemSlot* PostItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(i)))
+			{
+				if (PostItemSlot->GetItemData() == FItemData::EmptyItemData)
+				{
+					return i;
+				}
+			}
+		}
+	}
+	return -1;
 }
 
 void UPostWriteTabWidget::OpenBundleItemSend(const FItemData& ItemData, int32 InventorySlotIndex)
@@ -126,8 +143,7 @@ void UPostWriteTabWidget::AddEmptySlotsToGridPanel()
 void UPostWriteTabWidget::OnSendPostButtonClicked()
 {
 	FString RecipientIdString = RecipientIdText->GetText().ToString();
-
-	if(RecipientIdText == nullptr) return;	
+	if(RecipientIdString.IsEmpty()) return;
 
 	FPostResult PostResult;
 	{	
@@ -147,10 +163,23 @@ void UPostWriteTabWidget::OnSendPostButtonClicked()
 
 	OnClearPostButtonClicked();
 
-	for (int i = 0; i < PostResult.ItemId.Num(); i++)
+	// 인벤토리에서 첨부한 아이템들 제거
+	GameInstance->GetNetworkManager()->SendInventoryPacket();
+
+	UInventoryUI* Inventory = GameInstance->GetUIManager()->GetSubUI<UInventoryUI>(RLRTAG.UI_Inventory);
+	if (!Inventory) return;
+
+	if (PostSlotGridPanel)
 	{
-		// 인벤토리에서 첨부한 아이템들 제거
-		GameInstance->GetInventoryManager()->RemoveItem(PostResult.ItemId[i]);
+		for (UWidget* Widget : PostSlotGridPanel->GetAllChildren())
+		{
+			if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Widget))
+			{
+				Inventory->CancelSelectSlot(itemSlot->GetInventorySlotIndex());
+			}
+		}
+		PostSlotGridPanel->ClearChildren();
+		AddEmptySlotsToGridPanel();
 	}
 }
 
@@ -186,6 +215,8 @@ void UPostWriteTabWidget::OnClearPostButtonClicked()
 
 	if(PostTitleText)
 		PostTitleText->SetText(FText::GetEmpty());
+
+	GameInstance->GetPostalManager()->PostUIClass->RefreshUI();
 }
 
 TArray<int64> UPostWriteTabWidget::GetAttachedItemsFromSlots()

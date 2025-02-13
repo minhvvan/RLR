@@ -82,4 +82,5 @@ public:
 
 private:
     FPostResult SelectedPost;
+    bool bSentTab;
 };

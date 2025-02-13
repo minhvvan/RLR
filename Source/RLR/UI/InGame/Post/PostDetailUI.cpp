@@ -30,6 +30,24 @@ void UPostDetailUI::NativeConstruct()
 
 void UPostDetailUI::UpdatePostDetails(const FPostResult& Post, bool bIsSentTab)
 {
+    bSentTab = bIsSentTab;
+    if (bSentTab)
+    {
+        AcceptAllButton->SetVisibility(ESlateVisibility::Collapsed);
+    }
+    else
+    {
+        AcceptAllButton->SetVisibility(ESlateVisibility::Visible);
+        if (Post.IsReceived)
+        {
+            AcceptAllButton->SetIsEnabled(false);
+        }
+        else
+        {
+            AcceptAllButton->SetIsEnabled(true);
+        }
+    }
+
     if (IdText)
     {
         IdText->SetText(FText::FromString(bIsSentTab ? Post.ReceiverName : Post.SenderName));
@@ -42,30 +60,66 @@ void UPostDetailUI::UpdatePostDetails(const FPostResult& Post, bool bIsSentTab)
     {
         PostContentText->SetText(FText::FromString(Post.Content));
     }
+
+    ClearPostSlots();
+
     if (PostSlotGridPanel)
     {
         int32 SlotIndex = 0;
 
-        for (const auto& ItemValuePair : Post.ItemValues)
+        // 최대 10개의 슬롯을 순회
+        for (int32 i = 0; i < 10; i++)
         {
-            int64 ItemId = ItemValuePair.Key;
-            int32 ItemCount = ItemValuePair.Value;
+            UPostItemSlot* ItemSlot = nullptr;
 
-            for (int32 Count = 0; Count < ItemCount; Count++)
+            // 기존 슬롯이 있는 경우 가져오고, 없으면 새로 생성
+            if (PostSlotGridPanel->GetChildrenCount() > i)
             {
-                // 슬롯 가져오기
-                UPostItemSlot* ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(SlotIndex));
+                ItemSlot = Cast<UPostItemSlot>(PostSlotGridPanel->GetChildAt(i));
+            }
+            else
+            {
+                ItemSlot = CreateWidget<UPostItemSlot>(this, UPostItemSlot::StaticClass());
                 if (ItemSlot)
                 {
-                    // 아이템 데이터 설정
-                    ItemSlot->SetSlot(ItemId);
+                    PostSlotGridPanel->AddChildToGrid(ItemSlot, i / 5, i % 5);
                 }
+            }
 
-                // 다음 슬롯으로 이동
-                SlotIndex++;
+            if (ItemSlot)
+            {
+                // Post.ItemList에 있는 경우 슬롯에 설정
+                if (SlotIndex < Post.ItemList.Num())
+                {
+                    const FItemData& ItemData = Post.ItemList[SlotIndex];
+
+                    ItemSlot->SetItemData(ItemData);
+                    ItemSlot->SetItemAmountShow(true);
+
+                    // 아이템 이미지 설정
+                    UTexture2D* ItemImage = ItemSlot->GetItemResourceData().ItemImage;
+                    if (ItemImage)
+                    {
+                        ItemSlot->SetSlotImage(ItemImage);
+                    }
+                    else
+                    {
+                        UTexture2D* DefaultImage = LoadObject<UTexture2D>(nullptr, TEXT("/Game/UI/DefaultItemIcon"));
+                        ItemSlot->SetSlotImage(DefaultImage);
+                    }
+
+                    SlotIndex++;
+                }
+                else
+                {
+                    // 아이템이 없는 슬롯은 빈 슬롯으로 유지
+                    UTexture2D* EmptySlotImage = LoadObject<UTexture2D>(nullptr, TEXT("/Game/UI/EmptySlotIcon"));
+                    ItemSlot->SetSlotImage(EmptySlotImage);
+                }
             }
         }
     }
+
     if (TotalMoney)
     {
         TotalMoney->SetText(FText::AsNumber(Post.TotalMoney));

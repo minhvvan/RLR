@@ -30,30 +30,6 @@ void UPostItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPoi
 
 bool UPostItemSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
-	HandleInventoryItemDrop(InGeometry, InDragDropEvent, InOperation);
-
-	return true;
-}
-
-bool UPostItemSlot::HandleInventoryItemDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
-{
-	UBaseDragDropOperation* Operation = Cast<UBaseDragDropOperation>(InOperation);
-	if (!Operation || !Operation->Payload)
-		return false;
-
-	// 드래그된 데이터 확인
-	UInventorySlot* DraggedSlot = Cast<UInventorySlot>(Operation->Payload);
-	if (!DraggedSlot || DraggedSlot->IsEmpty())
-		return false;
-
-	// PostItemSlot에 데이터 설정
-	SetItemData(DraggedSlot->GetItemData());
-	SetSlotImage(DraggedSlot->GetItemResourceData().ItemImage);
-	//ItemNameText->SetText(DraggedSlot->GetItemData().NAME);
-
-	// 드래그된 인벤토리 슬롯 비우기
-	DraggedSlot->Clear();
-
 	return true;
 }
 
@@ -76,6 +52,11 @@ void UPostItemSlot::RefreshUI()
 
 	FItemData itemData = GetItemData();
 	TxtItemCount->SetText(FText::AsNumber(itemData.ITEM_QUANTITY));
+
+	if (itemData.ITEM_QUANTITY < 1)
+	{
+		SetItemAmountShow(false);
+	}
 }
 
 void UPostItemSlot::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -118,7 +99,12 @@ FReply UPostItemSlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const
 	{
 		return result;
 	}
-	FItemData itemData = GetItemData();
+	const FItemData& itemData = GetItemData();
+
+	if (InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+	{
+		OnPostItemSlotClicked.Broadcast(inventorySlotIndex, SlotIndex, itemData, SlotType);
+	}
 	return result;
 }
 

@@ -64,6 +64,7 @@ public:
     void OnReplyButtonClicked(FText SIdText);
 
     void UpdatePostWidget();
+    void UpdatePostWriteTabSlot();
 
     void SetSentPostData(const TArray<FPostResult>& NewPostResult);
     void SetRecvPostData(const TArray<FPostResult>& NewPostResult);
@@ -76,6 +77,8 @@ public:
 
     bool CanSendItem();
     UPanelSlot* AddChild(UUserWidget* Child);
+
+    void SetButtonsEnable();
 
     FOnPostUIEnd OnPostUIEnd;
 public:

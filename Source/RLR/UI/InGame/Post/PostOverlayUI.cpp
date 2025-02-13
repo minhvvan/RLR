@@ -86,6 +86,7 @@ void UPostOverlayUI::RefreshUI()
 	SetRecvPostData(NewRecvPostData);
 
 	UpdatePostWidget();
+	UpdatePostWriteTabSlot();
 }
 
 bool UPostOverlayUI::CanSendItem()
@@ -108,8 +109,11 @@ void UPostOverlayUI::OnReceivedPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostReceivedTabWidget)
 		{
+			WritePostButton->SetIsEnabled(true);
+			SentPostButton->SetIsEnabled(true);
+			ReceivedPostButton->SetIsEnabled(false);
 			FText TabNameText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_ReceivedPost);
-			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
+			PostDetailUI->SetVisibility(ESlateVisibility::Collapsed);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Visible);
 			if (PostReceivedTabWidget->SelectedPostButton != nullptr)
@@ -139,8 +143,11 @@ void UPostOverlayUI::OnSentPostButtonClicked()
 	{
 		if (PostWidgetSwitcher->GetActiveWidget() != PostSentTabWidget)
 		{
+			WritePostButton->SetIsEnabled(true);
+			SentPostButton->SetIsEnabled(false);
+			ReceivedPostButton->SetIsEnabled(true);
 			FText TabNameText = FSTRING_TO_FTEXT(RLRLITERAL.PostUI_SentPost);
-			PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
+			PostDetailUI->SetVisibility(ESlateVisibility::Collapsed);
 			PostDetailUI->SetTabNameText(TabNameText);
 			PostDetailUI->ReplyButton->SetVisibility(ESlateVisibility::Hidden);
 			if (PostSentTabWidget->SelectedPostButton != nullptr)
@@ -179,7 +186,10 @@ void UPostOverlayUI::OnWritePostButtonClicked()
 {
 	if (PostWidgetSwitcher)
 	{
-		PostDetailUI->SetVisibility(ESlateVisibility::Hidden);
+		WritePostButton->SetIsEnabled(false);
+		SentPostButton->SetIsEnabled(true);
+		ReceivedPostButton->SetIsEnabled(true);
+		PostDetailUI->SetVisibility(ESlateVisibility::Collapsed);
 		PostWidgetSwitcher->SetActiveWidgetIndex(2);
 		GameInstance->GetNetworkManager()->SendPostGetRequest();
 	}
@@ -215,6 +225,7 @@ void UPostOverlayUI::OnClickedDeletePostsConfirmButton(UConfirmMessageBox* Messa
 		PostSentTabWidget->OnRemoveSelectedButtonClicked();
 	}
 	ConfirmMessageBox->SetVisibility(ESlateVisibility::Hidden);
+	PostDetailUI->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 /* 우편 답신 기능 */
@@ -272,7 +283,7 @@ void UPostOverlayUI::UpdatePostWidget()
 	TArray<FPostResult> PostSentData = GameInstance->GetPostalManager()->GetSentPostData();
 	TArray<FPostResult> PostRecvData = GameInstance->GetPostalManager()->GetReceivedPostData();
 	TArray<FPostResult> ReceivedPostList; 
-	TArray<FPostResult> SentPostList; 
+	TArray<FPostResult> SentPostList;
 	
 	for (FPostResult PostData : PostSentData)
 	{
@@ -289,6 +300,28 @@ void UPostOverlayUI::UpdatePostWidget()
 		PostSentTabWidget->UpdatePostList(SentPostList, true);
 }
 
+void UPostOverlayUI::UpdatePostWriteTabSlot()
+{
+	UPostalManager* PostalManager = GetGameInstance()->GetSubsystem<UPostalManager>();
+	if (PostWriteTabWidget->PostSlotGridPanel)
+	{	
+		int32 slotIndex = 0;
+		// PostSlotList는 우편에 첨부된 아이템 슬롯 리스트
+		for (UWidget* Child : PostWriteTabWidget->PostSlotGridPanel->GetAllChildren())
+		{
+			if (UPostItemSlot* itemSlot = Cast<UPostItemSlot>(Child))
+			{
+				if (IsValid(itemSlot))
+				{
+					itemSlot->SetSlotIndex(slotIndex);
+					itemSlot->OnPostItemSlotClicked.AddUniqueDynamic(PostalManager, &UPostalManager::OnPostItemSlotClicked);
+					slotIndex++;
+				}
+			}
+		}
+	}
+}
+
 void UPostOverlayUI::SetSentPostData(const TArray<FPostResult>& NewPostResult)
 {
 	FScopeLock Lock(&PostDataMutex);
@@ -299,4 +332,11 @@ void UPostOverlayUI::SetRecvPostData(const TArray<FPostResult>& NewPostResult)
 {
 	FScopeLock Lock(&PostDataMutex);
 	RecvPostData = NewPostResult;
+}
+
+void UPostOverlayUI::SetButtonsEnable()
+{
+	WritePostButton->SetIsEnabled(true);
+	SentPostButton->SetIsEnabled(true);
+	ReceivedPostButton->SetIsEnabled(true);
 }

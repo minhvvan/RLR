@@ -2,6 +2,7 @@
 
 
 #include "UI/InGame/Post/PostBundleSend.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
 
 #include "Components/Image.h"
 #include "Components/Button.h"
@@ -31,9 +32,12 @@ void UPostBundleSend::OnCancelClicked()
 
 void UPostBundleSend::OnIncreaseClicked()
 {
+	UInventorySlot* InventorySlot = GameInstance->GetInventoryManager()->GetInventorySlot(slotIndex);
+	int32 InventorySlotItemQuantity = InventorySlot->GetItemData().ITEM_QUANTITY;
 	int32 itemQuantity = Item.ITEM_QUANTITY;
+
 	Item.ITEM_QUANTITY++;
-	if (GameInstance->GetInventoryManager()->GetItem(slotIndex).ITEM_QUANTITY < Item.ITEM_QUANTITY)
+	if (InventorySlotItemQuantity < Item.ITEM_QUANTITY)
 	{
 		Item.ITEM_QUANTITY = itemQuantity;
 		return;

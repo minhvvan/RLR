@@ -36,6 +36,11 @@ public:
     void ClearPostDeletionList(bool IsSent);
     TArray<FPostResult> GetAndClearPostDeletionList(bool IsSent);
 
+	UFUNCTION()
+	void OnPostItemSlotClicked(int32 InventorySlotIndex, int32 PostSlotIndex, const FItemData& itemData, ESlotType SlotType);
+    UPostItemSlot* GetPostWriteTabItemSlot(int32 PostItemSlotIndex);
+
+
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FPostResult> SentPostDeletionList;
