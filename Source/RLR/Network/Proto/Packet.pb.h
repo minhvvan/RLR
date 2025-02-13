@@ -3714,29 +3714,25 @@ class SC_MoveBroadcastPacket final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAllUserPositionsFieldNumber = 5,
+    kUserNameFieldNumber = 2,
     kUserSeqFieldNumber = 1,
-    kTransXFieldNumber = 2,
-    kTransYFieldNumber = 3,
-    kTransZFieldNumber = 4,
+    kTransXFieldNumber = 3,
+    kTransYFieldNumber = 4,
+    kTransZFieldNumber = 5,
   };
-  // repeated .Protocol.UserPosition allUserPositions = 5;
-  int alluserpositions_size() const;
+  // string userName = 2;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
   private:
-  int _internal_alluserpositions_size() const;
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
   public:
-  void clear_alluserpositions();
-  ::Protocol::UserPosition* mutable_alluserpositions(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::UserPosition >*
-      mutable_alluserpositions();
-  private:
-  const ::Protocol::UserPosition& _internal_alluserpositions(int index) const;
-  ::Protocol::UserPosition* _internal_add_alluserpositions();
-  public:
-  const ::Protocol::UserPosition& alluserpositions(int index) const;
-  ::Protocol::UserPosition* add_alluserpositions();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::UserPosition >&
-      alluserpositions() const;
 
   // uint32 userSeq = 1;
   void clear_userseq();
@@ -3747,7 +3743,7 @@ class SC_MoveBroadcastPacket final :
   void _internal_set_userseq(uint32_t value);
   public:
 
-  // float transX = 2;
+  // float transX = 3;
   void clear_transx();
   float transx() const;
   void set_transx(float value);
@@ -3756,7 +3752,7 @@ class SC_MoveBroadcastPacket final :
   void _internal_set_transx(float value);
   public:
 
-  // float transY = 3;
+  // float transY = 4;
   void clear_transy();
   float transy() const;
   void set_transy(float value);
@@ -3765,7 +3761,7 @@ class SC_MoveBroadcastPacket final :
   void _internal_set_transy(float value);
   public:
 
-  // float transZ = 4;
+  // float transZ = 5;
   void clear_transz();
   float transz() const;
   void set_transz(float value);
@@ -3782,7 +3778,7 @@ class SC_MoveBroadcastPacket final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::UserPosition > alluserpositions_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
     uint32_t userseq_;
     float transx_;
     float transy_;
@@ -10071,7 +10067,57 @@ inline void SC_MoveBroadcastPacket::set_userseq(uint32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_MoveBroadcastPacket.userSeq)
 }
 
-// float transX = 2;
+// string userName = 2;
+inline void SC_MoveBroadcastPacket::clear_username() {
+  _impl_.username_.ClearToEmpty();
+}
+inline const std::string& SC_MoveBroadcastPacket::username() const {
+  // @@protoc_insertion_point(field_get:Protocol.SC_MoveBroadcastPacket.userName)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SC_MoveBroadcastPacket::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.SC_MoveBroadcastPacket.userName)
+}
+inline std::string* SC_MoveBroadcastPacket::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:Protocol.SC_MoveBroadcastPacket.userName)
+  return _s;
+}
+inline const std::string& SC_MoveBroadcastPacket::_internal_username() const {
+  return _impl_.username_.Get();
+}
+inline void SC_MoveBroadcastPacket::_internal_set_username(const std::string& value) {
+  
+  _impl_.username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SC_MoveBroadcastPacket::_internal_mutable_username() {
+  
+  return _impl_.username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SC_MoveBroadcastPacket::release_username() {
+  // @@protoc_insertion_point(field_release:Protocol.SC_MoveBroadcastPacket.userName)
+  return _impl_.username_.Release();
+}
+inline void SC_MoveBroadcastPacket::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.username_.SetAllocated(username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.username_.IsDefault()) {
+    _impl_.username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.SC_MoveBroadcastPacket.userName)
+}
+
+// float transX = 3;
 inline void SC_MoveBroadcastPacket::clear_transx() {
   _impl_.transx_ = 0;
 }
@@ -10091,7 +10137,7 @@ inline void SC_MoveBroadcastPacket::set_transx(float value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_MoveBroadcastPacket.transX)
 }
 
-// float transY = 3;
+// float transY = 4;
 inline void SC_MoveBroadcastPacket::clear_transy() {
   _impl_.transy_ = 0;
 }
@@ -10111,7 +10157,7 @@ inline void SC_MoveBroadcastPacket::set_transy(float value) {
   // @@protoc_insertion_point(field_set:Protocol.SC_MoveBroadcastPacket.transY)
 }
 
-// float transZ = 4;
+// float transZ = 5;
 inline void SC_MoveBroadcastPacket::clear_transz() {
   _impl_.transz_ = 0;
 }
@@ -10129,43 +10175,6 @@ inline void SC_MoveBroadcastPacket::_internal_set_transz(float value) {
 inline void SC_MoveBroadcastPacket::set_transz(float value) {
   _internal_set_transz(value);
   // @@protoc_insertion_point(field_set:Protocol.SC_MoveBroadcastPacket.transZ)
-}
-
-// repeated .Protocol.UserPosition allUserPositions = 5;
-inline int SC_MoveBroadcastPacket::_internal_alluserpositions_size() const {
-  return _impl_.alluserpositions_.size();
-}
-inline int SC_MoveBroadcastPacket::alluserpositions_size() const {
-  return _internal_alluserpositions_size();
-}
-inline ::Protocol::UserPosition* SC_MoveBroadcastPacket::mutable_alluserpositions(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.SC_MoveBroadcastPacket.allUserPositions)
-  return _impl_.alluserpositions_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::UserPosition >*
-SC_MoveBroadcastPacket::mutable_alluserpositions() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.SC_MoveBroadcastPacket.allUserPositions)
-  return &_impl_.alluserpositions_;
-}
-inline const ::Protocol::UserPosition& SC_MoveBroadcastPacket::_internal_alluserpositions(int index) const {
-  return _impl_.alluserpositions_.Get(index);
-}
-inline const ::Protocol::UserPosition& SC_MoveBroadcastPacket::alluserpositions(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.SC_MoveBroadcastPacket.allUserPositions)
-  return _internal_alluserpositions(index);
-}
-inline ::Protocol::UserPosition* SC_MoveBroadcastPacket::_internal_add_alluserpositions() {
-  return _impl_.alluserpositions_.Add();
-}
-inline ::Protocol::UserPosition* SC_MoveBroadcastPacket::add_alluserpositions() {
-  ::Protocol::UserPosition* _add = _internal_add_alluserpositions();
-  // @@protoc_insertion_point(field_add:Protocol.SC_MoveBroadcastPacket.allUserPositions)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::UserPosition >&
-SC_MoveBroadcastPacket::alluserpositions() const {
-  // @@protoc_insertion_point(field_list:Protocol.SC_MoveBroadcastPacket.allUserPositions)
-  return _impl_.alluserpositions_;
 }
 
 // -------------------------------------------------------------------

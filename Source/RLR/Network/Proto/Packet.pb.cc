@@ -307,7 +307,7 @@ struct SC_MoveResponsePacketDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SC_MoveResponsePacketDefaultTypeInternal _SC_MoveResponsePacket_default_instance_;
 PROTOBUF_CONSTEXPR SC_MoveBroadcastPacket::SC_MoveBroadcastPacket(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.alluserpositions_)*/{}
+    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.userseq_)*/0u
   , /*decltype(_impl_.transx_)*/0
   , /*decltype(_impl_.transy_)*/0
@@ -935,10 +935,10 @@ const uint32_t TableStruct_Packet_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.userseq_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.username_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.transx_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.transy_),
   PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.transz_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::SC_MoveBroadcastPacket, _impl_.alluserpositions_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CS_AttackRequestPacket, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1350,80 +1350,79 @@ const char descriptor_table_protodef_Packet_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "stPacket\022\017\n\007userSeq\030\001 \001(\r\022\021\n\tchannelId\030\002"
   " \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006"
   "transZ\030\005 \001(\002\022\r\n\005mapId\030\006 \001(\004\"(\n\025SC_MoveRe"
-  "sponsePacket\022\017\n\007success\030\001 \001(\005\"\213\001\n\026SC_Mov"
-  "eBroadcastPacket\022\017\n\007userSeq\030\001 \001(\r\022\016\n\006tra"
-  "nsX\030\002 \001(\002\022\016\n\006transY\030\003 \001(\002\022\016\n\006transZ\030\004 \001("
-  "\002\0220\n\020allUserPositions\030\005 \003(\0132\026.Protocol.U"
-  "serPosition\"8\n\026CS_AttackRequestPacket\022\036\n"
-  "\005skill\030\001 \001(\0132\017.Protocol.Skill\"\351\001\n\027SC_Att"
-  "ackResponsePacket\022\017\n\007success\030\001 \001(\005\022\036\n\005sk"
-  "ill\030\002 \001(\0132\017.Protocol.Skill\022\023\n\013damageDeal"
-  "t\030\003 \001(\005\022\024\n\014targetKilled\030\004 \001(\005\022\022\n\nattacke"
-  "rHp\030\005 \001(\005\022\022\n\nattackerMp\030\006 \001(\005\022\020\n\010targetH"
-  "p\030\007 \001(\005\022\020\n\010targetMp\030\010 \001(\005\022\024\n\014statusEffec"
-  "t\030\t \001(\t\022\020\n\010duration\030\n \001(\004\"e\n\030SC_AttackBr"
-  "oadcastPacket\022\036\n\005skill\030\001 \001(\0132\017.Protocol."
-  "Skill\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKill"
-  "ed\030\003 \001(\005\"N\n\026SS_DamageRequestPacket\022\021\n\tpl"
-  "ayerSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\022\021\n\ttargetS"
-  "eq\030\003 \003(\r\":\n\027SS_DamageResponsePacket\022\017\n\007u"
-  "serSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\"O\n\035SS_Monst"
-  "erAttackRequestPacket\022\036\n\005skill\030\001 \001(\0132\017.P"
-  "rotocol.Skill\022\016\n\006damage\030\002 \001(\002\"\226\001\n\036SS_Mon"
-  "sterAttackResponsePacket\022\017\n\007success\030\001 \001("
-  "\005\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetKilled\030\003"
-  " \001(\005\022\020\n\010targetHp\030\004 \001(\005\022\024\n\014statusEffect\030\005"
-  " \001(\t\022\020\n\010duration\030\006 \001(\004\"\203\001\n\033SC_MonsterMov"
-  "eRequestPacket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmo"
-  "nsterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030"
-  "\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\022\r\n\005mapId\030\006 \001(\003\"/\n\034"
-  "CS_MonsterMoveResponsePacket\022\017\n\007success\030"
-  "\001 \001(\005\"v\n\035SC_MonsterMoveBroadcastPacket\022\022"
-  "\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n"
-  "\006transX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006transZ\030"
-  "\005 \001(\002\"s\n\034SC_MonsterStatusUpdatePacket\022\022\n"
-  "\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonster"
-  "Id\030\003 \001(\003\022\r\n\005mapId\030\004 \001(\003\022\021\n\tchannelId\030\005 \001"
-  "(\003\"7\n$CS_MonsterStatusUpdateResponsePack"
-  "et\022\017\n\007success\030\001 \001(\005\"T\n\037SC_MonsterStatusB"
-  "roadcastPacket\022\022\n\nmonsterSeq\030\001 \001(\005\022\n\n\002hp"
-  "\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\"R\n\034SC_MonsterS"
-  "pawnRequestPacket\022\r\n\005mapId\030\001 \001(\004\022#\n\010mons"
-  "ters\030\002 \003(\0132\021.Protocol.Monster\"0\n\035CS_Mons"
-  "terSpawnResponsePacket\022\017\n\007success\030\001 \001(\010\""
-  "B\n\036CS_MapMonsterInfoRequestPacket\022\r\n\005map"
-  "Id\030\001 \001(\003\022\021\n\tchannelId\030\002 \001(\003\"h\n\037SC_MapMon"
-  "sterInfoResponsePacket\022\r\n\005mapId\030\001 \001(\004\022\021\n"
-  "\tchannelId\030\002 \001(\004\022#\n\010monsters\030\003 \003(\0132\021.Pro"
-  "tocol.Monster\"(\n\025CS_CreatePartyRequest\022\017"
-  "\n\007userSeq\030\001 \001(\r\"\255\001\n\026SC_CreatePartyRespon"
-  "se\022\017\n\007partyid\030\001 \001(\r\022@\n\010partynum\030\002 \003(\0132.."
-  "Protocol.SC_CreatePartyResponse.Partynum"
-  "Entry\022\017\n\007success\030\003 \001(\005\032/\n\rPartynumEntry\022"
-  "\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"<\n\026CS_Re"
-  "questPartyRequest\022\020\n\010userSeq1\030\001 \001(\005\022\020\n\010u"
-  "serSeq2\030\002 \001(\005\"S\n\027SC_RequestPartyResponse"
-  "\022\017\n\007partyId\030\001 \001(\003\022\022\n\nrequestSeq\030\002 \001(\005\022\023\n"
-  "\013requestName\030\003 \001(\t\"9\n\024CS_ExilePartyReque"
-  "st\022\017\n\007userSeq\030\001 \001(\005\022\020\n\010otherSeq\030\002 \001(\005\"(\n"
-  "\025SC_ExilePartyResponse\022\017\n\007message\030\001 \001(\t\""
-  "&\n\023CS_JoinPartyRequest\022\017\n\007userseq\030\002 \001(\r\""
-  "\'\n\024SC_JoinPartyResponse\022\017\n\007success\030\001 \001(\005"
-  "\"8\n\024CS_LeavePartyRequest\022\017\n\007userseq\030\001 \001("
-  "\r\022\017\n\007partyid\030\002 \001(\r\"(\n\025SC_LeavePartyRespo"
-  "nse\022\017\n\007success\030\001 \001(\005\"\302\001\n\024SC_PartyStatusU"
-  "pdate\022\017\n\007partyid\030\001 \001(\r\022>\n\010partynum\030\002 \003(\013"
-  "2,.Protocol.SC_PartyStatusUpdate.Partynu"
-  "mEntry\022(\n\007members\030\003 \003(\0132\027.Protocol.UserC"
-  "haracter\032/\n\rPartynumEntry\022\013\n\003key\030\001 \001(\005\022\r"
-  "\n\005value\030\002 \001(\005:\0028\001b\006proto3"
+  "sponsePacket\022\017\n\007success\030\001 \001(\005\"k\n\026SC_Move"
+  "BroadcastPacket\022\017\n\007userSeq\030\001 \001(\r\022\020\n\010user"
+  "Name\030\002 \001(\t\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004 \001"
+  "(\002\022\016\n\006transZ\030\005 \001(\002\"8\n\026CS_AttackRequestPa"
+  "cket\022\036\n\005skill\030\001 \001(\0132\017.Protocol.Skill\"\351\001\n"
+  "\027SC_AttackResponsePacket\022\017\n\007success\030\001 \001("
+  "\005\022\036\n\005skill\030\002 \001(\0132\017.Protocol.Skill\022\023\n\013dam"
+  "ageDealt\030\003 \001(\005\022\024\n\014targetKilled\030\004 \001(\005\022\022\n\n"
+  "attackerHp\030\005 \001(\005\022\022\n\nattackerMp\030\006 \001(\005\022\020\n\010"
+  "targetHp\030\007 \001(\005\022\020\n\010targetMp\030\010 \001(\005\022\024\n\014stat"
+  "usEffect\030\t \001(\t\022\020\n\010duration\030\n \001(\004\"e\n\030SC_A"
+  "ttackBroadcastPacket\022\036\n\005skill\030\001 \001(\0132\017.Pr"
+  "otocol.Skill\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014tar"
+  "getKilled\030\003 \001(\005\"N\n\026SS_DamageRequestPacke"
+  "t\022\021\n\tplayerSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\022\021\n\t"
+  "targetSeq\030\003 \003(\r\":\n\027SS_DamageResponsePack"
+  "et\022\017\n\007userSeq\030\001 \001(\005\022\016\n\006damage\030\002 \001(\002\"O\n\035S"
+  "S_MonsterAttackRequestPacket\022\036\n\005skill\030\001 "
+  "\001(\0132\017.Protocol.Skill\022\016\n\006damage\030\002 \001(\002\"\226\001\n"
+  "\036SS_MonsterAttackResponsePacket\022\017\n\007succe"
+  "ss\030\001 \001(\005\022\023\n\013damageDealt\030\002 \001(\005\022\024\n\014targetK"
+  "illed\030\003 \001(\005\022\020\n\010targetHp\030\004 \001(\005\022\024\n\014statusE"
+  "ffect\030\005 \001(\t\022\020\n\010duration\030\006 \001(\004\"\203\001\n\033SC_Mon"
+  "sterMoveRequestPacket\022\022\n\nmonsterSeq\030\001 \001("
+  "\r\022\021\n\tmonsterId\030\002 \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006"
+  "transY\030\004 \001(\002\022\016\n\006transZ\030\005 \001(\002\022\r\n\005mapId\030\006 "
+  "\001(\003\"/\n\034CS_MonsterMoveResponsePacket\022\017\n\007s"
+  "uccess\030\001 \001(\005\"v\n\035SC_MonsterMoveBroadcastP"
+  "acket\022\022\n\nmonsterSeq\030\001 \001(\r\022\021\n\tmonsterId\030\002"
+  " \001(\003\022\016\n\006transX\030\003 \001(\002\022\016\n\006transY\030\004 \001(\002\022\016\n\006"
+  "transZ\030\005 \001(\002\"s\n\034SC_MonsterStatusUpdatePa"
+  "cket\022\022\n\nmonsterSeq\030\001 \001(\r\022\n\n\002hp\030\002 \001(\002\022\021\n\t"
+  "monsterId\030\003 \001(\003\022\r\n\005mapId\030\004 \001(\003\022\021\n\tchanne"
+  "lId\030\005 \001(\003\"7\n$CS_MonsterStatusUpdateRespo"
+  "nsePacket\022\017\n\007success\030\001 \001(\005\"T\n\037SC_Monster"
+  "StatusBroadcastPacket\022\022\n\nmonsterSeq\030\001 \001("
+  "\005\022\n\n\002hp\030\002 \001(\002\022\021\n\tmonsterId\030\003 \001(\003\"R\n\034SC_M"
+  "onsterSpawnRequestPacket\022\r\n\005mapId\030\001 \001(\004\022"
+  "#\n\010monsters\030\002 \003(\0132\021.Protocol.Monster\"0\n\035"
+  "CS_MonsterSpawnResponsePacket\022\017\n\007success"
+  "\030\001 \001(\010\"B\n\036CS_MapMonsterInfoRequestPacket"
+  "\022\r\n\005mapId\030\001 \001(\003\022\021\n\tchannelId\030\002 \001(\003\"h\n\037SC"
+  "_MapMonsterInfoResponsePacket\022\r\n\005mapId\030\001"
+  " \001(\004\022\021\n\tchannelId\030\002 \001(\004\022#\n\010monsters\030\003 \003("
+  "\0132\021.Protocol.Monster\"(\n\025CS_CreatePartyRe"
+  "quest\022\017\n\007userSeq\030\001 \001(\r\"\255\001\n\026SC_CreatePart"
+  "yResponse\022\017\n\007partyid\030\001 \001(\r\022@\n\010partynum\030\002"
+  " \003(\0132..Protocol.SC_CreatePartyResponse.P"
+  "artynumEntry\022\017\n\007success\030\003 \001(\005\032/\n\rPartynu"
+  "mEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001\"<"
+  "\n\026CS_RequestPartyRequest\022\020\n\010userSeq1\030\001 \001"
+  "(\005\022\020\n\010userSeq2\030\002 \001(\005\"S\n\027SC_RequestPartyR"
+  "esponse\022\017\n\007partyId\030\001 \001(\003\022\022\n\nrequestSeq\030\002"
+  " \001(\005\022\023\n\013requestName\030\003 \001(\t\"9\n\024CS_ExilePar"
+  "tyRequest\022\017\n\007userSeq\030\001 \001(\005\022\020\n\010otherSeq\030\002"
+  " \001(\005\"(\n\025SC_ExilePartyResponse\022\017\n\007message"
+  "\030\001 \001(\t\"&\n\023CS_JoinPartyRequest\022\017\n\007userseq"
+  "\030\002 \001(\r\"\'\n\024SC_JoinPartyResponse\022\017\n\007succes"
+  "s\030\001 \001(\005\"8\n\024CS_LeavePartyRequest\022\017\n\007users"
+  "eq\030\001 \001(\r\022\017\n\007partyid\030\002 \001(\r\"(\n\025SC_LeavePar"
+  "tyResponse\022\017\n\007success\030\001 \001(\005\"\302\001\n\024SC_Party"
+  "StatusUpdate\022\017\n\007partyid\030\001 \001(\r\022>\n\010partynu"
+  "m\030\002 \003(\0132,.Protocol.SC_PartyStatusUpdate."
+  "PartynumEntry\022(\n\007members\030\003 \003(\0132\027.Protoco"
+  "l.UserCharacter\032/\n\rPartynumEntry\022\013\n\003key\030"
+  "\001 \001(\005\022\r\n\005value\030\002 \001(\005:\0028\001b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Packet_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Packet_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_2eproto = {
-    false, false, 4145, descriptor_table_protodef_Packet_2eproto,
+    false, false, 4112, descriptor_table_protodef_Packet_2eproto,
     "Packet.proto",
     &descriptor_table_Packet_2eproto_once, descriptor_table_Packet_2eproto_deps, 1, 51,
     schemas, file_default_instances, TableStruct_Packet_2eproto::offsets,
@@ -6040,9 +6039,6 @@ class SC_MoveBroadcastPacket::_Internal {
  public:
 };
 
-void SC_MoveBroadcastPacket::clear_alluserpositions() {
-  _impl_.alluserpositions_.Clear();
-}
 SC_MoveBroadcastPacket::SC_MoveBroadcastPacket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -6053,7 +6049,7 @@ SC_MoveBroadcastPacket::SC_MoveBroadcastPacket(const SC_MoveBroadcastPacket& fro
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   SC_MoveBroadcastPacket* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.alluserpositions_){from._impl_.alluserpositions_}
+      decltype(_impl_.username_){}
     , decltype(_impl_.userseq_){}
     , decltype(_impl_.transx_){}
     , decltype(_impl_.transy_){}
@@ -6061,6 +6057,14 @@ SC_MoveBroadcastPacket::SC_MoveBroadcastPacket(const SC_MoveBroadcastPacket& fro
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_username().empty()) {
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.userseq_, &from._impl_.userseq_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transz_) -
     reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
@@ -6072,13 +6076,17 @@ inline void SC_MoveBroadcastPacket::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.alluserpositions_){arena}
+      decltype(_impl_.username_){}
     , decltype(_impl_.userseq_){0u}
     , decltype(_impl_.transx_){0}
     , decltype(_impl_.transy_){0}
     , decltype(_impl_.transz_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SC_MoveBroadcastPacket::~SC_MoveBroadcastPacket() {
@@ -6092,7 +6100,7 @@ SC_MoveBroadcastPacket::~SC_MoveBroadcastPacket() {
 
 inline void SC_MoveBroadcastPacket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.alluserpositions_.~RepeatedPtrField();
+  _impl_.username_.Destroy();
 }
 
 void SC_MoveBroadcastPacket::SetCachedSize(int size) const {
@@ -6105,7 +6113,7 @@ void SC_MoveBroadcastPacket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.alluserpositions_.Clear();
+  _impl_.username_.ClearToEmpty();
   ::memset(&_impl_.userseq_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.transz_) -
       reinterpret_cast<char*>(&_impl_.userseq_)) + sizeof(_impl_.transz_));
@@ -6126,40 +6134,37 @@ const char* SC_MoveBroadcastPacket::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
-      // float transX = 2;
+      // string userName = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_username();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.SC_MoveBroadcastPacket.userName"));
+        } else
+          goto handle_unusual;
+        continue;
+      // float transX = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _impl_.transx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transY = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
+      // float transY = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
           _impl_.transy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float transZ = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
+      // float transZ = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
           _impl_.transz_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .Protocol.UserPosition allUserPositions = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_alluserpositions(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -6198,42 +6203,44 @@ uint8_t* SC_MoveBroadcastPacket::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_userseq(), target);
   }
 
-  // float transX = 2;
+  // string userName = 2;
+  if (!this->_internal_username().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.SC_MoveBroadcastPacket.userName");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_username(), target);
+  }
+
+  // float transX = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
   memcpy(&raw_transx, &tmp_transx, sizeof(tmp_transx));
   if (raw_transx != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_transx(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_transx(), target);
   }
 
-  // float transY = 3;
+  // float transY = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
   memcpy(&raw_transy, &tmp_transy, sizeof(tmp_transy));
   if (raw_transy != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_transy(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transy(), target);
   }
 
-  // float transZ = 4;
+  // float transZ = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
   memcpy(&raw_transz, &tmp_transz, sizeof(tmp_transz));
   if (raw_transz != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_transz(), target);
-  }
-
-  // repeated .Protocol.UserPosition allUserPositions = 5;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_alluserpositions_size()); i < n; i++) {
-    const auto& repfield = this->_internal_alluserpositions(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(5, repfield, repfield.GetCachedSize(), target, stream);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_transz(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6252,11 +6259,11 @@ size_t SC_MoveBroadcastPacket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.UserPosition allUserPositions = 5;
-  total_size += 1UL * this->_internal_alluserpositions_size();
-  for (const auto& msg : this->_impl_.alluserpositions_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // string userName = 2;
+  if (!this->_internal_username().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_username());
   }
 
   // uint32 userSeq = 1;
@@ -6264,7 +6271,7 @@ size_t SC_MoveBroadcastPacket::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_userseq());
   }
 
-  // float transX = 2;
+  // float transX = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transx = this->_internal_transx();
   uint32_t raw_transx;
@@ -6273,7 +6280,7 @@ size_t SC_MoveBroadcastPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float transY = 3;
+  // float transY = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transy = this->_internal_transy();
   uint32_t raw_transy;
@@ -6282,7 +6289,7 @@ size_t SC_MoveBroadcastPacket::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float transZ = 4;
+  // float transZ = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_transz = this->_internal_transz();
   uint32_t raw_transz;
@@ -6309,7 +6316,9 @@ void SC_MoveBroadcastPacket::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_impl_.alluserpositions_.MergeFrom(from._impl_.alluserpositions_);
+  if (!from._internal_username().empty()) {
+    _this->_internal_set_username(from._internal_username());
+  }
   if (from._internal_userseq() != 0) {
     _this->_internal_set_userseq(from._internal_userseq());
   }
@@ -6350,8 +6359,13 @@ bool SC_MoveBroadcastPacket::IsInitialized() const {
 
 void SC_MoveBroadcastPacket::InternalSwap(SC_MoveBroadcastPacket* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  _impl_.alluserpositions_.InternalSwap(&other->_impl_.alluserpositions_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SC_MoveBroadcastPacket, _impl_.transz_)
       + sizeof(SC_MoveBroadcastPacket::_impl_.transz_)

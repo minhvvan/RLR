@@ -34,6 +34,7 @@ bool Handle_MOVE_BROADCAST(TSharedPtr<PacketSession>& session, Protocol::SC_Move
 
 			Protocol::UserCharacter userCharacter;
 			userCharacter.set_userseq(pkt.userseq());
+			userCharacter.set_name(pkt.username());
 			userCharacter.set_transx(pkt.transx());
 			userCharacter.set_transy(pkt.transy());
 			userCharacter.set_transz(pkt.transz());

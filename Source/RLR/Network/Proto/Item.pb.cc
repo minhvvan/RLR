@@ -246,27 +246,27 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_Item_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\nItem.proto\022\010Protocol\032\014Struct.proto\"&\n\023"
-  "CS_EquipInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"7\n\024"
-  "SC_EquipInfoResponse\022\037\n\006equips\030\001 \003(\0132\017.P"
-  "rotocol.Equip\":\n\025CS_EquipChangeRequest\022\020"
-  "\n\010objectId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\"<\n\027CS_"
-  "UnequipChangeRequest\022\020\n\010objectId\030\001 \001(\003\022\017"
-  "\n\007userSeq\030\002 \001(\005\"(\n\025SC_EquipChangeRespnse"
-  "\022\017\n\007success\030\001 \001(\005\"Z\n\031CS_ChangeInventoryR"
-  "equest\022\017\n\007userSeq\030\001 \001(\005\022\025\n\rbeforeSlotIdx"
-  "\030\002 \001(\005\022\025\n\rchangeSlotIdx\030\003 \001(\005\"-\n\032SC_Chan"
-  "geInventoryResponse\022\017\n\007success\030\001 \001(\005\"P\n\035"
-  "CS_ItemQuickSlotChangeRequest\022\017\n\007userSeq"
-  "\030\001 \001(\005\022\016\n\006itemId\030\002 \001(\003\022\016\n\006conIdx\030\003 \001(\005\"1"
-  "\n\036SC_ItemQuickSlotChangeResponse\022\017\n\007succ"
-  "ess\030\001 \001(\005b\006proto3"
+  "CS_EquipInfoRequest\022\017\n\007userSeq\030\001 \001(\005\"6\n\024"
+  "SC_EquipInfoResponse\022\036\n\006equips\030\001 \003(\0132\016.P"
+  "rotocol.Item\":\n\025CS_EquipChangeRequest\022\020\n"
+  "\010objectId\030\001 \001(\003\022\017\n\007userSeq\030\002 \001(\005\"<\n\027CS_U"
+  "nequipChangeRequest\022\020\n\010objectId\030\001 \001(\003\022\017\n"
+  "\007userSeq\030\002 \001(\005\"(\n\025SC_EquipChangeRespnse\022"
+  "\017\n\007success\030\001 \001(\005\"Z\n\031CS_ChangeInventoryRe"
+  "quest\022\017\n\007userSeq\030\001 \001(\005\022\025\n\rbeforeSlotIdx\030"
+  "\002 \001(\005\022\025\n\rchangeSlotIdx\030\003 \001(\005\"-\n\032SC_Chang"
+  "eInventoryResponse\022\017\n\007success\030\001 \001(\005\"P\n\035C"
+  "S_ItemQuickSlotChangeRequest\022\017\n\007userSeq\030"
+  "\001 \001(\005\022\016\n\006itemId\030\002 \001(\003\022\016\n\006conIdx\030\003 \001(\005\"1\n"
+  "\036SC_ItemQuickSlotChangeResponse\022\017\n\007succe"
+  "ss\030\001 \001(\005b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Item_2eproto_deps[1] = {
   &::descriptor_table_Struct_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Item_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Item_2eproto = {
-    false, false, 577, descriptor_table_protodef_Item_2eproto,
+    false, false, 576, descriptor_table_protodef_Item_2eproto,
     "Item.proto",
     &descriptor_table_Item_2eproto_once, descriptor_table_Item_2eproto_deps, 1, 9,
     schemas, file_default_instances, TableStruct_Item_2eproto::offsets,
@@ -529,7 +529,7 @@ const char* SC_EquipInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseC
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated .Protocol.Equip equips = 1;
+      // repeated .Protocol.Item equips = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr -= 1;
@@ -571,7 +571,7 @@ uint8_t* SC_EquipInfoResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .Protocol.Equip equips = 1;
+  // repeated .Protocol.Item equips = 1;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_equips_size()); i < n; i++) {
     const auto& repfield = this->_internal_equips(i);
@@ -595,7 +595,7 @@ size_t SC_EquipInfoResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .Protocol.Equip equips = 1;
+  // repeated .Protocol.Item equips = 1;
   total_size += 1UL * this->_internal_equips_size();
   for (const auto& msg : this->_impl_.equips_) {
     total_size +=

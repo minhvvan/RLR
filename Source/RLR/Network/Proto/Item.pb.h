@@ -360,22 +360,22 @@ class SC_EquipInfoResponse final :
   enum : int {
     kEquipsFieldNumber = 1,
   };
-  // repeated .Protocol.Equip equips = 1;
+  // repeated .Protocol.Item equips = 1;
   int equips_size() const;
   private:
   int _internal_equips_size() const;
   public:
   void clear_equips();
-  ::Protocol::Equip* mutable_equips(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >*
+  ::Protocol::Item* mutable_equips(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
       mutable_equips();
   private:
-  const ::Protocol::Equip& _internal_equips(int index) const;
-  ::Protocol::Equip* _internal_add_equips();
+  const ::Protocol::Item& _internal_equips(int index) const;
+  ::Protocol::Item* _internal_add_equips();
   public:
-  const ::Protocol::Equip& equips(int index) const;
-  ::Protocol::Equip* add_equips();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >&
+  const ::Protocol::Item& equips(int index) const;
+  ::Protocol::Item* add_equips();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
       equips() const;
 
   // @@protoc_insertion_point(class_scope:Protocol.SC_EquipInfoResponse)
@@ -386,7 +386,7 @@ class SC_EquipInfoResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip > equips_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item > equips_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1529,38 +1529,38 @@ inline void CS_EquipInfoRequest::set_userseq(int32_t value) {
 
 // SC_EquipInfoResponse
 
-// repeated .Protocol.Equip equips = 1;
+// repeated .Protocol.Item equips = 1;
 inline int SC_EquipInfoResponse::_internal_equips_size() const {
   return _impl_.equips_.size();
 }
 inline int SC_EquipInfoResponse::equips_size() const {
   return _internal_equips_size();
 }
-inline ::Protocol::Equip* SC_EquipInfoResponse::mutable_equips(int index) {
+inline ::Protocol::Item* SC_EquipInfoResponse::mutable_equips(int index) {
   // @@protoc_insertion_point(field_mutable:Protocol.SC_EquipInfoResponse.equips)
   return _impl_.equips_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >*
 SC_EquipInfoResponse::mutable_equips() {
   // @@protoc_insertion_point(field_mutable_list:Protocol.SC_EquipInfoResponse.equips)
   return &_impl_.equips_;
 }
-inline const ::Protocol::Equip& SC_EquipInfoResponse::_internal_equips(int index) const {
+inline const ::Protocol::Item& SC_EquipInfoResponse::_internal_equips(int index) const {
   return _impl_.equips_.Get(index);
 }
-inline const ::Protocol::Equip& SC_EquipInfoResponse::equips(int index) const {
+inline const ::Protocol::Item& SC_EquipInfoResponse::equips(int index) const {
   // @@protoc_insertion_point(field_get:Protocol.SC_EquipInfoResponse.equips)
   return _internal_equips(index);
 }
-inline ::Protocol::Equip* SC_EquipInfoResponse::_internal_add_equips() {
+inline ::Protocol::Item* SC_EquipInfoResponse::_internal_add_equips() {
   return _impl_.equips_.Add();
 }
-inline ::Protocol::Equip* SC_EquipInfoResponse::add_equips() {
-  ::Protocol::Equip* _add = _internal_add_equips();
+inline ::Protocol::Item* SC_EquipInfoResponse::add_equips() {
+  ::Protocol::Item* _add = _internal_add_equips();
   // @@protoc_insertion_point(field_add:Protocol.SC_EquipInfoResponse.equips)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Equip >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::Item >&
 SC_EquipInfoResponse::equips() const {
   // @@protoc_insertion_point(field_list:Protocol.SC_EquipInfoResponse.equips)
   return _impl_.equips_;
