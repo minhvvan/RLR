@@ -10,6 +10,8 @@
 #include "Blueprint/WidgetTree.h"
 #include "RLR.h"
 #include "GameManager/UIManager.h"
+#include "GameManager/GameManager.h"
+#include "GameManager/NetworkManager.h"
 #include "GameManager/StorageManager.h"
 
 
@@ -87,6 +89,8 @@ void UStorageUI::SetSlotItem(int TabIdx, int slotIdx, const FItemData& Item) con
 	}
 
 	tab->SetSlotItemData(Item, slotIdx);
+	/* SendStoragePacket() */
+	GameInstance->GetNetworkManager()->SendInventoryPacket();
 }
 
 int UStorageUI::GetCurrentPage() const

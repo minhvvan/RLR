@@ -11,8 +11,11 @@
 
 #include "Structs/ItemStructs.h"
 
+#include "Components/WidgetSwitcher.h"
+
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
 #include "UI/SlotUI.h"
+#include "UI/InGame/Trade/TradeUI.h"
 #include "UI/InGame/Shop/NPCShopUI.h"
 #include "UI/InGame/Shop/NPCSaleTab.h"
 #include "UI/InGame/Storage/StorageUI.h"
@@ -195,6 +198,12 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 			/* Post 에서 인벤토리 슬롯 우클릭 시 첨부아이템 슬롯으로 아이템 이동 */
 			auto UIManager = GameInstance->GetUIManager();
 			auto PostUI = UIManager->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+			if (!PostUI) return;
+
+			UPostWriteTabWidget* PostWriteWidget = PostUI->PostWriteTabWidget;
+			if (PostUI->PostWidgetSwitcher->GetActiveWidget() != PostWriteWidget) return;
+
+			
 			if (ItemData.ITEM_QUANTITY > 1)
 			{
 				/* 아이템 개수가 2개 이상이라면, 번들 첨부 UI 출력 */
@@ -204,6 +213,21 @@ void UInventoryManager::OnInventorySlotClicked(int32 SlotIndex, const FItemData&
 			{
 				PostUI->PostWriteTabWidget->AddItemToPostSlot(ItemData, SlotIndex);
 			}
+		}
+		break;
+	case ESlotType::TRADE_INVENTORY_SLOT:
+		{
+			/* 아이템 개수가 2개 이상이라면, shift+우클릭을 하지 않더라도 번들 판매 UI 출력 */
+			auto UIManager = GameInstance->GetUIManager();
+			auto TradeUI = UIManager->GetSubUI<UTradeUI>(RLRTAG.UI_Trade);
+			//if (ItemData.ITEM_QUANTITY > 1)
+			//{
+			//	TradeUI->OpenBundleTrade(ItemData, SlotIndex);
+			//}
+			//else
+			//{
+			//	TradeUI->AddSaleItem(ItemData, SlotIndex);
+			//}
 		}
 		break;
 	default:

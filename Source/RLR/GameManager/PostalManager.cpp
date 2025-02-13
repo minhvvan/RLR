@@ -7,10 +7,15 @@
 #include "GameManager/DataManager.h"
 #include "GameManager/UIManager.h"
 #include "GameManager/LiteralManager.h"
+#include "GameManager/InventoryManager.h"
+
 #include "UI/DialogueUI.h"
 #include "UI/InGame/Post/PostOverlayUI.h"
+#include "UI/InGame/Post/PostWriteTabWidget.h"
 #include "UI/InGame/Post/PostItemSlot.h"
 #include "UI/InGame/Post/PostAlertUI.h"
+#include "UI/InGame/Inventory/InventorySlot.h"
+
 #include "Structs/SkillStructs.h"
 #include "Components/GridPanel.h"
 #include "BlueprintFunctionLibrary/UtilBlueprintFunctionLibrary.h"
@@ -129,6 +134,44 @@ TArray<FPostResult> UPostalManager::GetAndClearPostDeletionList(bool IsSent)
 		RecvPostDeletionList.Empty();
 		return TempList;
 	}
+}
+
+void UPostalManager::OnPostItemSlotClicked(int32 InventorySlotIndex, int32 PostSlotIndex, const FItemData& itemData, ESlotType SlotType)
+{
+	/* 
+		InventoryUI의 해당 SlotIndex에 있는 아이템을 이전으로 돌려놓기 
+		개수가 2개 이상이었을 경우 -> 개수 추가
+		개수가 1개 이었을 경우 -> 해당 slotIndex에 itemData 추가하기
+	*/
+	UPostOverlayUI* PostUI = GameInstance->GetUIManager()->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	if(!PostUI) return;
+	UPostWriteTabWidget* PostWriteWidget = PostUI->PostWriteTabWidget;
+	if(!PostWriteWidget) return;
+	if (!GetPostWriteTabItemSlot(PostSlotIndex)) return;
+	
+	UInventorySlot* inventorySlot = GameInstance->GetInventoryManager()->GetInventorySlot(InventorySlotIndex);
+	if (inventorySlot->GetItemData().ITEM_QUANTITY >= 1)
+	{
+		FItemData NewItemData = inventorySlot->GetItemData();
+		inventorySlot->SetItemData(NewItemData);
+		inventorySlot->CancelSelected();
+
+		UPostItemSlot* PostSlot = GetPostWriteTabItemSlot(PostSlotIndex);
+		PostSlot->SetItemData(FItemData::EmptyItemData);
+		PostSlot->Clear();
+	}
+}
+
+UPostItemSlot* UPostalManager::GetPostWriteTabItemSlot(int32 PostItemSlotIndex)
+{
+	UPostOverlayUI* PostUI = GameInstance->GetUIManager()->GetSubUI<UPostOverlayUI>(RLRTAG.UI_Post);
+	if(!PostUI) return nullptr;
+	UPostWriteTabWidget* PostWriteWidget = PostUI->PostWriteTabWidget;
+	if(!PostWriteWidget) return nullptr;
+
+	if (PostItemSlotIndex >= PostWriteWidget->PostSlotGridPanel->GetChildrenCount()) return nullptr;
+	UPostItemSlot* PostItemSlot = Cast<UPostItemSlot>(PostWriteWidget->PostSlotGridPanel->GetChildAt(PostItemSlotIndex));
+	return PostItemSlot;
 }
 
 void UPostalManager::OnUpdatePostalDelegateBroadcast()

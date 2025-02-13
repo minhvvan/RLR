@@ -242,7 +242,7 @@ struct FItemData : public FTableRowBase
 	{
 		ITEM_SEQ = -1;
 		ITEM_ID = -1;
-		ITEM_QUANTITY = 1;
+		ITEM_QUANTITY = 0;
 		EQUIPMENT_TYPE = EEquipmentType::NONE;
 		IsEquiped = false;
 	}
