@@ -183,6 +183,8 @@ void ARLRPlayerController::StopOtherAction(FGameplayTag TriggerTag)
 	if (TriggerTag.MatchesTag(RLRTAG.Action_Default_Move))
 	{
 		actionSpec = ASC->GetActionInstance(TriggerTag);
+		if(!actionSpec.IsValid()) return;
+
 		ASC->RemoveAction(TriggerTag);
 	}
 }
@@ -195,7 +197,11 @@ void ARLRPlayerController::RecoverOtherAction(FGameplayTag TriggerTag)
 
 	if (TriggerTag.MatchesTag(RLRTAG.Action_Default_Move))
 	{
+		if(!actionSpec.IsValid()) return;
+
 		TSubclassOf<UAction> actionClass = actionSpec->GetClass();
+		if(!actionClass) return;
+
 		FActionSpec spec(actionClass);
 		ASC->GiveAction(TriggerTag, spec);
 	}
